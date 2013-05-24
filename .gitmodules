@@ -1,0 +1,3 @@
+[submodule "newsmth/Frameworks/asi-http-request"]
+	path = newsmth/Frameworks/asi-http-request
+	url = git@github.com:Maxwin-z/asi-http-request.git
