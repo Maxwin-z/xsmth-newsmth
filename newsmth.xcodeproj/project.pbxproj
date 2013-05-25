@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C14505E51750787C00DC5431 /* SMAccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C14505E41750787C00DC5431 /* SMAccountManager.m */; };
+		C14505E817507A9800DC5431 /* SMHttpRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C14505E717507A9800DC5431 /* SMHttpRequest.m */; };
+		C14505ED17507DD400DC5431 /* XLogUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = C14505EC17507DD400DC5431 /* XLogUtil.m */; };
 		C1BFB8DD174F6A620092FD2E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1BFB8DC174F6A620092FD2E /* UIKit.framework */; };
 		C1BFB8DF174F6A620092FD2E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1BFB8DE174F6A620092FD2E /* Foundation.framework */; };
 		C1BFB8E1174F6A620092FD2E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1BFB8E0174F6A620092FD2E /* CoreGraphics.framework */; };
@@ -49,6 +52,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C14505E31750787C00DC5431 /* SMAccountManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMAccountManager.h; sourceTree = "<group>"; };
+		C14505E41750787C00DC5431 /* SMAccountManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMAccountManager.m; sourceTree = "<group>"; };
+		C14505E617507A9800DC5431 /* SMHttpRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMHttpRequest.h; sourceTree = "<group>"; };
+		C14505E717507A9800DC5431 /* SMHttpRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMHttpRequest.m; sourceTree = "<group>"; };
+		C14505EB17507DD400DC5431 /* XLogUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLogUtil.h; sourceTree = "<group>"; };
+		C14505EC17507DD400DC5431 /* XLogUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLogUtil.m; sourceTree = "<group>"; };
 		C1BFB8D9174F6A620092FD2E /* newsmth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = newsmth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1BFB8DC174F6A620092FD2E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C1BFB8DE174F6A620092FD2E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -127,6 +136,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C14505EA17507DD400DC5431 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				C14505EB17507DD400DC5431 /* XLogUtil.h */,
+				C14505EC17507DD400DC5431 /* XLogUtil.m */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		C1BFB8D0174F6A620092FD2E = {
 			isa = PBXGroup;
 			children = (
@@ -164,13 +182,18 @@
 		C1BFB8E2174F6A620092FD2E /* newsmth */ = {
 			isa = PBXGroup;
 			children = (
-				C1BFB91F174F6F5B0092FD2E /* Frameworks */,
+				C14505EA17507DD400DC5431 /* Utils */,
 				C1BFB8EB174F6A620092FD2E /* AppDelegate.h */,
 				C1BFB8EC174F6A620092FD2E /* AppDelegate.m */,
 				C1BFB8F4174F6A620092FD2E /* ViewController.h */,
 				C1BFB8F5174F6A620092FD2E /* ViewController.m */,
 				C1BFB8F7174F6A620092FD2E /* ViewController.xib */,
+				C1BFB91F174F6F5B0092FD2E /* Frameworks */,
 				C1BFB8E3174F6A620092FD2E /* Supporting Files */,
+				C14505E617507A9800DC5431 /* SMHttpRequest.h */,
+				C14505E717507A9800DC5431 /* SMHttpRequest.m */,
+				C14505E31750787C00DC5431 /* SMAccountManager.h */,
+				C14505E41750787C00DC5431 /* SMAccountManager.m */,
 			);
 			path = newsmth;
 			sourceTree = "<group>";
@@ -392,6 +415,9 @@
 				C1BFB9C9174F6F5C0092FD2E /* ASIInputStream.m in Sources */,
 				C1BFB9CA174F6F5C0092FD2E /* ASINetworkQueue.m in Sources */,
 				C1BFB9EA174F6F5C0092FD2E /* Reachability.m in Sources */,
+				C14505E51750787C00DC5431 /* SMAccountManager.m in Sources */,
+				C14505E817507A9800DC5431 /* SMHttpRequest.m in Sources */,
+				C14505ED17507DD400DC5431 /* XLogUtil.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -574,6 +600,7 @@
 				C1BFB913174F6A620092FD2E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C1BFB914174F6A620092FD2E /* Build configuration list for PBXNativeTarget "newsmthTests" */ = {
 			isa = XCConfigurationList;
@@ -582,6 +609,7 @@
 				C1BFB916174F6A620092FD2E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
