@@ -7,9 +7,10 @@
 //
 
 #import "ViewController.h"
+#import "SMWebParser.h"
 
 @interface ViewController ()<ASIHTTPRequestDelegate>
-@property (weak, nonatomic) IBOutlet UIWebView *webView;
+@property (strong, nonatomic) SMWebParser *parser;
 @end
 
 @implementation ViewController
@@ -37,7 +38,10 @@
     NSString *body = [[NSString alloc] initWithData:rspData encoding:enc];
     NSLog(@"rsp:%@", body);
     
-    [_webView loadHTMLString:body baseURL:nil];
+    _parser = [[SMWebParser alloc] init];
+//    [self.view addSubview:_parser.webView];
+    [_parser parseHtml:body withJS:@"bbscon"];
+//parseHtml:body withJS:@"bbscon"];
 }
 
 @end

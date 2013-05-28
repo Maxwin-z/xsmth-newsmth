@@ -12,4 +12,10 @@
 
 @interface SMAccountManager : NSObject
 
+@property (strong, nonatomic) NSArray *cookies;
+@property (assign, nonatomic, readonly) BOOL isLogin;
+@property (strong, nonatomic, readonly) NSString *name;
+
++ (SMAccountManager *)sharedInstance;
+
 @end

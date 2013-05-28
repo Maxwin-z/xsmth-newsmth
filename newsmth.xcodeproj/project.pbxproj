@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C12027B61754E08A00EB9E9E /* bbscon.js in Resources */ = {isa = PBXBuildFile; fileRef = C121F29A1750EE790081FD87 /* bbscon.js */; };
+		C121F29B1750EE790081FD87 /* bbscon.js in Sources */ = {isa = PBXBuildFile; fileRef = C121F29A1750EE790081FD87 /* bbscon.js */; };
+		C121F29E175106A00081FD87 /* SMWebParser.m in Sources */ = {isa = PBXBuildFile; fileRef = C121F29D175106A00081FD87 /* SMWebParser.m */; };
+		C121F2A0175108010081FD87 /* utils.js in Sources */ = {isa = PBXBuildFile; fileRef = C121F29F175108010081FD87 /* utils.js */; };
 		C14505E51750787C00DC5431 /* SMAccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C14505E41750787C00DC5431 /* SMAccountManager.m */; };
 		C14505E817507A9800DC5431 /* SMHttpRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C14505E717507A9800DC5431 /* SMHttpRequest.m */; };
 		C14505ED17507DD400DC5431 /* XLogUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = C14505EC17507DD400DC5431 /* XLogUtil.m */; };
@@ -52,6 +56,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C121F29A1750EE790081FD87 /* bbscon.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = bbscon.js; sourceTree = "<group>"; };
+		C121F29C175106A00081FD87 /* SMWebParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMWebParser.h; sourceTree = "<group>"; };
+		C121F29D175106A00081FD87 /* SMWebParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMWebParser.m; sourceTree = "<group>"; };
+		C121F29F175108010081FD87 /* utils.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = utils.js; sourceTree = "<group>"; };
 		C14505E31750787C00DC5431 /* SMAccountManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMAccountManager.h; sourceTree = "<group>"; };
 		C14505E41750787C00DC5431 /* SMAccountManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMAccountManager.m; sourceTree = "<group>"; };
 		C14505E617507A9800DC5431 /* SMHttpRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMHttpRequest.h; sourceTree = "<group>"; };
@@ -136,11 +144,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C121F2991750EE790081FD87 /* jsParser */ = {
+			isa = PBXGroup;
+			children = (
+				C121F29F175108010081FD87 /* utils.js */,
+				C121F29A1750EE790081FD87 /* bbscon.js */,
+			);
+			path = jsParser;
+			sourceTree = "<group>";
+		};
 		C14505EA17507DD400DC5431 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
 				C14505EB17507DD400DC5431 /* XLogUtil.h */,
 				C14505EC17507DD400DC5431 /* XLogUtil.m */,
+				C121F29C175106A00081FD87 /* SMWebParser.h */,
+				C121F29D175106A00081FD87 /* SMWebParser.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -182,6 +201,7 @@
 		C1BFB8E2174F6A620092FD2E /* newsmth */ = {
 			isa = PBXGroup;
 			children = (
+				C121F2991750EE790081FD87 /* jsParser */,
 				C14505EA17507DD400DC5431 /* Utils */,
 				C1BFB8EB174F6A620092FD2E /* AppDelegate.h */,
 				C1BFB8EC174F6A620092FD2E /* AppDelegate.m */,
@@ -364,6 +384,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C12027B61754E08A00EB9E9E /* bbscon.js in Resources */,
 				C1BFB8E7174F6A620092FD2E /* InfoPlist.strings in Resources */,
 				C1BFB8EF174F6A620092FD2E /* Default.png in Resources */,
 				C1BFB8F1174F6A620092FD2E /* Default@2x.png in Resources */,
@@ -418,6 +439,9 @@
 				C14505E51750787C00DC5431 /* SMAccountManager.m in Sources */,
 				C14505E817507A9800DC5431 /* SMHttpRequest.m in Sources */,
 				C14505ED17507DD400DC5431 /* XLogUtil.m in Sources */,
+				C121F29B1750EE790081FD87 /* bbscon.js in Sources */,
+				C121F29E175106A00081FD87 /* SMWebParser.m in Sources */,
+				C121F2A0175108010081FD87 /* utils.js in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
