@@ -36,7 +36,7 @@ void _XLog_print(NSString *tag, NSString *colorStr, const char *fileName, const 
     if (log2console) {
         NSLog(@"%@", res);
     } else {
-        printf("%s", [res UTF8String]);
+        printf("%s\n", [res UTF8String]);
     }
     
     free(file);

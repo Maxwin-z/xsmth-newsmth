@@ -1,3 +1,6 @@
 [submodule "newsmth/Frameworks/asi-http-request"]
 	path = newsmth/Frameworks/asi-http-request
 	url = git@github.com:Maxwin-z/asi-http-request.git
+[submodule "newsmth/Common/EGOTableViewPullRefresh"]
+	path = newsmth/Common/EGOTableViewPullRefresh
+	url = git@github.com:Maxwin-z/EGOTableViewPullRefresh.git

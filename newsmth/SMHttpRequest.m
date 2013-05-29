@@ -36,7 +36,7 @@
 #pragma mark - ASIHTTPRequestDelegate
 - (void)request:(ASIHTTPRequest *)request_ didReceiveResponseHeaders:(NSDictionary *)responseHeaders_
 {
-    XLog_d(@"%@", request_.responseCookies);
+//    XLog_d(@"%@", request_.responseCookies);
     // handle response header. update account status
     if ([_originalDelegate respondsToSelector:@selector(request:didReceiveResponseHeaders:)]) {
         [_originalDelegate request:request_ didReceiveResponseHeaders:responseHeaders_];

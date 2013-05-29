@@ -43,8 +43,8 @@ function prints(content) {
 function attach(name, len, pos) {}
 
 function $parse(html) {
-//    var script = html.match(/<!--((.|\s)*?)\/\/-->/)[0];
-//    eval(script);
+    var script = html.match(/<!--((.|\s)*?)\/\/-->/)[0];
+    eval(script);
     console.log(data);
     window.location.href = 'newsmth://' + JSON.stringify(data);
 }

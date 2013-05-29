@@ -8,7 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
+@class SMWebParser;
+
+@protocol SMWebParserDelegate <NSObject>
+@optional
+- (void)webParser:(SMWebParser *)webParser result:(NSDictionary *)json;
+@end
+
 @interface SMWebParser : NSObject
-@property (strong, nonatomic) UIWebView *webView;
-- (void)parseHtml:(NSString *)html withJS:(NSString *)js;
+@property (weak, nonatomic) id<SMWebParserDelegate> delegate;
+
+- (void)parseHtml:(NSString *)html withJSFile:(NSString *)jsFile;
 @end

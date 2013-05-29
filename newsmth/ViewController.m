@@ -7,10 +7,11 @@
 //
 
 #import "ViewController.h"
-#import "SMWebParser.h"
+#import "SMWebLoaderOperation.h"
 
-@interface ViewController ()<ASIHTTPRequestDelegate>
-@property (strong, nonatomic) SMWebParser *parser;
+@interface ViewController ()<SMWebLoaderOperationDelegate>
+@property (strong, nonatomic) NSArray *urls;
+@property (strong, nonatomic) NSMutableArray *opts;
 @end
 
 @implementation ViewController
@@ -18,30 +19,21 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-    SMHttpRequest *req = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:@"http://www.newsmth.net/bbscon.php?bid=133&id=1936479557"]];
-    req.delegate = self;
-    [req startAsynchronous];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-#pragma mark - ASIHTTPRequestDelegate
-- (void)requestFinished:(ASIHTTPRequest *)request
-{
-    NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
-    NSData *rspData = request.responseData;
-    NSString *body = [[NSString alloc] initWithData:rspData encoding:enc];
-    NSLog(@"rsp:%@", body);
+    _urls = @[@"http://www.newsmth.net/bbscon.php?bid=383&id=399040", @"http://www.newsmth.net/bbscon.php?bid=383&id=399043", @"http://www.newsmth.net/bbscon.php?bid=383&id=399055"];
     
-    _parser = [[SMWebParser alloc] init];
-//    [self.view addSubview:_parser.webView];
-    [_parser parseHtml:body withJS:@"bbscon"];
-//parseHtml:body withJS:@"bbscon"];
+    _opts = [[NSMutableArray alloc] init];
+    [_urls enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        SMWebLoaderOperation *opt = [[SMWebLoaderOperation alloc] init];
+        opt.delegate = self;
+        [opt loadUrl:obj withParser:@"bbscon"];
+        [_opts addObject:opt];
+    }];
+}
+
+#pragma mark - SMWebLoaderOperationDelegate
+- (void)webLoaderOperationFinished:(SMWebLoaderOperation *)opt
+{
+    XLog_d(@"url[%@], data[%@]", opt.url, opt.result);
 }
 
 @end
