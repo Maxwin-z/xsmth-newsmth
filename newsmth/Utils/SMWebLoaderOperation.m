@@ -37,10 +37,12 @@
         XLog_e(@"request url is nil");
         return;
     }
+    XLog_d(@"url[%@] start", _url);
+
     NSURL *url = [NSURL URLWithString:_url];
     _request = [[SMHttpRequest alloc] initWithURL:url];
     _request.delegate = self;
-    [_request startAsynchronous];
+    [_request startSynchronous];
 }
 
 #pragma mark - ASIHTTPRequestDelegate
@@ -56,9 +58,17 @@
     NSData *rspData = request.responseData;
     NSString *body = [[NSString alloc] initWithData:rspData encoding:enc];
 
+    XLog_d(@"%@",body);
     _webParser = [[SMWebParser alloc] init];
     _webParser.delegate = self;
     [_webParser parseHtml:body withJSFile:_parser];
+}
+
+- (void)requestFailed:(ASIHTTPRequest *)request
+{
+    XLog_d(@"url[%@] fail", _url);
+    SMMessage *error = [[SMMessage alloc] initWithCode:SMNetworkErrorCodeRequestFail message:@"网络请求超时"];
+    [_delegate webLoaderOperationFail:self error:error];
 }
 
 #pragma mark - SMWebParserDelegate
@@ -67,9 +77,15 @@
     if (self.isCancelled) {
         return;
     }
-    _result = json;
     XLog_d(@"url[%@] parsed", _url);
-    [_delegate webLoaderOperationFinished:self];
+    _result = json;
+    NSInteger code = [[json objectForKey:@"code"] integerValue];
+    if (code == 0) {
+        [_delegate webLoaderOperationFinished:self];
+    } else {
+        SMMessage *error = [[SMMessage alloc] initWithCode:code message:[json objectForKey:@"message"]];
+        [_delegate webLoaderOperationFail:self error:error];
+    }
 }
 
 #pragma mark - debug

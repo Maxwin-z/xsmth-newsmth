@@ -17,6 +17,10 @@
 		C10D16AB175617D5002D6FAD /* blueArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C10D1672175617D5002D6FAD /* blueArrow@2x.png */; };
 		C10D16B9175618E7002D6FAD /* XPullRefreshTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = C10D16B8175618E7002D6FAD /* XPullRefreshTableView.m */; };
 		C10D16BB1756276D002D6FAD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C10D16BA1756276C002D6FAD /* QuartzCore.framework */; };
+		C10D16BE1756EF21002D6FAD /* SMMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = C10D16BD1756EF21002D6FAD /* SMMessage.m */; };
+		C115339417576B160026A0D5 /* SMPostGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C115339217576B160026A0D5 /* SMPostGroupViewController.m */; };
+		C115339517576B160026A0D5 /* SMPostGroupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C115339317576B160026A0D5 /* SMPostGroupViewController.xib */; };
+		C1153398175779EF0026A0D5 /* bbstcon.js in Resources */ = {isa = PBXBuildFile; fileRef = C1153397175779DE0026A0D5 /* bbstcon.js */; };
 		C12027B61754E08A00EB9E9E /* bbscon.js in Resources */ = {isa = PBXBuildFile; fileRef = C121F29A1750EE790081FD87 /* bbscon.js */; };
 		C121F29E175106A00081FD87 /* SMWebParser.m in Sources */ = {isa = PBXBuildFile; fileRef = C121F29D175106A00081FD87 /* SMWebParser.m */; };
 		C14505E51750787C00DC5431 /* SMAccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C14505E41750787C00DC5431 /* SMAccountManager.m */; };
@@ -81,6 +85,12 @@
 		C10D16B7175618E7002D6FAD /* XPullRefreshTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPullRefreshTableView.h; sourceTree = "<group>"; };
 		C10D16B8175618E7002D6FAD /* XPullRefreshTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPullRefreshTableView.m; sourceTree = "<group>"; };
 		C10D16BA1756276C002D6FAD /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		C10D16BC1756EF20002D6FAD /* SMMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMMessage.h; sourceTree = "<group>"; };
+		C10D16BD1756EF21002D6FAD /* SMMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMMessage.m; sourceTree = "<group>"; };
+		C115339117576B160026A0D5 /* SMPostGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMPostGroupViewController.h; sourceTree = "<group>"; };
+		C115339217576B160026A0D5 /* SMPostGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMPostGroupViewController.m; sourceTree = "<group>"; };
+		C115339317576B160026A0D5 /* SMPostGroupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMPostGroupViewController.xib; sourceTree = "<group>"; };
+		C1153397175779DE0026A0D5 /* bbstcon.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = bbstcon.js; sourceTree = "<group>"; };
 		C121F29A1750EE790081FD87 /* bbscon.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = bbscon.js; sourceTree = "<group>"; };
 		C121F29C175106A00081FD87 /* SMWebParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMWebParser.h; sourceTree = "<group>"; };
 		C121F29D175106A00081FD87 /* SMWebParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMWebParser.m; sourceTree = "<group>"; };
@@ -228,6 +238,7 @@
 				C121F29F175108010081FD87 /* utils.js */,
 				C121F29A1750EE790081FD87 /* bbscon.js */,
 				C10D160C1755FBF5002D6FAD /* mainpage.js */,
+				C1153397175779DE0026A0D5 /* bbstcon.js */,
 			);
 			path = jsParser;
 			sourceTree = "<group>";
@@ -245,6 +256,8 @@
 				C10D16071755E7A0002D6FAD /* SMWebLoaderOperation.m */,
 				C10D16091755EFEE002D6FAD /* SMWebLoaderOperationQueue.h */,
 				C10D160A1755EFEE002D6FAD /* SMWebLoaderOperationQueue.m */,
+				C10D16BC1756EF20002D6FAD /* SMMessage.h */,
+				C10D16BD1756EF21002D6FAD /* SMMessage.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -305,6 +318,9 @@
 				C10D161517560653002D6FAD /* SMMainpageViewController.h */,
 				C10D161617560654002D6FAD /* SMMainpageViewController.m */,
 				C10D161717560654002D6FAD /* SMMainpageViewController.xib */,
+				C115339117576B160026A0D5 /* SMPostGroupViewController.h */,
+				C115339217576B160026A0D5 /* SMPostGroupViewController.m */,
+				C115339317576B160026A0D5 /* SMPostGroupViewController.xib */,
 			);
 			path = newsmth;
 			sourceTree = "<group>";
@@ -475,6 +491,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1153398175779EF0026A0D5 /* bbstcon.js in Resources */,
 				C10D160E1755FBFE002D6FAD /* mainpage.js in Resources */,
 				C12027B61754E08A00EB9E9E /* bbscon.js in Resources */,
 				C1BFB8E7174F6A620092FD2E /* InfoPlist.strings in Resources */,
@@ -484,6 +501,7 @@
 				C1BFB8F9174F6A620092FD2E /* ViewController.xib in Resources */,
 				C10D161917560654002D6FAD /* SMMainpageViewController.xib in Resources */,
 				C10D16AB175617D5002D6FAD /* blueArrow@2x.png in Resources */,
+				C115339517576B160026A0D5 /* SMPostGroupViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -540,6 +558,8 @@
 				C10D161817560654002D6FAD /* SMMainpageViewController.m in Sources */,
 				C10D16A7175617D5002D6FAD /* EGORefreshTableHeaderView.m in Sources */,
 				C10D16B9175618E7002D6FAD /* XPullRefreshTableView.m in Sources */,
+				C10D16BE1756EF21002D6FAD /* SMMessage.m in Sources */,
+				C115339417576B160026A0D5 /* SMPostGroupViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

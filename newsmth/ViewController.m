@@ -36,4 +36,9 @@
     XLog_d(@"url[%@], data[%@]", opt.url, opt.result);
 }
 
+- (void)webLoaderOperationFail:(SMWebLoaderOperation *)opt error:(SMMessage *)error
+{
+    
+}
+
 @end

@@ -8,6 +8,7 @@
 
 #import "SMMainpageViewController.h"
 #import "XPullRefreshTableView.h"
+#import "SMPostGroupViewController.h"
 
 @interface SMMainpageViewController ()<UITableViewDataSource, UITableViewDelegate, SMWebLoaderOperationDelegate, XPullRefreshTableViewDelegate>
 @property (weak, nonatomic) IBOutlet XPullRefreshTableView *tableView;
@@ -83,6 +84,17 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSDictionary *item = [[_sections[indexPath.section] objectForKey:@"items"] objectAtIndex:indexPath.row];
+    NSString *board = [item objectForKey:@"board"];
+    NSInteger gid = [[item objectForKey:@"gid"] intValue];
+    SMPostGroupViewController *vc = [[SMPostGroupViewController alloc] init];
+    vc.board = board;
+    vc.gid = gid;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 #pragma mark - SMWebLoaderOperationDelegate
 - (void)webLoaderOperationFinished:(SMWebLoaderOperation *)opt
 {
@@ -92,6 +104,12 @@
     if (code == 0) {
         self.sections = [result objectForKey:@"data"];
     }
+}
+
+- (void)webLoaderOperationFail:(SMWebLoaderOperation *)opt error:(SMMessage *)error
+{
+    XLog_d(@"error: %@", error);
+    [_tableView endRefreshing:NO];
 }
 
 @end

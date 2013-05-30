@@ -12,6 +12,7 @@
 #import "SMMainpageViewController.h"
 
 @interface AppDelegate ()
+@property (strong, nonatomic) UINavigationController *nvc;
 @property (strong, nonatomic) SMMainpageViewController *viewController;
 @end
 
@@ -21,8 +22,10 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    self.viewController = [[SMMainpageViewController alloc] init];
-    self.window.rootViewController = self.viewController;
+    
+    _viewController = [[SMMainpageViewController alloc] init];
+    _nvc = [[UINavigationController alloc] initWithRootViewController:_viewController];
+    self.window.rootViewController = _nvc;
     [self.window makeKeyAndVisible];
     return YES;
 }

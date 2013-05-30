@@ -63,7 +63,9 @@
 - (void)endRefreshing:(BOOL)success
 {
     [_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self];
-    self.lastUpdated = [[NSDate alloc] init];
+    if (success) {
+        self.lastUpdated = [[NSDate alloc] init];
+    }
 }
 
 - (void)setLoadMoreShow
@@ -111,7 +113,7 @@
 
 - (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView *)view
 {
-    return NO;
+    return _refreshHeaderView.state == EGOOPullRefreshLoading;
 }
 
 - (NSDate *)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView *)view

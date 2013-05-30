@@ -12,6 +12,7 @@
 
 @protocol SMWebLoaderOperationDelegate <NSObject>
 - (void)webLoaderOperationFinished:(SMWebLoaderOperation *)opt;
+- (void)webLoaderOperationFail:(SMWebLoaderOperation *)opt error:(SMMessage *)error;
 @end
 
 @interface SMWebLoaderOperation : NSOperation

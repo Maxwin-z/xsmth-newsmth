@@ -45,6 +45,7 @@ function attach(name, len, pos) {}
 function $parse(html) {
     var script = html.match(/<!--((.|\s)*?)\/\/-->/)[0];
     eval(script);
-    console.log(data);
-    window.location.href = 'newsmth://' + JSON.stringify(data);
+    var rsp = {code: 0, data: data, message:''};
+    console.log(rsp);
+    window.location.href = 'newsmth://' + encodeURIComponent(JSON.stringify(rsp));
 }
