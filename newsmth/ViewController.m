@@ -7,11 +7,10 @@
 //
 
 #import "ViewController.h"
-#import "SMWebLoaderOperation.h"
+#import "XImageView.h"
 
-@interface ViewController ()<SMWebLoaderOperationDelegate>
-@property (strong, nonatomic) NSArray *urls;
-@property (strong, nonatomic) NSMutableArray *opts;
+@interface ViewController ()
+@property (weak, nonatomic) IBOutlet XImageView *imageView;
 @end
 
 @implementation ViewController
@@ -19,26 +18,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    _urls = @[@"http://www.newsmth.net/bbscon.php?bid=383&id=399040", @"http://www.newsmth.net/bbscon.php?bid=383&id=399043", @"http://www.newsmth.net/bbscon.php?bid=383&id=399055"];
-    
-    _opts = [[NSMutableArray alloc] init];
-    [_urls enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        SMWebLoaderOperation *opt = [[SMWebLoaderOperation alloc] init];
-        opt.delegate = self;
-        [opt loadUrl:obj withParser:@"bbscon"];
-        [_opts addObject:opt];
-    }];
+    _imageView.url = @"http://att.newsmth.net/att.php?s.978.816101.2792.jpg";
+    _imageView.url = @"http://att.newsmth.net/att.php?p.1349.257184.285.jpg";
 }
 
-#pragma mark - SMWebLoaderOperationDelegate
-- (void)webLoaderOperationFinished:(SMWebLoaderOperation *)opt
-{
-    XLog_d(@"url[%@], data[%@]", opt.url, opt.result);
-}
-
-- (void)webLoaderOperationFail:(SMWebLoaderOperation *)opt error:(SMMessage *)error
-{
-    
-}
 
 @end

@@ -58,7 +58,7 @@
     NSData *rspData = request.responseData;
     NSString *body = [[NSString alloc] initWithData:rspData encoding:enc];
 
-    XLog_d(@"%@",body);
+//    XLog_d(@"%@",body);
     _webParser = [[SMWebParser alloc] init];
     _webParser.delegate = self;
     [_webParser parseHtml:body withJSFile:_parser];

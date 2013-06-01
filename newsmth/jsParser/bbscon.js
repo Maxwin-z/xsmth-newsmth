@@ -3,7 +3,14 @@ var data = {
     nick: '',
     title: '',
     content: '',
-    date: 0
+    date: 0,
+    attaches:[
+        /*{
+            name: '',
+            len: 0,
+            pos: 0
+        }*/
+    ]
 };
 
 function emptyFn() {}
@@ -40,7 +47,13 @@ function prints(content) {
 
 }
 
-function attach(name, len, pos) {}
+function attach(name, len, pos) {
+    data.attaches.push({
+        name: name,
+        len: len,
+        pos: pos
+    });
+}
 
 function $parse(html) {
     var script = html.match(/<!--((.|\s)*?)\/\/-->/)[0];

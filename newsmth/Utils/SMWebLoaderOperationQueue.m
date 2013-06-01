@@ -25,6 +25,10 @@ static SMWebLoaderOperationQueue *instance = nil;
     if (instance != nil) {
         return instance;
     }
-    return self = [super init];
+    self = [super init];
+    if (self) {
+        self.maxConcurrentOperationCount = 1;
+    }
+    return self;
 }
 @end
