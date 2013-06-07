@@ -15,6 +15,7 @@ static NSOperationQueue *downloadQueue;
 
 @interface XImageView ()<ASIHTTPRequestDelegate, ASIProgressDelegate>
 @property (strong, nonatomic) SMHttpRequest *downloadRequest;
+@property (strong, nonatomic) UILabel *labelForProgress;
 @end
 
 @implementation XImageView
@@ -59,6 +60,7 @@ static NSOperationQueue *downloadQueue;
 
 - (void)requestFinished:(ASIHTTPRequest *)request
 {
+    _labelForProgress.hidden = YES;
     self.image = [UIImage imageWithData:request.responseData];
     [[XImageViewCache sharedInstance] setImageData:request.responseData forUrl:_url];
 }
@@ -73,8 +75,23 @@ static NSOperationQueue *downloadQueue;
 {
     long long total = request.contentLength;
     if (total > 0) {
-        XLog_d(@"%f", (double)(request.totalBytesRead * 1.0 / total));
+        CGFloat progress = (CGFloat)(request.totalBytesRead * 1.0 / total);
+        [self updateProgress:progress];
     }
+}
+
+- (void)updateProgress:(CGFloat)progress
+{
+    if (_labelForProgress == nil) {
+        _labelForProgress = [[UILabel alloc] initWithFrame:self.bounds];
+        _labelForProgress.textAlignment = UITextAlignmentCenter;
+        _labelForProgress.textColor = [UIColor darkGrayColor];
+        _labelForProgress.font = [UIFont systemFontOfSize:12.0f];
+        _labelForProgress.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        [self addSubview:_labelForProgress];
+    }
+    _labelForProgress.hidden = NO;
+    _labelForProgress.text = [NSString stringWithFormat:@"%.2f%%", progress * 100];
 }
 
 @end

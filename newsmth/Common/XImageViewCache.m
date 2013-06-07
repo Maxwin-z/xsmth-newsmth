@@ -65,7 +65,7 @@ static XImageViewCache *instance;
 
 - (NSString *)escapeKey:(NSString *)key
 {
-    NSCharacterSet *theCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@"+-*!%$/"];
+    NSCharacterSet *theCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@"+-*!%$:?/"];
     key = [[key componentsSeparatedByCharactersInSet:theCharacterSet] componentsJoinedByString:@"_"];
     return key;
 }

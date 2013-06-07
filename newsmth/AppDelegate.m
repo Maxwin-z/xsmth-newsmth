@@ -24,8 +24,8 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     
-//    _mainpageViewController = [[SMMainpageViewController alloc] init];
-//    _nvc = [[UINavigationController alloc] initWithRootViewController:_mainpageViewController];
+    _mainpageViewController = [[SMMainpageViewController alloc] init];
+    _nvc = [[UINavigationController alloc] initWithRootViewController:_mainpageViewController];
 //    self.window.rootViewController = _nvc;
     
     _viewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
