@@ -26,10 +26,10 @@
     
     _mainpageViewController = [[SMMainpageViewController alloc] init];
     _nvc = [[UINavigationController alloc] initWithRootViewController:_mainpageViewController];
-//    self.window.rootViewController = _nvc;
+    self.window.rootViewController = _nvc;
     
     _viewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
-    self.window.rootViewController = _viewController;
+//    self.window.rootViewController = _viewController;
     
     [self.window makeKeyAndVisible];
     return YES;
