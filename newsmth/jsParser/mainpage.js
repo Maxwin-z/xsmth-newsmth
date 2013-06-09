@@ -1,8 +1,11 @@
-var data = [
+/* SMMainPage */
+var data = {
+	'__type': 'SMMainPage',
+	sections: [
 	/*
 	{
 		sectionTitle: '',
-		items:[{
+		posts:[{	// SMPostGroup
 			author: '',
 			title: '',
 			board: '',
@@ -11,7 +14,8 @@ var data = [
 		}, ...]
 	}, ...
 	*/
-];
+	]
+};
 
 function $parse(html) {
 	var rsp = {code: 0, data: null, message: ''};
@@ -44,14 +48,17 @@ function parseTop10(html) {
 		top10items.push(parseTop10item(trs[i]));
 	}
 
-	data.push({
+	data.sections.push({
+		'__type': 'SMSection',
 		sectionTitle: '本日热点话题讨论',
-		items: top10items
+		posts: top10items
 	});
 }
 
 function parseTop10item(tr) {
-	var item = {};
+	var item = {
+		__type: 'SMPost'
+	};
 	var as = tr.querySelectorAll('a');
 
 	var a_board = as[0];

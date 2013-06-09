@@ -1,8 +1,10 @@
+/* SMPostGroup */
 var data = {
+	__type: 'SMPostGroup',
 	bid: 0,
 	tpage: 0,
 	title: '',
-	posts: [
+	posts: [	/* SMPost */
 	/* {
 		id: 0,
 		nick: ''
@@ -19,7 +21,8 @@ tconWriter.prototype.o = function(arr) {
 	data.posts = [];
 	for (var i = 0; i != arr.length; ++i) {
 		var post = {
-			id: arr[i][0],
+			__type: 'SMPost',
+			pid: arr[i][0],
 			nick: arr[i][1]
 		}
 		data.posts.push(post);

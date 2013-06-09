@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SMBaseData.h"
 
 @class SMWebLoaderOperation;
 
@@ -18,7 +19,7 @@
 @interface SMWebLoaderOperation : NSOperation
 @property (weak, nonatomic) id<SMWebLoaderOperationDelegate> delegate;
 @property (strong, nonatomic, readonly) NSString *url;
-@property (strong, nonatomic, readonly) NSDictionary *result;
+@property (strong, nonatomic, readonly) id data;
 
 - (void)loadUrl:(NSString *)url withParser:(NSString *)parser;
 @end

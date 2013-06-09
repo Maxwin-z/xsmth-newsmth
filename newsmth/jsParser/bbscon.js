@@ -1,10 +1,12 @@
+/* SMPost */
 var data = {
+    __type: 'SMPost',
     author: '',
     nick: '',
     title: '',
     content: '',
     date: 0,
-    attaches:[
+    attaches:[  /* SMAttach */
         /*{
             name: '',
             len: 0,
@@ -49,6 +51,7 @@ function prints(content) {
 
 function attach(name, len, pos) {
     data.attaches.push({
+        __type: 'SMAttach',
         name: name,
         len: len,
         pos: pos

@@ -9,6 +9,9 @@
 #import "SMMainpageViewController.h"
 #import "XPullRefreshTableView.h"
 #import "SMPostGroupViewController.h"
+#import "SMMainPage.h"
+#import "SMSection.h"
+#import "SMPost.h"
 
 @interface SMMainpageViewController ()<UITableViewDataSource, UITableViewDelegate, SMWebLoaderOperationDelegate, XPullRefreshTableViewDelegate>
 @property (weak, nonatomic) IBOutlet XPullRefreshTableView *tableView;
@@ -67,7 +70,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[_sections[section] objectForKey:@"items"] count];
+    SMSection *secdata = _sections[section];
+    return secdata.posts.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -78,20 +82,20 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
     }
     
-    NSDictionary *item = [[_sections[indexPath.section] objectForKey:@"items"] objectAtIndex:indexPath.row];
-    cell.textLabel.text = [item objectForKey:@"title"];
+    SMSection *secdata = _sections[indexPath.section];
+    SMPost *post = secdata.posts[indexPath.row];
+    cell.textLabel.text = post.title;
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSDictionary *item = [[_sections[indexPath.section] objectForKey:@"items"] objectAtIndex:indexPath.row];
-    NSString *board = [item objectForKey:@"board"];
-    NSInteger gid = [[item objectForKey:@"gid"] intValue];
+    SMSection *secdata = _sections[indexPath.section];
+    SMPost *post = secdata.posts[indexPath.row];
     SMPostGroupViewController *vc = [[SMPostGroupViewController alloc] init];
-    vc.board = board;
-    vc.gid = gid;
+    vc.board = post.board;
+    vc.gid = post.gid;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -99,11 +103,8 @@
 - (void)webLoaderOperationFinished:(SMWebLoaderOperation *)opt
 {
     [_tableView endRefreshing:YES];
-    NSDictionary *result = opt.result;
-    int code = [[result objectForKey:@"code"] intValue];
-    if (code == 0) {
-        self.sections = [result objectForKey:@"data"];
-    }
+    SMMainPage *data = opt.data;
+    self.sections = data.sections;
 }
 
 - (void)webLoaderOperationFail:(SMWebLoaderOperation *)opt error:(SMMessage *)error

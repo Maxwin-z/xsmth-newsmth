@@ -21,11 +21,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "newsmth/SMPostGroupViewController.m"
-         timestampString = "392302209.926828"
+         timestampString = "392481401.059218"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "96"
-         endingLineNumber = "96"
+         startingLineNumber = "99"
+         endingLineNumber = "99"
          landmarkName = "-makeupCellDatas"
          landmarkType = "5">
       </FileBreakpoint>
@@ -34,12 +34,25 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "newsmth/SMPostGroupViewController.m"
-         timestampString = "392302227.903715"
+         timestampString = "392481401.059218"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "101"
-         endingLineNumber = "101"
+         startingLineNumber = "104"
+         endingLineNumber = "104"
          landmarkName = "-makeupCellDatas"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "newsmth/Data/SMBaseData.m"
+         timestampString = "392482249.79852"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "15"
+         endingLineNumber = "15"
+         landmarkName = "-initWithData:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

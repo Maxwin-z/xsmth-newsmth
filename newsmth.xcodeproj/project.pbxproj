@@ -58,6 +58,13 @@
 		C1BFB9C9174F6F5C0092FD2E /* ASIInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = C1BFB938174F6F5B0092FD2E /* ASIInputStream.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C1BFB9CA174F6F5C0092FD2E /* ASINetworkQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = C1BFB93A174F6F5B0092FD2E /* ASINetworkQueue.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C1BFB9EA174F6F5C0092FD2E /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = C1BFB980174F6F5B0092FD2E /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C1E6289B1764BAD4007ACF2A /* SMAttach.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E628961764BAD4007ACF2A /* SMAttach.m */; };
+		C1E6289C1764BAD4007ACF2A /* SMPost.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E628981764BAD4007ACF2A /* SMPost.m */; };
+		C1E6289D1764BAD4007ACF2A /* types.schema in Resources */ = {isa = PBXBuildFile; fileRef = C1E628991764BAD4007ACF2A /* types.schema */; };
+		C1E628A01764BAFA007ACF2A /* SMBaseData.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E6289F1764BAFA007ACF2A /* SMBaseData.m */; };
+		C1E628AA1764C594007ACF2A /* SMMainPage.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E628A51764C594007ACF2A /* SMMainPage.m */; };
+		C1E628AB1764C594007ACF2A /* SMPostGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E628A71764C594007ACF2A /* SMPostGroup.m */; };
+		C1E628AC1764C594007ACF2A /* SMSection.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E628A91764C594007ACF2A /* SMSection.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,8 +95,8 @@
 		C10D16B7175618E7002D6FAD /* XPullRefreshTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPullRefreshTableView.h; sourceTree = "<group>"; };
 		C10D16B8175618E7002D6FAD /* XPullRefreshTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPullRefreshTableView.m; sourceTree = "<group>"; };
 		C10D16BA1756276C002D6FAD /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		C10D16BC1756EF20002D6FAD /* SMMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMMessage.h; sourceTree = "<group>"; };
-		C10D16BD1756EF21002D6FAD /* SMMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMMessage.m; sourceTree = "<group>"; };
+		C10D16BC1756EF20002D6FAD /* SMMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SMMessage.h; path = ../Utils/SMMessage.h; sourceTree = "<group>"; };
+		C10D16BD1756EF21002D6FAD /* SMMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SMMessage.m; path = ../Utils/SMMessage.m; sourceTree = "<group>"; };
 		C115339117576B160026A0D5 /* SMPostGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMPostGroupViewController.h; sourceTree = "<group>"; };
 		C115339217576B160026A0D5 /* SMPostGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMPostGroupViewController.m; sourceTree = "<group>"; };
 		C115339317576B160026A0D5 /* SMPostGroupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMPostGroupViewController.xib; sourceTree = "<group>"; };
@@ -157,6 +164,20 @@
 		C1BFB93B174F6F5B0092FD2E /* ASIProgressDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIProgressDelegate.h; sourceTree = "<group>"; };
 		C1BFB97F174F6F5B0092FD2E /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		C1BFB980174F6F5B0092FD2E /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		C1E628941764BAD4007ACF2A /* codegen.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = codegen.js; sourceTree = "<group>"; };
+		C1E628951764BAD4007ACF2A /* SMAttach.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMAttach.h; sourceTree = "<group>"; };
+		C1E628961764BAD4007ACF2A /* SMAttach.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMAttach.m; sourceTree = "<group>"; };
+		C1E628971764BAD4007ACF2A /* SMPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMPost.h; sourceTree = "<group>"; };
+		C1E628981764BAD4007ACF2A /* SMPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMPost.m; sourceTree = "<group>"; };
+		C1E628991764BAD4007ACF2A /* types.schema */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = types.schema; sourceTree = "<group>"; };
+		C1E6289E1764BAFA007ACF2A /* SMBaseData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMBaseData.h; sourceTree = "<group>"; };
+		C1E6289F1764BAFA007ACF2A /* SMBaseData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMBaseData.m; sourceTree = "<group>"; };
+		C1E628A41764C594007ACF2A /* SMMainPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMMainPage.h; sourceTree = "<group>"; };
+		C1E628A51764C594007ACF2A /* SMMainPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMMainPage.m; sourceTree = "<group>"; };
+		C1E628A61764C594007ACF2A /* SMPostGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMPostGroup.h; sourceTree = "<group>"; };
+		C1E628A71764C594007ACF2A /* SMPostGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMPostGroup.m; sourceTree = "<group>"; };
+		C1E628A81764C594007ACF2A /* SMSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMSection.h; sourceTree = "<group>"; };
+		C1E628A91764C594007ACF2A /* SMSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMSection.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -268,8 +289,6 @@
 				C10D16071755E7A0002D6FAD /* SMWebLoaderOperation.m */,
 				C10D16091755EFEE002D6FAD /* SMWebLoaderOperationQueue.h */,
 				C10D160A1755EFEE002D6FAD /* SMWebLoaderOperationQueue.m */,
-				C10D16BC1756EF20002D6FAD /* SMMessage.h */,
-				C10D16BD1756EF21002D6FAD /* SMMessage.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -312,6 +331,7 @@
 		C1BFB8E2174F6A620092FD2E /* newsmth */ = {
 			isa = PBXGroup;
 			children = (
+				C1E628931764BAD4007ACF2A /* Data */,
 				C10D161B175617D4002D6FAD /* Common */,
 				C121F2991750EE790081FD87 /* jsParser */,
 				C14505EA17507DD400DC5431 /* Utils */,
@@ -432,6 +452,29 @@
 			path = Reachability;
 			sourceTree = "<group>";
 		};
+		C1E628931764BAD4007ACF2A /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				C1E628A41764C594007ACF2A /* SMMainPage.h */,
+				C1E628A51764C594007ACF2A /* SMMainPage.m */,
+				C1E628A61764C594007ACF2A /* SMPostGroup.h */,
+				C1E628A71764C594007ACF2A /* SMPostGroup.m */,
+				C1E628A81764C594007ACF2A /* SMSection.h */,
+				C1E628A91764C594007ACF2A /* SMSection.m */,
+				C10D16BC1756EF20002D6FAD /* SMMessage.h */,
+				C10D16BD1756EF21002D6FAD /* SMMessage.m */,
+				C1E6289E1764BAFA007ACF2A /* SMBaseData.h */,
+				C1E6289F1764BAFA007ACF2A /* SMBaseData.m */,
+				C1E628951764BAD4007ACF2A /* SMAttach.h */,
+				C1E628961764BAD4007ACF2A /* SMAttach.m */,
+				C1E628971764BAD4007ACF2A /* SMPost.h */,
+				C1E628981764BAD4007ACF2A /* SMPost.m */,
+				C1E628941764BAD4007ACF2A /* codegen.js */,
+				C1E628991764BAD4007ACF2A /* types.schema */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -516,6 +559,7 @@
 				C10D16AB175617D5002D6FAD /* blueArrow@2x.png in Resources */,
 				C115339517576B160026A0D5 /* SMPostGroupViewController.xib in Resources */,
 				C1AE9140175A24AF0084C618 /* SMErrorView.xib in Resources */,
+				C1E6289D1764BAD4007ACF2A /* types.schema in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -576,6 +620,12 @@
 				C115339417576B160026A0D5 /* SMPostGroupViewController.m in Sources */,
 				C191281D17586DDF005AC60F /* XImageView.m in Sources */,
 				C191283D17588501005AC60F /* XImageViewCache.m in Sources */,
+				C1E6289B1764BAD4007ACF2A /* SMAttach.m in Sources */,
+				C1E6289C1764BAD4007ACF2A /* SMPost.m in Sources */,
+				C1E628A01764BAFA007ACF2A /* SMBaseData.m in Sources */,
+				C1E628AA1764C594007ACF2A /* SMMainPage.m in Sources */,
+				C1E628AB1764C594007ACF2A /* SMPostGroup.m in Sources */,
+				C1E628AC1764C594007ACF2A /* SMSection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

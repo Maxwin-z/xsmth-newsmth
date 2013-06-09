@@ -9,6 +9,9 @@
 #import "SMPostGroupViewController.h"
 #import "XPullRefreshTableView.h"
 #import "XImageView.h"
+#import "SMPost.h"
+#import "SMAttach.h"
+#import "SMPostGroup.h"
 
 typedef enum {
     CellTypeHeader,
@@ -33,7 +36,7 @@ typedef enum {
 @interface SMPostGroupCellData : NSObject
 @property (strong, nonatomic) SMPostGroupItem *item;
 @property (assign, nonatomic) CellType type;
-@property (strong, nonatomic) NSDictionary *attach;
+@property (strong, nonatomic) SMAttach *attach;
 @end
 
 @implementation SMPostGroupCellData
@@ -108,18 +111,17 @@ typedef enum {
         content.item = item;
         if (item.loadFail) {
             content.type = CellTypeFail;
-        } else if (item.op.result == nil) {
+        } else if (item.op.data == nil) {
             content.type = CellTypeLoading;
-        } else if (item.op.result) {
+        } else if (item.op.data) {
             content.type = CellTypeContent;
         }
         [datas addObject:content];
         
         // attaches
-        if (item.op.result != nil) {
-            NSDictionary *rsp = [item.op.result objectForKey:@"data"];
-            NSArray *attachs = [rsp objectForKey:@"attaches"];
-            [attachs enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if (item.op.data != nil) {
+            SMPost *post = item.op.data;
+            [post.attaches enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                 SMPostGroupCellData *data = [[SMPostGroupCellData alloc] init];
                 data.item = item;
                 data.type = CellTypeAttach;
@@ -205,7 +207,8 @@ typedef enum {
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
     }
-    cell.textLabel.text = [[data.item.op.result objectForKey:@"data"] objectForKey:@"content"];
+    SMPost *post = data.item.op.data;
+    cell.textLabel.text = post.content;
     return cell;
 }
 
@@ -221,7 +224,7 @@ typedef enum {
         [cell.contentView addSubview:imageView];
     }
     XImageView *imageView = (XImageView *)[cell.contentView viewWithTag:100];
-    NSString *url = [NSString stringWithFormat:@"http://att.newsmth.net/nForum/att/%@/%d/%@/middle", _board, data.item.pid, [data.attach objectForKey:@"pos"]];
+    NSString *url = [NSString stringWithFormat:@"http://att.newsmth.net/nForum/att/%@/%d/%d/middle", _board, data.item.pid, data.attach.pos];
     imageView.url = url;
     return cell;
 }
@@ -246,9 +249,9 @@ typedef enum {
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
     }
-    if (item.op.result != nil) {
-        NSDictionary *data = [item.op.result objectForKey:@"data"];
-        cell.textLabel.text = [data objectForKey:@"content"];
+    if (item.op.data != nil) {
+        SMPost *post = item.op.data;
+        cell.textLabel.text = post.content;
     } else {
         cell.textLabel.text = @"Loading";
     }
@@ -266,28 +269,25 @@ typedef enum {
 {
     if (opt == _pageOp) {
         // add post to postOps
-        NSDictionary *data = [opt.result objectForKey:@"data"];
+        SMPostGroup *postGroup = opt.data;
         NSMutableArray *tmp;
         if (_pno == 1) {    // first page
             [self.tableView endRefreshing:YES];
             tmp = [[NSMutableArray alloc] initWithCapacity:0];
-            _bid = [[data objectForKey:@"bid"] intValue];
+            _bid = postGroup.bid;
         } else {
             tmp = [_postItems mutableCopy];
         }
-        NSArray *posts = [data objectForKey:@"posts"];
-        [posts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            NSInteger pid = [[obj objectForKey:@"id"] intValue];
-            NSString *nick = [obj objectForKey:@"nick"];
-            
-            NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbscon.php?bid=%d&id=%d", _bid, pid];
+        [postGroup.posts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            SMPost *post = obj;
+            NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbscon.php?bid=%d&id=%d", _bid, post.pid];
             SMWebLoaderOperation *op = [[SMWebLoaderOperation alloc] init];
             op.delegate = self;
             [op loadUrl:url withParser:@"bbscon"];
             
             SMPostGroupItem *item = [[SMPostGroupItem alloc] init];
-            item.pid = pid;
-            item.nick = nick;
+            item.pid = post.pid;
+            item.nick = post.nick;
             item.op = op;
             [tmp addObject:item];
         }];

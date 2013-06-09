@@ -1,0 +1,35 @@
+SMAttach {
+	string name
+	int len
+	int pos
+}
+
+SMPost {
+	int pid
+	int gid
+	string board
+	string boardName
+	string author
+	string nick
+	string title
+	string content
+	long date
+	SMAttach[] attaches
+}
+
+SMPostGroup {
+	int bid
+	int tpage
+	string title
+	SMPost[] posts
+}
+
+SMSection {
+    string sectionTitle
+    SMPost[] posts
+}
+
+SMMainPage {
+    SMSection[] sections
+}
+

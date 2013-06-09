@@ -78,9 +78,10 @@
         return;
     }
     XLog_d(@"url[%@] parsed", _url);
-    _result = json;
     NSInteger code = [[json objectForKey:@"code"] integerValue];
     if (code == 0) {
+        SMBaseData *tmp = [[SMBaseData alloc] initWithData:[json objectForKey:@"data"]];
+        _data = tmp;
         [_delegate webLoaderOperationFinished:self];
     } else {
         SMMessage *error = [[SMMessage alloc] initWithCode:code message:[json objectForKey:@"message"]];
