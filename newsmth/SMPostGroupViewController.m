@@ -68,6 +68,17 @@ typedef enum {
     return self;
 }
 
+- (void)dealloc
+{
+    XLog_d(@"%s", __PRETTY_FUNCTION__);
+    // cancel all requests
+    [_pageOp cancel];
+    [_postItems enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        SMPostGroupItem *item = obj;
+        [item.op cancel];
+    }];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

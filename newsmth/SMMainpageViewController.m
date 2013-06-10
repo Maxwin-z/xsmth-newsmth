@@ -9,6 +9,7 @@
 #import "SMMainpageViewController.h"
 #import "XPullRefreshTableView.h"
 #import "SMPostGroupViewController.h"
+#import "SMMainpageCell.h"
 #import "SMMainPage.h"
 #import "SMSection.h"
 #import "SMPost.h"
@@ -39,6 +40,15 @@
     [_tableView beginRefreshing];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    NSIndexPath *indexPath = [_tableView indexPathForSelectedRow];
+    if (indexPath) {
+        [_tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
+}
+
 - (void)setSections:(NSArray *)sections
 {
     _sections = sections;
@@ -63,6 +73,12 @@
 }
 
 #pragma mark - UITableViewDataSource/Delegate
+- (SMPost *)postAtIndexPath:(NSIndexPath *)indexPath
+{
+    SMSection *secdata = _sections[indexPath.section];
+    return secdata.posts[indexPath.row];   
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return _sections.count;
@@ -74,18 +90,21 @@
     return secdata.posts.count;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    SMPost *post = [self postAtIndexPath:indexPath];
+    return [SMMainpageCell cellHeight:post];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *cellid = @"cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellid];
+    SMMainpageCell *cell = (SMMainpageCell *)[tableView dequeueReusableCellWithIdentifier:cellid];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
+        cell = [[SMMainpageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
     }
     
-    SMSection *secdata = _sections[indexPath.section];
-    SMPost *post = secdata.posts[indexPath.row];
-    cell.textLabel.text = post.title;
-    
+    cell.post = [self postAtIndexPath:indexPath];
     return cell;
 }
 
