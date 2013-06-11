@@ -167,6 +167,11 @@ typedef enum {
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SMPostGroupCellData *data = _cellDatas[indexPath.row];
+    
+    if (_pno != _tpage && indexPath.row == _cellDatas.count - 1) {    // last row
+        [self loadData:YES];
+    }
+    
     switch (data.type) {
         case CellTypeHeader:
             return [self cellForTitle:data];
@@ -283,6 +288,14 @@ typedef enum {
     if (opt == _pageOp) {
         // add post to postOps
         SMPostGroup *postGroup = opt.data;
+        _tpage = postGroup.tpage;
+        
+        if (_pno != _tpage) {
+            [_tableView setLoadMoreShow];
+        } else {
+            [_tableView setLoadMoreHide];
+        }
+        
         NSMutableArray *tmp;
         if (_pno == 1) {    // first page
             [self.tableView endRefreshing:YES];
