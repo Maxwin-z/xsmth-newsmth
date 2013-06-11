@@ -49,6 +49,7 @@ static SMMainpageCell *_instance;
 
 - (void)setPost:(SMPost *)post
 {
+    _post = post;
     _labelForTitle.text = post.title;
     _labelForBoardName.text = post.boardName;
     _labelForAuthor.text = post.author;

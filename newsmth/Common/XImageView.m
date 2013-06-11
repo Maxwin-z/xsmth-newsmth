@@ -42,6 +42,9 @@ static NSOperationQueue *downloadQueue;
             dispatch_async(dispatch_get_main_queue(), ^{
                 if ([_url isEqualToString:currentUrl]) {
                     self.image = image;
+                    if ([_delegate respondsToSelector:@selector(xImageViewDidLoad:)]) {
+                        [_delegate xImageViewDidLoad:self];
+                    }
                 } else {
                     XLog_d(@"url changed from[%@] to[%@]", currentUrl, _url);
                 }
@@ -63,6 +66,9 @@ static NSOperationQueue *downloadQueue;
     _labelForProgress.hidden = YES;
     self.image = [UIImage imageWithData:request.responseData];
     [[XImageViewCache sharedInstance] setImageData:request.responseData forUrl:_url];
+    if ([_delegate respondsToSelector:@selector(xImageViewDidLoad:)]) {
+        [_delegate xImageViewDidLoad:self];
+    }
 }
 
 - (void)requestFailed:(ASIHTTPRequest *)request

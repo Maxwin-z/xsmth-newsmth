@@ -13,6 +13,10 @@
 #import "SMAttach.h"
 #import "SMPostGroup.h"
 
+#import "SMPostGroupHeaderCell.h"
+#import "SMPostGroupContentCell.h"
+#import "SMPostGroupAttachCell.h"
+
 typedef enum {
     CellTypeHeader,
     CellTypeLoading,
@@ -23,8 +27,7 @@ typedef enum {
 
 ////////////////////////////////////////////////
 @interface SMPostGroupItem : NSObject
-@property (assign, nonatomic) NSInteger pid;
-@property (strong, nonatomic) NSString *nick;
+@property (strong, nonatomic) SMPost *post;
 @property (strong, nonatomic) SMWebLoaderOperation *op;
 @property (assign, nonatomic) BOOL loadFail;
 @end
@@ -43,7 +46,7 @@ typedef enum {
 @end
 
 ////////////////////////////////////////////////
-@interface SMPostGroupViewController ()<UITableViewDataSource, UITableViewDelegate, XPullRefreshTableViewDelegate, SMWebLoaderOperationDelegate>
+@interface SMPostGroupViewController ()<UITableViewDataSource, UITableViewDelegate, XPullRefreshTableViewDelegate, SMWebLoaderOperationDelegate, XImageViewDelegate>
 @property (weak, nonatomic) IBOutlet XPullRefreshTableView *tableView;
 
 // data
@@ -110,6 +113,9 @@ typedef enum {
     __block NSMutableArray *datas = [[NSMutableArray alloc] initWithCapacity:0];
     [_postItems enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         SMPostGroupItem *item = obj;
+        if (item.op.data != nil) {  // post loaded
+            item.post = item.op.data;
+        }
         
         // header
         SMPostGroupCellData *header = [[SMPostGroupCellData alloc] init];
@@ -178,14 +184,34 @@ typedef enum {
     return nil; // !
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    SMPostGroupCellData *data = _cellDatas[indexPath.row];
+    switch (data.type) {
+        case CellTypeHeader:
+            return [SMPostGroupHeaderCell cellHeight];
+        case CellTypeFail:
+            return 44.0f;
+        case CellTypeLoading:
+            return 44.0f;
+        case CellTypeContent:
+            return [SMPostGroupContentCell cellHeight:data.item.post];
+        case CellTypeAttach:
+            return [SMPostGroupAttachCell cellHeight:[self getAttachUrl:data]];
+        default:
+            break;
+    }
+    return 0;
+}
+
 - (UITableViewCell *)cellForTitle:(SMPostGroupCellData *)data
 {
     NSString *cellid = @"title_cell";
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:cellid];
+    SMPostGroupHeaderCell *cell = (SMPostGroupHeaderCell *)[self.tableView dequeueReusableCellWithIdentifier:cellid];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
+        cell = [[SMPostGroupHeaderCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
     }
-    cell.textLabel.text = data.item.nick;
+    cell.post = data.item.post;
     return cell;
 }
 
@@ -214,65 +240,41 @@ typedef enum {
 - (UITableViewCell *)cellForContent:(SMPostGroupCellData *)data
 {
     NSString *cellid = @"content_cell";
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:cellid];
+    SMPostGroupContentCell *cell = (SMPostGroupContentCell *)[self.tableView dequeueReusableCellWithIdentifier:cellid];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
+        cell = [[SMPostGroupContentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
     }
-    SMPost *post = data.item.op.data;
-    cell.textLabel.text = post.content;
+    cell.post = data.item.post;
     return cell;
 }
 
 - (UITableViewCell *)cellForAttach:(SMPostGroupCellData *)data
 {
     NSString *cellid = @"attach_cell";
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:cellid];
+    SMPostGroupAttachCell *cell = (SMPostGroupAttachCell *)[self.tableView dequeueReusableCellWithIdentifier:cellid];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
-        XImageView *imageView = [[XImageView alloc] initWithFrame:cell.contentView.bounds];
-        imageView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-        imageView.tag = 100;
-        [cell.contentView addSubview:imageView];
+        cell = [[SMPostGroupAttachCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
     }
-    XImageView *imageView = (XImageView *)[cell.contentView viewWithTag:100];
-    NSString *url = [NSString stringWithFormat:@"http://att.newsmth.net/nForum/att/%@/%d/%d/middle", _board, data.item.pid, data.attach.pos];
-    imageView.url = url;
+    cell.imageViewForAttach.delegate = self;
+    cell.url = [self getAttachUrl:data];
     return cell;
 }
 
-- (UITableViewCell *)cellForTitleAtRow:(NSInteger)row
+- (NSString *)getAttachUrl:(SMPostGroupCellData *)data
 {
-    SMPostGroupItem *item = _postItems[row];
-    NSString *cellid = @"title_cell";
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:cellid];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
-    }
-    cell.textLabel.text = item.nick;
-    return cell;
-}
-
-- (UITableViewCell *)cellForContentAtRow:(NSInteger)row
-{
-    SMPostGroupItem *item = _postItems[row];
-    NSString *cellid = @"content_cell";
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:cellid];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
-    }
-    if (item.op.data != nil) {
-        SMPost *post = item.op.data;
-        cell.textLabel.text = post.content;
-    } else {
-        cell.textLabel.text = @"Loading";
-    }
-    return cell;
+    return [NSString stringWithFormat:@"http://att.newsmth.net/nForum/att/%@/%d/%d/large", _board, data.item.post.pid, data.attach.pos];
 }
 
 #pragma mark - XPullRefreshTableViewDelegate
 - (void)tableViewDoRefresh:(XPullRefreshTableView *)tableView
 {
     [self loadData:NO];
+}
+
+#pragma mark - XImageViewDelegate
+- (void)xImageViewDidLoad:(XImageView *)imageView
+{
+    [_tableView reloadData];
 }
 
 #pragma mark - SMWebLoaderOperationDelegate
@@ -297,9 +299,8 @@ typedef enum {
             [op loadUrl:url withParser:@"bbscon"];
             
             SMPostGroupItem *item = [[SMPostGroupItem alloc] init];
-            item.pid = post.pid;
-            item.nick = post.nick;
             item.op = op;
+            item.post = post;
             [tmp addObject:item];
         }];
         self.postItems = tmp;

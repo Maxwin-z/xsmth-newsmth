@@ -1,6 +1,8 @@
 /* SMPost */
 var data = {
     __type: 'SMPost',
+    pid: 0,
+    gid: 0,
     author: '',
     nick: '',
     title: '',
@@ -19,6 +21,10 @@ function emptyFn() {}
 
 // conWriter
 function conWriter(ftype, board, bid, id, gid, reid, favtxt, num, istex, title) {
+    data.pid = id;
+    data.bid = bid;
+    data.gid = gid;
+    data.board = board;
     data.title = title;
 }
 
