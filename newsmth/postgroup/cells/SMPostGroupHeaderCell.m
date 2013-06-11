@@ -39,7 +39,7 @@
     NSString *author = [NSString stringWithFormat:@"%@(%@)", post.author, post.nick];
     [_buttonForAuthor setTitle:author forState:UIControlStateNormal];
     if (post.date > 0) {
-        _labelForDate.text = [NSString stringWithFormat:@"%@", [NSDate dateWithTimeIntervalSince1970:post.date]];
+        _labelForDate.text = [NSString stringWithFormat:@"%@", [NSDate dateWithTimeIntervalSince1970:post.date / 1000.0f]];
     }
 }
 

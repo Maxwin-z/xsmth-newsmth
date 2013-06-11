@@ -10,6 +10,13 @@ var primyTypeTpl = '\
 }\n\
 ';
 
+var longTypeTpl = '\
+- (long long)${name}\n\
+{\n\
+	return [[self.dict objectForKey:@"${name}"] longLongValue];\n\
+}\n\
+';
+
 var stringTypeTpl = '\
 - (NSString *)${name}\n\
 {\n\
@@ -61,9 +68,13 @@ while ((match = regex.exec(schema)) != null) {
 
 			var tpl, propType, propReferStrong;
 			propReferStrong = true;
-			if (type.match(/(int|double|long|float)/)) {	// prime types
+			if (type.match(/(int|double|float)/)) {	// prime types
 				tpl = primyTypeTpl;
 				propType = type;
+				propReferStrong = false;
+			} else if (type == 'long') {
+				tpl = longTypeTpl;
+				propType = 'long long';
 				propReferStrong = false;
 			} else if (type == 'string') {
 				tpl = stringTypeTpl;

@@ -9,6 +9,6 @@
 @property (strong, nonatomic) NSString* nick;
 @property (strong, nonatomic) NSString* title;
 @property (strong, nonatomic) NSString* content;
-@property (assign, nonatomic) long date;
+@property (assign, nonatomic) long long date;
 @property (strong, nonatomic) NSArray* attaches;
 @end

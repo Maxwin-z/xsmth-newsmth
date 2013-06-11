@@ -41,9 +41,9 @@
 	return [self.dict objectForKey:@"content"];
 }
 
-- (long)date
+- (long long)date
 {
-	return [[self.dict objectForKey:@"date"] longValue];
+	return [[self.dict objectForKey:@"date"] longLongValue];
 }
 
 - (NSArray *)attaches
