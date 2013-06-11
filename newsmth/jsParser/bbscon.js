@@ -52,7 +52,7 @@ function prints(content) {
 
     matchs = content.match(contentRegex);
     data.content = matchs == null ? content : matchs[1];
-
+    data.content = data.content.replace(/\r\[(|\d?;?\d+)m/g, '');
 }
 
 function attach(name, len, pos) {

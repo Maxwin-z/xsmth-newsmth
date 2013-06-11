@@ -86,7 +86,8 @@ typedef enum {
 {
     [super viewDidLoad];
     self.tableView.xdelegate = self;
-    [self loadData:NO];
+    [self.tableView beginRefreshing];
+//    [self loadData:NO];
 }
 
 - (void)loadData:(BOOL)more
@@ -172,21 +173,28 @@ typedef enum {
         [self loadData:YES];
     }
     
+    UITableViewCell *cell;
     switch (data.type) {
         case CellTypeHeader:
-            return [self cellForTitle:data];
+            cell = [self cellForTitle:data];
+            break;
         case CellTypeFail:
-            return [self cellForFail:data];
+            cell = [self cellForFail:data];
+            break;
         case CellTypeLoading:
-            return [self cellForLoading:data];
+            cell = [self cellForLoading:data];
+            break;
         case CellTypeContent:
-            return [self cellForContent:data];
+            cell = [self cellForContent:data];
+            break;
         case CellTypeAttach:
-            return [self cellForAttach:data];
+            cell = [self cellForAttach:data];
+            break;
         default:
             break;
     }
-    return nil; // !
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    return cell; 
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

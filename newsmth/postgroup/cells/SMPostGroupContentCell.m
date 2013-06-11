@@ -12,7 +12,7 @@ static SMPostGroupContentCell *_instance;
 
 @interface SMPostGroupContentCell ()
 @property (strong, nonatomic) IBOutlet UIView *viewForCell;
-@property (weak, nonatomic) IBOutlet UILabel *labelForContent;
+@property (strong, nonatomic) IBOutlet UILabel *labelForContent;
 @end
 
 @implementation SMPostGroupContentCell
@@ -46,7 +46,39 @@ static SMPostGroupContentCell *_instance;
 
 - (void)setPost:(SMPost *)post
 {
-    _labelForContent.text = post.content;
+    for (int i = _viewForCell.subviews.count - 1; i >= 0; --i) {
+        [_viewForCell.subviews[i] removeFromSuperview];
+    }
+
+    CGFloat x = _labelForContent.frame.origin.x;
+    CGFloat y = 0;
+    CGFloat width = _labelForContent.bounds.size.width;
+    
+    NSArray *lines = [post.content componentsSeparatedByString:@"\n"];
+    for (int i = 0; i != lines.count; ++i) {
+        NSString *line = lines[i];
+        if (line.length == 0) {  // space line
+            line = @" ";
+        }
+        UILabel *label = [[UILabel alloc] init];
+        label.font = _labelForContent.font;
+        label.lineBreakMode = _labelForContent.lineBreakMode;
+        label.numberOfLines = 0;
+        label.text = line;
+        
+        if ([line hasPrefix:@":"]) {
+            label.textColor = [UIColor colorWithRed:0.141 green:0.494 blue:0.635 alpha:1.000];
+        } else {
+            label.textColor = _labelForContent.textColor;
+        }
+        
+        CGFloat height = [line sizeWithFont:label.font constrainedToSize:CGSizeMake(width, CGFLOAT_MAX) lineBreakMode:label.lineBreakMode].height;
+        CGRect frame = CGRectMake(x, y, width, height);
+        label.frame = frame;
+        [_viewForCell addSubview:label];
+        
+        y += height;
+    }
 }
 
 @end
