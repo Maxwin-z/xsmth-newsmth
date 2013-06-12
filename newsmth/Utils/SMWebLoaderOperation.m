@@ -93,6 +93,7 @@
 - (void)dealloc
 {
     XLog_d(@"url[%@] dealloc", _url);
+    [_request clearDelegatesAndCancel];
 }
 
 @end

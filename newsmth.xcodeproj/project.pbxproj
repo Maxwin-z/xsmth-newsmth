@@ -14,6 +14,8 @@
 		C10D16BB1756276D002D6FAD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C10D16BA1756276C002D6FAD /* QuartzCore.framework */; };
 		C10D16BE1756EF21002D6FAD /* SMMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = C10D16BD1756EF21002D6FAD /* SMMessage.m */; };
 		C1153398175779EF0026A0D5 /* bbstcon.js in Resources */ = {isa = PBXBuildFile; fileRef = C1153397175779DE0026A0D5 /* bbstcon.js */; };
+		C11581621768285C008A421A /* SMLeftViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C115815F1768285C008A421A /* SMLeftViewController.xib */; };
+		C11581631768285C008A421A /* SMLeftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C11581611768285C008A421A /* SMLeftViewController.m */; };
 		C12027B61754E08A00EB9E9E /* bbscon.js in Resources */ = {isa = PBXBuildFile; fileRef = C121F29A1750EE790081FD87 /* bbscon.js */; };
 		C121F29E175106A00081FD87 /* SMWebParser.m in Sources */ = {isa = PBXBuildFile; fileRef = C121F29D175106A00081FD87 /* SMWebParser.m */; };
 		C14505E51750787C00DC5431 /* SMAccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C14505E41750787C00DC5431 /* SMAccountManager.m */; };
@@ -22,6 +24,8 @@
 		C16714391766CFED00F56535 /* XPullRefreshTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = C16714381766CFED00F56535 /* XPullRefreshTableView.m */; };
 		C167143B1766D01700F56535 /* XPullRefreshTableViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = C167143A1766D01700F56535 /* XPullRefreshTableViewHeader.xib */; };
 		C167143D1766D02100F56535 /* XPullRefreshTableViewFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = C167143C1766D02100F56535 /* XPullRefreshTableViewFooter.xib */; };
+		C1671441176766FD00F56535 /* SMMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1671440176766FD00F56535 /* SMMainViewController.m */; };
+		C16714471767811500F56535 /* SMNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C16714461767811500F56535 /* SMNavigationController.m */; };
 		C185CD3A1766285900BD3714 /* SMPostGroupContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C185CD391766285900BD3714 /* SMPostGroupContentCell.m */; };
 		C185CD3C1766286100BD3714 /* SMPostGroupContentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C185CD3B1766286100BD3714 /* SMPostGroupContentCell.xib */; };
 		C185CD3F17662BAF00BD3714 /* SMPostGroupAttachCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C185CD3E17662BAE00BD3714 /* SMPostGroupAttachCell.m */; };
@@ -98,6 +102,9 @@
 		C10D16BC1756EF20002D6FAD /* SMMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SMMessage.h; path = ../Utils/SMMessage.h; sourceTree = "<group>"; };
 		C10D16BD1756EF21002D6FAD /* SMMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SMMessage.m; path = ../Utils/SMMessage.m; sourceTree = "<group>"; };
 		C1153397175779DE0026A0D5 /* bbstcon.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = bbstcon.js; sourceTree = "<group>"; };
+		C115815F1768285C008A421A /* SMLeftViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMLeftViewController.xib; sourceTree = "<group>"; };
+		C11581601768285C008A421A /* SMLeftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMLeftViewController.h; sourceTree = "<group>"; };
+		C11581611768285C008A421A /* SMLeftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMLeftViewController.m; sourceTree = "<group>"; };
 		C121F29A1750EE790081FD87 /* bbscon.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = bbscon.js; sourceTree = "<group>"; };
 		C121F29C175106A00081FD87 /* SMWebParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMWebParser.h; sourceTree = "<group>"; };
 		C121F29D175106A00081FD87 /* SMWebParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMWebParser.m; sourceTree = "<group>"; };
@@ -112,6 +119,10 @@
 		C16714381766CFED00F56535 /* XPullRefreshTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPullRefreshTableView.m; sourceTree = "<group>"; };
 		C167143A1766D01700F56535 /* XPullRefreshTableViewHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XPullRefreshTableViewHeader.xib; sourceTree = "<group>"; };
 		C167143C1766D02100F56535 /* XPullRefreshTableViewFooter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XPullRefreshTableViewFooter.xib; sourceTree = "<group>"; };
+		C167143F176766FD00F56535 /* SMMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMMainViewController.h; sourceTree = "<group>"; };
+		C1671440176766FD00F56535 /* SMMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMMainViewController.m; sourceTree = "<group>"; };
+		C16714451767811500F56535 /* SMNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMNavigationController.h; sourceTree = "<group>"; };
+		C16714461767811500F56535 /* SMNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMNavigationController.m; sourceTree = "<group>"; };
 		C185CD381766285900BD3714 /* SMPostGroupContentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMPostGroupContentCell.h; sourceTree = "<group>"; };
 		C185CD391766285900BD3714 /* SMPostGroupContentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMPostGroupContentCell.m; sourceTree = "<group>"; };
 		C185CD3B1766286100BD3714 /* SMPostGroupContentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMPostGroupContentCell.xib; sourceTree = "<group>"; };
@@ -376,6 +387,13 @@
 				C10D160F1756059B002D6FAD /* SMViewController.h */,
 				C10D16101756059B002D6FAD /* SMViewController.m */,
 				C1AE913F175A24AF0084C618 /* SMErrorView.xib */,
+				C167143F176766FD00F56535 /* SMMainViewController.h */,
+				C1671440176766FD00F56535 /* SMMainViewController.m */,
+				C16714451767811500F56535 /* SMNavigationController.h */,
+				C16714461767811500F56535 /* SMNavigationController.m */,
+				C11581601768285C008A421A /* SMLeftViewController.h */,
+				C11581611768285C008A421A /* SMLeftViewController.m */,
+				C115815F1768285C008A421A /* SMLeftViewController.xib */,
 			);
 			path = newsmth;
 			sourceTree = "<group>";
@@ -587,6 +605,7 @@
 				C185CD4117662BBF00BD3714 /* SMPostGroupAttachCell.xib in Resources */,
 				C167143B1766D01700F56535 /* XPullRefreshTableViewHeader.xib in Resources */,
 				C167143D1766D02100F56535 /* XPullRefreshTableViewFooter.xib in Resources */,
+				C11581621768285C008A421A /* SMLeftViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -656,6 +675,9 @@
 				C185CD3A1766285900BD3714 /* SMPostGroupContentCell.m in Sources */,
 				C185CD3F17662BAF00BD3714 /* SMPostGroupAttachCell.m in Sources */,
 				C16714391766CFED00F56535 /* XPullRefreshTableView.m in Sources */,
+				C1671441176766FD00F56535 /* SMMainViewController.m in Sources */,
+				C16714471767811500F56535 /* SMNavigationController.m in Sources */,
+				C11581631768285C008A421A /* SMLeftViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,5 +11,4 @@
 #import "SMWebLoaderOperation.h"
 
 @interface SMViewController : UIViewController
-
 @end
