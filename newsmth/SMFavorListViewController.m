@@ -7,6 +7,7 @@
 //
 
 #import "SMFavorListViewController.h"
+#import "SMLoginViewController.h"
 
 static SMFavorListViewController *_instance;
 
@@ -24,25 +25,11 @@ static SMFavorListViewController *_instance;
     return _instance;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (IBAction)onLoginButtonClick:(id)sender
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    SMLoginViewController *loginVc = [[SMLoginViewController alloc] init];
+    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:loginVc];
+    [self.navigationController presentModalViewController:nvc animated:YES];
 }
 
 @end

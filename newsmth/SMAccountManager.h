@@ -16,6 +16,7 @@
 @property (assign, nonatomic, readonly) BOOL isLogin;
 @property (strong, nonatomic, readonly) NSString *name;
 
-+ (SMAccountManager *)sharedInstance;
++ (SMAccountManager *)instance;
+- (void)loadCookie;
 
 @end

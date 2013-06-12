@@ -7,6 +7,7 @@
 //
 
 #import "SMHttpRequest.h"
+#import "SMAccountManager.h"
 
 @interface SMHttpRequest() <ASIHTTPRequestDelegate>
 @property (weak, nonatomic) id<ASIHTTPRequestDelegate> originalDelegate;
@@ -23,14 +24,20 @@
 
 - (void)startSynchronous
 {
-    [super setDelegate:self];
+    [self setup];
     [super startSynchronous];
 }
 
 - (void)startAsynchronous
 {
-    [super setDelegate:self];
+    [self setup];
     [super startAsynchronous];
+}
+
+- (void)setup
+{
+    [super setDelegate:self];
+    self.requestCookies = [[SMAccountManager instance].cookies mutableCopy];
 }
 
 #pragma mark - ASIHTTPRequestDelegate
@@ -38,6 +45,8 @@
 {
 //    XLog_d(@"%@", request_.responseCookies);
     // handle response header. update account status
+    [[SMAccountManager instance] setCookies:request_.requestCookies];
+    
     if ([_originalDelegate respondsToSelector:@selector(request:didReceiveResponseHeaders:)]) {
         [_originalDelegate request:request_ didReceiveResponseHeaders:responseHeaders_];
     }

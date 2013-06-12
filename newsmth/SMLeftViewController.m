@@ -10,6 +10,7 @@
 #import "SMMainViewController.h"
 #import "SMMainpageViewController.h"
 #import "SMFavorListViewController.h"
+#import "SMAccountManager.h"
 
 @interface SMLeftViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
@@ -31,7 +32,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell_id"];
-    cell.textLabel.text = indexPath.row == 0 ? @"首页" : @"收藏";
+    NSString *user = [SMAccountManager instance].name;
+    cell.textLabel.text = indexPath.row == 0 ? (user == nil ? @"guest" : user) : @"收藏";
     return cell;
 }
 

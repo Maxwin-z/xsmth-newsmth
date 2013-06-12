@@ -18,6 +18,8 @@
 		C11581631768285C008A421A /* SMLeftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C11581611768285C008A421A /* SMLeftViewController.m */; };
 		C1158168176851B6008A421A /* SMFavorListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1158166176851B5008A421A /* SMFavorListViewController.m */; };
 		C1158169176851B6008A421A /* SMFavorListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1158167176851B6008A421A /* SMFavorListViewController.xib */; };
+		C115816D17685606008A421A /* SMLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C115816B17685606008A421A /* SMLoginViewController.m */; };
+		C115816E17685606008A421A /* SMLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C115816C17685606008A421A /* SMLoginViewController.xib */; };
 		C12027B61754E08A00EB9E9E /* bbscon.js in Resources */ = {isa = PBXBuildFile; fileRef = C121F29A1750EE790081FD87 /* bbscon.js */; };
 		C121F29E175106A00081FD87 /* SMWebParser.m in Sources */ = {isa = PBXBuildFile; fileRef = C121F29D175106A00081FD87 /* SMWebParser.m */; };
 		C14505E51750787C00DC5431 /* SMAccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C14505E41750787C00DC5431 /* SMAccountManager.m */; };
@@ -110,10 +112,14 @@
 		C1158165176851B5008A421A /* SMFavorListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMFavorListViewController.h; sourceTree = "<group>"; };
 		C1158166176851B5008A421A /* SMFavorListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMFavorListViewController.m; sourceTree = "<group>"; };
 		C1158167176851B6008A421A /* SMFavorListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMFavorListViewController.xib; sourceTree = "<group>"; };
+		C115816A17685606008A421A /* SMLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMLoginViewController.h; sourceTree = "<group>"; };
+		C115816B17685606008A421A /* SMLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMLoginViewController.m; sourceTree = "<group>"; };
+		C115816C17685606008A421A /* SMLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMLoginViewController.xib; sourceTree = "<group>"; };
 		C121F29A1750EE790081FD87 /* bbscon.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = bbscon.js; sourceTree = "<group>"; };
 		C121F29C175106A00081FD87 /* SMWebParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMWebParser.h; sourceTree = "<group>"; };
 		C121F29D175106A00081FD87 /* SMWebParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMWebParser.m; sourceTree = "<group>"; };
 		C121F29F175108010081FD87 /* utils.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = utils.js; sourceTree = "<group>"; };
+		C144B68E1768C62500DA2958 /* login.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = login.js; sourceTree = "<group>"; };
 		C14505E31750787C00DC5431 /* SMAccountManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMAccountManager.h; sourceTree = "<group>"; };
 		C14505E41750787C00DC5431 /* SMAccountManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMAccountManager.m; sourceTree = "<group>"; };
 		C14505E617507A9800DC5431 /* SMHttpRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SMHttpRequest.h; path = ../SMHttpRequest.h; sourceTree = "<group>"; };
@@ -259,6 +265,7 @@
 		C121F2991750EE790081FD87 /* jsParser */ = {
 			isa = PBXGroup;
 			children = (
+				C144B68E1768C62500DA2958 /* login.js */,
 				C121F29F175108010081FD87 /* utils.js */,
 				C121F29A1750EE790081FD87 /* bbscon.js */,
 				C10D160C1755FBF5002D6FAD /* mainpage.js */,
@@ -402,6 +409,9 @@
 				C1158165176851B5008A421A /* SMFavorListViewController.h */,
 				C1158166176851B5008A421A /* SMFavorListViewController.m */,
 				C1158167176851B6008A421A /* SMFavorListViewController.xib */,
+				C115816A17685606008A421A /* SMLoginViewController.h */,
+				C115816B17685606008A421A /* SMLoginViewController.m */,
+				C115816C17685606008A421A /* SMLoginViewController.xib */,
 			);
 			path = newsmth;
 			sourceTree = "<group>";
@@ -615,6 +625,7 @@
 				C167143D1766D02100F56535 /* XPullRefreshTableViewFooter.xib in Resources */,
 				C11581621768285C008A421A /* SMLeftViewController.xib in Resources */,
 				C1158169176851B6008A421A /* SMFavorListViewController.xib in Resources */,
+				C115816E17685606008A421A /* SMLoginViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -688,6 +699,7 @@
 				C16714471767811500F56535 /* SMNavigationController.m in Sources */,
 				C11581631768285C008A421A /* SMLeftViewController.m in Sources */,
 				C1158168176851B6008A421A /* SMFavorListViewController.m in Sources */,
+				C115816D17685606008A421A /* SMLoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

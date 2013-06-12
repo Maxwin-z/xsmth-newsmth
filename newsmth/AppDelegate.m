@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "SMAccountManager.h"
 
 #import "ViewController.h"
 #import "SMMainViewController.h"
@@ -32,6 +33,8 @@
 //    
 //    _viewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
 //    self.window.rootViewController = _viewController;
+    
+    [[SMAccountManager instance] loadCookie];
     
     _mainViewController = [[SMMainViewController alloc] init];
     self.window.rootViewController = _mainViewController;

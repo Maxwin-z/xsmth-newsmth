@@ -27,21 +27,34 @@
     [[SMWebLoaderOperationQueue sharedInstance] addOperation:self];
 }
 
+- (void)loadRequest:(SMHttpRequest *)request withParser:(NSString *)parser
+{
+    _request = request;
+    _parser = parser;
+    [[SMWebLoaderOperationQueue sharedInstance] addOperation:self];
+}
+
 - (void)main
 {
     if (self.isCancelled) {
         XLog_d(@"opt is cancelled");
         return;
     }
-    if (_url == nil) {
+    if (_url == nil && _request == nil) {
         XLog_e(@"request url is nil");
         return;
     }
-    XLog_d(@"url[%@] start", _url);
+    
 
-    NSURL *url = [NSURL URLWithString:_url];
-    _request = [[SMHttpRequest alloc] initWithURL:url];
+    if (_request == nil) {
+        NSURL *url = [NSURL URLWithString:_url];
+        _request = [[SMHttpRequest alloc] initWithURL:url];
+    }
+    
+    _url = _request.url.absoluteString;
     _request.delegate = self;
+    
+    XLog_d(@"url[%@] start", _url);
     [_request startSynchronous];
 }
 
@@ -58,7 +71,7 @@
     NSData *rspData = request.responseData;
     NSString *body = [[NSString alloc] initWithData:rspData encoding:enc];
 
-//    XLog_d(@"%@",body);
+    XLog_d(@"%@",body);
     _webParser = [[SMWebParser alloc] init];
     _webParser.delegate = self;
     [_webParser parseHtml:body withJSFile:_parser];
@@ -90,10 +103,19 @@
 }
 
 #pragma mark - debug
+- (void)cancel
+{
+    XLog_e(@"req cancel");
+    [super cancel];
+    [_request clearDelegatesAndCancel];
+}
+
 - (void)dealloc
 {
     XLog_d(@"url[%@] dealloc", _url);
     [_request clearDelegatesAndCancel];
+    _request = nil;
+    _webParser = nil;
 }
 
 @end

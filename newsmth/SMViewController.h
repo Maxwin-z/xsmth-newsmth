@@ -9,6 +9,7 @@
 
 #import <UIKit/UIKit.h>
 #import "SMWebLoaderOperation.h"
+#import "SMAccountManager.h"
 
 @interface SMViewController : UIViewController
 @end
