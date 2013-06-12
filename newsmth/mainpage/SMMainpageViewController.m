@@ -14,6 +14,8 @@
 #import "SMSection.h"
 #import "SMPost.h"
 
+static SMMainpageViewController *_instance;
+
 @interface SMMainpageViewController ()<UITableViewDataSource, UITableViewDelegate, SMWebLoaderOperationDelegate, XPullRefreshTableViewDelegate>
 @property (weak, nonatomic) IBOutlet XPullRefreshTableView *tableView;
 
@@ -24,18 +26,25 @@
 
 @implementation SMMainpageViewController
 
++ (SMMainpageViewController *)instance
+{
+    if (_instance == nil) {
+        _instance = [[SMMainpageViewController alloc] init];
+    }
+    return _instance;
+}
 - (id)init
 {
-    self = [super initWithNibName:@"SMMainpageViewController" bundle:nil];
-    if (self) {
-        
+    if (_instance == nil) {
+        _instance = [super initWithNibName:@"SMMainpageViewController" bundle:nil];
     }
-    return self;
+    return _instance;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.title = @"Top10";
     _tableView.xdelegate = self;
     [_tableView beginRefreshing];
 }

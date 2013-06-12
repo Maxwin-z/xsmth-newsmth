@@ -78,6 +78,12 @@ static SMMainViewController *_instance;
     [_centerViewController.view addGestureRecognizer:panGesture];
 }
 
+- (void)setRootViewController:(UIViewController *)viewController
+{
+    [_centerViewController popToRootViewControllerAnimated:NO];
+    _centerViewController.viewControllers = @[viewController];
+}
+
 - (void)showPushAnimation
 {
     _imageViewForTopImage.hidden = NO;

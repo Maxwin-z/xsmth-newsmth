@@ -9,5 +9,5 @@
 #import "SMViewController.h"
 
 @interface SMMainpageViewController : SMViewController
-
++ (SMMainpageViewController *)instance;
 @end

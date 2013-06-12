@@ -7,32 +7,47 @@
 //
 
 #import "SMLeftViewController.h"
+#import "SMMainViewController.h"
+#import "SMMainpageViewController.h"
+#import "SMFavorListViewController.h"
 
-@interface SMLeftViewController ()
-
+@interface SMLeftViewController ()<UITableViewDataSource, UITableViewDelegate>
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 @end
 
 @implementation SMLeftViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
 }
 
-- (void)didReceiveMemoryWarning
+#pragma mark - UITableViewDataSource/Delegate
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    return 2;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell_id"];
+    cell.textLabel.text = indexPath.row == 0 ? @"首页" : @"收藏";
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    UIViewController *vc;
+    if (indexPath.row == 0) {
+        vc = [SMMainpageViewController instance];
+    } else {
+        vc = [SMFavorListViewController instance];
+    }
+    
+    [[SMMainViewController instance] setRootViewController:vc];
+    [[SMMainViewController instance] setLeftVisiable:NO];
 }
 
 @end
