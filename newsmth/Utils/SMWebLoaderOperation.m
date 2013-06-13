@@ -113,6 +113,7 @@
 {
     XLog_e(@"req cancel");
     [super cancel];
+    _delegate = nil;
     [_request clearDelegatesAndCancel];
 }
 

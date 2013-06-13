@@ -46,6 +46,32 @@
 	return [[self.dict objectForKey:@"date"] longLongValue];
 }
 
+- (NSString *)replyAuthor
+{
+	return [self.dict objectForKey:@"replyAuthor"];
+}
+
+- (long long)replyDate
+{
+	return [[self.dict objectForKey:@"replyDate"] longLongValue];
+}
+
+- (int)replyCount
+{
+	return [[self.dict objectForKey:@"replyCount"] intValue];
+}
+
+- (NSArray *)isTop;
+{
+	NSArray *objs = [self.dict objectForKey:@"isTop;"];
+	NSMutableArray *res = [[NSMutableArray alloc] init];
+	for (int i = 0; i != objs.count; ++i) {
+		SMBaseData *data = [[SMBaseData alloc] initWithData:objs[i]];
+		[res addObject:data];
+	}
+	return res;
+}
+
 - (NSArray *)attaches
 {
 	NSArray *objs = [self.dict objectForKey:@"attaches"];

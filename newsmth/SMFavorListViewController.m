@@ -9,6 +9,7 @@
 #import "SMFavorListViewController.h"
 #import "SMLoginViewController.h"
 #import "XPullRefreshTableView.h"
+#import "SMBoardViewController.h"
 #import "SMFavor.h"
 #import "SMBoard.h"
 
@@ -37,6 +38,11 @@ static SMFavorListViewController *_instance;
     [super viewDidLoad];
     self.title = @"收藏";
     _tableView.xdelegate = self;
+    [self accountChanged];
+}
+
+- (void)accountChanged
+{
     if ([SMAccountManager instance].isLogin) {
         _tableView.hidden = NO;
         _buttonForLogin.hidden = YES;
@@ -62,9 +68,7 @@ static SMFavorListViewController *_instance;
 
 - (IBAction)onLoginButtonClick:(id)sender
 {
-    SMLoginViewController *loginVc = [[SMLoginViewController alloc] init];
-    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:loginVc];
-    [self.navigationController presentModalViewController:nvc animated:YES];
+    [self performSelectorAfterLogin:@selector(accountChanged)];
 }
 
 #pragma mark - UITableDelegate/DataSource
@@ -83,6 +87,14 @@ static SMFavorListViewController *_instance;
     SMBoard *board = _boards[indexPath.row];
     cell.textLabel.text = [NSString stringWithFormat:@"%@(%@)", board.cnName, board.name];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    SMBoard *board = _boards[indexPath.row];
+    SMBoardViewController *boardVc = [[SMBoardViewController alloc] init];
+    boardVc.board = board;
+    [self.navigationController pushViewController:boardVc animated:YES];
 }
 
 #pragma mark - XPullRefreshTableViewDelegate

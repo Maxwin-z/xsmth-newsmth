@@ -14,6 +14,10 @@ SMPost {
 	string title
 	string content
 	long date
+    string replyAuthor
+    long replyDate
+    int replyCount
+    bool isTop;
 	SMAttach[] attaches
 }
 
@@ -37,6 +41,7 @@ SMBoard {
 	string name
 	string cnName
 	int bid
+	SMPost[] posts
 }
 
 SMFavor {
