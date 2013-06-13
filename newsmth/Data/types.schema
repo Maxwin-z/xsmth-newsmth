@@ -33,3 +33,12 @@ SMMainPage {
     SMSection[] sections
 }
 
+SMBoard {
+	string name
+	string cnName
+	int bid
+}
+
+SMFavor {
+	SMBoard[] boards
+}
