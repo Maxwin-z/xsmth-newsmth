@@ -39,6 +39,9 @@
 		C19FF0AF1769A4F000EB6F7E /* login.js in Resources */ = {isa = PBXBuildFile; fileRef = C144B68E1768C62500DA2958 /* login.js */; };
 		C19FF0B21769A71C00EB6F7E /* popup_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C19FF0B11769A71C00EB6F7E /* popup_bg@2x.png */; };
 		C19FF0B41769A7A800EB6F7E /* SMViewControllerPopover.xib in Resources */ = {isa = PBXBuildFile; fileRef = C19FF0B31769A7A700EB6F7E /* SMViewControllerPopover.xib */; };
+		C19FF0BA1769CA1000EB6F7E /* SMBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = C19FF0B71769CA0F00EB6F7E /* SMBoard.m */; };
+		C19FF0BB1769CA1000EB6F7E /* SMFavor.m in Sources */ = {isa = PBXBuildFile; fileRef = C19FF0B91769CA1000EB6F7E /* SMFavor.m */; };
+		C19FF0BD1769CA4A00EB6F7E /* favor.js in Resources */ = {isa = PBXBuildFile; fileRef = C19FF0BC1769CA4A00EB6F7E /* favor.js */; };
 		C1ABAB0F1766107A007DE168 /* SMPostGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1ABAB061766107A007DE168 /* SMPostGroupViewController.m */; };
 		C1ABAB101766107A007DE168 /* SMPostGroupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1ABAB071766107A007DE168 /* SMPostGroupViewController.xib */; };
 		C1ABAB111766107A007DE168 /* SMMainpageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C1ABAB0A1766107A007DE168 /* SMMainpageCell.m */; };
@@ -149,6 +152,11 @@
 		C191283C17588501005AC60F /* XImageViewCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XImageViewCache.m; sourceTree = "<group>"; };
 		C19FF0B11769A71C00EB6F7E /* popup_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "popup_bg@2x.png"; sourceTree = "<group>"; };
 		C19FF0B31769A7A700EB6F7E /* SMViewControllerPopover.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMViewControllerPopover.xib; sourceTree = "<group>"; };
+		C19FF0B61769CA0F00EB6F7E /* SMBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMBoard.h; sourceTree = "<group>"; };
+		C19FF0B71769CA0F00EB6F7E /* SMBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMBoard.m; sourceTree = "<group>"; };
+		C19FF0B81769CA0F00EB6F7E /* SMFavor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMFavor.h; sourceTree = "<group>"; };
+		C19FF0B91769CA1000EB6F7E /* SMFavor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMFavor.m; sourceTree = "<group>"; };
+		C19FF0BC1769CA4A00EB6F7E /* favor.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = favor.js; sourceTree = "<group>"; };
 		C1ABAB051766107A007DE168 /* SMPostGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMPostGroupViewController.h; sourceTree = "<group>"; };
 		C1ABAB061766107A007DE168 /* SMPostGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMPostGroupViewController.m; sourceTree = "<group>"; };
 		C1ABAB071766107A007DE168 /* SMPostGroupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMPostGroupViewController.xib; sourceTree = "<group>"; };
@@ -270,6 +278,7 @@
 		C121F2991750EE790081FD87 /* jsParser */ = {
 			isa = PBXGroup;
 			children = (
+				C19FF0BC1769CA4A00EB6F7E /* favor.js */,
 				C144B68E1768C62500DA2958 /* login.js */,
 				C121F29F175108010081FD87 /* utils.js */,
 				C121F29A1750EE790081FD87 /* bbscon.js */,
@@ -528,6 +537,10 @@
 		C1E628931764BAD4007ACF2A /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				C19FF0B61769CA0F00EB6F7E /* SMBoard.h */,
+				C19FF0B71769CA0F00EB6F7E /* SMBoard.m */,
+				C19FF0B81769CA0F00EB6F7E /* SMFavor.h */,
+				C19FF0B91769CA1000EB6F7E /* SMFavor.m */,
 				C1E628A41764C594007ACF2A /* SMMainPage.h */,
 				C1E628A51764C594007ACF2A /* SMMainPage.m */,
 				C1E628A61764C594007ACF2A /* SMPostGroup.h */,
@@ -620,6 +633,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C19FF0BD1769CA4A00EB6F7E /* favor.js in Resources */,
 				C19FF0AF1769A4F000EB6F7E /* login.js in Resources */,
 				C1153398175779EF0026A0D5 /* bbstcon.js in Resources */,
 				C10D160E1755FBFE002D6FAD /* mainpage.js in Resources */,
@@ -718,6 +732,8 @@
 				C11581631768285C008A421A /* SMLeftViewController.m in Sources */,
 				C1158168176851B6008A421A /* SMFavorListViewController.m in Sources */,
 				C115816D17685606008A421A /* SMLoginViewController.m in Sources */,
+				C19FF0BA1769CA1000EB6F7E /* SMBoard.m in Sources */,
+				C19FF0BB1769CA1000EB6F7E /* SMFavor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
