@@ -33,7 +33,7 @@ static SMAccountManager *_instance;
 
 - (void)setCookies:(NSArray *)cookies
 {
-    XLog_d(@"%@, %@", self, cookies);
+//    XLog_d(@"%@, %@", self, cookies);
     _cookies = cookies;
     
     // clear login info
@@ -42,7 +42,7 @@ static SMAccountManager *_instance;
         NSHTTPCookie *cookie = obj;
         if ([cookie.name isEqualToString:COOKIE_USERID]) {
             name = cookie.value;
-            XLog_d(@"get user: %@", name);
+//            XLog_d(@"get user: %@", name);
             if ([name isEqualToString:@"guest"]) {    // login status
                 name = nil;
             }

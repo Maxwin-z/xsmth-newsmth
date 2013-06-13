@@ -24,6 +24,11 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonItemStyleDone target:self action:@selector(dismiss)];
 }
 
+- (void)dealloc
+{
+    [_loginOp cancel];
+}
+
 - (void)dismiss
 {
     [self.navigationController dismissModalViewControllerAnimated:YES];
