@@ -50,12 +50,13 @@ function $parse(html) {
 				author: author,
 				date: date,
 				replyAuthor: replyAuthor,
-				replyDate: replyDate
+				replyDate: replyDate,
+				replyCount: replyCount
 			});
 		}
 	} else {
 		rsp.code = -1;
-		rsp.message = 'cannot find list <ul>';
+		rsp.message = 'cannot find list <ul>';	
 	}
 	console.log(rsp);
 	window.location.href = 'newsmth://' + encodeURIComponent(JSON.stringify(rsp));
