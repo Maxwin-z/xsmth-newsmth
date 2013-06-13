@@ -11,12 +11,17 @@
 @implementation SMBaseData
 - (id)initWithData:(NSDictionary *)dict
 {
-    NSString *clzName = [dict objectForKey:@"__type"];
-    Class clz = NSClassFromString(clzName);
+    NSString *clzName = nil;
+    if ([dict isKindOfClass:[NSDictionary class]]) {
+        clzName = [dict objectForKey:@"__type"];
+    }
+    Class clz = clzName != nil ? NSClassFromString(clzName) : nil;
     if (clz) {
         self = [[clz alloc] init];
-        self.dict = dict;
+    } else {
+        self = [super init];
     }
+    self.dict = dict;
     return self;
 }
 @end

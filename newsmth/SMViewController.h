@@ -11,5 +11,8 @@
 #import "SMWebLoaderOperation.h"
 #import "SMAccountManager.h"
 
+#define TOAST_DURTAION  1.0f
+
 @interface SMViewController : UIViewController
+- (void)toast:(NSString *)message;
 @end

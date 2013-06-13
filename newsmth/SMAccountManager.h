@@ -10,6 +10,8 @@
 
 #import <Foundation/Foundation.h>
 
+#define NOTIFICATION_ACCOUT @"notification_account"
+
 @interface SMAccountManager : NSObject
 
 @property (strong, nonatomic) NSArray *cookies;

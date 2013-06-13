@@ -51,7 +51,7 @@
 
 - (void)webLoaderOperationFail:(SMWebLoaderOperation *)opt error:(SMMessage *)error
 {
-    XLog_e(@"%@", error);
+    [self toast:error.message];
 }
 
 

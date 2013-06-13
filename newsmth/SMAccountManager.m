@@ -37,17 +37,24 @@ static SMAccountManager *_instance;
     _cookies = cookies;
     
     // clear login info
-    _name = nil;
+    __block NSString *name = nil;
     [_cookies enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         NSHTTPCookie *cookie = obj;
         if ([cookie.name isEqualToString:COOKIE_USERID]) {
-            _name = cookie.value;
-            XLog_d(@"get user: %@", _name);
-            if ([_name isEqualToString:@"guest"]) {    // login status
-                _name = nil;
+            name = cookie.value;
+            XLog_d(@"get user: %@", name);
+            if ([name isEqualToString:@"guest"]) {    // login status
+                name = nil;
             }
         }
     }];
+    
+    // notify account changed.
+    if ((name != nil || _name != nil) && ![name isEqualToString:_name]) {
+        _name = name;
+        [self saveCookie];
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ACCOUT object:nil];
+    }
 }
 
 - (BOOL)isLogin
@@ -56,6 +63,11 @@ static SMAccountManager *_instance;
 }
 
 - (void)onAppDidEnterBackground
+{
+    [self saveCookie];
+}
+
+- (void)saveCookie
 {
     NSData *cookiedata = [NSKeyedArchiver archivedDataWithRootObject:_cookies];
     [[NSUserDefaults standardUserDefaults] setObject:cookiedata forKey:USER_DEF_COOKIE];

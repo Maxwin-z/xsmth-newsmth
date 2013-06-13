@@ -18,9 +18,28 @@
 
 @implementation SMLeftViewController
 
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onAccountNotification) name:NOTIFICATION_ACCOUT object:nil];
+    }
+    return self;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+}
+
+- (void)onAccountNotification
+{
+    [self.tableView reloadData];
 }
 
 #pragma mark - UITableViewDataSource/Delegate

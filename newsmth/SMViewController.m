@@ -9,30 +9,64 @@
 #import "SMViewController.h"
 
 @interface SMViewController ()
+@property (assign, nonatomic) CGFloat keyboardHeight;
+
+@property (strong, nonatomic) IBOutlet UIView *viewForPopover;
+@property (weak, nonatomic) IBOutlet UIImageView *imageViewForPopoverBg;
+@property (weak, nonatomic) IBOutlet UILabel *labelForPoperoverMessage;
 
 @end
 
 @implementation SMViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)init
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super init];
     if (self) {
-        // Custom initialization
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onKeyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onKeyboardDidHide:) name:UIKeyboardDidHideNotification object:nil];
+        
     }
     return self;
 }
 
-- (void)viewDidLoad
+- (void)toast:(NSString *)message
 {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    UIView *window = [UIApplication sharedApplication].keyWindow;
+    if (_viewForPopover == nil) {
+        [[NSBundle mainBundle] loadNibNamed:@"SMViewControllerPopover" owner:self options:nil];
+        _imageViewForPopoverBg.image = [_imageViewForPopoverBg.image stretchableImageWithLeftCapWidth:20 topCapHeight:20];
+    }
+    CGRect frame = window.bounds;
+    frame.size.height -= _keyboardHeight;
+    _viewForPopover.frame = frame;
+    [window addSubview:_viewForPopover];
+    
+    _labelForPoperoverMessage.text = message;
+    [self performSelector:@selector(hideToast) withObject:nil afterDelay:TOAST_DURTAION];
 }
 
-- (void)didReceiveMemoryWarning
+- (void)hideToast
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [_viewForPopover removeFromSuperview];
+}
+
+- (void)dealloc
+{
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)onKeyboardDidShow:(NSNotification *)n
+{
+    NSDictionary* info = [n userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
+    _keyboardHeight = kbSize.height;
+}
+
+- (void)onKeyboardDidHide:(NSNotification *)n
+{
+    _keyboardHeight = 0.0f;
 }
 
 @end

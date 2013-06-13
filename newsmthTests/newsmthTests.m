@@ -7,6 +7,11 @@
 //
 
 #import "newsmthTests.h"
+#import "SMHttpRequest.h"
+
+@interface newsmthTests ()<ASIHTTPRequestDelegate>
+@property (strong, nonatomic) SMHttpRequest *req;
+@end
 
 @implementation newsmthTests
 
@@ -24,7 +29,7 @@
     [super tearDown];
 }
 
-- (void)testExample
+- (void)_testExample
 {
     XLog_d(@"sss");
     NSString *content = @":A\n:b\nc\nd\n:e";
@@ -40,6 +45,10 @@
         XLog_d(@"%@", NSStringFromRange(quoteRange));
     }
 
+}
+
+- (void)testLoginRequest
+{
 }
 
 @end

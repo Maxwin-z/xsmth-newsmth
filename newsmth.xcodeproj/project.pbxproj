@@ -36,6 +36,9 @@
 		C185CD4117662BBF00BD3714 /* SMPostGroupAttachCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C185CD4017662BBF00BD3714 /* SMPostGroupAttachCell.xib */; };
 		C191281D17586DDF005AC60F /* XImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C191281C17586DDF005AC60F /* XImageView.m */; };
 		C191283D17588501005AC60F /* XImageViewCache.m in Sources */ = {isa = PBXBuildFile; fileRef = C191283C17588501005AC60F /* XImageViewCache.m */; };
+		C19FF0AF1769A4F000EB6F7E /* login.js in Resources */ = {isa = PBXBuildFile; fileRef = C144B68E1768C62500DA2958 /* login.js */; };
+		C19FF0B21769A71C00EB6F7E /* popup_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C19FF0B11769A71C00EB6F7E /* popup_bg@2x.png */; };
+		C19FF0B41769A7A800EB6F7E /* SMViewControllerPopover.xib in Resources */ = {isa = PBXBuildFile; fileRef = C19FF0B31769A7A700EB6F7E /* SMViewControllerPopover.xib */; };
 		C1ABAB0F1766107A007DE168 /* SMPostGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1ABAB061766107A007DE168 /* SMPostGroupViewController.m */; };
 		C1ABAB101766107A007DE168 /* SMPostGroupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1ABAB071766107A007DE168 /* SMPostGroupViewController.xib */; };
 		C1ABAB111766107A007DE168 /* SMMainpageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C1ABAB0A1766107A007DE168 /* SMMainpageCell.m */; };
@@ -144,6 +147,8 @@
 		C191281C17586DDF005AC60F /* XImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XImageView.m; sourceTree = "<group>"; };
 		C191283B17588501005AC60F /* XImageViewCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XImageViewCache.h; sourceTree = "<group>"; };
 		C191283C17588501005AC60F /* XImageViewCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XImageViewCache.m; sourceTree = "<group>"; };
+		C19FF0B11769A71C00EB6F7E /* popup_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "popup_bg@2x.png"; sourceTree = "<group>"; };
+		C19FF0B31769A7A700EB6F7E /* SMViewControllerPopover.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMViewControllerPopover.xib; sourceTree = "<group>"; };
 		C1ABAB051766107A007DE168 /* SMPostGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMPostGroupViewController.h; sourceTree = "<group>"; };
 		C1ABAB061766107A007DE168 /* SMPostGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMPostGroupViewController.m; sourceTree = "<group>"; };
 		C1ABAB071766107A007DE168 /* SMPostGroupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMPostGroupViewController.xib; sourceTree = "<group>"; };
@@ -302,6 +307,14 @@
 			path = XPullRefreshTableView;
 			sourceTree = "<group>";
 		};
+		C19FF0B01769A71B00EB6F7E /* images */ = {
+			isa = PBXGroup;
+			children = (
+				C19FF0B11769A71C00EB6F7E /* popup_bg@2x.png */,
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
 		C1ABAB041766107A007DE168 /* postgroup */ = {
 			isa = PBXGroup;
 			children = (
@@ -380,6 +393,7 @@
 		C1BFB8E2174F6A620092FD2E /* newsmth */ = {
 			isa = PBXGroup;
 			children = (
+				C19FF0B01769A71B00EB6F7E /* images */,
 				C1E628931764BAD4007ACF2A /* Data */,
 				C1ABAB081766107A007DE168 /* mainpage */,
 				C1ABAB041766107A007DE168 /* postgroup */,
@@ -412,6 +426,7 @@
 				C115816A17685606008A421A /* SMLoginViewController.h */,
 				C115816B17685606008A421A /* SMLoginViewController.m */,
 				C115816C17685606008A421A /* SMLoginViewController.xib */,
+				C19FF0B31769A7A700EB6F7E /* SMViewControllerPopover.xib */,
 			);
 			path = newsmth;
 			sourceTree = "<group>";
@@ -605,6 +620,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C19FF0AF1769A4F000EB6F7E /* login.js in Resources */,
 				C1153398175779EF0026A0D5 /* bbstcon.js in Resources */,
 				C10D160E1755FBFE002D6FAD /* mainpage.js in Resources */,
 				C12027B61754E08A00EB9E9E /* bbscon.js in Resources */,
@@ -626,6 +642,8 @@
 				C11581621768285C008A421A /* SMLeftViewController.xib in Resources */,
 				C1158169176851B6008A421A /* SMFavorListViewController.xib in Resources */,
 				C115816E17685606008A421A /* SMLoginViewController.xib in Resources */,
+				C19FF0B21769A71C00EB6F7E /* popup_bg@2x.png in Resources */,
+				C19FF0B41769A7A800EB6F7E /* SMViewControllerPopover.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
