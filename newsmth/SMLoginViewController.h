@@ -9,5 +9,5 @@
 #import "SMViewController.h"
 
 @interface SMLoginViewController : SMViewController
-
+- (void)setAfterLoginTarget:(id)target selector:(SEL)aSelector;
 @end

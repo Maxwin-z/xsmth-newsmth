@@ -7,13 +7,18 @@
 //
 
 #import "SMViewController.h"
+#import "SMLoginViewController.h"
 
 @interface SMViewController ()
 @property (assign, nonatomic) CGFloat keyboardHeight;
 
+@property (assign, nonatomic) SEL selectorAfterLogin;
+
 @property (strong, nonatomic) IBOutlet UIView *viewForPopover;
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewForPopoverBg;
 @property (weak, nonatomic) IBOutlet UILabel *labelForPoperoverMessage;
+
+//@property (strong, nonatomic) SMLoginViewController *loginViewController;
 
 @end
 
@@ -49,6 +54,14 @@
 - (void)hideToast
 {
     [_viewForPopover removeFromSuperview];
+}
+
+- (void)performSelectorAfterLogin:(SEL)aSelector
+{
+    SMLoginViewController *loginVc = [[SMLoginViewController alloc] init];
+    [loginVc setAfterLoginTarget:self selector:aSelector];
+    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:loginVc];
+    [self presentModalViewController:nvc animated:YES];
 }
 
 - (void)dealloc

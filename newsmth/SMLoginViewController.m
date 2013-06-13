@@ -13,6 +13,9 @@
 @property (weak, nonatomic) IBOutlet UITextField *textFieldForPassword;
 
 @property (strong, nonatomic) SMWebLoaderOperation *loginOp;
+
+@property (strong, nonatomic) id afterLoginTarget;
+@property (assign, nonatomic) SEL afterLoginSelector;
 @end
 
 @implementation SMLoginViewController
@@ -27,6 +30,12 @@
 - (void)dealloc
 {
     [_loginOp cancel];
+}
+
+- (void)setAfterLoginTarget:(id)target selector:(SEL)aSelector
+{
+    _afterLoginTarget = target;
+    _afterLoginSelector = aSelector;
 }
 
 - (void)dismiss
@@ -51,6 +60,9 @@
 {
     if ([[SMAccountManager instance] isLogin]) {
         [self dismiss];
+        if (_afterLoginTarget) {
+            SuppressPerformSelectorLeakWarning([_afterLoginTarget performSelector:_afterLoginSelector]);
+        }
     }
 }
 

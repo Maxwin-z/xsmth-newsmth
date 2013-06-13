@@ -15,4 +15,5 @@
 
 @interface SMViewController : UIViewController
 - (void)toast:(NSString *)message;
+- (void)performSelectorAfterLogin:(SEL)aSelector;
 @end
