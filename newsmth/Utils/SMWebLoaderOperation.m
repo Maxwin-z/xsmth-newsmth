@@ -31,6 +31,7 @@
 {
     _request = request;
     _parser = parser;
+    _url = _request.url.absoluteString;
     [[SMWebLoaderOperationQueue sharedInstance] addOperation:self];
 }
 
@@ -51,7 +52,6 @@
         _request = [[SMHttpRequest alloc] initWithURL:url];
     }
     
-    _url = _request.url.absoluteString;
     _request.delegate = self;
     
     XLog_d(@"url[%@] start", _url);
@@ -111,7 +111,7 @@
 #pragma mark - debug
 - (void)cancel
 {
-    XLog_e(@"req cancel");
+    XLog_e(@"req cancel [%@]", _url);
     [super cancel];
     _delegate = nil;
     [_request clearDelegatesAndCancel];

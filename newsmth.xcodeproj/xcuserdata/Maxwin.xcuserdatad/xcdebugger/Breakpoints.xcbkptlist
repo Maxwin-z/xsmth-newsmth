@@ -7,52 +7,26 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "newsmth/postgroup/cells/SMPostGroupAttachCell.m"
-         timestampString = "392613212.770294"
+         filePath = "newsmth/SMAccountManager.m"
+         timestampString = "392869492.229024"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "21"
-         endingLineNumber = "21"
-         landmarkName = "+cellHeight:"
+         startingLineNumber = "93"
+         endingLineNumber = "93"
+         landmarkName = "-loadCookie"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "newsmth/SMLoginViewController.m"
-         timestampString = "392809396.893486"
+         filePath = "newsmth/SMAccountManager.m"
+         timestampString = "392870634.012269"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "62"
          endingLineNumber = "62"
-         landmarkName = "-webLoaderOperationFinished:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "newsmth/board/SMBoardCell.m"
-         timestampString = "392821887.654049"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "48"
-         endingLineNumber = "48"
-         landmarkName = "-setPost:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "newsmth/board/SMBoardViewController.m"
-         timestampString = "392822644.488308"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "132"
-         endingLineNumber = "132"
-         landmarkName = "-webLoaderOperationFinished:"
+         landmarkName = "-setCookies:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

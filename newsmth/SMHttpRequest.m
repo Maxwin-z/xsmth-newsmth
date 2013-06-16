@@ -38,6 +38,7 @@
 {
     [super setDelegate:self];
     self.requestCookies = [[SMAccountManager instance].cookies mutableCopy];
+    XLog_d(@"%@", self.requestCookies);
 }
 
 #pragma mark - ASIHTTPRequestDelegate
@@ -45,7 +46,7 @@
 {
 //    XLog_d(@"%@", request_.responseCookies);
     // handle response header. update account status
-    [[SMAccountManager instance] setCookies:request_.requestCookies];
+    [[SMAccountManager instance] setCookies:request_.responseCookies];
     
     if ([_originalDelegate respondsToSelector:@selector(request:didReceiveResponseHeaders:)]) {
         [_originalDelegate request:request_ didReceiveResponseHeaders:responseHeaders_];
