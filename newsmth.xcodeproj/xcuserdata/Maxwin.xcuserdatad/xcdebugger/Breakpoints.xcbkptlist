@@ -8,25 +8,25 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "newsmth/SMAccountManager.m"
-         timestampString = "392869492.229024"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "93"
-         endingLineNumber = "93"
-         landmarkName = "-loadCookie"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "newsmth/SMAccountManager.m"
          timestampString = "392870634.012269"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "62"
          endingLineNumber = "62"
          landmarkName = "-setCookies:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "newsmth/Common/XImageView.m"
+         timestampString = "393074289.45783"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "49"
+         endingLineNumber = "49"
+         landmarkName = "-setUrl:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

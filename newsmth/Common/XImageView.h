@@ -18,5 +18,6 @@
 @interface XImageView : UIImageView
 @property (weak, nonatomic) id<XImageViewDelegate> delegate;
 @property (strong, nonatomic) NSString *url;
+@property (strong, nonatomic) UIImage *defaultImage;
 //@property (assign, nonatomic) 
 @end

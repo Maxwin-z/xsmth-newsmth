@@ -29,12 +29,27 @@ static NSOperationQueue *downloadQueue;
     return downloadQueue;
 }
 
+- (void)dealloc
+{
+    _labelForProgress = nil;
+    [_downloadRequest clearDelegatesAndCancel];
+}
+
 - (void)setUrl:(NSString *)url
 {
     if ([_url isEqualToString:url]) {
         return;
     }
     _url = url;
+    
+    // show default image;
+    if (_defaultImage == nil) {
+        _defaultImage = [UIImage imageNamed:@"placeholder"];
+    }
+    self.image = _defaultImage;
+    
+//    self.backgroundColor = [UIColor lightGrayColor];
+    
     if ([[XImageViewCache sharedInstance] isInCache:url]) {
         __block NSString *currentUrl = [url copy];
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -90,14 +105,15 @@ static NSOperationQueue *downloadQueue;
 {
     if (_labelForProgress == nil) {
         _labelForProgress = [[UILabel alloc] initWithFrame:self.bounds];
+        _labelForProgress.backgroundColor = [UIColor clearColor];
         _labelForProgress.textAlignment = UITextAlignmentCenter;
-        _labelForProgress.textColor = [UIColor darkGrayColor];
+        _labelForProgress.textColor = [UIColor whiteColor];
         _labelForProgress.font = [UIFont systemFontOfSize:12.0f];
         _labelForProgress.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [self addSubview:_labelForProgress];
     }
     _labelForProgress.hidden = NO;
-    _labelForProgress.text = [NSString stringWithFormat:@"%.2f%%", progress * 100];
+    _labelForProgress.text = [NSString stringWithFormat:@"%d%%", (int)(progress * 100)];
 }
 
 @end

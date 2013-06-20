@@ -46,7 +46,7 @@
 - (IBAction)onLoginButtonClick:(id)sender
 {
     SMHttpRequest *request = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:@"http://m.newsmth.net/user/login"]];
-    NSString *postBody = [NSString stringWithFormat:@"id=%@&passwd=%@", _textFieldForUsername.text, _textFieldForPassword.text];
+    NSString *postBody = [NSString stringWithFormat:@"id=%@&passwd=%@&save=on", _textFieldForUsername.text, _textFieldForPassword.text];
     [request setRequestMethod:@"POST"];
     [request addRequestHeader:@"Content-type" value:@"application/x-www-form-urlencoded"];
     [request setPostBody:[[postBody dataUsingEncoding:NSUTF8StringEncoding] mutableCopy]];
