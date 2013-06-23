@@ -22,7 +22,7 @@
     if (image) {
         return image.size.height * 300.0f / image.size.width + 20.0f;
     }
-    return 180.0f;
+    return 187.5f;
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier

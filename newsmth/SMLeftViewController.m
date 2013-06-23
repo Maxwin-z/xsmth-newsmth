@@ -35,6 +35,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    _tableView.transform = CGAffineTransformRotate(CGAffineTransformIdentity, M_PI);
 }
 
 - (void)onAccountNotification
@@ -53,6 +54,7 @@
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell_id"];
     NSString *user = [SMAccountManager instance].name;
     cell.textLabel.text = indexPath.row == 0 ? (user == nil ? @"guest" : user) : @"收藏";
+    cell.transform = CGAffineTransformRotate(CGAffineTransformIdentity, M_PI);
     return cell;
 }
 

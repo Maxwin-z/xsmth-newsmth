@@ -44,7 +44,7 @@ static NSOperationQueue *downloadQueue;
     
     // show default image;
     if (_defaultImage == nil) {
-        _defaultImage = [UIImage imageNamed:@"placeholder"];
+        _defaultImage = [UIImage imageNamed:@"placeholder.jpg"];
     }
     self.image = _defaultImage;
     
@@ -107,7 +107,7 @@ static NSOperationQueue *downloadQueue;
         _labelForProgress = [[UILabel alloc] initWithFrame:self.bounds];
         _labelForProgress.backgroundColor = [UIColor clearColor];
         _labelForProgress.textAlignment = UITextAlignmentCenter;
-        _labelForProgress.textColor = [UIColor whiteColor];
+        _labelForProgress.textColor = [UIColor blackColor];
         _labelForProgress.font = [UIFont systemFontOfSize:12.0f];
         _labelForProgress.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [self addSubview:_labelForProgress];
