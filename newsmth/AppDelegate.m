@@ -34,8 +34,6 @@
 //    _viewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
 //    self.window.rootViewController = _viewController;
     
-    [[SMAccountManager instance] loadCookie];
-    
     _mainViewController = [[SMMainViewController alloc] init];
     self.window.rootViewController = _mainViewController;
     

@@ -37,7 +37,7 @@
 - (void)setup
 {
     [super setDelegate:self];
-    self.requestCookies = [[SMAccountManager instance].cookies mutableCopy];
+//    self.requestCookies = [[SMAccountManager instance].cookies mutableCopy];
     XLog_d(@"%@", self.requestCookies);
 }
 
