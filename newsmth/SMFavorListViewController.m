@@ -41,6 +41,14 @@ static SMFavorListViewController *_instance;
     [self accountChanged];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    NSIndexPath *indexPath = [_tableView indexPathForSelectedRow];
+    if (indexPath) {
+        [_tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
+}
+
 - (void)accountChanged
 {
     if ([SMAccountManager instance].isLogin) {

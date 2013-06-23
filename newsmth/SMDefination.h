@@ -27,5 +27,7 @@ typedef enum {
 }SMNetworkErrorCode;
 
 
+#define USERDEFAULTS_USERNAME   @"username"
+#define USERDEFAULTS_PASSWORD   @"password"
 
 #endif

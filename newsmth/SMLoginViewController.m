@@ -25,6 +25,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonItemStyleDone target:self action:@selector(dismiss)];
+    
+    _textFieldForUsername.text = [[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_USERNAME];
+    _textFieldForPassword.text = [[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_PASSWORD];
 }
 
 - (void)dealloc
@@ -59,6 +62,9 @@
 - (void)webLoaderOperationFinished:(SMWebLoaderOperation *)opt
 {
     if ([[SMAccountManager instance] isLogin]) {
+        // save user & password
+        [[NSUserDefaults standardUserDefaults] setObject:_textFieldForUsername.text forKey:USERDEFAULTS_USERNAME];
+        [[NSUserDefaults standardUserDefaults] setObject:_textFieldForPassword.text forKey:USERDEFAULTS_PASSWORD];
         [self dismiss];
         if (_afterLoginTarget) {
             SuppressPerformSelectorLeakWarning([_afterLoginTarget performSelector:_afterLoginSelector]);
