@@ -7,6 +7,7 @@
 //
 
 #import "SMWritePostViewController.h"
+#import "SMWriteResult.h"
 
 @interface SMWritePostViewController ()<SMWebLoaderOperationDelegate>
 @property (weak, nonatomic) IBOutlet UIView *viewForContainer;
@@ -96,12 +97,18 @@
 
 - (void)webLoaderOperationFinished:(SMWebLoaderOperation *)opt
 {
-    
+    SMWriteResult *result = opt.data;
+    if (result.success) {
+        [self toast:@"发表成功"];
+    } else {
+        [self toast:@"发表失败"];
+    }
+    [self performSelector:@selector(cancel) withObject:nil afterDelay:TOAST_DURTAION + 0.1];
 }
 
 - (void)webLoaderOperationFail:(SMWebLoaderOperation *)opt error:(SMMessage *)error
 {
-    
+    [self toast:error.message];
 }
 
 @end

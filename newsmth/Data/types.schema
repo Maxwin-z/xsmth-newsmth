@@ -17,7 +17,7 @@ SMPost {
     string replyAuthor
     long replyDate
     int replyCount
-    bool isTop;
+    bool isTop
 	SMAttach[] attaches
 }
 
@@ -46,4 +46,8 @@ SMBoard {
 
 SMFavor {
 	SMBoard[] boards
+}
+
+SMWriteResult {
+	bool success
 }

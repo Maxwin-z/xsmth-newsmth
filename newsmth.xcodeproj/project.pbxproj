@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C1011D8E17787DA400E0485D /* SMWriteResult.m in Sources */ = {isa = PBXBuildFile; fileRef = C1011D8D17787DA400E0485D /* SMWriteResult.m */; };
+		C1011D9017787E7E00E0485D /* bbssnd.js in Resources */ = {isa = PBXBuildFile; fileRef = C1011D8F17787E7E00E0485D /* bbssnd.js */; };
 		C10D16081755E7A0002D6FAD /* SMWebLoaderOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C10D16071755E7A0002D6FAD /* SMWebLoaderOperation.m */; };
 		C10D160B1755EFEE002D6FAD /* SMWebLoaderOperationQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = C10D160A1755EFEE002D6FAD /* SMWebLoaderOperationQueue.m */; };
 		C10D160E1755FBFE002D6FAD /* mainpage.js in Resources */ = {isa = PBXBuildFile; fileRef = C10D160C1755FBF5002D6FAD /* mainpage.js */; };
@@ -110,6 +112,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C1011D8C17787DA400E0485D /* SMWriteResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMWriteResult.h; sourceTree = "<group>"; };
+		C1011D8D17787DA400E0485D /* SMWriteResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMWriteResult.m; sourceTree = "<group>"; };
+		C1011D8F17787E7E00E0485D /* bbssnd.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = bbssnd.js; sourceTree = "<group>"; };
 		C10D16051755D552002D6FAD /* SMDefination.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMDefination.h; sourceTree = "<group>"; };
 		C10D16061755E7A0002D6FAD /* SMWebLoaderOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMWebLoaderOperation.h; sourceTree = "<group>"; };
 		C10D16071755E7A0002D6FAD /* SMWebLoaderOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMWebLoaderOperation.m; sourceTree = "<group>"; };
@@ -306,6 +311,7 @@
 		C121F2991750EE790081FD87 /* jsParser */ = {
 			isa = PBXGroup;
 			children = (
+				C1011D8F17787E7E00E0485D /* bbssnd.js */,
 				C19018E71769FBCA0098150A /* board.js */,
 				C19FF0BC1769CA4A00EB6F7E /* favor.js */,
 				C144B68E1768C62500DA2958 /* login.js */,
@@ -591,6 +597,8 @@
 		C1E628931764BAD4007ACF2A /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				C1011D8C17787DA400E0485D /* SMWriteResult.h */,
+				C1011D8D17787DA400E0485D /* SMWriteResult.m */,
 				C19FF0B61769CA0F00EB6F7E /* SMBoard.h */,
 				C19FF0B71769CA0F00EB6F7E /* SMBoard.m */,
 				C19FF0B81769CA0F00EB6F7E /* SMFavor.h */,
@@ -687,6 +695,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1011D9017787E7E00E0485D /* bbssnd.js in Resources */,
 				C19018E81769FBCA0098150A /* board.js in Resources */,
 				C19FF0BD1769CA4A00EB6F7E /* favor.js in Resources */,
 				C19FF0AF1769A4F000EB6F7E /* login.js in Resources */,
@@ -798,6 +807,7 @@
 				C1B581F3177723F500441299 /* SMWritePostViewController.m in Sources */,
 				C1CC1B40177857FB00FC63A8 /* P2PNavigationController.m in Sources */,
 				C1CC1B41177857FB00FC63A8 /* P2PViewController.m in Sources */,
+				C1011D8E17787DA400E0485D /* SMWriteResult.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

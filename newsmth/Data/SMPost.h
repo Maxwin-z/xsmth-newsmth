@@ -13,6 +13,6 @@
 @property (strong, nonatomic) NSString* replyAuthor;
 @property (assign, nonatomic) long long replyDate;
 @property (assign, nonatomic) int replyCount;
-@property (strong, nonatomic) NSArray* isTop;;
+@property (assign, nonatomic) BOOL isTop;
 @property (strong, nonatomic) NSArray* attaches;
 @end

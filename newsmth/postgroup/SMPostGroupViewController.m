@@ -336,6 +336,15 @@ typedef enum {
 - (void)webLoaderOperationFail:(SMWebLoaderOperation *)opt error:(SMMessage *)error
 {
     XLog_e(@"%@", error);
+    if (opt == _pageOp) {
+        if (_pno == 1) {
+            [self.tableView endRefreshing:NO];
+        } else {
+            [self.tableView setLoadMoreFail];
+        }
+    } else {
+        [self makeupCellDatas];
+    }
 }
 
 #pragma mark - SMPostGroupHeaderCellDelegate

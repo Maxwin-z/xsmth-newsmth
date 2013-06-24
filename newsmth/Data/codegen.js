@@ -10,6 +10,13 @@ var primyTypeTpl = '\
 }\n\
 ';
 
+var boolTypeTpl = '\
+- (BOOL)${name}\n\
+{\n\
+	return [[self.dict objectForKey:@"${name}"] boolValue];\n\
+}\n\
+';
+
 var longTypeTpl = '\
 - (long long)${name}\n\
 {\n\
@@ -72,6 +79,10 @@ while ((match = regex.exec(schema)) != null) {
 				tpl = primyTypeTpl;
 				propType = type;
 				propReferStrong = false;
+			} else if (type == 'bool') {
+				tpl = boolTypeTpl;
+				propType = 'BOOL';
+				propReferStrong = false;
 			} else if (type == 'long') {
 				tpl = longTypeTpl;
 				propType = 'long long';
@@ -79,7 +90,7 @@ while ((match = regex.exec(schema)) != null) {
 			} else if (type == 'string') {
 				tpl = stringTypeTpl;
 				propType = "NSString*";
-			} else if (type.indexOf('[]') !== false) {
+			} else if (type.indexOf('[]') !== -1) {
 				tpl = arrTypeTpl;
 				propType = "NSArray*";
 			} else {

@@ -61,15 +61,9 @@
 	return [[self.dict objectForKey:@"replyCount"] intValue];
 }
 
-- (NSArray *)isTop;
+- (BOOL)isTop
 {
-	NSArray *objs = [self.dict objectForKey:@"isTop;"];
-	NSMutableArray *res = [[NSMutableArray alloc] init];
-	for (int i = 0; i != objs.count; ++i) {
-		SMBaseData *data = [[SMBaseData alloc] initWithData:objs[i]];
-		[res addObject:data];
-	}
-	return res;
+	return [[self.dict objectForKey:@"isTop"] boolValue];
 }
 
 - (NSArray *)attaches
