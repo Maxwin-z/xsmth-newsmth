@@ -53,6 +53,15 @@
     _backMaskerView.hidden = YES;
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    _backImageView.frame = self.view.frame;
+    _backMaskerView.frame = self.view.frame;
+    _backImageView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0f, 1.0f);
+    _backMaskerView.backgroundColor = [UIColor clearColor];
+}
+
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
     UIImage *image = [self captureView:self.view];
@@ -88,6 +97,9 @@
             _lastPanX = pan.x;
             P2PViewController *vc = self.viewControllers[self.viewControllers.count  - 2];
             [self setBackImage:vc.captureImage];
+            
+            _backImageView.hidden = NO;
+            _backMaskerView.hidden = NO;
         }
         return begin;
     }
@@ -110,6 +122,8 @@
     
     CGFloat scale = 1 - (totalWidth - currentX) * (1 - BACK_IMAGE_SCALE) / totalWidth;
     _backImageView.transform = CGAffineTransformScale(CGAffineTransformIdentity, scale, scale);
+    
+    XLog_d(@"%@", _backImageView);
     
     CGFloat alpha = 1 - (totalWidth - currentX) * (1 - BACK_MASKER_ALPHA) / totalWidth;
     _backMaskerView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1 - alpha];
@@ -171,6 +185,7 @@
 
 - (void)setBackImage:(UIImage *)image
 {
+    XLog_d(@"%d", _backImageView.hidden);
     _backImageView.image = image;
 }
 
