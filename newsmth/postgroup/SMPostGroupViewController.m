@@ -12,6 +12,8 @@
 #import "SMPost.h"
 #import "SMAttach.h"
 #import "SMPostGroup.h"
+#import "SMWritePostViewController.h"
+#import "SMNavigationController.h"
 
 #import "SMPostGroupHeaderCell.h"
 #import "SMPostGroupContentCell.h"
@@ -46,7 +48,7 @@ typedef enum {
 @end
 
 ////////////////////////////////////////////////
-@interface SMPostGroupViewController ()<UITableViewDataSource, UITableViewDelegate, XPullRefreshTableViewDelegate, SMWebLoaderOperationDelegate, XImageViewDelegate>
+@interface SMPostGroupViewController ()<UITableViewDataSource, UITableViewDelegate, XPullRefreshTableViewDelegate, SMWebLoaderOperationDelegate, XImageViewDelegate, SMPostGroupHeaderCellDelegate>
 @property (weak, nonatomic) IBOutlet XPullRefreshTableView *tableView;
 
 // data
@@ -223,6 +225,7 @@ typedef enum {
     SMPostGroupHeaderCell *cell = (SMPostGroupHeaderCell *)[self.tableView dequeueReusableCellWithIdentifier:cellid];
     if (cell == nil) {
         cell = [[SMPostGroupHeaderCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
+        cell.delegate = self;
     }
     cell.post = data.item.post;
     return cell;
@@ -335,5 +338,13 @@ typedef enum {
     XLog_e(@"%@", error);
 }
 
+#pragma mark - SMPostGroupHeaderCellDelegate
+- (void)postGroupHeaderCellOnReply:(SMPost *)post
+{
+    SMWritePostViewController *writeViewController = [[SMWritePostViewController alloc] init];
+    writeViewController.post = post;
+    SMNavigationController *nvc = [[SMNavigationController alloc] initWithRootViewController:writeViewController];
+    [self.navigationController presentModalViewController:nvc animated:YES];
+}
 
 @end

@@ -43,4 +43,9 @@
     }
 }
 
+- (IBAction)onReplyButtonClick:(id)sender
+{
+    [_delegate postGroupHeaderCellOnReply:_post];
+}
+
 @end
