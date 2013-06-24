@@ -13,7 +13,7 @@
 
 #define TOAST_DURTAION  1.0f
 
-@interface SMViewController : UIViewController
+@interface SMViewController : P2PViewController
 - (void)toast:(NSString *)message;
 - (void)performSelectorAfterLogin:(SEL)aSelector;
 @end

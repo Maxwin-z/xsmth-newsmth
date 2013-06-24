@@ -13,7 +13,7 @@
 #import "SMAttach.h"
 #import "SMPostGroup.h"
 #import "SMWritePostViewController.h"
-#import "SMNavigationController.h"
+#import "P2PNavigationController.h"
 
 #import "SMPostGroupHeaderCell.h"
 #import "SMPostGroupContentCell.h"
@@ -343,7 +343,7 @@ typedef enum {
 {
     SMWritePostViewController *writeViewController = [[SMWritePostViewController alloc] init];
     writeViewController.post = post;
-    SMNavigationController *nvc = [[SMNavigationController alloc] initWithRootViewController:writeViewController];
+    P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:writeViewController];
     [self.navigationController presentModalViewController:nvc animated:YES];
 }
 

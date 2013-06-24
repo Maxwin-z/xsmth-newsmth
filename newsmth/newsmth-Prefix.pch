@@ -15,4 +15,6 @@
 #import "SMDefination.h"
 #import "SMMessage.h"
 #import "SMHttpRequest.h"
+#import "P2PNavigationController.h"
+#import "P2PViewController.h"
 #endif

@@ -31,7 +31,6 @@
 		C167143B1766D01700F56535 /* XPullRefreshTableViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = C167143A1766D01700F56535 /* XPullRefreshTableViewHeader.xib */; };
 		C167143D1766D02100F56535 /* XPullRefreshTableViewFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = C167143C1766D02100F56535 /* XPullRefreshTableViewFooter.xib */; };
 		C1671441176766FD00F56535 /* SMMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1671440176766FD00F56535 /* SMMainViewController.m */; };
-		C16714471767811500F56535 /* SMNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C16714461767811500F56535 /* SMNavigationController.m */; };
 		C185CD3A1766285900BD3714 /* SMPostGroupContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C185CD391766285900BD3714 /* SMPostGroupContentCell.m */; };
 		C185CD3C1766286100BD3714 /* SMPostGroupContentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C185CD3B1766286100BD3714 /* SMPostGroupContentCell.xib */; };
 		C185CD3F17662BAF00BD3714 /* SMPostGroupAttachCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C185CD3E17662BAE00BD3714 /* SMPostGroupAttachCell.m */; };
@@ -89,6 +88,8 @@
 		C1BFB9C9174F6F5C0092FD2E /* ASIInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = C1BFB938174F6F5B0092FD2E /* ASIInputStream.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C1BFB9CA174F6F5C0092FD2E /* ASINetworkQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = C1BFB93A174F6F5B0092FD2E /* ASINetworkQueue.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C1BFB9EA174F6F5C0092FD2E /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = C1BFB980174F6F5B0092FD2E /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C1CC1B40177857FB00FC63A8 /* P2PNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1CC1B3C177857FB00FC63A8 /* P2PNavigationController.m */; };
+		C1CC1B41177857FB00FC63A8 /* P2PViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1CC1B3F177857FB00FC63A8 /* P2PViewController.m */; };
 		C1E6289B1764BAD4007ACF2A /* SMAttach.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E628961764BAD4007ACF2A /* SMAttach.m */; };
 		C1E6289C1764BAD4007ACF2A /* SMPost.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E628981764BAD4007ACF2A /* SMPost.m */; };
 		C1E6289D1764BAD4007ACF2A /* types.schema in Resources */ = {isa = PBXBuildFile; fileRef = C1E628991764BAD4007ACF2A /* types.schema */; };
@@ -149,8 +150,6 @@
 		C167143C1766D02100F56535 /* XPullRefreshTableViewFooter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XPullRefreshTableViewFooter.xib; sourceTree = "<group>"; };
 		C167143F176766FD00F56535 /* SMMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMMainViewController.h; sourceTree = "<group>"; };
 		C1671440176766FD00F56535 /* SMMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMMainViewController.m; sourceTree = "<group>"; };
-		C16714451767811500F56535 /* SMNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMNavigationController.h; sourceTree = "<group>"; };
-		C16714461767811500F56535 /* SMNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMNavigationController.m; sourceTree = "<group>"; };
 		C185CD381766285900BD3714 /* SMPostGroupContentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMPostGroupContentCell.h; sourceTree = "<group>"; };
 		C185CD391766285900BD3714 /* SMPostGroupContentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMPostGroupContentCell.m; sourceTree = "<group>"; };
 		C185CD3B1766286100BD3714 /* SMPostGroupContentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMPostGroupContentCell.xib; sourceTree = "<group>"; };
@@ -239,6 +238,10 @@
 		C1BFB93B174F6F5B0092FD2E /* ASIProgressDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIProgressDelegate.h; sourceTree = "<group>"; };
 		C1BFB97F174F6F5B0092FD2E /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		C1BFB980174F6F5B0092FD2E /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		C1CC1B3C177857FB00FC63A8 /* P2PNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P2PNavigationController.m; sourceTree = "<group>"; };
+		C1CC1B3D177857FB00FC63A8 /* P2PNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P2PNavigationController.h; sourceTree = "<group>"; };
+		C1CC1B3E177857FB00FC63A8 /* P2PViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P2PViewController.h; sourceTree = "<group>"; };
+		C1CC1B3F177857FB00FC63A8 /* P2PViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P2PViewController.m; sourceTree = "<group>"; };
 		C1E628941764BAD4007ACF2A /* codegen.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = codegen.js; sourceTree = "<group>"; };
 		C1E628951764BAD4007ACF2A /* SMAttach.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMAttach.h; sourceTree = "<group>"; };
 		C1E628961764BAD4007ACF2A /* SMAttach.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMAttach.m; sourceTree = "<group>"; };
@@ -287,6 +290,10 @@
 		C10D161B175617D4002D6FAD /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				C1CC1B3D177857FB00FC63A8 /* P2PNavigationController.h */,
+				C1CC1B3C177857FB00FC63A8 /* P2PNavigationController.m */,
+				C1CC1B3E177857FB00FC63A8 /* P2PViewController.h */,
+				C1CC1B3F177857FB00FC63A8 /* P2PViewController.m */,
 				C16714361766CFED00F56535 /* XPullRefreshTableView */,
 				C191281B17586DDF005AC60F /* XImageView.h */,
 				C191281C17586DDF005AC60F /* XImageView.m */,
@@ -473,8 +480,6 @@
 				C1AE913F175A24AF0084C618 /* SMErrorView.xib */,
 				C167143F176766FD00F56535 /* SMMainViewController.h */,
 				C1671440176766FD00F56535 /* SMMainViewController.m */,
-				C16714451767811500F56535 /* SMNavigationController.h */,
-				C16714461767811500F56535 /* SMNavigationController.m */,
 				C11581601768285C008A421A /* SMLeftViewController.h */,
 				C11581611768285C008A421A /* SMLeftViewController.m */,
 				C115815F1768285C008A421A /* SMLeftViewController.xib */,
@@ -783,7 +788,6 @@
 				C185CD3F17662BAF00BD3714 /* SMPostGroupAttachCell.m in Sources */,
 				C16714391766CFED00F56535 /* XPullRefreshTableView.m in Sources */,
 				C1671441176766FD00F56535 /* SMMainViewController.m in Sources */,
-				C16714471767811500F56535 /* SMNavigationController.m in Sources */,
 				C11581631768285C008A421A /* SMLeftViewController.m in Sources */,
 				C1158168176851B6008A421A /* SMFavorListViewController.m in Sources */,
 				C115816D17685606008A421A /* SMLoginViewController.m in Sources */,
@@ -792,6 +796,8 @@
 				C19FF0C21769CEC700EB6F7E /* SMBoardViewController.m in Sources */,
 				C19FF0C61769D0DC00EB6F7E /* SMBoardCell.m in Sources */,
 				C1B581F3177723F500441299 /* SMWritePostViewController.m in Sources */,
+				C1CC1B40177857FB00FC63A8 /* P2PNavigationController.m in Sources */,
+				C1CC1B41177857FB00FC63A8 /* P2PViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
