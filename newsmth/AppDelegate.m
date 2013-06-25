@@ -35,10 +35,17 @@
     [[GAI sharedInstance] trackerWithTrackingId:@"UA-41978299-1"];
 }
 
+- (void)setupTheme
+{
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"common_titlebar_bg"] forBarMetrics:UIBarMetricsDefault];
+    [[UIBarButtonItem appearance] setTintColor:[UIColor whiteColor]];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+    [self setupTheme];
     
 //    _mainpageViewController = [[SMMainpageViewController alloc] init];
 //    _nvc = [[UINavigationController alloc] initWithRootViewController:_mainpageViewController];
@@ -46,6 +53,7 @@
 //    
 //    _viewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
 //    self.window.rootViewController = _viewController;
+    
     
     _mainViewController = [[SMMainViewController alloc] init];
     self.window.rootViewController = _mainViewController;

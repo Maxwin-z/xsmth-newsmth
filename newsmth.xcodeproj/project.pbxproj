@@ -13,6 +13,11 @@
 		C1011DA01779654900E0485D /* libGoogleAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C1011D9E1779654900E0485D /* libGoogleAnalytics.a */; };
 		C1011DA31779657000E0485D /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1011DA21779657000E0485D /* CoreData.framework */; };
 		C1011DA517796A5400E0485D /* libGoogleAnalytics_debug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C1011DA417796A5400E0485D /* libGoogleAnalytics_debug.a */; };
+		C1011DA717798D8400E0485D /* common_titlebar_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1011DA617798D8400E0485D /* common_titlebar_bg@2x.png */; };
+		C1011DAC1779946600E0485D /* UIButton+Custom.m in Sources */ = {isa = PBXBuildFile; fileRef = C1011DAB1779946600E0485D /* UIButton+Custom.m */; };
+		C1011DB01779988800E0485D /* button_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1011DAD1779988800E0485D /* button_back@2x.png */; };
+		C1011DB11779988800E0485D /* button_compose@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1011DAE1779988800E0485D /* button_compose@2x.png */; };
+		C1011DB21779988800E0485D /* button_reply.png in Resources */ = {isa = PBXBuildFile; fileRef = C1011DAF1779988800E0485D /* button_reply.png */; };
 		C10D16081755E7A0002D6FAD /* SMWebLoaderOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C10D16071755E7A0002D6FAD /* SMWebLoaderOperation.m */; };
 		C10D160B1755EFEE002D6FAD /* SMWebLoaderOperationQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = C10D160A1755EFEE002D6FAD /* SMWebLoaderOperationQueue.m */; };
 		C10D160E1755FBFE002D6FAD /* mainpage.js in Resources */ = {isa = PBXBuildFile; fileRef = C10D160C1755FBF5002D6FAD /* mainpage.js */; };
@@ -129,6 +134,12 @@
 		C1011D9E1779654900E0485D /* libGoogleAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalytics.a; sourceTree = "<group>"; };
 		C1011DA21779657000E0485D /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		C1011DA417796A5400E0485D /* libGoogleAnalytics_debug.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalytics_debug.a; sourceTree = "<group>"; };
+		C1011DA617798D8400E0485D /* common_titlebar_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "common_titlebar_bg@2x.png"; sourceTree = "<group>"; };
+		C1011DAA1779946600E0485D /* UIButton+Custom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Custom.h"; sourceTree = "<group>"; };
+		C1011DAB1779946600E0485D /* UIButton+Custom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Custom.m"; sourceTree = "<group>"; };
+		C1011DAD1779988800E0485D /* button_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_back@2x.png"; sourceTree = "<group>"; };
+		C1011DAE1779988800E0485D /* button_compose@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_compose@2x.png"; sourceTree = "<group>"; };
+		C1011DAF1779988800E0485D /* button_reply.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_reply.png; sourceTree = "<group>"; };
 		C10D16051755D552002D6FAD /* SMDefination.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMDefination.h; sourceTree = "<group>"; };
 		C10D16061755E7A0002D6FAD /* SMWebLoaderOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMWebLoaderOperation.h; sourceTree = "<group>"; };
 		C10D16071755E7A0002D6FAD /* SMWebLoaderOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMWebLoaderOperation.m; sourceTree = "<group>"; };
@@ -335,6 +346,8 @@
 				C191281C17586DDF005AC60F /* XImageView.m */,
 				C191283B17588501005AC60F /* XImageViewCache.h */,
 				C191283C17588501005AC60F /* XImageViewCache.m */,
+				C1011DAA1779946600E0485D /* UIButton+Custom.h */,
+				C1011DAB1779946600E0485D /* UIButton+Custom.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -387,6 +400,10 @@
 		C19FF0B01769A71B00EB6F7E /* images */ = {
 			isa = PBXGroup;
 			children = (
+				C1011DAD1779988800E0485D /* button_back@2x.png */,
+				C1011DAE1779988800E0485D /* button_compose@2x.png */,
+				C1011DAF1779988800E0485D /* button_reply.png */,
+				C1011DA617798D8400E0485D /* common_titlebar_bg@2x.png */,
 				C13D4123176DD5EC00BD03A4 /* placeholder@2x.jpg */,
 				C19FF0B11769A71C00EB6F7E /* popup_bg@2x.png */,
 			);
@@ -762,6 +779,10 @@
 				C13D4122176DCD5100BD03A4 /* icon@2x.png in Resources */,
 				C13D4124176DD5EC00BD03A4 /* placeholder@2x.jpg in Resources */,
 				C1B581F4177723F500441299 /* SMWritePostViewController.xib in Resources */,
+				C1011DA717798D8400E0485D /* common_titlebar_bg@2x.png in Resources */,
+				C1011DB01779988800E0485D /* button_back@2x.png in Resources */,
+				C1011DB11779988800E0485D /* button_compose@2x.png in Resources */,
+				C1011DB21779988800E0485D /* button_reply.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -844,6 +865,7 @@
 				C1CC1B41177857FB00FC63A8 /* P2PViewController.m in Sources */,
 				C1011D8E17787DA400E0485D /* SMWriteResult.m in Sources */,
 				C1011D96177946D500E0485D /* SMUtils.m in Sources */,
+				C1011DAC1779946600E0485D /* UIButton+Custom.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,6 +8,7 @@
 
 #import "SMViewController.h"
 #import "SMLoginViewController.h"
+#import "UIButton+Custom.h"
 
 @interface SMViewController ()
 @property (assign, nonatomic) CGFloat keyboardHeight;
@@ -39,11 +40,26 @@
 {
     [super viewDidLoad];
     self.trackedViewName = NSStringFromClass([self class]);
+    
+    // change back icon
+    if (self.navigationController.viewControllers.count > 1) {
+        UIButton *button = [UIButton buttonWithSMType:SMButtonTypeBack];
+        UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+        [button addTarget:self action:@selector(popViewController) forControlEvents:UIControlEventTouchUpInside];
+        
+        self.navigationItem.leftBarButtonItem = backItem;
+        self.navigationItem.hidesBackButton = YES;
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+}
+
+- (void)popViewController
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)toast:(NSString *)message
@@ -71,7 +87,7 @@
 {
     SMLoginViewController *loginVc = [[SMLoginViewController alloc] init];
     [loginVc setAfterLoginTarget:self selector:aSelector];
-    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:loginVc];
+    P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:loginVc];
     [self presentModalViewController:nvc animated:YES];
 }
 
