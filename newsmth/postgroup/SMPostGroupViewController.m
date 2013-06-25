@@ -380,6 +380,10 @@ typedef enum {
 #pragma mark - SMPostGroupHeaderCellDelegate
 - (void)postGroupHeaderCellOnReply:(SMPost *)post
 {
+    if (![SMAccountManager instance].isLogin) {
+        [self performSelectorAfterLogin:nil];
+        return ;
+    }
     SMWritePostViewController *writeViewController = [[SMWritePostViewController alloc] init];
     writeViewController.post = post;
     P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:writeViewController];

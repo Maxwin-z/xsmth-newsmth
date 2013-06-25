@@ -42,14 +42,14 @@
     self.trackedViewName = NSStringFromClass([self class]);
     
     // change back icon
-    if (self.navigationController.viewControllers.count > 1) {
-        UIButton *button = [UIButton buttonWithSMType:SMButtonTypeBack];
-        UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:button];
-        [button addTarget:self action:@selector(popViewController) forControlEvents:UIControlEventTouchUpInside];
-        
-        self.navigationItem.leftBarButtonItem = backItem;
-        self.navigationItem.hidesBackButton = YES;
-    }
+//    if (self.navigationController.viewControllers.count > 1) {
+//        UIButton *button = [UIButton buttonWithSMType:SMButtonTypeBack];
+//        UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+//        [button addTarget:self action:@selector(popViewController) forControlEvents:UIControlEventTouchUpInside];
+//        
+//        self.navigationItem.leftBarButtonItem = backItem;
+//        self.navigationItem.hidesBackButton = YES;
+//    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
