@@ -50,6 +50,8 @@ typedef enum {
 ////////////////////////////////////////////////
 @interface SMPostGroupViewController ()<UITableViewDataSource, UITableViewDelegate, XPullRefreshTableViewDelegate, SMWebLoaderOperationDelegate, XImageViewDelegate, SMPostGroupHeaderCellDelegate>
 @property (weak, nonatomic) IBOutlet XPullRefreshTableView *tableView;
+@property (strong, nonatomic) IBOutlet UIView *tableViewHeader;
+@property (weak, nonatomic) IBOutlet UILabel *labelForTitle;
 
 // data
 @property (strong, nonatomic) NSArray *postItems;
@@ -159,6 +161,16 @@ typedef enum {
 {
     _cellDatas = cellDatas;
     [self.tableView reloadData];
+}
+
+- (void)makeupTableViewHeader:(NSString *)text
+{
+    _labelForTitle.text = text;
+    CGFloat delta = [_labelForTitle.text sizeWithFont:_labelForTitle.font constrainedToSize:CGSizeMake(_labelForTitle.frame.size.width, CGFLOAT_MAX) lineBreakMode:_labelForTitle.lineBreakMode].height - _labelForTitle.frame.size.height;
+    CGRect frame = _tableViewHeader.frame;
+    frame.size.height += delta;
+    _tableViewHeader.frame = frame;
+    _tableView.tableHeaderView = _tableViewHeader;
 }
 
 #pragma mark - UITableViewDataSource/Delegate
@@ -312,6 +324,8 @@ typedef enum {
             [self.tableView endRefreshing:YES];
             tmp = [[NSMutableArray alloc] initWithCapacity:0];
             _bid = postGroup.bid;
+            
+            [self makeupTableViewHeader:postGroup.title];
         } else {
             tmp = [_postItems mutableCopy];
         }
