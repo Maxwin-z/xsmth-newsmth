@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		C1011D8E17787DA400E0485D /* SMWriteResult.m in Sources */ = {isa = PBXBuildFile; fileRef = C1011D8D17787DA400E0485D /* SMWriteResult.m */; };
 		C1011D9017787E7E00E0485D /* bbssnd.js in Resources */ = {isa = PBXBuildFile; fileRef = C1011D8F17787E7E00E0485D /* bbssnd.js */; };
+		C1011D96177946D500E0485D /* SMUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C1011D95177946D500E0485D /* SMUtils.m */; };
+		C1011DA01779654900E0485D /* libGoogleAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C1011D9E1779654900E0485D /* libGoogleAnalytics.a */; };
+		C1011DA31779657000E0485D /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1011DA21779657000E0485D /* CoreData.framework */; };
 		C10D16081755E7A0002D6FAD /* SMWebLoaderOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C10D16071755E7A0002D6FAD /* SMWebLoaderOperation.m */; };
 		C10D160B1755EFEE002D6FAD /* SMWebLoaderOperationQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = C10D160A1755EFEE002D6FAD /* SMWebLoaderOperationQueue.m */; };
 		C10D160E1755FBFE002D6FAD /* mainpage.js in Resources */ = {isa = PBXBuildFile; fileRef = C10D160C1755FBF5002D6FAD /* mainpage.js */; };
@@ -115,6 +118,15 @@
 		C1011D8C17787DA400E0485D /* SMWriteResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMWriteResult.h; sourceTree = "<group>"; };
 		C1011D8D17787DA400E0485D /* SMWriteResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMWriteResult.m; sourceTree = "<group>"; };
 		C1011D8F17787E7E00E0485D /* bbssnd.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = bbssnd.js; sourceTree = "<group>"; };
+		C1011D94177946D500E0485D /* SMUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMUtils.h; sourceTree = "<group>"; };
+		C1011D95177946D500E0485D /* SMUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMUtils.m; sourceTree = "<group>"; };
+		C1011D991779654900E0485D /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAI.h; sourceTree = "<group>"; };
+		C1011D9A1779654900E0485D /* GAITrackedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITrackedViewController.h; sourceTree = "<group>"; };
+		C1011D9B1779654900E0485D /* GAITracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITracker.h; sourceTree = "<group>"; };
+		C1011D9C1779654900E0485D /* GAITransaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITransaction.h; sourceTree = "<group>"; };
+		C1011D9D1779654900E0485D /* GAITransactionItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITransactionItem.h; sourceTree = "<group>"; };
+		C1011D9E1779654900E0485D /* libGoogleAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalytics.a; sourceTree = "<group>"; };
+		C1011DA21779657000E0485D /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		C10D16051755D552002D6FAD /* SMDefination.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMDefination.h; sourceTree = "<group>"; };
 		C10D16061755E7A0002D6FAD /* SMWebLoaderOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMWebLoaderOperation.h; sourceTree = "<group>"; };
 		C10D16071755E7A0002D6FAD /* SMWebLoaderOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMWebLoaderOperation.m; sourceTree = "<group>"; };
@@ -268,6 +280,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1011DA31779657000E0485D /* CoreData.framework in Frameworks */,
 				C10D16BB1756276D002D6FAD /* QuartzCore.framework in Frameworks */,
 				C1BFB91E174F6F390092FD2E /* libz.dylib in Frameworks */,
 				C1BFB8E1174F6A620092FD2E /* CoreGraphics.framework in Frameworks */,
@@ -276,6 +289,7 @@
 				C1BFB918174F6F200092FD2E /* CFNetwork.framework in Frameworks */,
 				C1BFB8DD174F6A620092FD2E /* UIKit.framework in Frameworks */,
 				C1BFB8DF174F6A620092FD2E /* Foundation.framework in Frameworks */,
+				C1011DA01779654900E0485D /* libGoogleAnalytics.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,6 +306,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C1011D981779654900E0485D /* GoogleAnalytics */ = {
+			isa = PBXGroup;
+			children = (
+				C1011D991779654900E0485D /* GAI.h */,
+				C1011D9A1779654900E0485D /* GAITrackedViewController.h */,
+				C1011D9B1779654900E0485D /* GAITracker.h */,
+				C1011D9C1779654900E0485D /* GAITransaction.h */,
+				C1011D9D1779654900E0485D /* GAITransactionItem.h */,
+				C1011D9E1779654900E0485D /* libGoogleAnalytics.a */,
+			);
+			path = GoogleAnalytics;
+			sourceTree = "<group>";
+		};
 		C10D161B175617D4002D6FAD /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -336,6 +363,8 @@
 				C10D16071755E7A0002D6FAD /* SMWebLoaderOperation.m */,
 				C10D16091755EFEE002D6FAD /* SMWebLoaderOperationQueue.h */,
 				C10D160A1755EFEE002D6FAD /* SMWebLoaderOperationQueue.m */,
+				C1011D94177946D500E0485D /* SMUtils.h */,
+				C1011D95177946D500E0485D /* SMUtils.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -447,14 +476,15 @@
 			isa = PBXGroup;
 			children = (
 				C1BFB91D174F6F390092FD2E /* libz.dylib */,
-				C10D16BA1756276C002D6FAD /* QuartzCore.framework */,
-				C1BFB91B174F6F2A0092FD2E /* MobileCoreServices.framework */,
-				C1BFB919174F6F260092FD2E /* SystemConfiguration.framework */,
 				C1BFB917174F6F200092FD2E /* CFNetwork.framework */,
-				C1BFB8DC174F6A620092FD2E /* UIKit.framework */,
-				C1BFB8DE174F6A620092FD2E /* Foundation.framework */,
+				C1011DA21779657000E0485D /* CoreData.framework */,
 				C1BFB8E0174F6A620092FD2E /* CoreGraphics.framework */,
+				C1BFB8DE174F6A620092FD2E /* Foundation.framework */,
+				C1BFB91B174F6F2A0092FD2E /* MobileCoreServices.framework */,
+				C10D16BA1756276C002D6FAD /* QuartzCore.framework */,
 				C1BFB900174F6A620092FD2E /* SenTestingKit.framework */,
+				C1BFB919174F6F260092FD2E /* SystemConfiguration.framework */,
+				C1BFB8DC174F6A620092FD2E /* UIKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -536,6 +566,7 @@
 		C1BFB91F174F6F5B0092FD2E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C1011D981779654900E0485D /* GoogleAnalytics */,
 				C1BFB920174F6F5B0092FD2E /* asi-http-request */,
 			);
 			path = Frameworks;
@@ -808,6 +839,7 @@
 				C1CC1B40177857FB00FC63A8 /* P2PNavigationController.m in Sources */,
 				C1CC1B41177857FB00FC63A8 /* P2PViewController.m in Sources */,
 				C1011D8E17787DA400E0485D /* SMWriteResult.m in Sources */,
+				C1011D96177946D500E0485D /* SMUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -920,6 +952,10 @@
 				GCC_PREFIX_HEADER = "newsmth/newsmth-Prefix.pch";
 				INFOPLIST_FILE = "newsmth/newsmth-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/newsmth/Frameworks/GoogleAnalytics\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -932,6 +968,10 @@
 				GCC_PREFIX_HEADER = "newsmth/newsmth-Prefix.pch";
 				INFOPLIST_FILE = "newsmth/newsmth-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/newsmth/Frameworks/GoogleAnalytics\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

@@ -74,6 +74,14 @@
     _imageViewForArrow.transform = CGAffineTransformRotate(CGAffineTransformIdentity, 0);
 }
 
+- (void)setLastUpdated:(NSDate *)lastUpdated
+{
+    _lastUpdated = lastUpdated;
+    if (_lastUpdated) {
+        _labelForRefreshDate.text = [NSString stringWithFormat:@"上次更新:%@", [SMUtils formatDate:_lastUpdated]];
+    }
+}
+
 #pragma mark - public
 - (void)beginRefreshing
 {

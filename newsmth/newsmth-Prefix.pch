@@ -12,6 +12,7 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
 #import "XLogUtil.h"
+#import "SMUtils.h"
 #import "SMDefination.h"
 #import "SMMessage.h"
 #import "SMHttpRequest.h"

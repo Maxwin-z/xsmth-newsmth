@@ -72,13 +72,13 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "newsmth/Utils/SMWebLoaderOperation.m"
-         timestampString = "393772818.240064"
+         filePath = "newsmth/Utils/SMUtils.m"
+         timestampString = "393824511.220238"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "100"
-         endingLineNumber = "100"
-         landmarkName = "-webParser:result:"
+         startingLineNumber = "18"
+         endingLineNumber = "18"
+         landmarkName = "+formatDate:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
