@@ -12,6 +12,7 @@
 		C1011D96177946D500E0485D /* SMUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C1011D95177946D500E0485D /* SMUtils.m */; };
 		C1011DA01779654900E0485D /* libGoogleAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C1011D9E1779654900E0485D /* libGoogleAnalytics.a */; };
 		C1011DA31779657000E0485D /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1011DA21779657000E0485D /* CoreData.framework */; };
+		C1011DA517796A5400E0485D /* libGoogleAnalytics_debug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C1011DA417796A5400E0485D /* libGoogleAnalytics_debug.a */; };
 		C10D16081755E7A0002D6FAD /* SMWebLoaderOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C10D16071755E7A0002D6FAD /* SMWebLoaderOperation.m */; };
 		C10D160B1755EFEE002D6FAD /* SMWebLoaderOperationQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = C10D160A1755EFEE002D6FAD /* SMWebLoaderOperationQueue.m */; };
 		C10D160E1755FBFE002D6FAD /* mainpage.js in Resources */ = {isa = PBXBuildFile; fileRef = C10D160C1755FBF5002D6FAD /* mainpage.js */; };
@@ -127,6 +128,7 @@
 		C1011D9D1779654900E0485D /* GAITransactionItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITransactionItem.h; sourceTree = "<group>"; };
 		C1011D9E1779654900E0485D /* libGoogleAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalytics.a; sourceTree = "<group>"; };
 		C1011DA21779657000E0485D /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		C1011DA417796A5400E0485D /* libGoogleAnalytics_debug.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalytics_debug.a; sourceTree = "<group>"; };
 		C10D16051755D552002D6FAD /* SMDefination.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMDefination.h; sourceTree = "<group>"; };
 		C10D16061755E7A0002D6FAD /* SMWebLoaderOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMWebLoaderOperation.h; sourceTree = "<group>"; };
 		C10D16071755E7A0002D6FAD /* SMWebLoaderOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMWebLoaderOperation.m; sourceTree = "<group>"; };
@@ -290,6 +292,7 @@
 				C1BFB8DD174F6A620092FD2E /* UIKit.framework in Frameworks */,
 				C1BFB8DF174F6A620092FD2E /* Foundation.framework in Frameworks */,
 				C1011DA01779654900E0485D /* libGoogleAnalytics.a in Frameworks */,
+				C1011DA517796A5400E0485D /* libGoogleAnalytics_debug.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -315,6 +318,7 @@
 				C1011D9C1779654900E0485D /* GAITransaction.h */,
 				C1011D9D1779654900E0485D /* GAITransactionItem.h */,
 				C1011D9E1779654900E0485D /* libGoogleAnalytics.a */,
+				C1011DA417796A5400E0485D /* libGoogleAnalytics_debug.a */,
 			);
 			path = GoogleAnalytics;
 			sourceTree = "<group>";

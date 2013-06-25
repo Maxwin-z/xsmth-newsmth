@@ -7,6 +7,7 @@
 //
 
 #import "SMUtils.h"
+#import "GAI.h"
 
 @implementation SMUtils
 
@@ -21,6 +22,16 @@
         [formatter setDateFormat:@"HH:mm"];
     }
     return [formatter stringFromDate:date];
+}
+
++ (void)trackEventWithCategory:(NSString *)category
+                        action:(NSString *)action
+                         label:(NSString *)label
+{
+    [[GAI sharedInstance].defaultTracker sendEventWithCategory:category
+                                                    withAction:action
+                                                     withLabel:label
+                                                     withValue:nil];
 }
 
 @end

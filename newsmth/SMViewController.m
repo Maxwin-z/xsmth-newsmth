@@ -35,6 +35,17 @@
     return self;
 }
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    self.trackedViewName = NSStringFromClass([self class]);
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+}
+
 - (void)toast:(NSString *)message
 {
     UIView *window = [UIApplication sharedApplication].keyWindow;

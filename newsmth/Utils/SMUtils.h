@@ -10,4 +10,7 @@
 
 @interface SMUtils : NSObject
 + (NSString *)formatDate:(NSDate *)date;
++ (void)trackEventWithCategory:(NSString *)category
+                        action:(NSString *)action
+                         label:(NSString *)label;
 @end
