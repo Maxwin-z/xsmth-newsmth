@@ -9,6 +9,15 @@
 #import "SMBaseData.h"
 
 @implementation SMBaseData
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        self.dict = [[NSMutableDictionary alloc] init];
+    }
+    return self;
+}
+
 - (id)initWithData:(NSDictionary *)dict
 {
     NSString *clzName = nil;

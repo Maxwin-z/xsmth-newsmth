@@ -10,10 +10,24 @@ var primyTypeTpl = '\
 }\n\
 ';
 
+var primyTypeTplSetter = '\
+- (void)set${nameWithCapital}:(${type})${name}_\n\
+{\n\
+	[self.dict set${typeWithCapital}:${name}_ forKey:@"${name}"];\n\
+}\n\
+';
+
 var boolTypeTpl = '\
 - (BOOL)${name}\n\
 {\n\
 	return [[self.dict objectForKey:@"${name}"] boolValue];\n\
+}\n\
+';
+
+var boolTypeTplSetter = '\
+- (void)set${nameWithCapital}:(BOOL)${name}_\n\
+{\n\
+	[self.dict setBool:${name}_ forKey:@"${name}"];\n\
 }\n\
 ';
 
@@ -24,10 +38,24 @@ var longTypeTpl = '\
 }\n\
 ';
 
+var longTypeTplSetter = '\
+- (void)set${nameWithCapital}:(long long)${name}_\n\
+{\n\
+	[self.dict setLongLong:${name}_ forKey:@"${name}"];\n\
+}\n\
+';
+
 var stringTypeTpl = '\
 - (NSString *)${name}\n\
 {\n\
 	return [self.dict objectForKey:@"${name}"];\n\
+}\n\
+';
+
+var stringTypeTplSetter = '\
+- (void)set${nameWithCapital}:(NSString *)${name}_\n\
+{\n\
+	[self.dict setObject:${name}_ forKey:@"${name}"];\n\
 }\n\
 ';
 
@@ -36,6 +64,13 @@ var objTypeTpl = '\
 {\n\
 	SMBaseData *data = [[SMBaseData alloc] initWithData:[self.dict objectForKey:@"${name}"]];\n\
 	return data;\n\
+}\n\
+';
+
+var objTypeTplSetter = '\
+- (void)set${nameWithCapital}:(SMBaseData *)${name}_\n\
+{\n\
+	[self.dict setObject:${name}_.dict forKey:@"${name}"];\n\
 }\n\
 ';
 
@@ -51,6 +86,18 @@ var arrTypeTpl = '\
 	return res;\n\
 }\n\
 ';
+
+var arrTypeTplSetter = '\
+- (void)set${nameWithCapital}:(NSArray *)${name}_\n\
+{\n\
+    NSMutableArray *arr = [[NSMutableArray alloc] initWithCapacity:${name}_.count];\n\
+    for (int i = 0; i != ${name}_.count; ++i) {\n\
+        [arr addObject:[${name}_[i] dict]];\n\
+    }\n\
+    [self.dict setObject:arr forKey:@"${name}"];\n\
+}\n\
+';
+
 
 console.log(primyTypeTpl);
 
@@ -73,33 +120,62 @@ while ((match = regex.exec(schema)) != null) {
 			var type = type_name[0];
 			var name = type_name[1];
 
-			var tpl, propType, propReferStrong;
+			var nameWithCapital = name.replace(/^./, function ($0) {
+				return $0.toUpperCase();
+			});
+			var typeWithCapital = type.replace(/^./, function ($0) {
+				return $0.toUpperCase();
+			});
+
+			if (type == 'int') {
+				typeWithCapital = 'Integer';
+			}
+
+			var tpl, setterTpl, propType, propReferStrong;
 			propReferStrong = true;
 			if (type.match(/(int|double|float)/)) {	// prime types
 				tpl = primyTypeTpl;
+				setterTpl = primyTypeTplSetter;
 				propType = type;
 				propReferStrong = false;
 			} else if (type == 'bool') {
 				tpl = boolTypeTpl;
+				setterTpl = boolTypeTplSetter;
 				propType = 'BOOL';
 				propReferStrong = false;
 			} else if (type == 'long') {
 				tpl = longTypeTpl;
+				setterTpl = longTypeTplSetter;
 				propType = 'long long';
 				propReferStrong = false;
 			} else if (type == 'string') {
 				tpl = stringTypeTpl;
+				setterTpl = stringTypeTplSetter;
 				propType = "NSString*";
 			} else if (type.indexOf('[]') !== -1) {
 				tpl = arrTypeTpl;
+				setterTpl = arrTypeTplSetter;
 				propType = "NSArray*";
 			} else {
 				tpl = objTypeTpl;
+				setterTpl = objTypeTplSetter;
 				propType = type + "*";
 			}
 
 			props.push('@property (' + (propReferStrong ? 'strong' : 'assign') + ', nonatomic) ' + propType + ' ' + name + ';');
-			impls.push(tpl.replace(/\$\{type\}/g, type).replace(/\$\{name\}/g, name));
+			impls.push(
+				tpl.replace(/\$\{type\}/g, type)
+							.replace(/\$\{name\}/g, name)
+							.replace(/\$\{nameWithCapital\}/g, nameWithCapital)
+							.replace(/\$\{typeWithCapital\}/g, typeWithCapital)
+			);
+
+			impls.push(
+				setterTpl.replace(/\$\{type\}/g, type)
+							.replace(/\$\{name\}/g, name)
+							.replace(/\$\{nameWithCapital\}/g, nameWithCapital)
+							.replace(/\$\{typeWithCapital\}/g, typeWithCapital)
+			);
 		}
 	}
 	var header = ['#import "SMBaseData.h"\n',

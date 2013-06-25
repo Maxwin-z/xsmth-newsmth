@@ -12,4 +12,13 @@
 	return res;
 }
 
+- (void)setSections:(NSArray *)sections_
+{
+    NSMutableArray *arr = [[NSMutableArray alloc] initWithCapacity:sections_.count];
+    for (int i = 0; i != sections_.count; ++i) {
+        [arr addObject:[sections_[i] dict]];
+    }
+    [self.dict setObject:arr forKey:@"sections"];
+}
+
 @end

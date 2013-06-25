@@ -112,6 +112,7 @@
     SMPostGroupViewController *vc = [[SMPostGroupViewController alloc] init];
     vc.gid = post.gid;
     vc.board = _board.name;
+    vc.fromBoard = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

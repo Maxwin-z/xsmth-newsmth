@@ -14,6 +14,7 @@
 #import "SMPostGroup.h"
 #import "SMWritePostViewController.h"
 #import "P2PNavigationController.h"
+#import "SMBoardViewController.h"
 
 #import "SMPostGroupHeaderCell.h"
 #import "SMPostGroupContentCell.h"
@@ -48,7 +49,7 @@ typedef enum {
 @end
 
 ////////////////////////////////////////////////
-@interface SMPostGroupViewController ()<UITableViewDataSource, UITableViewDelegate, XPullRefreshTableViewDelegate, SMWebLoaderOperationDelegate, XImageViewDelegate, SMPostGroupHeaderCellDelegate>
+@interface SMPostGroupViewController ()<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate,  XPullRefreshTableViewDelegate, SMWebLoaderOperationDelegate, XImageViewDelegate, SMPostGroupHeaderCellDelegate>
 @property (weak, nonatomic) IBOutlet XPullRefreshTableView *tableView;
 @property (strong, nonatomic) IBOutlet UIView *tableViewHeader;
 @property (weak, nonatomic) IBOutlet UILabel *labelForTitle;
@@ -91,7 +92,21 @@ typedef enum {
     [super viewDidLoad];
     self.tableView.xdelegate = self;
     [self.tableView beginRefreshing];
-//    [self loadData:NO];
+    
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction      target:self action:@selector(onRightBarButtonClick)];
+    self.navigationItem.rightBarButtonItem = button;
+}
+
+- (void)onRightBarButtonClick
+{
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] init];
+    if (!_fromBoard) {
+        [actionSheet addButtonWithTitle:[NSString stringWithFormat:@"进入%@版", _board]];
+    }
+    [actionSheet addButtonWithTitle:@"取消"];
+    actionSheet.destructiveButtonIndex = actionSheet.numberOfButtons - 1;
+    actionSheet.delegate = self;
+    [actionSheet showInView:self.view];
 }
 
 - (void)loadData:(BOOL)more
@@ -369,6 +384,18 @@ typedef enum {
     writeViewController.post = post;
     P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:writeViewController];
     [self.navigationController presentModalViewController:nvc animated:YES];
+}
+
+#pragma mark - UIActionSheetDelegate
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex != actionSheet.destructiveButtonIndex) {
+        SMBoardViewController *vc = [[SMBoardViewController alloc] init];
+        SMBoard *board = [[SMBoard alloc] init];
+        board.name = _board;
+        vc.board = board;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 @end

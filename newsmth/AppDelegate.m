@@ -37,8 +37,7 @@
 
 - (void)setupTheme
 {
-    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"common_titlebar_bg"] forBarMetrics:UIBarMetricsDefault];
-    [[UIBarButtonItem appearance] setTintColor:[UIColor whiteColor]];
+//    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"common_titlebar_bg"] forBarMetrics:UIBarMetricsDefault];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions

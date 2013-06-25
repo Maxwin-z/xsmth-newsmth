@@ -6,4 +6,9 @@
 	return [[self.dict objectForKey:@"success"] boolValue];
 }
 
+- (void)setSuccess:(BOOL)success_
+{
+	[self.dict setBool:success_ forKey:@"success"];
+}
+
 @end
