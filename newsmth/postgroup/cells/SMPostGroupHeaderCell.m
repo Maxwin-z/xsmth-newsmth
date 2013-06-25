@@ -7,6 +7,7 @@
 //
 
 #import "SMPostGroupHeaderCell.h"
+#import "UIButton+Custom.h"
 
 @interface SMPostGroupHeaderCell ()
 @property (strong, nonatomic) IBOutlet UIView *viewForCell;
@@ -28,6 +29,11 @@
     if (self) {
         [[NSBundle mainBundle] loadNibNamed:@"SMPostGroupHeaderCell" owner:self options:nil];
         _viewForCell.frame = self.contentView.bounds;
+        
+        // make up reply button
+        [_buttonForReply setImage:[UIImage imageNamed:@"button_reply"] forState:UIControlStateNormal];
+        _buttonForReply.showsTouchWhenHighlighted = YES;
+        
         [self.contentView addSubview:_viewForCell];
     }
     return self;
