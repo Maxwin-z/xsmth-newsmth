@@ -143,10 +143,12 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if (scrollView.contentOffset.y < -REFRESH_TRIGGER_HEIGHT) {
+        _labelForRefreshHint.text = @"释放立即刷新";
         [UIView animateWithDuration:ANIMATION_DURATION animations:^{
             _imageViewForArrow.transform = CGAffineTransformRotate(CGAffineTransformIdentity, M_PI);
         }];
     } else {
+        _labelForRefreshHint.text = @"下拉刷新";
         [UIView animateWithDuration:ANIMATION_DURATION animations:^{
             _imageViewForArrow.transform = CGAffineTransformRotate(CGAffineTransformIdentity, 0);
         }];

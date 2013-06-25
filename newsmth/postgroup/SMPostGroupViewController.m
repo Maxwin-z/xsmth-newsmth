@@ -342,6 +342,7 @@ typedef enum {
         } else {
             [self.tableView setLoadMoreFail];
         }
+        [self toast:error.message];
     } else {
         [self makeupCellDatas];
     }
