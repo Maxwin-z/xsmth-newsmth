@@ -88,6 +88,15 @@
     }
 }
 
+- (UIViewController *)popViewControllerAnimated:(BOOL)animated
+{
+    P2PViewController *vc = self.viewControllers[self.viewControllers.count  - 2];
+    [self setBackImage:vc.captureImage];
+
+    [self panToPop:YES];
+    return [self.viewControllers lastObject];
+}
+
 - (BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)gestureRecognizer
 {
     if (_panGesture == gestureRecognizer) {
@@ -123,8 +132,6 @@
     CGFloat scale = 1 - (totalWidth - currentX) * (1 - BACK_IMAGE_SCALE) / totalWidth;
     _backImageView.transform = CGAffineTransformScale(CGAffineTransformIdentity, scale, scale);
     
-    XLog_d(@"%@", _backImageView);
-    
     CGFloat alpha = 1 - (totalWidth - currentX) * (1 - BACK_MASKER_ALPHA) / totalWidth;
     _backMaskerView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1 - alpha];
     
@@ -145,6 +152,12 @@
 {
     CGFloat totalWidth = self.view.bounds.size.width;
     CGFloat currentX = self.view.frame.origin.x;
+
+    CGFloat scale = 1 - (totalWidth - currentX) * (1 - BACK_IMAGE_SCALE) / totalWidth;
+    _backImageView.transform = CGAffineTransformScale(CGAffineTransformIdentity, scale, scale);
+    
+    CGFloat alpha = 1 - (totalWidth - currentX) * (1 - BACK_MASKER_ALPHA) / totalWidth;
+    _backMaskerView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1 - alpha];
 
     CGFloat endX = pop ? totalWidth : 0;
     CGFloat duration = ANIMATION_DURATION * fabs(currentX - endX) / totalWidth;
