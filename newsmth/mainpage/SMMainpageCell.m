@@ -51,7 +51,7 @@ static SMMainpageCell *_instance;
 {
     _post = post;
     _labelForTitle.text = post.title;
-    _labelForBoardName.text = post.boardName;
+    _labelForBoardName.text = post.board.cnName;
     _labelForAuthor.text = post.author;
 }
 

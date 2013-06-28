@@ -1,4 +1,4 @@
-#import "SMPost.h"
+#import "SMData.h"
 
 @implementation SMPost
 - (int)pid
@@ -21,24 +21,15 @@
 	[self.dict setInteger:gid_ forKey:@"gid"];
 }
 
-- (NSString *)board
+- (SMBoard *)board
 {
-	return [self.dict objectForKey:@"board"];
+	SMBoard *data = [[SMBoard alloc] initWithData:[self.dict objectForKey:@"board"]];
+	return data;
 }
 
-- (void)setBoard:(NSString *)board_
+- (void)setBoard:(SMBaseData *)board_
 {
-	[self.dict setObject:board_ forKey:@"board"];
-}
-
-- (NSString *)boardName
-{
-	return [self.dict objectForKey:@"boardName"];
-}
-
-- (void)setBoardName:(NSString *)boardName_
-{
-	[self.dict setObject:boardName_ forKey:@"boardName"];
+	[self.dict setObject:board_.dict forKey:@"board"];
 }
 
 - (NSString *)author

@@ -121,6 +121,7 @@ static SMMainpageViewController *_instance;
 {
     SMSection *secdata = _sections[indexPath.section];
     SMPost *post = secdata.posts[indexPath.row];
+    
     SMPostGroupViewController *vc = [[SMPostGroupViewController alloc] init];
     vc.board = post.board;
     vc.gid = post.gid;

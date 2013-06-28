@@ -1,4 +1,4 @@
-#import "SMFavor.h"
+#import "SMData.h"
 
 @implementation SMFavor
 - (NSArray *)boards

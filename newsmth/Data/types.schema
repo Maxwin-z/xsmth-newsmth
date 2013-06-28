@@ -7,8 +7,7 @@ SMAttach {
 SMPost {
 	int pid
 	int gid
-	string board
-	string boardName
+	SMBoard board
 	string author
 	string nick
 	string title

@@ -1,4 +1,4 @@
-#import "SMAttach.h"
+#import "SMData.h"
 
 @implementation SMAttach
 - (NSString *)name

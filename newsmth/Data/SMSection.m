@@ -1,4 +1,4 @@
-#import "SMSection.h"
+#import "SMData.h"
 
 @implementation SMSection
 - (NSString *)sectionTitle

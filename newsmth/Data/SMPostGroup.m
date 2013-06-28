@@ -1,4 +1,4 @@
-#import "SMPostGroup.h"
+#import "SMData.h"
 
 @implementation SMPostGroup
 - (int)bid

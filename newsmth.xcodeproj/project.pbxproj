@@ -272,6 +272,7 @@
 		C1CC1B3D177857FB00FC63A8 /* P2PNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P2PNavigationController.h; sourceTree = "<group>"; };
 		C1CC1B3E177857FB00FC63A8 /* P2PViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P2PViewController.h; sourceTree = "<group>"; };
 		C1CC1B3F177857FB00FC63A8 /* P2PViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P2PViewController.m; sourceTree = "<group>"; };
+		C1E2AB9A177DB051007AE5AC /* SMData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMData.h; sourceTree = "<group>"; };
 		C1E628941764BAD4007ACF2A /* codegen.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = codegen.js; sourceTree = "<group>"; };
 		C1E628951764BAD4007ACF2A /* SMAttach.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMAttach.h; sourceTree = "<group>"; };
 		C1E628961764BAD4007ACF2A /* SMAttach.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMAttach.m; sourceTree = "<group>"; };
@@ -649,6 +650,7 @@
 		C1E628931764BAD4007ACF2A /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				C1E2AB9A177DB051007AE5AC /* SMData.h */,
 				C1011D8C17787DA400E0485D /* SMWriteResult.h */,
 				C1011D8D17787DA400E0485D /* SMWriteResult.m */,
 				C19FF0B61769CA0F00EB6F7E /* SMBoard.h */,

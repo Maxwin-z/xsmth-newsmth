@@ -1,4 +1,4 @@
-#import "SMMainPage.h"
+#import "SMData.h"
 
 @implementation SMMainPage
 - (NSArray *)sections

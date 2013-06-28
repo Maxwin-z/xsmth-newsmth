@@ -1,4 +1,4 @@
-#import "SMBoard.h"
+#import "SMData.h"
 
 @implementation SMBoard
 - (NSString *)name

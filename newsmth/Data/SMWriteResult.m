@@ -1,4 +1,4 @@
-#import "SMWriteResult.h"
+#import "SMData.h"
 
 @implementation SMWriteResult
 - (BOOL)success

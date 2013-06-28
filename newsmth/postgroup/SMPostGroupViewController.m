@@ -395,9 +395,7 @@ typedef enum {
 {
     if (buttonIndex != actionSheet.destructiveButtonIndex) {
         SMBoardViewController *vc = [[SMBoardViewController alloc] init];
-        SMBoard *board = [[SMBoard alloc] init];
-        board.name = _board;
-        vc.board = board;
+        vc.board = _board;
         [self.navigationController pushViewController:vc animated:YES];
     }
 }

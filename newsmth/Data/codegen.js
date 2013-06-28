@@ -62,7 +62,7 @@ var stringTypeTplSetter = '\
 var objTypeTpl = '\
 - (${type} *)${name}\n\
 {\n\
-	SMBaseData *data = [[SMBaseData alloc] initWithData:[self.dict objectForKey:@"${name}"]];\n\
+	${type} *data = [[${type} alloc] initWithData:[self.dict objectForKey:@"${name}"]];\n\
 	return data;\n\
 }\n\
 ';
@@ -103,6 +103,8 @@ console.log(primyTypeTpl);
 
 var regex = /(\w+)\s\{([^\}]*)\}/g;
 var match;
+
+var classes = [];
 while ((match = regex.exec(schema)) != null) {
 	var clz = match[1];
 	var body = match[2];
@@ -110,7 +112,7 @@ while ((match = regex.exec(schema)) != null) {
 	// console.log('----');
 	// parser field
 	var fields = body.split('\n');
-
+	var refClass = [];
 	var props = [];
 	var impls = [];
 	for (var i = 0; i != fields.length; ++i) {
@@ -160,6 +162,8 @@ while ((match = regex.exec(schema)) != null) {
 				tpl = objTypeTpl;
 				setterTpl = objTypeTplSetter;
 				propType = type + "*";
+
+				refClass.push('@class ' + type + ';');
 			}
 
 			props.push('@property (' + (propReferStrong ? 'strong' : 'assign') + ', nonatomic) ' + propType + ' ' + name + ';');
@@ -179,11 +183,12 @@ while ((match = regex.exec(schema)) != null) {
 		}
 	}
 	var header = ['#import "SMBaseData.h"\n',
+		refClass.join('\n'),
 		'@interface ' + clz + ' : SMBaseData',
 		props.join('\n'),
 		'@end'].join('\n');
 
-	var source = ['#import "' + clz + '.h"\n',
+	var source = ['#import "SMData.h"\n',
 		'@implementation ' + clz,
 		impls.join('\n'),
 		'@end'].join('\n');
@@ -192,8 +197,12 @@ while ((match = regex.exec(schema)) != null) {
 
 	fs.writeFileSync(clz + '.h', header);
 	fs.writeFileSync(clz + '.m', source);
+
+	classes.push('#import "' + clz + '.h"');
 	// console.log(fields);
 }
+
+fs.writeFileSync('SMData.h', classes.join('\n'));
 
 /*
 - (${type})${name}

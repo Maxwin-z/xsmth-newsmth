@@ -1,10 +1,10 @@
 #import "SMBaseData.h"
 
+@class SMBoard;
 @interface SMPost : SMBaseData
 @property (assign, nonatomic) int pid;
 @property (assign, nonatomic) int gid;
-@property (strong, nonatomic) NSString* board;
-@property (strong, nonatomic) NSString* boardName;
+@property (strong, nonatomic) SMBoard* board;
 @property (strong, nonatomic) NSString* author;
 @property (strong, nonatomic) NSString* nick;
 @property (strong, nonatomic) NSString* title;
