@@ -90,6 +90,7 @@ typedef enum {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.title = [NSString stringWithFormat:@"同主题：%@", _board.cnName];
     self.tableView.xdelegate = self;
     [self.tableView beginRefreshing];
     
@@ -101,7 +102,7 @@ typedef enum {
 {
     UIActionSheet *actionSheet = [[UIActionSheet alloc] init];
     if (!_fromBoard) {
-        [actionSheet addButtonWithTitle:[NSString stringWithFormat:@"进入%@版", _board]];
+        [actionSheet addButtonWithTitle:[NSString stringWithFormat:@"进入[%@]版", _board.cnName]];
     }
     [actionSheet addButtonWithTitle:@"取消"];
     actionSheet.destructiveButtonIndex = actionSheet.numberOfButtons - 1;
@@ -116,7 +117,7 @@ typedef enum {
     } else {
         ++_pno;
     }
-    NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbstcon.php?board=%@&gid=%d&start=%d&pno=%d", _board, _gid, _gid, _pno];
+    NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbstcon.php?board=%@&gid=%d&start=%d&pno=%d", _board.name, _gid, _gid, _pno];
     _pageOp = [[SMWebLoaderOperation alloc] init];
     _pageOp.delegate = self;
     [_pageOp loadUrl:url withParser:@"bbstcon"];
@@ -181,6 +182,7 @@ typedef enum {
 - (void)makeupTableViewHeader:(NSString *)text
 {
     _labelForTitle.text = text;
+    self.title = text;
     CGFloat delta = [_labelForTitle.text sizeWithFont:_labelForTitle.font constrainedToSize:CGSizeMake(_labelForTitle.frame.size.width, CGFLOAT_MAX) lineBreakMode:_labelForTitle.lineBreakMode].height - _labelForTitle.frame.size.height;
     CGRect frame = _tableViewHeader.frame;
     frame.size.height += delta;
@@ -305,7 +307,7 @@ typedef enum {
 
 - (NSString *)getAttachUrl:(SMPostGroupCellData *)data
 {
-    return [NSString stringWithFormat:@"http://att.newsmth.net/nForum/att/%@/%d/%d/large", _board, data.item.post.pid, data.attach.pos];
+    return [NSString stringWithFormat:@"http://att.newsmth.net/nForum/att/%@/%d/%d/large", _board.cnName, data.item.post.pid, data.attach.pos];
 }
 
 #pragma mark - XPullRefreshTableViewDelegate

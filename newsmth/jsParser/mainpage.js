@@ -8,8 +8,11 @@ var data = {
 		posts:[{	// SMPostGroup
 			author: '',
 			title: '',
-			board: '',
-			boardName: '',
+			board: {
+				__type: 'SMBoard',
+				name: '',
+				cnName: ''
+			},
 			gid: 0
 		}, ...]
 	}, ...
@@ -62,8 +65,11 @@ function parseTop10item(tr) {
 	var as = tr.querySelectorAll('a');
 
 	var a_board = as[0];
-	item.boardName = a_board.innerHTML;
-	item.board = a_board.search.match(/board=(.+)/)[1];
+	item.board = {
+		__type: 'SMBoard',
+		name: a_board.search.match(/board=(.+)/)[1],
+		cnName: a_board.innerHTML
+	};
 
 	var a_post = as[1];
 	item.title = a_post.innerHTML;

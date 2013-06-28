@@ -47,11 +47,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "newsmth/postgroup/SMPostGroupViewController.m"
-         timestampString = "393849707.83083"
+         timestampString = "394116866.318883"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "389"
-         endingLineNumber = "389"
+         startingLineNumber = "391"
+         endingLineNumber = "391"
          landmarkName = "-postGroupHeaderCellOnReply:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -59,26 +59,26 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "newsmth/Common/P2PNavigationController.m"
-         timestampString = "393842566.869405"
+         filePath = "newsmth/board/SMBoardViewController.m"
+         timestampString = "394114081.444611"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "67"
-         endingLineNumber = "67"
-         landmarkName = "-pushViewController:animated:"
+         startingLineNumber = "130"
+         endingLineNumber = "130"
+         landmarkName = "-webLoaderOperationFinished:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "newsmth/Utils/SMUtils.m"
-         timestampString = "393837879.189391"
+         filePath = "newsmth/Utils/SMWebParser.m"
+         timestampString = "394114236.257291"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "19"
-         endingLineNumber = "19"
-         landmarkName = "+formatDate:"
+         startingLineNumber = "65"
+         endingLineNumber = "65"
+         landmarkName = "-webView:shouldStartLoadWithRequest:navigationType:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

@@ -24,7 +24,11 @@ function conWriter(ftype, board, bid, id, gid, reid, favtxt, num, istex, title) 
     data.pid = id;
     data.bid = bid;
     data.gid = gid;
-    data.board = board;
+    data.board = {
+        __type: 'SMBoard',
+        bid: bid,
+        name: board
+    };
     data.title = title;
 }
 
