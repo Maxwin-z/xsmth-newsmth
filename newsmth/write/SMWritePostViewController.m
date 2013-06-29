@@ -41,9 +41,7 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"发表" style:UIBarButtonItemStyleBordered target:self action:@selector(doPost)];
     
     if (_post) {
-        if ([_post.title hasPrefix:@"Re: "]) {
-            _textFieldForTitle.text = _post.title;
-        } else {
+        if (_post.pid != 0) {
             _textFieldForTitle.text = [NSString stringWithFormat:@"Re: %@", _post.title];
         }
     }
@@ -68,7 +66,7 @@
 
     NSString *postBody = [NSString stringWithFormat:@"title=%@&text=%@&signature=1", title, text];
     
-    NSString *formUrl = [NSString stringWithFormat:@"http://www.newsmth.net/bbssnd.php?board=%@&reid=%d", _post.board, _post.pid];
+    NSString *formUrl = [NSString stringWithFormat:@"http://www.newsmth.net/bbssnd.php?board=%@&reid=%d", _post.board.name, _post.pid];
     SMHttpRequest *request = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:formUrl]];
     [request setRequestMethod:@"POST"];
     [request addRequestHeader:@"Content-type" value:@"application/x-www-form-urlencoded"];

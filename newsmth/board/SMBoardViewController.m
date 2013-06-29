@@ -10,6 +10,7 @@
 #import "XPullRefreshTableView.h"
 #import "SMBoardCell.h"
 #import "SMPostGroupViewController.h"
+#import "SMWritePostViewController.h"
 
 @interface SMBoardViewController ()<UITableViewDelegate, UITableViewDataSource, XPullRefreshTableViewDelegate, SMWebLoaderOperationDelegate>
 @property (weak, nonatomic) IBOutlet XPullRefreshTableView *tableView;
@@ -34,6 +35,8 @@
     
     _tableView.xdelegate = self;
     [_tableView beginRefreshing];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(writePost)];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -64,6 +67,21 @@
     _boardOp = [[SMWebLoaderOperation alloc] init];
     _boardOp.delegate = self;
     [_boardOp loadUrl:url withParser:@"board"];
+}
+
+- (void)writePost
+{
+    if (![SMAccountManager instance].isLogin) {
+        [self performSelectorAfterLogin:nil];
+        return ;
+    }
+    SMWritePostViewController *writeViewController = [[SMWritePostViewController alloc] init];
+    SMPost *newPost = [[SMPost alloc] init];
+    newPost.board = _board;
+    newPost.pid = 0;
+    writeViewController.post = newPost;
+    P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:writeViewController];
+    [self.navigationController presentModalViewController:nvc animated:YES];
 }
 
 #pragma mark - XPullRefreshTableViewDelegate

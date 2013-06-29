@@ -8,7 +8,7 @@
 
 - (void)setPid:(int)pid_
 {
-	[self.dict setInteger:pid_ forKey:@"pid"];
+	[self.dict setValue:@(pid_) forKey:@"pid"];
 }
 
 - (int)gid
@@ -18,7 +18,7 @@
 
 - (void)setGid:(int)gid_
 {
-	[self.dict setInteger:gid_ forKey:@"gid"];
+	[self.dict setValue:@(gid_) forKey:@"gid"];
 }
 
 - (SMBoard *)board
@@ -79,7 +79,7 @@
 
 - (void)setDate:(long long)date_
 {
-	[self.dict setLongLong:date_ forKey:@"date"];
+	[self.dict setValue:@(date_) forKey:@"date"];
 }
 
 - (NSString *)replyAuthor
@@ -99,7 +99,7 @@
 
 - (void)setReplyDate:(long long)replyDate_
 {
-	[self.dict setLongLong:replyDate_ forKey:@"replyDate"];
+	[self.dict setValue:@(replyDate_) forKey:@"replyDate"];
 }
 
 - (int)replyCount
@@ -109,7 +109,7 @@
 
 - (void)setReplyCount:(int)replyCount_
 {
-	[self.dict setInteger:replyCount_ forKey:@"replyCount"];
+	[self.dict setValue:@(replyCount_) forKey:@"replyCount"];
 }
 
 - (BOOL)isTop
@@ -119,7 +119,7 @@
 
 - (void)setIsTop:(BOOL)isTop_
 {
-	[self.dict setBool:isTop_ forKey:@"isTop"];
+	[self.dict setValue:@(isTop_) forKey:@"isTop"];
 }
 
 - (NSArray *)attaches

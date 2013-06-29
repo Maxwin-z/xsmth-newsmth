@@ -307,7 +307,7 @@ typedef enum {
 
 - (NSString *)getAttachUrl:(SMPostGroupCellData *)data
 {
-    return [NSString stringWithFormat:@"http://att.newsmth.net/nForum/att/%@/%d/%d/large", _board.cnName, data.item.post.pid, data.attach.pos];
+    return [NSString stringWithFormat:@"http://att.newsmth.net/nForum/att/%@/%d/%d/large", _board.name, data.item.post.pid, data.attach.pos];
 }
 
 #pragma mark - XPullRefreshTableViewDelegate

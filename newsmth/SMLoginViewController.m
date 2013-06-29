@@ -54,8 +54,10 @@
     [request addRequestHeader:@"Content-type" value:@"application/x-www-form-urlencoded"];
     [request setPostBody:[[postBody dataUsingEncoding:NSUTF8StringEncoding] mutableCopy]];
 
+    [_loginOp cancel];
     _loginOp = [[SMWebLoaderOperation alloc] init];
     _loginOp.delegate = self;
+    [_loginOp setThreadPriority:1.0f];
     [_loginOp loadRequest:request withParser:@"login"];
 }
 

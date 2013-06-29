@@ -8,7 +8,7 @@
 
 - (void)setBid:(int)bid_
 {
-	[self.dict setInteger:bid_ forKey:@"bid"];
+	[self.dict setValue:@(bid_) forKey:@"bid"];
 }
 
 - (int)tpage
@@ -18,7 +18,7 @@
 
 - (void)setTpage:(int)tpage_
 {
-	[self.dict setInteger:tpage_ forKey:@"tpage"];
+	[self.dict setValue:@(tpage_) forKey:@"tpage"];
 }
 
 - (NSString *)title

@@ -28,7 +28,7 @@
 
 - (void)setBid:(int)bid_
 {
-	[self.dict setInteger:bid_ forKey:@"bid"];
+	[self.dict setValue:@(bid_) forKey:@"bid"];
 }
 
 - (NSArray *)posts

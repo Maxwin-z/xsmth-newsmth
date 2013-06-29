@@ -18,7 +18,7 @@
 
 - (void)setLen:(int)len_
 {
-	[self.dict setInteger:len_ forKey:@"len"];
+	[self.dict setValue:@(len_) forKey:@"len"];
 }
 
 - (int)pos
@@ -28,7 +28,7 @@
 
 - (void)setPos:(int)pos_
 {
-	[self.dict setInteger:pos_ forKey:@"pos"];
+	[self.dict setValue:@(pos_) forKey:@"pos"];
 }
 
 @end

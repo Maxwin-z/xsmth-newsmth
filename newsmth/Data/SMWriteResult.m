@@ -8,7 +8,7 @@
 
 - (void)setSuccess:(BOOL)success_
 {
-	[self.dict setBool:success_ forKey:@"success"];
+	[self.dict setValue:@(success_) forKey:@"success"];
 }
 
 @end

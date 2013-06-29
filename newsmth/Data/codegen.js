@@ -13,7 +13,7 @@ var primyTypeTpl = '\
 var primyTypeTplSetter = '\
 - (void)set${nameWithCapital}:(${type})${name}_\n\
 {\n\
-	[self.dict set${typeWithCapital}:${name}_ forKey:@"${name}"];\n\
+	[self.dict setValue:@(${name}_) forKey:@"${name}"];\n\
 }\n\
 ';
 
@@ -27,7 +27,7 @@ var boolTypeTpl = '\
 var boolTypeTplSetter = '\
 - (void)set${nameWithCapital}:(BOOL)${name}_\n\
 {\n\
-	[self.dict setBool:${name}_ forKey:@"${name}"];\n\
+	[self.dict setValue:@(${name}_) forKey:@"${name}"];\n\
 }\n\
 ';
 
@@ -41,7 +41,7 @@ var longTypeTpl = '\
 var longTypeTplSetter = '\
 - (void)set${nameWithCapital}:(long long)${name}_\n\
 {\n\
-	[self.dict setLongLong:${name}_ forKey:@"${name}"];\n\
+	[self.dict setValue:@(${name}_) forKey:@"${name}"];\n\
 }\n\
 ';
 
