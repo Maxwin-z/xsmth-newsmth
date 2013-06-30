@@ -7,10 +7,15 @@
 //
 
 #import "SMLoginViewController.h"
+#import "UIButton+Custom.h"
 
 @interface SMLoginViewController ()<SMWebLoaderOperationDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *textFieldForUsername;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldForPassword;
+
+@property (weak, nonatomic) IBOutlet UIButton *buttonForCancel;
+@property (weak, nonatomic) IBOutlet UIButton *buttonForSubmit;
+
 
 @property (strong, nonatomic) SMWebLoaderOperation *loginOp;
 
@@ -28,6 +33,9 @@
     
     _textFieldForUsername.text = [[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_USERNAME];
     _textFieldForPassword.text = [[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_PASSWORD];
+    
+    [_buttonForCancel setButtonSMType:SMButtonTypeGray];
+    [_buttonForSubmit setButtonSMType:SMButtonTypeBlue];
 }
 
 - (void)dealloc
@@ -59,6 +67,11 @@
     _loginOp.delegate = self;
     [_loginOp setThreadPriority:1.0f];
     [_loginOp loadRequest:request withParser:@"login"];
+}
+
+- (IBAction)onCancelButtonClick:(id)sender
+{
+    [self dismiss];
 }
 
 - (void)webLoaderOperationFinished:(SMWebLoaderOperation *)opt

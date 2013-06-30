@@ -9,11 +9,10 @@
 #import <UIKit/UIKit.h>
 
 typedef NS_ENUM(NSInteger, SMButtonType) {
-    SMButtonTypeBack,
-    SMButtonTypeCompose,
-    SMButtonTypeReply
+    SMButtonTypeGray,
+    SMButtonTypeBlue
 };
 
 @interface UIButton (Custom)
-+ (id)buttonWithSMType:(SMButtonType)buttonType;
+- (void)setButtonSMType:(SMButtonType)buttonType;
 @end
