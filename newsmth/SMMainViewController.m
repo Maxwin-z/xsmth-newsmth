@@ -93,8 +93,15 @@ static SMMainViewController *_instance;
             frame.origin.x = LEFT_SIZE;
             _viewForCenterMasker = [[UIView alloc] initWithFrame:frame];
             [self.view addSubview:_viewForCenterMasker];
+
+            // add gesture
             UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onMaskterTap:)];
             [_viewForCenterMasker addGestureRecognizer:tapGesture];
+            
+            UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onViewPanGesture:)];
+            panGesture.delegate = self;
+            [_viewForCenterMasker addGestureRecognizer:panGesture];
+            
         }
         _viewForCenterMasker.hidden = NO;
     } else {
