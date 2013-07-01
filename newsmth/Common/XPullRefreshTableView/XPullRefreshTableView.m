@@ -14,6 +14,8 @@
 @interface XPullRefreshTableView ()<UITableViewDelegate>
 @property (weak, nonatomic) id<UITableViewDelegate> originalDelegate;
 
+@property (assign, nonatomic) BOOL isRefreshing;
+
 #pragma refresh header
 @property (strong, nonatomic) IBOutlet UIView *viewForRefreshHeader;
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewForArrow;
@@ -85,6 +87,8 @@
 #pragma mark - public
 - (void)beginRefreshing
 {
+    _isRefreshing = YES;
+    
     [_xdelegate tableViewDoRefresh:self];
     _imageViewForArrow.hidden = YES;
     _activityIndicatorForRefresh.hidden = NO;
@@ -101,6 +105,8 @@
 
 - (void)endRefreshing:(BOOL)success
 {
+    _isRefreshing = NO;
+    
     UIEdgeInsets insets = self.contentInset;
     insets.top = 0;
     [UIView animateWithDuration:ANIMATION_DURATION animations:^{
@@ -142,6 +148,10 @@
 #pragma mark - UITableViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    if (_isRefreshing) {
+        return ;
+    }
+    
     if (scrollView.contentOffset.y < -REFRESH_TRIGGER_HEIGHT) {
         _labelForRefreshHint.text = @"释放立即刷新";
         [UIView animateWithDuration:ANIMATION_DURATION animations:^{
@@ -158,7 +168,12 @@
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
+    if (_isRefreshing) {
+        return ;
+    }
+    
     if (scrollView.contentOffset.y < -REFRESH_TRIGGER_HEIGHT) {
+        _labelForRefreshHint.text = @"正在载入...";
         [self beginRefreshing];
     }
 }
