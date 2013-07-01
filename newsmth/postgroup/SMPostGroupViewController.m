@@ -57,11 +57,14 @@ typedef enum {
 // data
 @property (strong, nonatomic) NSArray *postItems;
 @property (strong, nonatomic) NSArray *cellDatas;
+@property (strong, nonatomic) NSArray *prepareCellDatas;
 @property (strong, nonatomic) SMWebLoaderOperation *pageOp; // 分页加载数据用op
 
 @property (assign, nonatomic) NSInteger bid;    // board id
 @property (assign, nonatomic) NSInteger tpage;  // total page
 @property (assign, nonatomic) NSInteger pno;    // current page
+
+@property (assign, nonatomic) BOOL needReloadData;
 
 @end
 
@@ -170,14 +173,25 @@ typedef enum {
         }
         
     }];
-    self.cellDatas = datas;
+    self.prepareCellDatas = datas;
 }
 
 - (void)setCellDatas:(NSArray *)cellDatas
 {
+    _prepareCellDatas = nil;
     _cellDatas = cellDatas;
     [self.tableView reloadData];
 }
+
+- (void)setPrepareCellDatas:(NSArray *)prepareCellDatas
+{
+    if (_tableView.isDragging) {
+        _prepareCellDatas = prepareCellDatas;
+    } else {
+        self.cellDatas = prepareCellDatas;
+    }
+}
+
 
 - (void)makeupTableViewHeader:(NSString *)text
 {
@@ -191,6 +205,13 @@ typedef enum {
 }
 
 #pragma mark - UITableViewDataSource/Delegate
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    if (_prepareCellDatas != nil) {
+        self.cellDatas = _prepareCellDatas;
+    }
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return _cellDatas.count;

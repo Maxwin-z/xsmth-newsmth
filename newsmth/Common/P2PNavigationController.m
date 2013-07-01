@@ -38,6 +38,14 @@
     _panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onPanGesture:)];
     _panGesture.delegate = self;
     [self.view addGestureRecognizer:_panGesture];
+    
+    // add left shadow
+    UIView *shadowView = [[UIView alloc] init];
+    CGFloat shadowWidth = -3.0f;
+    shadowView.frame = CGRectMake(0, 0, shadowWidth, self.view.frame.size.height);
+    shadowView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    shadowView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"left_shadow"]];
+    [self.view addSubview:shadowView];
 }
 
 - (void)viewDidAppear:(BOOL)animated

@@ -122,6 +122,7 @@
 		C1FD13D2178182E3006A6061 /* button_gray_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1FD13CC178182E2006A6061 /* button_gray_pressed@2x.png */; };
 		C1FD13D3178182E3006A6061 /* button_red_default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1FD13CD178182E2006A6061 /* button_red_default@2x.png */; };
 		C1FD13D4178182E3006A6061 /* button_red_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1FD13CE178182E2006A6061 /* button_red_pressed@2x.png */; };
+		C1FD13DD1781B26F006A6061 /* left_shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1FD13DC1781B26F006A6061 /* left_shadow@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -317,6 +318,7 @@
 		C1FD13CC178182E2006A6061 /* button_gray_pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_gray_pressed@2x.png"; sourceTree = "<group>"; };
 		C1FD13CD178182E2006A6061 /* button_red_default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_red_default@2x.png"; sourceTree = "<group>"; };
 		C1FD13CE178182E2006A6061 /* button_red_pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_red_pressed@2x.png"; sourceTree = "<group>"; };
+		C1FD13DC1781B26F006A6061 /* left_shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left_shadow@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -432,6 +434,7 @@
 		C19FF0B01769A71B00EB6F7E /* images */ = {
 			isa = PBXGroup;
 			children = (
+				C1FD13DC1781B26F006A6061 /* left_shadow@2x.png */,
 				C1FD13C9178182E2006A6061 /* button_blue_default@2x.png */,
 				C1FD13CA178182E2006A6061 /* button_blue_pressed@2x.png */,
 				C1FD13CB178182E2006A6061 /* button_gray_default@2x.png */,
@@ -843,6 +846,7 @@
 				C1FD13D2178182E3006A6061 /* button_gray_pressed@2x.png in Resources */,
 				C1FD13D3178182E3006A6061 /* button_red_default@2x.png in Resources */,
 				C1FD13D4178182E3006A6061 /* button_red_pressed@2x.png in Resources */,
+				C1FD13DD1781B26F006A6061 /* left_shadow@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

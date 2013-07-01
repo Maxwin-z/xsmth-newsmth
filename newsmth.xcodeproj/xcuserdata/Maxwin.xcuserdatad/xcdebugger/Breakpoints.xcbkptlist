@@ -47,11 +47,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "newsmth/postgroup/SMPostGroupViewController.m"
-         timestampString = "394116866.318883"
+         timestampString = "394374817.341407"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "391"
-         endingLineNumber = "391"
+         startingLineNumber = "412"
+         endingLineNumber = "412"
          landmarkName = "-postGroupHeaderCellOnReply:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -124,13 +124,26 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "newsmth/SMAccountManager.m"
-         timestampString = "394369717.729508"
+         filePath = "newsmth/postgroup/SMPostGroupViewController.m"
+         timestampString = "394374817.341407"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "49"
-         endingLineNumber = "49"
-         landmarkName = "-setCookies:"
+         startingLineNumber = "211"
+         endingLineNumber = "211"
+         landmarkName = "-scrollViewDidEndDragging:willDecelerate:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "newsmth/postgroup/SMPostGroupViewController.m"
+         timestampString = "394374817.341407"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "210"
+         endingLineNumber = "210"
+         landmarkName = "-scrollViewDidEndDragging:willDecelerate:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

@@ -148,6 +148,9 @@
 #pragma mark - UITableViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    if ([_originalDelegate respondsToSelector:@selector(scrollViewDidScroll:)]) {
+        [_originalDelegate scrollViewDidScroll:scrollView];
+    }
     if (_isRefreshing) {
         return ;
     }
@@ -168,6 +171,9 @@
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
+    if ([_originalDelegate respondsToSelector:@selector(scrollViewDidEndDragging:willDecelerate:)]) {
+        [_originalDelegate scrollViewDidEndDragging:scrollView willDecelerate:decelerate];
+    }
     if (_isRefreshing) {
         return ;
     }
