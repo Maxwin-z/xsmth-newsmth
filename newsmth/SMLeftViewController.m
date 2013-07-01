@@ -64,6 +64,13 @@ typedef NS_ENUM(NSInteger, CellType) {
 {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell_id"];
     
+    UIView *seperator = [[UIView alloc] init];
+    CGRect frame = cell.contentView.bounds;
+    seperator.frame = CGRectMake(0, frame.size.height - 1, frame.size.width, 1);
+    seperator.backgroundColor = SMRGB(224, 224, 224);
+    seperator.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
+    [cell.contentView addSubview:seperator];
+    
     CellType cellType = [_cellTypes[indexPath.row] intValue];
     
     NSString *text;
