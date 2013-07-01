@@ -93,6 +93,10 @@
     P2PViewController *vc = self.viewControllers[self.viewControllers.count  - 2];
     [self setBackImage:vc.captureImage];
 
+    _backImageView.hidden = NO;
+    _backMaskerView.hidden = NO;
+
+
     [self panToPop:YES];
     return [self.viewControllers lastObject];
 }

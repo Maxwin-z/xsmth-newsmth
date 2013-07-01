@@ -51,8 +51,10 @@ static SMMainViewController *_instance;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor clearColor];
     _leftViewController = [[SMLeftViewController alloc] init];
     _leftViewController.view.frame = self.view.bounds;
+    _leftViewController.view.hidden = YES;
     [self.view addSubview:_leftViewController.view];
         
     SMMainpageViewController *mainpageViewController = [[SMMainpageViewController alloc] init];
