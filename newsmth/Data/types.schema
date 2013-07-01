@@ -54,3 +54,14 @@ SMWriteResult {
 SMUser {
 	string info
 }
+
+SMBoardListItem {
+	bool isDir
+	string title
+	string url	
+	SMBoard board
+}
+
+SMBoardList {
+	SMBoardListItem[] items
+}

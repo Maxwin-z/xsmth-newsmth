@@ -7,3 +7,5 @@
 #import "SMFavor.h"
 #import "SMWriteResult.h"
 #import "SMUser.h"
+#import "SMBoardListItem.h"
+#import "SMBoardList.h"

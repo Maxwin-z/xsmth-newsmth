@@ -12,11 +12,13 @@
 #import "SMFavorListViewController.h"
 #import "SMAccountManager.h"
 #import "SMUserViewController.h"
+#import "SMSectionViewController.h"
 
 typedef NS_ENUM(NSInteger, CellType) {
     CellTypeTop,
     CellTypeUser,
-    CellTypeFavor
+    CellTypeFavor,
+    CellTypeSections
 };
 
 @interface SMLeftViewController ()<UITableViewDataSource, UITableViewDelegate>
@@ -54,7 +56,7 @@ typedef NS_ENUM(NSInteger, CellType) {
 #pragma mark - UITableViewDataSource/Delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    _cellTypes = @[@(CellTypeUser), @(CellTypeFavor), @(CellTypeTop)];
+    _cellTypes = @[@(CellTypeUser), @(CellTypeSections), @(CellTypeFavor), @(CellTypeTop)];
     return _cellTypes.count;
 }
 
@@ -72,6 +74,8 @@ typedef NS_ENUM(NSInteger, CellType) {
     } else if (cellType == CellTypeUser) {
         NSString *user = [SMAccountManager instance].name;
         text = user == nil ? @"guest" : user;
+    } else if (cellType == CellTypeSections) {
+        text = @"分区";
     }
     
     cell.textLabel.text = text;
@@ -85,13 +89,17 @@ typedef NS_ENUM(NSInteger, CellType) {
     
     CellType cellType = [_cellTypes[indexPath.row] intValue];
 
-    UIViewController *vc = [SMMainpageViewController instance];
+    SMViewController *vc = [SMMainpageViewController instance];
     if (cellType == CellTypeTop) {
         vc = [SMMainpageViewController instance];
     } else if (cellType == CellTypeFavor) {
         vc = [SMFavorListViewController instance];
     } else if (cellType == CellTypeUser) {
         vc = [[SMUserViewController alloc] init];
+    } else if (cellType == CellTypeSections) {
+        SMSectionViewController *tvc = [[SMSectionViewController alloc] init];
+        tvc.url = @"http://m.newsmth.net/section";
+        vc = tvc;
     }
     
     [[SMMainViewController instance] setRootViewController:vc];
