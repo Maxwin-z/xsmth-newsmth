@@ -105,6 +105,8 @@
 		C1BFB9EA174F6F5C0092FD2E /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = C1BFB980174F6F5B0092FD2E /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C1CC1B40177857FB00FC63A8 /* P2PNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1CC1B3C177857FB00FC63A8 /* P2PNavigationController.m */; };
 		C1CC1B41177857FB00FC63A8 /* P2PViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1CC1B3F177857FB00FC63A8 /* P2PViewController.m */; };
+		C1E3A22A1780600900994CE6 /* SMUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E3A2281780600900994CE6 /* SMUserViewController.m */; };
+		C1E3A22B1780600900994CE6 /* SMUserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1E3A2291780600900994CE6 /* SMUserViewController.xib */; };
 		C1E6289B1764BAD4007ACF2A /* SMAttach.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E628961764BAD4007ACF2A /* SMAttach.m */; };
 		C1E6289C1764BAD4007ACF2A /* SMPost.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E628981764BAD4007ACF2A /* SMPost.m */; };
 		C1E6289D1764BAD4007ACF2A /* types.schema in Resources */ = {isa = PBXBuildFile; fileRef = C1E628991764BAD4007ACF2A /* types.schema */; };
@@ -281,6 +283,9 @@
 		C1CC1B3E177857FB00FC63A8 /* P2PViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P2PViewController.h; sourceTree = "<group>"; };
 		C1CC1B3F177857FB00FC63A8 /* P2PViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P2PViewController.m; sourceTree = "<group>"; };
 		C1E2AB9A177DB051007AE5AC /* SMData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMData.h; sourceTree = "<group>"; };
+		C1E3A2271780600900994CE6 /* SMUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMUserViewController.h; sourceTree = "<group>"; };
+		C1E3A2281780600900994CE6 /* SMUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMUserViewController.m; sourceTree = "<group>"; };
+		C1E3A2291780600900994CE6 /* SMUserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMUserViewController.xib; sourceTree = "<group>"; };
 		C1E628941764BAD4007ACF2A /* codegen.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = codegen.js; sourceTree = "<group>"; };
 		C1E628951764BAD4007ACF2A /* SMAttach.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMAttach.h; sourceTree = "<group>"; };
 		C1E628961764BAD4007ACF2A /* SMAttach.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMAttach.m; sourceTree = "<group>"; };
@@ -553,6 +558,9 @@
 				C11581601768285C008A421A /* SMLeftViewController.h */,
 				C11581611768285C008A421A /* SMLeftViewController.m */,
 				C115815F1768285C008A421A /* SMLeftViewController.xib */,
+				C1E3A2271780600900994CE6 /* SMUserViewController.h */,
+				C1E3A2281780600900994CE6 /* SMUserViewController.m */,
+				C1E3A2291780600900994CE6 /* SMUserViewController.xib */,
 				C1158165176851B5008A421A /* SMFavorListViewController.h */,
 				C1158166176851B5008A421A /* SMFavorListViewController.m */,
 				C1158167176851B6008A421A /* SMFavorListViewController.xib */,
@@ -801,6 +809,7 @@
 				C1902DC7177E6B9A00967211 /* button_blue_default@2x.png in Resources */,
 				C1902DC8177E6B9A00967211 /* button_gray_pressed@2x.png in Resources */,
 				C1902DC9177E6B9A00967211 /* button_gray_default@2x.png in Resources */,
+				C1E3A22B1780600900994CE6 /* SMUserViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -884,6 +893,7 @@
 				C1011D8E17787DA400E0485D /* SMWriteResult.m in Sources */,
 				C1011D96177946D500E0485D /* SMUtils.m in Sources */,
 				C1011DAC1779946600E0485D /* UIButton+Custom.m in Sources */,
+				C1E3A22A1780600900994CE6 /* SMUserViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

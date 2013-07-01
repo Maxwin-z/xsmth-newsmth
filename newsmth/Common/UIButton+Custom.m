@@ -30,13 +30,13 @@
     
     self.backgroundColor = nil;
     
-    [self setImage:[self stretchedImage:[UIImage imageNamed:imageNormal]] forState:UIControlStateNormal];
-    [self setImage:[self stretchedImage:[UIImage imageNamed:imagePressed]] forState:UIControlStateHighlighted];
+    [self setBackgroundImage:[self stretchedImage:[UIImage imageNamed:imageNormal]] forState:UIControlStateNormal];
+    [self setBackgroundImage:[self stretchedImage:[UIImage imageNamed:imagePressed]] forState:UIControlStateHighlighted];
 }
 
 - (UIImage *)stretchedImage:(UIImage *)image
 {
-    return [image stretchableImageWithLeftCapWidth:image.size.width / 2 topCapHeight:image.size.height / 2];
+    return [image stretchableImageWithLeftCapWidth:(image.size.width + 1) / 2 topCapHeight:(image.size.height + 1) / 2];
 }
 
 

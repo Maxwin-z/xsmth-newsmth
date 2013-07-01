@@ -11,9 +11,17 @@
 #import "SMMainpageViewController.h"
 #import "SMFavorListViewController.h"
 #import "SMAccountManager.h"
+#import "SMUserViewController.h"
+
+typedef NS_ENUM(NSInteger, CellType) {
+    CellTypeTop,
+    CellTypeUser,
+    CellTypeFavor
+};
 
 @interface SMLeftViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) NSArray *cellTypes;
 @end
 
 @implementation SMLeftViewController
@@ -46,14 +54,27 @@
 #pragma mark - UITableViewDataSource/Delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 2;
+    _cellTypes = @[@(CellTypeUser), @(CellTypeFavor), @(CellTypeTop)];
+    return _cellTypes.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell_id"];
-    NSString *user = [SMAccountManager instance].name;
-    cell.textLabel.text = indexPath.row == 0 ? (user == nil ? @"guest" : user) : @"收藏";
+    
+    CellType cellType = [_cellTypes[indexPath.row] intValue];
+    
+    NSString *text;
+    if (cellType == CellTypeTop) {
+        text = @"首页";
+    } else if (cellType == CellTypeFavor) {
+        text = @"收藏";
+    } else if (cellType == CellTypeUser) {
+        NSString *user = [SMAccountManager instance].name;
+        text = user == nil ? @"guest" : user;
+    }
+    
+    cell.textLabel.text = text;
     cell.transform = CGAffineTransformRotate(CGAffineTransformIdentity, M_PI);
     return cell;
 }
@@ -62,11 +83,15 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    UIViewController *vc;
-    if (indexPath.row == 0) {
+    CellType cellType = [_cellTypes[indexPath.row] intValue];
+
+    UIViewController *vc = [SMMainpageViewController instance];
+    if (cellType == CellTypeTop) {
         vc = [SMMainpageViewController instance];
-    } else {
+    } else if (cellType == CellTypeFavor) {
         vc = [SMFavorListViewController instance];
+    } else if (cellType == CellTypeUser) {
+        vc = [[SMUserViewController alloc] init];
     }
     
     [[SMMainViewController instance] setRootViewController:vc];
