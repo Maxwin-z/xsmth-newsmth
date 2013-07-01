@@ -10,6 +10,8 @@
 #import "UIButton+Custom.h"
 
 @interface SMLoginViewController ()<SMWebLoaderOperationDelegate>
+
+@property (weak, nonatomic) IBOutlet UIView *viewFromContainer;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldForUsername;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldForPassword;
 
@@ -29,10 +31,24 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonItemStyleDone target:self action:@selector(dismiss)];
-    
+
     _textFieldForUsername.text = [[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_USERNAME];
     _textFieldForPassword.text = [[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_PASSWORD];
+    
+    // format textfield ui
+    [@[_textFieldForUsername, _textFieldForPassword] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        UITextField *textField = obj;
+        
+        textField.background = [SMUtils stretchedImage:textField.background];
+        
+        UIView *lv = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 5, 1)];
+        textField.leftView = lv;
+        textField.leftViewMode = UITextFieldViewModeAlways;
+        
+        UIView *rv = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 5, 1)];
+        textField.rightView = rv;
+        textField.rightViewMode = UITextFieldViewModeAlways;
+    }];
     
     [_buttonForCancel setButtonSMType:SMButtonTypeGray];
     [_buttonForSubmit setButtonSMType:SMButtonTypeBlue];
@@ -91,6 +107,27 @@
 {
     [self toast:error.message];
 }
+
+#pragma mark - keyboard
+- (void)onKeyboardDidShow:(NSNotification *)n
+{
+    [super onKeyboardDidShow:n];
+    [self fitLoginFrame];
+}
+
+- (void)onKeyboardDidHide:(NSNotification *)n
+{
+    [super onKeyboardDidHide:n];
+    [self fitLoginFrame];
+}
+
+- (void)fitLoginFrame
+{
+    [UIView animateWithDuration:0.1f animations:^{
+        _viewFromContainer.center = CGPointMake(self.view.frame.size.width / 2.0f, (self.view.frame.size.height - self.keyboardHeight) / 2.0f);
+    }];
+}
+
 
 
 @end

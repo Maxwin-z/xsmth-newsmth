@@ -9,7 +9,13 @@
 #import <Foundation/Foundation.h>
 
 @interface SMUtils : NSObject
+
+// unique format for sm
 + (NSString *)formatDate:(NSDate *)date;
+
+// stretch image at center
++ (UIImage *)stretchedImage:(UIImage *)image;
+
 + (void)trackEventWithCategory:(NSString *)category
                         action:(NSString *)action
                          label:(NSString *)label;

@@ -24,6 +24,12 @@
     return [formatter stringFromDate:date];
 }
 
++ (UIImage *)stretchedImage:(UIImage *)image
+{
+    return [image stretchableImageWithLeftCapWidth:(image.size.width + 1) / 2 topCapHeight:(image.size.height + 1) / 2];
+}
+
+
 + (void)trackEventWithCategory:(NSString *)category
                         action:(NSString *)action
                          label:(NSString *)label

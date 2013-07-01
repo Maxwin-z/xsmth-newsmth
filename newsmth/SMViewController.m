@@ -11,8 +11,6 @@
 #import "UIButton+Custom.h"
 
 @interface SMViewController ()
-@property (assign, nonatomic) CGFloat keyboardHeight;
-
 @property (assign, nonatomic) SEL selectorAfterLogin;
 
 @property (strong, nonatomic) IBOutlet UIView *viewForPopover;
@@ -40,6 +38,8 @@
 {
     [super viewDidLoad];
     self.trackedViewName = NSStringFromClass([self class]);
+    
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background"]];
     
     // change back icon
 //    if (self.navigationController.viewControllers.count > 1) {

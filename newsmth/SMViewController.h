@@ -14,6 +14,12 @@
 #define TOAST_DURTAION  1.0f
 
 @interface SMViewController : P2PViewController
+
+@property (assign, nonatomic) CGFloat keyboardHeight;
+
 - (void)toast:(NSString *)message;
 - (void)performSelectorAfterLogin:(SEL)aSelector;
+
+- (void)onKeyboardDidShow:(NSNotification *)n;
+- (void)onKeyboardDidHide:(NSNotification *)n;
 @end
