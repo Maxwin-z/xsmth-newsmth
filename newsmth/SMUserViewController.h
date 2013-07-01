@@ -9,5 +9,5 @@
 #import "SMViewController.h"
 
 @interface SMUserViewController : SMViewController
-
+@property (strong, nonatomic) NSString *username;
 @end

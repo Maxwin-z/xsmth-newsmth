@@ -17,7 +17,6 @@ static SMFavorListViewController *_instance;
 
 @interface SMFavorListViewController ()<SMWebLoaderOperationDelegate, XPullRefreshTableViewDelegate, UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet XPullRefreshTableView *tableView;
-@property (weak, nonatomic) IBOutlet UIButton *buttonForLogin;
 
 @property (strong, nonatomic) SMWebLoaderOperation *favorListOp;
 @property (strong, nonatomic) NSArray *boards;
@@ -31,6 +30,15 @@ static SMFavorListViewController *_instance;
         _instance = [[SMFavorListViewController alloc] init];
     }
     return _instance;
+}
+
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accountChanged) name:NOTIFICATION_ACCOUT object:nil];
+    }
+    return self;
 }
 
 - (void)viewDidLoad
@@ -53,11 +61,11 @@ static SMFavorListViewController *_instance;
 {
     if ([SMAccountManager instance].isLogin) {
         _tableView.hidden = NO;
-        _buttonForLogin.hidden = YES;
         [_tableView beginRefreshing];
+        [self hideLogin];
     } else {
         _tableView.hidden = YES;
-        _buttonForLogin.hidden = NO;
+        [self showLogin];
     }
 }
 
@@ -72,11 +80,6 @@ static SMFavorListViewController *_instance;
 {
     _boards = boards;
     [self.tableView reloadData];
-}
-
-- (IBAction)onLoginButtonClick:(id)sender
-{
-    [self performSelectorAfterLogin:@selector(accountChanged)];
 }
 
 #pragma mark - UITableDelegate/DataSource

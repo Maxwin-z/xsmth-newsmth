@@ -18,6 +18,8 @@
 @property (assign, nonatomic) CGFloat keyboardHeight;
 
 - (void)toast:(NSString *)message;
+- (void)showLogin;
+- (void)hideLogin;
 - (void)performSelectorAfterLogin:(SEL)aSelector;
 
 - (void)onKeyboardDidShow:(NSNotification *)n;

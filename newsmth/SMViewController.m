@@ -17,7 +17,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewForPopoverBg;
 @property (weak, nonatomic) IBOutlet UILabel *labelForPoperoverMessage;
 
-//@property (strong, nonatomic) SMLoginViewController *loginViewController;
+@property (strong, nonatomic) IBOutlet UIView *viewForLogin;
+@property (weak, nonatomic) IBOutlet UIButton *buttonForLogin;
 
 @end
 
@@ -40,16 +41,6 @@
     self.trackedViewName = NSStringFromClass([self class]);
     
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background"]];
-    
-    // change back icon
-//    if (self.navigationController.viewControllers.count > 1) {
-//        UIButton *button = [UIButton buttonWithSMType:SMButtonTypeBack];
-//        UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:button];
-//        [button addTarget:self action:@selector(popViewController) forControlEvents:UIControlEventTouchUpInside];
-//        
-//        self.navigationItem.leftBarButtonItem = backItem;
-//        self.navigationItem.hidesBackButton = YES;
-//    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -83,12 +74,32 @@
     [_viewForPopover removeFromSuperview];
 }
 
+- (void)showLogin
+{
+    if (_viewForLogin == nil) {
+        [[NSBundle mainBundle] loadNibNamed:@"SMViewControllerNeedLogin" owner:self options:nil];
+        [_buttonForLogin setButtonSMType:SMButtonTypeGray];
+    }
+    _viewForLogin.frame = self.view.bounds;
+    [self.view addSubview:_viewForLogin];
+}
+
+- (void)hideLogin
+{
+    [_viewForLogin removeFromSuperview];
+}
+
 - (void)performSelectorAfterLogin:(SEL)aSelector
 {
     SMLoginViewController *loginVc = [[SMLoginViewController alloc] init];
     [loginVc setAfterLoginTarget:self selector:aSelector];
     P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:loginVc];
     [self presentModalViewController:nvc animated:YES];
+}
+
+- (IBAction)onLoginButtonClick:(id)sender
+{
+    [self performSelectorAfterLogin:NULL];
 }
 
 - (void)dealloc

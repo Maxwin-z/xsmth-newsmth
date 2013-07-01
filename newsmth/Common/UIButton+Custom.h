@@ -10,7 +10,8 @@
 
 typedef NS_ENUM(NSInteger, SMButtonType) {
     SMButtonTypeGray,
-    SMButtonTypeBlue
+    SMButtonTypeBlue,
+    SMButtonTypeRed
 };
 
 @interface UIButton (Custom)

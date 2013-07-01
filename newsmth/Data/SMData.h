@@ -6,3 +6,4 @@
 #import "SMBoard.h"
 #import "SMFavor.h"
 #import "SMWriteResult.h"
+#import "SMUser.h"

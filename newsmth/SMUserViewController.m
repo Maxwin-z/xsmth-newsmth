@@ -8,33 +8,85 @@
 
 #import "SMUserViewController.h"
 #import "SMLoginViewController.h"
+#import "UIButton+Custom.h"
 
-@interface SMUserViewController ()
+@interface SMUserViewController ()<SMWebLoaderOperationDelegate>
+@property (weak, nonatomic) IBOutlet UILabel *labelForUserInfo;
+@property (weak, nonatomic) IBOutlet UIButton *buttonForLogout;
+
+@property (strong, nonatomic) SMWebLoaderOperation *userInfoOp;
+@property (strong, nonatomic) SMWebLoaderOperation *logoutOp;
+
+@property (strong, nonatomic) SMUser *user;
 
 @end
 
 @implementation SMUserViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)init
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super init];
     if (self) {
-        // Custom initialization
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accountChanged) name:NOTIFICATION_ACCOUT object:nil];
     }
     return self;
+}
+
+
+- (void)dealloc
+{
+    [_userInfoOp cancel];
+    [_logoutOp cancel];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    [self accountChanged];
+    
+    [_buttonForLogout setButtonSMType:SMButtonTypeRed];
 }
 
-- (IBAction)onLoginButtonClick:(id)sender
+- (void)accountChanged
 {
-    SMLoginViewController *loginVc = [[SMLoginViewController alloc] init];
-    P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:loginVc];
-    [self presentModalViewController:nvc animated:YES];
+    if (_username == nil && [SMAccountManager instance].name == nil) {
+        _labelForUserInfo.hidden = _buttonForLogout.hidden = YES;
+        [self showLogin];
+    } else {
+        [_userInfoOp cancel];
+        _userInfoOp = [[SMWebLoaderOperation alloc] init];
+        _userInfoOp.delegate = self;
+        NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbsqry.php?userid=%@", _username == nil ? [SMAccountManager instance].name : _username];
+        [_userInfoOp loadUrl:url withParser:@"bbsqry"];
+    }
+    
+}
+
+- (void)setUser:(SMUser *)user
+{
+    _user = user;
+    _labelForUserInfo.text = user.info;
+    
+    [self hideLogin];
+    
+    _labelForUserInfo.hidden = NO;
+    _buttonForLogout.hidden = _username != nil && ![_username isEqualToString:[SMAccountManager instance].name];
+}
+
+- (IBAction)onLogoutButtonClick:(id)sender
+{
+    
+}
+
+#pragma mark - SMWebLoaderOperationDelegate
+- (void)webLoaderOperationFinished:(SMWebLoaderOperation *)opt
+{
+    self.user = opt.data;
+}
+
+- (void)webLoaderOperationFail:(SMWebLoaderOperation *)opt error:(SMMessage *)error
+{
+    [self toast:error.message];
 }
 
 @end
