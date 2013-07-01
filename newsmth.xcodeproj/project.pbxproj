@@ -116,6 +116,7 @@
 		C1E628AC1764C594007ACF2A /* SMSection.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E628A91764C594007ACF2A /* SMSection.m */; };
 		C1FD13B3178130C3006A6061 /* bg_input@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1FD13B2178130C3006A6061 /* bg_input@2x.png */; };
 		C1FD13B517813A3A006A6061 /* background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1FD13B417813A3A006A6061 /* background@2x.png */; };
+		C1FD13B717814E06006A6061 /* bg_photo_border@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1FD13B617814E06006A6061 /* bg_photo_border@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -304,6 +305,7 @@
 		C1E628A91764C594007ACF2A /* SMSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMSection.m; sourceTree = "<group>"; };
 		C1FD13B2178130C3006A6061 /* bg_input@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_input@2x.png"; sourceTree = "<group>"; };
 		C1FD13B417813A3A006A6061 /* background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background@2x.png"; sourceTree = "<group>"; };
+		C1FD13B617814E06006A6061 /* bg_photo_border@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_photo_border@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -418,6 +420,7 @@
 		C19FF0B01769A71B00EB6F7E /* images */ = {
 			isa = PBXGroup;
 			children = (
+				C1FD13B617814E06006A6061 /* bg_photo_border@2x.png */,
 				C1FD13B417813A3A006A6061 /* background@2x.png */,
 				C1FD13B2178130C3006A6061 /* bg_input@2x.png */,
 				C1902DC2177E6B9A00967211 /* button_blue_pressed@2x.png */,
@@ -818,6 +821,7 @@
 				C1E3A22B1780600900994CE6 /* SMUserViewController.xib in Resources */,
 				C1FD13B3178130C3006A6061 /* bg_input@2x.png in Resources */,
 				C1FD13B517813A3A006A6061 /* background@2x.png in Resources */,
+				C1FD13B717814E06006A6061 /* bg_photo_border@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

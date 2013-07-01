@@ -12,6 +12,7 @@
 
 @interface SMPostGroupAttachCell ()
 @property (strong, nonatomic) IBOutlet UIView *viewForCell;
+@property (strong, nonatomic) IBOutlet UIImageView *bgForPhotoFrame;
 @end
 
 @implementation SMPostGroupAttachCell
@@ -31,6 +32,9 @@
     if (self) {
         [[NSBundle mainBundle] loadNibNamed:@"SMPostGroupAttachCell" owner:self options:nil];
         _viewForCell.frame = self.contentView.bounds;
+        
+        _bgForPhotoFrame.image = [SMUtils stretchedImage:_bgForPhotoFrame.image];
+        
         [self.contentView addSubview:_viewForCell];
     }
     return self;

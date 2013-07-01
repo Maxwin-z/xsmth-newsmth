@@ -64,6 +64,7 @@ static SMPostGroupContentCell *_instance;
         label.font = _labelForContent.font;
         label.lineBreakMode = _labelForContent.lineBreakMode;
         label.numberOfLines = 0;
+        label.backgroundColor = [UIColor clearColor];
         label.text = line;
         
         if ([line hasPrefix:@":"]) {
