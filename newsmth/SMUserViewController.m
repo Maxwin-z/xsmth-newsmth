@@ -75,7 +75,9 @@
 
 - (IBAction)onLogoutButtonClick:(id)sender
 {
-    
+    [_logoutOp cancel];
+    _logoutOp = [[SMWebLoaderOperation alloc] init];
+    [_logoutOp loadUrl:@"http://m.newsmth.net/user/logout" withParser:nil];
 }
 
 #pragma mark - SMWebLoaderOperationDelegate

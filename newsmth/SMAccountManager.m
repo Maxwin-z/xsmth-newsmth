@@ -49,10 +49,13 @@ static SMAccountManager *_instance;
     NSString *name = nil;
     for (int i = 0; i != cookies.count; ++i) {
         NSHTTPCookie *cookie = cookies[i];
+        
         if ([cookie.name isEqualToString:COOKIE_USERID]) {
             name = cookie.value;
-//          XLog_d(@"get user: %@", name);
-            if ([name isEqualToString:@"guest"]) {    // login status
+
+            BOOL isExpired = cookie.expiresDate != nil && cookie.expiresDate.timeIntervalSince1970 < [[NSDate alloc] init].timeIntervalSince1970;
+
+            if ([name isEqualToString:@"guest"] || isExpired) {    // login status
                 name = nil;
             }
             

@@ -91,8 +91,8 @@
     if (!self.isDragging) {
         UIEdgeInsets inset = self.contentInset;
         inset.top = REFRESH_TRIGGER_HEIGHT;
-        self.contentInset = inset;
         [UIView animateWithDuration:ANIMATION_DURATION animations:^{
+            self.contentInset = inset;
             self.contentOffset = CGPointMake(0, -self.contentInset.top);
         }];
     }
