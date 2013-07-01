@@ -42,7 +42,9 @@ static SMFavorListViewController *_instance;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"收藏";
+    if (self.title.length == 0) {
+        self.title = @"收藏";
+    }
     if (self.url == nil) {
         self.url = @"http://m.newsmth.net/favor";
     }
