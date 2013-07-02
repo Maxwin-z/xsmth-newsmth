@@ -413,6 +413,7 @@
     SMWritePostViewController *writeViewController = [[SMWritePostViewController alloc] init];
     writeViewController.post = post;
     writeViewController.postTitle = _postTitle;
+    writeViewController.title = [NSString stringWithFormat:@"回复-%@", _postTitle];
     P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:writeViewController];
     [self.navigationController presentModalViewController:nvc animated:YES];
 }

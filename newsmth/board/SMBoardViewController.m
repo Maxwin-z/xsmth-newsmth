@@ -80,6 +80,7 @@
     newPost.board = _board;
     newPost.pid = 0;
     writeViewController.post = newPost;
+    writeViewController.title = [NSString stringWithFormat:@"发表-%@", _board.cnName];
     P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:writeViewController];
     [self.navigationController presentModalViewController:nvc animated:YES];
 }
