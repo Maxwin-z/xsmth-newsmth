@@ -140,6 +140,9 @@ typedef enum {
         if (item.op.data != nil) {  // post loaded
             item.post = item.op.data;
         }
+        if (item.op.isFinished && item.op.data == nil) {
+            item.loadFail = YES;
+        }
         
         // header
         SMPostGroupCellData *header = [[SMPostGroupCellData alloc] init];
@@ -370,6 +373,12 @@ typedef enum {
         [postGroup.posts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             SMPost *post = obj;
             NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbscon.php?bid=%d&id=%d", _bid, post.pid];
+#warning debug
+            NSInteger randomNumber = arc4random() % 5;
+            if (randomNumber == 0) {
+                url = @"http://www.newsmth.net/bbscon.php?bid=0&id=0";
+            }
+            
             SMWebLoaderOperation *op = [[SMWebLoaderOperation alloc] init];
             op.delegate = self;
             [op loadUrl:url withParser:@"bbscon"];

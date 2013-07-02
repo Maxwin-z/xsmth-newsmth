@@ -138,8 +138,8 @@ static SMMainpageViewController *_instance;
 
 - (void)webLoaderOperationFail:(SMWebLoaderOperation *)opt error:(SMMessage *)error
 {
-    XLog_d(@"error: %@", error);
     [_tableView endRefreshing:NO];
+    [self toast:error.message];
 }
 
 @end
