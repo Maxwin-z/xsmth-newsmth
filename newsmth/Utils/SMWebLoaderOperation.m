@@ -38,11 +38,11 @@
 - (void)main
 {
     if (self.isCancelled) {
-        XLog_d(@"opt is cancelled");
+//        XLog_d(@"opt is cancelled");
         return;
     }
     if (_url == nil && _request == nil) {
-        XLog_e(@"request url is nil");
+//        XLog_e(@"request url is nil");
         return;
     }
     
@@ -54,7 +54,7 @@
     
     _request.delegate = self;
     
-    XLog_d(@"url[%@] start", _url);
+//    XLog_d(@"url[%@] start", _url);
     [_request startSynchronous];
 }
 
@@ -65,7 +65,7 @@
         return;
     }
 
-    XLog_d(@"url[%@] response", _url);
+//    XLog_d(@"url[%@] response", _url);
     NSString *body;
     NSString *contentType = [request.responseHeaders objectForKey:@"Content-Type"];
     if ([contentType rangeOfString:@"charset=utf-8"].location != NSNotFound) {
@@ -85,7 +85,7 @@
 
 - (void)requestFailed:(ASIHTTPRequest *)request
 {
-    XLog_d(@"url[%@] fail", _url);
+//    XLog_d(@"url[%@] fail", _url);
     SMMessage *error = [[SMMessage alloc] initWithCode:SMNetworkErrorCodeRequestFail message:@"网络请求超时"];
     [_delegate webLoaderOperationFail:self error:error];
 }
@@ -96,7 +96,7 @@
     if (self.isCancelled) {
         return;
     }
-    XLog_d(@"url[%@] parsed", _url);
+//    XLog_d(@"url[%@] parsed", _url);
     NSInteger code = [[json objectForKey:@"code"] integerValue];
     if (code == 0) {
         SMBaseData *tmp = [[SMBaseData alloc] initWithData:[json objectForKey:@"data"]];
@@ -111,7 +111,7 @@
 #pragma mark - debug
 - (void)cancel
 {
-    XLog_e(@"req cancel [%@]", _url);
+//    XLog_e(@"req cancel [%@]", _url);
     [super cancel];
     _delegate = nil;
     [_request clearDelegatesAndCancel];
@@ -119,7 +119,7 @@
 
 - (void)dealloc
 {
-    XLog_d(@"url[%@] dealloc", _url);
+//    XLog_d(@"url[%@] dealloc", _url);
     [_request clearDelegatesAndCancel];
     _request = nil;
     _webParser = nil;
