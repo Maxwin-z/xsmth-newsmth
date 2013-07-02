@@ -70,6 +70,7 @@ static NSOperationQueue *downloadQueue;
         _downloadRequest = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:url]];
         _downloadRequest.delegate = self;
         _downloadRequest.downloadProgressDelegate = self;
+        _labelForProgress.hidden = YES;
         [[[self class] queue] addOperation:_downloadRequest];
     }
 }
