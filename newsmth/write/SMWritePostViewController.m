@@ -9,6 +9,9 @@
 #import "SMWritePostViewController.h"
 #import "SMWriteResult.h"
 
+#define USER_DEF_LAST_POST_TITLE    @"last_post_title"
+#define USER_DEF_LAST_POST_CONTENT  @"last_post_content"
+
 @interface SMWritePostViewController ()<SMWebLoaderOperationDelegate>
 @property (weak, nonatomic) IBOutlet UIView *viewForContainer;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldForTitle;
@@ -46,6 +49,10 @@
             _textFieldForTitle.text = [NSString stringWithFormat:@"Re: %@", _post.title];
         }
     }
+    NSString *savedContent = [[NSUserDefaults standardUserDefaults] objectForKey:USER_DEF_LAST_POST_CONTENT];
+    if (savedContent != nil) {
+        _textViewForText.text = savedContent;
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -55,6 +62,15 @@
 }
 
 - (void)cancel
+{
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    [def removeObjectForKey:USER_DEF_LAST_POST_TITLE];
+    [def removeObjectForKey:USER_DEF_LAST_POST_CONTENT];
+
+    [self dismiss];
+}
+
+- (void)dismiss
 {
     [self.navigationController dismissModalViewControllerAnimated:YES];
 }
@@ -106,12 +122,18 @@
 {
     [self hideLoading];
     SMWriteResult *result = opt.data;
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     if (result.success) {
         [self toast:@"发表成功"];
+        [def removeObjectForKey:USER_DEF_LAST_POST_TITLE];
+        [def removeObjectForKey:USER_DEF_LAST_POST_CONTENT];
     } else {
-        [self toast:@"发表失败"];
+        [self toast:@"发表失败，文章已保存"];
+        // save post
+        [def setObject:_textFieldForTitle.text forKey:USER_DEF_LAST_POST_TITLE];
+        [def setObject:_textViewForText.text forKey:USER_DEF_LAST_POST_CONTENT];
     }
-    [self performSelector:@selector(cancel) withObject:nil afterDelay:TOAST_DURTAION + 0.1];
+    [self performSelector:@selector(dismiss) withObject:nil afterDelay:TOAST_DURTAION + 0.1];
 }
 
 - (void)webLoaderOperationFail:(SMWebLoaderOperation *)opt error:(SMMessage *)error
