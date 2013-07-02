@@ -15,6 +15,7 @@
 #import "SMWritePostViewController.h"
 #import "P2PNavigationController.h"
 #import "SMBoardViewController.h"
+#import "SMUserViewController.h"
 
 #import "SMPostGroupHeaderCell.h"
 #import "SMPostGroupContentCell.h"
@@ -419,6 +420,13 @@
     [self.navigationController presentModalViewController:nvc animated:YES];
     
     [SMUtils trackEventWithCategory:@"postgroup" action:@"reply" label:_board.name];
+}
+
+- (void)postGroupHeaderCellOnUsernameClick:(NSString *)username
+{
+    SMUserViewController *vc = [[SMUserViewController alloc] init];
+    vc.username = username;
+    [self.navigationController pushViewController:vc animated:YES];   
 }
 
 #pragma mark - SMPostFailCellDelegate

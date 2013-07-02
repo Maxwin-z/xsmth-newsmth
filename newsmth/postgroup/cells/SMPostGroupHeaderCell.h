@@ -11,6 +11,8 @@
 
 @protocol SMPostGroupHeaderCellDelegate <NSObject>
 - (void)postGroupHeaderCellOnReply:(SMPost *)post;
+@optional
+- (void)postGroupHeaderCellOnUsernameClick:(NSString *)username;
 @end
 
 @interface SMPostGroupHeaderCell : UITableViewCell

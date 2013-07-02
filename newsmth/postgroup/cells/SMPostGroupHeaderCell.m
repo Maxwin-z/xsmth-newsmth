@@ -51,4 +51,11 @@
     [_delegate postGroupHeaderCellOnReply:_post];
 }
 
+- (IBAction)onUsernameClick:(UIButton *)sender
+{
+    if ([_delegate respondsToSelector:@selector(postGroupHeaderCellOnUsernameClick:)]) {
+        [_delegate postGroupHeaderCellOnUsernameClick:_post.author];
+    }
+}
+
 @end
