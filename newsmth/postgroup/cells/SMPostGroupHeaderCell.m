@@ -40,7 +40,9 @@
     NSString *author = [NSString stringWithFormat:@"%@(%@)", post.author, post.nick];
     [_buttonForAuthor setTitle:author forState:UIControlStateNormal];
     if (post.date > 0) {
-        _labelForDate.text = [NSString stringWithFormat:@"%@", [NSDate dateWithTimeIntervalSince1970:post.date / 1000.0f]];
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"yyyy/MM/dd HH:mm:ss"];
+        _labelForDate.text = [formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:post.date / 1000l]];
     }
 }
 

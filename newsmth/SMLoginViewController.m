@@ -83,7 +83,17 @@
     _loginOp = [[SMWebLoaderOperation alloc] init];
     _loginOp.delegate = self;
     [_loginOp setThreadPriority:1.0f];
+    
+    [self showLoading:@"正在登录..."];
+    
     [_loginOp loadRequest:request withParser:@"login"];
+}
+
+- (void)cancelLoading
+{
+    [super cancelLoading];
+    [_loginOp cancel];
+    _loginOp = nil;
 }
 
 - (IBAction)onCancelButtonClick:(id)sender
@@ -93,6 +103,7 @@
 
 - (void)webLoaderOperationFinished:(SMWebLoaderOperation *)opt
 {
+    [self hideLoading];
     if ([[SMAccountManager instance] isLogin]) {
         // save user & password
         [[NSUserDefaults standardUserDefaults] setObject:_textFieldForUsername.text forKey:USERDEFAULTS_USERNAME];
@@ -106,6 +117,7 @@
 
 - (void)webLoaderOperationFail:(SMWebLoaderOperation *)opt error:(SMMessage *)error
 {
+    [self hideLoading];
     [self toast:error.message];
 }
 

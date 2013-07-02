@@ -31,6 +31,7 @@
 
 - (void)dealloc
 {
+    [_writeOp cancel];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -74,7 +75,15 @@
     
     _writeOp = [[SMWebLoaderOperation alloc] init];
     _writeOp.delegate = self;
+    [self showLoading:@"正在发表..."];
     [_writeOp loadRequest:request withParser:@"bbssnd"];
+}
+
+- (void)cancelLoading
+{
+    [super cancelLoading];
+    [_writeOp cancel];
+    _writeOp = nil;
 }
 
 
@@ -95,6 +104,7 @@
 
 - (void)webLoaderOperationFinished:(SMWebLoaderOperation *)opt
 {
+    [self hideLoading];
     SMWriteResult *result = opt.data;
     if (result.success) {
         [self toast:@"发表成功"];
@@ -106,6 +116,7 @@
 
 - (void)webLoaderOperationFail:(SMWebLoaderOperation *)opt error:(SMMessage *)error
 {
+    [self hideLoading];
     [self toast:error.message];
 }
 
