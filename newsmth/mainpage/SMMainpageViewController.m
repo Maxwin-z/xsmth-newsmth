@@ -44,7 +44,7 @@ static SMMainpageViewController *_instance;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"Top10";
+    self.title = @"首页导读";
     _tableView.xdelegate = self;
     [_tableView beginRefreshing];
 }
@@ -104,6 +104,12 @@ static SMMainpageViewController *_instance;
 {
     SMPost *post = [self postAtIndexPath:indexPath];
     return [SMMainpageCell cellHeight:post];
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    SMSection *secdata = _sections[section];
+    return secdata.sectionTitle;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
