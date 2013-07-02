@@ -67,9 +67,9 @@
 									<int key="IBUIKeyboardType">1</int>
 									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								</object>
-								<object class="NSCustomResource" key="IBUIBackground" id="915487797">
+								<object class="NSCustomResource" key="IBUIBackground" id="1045310952">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">bg_input.png</string>
+									<string key="NSResourceName">bg_input_field.png</string>
 								</object>
 								<object class="IBUIFontDescription" key="IBUIFontDescription" id="430368642">
 									<int key="type">1</int>
@@ -107,7 +107,7 @@
 									<bool key="IBUISecureTextEntry">YES</bool>
 									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								</object>
-								<reference key="IBUIBackground" ref="915487797"/>
+								<reference key="IBUIBackground" ref="1045310952"/>
 								<reference key="IBUIFontDescription" ref="430368642"/>
 								<reference key="IBUIFont" ref="170176654"/>
 							</object>
@@ -117,6 +117,7 @@
 								<string key="NSFrame">{{168, 160}, {120, 46}}</string>
 								<reference key="NSSuperview" ref="755599744"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<object class="NSColor" key="IBUIBackgroundColor" id="728782669">
 									<int key="NSColorSpace">1</int>
@@ -392,20 +393,17 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">SMLoginViewController</string>
 					<string key="superclassName">SMViewController</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="onCancelButtonClick:">id</string>
-						<string key="onLoginButtonClick:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="onCancelButtonClick:">
-							<string key="name">onCancelButtonClick:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="onLoginButtonClick:">
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">onLoginButtonClick:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">onLoginButtonClick:</string>
+						<object class="IBActionInfo" key="NS.object.0">
 							<string key="name">onLoginButtonClick:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-					</dictionary>
+					</object>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="buttonForCancel">UIButton</string>
 						<string key="buttonForSubmit">UIButton</string>
@@ -443,21 +441,13 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">SMViewController</string>
 					<string key="superclassName">P2PViewController</string>
-					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">onLoginButtonClick:</string>
-						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">onLoginButtonClick:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">onLoginButtonClick:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</object>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="buttonForLogin">UIButton</string>
+						<string key="imageViewForLoadingLeftBg">UIImageView</string>
 						<string key="imageViewForPopoverBg">UIImageView</string>
+						<string key="labelForLoadingMessage">UILabel</string>
 						<string key="labelForPoperoverMessage">UILabel</string>
+						<string key="viewForLoadingPopover">UIView</string>
 						<string key="viewForLogin">UIView</string>
 						<string key="viewForPopover">UIView</string>
 					</dictionary>
@@ -466,13 +456,25 @@
 							<string key="name">buttonForLogin</string>
 							<string key="candidateClassName">UIButton</string>
 						</object>
+						<object class="IBToOneOutletInfo" key="imageViewForLoadingLeftBg">
+							<string key="name">imageViewForLoadingLeftBg</string>
+							<string key="candidateClassName">UIImageView</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="imageViewForPopoverBg">
 							<string key="name">imageViewForPopoverBg</string>
 							<string key="candidateClassName">UIImageView</string>
 						</object>
+						<object class="IBToOneOutletInfo" key="labelForLoadingMessage">
+							<string key="name">labelForLoadingMessage</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="labelForPoperoverMessage">
 							<string key="name">labelForPoperoverMessage</string>
 							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="viewForLoadingPopover">
+							<string key="name">viewForLoadingPopover</string>
+							<string key="candidateClassName">UIView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="viewForLogin">
 							<string key="name">viewForLogin</string>
@@ -495,7 +497,7 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="NS.key.0">bg_input.png</string>
+			<string key="NS.key.0">bg_input_field.png</string>
 			<string key="NS.object.0">{16, 16}</string>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">2083</string>

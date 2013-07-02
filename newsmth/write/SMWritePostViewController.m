@@ -16,6 +16,9 @@
 @property (weak, nonatomic) IBOutlet UIView *viewForContainer;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldForTitle;
 @property (weak, nonatomic) IBOutlet UITextView *textViewForText;
+@property (weak, nonatomic) IBOutlet UIImageView *imageViewForTitle;
+@property (weak, nonatomic) IBOutlet UIImageView *imageViewForText;
+
 
 @property (strong, nonatomic) SMWebLoaderOperation *writeOp;
 @end
@@ -53,6 +56,11 @@
     if (savedContent != nil) {
         _textViewForText.text = savedContent;
     }
+    
+    // style
+    _imageViewForTitle.image = [SMUtils stretchedImage:_imageViewForTitle.image];
+    _imageViewForText.image = [SMUtils stretchedImage:_imageViewForText.image];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated
