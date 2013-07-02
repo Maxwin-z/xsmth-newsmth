@@ -17,6 +17,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    if (self.title == nil) {
+        self.title = @"分区";
+    }
     [self.tableView beginRefreshing];
 }
 

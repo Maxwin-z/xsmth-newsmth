@@ -67,7 +67,6 @@
 
 - (void)dealloc
 {
-    XLog_d(@"%s", __PRETTY_FUNCTION__);
     // cancel all requests
     [_pageOp cancel];
     [_postItems enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -83,8 +82,12 @@
     self.tableView.xdelegate = self;
     [self.tableView beginRefreshing];
     
-    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction      target:self action:@selector(onRightBarButtonClick)];
-    self.navigationItem.rightBarButtonItem = button;
+    if (!_fromBoard) {
+        self.navigationItem.rightBarButtonItem =
+        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+                                                      target:self
+                                                      action:@selector(onRightBarButtonClick)];
+    }
 }
 
 - (void)onRightBarButtonClick
