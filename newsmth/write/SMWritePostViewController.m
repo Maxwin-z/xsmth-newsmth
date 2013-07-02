@@ -45,8 +45,8 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"发表" style:UIBarButtonItemStyleBordered target:self action:@selector(doPost)];
     
     if (_post) {
-        if (_post.pid != 0) {
-            _textFieldForTitle.text = [NSString stringWithFormat:@"Re: %@", _post.title];
+        if (_postTitle != nil) {
+            _textFieldForTitle.text = [NSString stringWithFormat:@"Re: %@", _postTitle];
         }
     }
     NSString *savedContent = [[NSUserDefaults standardUserDefaults] objectForKey:USER_DEF_LAST_POST_CONTENT];
@@ -58,7 +58,11 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [_textFieldForTitle becomeFirstResponder];
+    if (_textFieldForTitle.text.length == 0) {
+        [_textFieldForTitle becomeFirstResponder];
+    } else {
+        [_textViewForText becomeFirstResponder];
+    }
 }
 
 - (void)cancel

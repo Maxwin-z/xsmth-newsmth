@@ -72,7 +72,7 @@
 - (void)writePost
 {
     if (![SMAccountManager instance].isLogin) {
-        [self performSelectorAfterLogin:nil];
+        [self performSelectorAfterLogin:@selector(writePost)];
         return ;
     }
     SMWritePostViewController *writeViewController = [[SMWritePostViewController alloc] init];

@@ -49,6 +49,9 @@
 
 @property (assign, nonatomic) BOOL needReloadData;
 
+@property (strong, nonatomic) SMPost *replyPost;    // 准备回复的主题
+@property (strong, nonatomic) NSString *postTitle;
+
 @end
 
 @implementation SMPostGroupViewController
@@ -352,6 +355,7 @@
             tmp = [[NSMutableArray alloc] initWithCapacity:0];
             _bid = postGroup.bid;
             
+            _postTitle = postGroup.title;
             [self makeupTableViewHeader:postGroup.title];
         } else {
             tmp = [_postItems mutableCopy];
@@ -391,14 +395,21 @@
 }
 
 #pragma mark - SMPostGroupHeaderCellDelegate
+- (void)postAfterLogin
+{
+    [self performSelector:@selector(postGroupHeaderCellOnReply:) withObject:_replyPost afterDelay:TOAST_DURTAION + 0.2f];
+}
+
 - (void)postGroupHeaderCellOnReply:(SMPost *)post
 {
     if (![SMAccountManager instance].isLogin) {
-        [self performSelectorAfterLogin:nil];
+        _replyPost = post;
+        [self performSelectorAfterLogin:@selector(postAfterLogin)];
         return ;
     }
     SMWritePostViewController *writeViewController = [[SMWritePostViewController alloc] init];
     writeViewController.post = post;
+    writeViewController.postTitle = _postTitle;
     P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:writeViewController];
     [self.navigationController presentModalViewController:nvc animated:YES];
 }

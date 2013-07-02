@@ -11,4 +11,5 @@
 
 @interface SMWritePostViewController : SMViewController
 @property (strong, nonatomic) SMPost *post;
+@property (strong, nonatomic) NSString *postTitle;
 @end
