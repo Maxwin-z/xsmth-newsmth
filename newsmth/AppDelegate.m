@@ -53,6 +53,8 @@
     
     [self setupGoogleAnalytics];
     
+    [SMUtils trackEventWithCategory:@"channel" action:@"jb" label:nil];
+    
     return YES;
 }
 
