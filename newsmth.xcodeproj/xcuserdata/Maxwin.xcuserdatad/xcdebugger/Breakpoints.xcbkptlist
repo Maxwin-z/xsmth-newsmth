@@ -47,11 +47,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "newsmth/postgroup/SMPostGroupViewController.m"
-         timestampString = "394428564.840473"
+         timestampString = "394430899.018527"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "421"
-         endingLineNumber = "421"
+         startingLineNumber = "402"
+         endingLineNumber = "402"
          landmarkName = "-postGroupHeaderCellOnReply:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -125,11 +125,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "newsmth/postgroup/SMPostGroupViewController.m"
-         timestampString = "394428233.971269"
+         timestampString = "394430805.818114"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "214"
-         endingLineNumber = "214"
+         startingLineNumber = "199"
+         endingLineNumber = "199"
          landmarkName = "-scrollViewDidEndDragging:willDecelerate:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -138,11 +138,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "newsmth/postgroup/SMPostGroupViewController.m"
-         timestampString = "394428233.971269"
+         timestampString = "394430805.818114"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "213"
-         endingLineNumber = "213"
+         startingLineNumber = "198"
+         endingLineNumber = "198"
          landmarkName = "-scrollViewDidEndDragging:willDecelerate:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -209,6 +209,19 @@
          startingLineNumber = "75"
          endingLineNumber = "75"
          landmarkName = "-loadData:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "newsmth/postgroup/cells/SMPostFailCell.m"
+         timestampString = "394430590.803956"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "31"
+         endingLineNumber = "31"
+         landmarkName = "-onRetryButtonClick:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

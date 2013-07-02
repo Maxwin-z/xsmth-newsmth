@@ -19,37 +19,20 @@
 #import "SMPostGroupHeaderCell.h"
 #import "SMPostGroupContentCell.h"
 #import "SMPostGroupAttachCell.h"
+#import "SMPostFailCell.h"
 
-typedef enum {
-    CellTypeHeader,
-    CellTypeLoading,
-    CellTypeFail,
-    CellTypeContent,
-    CellTypeAttach
-}CellType;
 
 ////////////////////////////////////////////////
-@interface SMPostGroupItem : NSObject
-@property (strong, nonatomic) SMPost *post;
-@property (strong, nonatomic) SMWebLoaderOperation *op;
-@property (assign, nonatomic) BOOL loadFail;
-@end
 @implementation SMPostGroupItem
 @end
 
 ////////////////////////////////////////////////
 
-@interface SMPostGroupCellData : NSObject
-@property (strong, nonatomic) SMPostGroupItem *item;
-@property (assign, nonatomic) CellType type;
-@property (strong, nonatomic) SMAttach *attach;
-@end
-
 @implementation SMPostGroupCellData
 @end
 
 ////////////////////////////////////////////////
-@interface SMPostGroupViewController ()<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate,  XPullRefreshTableViewDelegate, SMWebLoaderOperationDelegate, XImageViewDelegate, SMPostGroupHeaderCellDelegate>
+@interface SMPostGroupViewController ()<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate,  XPullRefreshTableViewDelegate, SMWebLoaderOperationDelegate, XImageViewDelegate, SMPostGroupHeaderCellDelegate, SMPostFailCellDelegate>
 @property (weak, nonatomic) IBOutlet XPullRefreshTableView *tableView;
 @property (strong, nonatomic) IBOutlet UIView *tableViewHeader;
 @property (weak, nonatomic) IBOutlet UILabel *labelForTitle;
@@ -142,23 +125,25 @@ typedef enum {
         }
         if (item.op.isFinished && item.op.data == nil) {
             item.loadFail = YES;
+        } else {
+            item.loadFail = NO;
         }
         
         // header
         SMPostGroupCellData *header = [[SMPostGroupCellData alloc] init];
         header.item = item;
-        header.type = CellTypeHeader;
+        header.type = SMPostGroupCellTypeHeader;
         [datas addObject:header];
         
         // content
         SMPostGroupCellData *content = [[SMPostGroupCellData alloc] init];
         content.item = item;
         if (item.loadFail) {
-            content.type = CellTypeFail;
+            content.type = SMPostGroupCellTypeFail;
         } else if (item.op.data == nil) {
-            content.type = CellTypeLoading;
+            content.type = SMPostGroupCellTypeLoading;
         } else if (item.op.data) {
-            content.type = CellTypeContent;
+            content.type = SMPostGroupCellTypeContent;
         }
         [datas addObject:content];
         
@@ -168,7 +153,7 @@ typedef enum {
             [post.attaches enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                 SMPostGroupCellData *data = [[SMPostGroupCellData alloc] init];
                 data.item = item;
-                data.type = CellTypeAttach;
+                data.type = SMPostGroupCellTypeAttach;
                 data.attach = obj;
                 
                 [datas addObject:data];
@@ -230,19 +215,19 @@ typedef enum {
     
     UITableViewCell *cell;
     switch (data.type) {
-        case CellTypeHeader:
+        case SMPostGroupCellTypeHeader:
             cell = [self cellForTitle:data];
             break;
-        case CellTypeFail:
+        case SMPostGroupCellTypeFail:
             cell = [self cellForFail:data];
             break;
-        case CellTypeLoading:
+        case SMPostGroupCellTypeLoading:
             cell = [self cellForLoading:data];
             break;
-        case CellTypeContent:
+        case SMPostGroupCellTypeContent:
             cell = [self cellForContent:data];
             break;
-        case CellTypeAttach:
+        case SMPostGroupCellTypeAttach:
             cell = [self cellForAttach:data];
             break;
         default:
@@ -256,15 +241,15 @@ typedef enum {
 {
     SMPostGroupCellData *data = _cellDatas[indexPath.row];
     switch (data.type) {
-        case CellTypeHeader:
+        case SMPostGroupCellTypeHeader:
             return [SMPostGroupHeaderCell cellHeight];
-        case CellTypeFail:
+        case SMPostGroupCellTypeFail:
             return 44.0f;
-        case CellTypeLoading:
+        case SMPostGroupCellTypeLoading:
             return 44.0f;
-        case CellTypeContent:
+        case SMPostGroupCellTypeContent:
             return [SMPostGroupContentCell cellHeight:data.item.post];
-        case CellTypeAttach:
+        case SMPostGroupCellTypeAttach:
             return [SMPostGroupAttachCell cellHeight:[self getAttachUrl:data]];
         default:
             break;
@@ -298,11 +283,12 @@ typedef enum {
 - (UITableViewCell *)cellForFail:(SMPostGroupCellData *)data
 {
     NSString *cellid = @"fail_cell";
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:cellid];
+    SMPostFailCell *cell = (SMPostFailCell *)[self.tableView dequeueReusableCellWithIdentifier:cellid];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
+        cell = [[SMPostFailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
     }
-    cell.textLabel.text = @"Fail";
+    cell.cellData = data;
+    cell.delegate = self;
     return cell;
 }
 
@@ -373,11 +359,6 @@ typedef enum {
         [postGroup.posts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             SMPost *post = obj;
             NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbscon.php?bid=%d&id=%d", _bid, post.pid];
-#warning debug
-            NSInteger randomNumber = arc4random() % 5;
-            if (randomNumber == 0) {
-                url = @"http://www.newsmth.net/bbscon.php?bid=0&id=0";
-            }
             
             SMWebLoaderOperation *op = [[SMWebLoaderOperation alloc] init];
             op.delegate = self;
@@ -420,6 +401,21 @@ typedef enum {
     writeViewController.post = post;
     P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:writeViewController];
     [self.navigationController presentModalViewController:nvc animated:YES];
+}
+
+#pragma mark - SMPostFailCellDelegate
+- (void)postFailCellOnRetry:(SMPostFailCell *)cell
+{
+    SMPostGroupCellData *data = cell.cellData;
+    SMPostGroupItem *item = data.item;
+    SMPost *post = item.post;
+    NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbscon.php?bid=%d&id=%d", _bid, post.pid];
+    
+    SMWebLoaderOperation *op = [[SMWebLoaderOperation alloc] init];
+    op.delegate = self;
+    item.op = op;
+    
+    [op loadUrl:url withParser:@"bbscon"];
 }
 
 #pragma mark - UIActionSheetDelegate

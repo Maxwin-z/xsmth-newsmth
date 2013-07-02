@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C100985017828305001608EE /* SMPostFailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C100984F17828305001608EE /* SMPostFailCell.m */; };
+		C100985217828310001608EE /* SMPostFailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C100985117828310001608EE /* SMPostFailCell.xib */; };
 		C1011D8E17787DA400E0485D /* SMWriteResult.m in Sources */ = {isa = PBXBuildFile; fileRef = C1011D8D17787DA400E0485D /* SMWriteResult.m */; };
 		C1011D9017787E7E00E0485D /* bbssnd.js in Resources */ = {isa = PBXBuildFile; fileRef = C1011D8F17787E7E00E0485D /* bbssnd.js */; };
 		C1011D96177946D500E0485D /* SMUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C1011D95177946D500E0485D /* SMUtils.m */; };
@@ -141,6 +143,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C100984E17828305001608EE /* SMPostFailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMPostFailCell.h; sourceTree = "<group>"; };
+		C100984F17828305001608EE /* SMPostFailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMPostFailCell.m; sourceTree = "<group>"; };
+		C100985117828310001608EE /* SMPostFailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMPostFailCell.xib; sourceTree = "<group>"; };
 		C1011D8C17787DA400E0485D /* SMWriteResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMWriteResult.h; sourceTree = "<group>"; };
 		C1011D8D17787DA400E0485D /* SMWriteResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMWriteResult.m; sourceTree = "<group>"; };
 		C1011D8F17787E7E00E0485D /* bbssnd.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = bbssnd.js; sourceTree = "<group>"; };
@@ -518,6 +523,9 @@
 				C185CD3D17662BAE00BD3714 /* SMPostGroupAttachCell.h */,
 				C185CD3E17662BAE00BD3714 /* SMPostGroupAttachCell.m */,
 				C185CD4017662BBF00BD3714 /* SMPostGroupAttachCell.xib */,
+				C100984E17828305001608EE /* SMPostFailCell.h */,
+				C100984F17828305001608EE /* SMPostFailCell.m */,
+				C100985117828310001608EE /* SMPostFailCell.xib */,
 			);
 			path = cells;
 			sourceTree = "<group>";
@@ -879,6 +887,7 @@
 				C1FD13D4178182E3006A6061 /* button_red_pressed@2x.png in Resources */,
 				C1FD13DD1781B26F006A6061 /* left_shadow@2x.png in Resources */,
 				C1C4C8821781B4FF0092E77C /* SMBaseBorardListViewController.xib in Resources */,
+				C100985217828310001608EE /* SMPostFailCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -968,6 +977,7 @@
 				C1C4C8851781B6C00092E77C /* SMBoardList.m in Sources */,
 				C1C4C8881781BACC0092E77C /* SMBoardListItem.m in Sources */,
 				C1C4C8941781C4A60092E77C /* SMSectionViewController.m in Sources */,
+				C100985017828305001608EE /* SMPostFailCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
