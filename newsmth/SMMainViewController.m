@@ -104,6 +104,8 @@ static SMMainViewController *_instance;
             
         }
         _viewForCenterMasker.hidden = NO;
+        
+        [SMUtils trackEventWithCategory:@"main" action:@"show_left" label:nil];
     } else {
         _viewForCenterMasker.hidden = YES;
     }

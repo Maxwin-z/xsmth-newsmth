@@ -78,6 +78,7 @@
     [_logoutOp cancel];
     _logoutOp = [[SMWebLoaderOperation alloc] init];
     [_logoutOp loadUrl:@"http://m.newsmth.net/user/logout" withParser:nil];
+    [SMUtils trackEventWithCategory:@"user" action:@"logout" label:[SMAccountManager instance].name];
 }
 
 #pragma mark - SMWebLoaderOperationDelegate

@@ -330,6 +330,7 @@
 - (void)tableViewDoRefresh:(XPullRefreshTableView *)tableView
 {
     [self loadData:NO];
+    [SMUtils trackEventWithCategory:@"postgroup" action:@"refresh" label:_board.name];
 }
 
 #pragma mark - XImageViewDelegate
@@ -416,6 +417,8 @@
     writeViewController.title = [NSString stringWithFormat:@"回复-%@", _postTitle];
     P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:writeViewController];
     [self.navigationController presentModalViewController:nvc animated:YES];
+    
+    [SMUtils trackEventWithCategory:@"postgroup" action:@"reply" label:_board.name];
 }
 
 #pragma mark - SMPostFailCellDelegate
@@ -431,6 +434,8 @@
     item.op = op;
     
     [op loadUrl:url withParser:@"bbscon"];
+    
+    [SMUtils trackEventWithCategory:@"postgroup" action:@"retry_cell" label:_board.name];
 }
 
 #pragma mark - UIActionSheetDelegate
@@ -440,6 +445,8 @@
         SMBoardViewController *vc = [[SMBoardViewController alloc] init];
         vc.board = _board;
         [self.navigationController pushViewController:vc animated:YES];
+        
+        [SMUtils trackEventWithCategory:@"postgroup" action:@"enter_board" label:_board.name];
     }
 }
 

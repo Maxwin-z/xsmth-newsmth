@@ -79,6 +79,7 @@ static SMMainpageViewController *_instance;
 - (void)tableViewDoRefresh:(XPullRefreshTableView *)tableView
 {
     [self loadData:NO];
+    [SMUtils trackEventWithCategory:@"mainpage" action:@"refresh" label:nil];
 }
 
 #pragma mark - UITableViewDataSource/Delegate
@@ -126,6 +127,10 @@ static SMMainpageViewController *_instance;
     vc.board = post.board;
     vc.gid = post.gid;
     [self.navigationController pushViewController:vc animated:YES];
+    
+    [SMUtils trackEventWithCategory:@"mainpage" action:@"row_click" label:
+     [NSString stringWithFormat:@"%d-%d", indexPath.section, indexPath.row]
+     ];
 }
 
 #pragma mark - SMWebLoaderOperationDelegate

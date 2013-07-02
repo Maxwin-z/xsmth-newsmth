@@ -57,6 +57,8 @@ static SMFavorListViewController *_instance;
         self.tableView.hidden = NO;
         [self.tableView beginRefreshing];
         [self hideLogin];
+        
+        [SMUtils trackEventWithCategory:@"favor" action:@"refresh" label:nil];
     } else {
         self.tableView.hidden = YES;
         [self showLogin];

@@ -96,21 +96,28 @@ typedef NS_ENUM(NSInteger, CellType) {
     
     CellType cellType = [_cellTypes[indexPath.row] intValue];
 
+    NSString *evt = @"";
     SMViewController *vc = [SMMainpageViewController instance];
     if (cellType == CellTypeTop) {
         vc = [SMMainpageViewController instance];
+        evt = @"home";
     } else if (cellType == CellTypeFavor) {
         vc = [SMFavorListViewController instance];
+        evt = @"favor";
     } else if (cellType == CellTypeUser) {
         vc = [[SMUserViewController alloc] init];
+        evt = @"user";
     } else if (cellType == CellTypeSections) {
         SMSectionViewController *tvc = [[SMSectionViewController alloc] init];
         tvc.url = @"http://m.newsmth.net/section";
         vc = tvc;
+        evt = @"section";
     }
     
     [[SMMainViewController instance] setRootViewController:vc];
     [[SMMainViewController instance] setLeftVisiable:NO];
+    
+    [SMUtils trackEventWithCategory:@"left" action:evt label:nil];
 }
 
 @end

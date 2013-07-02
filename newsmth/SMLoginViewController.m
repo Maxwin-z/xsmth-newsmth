@@ -112,6 +112,8 @@
         if (_afterLoginTarget) {
             SuppressPerformSelectorLeakWarning([_afterLoginTarget performSelector:_afterLoginSelector]);
         }
+        
+        [SMUtils trackEventWithCategory:@"user" action:@"login" label:_textFieldForUsername.text];
     }
 }
 

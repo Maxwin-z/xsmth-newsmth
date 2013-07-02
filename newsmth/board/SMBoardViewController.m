@@ -58,8 +58,10 @@
 {
     if (!more) {
         _page = 1;
+        [SMUtils trackEventWithCategory:@"board" action:@"refresh" label:_board.name];
     } else {
         ++_page;
+        [SMUtils trackEventWithCategory:@"board" action:@"loadmore" label:[NSString stringWithFormat:@"%@:%d", _board.name, _page]];
     }
     NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/board/%@?p=%d", _board.name, _page];
     
@@ -67,6 +69,7 @@
     _boardOp = [[SMWebLoaderOperation alloc] init];
     _boardOp.delegate = self;
     [_boardOp loadUrl:url withParser:@"board"];
+    
 }
 
 - (void)writePost
@@ -83,6 +86,8 @@
     writeViewController.title = [NSString stringWithFormat:@"发表-%@", _board.cnName];
     P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:writeViewController];
     [self.navigationController presentModalViewController:nvc animated:YES];
+    
+    [SMUtils trackEventWithCategory:@"board" action:@"write" label:_board.name];
 }
 
 #pragma mark - XPullRefreshTableViewDelegate
@@ -133,6 +138,8 @@
     vc.board = _board;
     vc.fromBoard = YES;
     [self.navigationController pushViewController:vc animated:YES];
+    
+    [SMUtils trackEventWithCategory:@"board" action:@"view_post" label:_board.name];
 }
 
 #pragma mark - SMWebLoaderOperationDelegate

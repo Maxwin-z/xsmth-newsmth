@@ -103,6 +103,8 @@
     [def removeObjectForKey:USER_DEF_LAST_POST_CONTENT];
 
     [self dismiss];
+    
+    [SMUtils trackEventWithCategory:@"write" action:@"dismiss" label:_post.board.name];
 }
 
 - (void)dismiss
@@ -162,11 +164,15 @@
         [self toast:@"发表成功"];
         [def removeObjectForKey:USER_DEF_LAST_POST_TITLE];
         [def removeObjectForKey:USER_DEF_LAST_POST_CONTENT];
+        
+        [SMUtils trackEventWithCategory:@"write" action:@"success" label:_post.board.name];
     } else {
         [self toast:@"发表失败，文章已保存"];
         // save post
         [def setObject:_textFieldForTitle.text forKey:USER_DEF_LAST_POST_TITLE];
         [def setObject:_textViewForText.text forKey:USER_DEF_LAST_POST_CONTENT];
+
+        [SMUtils trackEventWithCategory:@"write" action:@"fail" label:_post.board.name];
     }
     [self performSelector:@selector(dismiss) withObject:nil afterDelay:TOAST_DURTAION + 0.1];
 }
