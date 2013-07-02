@@ -210,7 +210,6 @@
 
 - (void)setBackImage:(UIImage *)image
 {
-    XLog_d(@"%d", _backImageView.hidden);
     _backImageView.image = image;
 }
 

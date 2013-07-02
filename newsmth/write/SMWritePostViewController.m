@@ -47,15 +47,37 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"发表" style:UIBarButtonItemStyleBordered target:self action:@selector(doPost)];
     
-    if (_post) {
+    NSMutableString *quoteString = [[NSMutableString alloc] initWithString:@"\n\n"];
+    if (_post.pid != 0) {   // re
         if (_postTitle != nil) {
             _textFieldForTitle.text = [NSString stringWithFormat:@"Re: %@", _postTitle];
         }
+        [quoteString appendFormat:@"【 在 %@ (%@) 的大作中提到: 】", _post.author, _post.nick];
+        
+        NSString *content = _post.content;
+        NSArray *lines = [content componentsSeparatedByString:@"\n"];
+        int quoteLine = 4;
+        for (int i = 0; i != lines.count && quoteLine > 0; ++i) {
+            NSString *line = lines[i];
+            if ([line isEqualToString:@"--"]) {   // qmd start
+                break;
+            }
+            if (![line hasPrefix:@":"]) {
+                --quoteLine;
+                [quoteString appendFormat:@"\n:%@", line];
+            }
+        }
     }
+    
+    // 加载上次未发表的内容
     NSString *savedContent = [[NSUserDefaults standardUserDefaults] objectForKey:USER_DEF_LAST_POST_CONTENT];
     if (savedContent != nil) {
-        _textViewForText.text = savedContent;
+        NSString *str = [NSString stringWithFormat:@"~~~上次未发表的内容~~~\n%@\n~~~~~~~~~~~~\n", savedContent];
+        [quoteString insertString:str atIndex:0];
     }
+    
+    [quoteString appendString:@"\n发自xsmth"];
+    _textViewForText.text = quoteString;
     
     // style
     _imageViewForTitle.image = [SMUtils stretchedImage:_imageViewForTitle.image];
@@ -69,6 +91,7 @@
     if (_textFieldForTitle.text.length == 0) {
         [_textFieldForTitle becomeFirstResponder];
     } else {
+        [_textViewForText setSelectedRange:NSMakeRange(0, 0)];
         [_textViewForText becomeFirstResponder];
     }
 }
