@@ -56,7 +56,11 @@
         [_userInfoOp cancel];
         _userInfoOp = [[SMWebLoaderOperation alloc] init];
         _userInfoOp.delegate = self;
-        NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbsqry.php?userid=%@", _username == nil ? [SMAccountManager instance].name : _username];
+        
+        NSString *username =  _username == nil ? [SMAccountManager instance].name : _username;
+        self.title = username;
+        
+        NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbsqry.php?userid=%@", username];
         [_userInfoOp loadUrl:url withParser:@"bbsqry"];
     }
     

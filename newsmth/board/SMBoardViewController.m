@@ -11,8 +11,9 @@
 #import "SMBoardCell.h"
 #import "SMPostGroupViewController.h"
 #import "SMWritePostViewController.h"
+#import "SMUserViewController.h"
 
-@interface SMBoardViewController ()<UITableViewDelegate, UITableViewDataSource, XPullRefreshTableViewDelegate, SMWebLoaderOperationDelegate>
+@interface SMBoardViewController ()<UITableViewDelegate, UITableViewDataSource, XPullRefreshTableViewDelegate, SMWebLoaderOperationDelegate, SMBoardCellDelegate>
 @property (weak, nonatomic) IBOutlet XPullRefreshTableView *tableView;
 
 @property (strong, nonatomic) SMWebLoaderOperation *boardOp;
@@ -120,6 +121,7 @@
         cell = [[SMBoardCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
     }
     cell.post = _posts[indexPath.row];
+    cell.delegate = self;
     
     if (indexPath.row == _posts.count - 1) {
         [self loadData:YES];
@@ -167,6 +169,14 @@
     } else {
         [self.tableView setLoadMoreFail];
     }
+}
+
+#pragma mark - SMBoardCellDelegate
+- (void)boardCellOnUserClick:(NSString *)username
+{
+    SMUserViewController *vc = [[SMUserViewController alloc] init];
+    vc.username = username;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end

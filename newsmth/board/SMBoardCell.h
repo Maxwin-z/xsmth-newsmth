@@ -9,8 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "SMPost.h"
 
+@protocol SMBoardCellDelegate <NSObject>
+@optional
+- (void)boardCellOnUserClick:(NSString *)username;
+@end
+
 @interface SMBoardCell : UITableViewCell
 @property (strong, nonatomic) SMPost *post;
+@property (weak, nonatomic) id<SMBoardCellDelegate> delegate;
 
 + (CGFloat)cellHeight:(SMPost *)post;
 @end

@@ -68,4 +68,11 @@ static SMBoardCell *_instance;
      }];
 }
 
+- (IBAction)onUsernameClick:(UIButton *)button
+{
+    if ([_delegate respondsToSelector:@selector(boardCellOnUserClick:)]) {
+        [_delegate boardCellOnUserClick:button.titleLabel.text];
+    }
+}
+
 @end

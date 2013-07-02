@@ -38,7 +38,7 @@
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUIButton" id="1022935325">
 						<reference key="NSNextResponder" ref="191373211"/>
-						<int key="NSvFlags">266</int>
+						<int key="NSvFlags">-2147483382</int>
 						<string key="NSFrame">{{60, 473}, {200, 46}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
@@ -277,21 +277,27 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">SMViewController</string>
 					<string key="superclassName">P2PViewController</string>
-					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">onLoginButtonClick:</string>
-						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">onLoginButtonClick:</string>
-						<object class="IBActionInfo" key="NS.object.0">
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="onCancelLoadingButtonClick:">id</string>
+						<string key="onLoginButtonClick:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="onCancelLoadingButtonClick:">
+							<string key="name">onCancelLoadingButtonClick:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="onLoginButtonClick:">
 							<string key="name">onLoginButtonClick:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-					</object>
+					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="buttonForLogin">UIButton</string>
+						<string key="imageViewForLoadingLeftBg">UIImageView</string>
 						<string key="imageViewForPopoverBg">UIImageView</string>
+						<string key="labelForLoadingMessage">UILabel</string>
 						<string key="labelForPoperoverMessage">UILabel</string>
+						<string key="viewForLoadingPopover">UIView</string>
 						<string key="viewForLogin">UIView</string>
 						<string key="viewForPopover">UIView</string>
 					</dictionary>
@@ -300,13 +306,25 @@
 							<string key="name">buttonForLogin</string>
 							<string key="candidateClassName">UIButton</string>
 						</object>
+						<object class="IBToOneOutletInfo" key="imageViewForLoadingLeftBg">
+							<string key="name">imageViewForLoadingLeftBg</string>
+							<string key="candidateClassName">UIImageView</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="imageViewForPopoverBg">
 							<string key="name">imageViewForPopoverBg</string>
 							<string key="candidateClassName">UIImageView</string>
 						</object>
+						<object class="IBToOneOutletInfo" key="labelForLoadingMessage">
+							<string key="name">labelForLoadingMessage</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="labelForPoperoverMessage">
 							<string key="name">labelForPoperoverMessage</string>
 							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="viewForLoadingPopover">
+							<string key="name">viewForLoadingPopover</string>
+							<string key="candidateClassName">UIView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="viewForLogin">
 							<string key="name">viewForLogin</string>
