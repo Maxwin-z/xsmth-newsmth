@@ -153,8 +153,12 @@
 
 - (void)webLoaderOperationFail:(SMWebLoaderOperation *)opt error:(SMMessage *)error
 {
-    [_tableView endRefreshing:NO];
     [self toast:error.message];
+    if (_page == 1) {
+        [_tableView endRefreshing:NO];
+    } else {
+        [self.tableView setLoadMoreFail];
+    }
 }
 
 @end

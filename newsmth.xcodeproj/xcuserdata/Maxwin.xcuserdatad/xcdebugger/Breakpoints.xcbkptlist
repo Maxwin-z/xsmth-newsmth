@@ -164,11 +164,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "newsmth/Common/XPullRefreshTableView/XPullRefreshTableView.m"
-         timestampString = "394380531.091809"
+         timestampString = "394427705.094435"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "90"
-         endingLineNumber = "90"
+         startingLineNumber = "100"
+         endingLineNumber = "100"
          landmarkName = "-beginRefreshing"
          landmarkType = "5">
       </FileBreakpoint>

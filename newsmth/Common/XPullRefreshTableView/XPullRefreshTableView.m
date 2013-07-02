@@ -7,6 +7,7 @@
 //
 
 #import "XPullRefreshTableView.h"
+#import "UIButton+Custom.h"
 
 #define ANIMATION_DURATION  0.1f
 #define REFRESH_TRIGGER_HEIGHT  60.0f
@@ -26,6 +27,7 @@
 #pragma load more footer
 @property (strong, nonatomic) IBOutlet UIView *viewForLoadingMore;
 @property (strong, nonatomic) IBOutlet UIView *viewForLoadMoreFail;
+@property (weak, nonatomic) IBOutlet UIButton *buttonForRetry;
 
 @end
 
@@ -60,6 +62,7 @@
     [[NSBundle mainBundle] loadNibNamed:@"XPullRefreshTableViewHeader" owner:self options:nil];
     [[NSBundle mainBundle] loadNibNamed:@"XPullRefreshTableViewFooter" owner:self options:nil];
     _viewForRefreshHeader.frame = CGRectMake(0.0f, 0.0f - self.bounds.size.height, self.bounds.size.width, self.bounds.size.height);
+    [_buttonForRetry setButtonSMType:SMButtonTypeGray];
     [self addSubview:_viewForRefreshHeader];
 }
 
@@ -81,6 +84,13 @@
     _lastUpdated = lastUpdated;
     if (_lastUpdated) {
         _labelForRefreshDate.text = [NSString stringWithFormat:@"上次更新:%@", [SMUtils formatDate:_lastUpdated]];
+    }
+}
+
+- (IBAction)onRetryButtonClick:(id)sender
+{
+    if ([_xdelegate respondsToSelector:@selector(tableViewDoRetry:)]) {
+        [_xdelegate tableViewDoRetry:self];
     }
 }
 
