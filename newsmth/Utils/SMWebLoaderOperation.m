@@ -68,7 +68,7 @@
 //    XLog_d(@"url[%@] response", _url);
     NSString *body;
     NSString *contentType = [request.responseHeaders objectForKey:@"Content-Type"];
-    if ([contentType rangeOfString:@"charset=utf-8"].location != NSNotFound) {
+    if ([[contentType lowercaseString] rangeOfString:@"charset=utf-8"].location != NSNotFound) {
         body = request.responseString;
     } else {
         // gb2312 -> utf8
