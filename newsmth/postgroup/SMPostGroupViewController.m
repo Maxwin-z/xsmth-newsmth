@@ -334,6 +334,12 @@
     [SMUtils trackEventWithCategory:@"postgroup" action:@"refresh" label:_board.name];
 }
 
+- (void)tableViewDoRetry:(XPullRefreshTableView *)tableView
+{
+    [self loadData:YES];
+    [SMUtils trackEventWithCategory:@"postgroup" action:@"retry" label:_board.name];
+}
+
 #pragma mark - XImageViewDelegate
 - (void)xImageViewDidLoad:(XImageView *)imageView
 {
@@ -437,11 +443,15 @@
     SMPost *post = item.post;
     NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbscon.php?bid=%d&id=%d", _bid, post.pid];
     
+    [item.op cancel];
+    
     SMWebLoaderOperation *op = [[SMWebLoaderOperation alloc] init];
     op.delegate = self;
     item.op = op;
     
     [op loadUrl:url withParser:@"bbscon"];
+    
+    [self.tableView reloadData];
     
     [SMUtils trackEventWithCategory:@"postgroup" action:@"retry_cell" label:_board.name];
 }
