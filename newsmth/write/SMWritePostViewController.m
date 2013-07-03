@@ -76,7 +76,7 @@
         [quoteString insertString:str atIndex:0];
     }
     
-    [quoteString appendString:@"\n发自xsmth"];
+    [quoteString appendString:@"\n发自xsmth (iOS版)"];
     _textViewForText.text = quoteString;
     
     // style
