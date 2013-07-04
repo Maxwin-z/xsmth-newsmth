@@ -57,25 +57,40 @@ static SMMainViewController *_instance;
     _leftViewController.view.hidden = YES;
     [self.view addSubview:_leftViewController.view];
         
-    SMMainpageViewController *mainpageViewController = [[SMMainpageViewController alloc] init];
-    _centerViewController = [[P2PNavigationController alloc] initWithRootViewController:mainpageViewController];
+    _centerViewController = [[P2PNavigationController alloc] init];
     _centerViewController.view.frame = self.view.bounds;
     [self.view addSubview:_centerViewController.view];
+
+    SMMainpageViewController *mainpageViewController = [[SMMainpageViewController alloc] init];
+    [self setRootViewController:mainpageViewController];
     
     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onViewPanGesture:)];
     panGesture.delegate = self;
     [_centerViewController.view addGestureRecognizer:panGesture];
 }
 
+- (void)onLeftBarButtonClick
+{
+    [self setLeftVisiable:YES];
+}
+
 - (void)setRootViewController:(UIViewController *)viewController
 {
     [_centerViewController popToRootViewControllerAnimated:NO];
     _centerViewController.viewControllers = @[viewController];
+    viewController.navigationItem.leftBarButtonItem =
+        [[UIBarButtonItem alloc]
+         initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks
+         target:self
+         action:@selector(onLeftBarButtonClick)];
 }
 
 
 - (void)setLeftVisiable:(BOOL)visiable
 {
+    _leftViewController.view.hidden = NO;
+    _leftViewController.view.userInteractionEnabled = NO;
+
     CGFloat endX = visiable ? LEFT_SIZE : 0;
     CGFloat length = _centerViewController.view.frame.origin.x - endX;
     CGFloat duration = ANIMATION_DURATION * fabsf(length) / LEFT_SIZE;
@@ -85,6 +100,7 @@ static SMMainViewController *_instance;
         _centerViewController.view.frame = frame;
     } completion:^(BOOL finished) {
         _leftViewController.view.hidden = !visiable;
+        _leftViewController.view.userInteractionEnabled = YES;
     }];
     
     if (visiable) {

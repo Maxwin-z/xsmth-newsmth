@@ -1174,7 +1174,8 @@
 		C1BFB912174F6A620092FD2E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: WenDong Zhang (98EQXDKJAE)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Wendong Zhang (64YN458A3D)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "newsmth/newsmth-Prefix.pch";
 				INFOPLIST_FILE = "newsmth/newsmth-Info.plist";
@@ -1184,7 +1185,8 @@
 					"\"$(SRCROOT)/newsmth/Frameworks/GoogleAnalytics\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "AE8D89A3-947F-4ED2-9EFD-C9AE6E1703A9";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E1A13424-07CA-4159-B963-99B0133E870F";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
