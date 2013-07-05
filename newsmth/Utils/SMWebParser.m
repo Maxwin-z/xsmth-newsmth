@@ -48,6 +48,7 @@
     html = [html stringByReplacingOccurrencesOfString:@"\\" withString:@"\\\\"];
     html = [html stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
     html = [html stringByReplacingOccurrencesOfString:@"\n" withString:@"\\n"];
+    html = [html stringByReplacingOccurrencesOfString:@"\r" withString:@""];
     return html;
 }
 
