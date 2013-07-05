@@ -71,6 +71,8 @@
 		C19FF0C31769CEC700EB6F7E /* SMBoardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C19FF0C11769CEC700EB6F7E /* SMBoardViewController.xib */; };
 		C19FF0C61769D0DC00EB6F7E /* SMBoardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C19FF0C51769D0DC00EB6F7E /* SMBoardCell.m */; };
 		C19FF0C81769D0E600EB6F7E /* SMBoardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C19FF0C71769D0E600EB6F7E /* SMBoardCell.xib */; };
+		C1A50E2D1786C5BA00D43439 /* SMImagePickerAssetsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1A50E2C1786C5BA00D43439 /* SMImagePickerAssetsCell.xib */; };
+		C1A50E301786C69800D43439 /* SMImagePickerAssetsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C1A50E2F1786C69700D43439 /* SMImagePickerAssetsCell.m */; };
 		C1ABAB0F1766107A007DE168 /* SMPostGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1ABAB061766107A007DE168 /* SMPostGroupViewController.m */; };
 		C1ABAB101766107A007DE168 /* SMPostGroupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1ABAB071766107A007DE168 /* SMPostGroupViewController.xib */; };
 		C1ABAB111766107A007DE168 /* SMMainpageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C1ABAB0A1766107A007DE168 /* SMMainpageCell.m */; };
@@ -253,6 +255,9 @@
 		C19FF0C41769D0DC00EB6F7E /* SMBoardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMBoardCell.h; sourceTree = "<group>"; };
 		C19FF0C51769D0DC00EB6F7E /* SMBoardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMBoardCell.m; sourceTree = "<group>"; };
 		C19FF0C71769D0E600EB6F7E /* SMBoardCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMBoardCell.xib; sourceTree = "<group>"; };
+		C1A50E2C1786C5BA00D43439 /* SMImagePickerAssetsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMImagePickerAssetsCell.xib; sourceTree = "<group>"; };
+		C1A50E2E1786C69700D43439 /* SMImagePickerAssetsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMImagePickerAssetsCell.h; sourceTree = "<group>"; };
+		C1A50E2F1786C69700D43439 /* SMImagePickerAssetsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMImagePickerAssetsCell.m; sourceTree = "<group>"; };
 		C1ABAB051766107A007DE168 /* SMPostGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMPostGroupViewController.h; sourceTree = "<group>"; };
 		C1ABAB061766107A007DE168 /* SMPostGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMPostGroupViewController.m; sourceTree = "<group>"; };
 		C1ABAB071766107A007DE168 /* SMPostGroupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMPostGroupViewController.xib; sourceTree = "<group>"; };
@@ -409,6 +414,9 @@
 				C10080F41785A4D500487A45 /* SMImagePickerAssetsViewController.h */,
 				C10080F51785A4D600487A45 /* SMImagePickerAssetsViewController.m */,
 				C10080F61785A4D600487A45 /* SMImagePickerAssetsViewController.xib */,
+				C1A50E2E1786C69700D43439 /* SMImagePickerAssetsCell.h */,
+				C1A50E2F1786C69700D43439 /* SMImagePickerAssetsCell.m */,
+				C1A50E2C1786C5BA00D43439 /* SMImagePickerAssetsCell.xib */,
 			);
 			path = XImagePicker;
 			sourceTree = "<group>";
@@ -943,6 +951,7 @@
 				C102B8C41782D4A3000E2EEB /* icon.png in Resources */,
 				C10080D41785984700487A45 /* SMImagePickerViewController.xib in Resources */,
 				C10080F81785A4D700487A45 /* SMImagePickerAssetsViewController.xib in Resources */,
+				C1A50E2D1786C5BA00D43439 /* SMImagePickerAssetsCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1036,6 +1045,7 @@
 				C10080D31785984700487A45 /* SMImagePickerViewController.m in Sources */,
 				C10080F217859DE700487A45 /* SMImagePickerGroupViewController.m in Sources */,
 				C10080F71785A4D700487A45 /* SMImagePickerAssetsViewController.m in Sources */,
+				C1A50E301786C69800D43439 /* SMImagePickerAssetsCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

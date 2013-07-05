@@ -82,6 +82,7 @@
 {
     SMImagePickerAssetsViewController *vc = [[SMImagePickerAssetsViewController alloc] init];
     vc.group = _groups[indexPath.row];
+    vc.imagePickerViewController = self.imagePickerViewController;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

@@ -8,8 +8,11 @@
 
 #import "SMImagePickerAssetsViewController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
+#import "SMImagePickerAssetsCell.h"
 
-@interface SMImagePickerAssetsViewController ()<UITableViewDataSource, UITableViewDelegate>
+#define CELL_COLS    4
+
+@interface SMImagePickerAssetsViewController ()<UITableViewDataSource, UITableViewDelegate, SMImagePickerAssetsCellDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *assets;
 @end
@@ -19,6 +22,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.title = [_group valueForProperty:ALAssetsGroupPropertyName];
+    
     _assets = [[NSMutableArray alloc] init];
     [_group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
         if (result != nil) {
@@ -26,6 +32,8 @@
         }
     }];
     
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:_imagePickerViewController action:@selector(onDoneButtonClick)];
+
     [_tableView reloadData];
 }
 
@@ -33,20 +41,32 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _assets.count;
+    return ceilf((_assets.count - 1) / CELL_COLS) + 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [SMImagePickerAssetsCell cellHeight];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *cellId = @"cellid";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    SMImagePickerAssetsCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        cell = [[SMImagePickerAssetsCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        cell.delegate = self;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
-    ALAsset *asset = _assets[indexPath.row];
-    
-    cell.imageView.image = [UIImage imageWithCGImage:asset.thumbnail];
+    [cell setAssets:_assets start:indexPath.row * 4];
     return cell;
 }
+
+#pragma mark - SMImagePickerAssetsCellDelegate
+- (void)imagePickerAssetsCellOnClickAtIndex:(NSInteger)index
+{
+    [_imagePickerViewController selectAsset:_assets[index]];
+}
+
 @end

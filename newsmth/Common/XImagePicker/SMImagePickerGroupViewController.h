@@ -7,7 +7,8 @@
 //
 
 #import "SMViewController.h"
+#import "SMImagePickerViewController.h"
 
 @interface SMImagePickerGroupViewController : SMViewController
-
+@property (strong, nonatomic) SMImagePickerViewController *imagePickerViewController;
 @end

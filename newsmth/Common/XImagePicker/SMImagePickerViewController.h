@@ -7,7 +7,13 @@
 //
 
 #import "SMViewController.h"
+#import <AssetsLibrary/ALAsset.h>
+
+@protocol SMImagePickerViewDelegate <NSObject>
+@optional
+- (void)imagePickerViewControllerDidSelectAssets:(NSArray *)assets;
+@end
 
 @interface SMImagePickerViewController : SMViewController
-
+@property (weak, nonatomic) id<SMImagePickerViewDelegate> delegate;
 @end
