@@ -11,6 +11,8 @@
 #import "SMMainpageViewController.h"
 #import <QuartzCore/CALayer.h>
 
+#import "SMImagePickerViewController.h"
+
 #define LEFT_SIZE   270.0f
 #define ANIMATION_DURATION  0.5f
 
@@ -71,7 +73,9 @@ static SMMainViewController *_instance;
 
 - (void)onLeftBarButtonClick
 {
-    [self setLeftVisiable:YES];
+//    [self setLeftVisiable:YES];
+    SMImagePickerViewController *picker = [[SMImagePickerViewController alloc] init];
+    [self presentModalViewController:picker animated:YES];
 }
 
 - (void)setRootViewController:(UIViewController *)viewController

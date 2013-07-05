@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C10080D31785984700487A45 /* SMImagePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C10080D11785984700487A45 /* SMImagePickerViewController.m */; };
+		C10080D41785984700487A45 /* SMImagePickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C10080D21785984700487A45 /* SMImagePickerViewController.xib */; };
+		C10080D6178598D900487A45 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C10080D5178598D900487A45 /* AssetsLibrary.framework */; };
+		C10080F217859DE700487A45 /* SMImagePickerGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C10080F017859DE700487A45 /* SMImagePickerGroupViewController.m */; };
+		C10080F71785A4D700487A45 /* SMImagePickerAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C10080F51785A4D600487A45 /* SMImagePickerAssetsViewController.m */; };
+		C10080F81785A4D700487A45 /* SMImagePickerAssetsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C10080F61785A4D600487A45 /* SMImagePickerAssetsViewController.xib */; };
 		C100985017828305001608EE /* SMPostFailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C100984F17828305001608EE /* SMPostFailCell.m */; };
 		C100985217828310001608EE /* SMPostFailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C100985117828310001608EE /* SMPostFailCell.xib */; };
 		C10098581782A136001608EE /* popup_bkg_left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C10098551782A135001608EE /* popup_bkg_left@2x.png */; };
@@ -148,6 +154,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C10080D01785984700487A45 /* SMImagePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMImagePickerViewController.h; sourceTree = "<group>"; };
+		C10080D11785984700487A45 /* SMImagePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMImagePickerViewController.m; sourceTree = "<group>"; };
+		C10080D21785984700487A45 /* SMImagePickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMImagePickerViewController.xib; sourceTree = "<group>"; };
+		C10080D5178598D900487A45 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		C10080EF17859DE600487A45 /* SMImagePickerGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMImagePickerGroupViewController.h; sourceTree = "<group>"; };
+		C10080F017859DE700487A45 /* SMImagePickerGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMImagePickerGroupViewController.m; sourceTree = "<group>"; };
+		C10080F41785A4D500487A45 /* SMImagePickerAssetsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMImagePickerAssetsViewController.h; sourceTree = "<group>"; };
+		C10080F51785A4D600487A45 /* SMImagePickerAssetsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMImagePickerAssetsViewController.m; sourceTree = "<group>"; };
+		C10080F61785A4D600487A45 /* SMImagePickerAssetsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMImagePickerAssetsViewController.xib; sourceTree = "<group>"; };
 		C100984E17828305001608EE /* SMPostFailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMPostFailCell.h; sourceTree = "<group>"; };
 		C100984F17828305001608EE /* SMPostFailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMPostFailCell.m; sourceTree = "<group>"; };
 		C100985117828310001608EE /* SMPostFailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMPostFailCell.xib; sourceTree = "<group>"; };
@@ -355,6 +370,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C10080D6178598D900487A45 /* AssetsLibrary.framework in Frameworks */,
 				C1011DA31779657000E0485D /* CoreData.framework in Frameworks */,
 				C10D16BB1756276D002D6FAD /* QuartzCore.framework in Frameworks */,
 				C1BFB91E174F6F390092FD2E /* libz.dylib in Frameworks */,
@@ -382,6 +398,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C10080CF1785983800487A45 /* XImagePicker */ = {
+			isa = PBXGroup;
+			children = (
+				C10080D01785984700487A45 /* SMImagePickerViewController.h */,
+				C10080D11785984700487A45 /* SMImagePickerViewController.m */,
+				C10080D21785984700487A45 /* SMImagePickerViewController.xib */,
+				C10080EF17859DE600487A45 /* SMImagePickerGroupViewController.h */,
+				C10080F017859DE700487A45 /* SMImagePickerGroupViewController.m */,
+				C10080F41785A4D500487A45 /* SMImagePickerAssetsViewController.h */,
+				C10080F51785A4D600487A45 /* SMImagePickerAssetsViewController.m */,
+				C10080F61785A4D600487A45 /* SMImagePickerAssetsViewController.xib */,
+			);
+			path = XImagePicker;
+			sourceTree = "<group>";
+		};
 		C1011D981779654900E0485D /* GoogleAnalytics */ = {
 			isa = PBXGroup;
 			children = (
@@ -399,6 +430,7 @@
 		C10D161B175617D4002D6FAD /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				C10080CF1785983800487A45 /* XImagePicker */,
 				C1CC1B3D177857FB00FC63A8 /* P2PNavigationController.h */,
 				C1CC1B3C177857FB00FC63A8 /* P2PNavigationController.m */,
 				C1CC1B3E177857FB00FC63A8 /* P2PViewController.h */,
@@ -579,6 +611,7 @@
 			isa = PBXGroup;
 			children = (
 				C1BFB91D174F6F390092FD2E /* libz.dylib */,
+				C10080D5178598D900487A45 /* AssetsLibrary.framework */,
 				C1BFB917174F6F200092FD2E /* CFNetwork.framework */,
 				C1011DA21779657000E0485D /* CoreData.framework */,
 				C1BFB8E0174F6A620092FD2E /* CoreGraphics.framework */,
@@ -908,6 +941,8 @@
 				C100985A1782A136001608EE /* popup_btn_close_rest@2x.png in Resources */,
 				C100985C1782AF99001608EE /* bg_input_field@2x.png in Resources */,
 				C102B8C41782D4A3000E2EEB /* icon.png in Resources */,
+				C10080D41785984700487A45 /* SMImagePickerViewController.xib in Resources */,
+				C10080F81785A4D700487A45 /* SMImagePickerAssetsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -998,6 +1033,9 @@
 				C1C4C8881781BACC0092E77C /* SMBoardListItem.m in Sources */,
 				C1C4C8941781C4A60092E77C /* SMSectionViewController.m in Sources */,
 				C100985017828305001608EE /* SMPostFailCell.m in Sources */,
+				C10080D31785984700487A45 /* SMImagePickerViewController.m in Sources */,
+				C10080F217859DE700487A45 /* SMImagePickerGroupViewController.m in Sources */,
+				C10080F71785A4D700487A45 /* SMImagePickerAssetsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
