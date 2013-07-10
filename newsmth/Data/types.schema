@@ -1,3 +1,8 @@
+SMResult {
+	int code
+	string message
+}
+
 SMAttach {
 	string name
 	int len
@@ -64,4 +69,17 @@ SMBoardListItem {
 
 SMBoardList {
 	SMBoardListItem[] items
+}
+
+SMUploadItem {
+	string name
+	string key
+}
+
+SMUpload {
+	int act
+	string message
+	SMUploadItem[] items
+	int leftCount
+	int leftSize
 }

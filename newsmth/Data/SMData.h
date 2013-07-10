@@ -1,3 +1,4 @@
+#import "SMResult.h"
 #import "SMAttach.h"
 #import "SMPost.h"
 #import "SMPostGroup.h"
@@ -9,3 +10,5 @@
 #import "SMUser.h"
 #import "SMBoardListItem.h"
 #import "SMBoardList.h"
+#import "SMUploadItem.h"
+#import "SMUpload.h"

@@ -53,6 +53,10 @@
 		C167143B1766D01700F56535 /* XPullRefreshTableViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = C167143A1766D01700F56535 /* XPullRefreshTableViewHeader.xib */; };
 		C167143D1766D02100F56535 /* XPullRefreshTableViewFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = C167143C1766D02100F56535 /* XPullRefreshTableViewFooter.xib */; };
 		C1671441176766FD00F56535 /* SMMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1671440176766FD00F56535 /* SMMainViewController.m */; };
+		C17F4B83178C0A21002F4934 /* SMImageUploadListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C17F4B81178C0A21002F4934 /* SMImageUploadListViewController.m */; };
+		C17F4B84178C0A21002F4934 /* SMImageUploadListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C17F4B82178C0A21002F4934 /* SMImageUploadListViewController.xib */; };
+		C17F4B89178C11CA002F4934 /* SMUpload.m in Sources */ = {isa = PBXBuildFile; fileRef = C17F4B86178C11CA002F4934 /* SMUpload.m */; };
+		C17F4B8A178C11CA002F4934 /* SMUploadItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C17F4B88178C11CA002F4934 /* SMUploadItem.m */; };
 		C185CD3A1766285900BD3714 /* SMPostGroupContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C185CD391766285900BD3714 /* SMPostGroupContentCell.m */; };
 		C185CD3C1766286100BD3714 /* SMPostGroupContentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C185CD3B1766286100BD3714 /* SMPostGroupContentCell.xib */; };
 		C185CD3F17662BAF00BD3714 /* SMPostGroupAttachCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C185CD3E17662BAE00BD3714 /* SMPostGroupAttachCell.m */; };
@@ -71,8 +75,12 @@
 		C19FF0C31769CEC700EB6F7E /* SMBoardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C19FF0C11769CEC700EB6F7E /* SMBoardViewController.xib */; };
 		C19FF0C61769D0DC00EB6F7E /* SMBoardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C19FF0C51769D0DC00EB6F7E /* SMBoardCell.m */; };
 		C19FF0C81769D0E600EB6F7E /* SMBoardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C19FF0C71769D0E600EB6F7E /* SMBoardCell.xib */; };
+		C1A182D2178AB1260080EEDB /* SMImageUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = C1A182D1178AB1260080EEDB /* SMImageUploader.m */; };
+		C1A182D5178ABB290080EEDB /* SMResult.m in Sources */ = {isa = PBXBuildFile; fileRef = C1A182D4178ABB290080EEDB /* SMResult.m */; };
+		C1A182D7178ABB330080EEDB /* upload.js in Resources */ = {isa = PBXBuildFile; fileRef = C1A182D6178ABB330080EEDB /* upload.js */; };
 		C1A50E2D1786C5BA00D43439 /* SMImagePickerAssetsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1A50E2C1786C5BA00D43439 /* SMImagePickerAssetsCell.xib */; };
 		C1A50E301786C69800D43439 /* SMImagePickerAssetsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C1A50E2F1786C69700D43439 /* SMImagePickerAssetsCell.m */; };
+		C1A50E331786E5BA00D43439 /* button_upload@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1A50E321786E5BA00D43439 /* button_upload@2x.png */; };
 		C1ABAB0F1766107A007DE168 /* SMPostGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1ABAB061766107A007DE168 /* SMPostGroupViewController.m */; };
 		C1ABAB101766107A007DE168 /* SMPostGroupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1ABAB071766107A007DE168 /* SMPostGroupViewController.xib */; };
 		C1ABAB111766107A007DE168 /* SMMainpageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C1ABAB0A1766107A007DE168 /* SMMainpageCell.m */; };
@@ -230,6 +238,13 @@
 		C167143C1766D02100F56535 /* XPullRefreshTableViewFooter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XPullRefreshTableViewFooter.xib; sourceTree = "<group>"; };
 		C167143F176766FD00F56535 /* SMMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMMainViewController.h; sourceTree = "<group>"; };
 		C1671440176766FD00F56535 /* SMMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMMainViewController.m; sourceTree = "<group>"; };
+		C17F4B80178C0A21002F4934 /* SMImageUploadListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMImageUploadListViewController.h; sourceTree = "<group>"; };
+		C17F4B81178C0A21002F4934 /* SMImageUploadListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMImageUploadListViewController.m; sourceTree = "<group>"; };
+		C17F4B82178C0A21002F4934 /* SMImageUploadListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMImageUploadListViewController.xib; sourceTree = "<group>"; };
+		C17F4B85178C11CA002F4934 /* SMUpload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMUpload.h; sourceTree = "<group>"; };
+		C17F4B86178C11CA002F4934 /* SMUpload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMUpload.m; sourceTree = "<group>"; };
+		C17F4B87178C11CA002F4934 /* SMUploadItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMUploadItem.h; sourceTree = "<group>"; };
+		C17F4B88178C11CA002F4934 /* SMUploadItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMUploadItem.m; sourceTree = "<group>"; };
 		C185CD381766285900BD3714 /* SMPostGroupContentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMPostGroupContentCell.h; sourceTree = "<group>"; };
 		C185CD391766285900BD3714 /* SMPostGroupContentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMPostGroupContentCell.m; sourceTree = "<group>"; };
 		C185CD3B1766286100BD3714 /* SMPostGroupContentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMPostGroupContentCell.xib; sourceTree = "<group>"; };
@@ -255,9 +270,15 @@
 		C19FF0C41769D0DC00EB6F7E /* SMBoardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMBoardCell.h; sourceTree = "<group>"; };
 		C19FF0C51769D0DC00EB6F7E /* SMBoardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMBoardCell.m; sourceTree = "<group>"; };
 		C19FF0C71769D0E600EB6F7E /* SMBoardCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMBoardCell.xib; sourceTree = "<group>"; };
+		C1A182D0178AB1260080EEDB /* SMImageUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMImageUploader.h; sourceTree = "<group>"; };
+		C1A182D1178AB1260080EEDB /* SMImageUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMImageUploader.m; sourceTree = "<group>"; };
+		C1A182D3178ABB290080EEDB /* SMResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMResult.h; sourceTree = "<group>"; };
+		C1A182D4178ABB290080EEDB /* SMResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMResult.m; sourceTree = "<group>"; };
+		C1A182D6178ABB330080EEDB /* upload.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = upload.js; sourceTree = "<group>"; };
 		C1A50E2C1786C5BA00D43439 /* SMImagePickerAssetsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMImagePickerAssetsCell.xib; sourceTree = "<group>"; };
 		C1A50E2E1786C69700D43439 /* SMImagePickerAssetsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMImagePickerAssetsCell.h; sourceTree = "<group>"; };
 		C1A50E2F1786C69700D43439 /* SMImagePickerAssetsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMImagePickerAssetsCell.m; sourceTree = "<group>"; };
+		C1A50E321786E5BA00D43439 /* button_upload@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_upload@2x.png"; sourceTree = "<group>"; };
 		C1ABAB051766107A007DE168 /* SMPostGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMPostGroupViewController.h; sourceTree = "<group>"; };
 		C1ABAB061766107A007DE168 /* SMPostGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMPostGroupViewController.m; sourceTree = "<group>"; };
 		C1ABAB071766107A007DE168 /* SMPostGroupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMPostGroupViewController.xib; sourceTree = "<group>"; };
@@ -457,6 +478,7 @@
 		C121F2991750EE790081FD87 /* jsParser */ = {
 			isa = PBXGroup;
 			children = (
+				C1A182D6178ABB330080EEDB /* upload.js */,
 				C1C4C88F1781BD4B0092E77C /* boardlist.js */,
 				C1FD13B817815A21006A6061 /* bbsqry.js */,
 				C1011D8F17787E7E00E0485D /* bbssnd.js */,
@@ -504,6 +526,7 @@
 		C19FF0B01769A71B00EB6F7E /* images */ = {
 			isa = PBXGroup;
 			children = (
+				C1A50E321786E5BA00D43439 /* button_upload@2x.png */,
 				C100985B1782AF98001608EE /* bg_input_field@2x.png */,
 				C10098551782A135001608EE /* popup_bkg_left@2x.png */,
 				C10098561782A136001608EE /* popup_btn_close_pressed@2x.png */,
@@ -590,6 +613,11 @@
 				C1B581F0177723F500441299 /* SMWritePostViewController.h */,
 				C1B581F1177723F500441299 /* SMWritePostViewController.m */,
 				C1B581F2177723F500441299 /* SMWritePostViewController.xib */,
+				C1A182D0178AB1260080EEDB /* SMImageUploader.h */,
+				C1A182D1178AB1260080EEDB /* SMImageUploader.m */,
+				C17F4B80178C0A21002F4934 /* SMImageUploadListViewController.h */,
+				C17F4B81178C0A21002F4934 /* SMImageUploadListViewController.m */,
+				C17F4B82178C0A21002F4934 /* SMImageUploadListViewController.xib */,
 			);
 			path = write;
 			sourceTree = "<group>";
@@ -788,6 +816,12 @@
 		C1E628931764BAD4007ACF2A /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				C17F4B85178C11CA002F4934 /* SMUpload.h */,
+				C17F4B86178C11CA002F4934 /* SMUpload.m */,
+				C17F4B87178C11CA002F4934 /* SMUploadItem.h */,
+				C17F4B88178C11CA002F4934 /* SMUploadItem.m */,
+				C1A182D3178ABB290080EEDB /* SMResult.h */,
+				C1A182D4178ABB290080EEDB /* SMResult.m */,
 				C1C4C8861781BACC0092E77C /* SMBoardListItem.h */,
 				C1C4C8871781BACC0092E77C /* SMBoardListItem.m */,
 				C1C4C8831781B6C00092E77C /* SMBoardList.h */,
@@ -893,6 +927,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1A182D7178ABB330080EEDB /* upload.js in Resources */,
 				C1C4C8901781BD4B0092E77C /* boardlist.js in Resources */,
 				C1FD13B917815A21006A6061 /* bbsqry.js in Resources */,
 				C1011D9017787E7E00E0485D /* bbssnd.js in Resources */,
@@ -952,6 +987,8 @@
 				C10080D41785984700487A45 /* SMImagePickerViewController.xib in Resources */,
 				C10080F81785A4D700487A45 /* SMImagePickerAssetsViewController.xib in Resources */,
 				C1A50E2D1786C5BA00D43439 /* SMImagePickerAssetsCell.xib in Resources */,
+				C1A50E331786E5BA00D43439 /* button_upload@2x.png in Resources */,
+				C17F4B84178C0A21002F4934 /* SMImageUploadListViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1046,6 +1083,11 @@
 				C10080F217859DE700487A45 /* SMImagePickerGroupViewController.m in Sources */,
 				C10080F71785A4D700487A45 /* SMImagePickerAssetsViewController.m in Sources */,
 				C1A50E301786C69800D43439 /* SMImagePickerAssetsCell.m in Sources */,
+				C1A182D2178AB1260080EEDB /* SMImageUploader.m in Sources */,
+				C1A182D5178ABB290080EEDB /* SMResult.m in Sources */,
+				C17F4B83178C0A21002F4934 /* SMImageUploadListViewController.m in Sources */,
+				C17F4B89178C11CA002F4934 /* SMUpload.m in Sources */,
+				C17F4B8A178C11CA002F4934 /* SMUploadItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
