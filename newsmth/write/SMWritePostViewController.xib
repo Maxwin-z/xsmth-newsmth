@@ -173,8 +173,8 @@
 							</object>
 							<object class="IBUIButton" id="536007815">
 								<reference key="NSNextResponder" ref="690643094"/>
-								<int key="NSvFlags">268</int>
-								<string key="NSFrame">{{13, 304}, {129, 16}}</string>
+								<int key="NSvFlags">-2147483380</int>
+								<string key="NSFrame">{{11, 296}, {44, 22}}</string>
 								<reference key="NSSuperview" ref="690643094"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView"/>
@@ -186,6 +186,10 @@
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentVerticalAlignment">0</int>
+								<double key="IBUIContentEdgeInsets.top">3</double>
+								<double key="IBUIContentEdgeInsets.bottom">3</double>
+								<double key="IBUIContentEdgeInsets.left">3</double>
+								<double key="IBUIContentEdgeInsets.right">3</double>
 								<string key="IBUINormalTitle">Button</string>
 								<object class="NSColor" key="IBUIHighlightedTitleColor">
 									<int key="NSColorSpace">1</int>
@@ -448,20 +452,6 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">SMViewController</string>
 					<string key="superclassName">P2PViewController</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="onCancelLoadingButtonClick:">id</string>
-						<string key="onLoginButtonClick:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="onCancelLoadingButtonClick:">
-							<string key="name">onCancelLoadingButtonClick:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="onLoginButtonClick:">
-							<string key="name">onLoginButtonClick:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="buttonForLogin">UIButton</string>
 						<string key="imageViewForLoadingLeftBg">UIImageView</string>
@@ -514,17 +504,6 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">SMWritePostViewController</string>
 					<string key="superclassName">SMViewController</string>
-					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">onUploadButtonClick:</string>
-						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">onUploadButtonClick:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">onUploadButtonClick:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</object>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="buttonForUploadHint">UIButton</string>
 						<string key="imageViewForText">UIImageView</string>

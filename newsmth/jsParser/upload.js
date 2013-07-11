@@ -23,7 +23,7 @@ function $parse(html) {
 		data.message = matches[1];
 		if (data.message.indexOf('上传成功') != -1) {
 			data.act = 1;
-		} else if (data.message.indexOf('删除成功') != -1) {
+		} else if (data.message.match(/提示：删除.*成功/)) {
 			data.act = 2;
 		} else {
 			rsp.code = -1;	 // 出现错误

@@ -30,6 +30,9 @@
 @property (strong, nonatomic) SMWebLoaderOperation *attachListOp;
 @property (strong, nonatomic) SMImageUploader *imageUploader;
 
+@property (assign, nonatomic) BOOL isUploading;
+@property (assign, nonatomic) BOOL postAfterUpload;
+
 @property (strong, nonatomic) NSArray *lastUploads;
 
 @end
@@ -117,6 +120,7 @@
     [def removeObjectForKey:USER_DEF_LAST_POST_TITLE];
     [def removeObjectForKey:USER_DEF_LAST_POST_CONTENT];
 
+    [_imageUploader cancel];
     [self dismiss];
     
     [SMUtils trackEventWithCategory:@"write" action:@"dismiss" label:_post.board.name];
@@ -129,6 +133,12 @@
 
 - (void)doPost
 {
+    if (_isUploading) { // wait upload
+        [self showLoading:@"正在上传"];
+        _postAfterUpload = YES;
+        return ;
+    }
+    
     NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding ( kCFStringEncodingMacChineseSimp );
     NSString *title = [_textFieldForTitle.text stringByAddingPercentEscapesUsingEncoding:enc];
     NSString *text = [_textViewForText.text stringByAddingPercentEscapesUsingEncoding:enc];
@@ -149,9 +159,14 @@
 
 - (void)cancelLoading
 {
-    [super cancelLoading];
-    [_writeOp cancel];
-    _writeOp = nil;
+    if (_isUploading) {
+        _postAfterUpload = NO;
+        [_imageUploader cancel];
+    } else {
+        [super cancelLoading];
+        [_writeOp cancel];
+        _writeOp = nil;
+    }
 }
 
 
@@ -215,12 +230,22 @@
 }
 
 #pragma mark - upload image
+
+- (SMImageUploader *)getImageUploader
+{
+    if (_imageUploader == nil) {
+        _imageUploader = [[SMImageUploader alloc] init];
+        _imageUploader.delegate = self;
+    }
+    return _imageUploader;
+}
+
 - (IBAction)onUploadButtonClick:(id)sender
 {
     // 已有上传文件，查看队列
-    if (_imageUploader.uploadDatas.count > 0|| _lastUploads.count > 0) {
+    if (_imageUploader.uploadQueue.count > 0 || _lastUploads.count > 0) {
         SMImageUploadListViewController *vc = [[SMImageUploadListViewController alloc] init];
-        vc.uploader = _imageUploader;
+        vc.uploader = [self getImageUploader];
         vc.lastUploads = _lastUploads;
         [self.navigationController pushViewController:vc animated:YES];
     } else {
@@ -232,72 +257,31 @@
 
 - (void)imagePickerViewControllerDidSelectAssets:(NSArray *)assets
 {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *docPath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
-
-        NSMutableArray *files = [[NSMutableArray alloc] initWithCapacity:assets.count];
-        
-        for (int i = 0; i != assets.count; ++i) {
-            ALAsset *asset = assets[i];
-            NSString *filePath = [NSString stringWithFormat:@"%@/xsmth_%d.jpg", docPath, i];
-            
-            CGImageRef imageRef = asset.defaultRepresentation.fullResolutionImage;
-            UIImage *imageOriginal = [UIImage imageWithCGImage:imageRef
-                                                         scale:1.0f
-                                                   orientation:(UIImageOrientation)[asset.defaultRepresentation orientation]];
-            
-            UIImage *imageResized = [self resizeImage:imageOriginal toMaxSize:800.0f];
-            
-            NSData *imageData = UIImageJPEGRepresentation(imageResized, 0.9);
-            
-            [imageData writeToFile:filePath atomically:YES];
-            
-            [files addObject:filePath];
-        }
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            _imageUploader = [[SMImageUploader alloc] init];
-            _imageUploader.files = files;
-            _imageUploader.delegate = self;
-            [_imageUploader start];
-        });
-    });
-}
-
-- (UIImage *)resizeImage:(UIImage *)image toMaxSize:(CGFloat)maxSize
-{
-    CGFloat width = image.size.width;
-    CGFloat height = image.size.height;
-    CGFloat scale = 1.0f;
-    if (width > height && height > maxSize) {
-        scale = maxSize / height;
+    if (assets.count > 0) {
+        _isUploading = YES;
+        [[self getImageUploader] addAssets:assets];
     }
-    if (height > width && width > maxSize) {
-        scale = maxSize / width;
-    }
-    
-    XLog_d(@"scale: %f", scale);
-    
-    UIGraphicsBeginImageContext(CGSizeMake(width * scale, height * scale));
-    [image drawInRect:CGRectMake(0, 0, width * scale, height * scale)];
-    UIImage *result = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return result;
 }
 
 #pragma mark - SMImageUploaderDelegate
 - (void)imageUploaderOnFinish:(SMImageUploader *)uploader
 {
     [self updateUploadHint:@"上传成功"];
+    _isUploading = NO;
+    if (_postAfterUpload) {
+        [self doPost];
+    }
 }
 
 - (void)imageUploaderOnProgressChange:(SMImageUploader *)uploader withProgress:(CGFloat)progress
 {
-    NSString *hint = [NSString stringWithFormat:@" 已上传%.2f%% (%d/%d) ", progress * 100, uploader.currentIndex, uploader.files.count];
-    [self updateUploadHint:hint];
+    if (uploader.uploadQueue.count > 0) {   // 压缩过程中，uploadQueue.count为0，暂不显示
+        NSString *hint = [NSString stringWithFormat:@" 已上传第%d张%.2f%%，共%d) ", uploader.currentIndex + 1, progress * 100, uploader.uploadQueue.count];
+        [self updateUploadHint:hint];
+    } else {
+        [self updateUploadHint:@"正在压缩图片..."];
+    }
+    _isUploading = YES;
 }
 
 - (void)updateUploadHint:(NSString *)hint

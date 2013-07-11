@@ -10,6 +10,9 @@
 #import "SMImageUploader.h"
 
 @interface SMImageUploadListViewController : SMViewController
+{
+    NSMutableArray *_lastUploads;
+}
 @property (strong, nonatomic) SMImageUploader *uploader;
-@property (strong, nonatomic) NSArray *lastUploads;
+- (void)setLastUploads:(NSArray *)lastUploads;
 @end

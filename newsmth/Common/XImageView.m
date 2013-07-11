@@ -16,6 +16,8 @@ static NSOperationQueue *downloadQueue;
 @interface XImageView ()<ASIHTTPRequestDelegate, ASIProgressDelegate>
 @property (strong, nonatomic) SMHttpRequest *downloadRequest;
 @property (strong, nonatomic) UILabel *labelForProgress;
+@property (assign, nonatomic) BOOL isFailed;
+@property (strong, nonatomic) UITapGestureRecognizer *tapGesture;
 @end
 
 @implementation XImageView
@@ -37,10 +39,11 @@ static NSOperationQueue *downloadQueue;
 
 - (void)setUrl:(NSString *)url
 {
-    if ([_url isEqualToString:url]) {
+    if (!_isFailed && [_url isEqualToString:url]) {
         return;
     }
     _url = url;
+    _isFailed = NO;
     
     // show default image;
     if (_defaultImage == nil) {
@@ -75,6 +78,13 @@ static NSOperationQueue *downloadQueue;
     }
 }
 
+- (void)onTap
+{
+    self.userInteractionEnabled = NO;
+    [self removeGestureRecognizer:_tapGesture];
+    self.url = _url;    // retry
+}
+
 #pragma mark - ASIHTTPRequestDelegate
 
 - (void)requestFinished:(ASIHTTPRequest *)request
@@ -89,7 +99,13 @@ static NSOperationQueue *downloadQueue;
 
 - (void)requestFailed:(ASIHTTPRequest *)request
 {
-    XLog_e(@"download image fail");
+    XLog_e(@"download image fail, %@", _url);
+    _labelForProgress.hidden = NO;
+    _labelForProgress.text = @"下载失败，点击重试";
+    _isFailed = YES;
+    self.userInteractionEnabled = YES;
+    _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTap)];
+    [self addGestureRecognizer:_tapGesture];
 }
 
 #pragma mark - ASIProgressDelegate

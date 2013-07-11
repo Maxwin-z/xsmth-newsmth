@@ -30,16 +30,18 @@ typedef NS_ENUM(NSInteger, SMUploadStatus) {
 @property (strong, nonatomic) NSString *key;
 @property (assign, nonatomic) SMUploadStatus status;
 @property (assign, nonatomic) CGFloat progress;
+@property (strong, nonatomic) UIImage *thumbImage;
 @end
 
 
 @interface SMImageUploader : NSObject
-@property (strong, nonatomic) NSArray *files;
-@property (strong, nonatomic, readonly) NSArray *uploadDatas;
+@property (strong, nonatomic, readonly) NSMutableArray *uploadQueue;
 @property (assign, nonatomic, readonly) NSInteger currentIndex;
 @property (weak, nonatomic) id<SMImageUploaderDelegate> delegate;
+@property (weak, nonatomic) id<SMImageUploaderDelegate> delegateForList;
 
-- (void)start;
+- (void)addAssets:(NSArray *)assets;
+- (void)removeAtIndex:(NSInteger)index;
 - (void)cancel;
 
 @end
