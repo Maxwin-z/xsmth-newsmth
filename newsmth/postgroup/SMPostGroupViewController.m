@@ -33,7 +33,7 @@
 @end
 
 ////////////////////////////////////////////////
-@interface SMPostGroupViewController ()<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate,  XPullRefreshTableViewDelegate, SMWebLoaderOperationDelegate, XImageViewDelegate, SMPostGroupHeaderCellDelegate, SMPostFailCellDelegate>
+@interface SMPostGroupViewController ()<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate,  XPullRefreshTableViewDelegate, SMWebLoaderOperationDelegate, XImageViewDelegate, SMPostGroupHeaderCellDelegate, SMPostFailCellDelegate, SMPostGroupContentCellDelegate>
 @property (weak, nonatomic) IBOutlet XPullRefreshTableView *tableView;
 @property (strong, nonatomic) IBOutlet UIView *tableViewHeader;
 @property (weak, nonatomic) IBOutlet UILabel *labelForTitle;
@@ -42,6 +42,9 @@
 @property (strong, nonatomic) NSArray *postItems;
 @property (strong, nonatomic) NSArray *cellDatas;
 @property (strong, nonatomic) NSArray *prepareCellDatas;
+
+@property (strong, nonatomic) NSMutableDictionary *postHeightMap;   // cache post webview height;
+
 @property (strong, nonatomic) SMWebLoaderOperation *pageOp; // 分页加载数据用op
 
 @property (assign, nonatomic) NSInteger bid;    // board id
@@ -62,6 +65,7 @@
     self = [super initWithNibName:@"SMPostGroupViewController" bundle:nil];
     if (self) {
         _pno = 1;
+        _postHeightMap = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -247,6 +251,8 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SMPostGroupCellData *data = _cellDatas[indexPath.row];
+
+    id v = [_postHeightMap objectForKey:@(data.item.post.pid)];
     switch (data.type) {
         case SMPostGroupCellTypeHeader:
             return [SMPostGroupHeaderCell cellHeight];
@@ -255,7 +261,11 @@
         case SMPostGroupCellTypeLoading:
             return 44.0f;
         case SMPostGroupCellTypeContent:
-            return [SMPostGroupContentCell cellHeight:data.item.post];
+            if (v != nil) {
+                return [v floatValue];
+            }
+            return 100.0f;
+//            return [SMPostGroupContentCell cellHeight:data.item.post];
         case SMPostGroupCellTypeAttach:
             return [SMPostGroupAttachCell cellHeight:[self getAttachUrl:data]];
         default:
@@ -305,6 +315,7 @@
     SMPostGroupContentCell *cell = (SMPostGroupContentCell *)[self.tableView dequeueReusableCellWithIdentifier:cellid];
     if (cell == nil) {
         cell = [[SMPostGroupContentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
+        cell.delegate = self;
     }
     cell.post = data.item.post;
     return cell;
@@ -454,6 +465,15 @@
     [self.tableView reloadData];
     
     [SMUtils trackEventWithCategory:@"postgroup" action:@"retry_cell" label:_board.name];
+}
+
+#pragma mark - SMPostGroupContentCellDelegate
+- (void)postGroupContentCell:(SMPostGroupContentCell *)cell heightChanged:(CGFloat)height
+{
+    int pid = cell.post.pid;
+    [_postHeightMap setObject:@(height) forKey:@(pid)];
+    [_tableView beginUpdates];
+    [_tableView endUpdates];
 }
 
 #pragma mark - UIActionSheetDelegate

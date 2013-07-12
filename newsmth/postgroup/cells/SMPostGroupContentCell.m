@@ -10,9 +10,10 @@
 
 static SMPostGroupContentCell *_instance;
 
-@interface SMPostGroupContentCell ()
+@interface SMPostGroupContentCell ()<UIWebViewDelegate>
 @property (strong, nonatomic) IBOutlet UIView *viewForCell;
-@property (strong, nonatomic) IBOutlet UILabel *labelForContent;
+@property (strong, nonatomic) IBOutlet UILabel *labelForContent;    // unused
+@property (strong, nonatomic) IBOutlet UIWebView *webViewForContent;
 @end
 
 @implementation SMPostGroupContentCell
@@ -40,46 +41,51 @@ static SMPostGroupContentCell *_instance;
         [[NSBundle mainBundle] loadNibNamed:@"SMPostGroupContentCell" owner:self options:nil];
         _viewForCell.frame = self.contentView.bounds;
         [self.contentView addSubview:_viewForCell];
+        
+        _webViewForContent.scrollView.scrollEnabled = NO;
     }
     return self;
 }
 
-- (void)setPost:(SMPost *)post
+- (NSString *)formatContent:(NSString *)content
 {
-    for (int i = _viewForCell.subviews.count - 1; i >= 0; --i) {
-        [_viewForCell.subviews[i] removeFromSuperview];
-    }
-
-    CGFloat x = _labelForContent.frame.origin.x;
-    CGFloat y = 0;
-    CGFloat width = _labelForContent.bounds.size.width;
-    
-    NSArray *lines = [post.content componentsSeparatedByString:@"\n"];
+    NSMutableString *html = [[NSMutableString alloc] init];
+    NSArray *lines = [content componentsSeparatedByString:@"\n"];
     for (int i = 0; i != lines.count; ++i) {
         NSString *line = lines[i];
         if (line.length == 0) {  // space line
             line = @" ";
         }
-        UILabel *label = [[UILabel alloc] init];
-        label.font = _labelForContent.font;
-        label.lineBreakMode = _labelForContent.lineBreakMode;
-        label.numberOfLines = 0;
-        label.backgroundColor = [UIColor clearColor];
-        label.text = line;
-        
+        NSString *color = @"#323232";
         if ([line hasPrefix:@":"]) {
-            label.textColor = [UIColor colorWithRed:0.141 green:0.494 blue:0.635 alpha:1.000];
-        } else {
-            label.textColor = _labelForContent.textColor;
+            color = @"#237DA1";
         }
-        
-        CGFloat height = [line sizeWithFont:label.font constrainedToSize:CGSizeMake(width, CGFLOAT_MAX) lineBreakMode:label.lineBreakMode].height;
-        CGRect frame = CGRectMake(x, y, width, height);
-        label.frame = frame;
-        [_viewForCell addSubview:label];
-        
-        y += height;
+        [html appendFormat:@"<div style='color:%@'>%@</div>", color, line];
     }
+    return html;
 }
+
+- (void)setPost:(SMPost *)post
+{
+    _post = post;
+    NSString *body = [NSString stringWithFormat:@"<html><body style='margin:0; padding: 10px; font-size: 15px;'>%@</body></html>", [self formatContent:post.content]];
+    [_webViewForContent loadHTMLString:body baseURL:nil];
+}
+
+#pragma mark - UIWebViewDelegate
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    CGFloat height = [[webView stringByEvaluatingJavaScriptFromString:@"document.height"] floatValue];
+    [_delegate postGroupContentCell:self heightChanged:height];
+}
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    if ([request.URL.absoluteString isEqualToString:@"about:blank"]) {
+        return YES;
+    }
+    return NO;
+}
+
 
 @end

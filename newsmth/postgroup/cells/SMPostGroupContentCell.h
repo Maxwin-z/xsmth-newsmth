@@ -9,8 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "SMPost.h"
 
+@class SMPostGroupContentCell;
+
+@protocol SMPostGroupContentCellDelegate <NSObject>
+- (void)postGroupContentCell:(SMPostGroupContentCell *)cell heightChanged:(CGFloat)height;
+@end
+
 @interface SMPostGroupContentCell : UITableViewCell
 @property (strong, nonatomic) SMPost* post;
-
-+ (CGFloat)cellHeight:(SMPost *)post;
+@property (weak, nonatomic) id<SMPostGroupContentCellDelegate> delegate;
 @end
