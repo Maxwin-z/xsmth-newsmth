@@ -93,6 +93,7 @@
 #pragma mark - SMWebParserDelegate
 - (void)webParser:(SMWebParser *)webParser result:(NSDictionary *)json
 {
+    _webParser = nil;
     if (self.isCancelled) {
         return;
     }

@@ -14,6 +14,8 @@
 #import "SMMainViewController.h"
 #import "SMMainpageViewController.h"
 
+#import <DCIntrospect/DCIntrospect.h>
+
 @interface AppDelegate ()
 @property (strong, nonatomic) UINavigationController *nvc;
 @property (strong, nonatomic) SMMainpageViewController *mainpageViewController;
@@ -54,6 +56,8 @@
     [self setupGoogleAnalytics];
     
     [SMUtils trackEventWithCategory:@"channel" action:@"appstore" label:nil];
+    
+    [[DCIntrospect sharedIntrospector] start];
     
     return YES;
 }

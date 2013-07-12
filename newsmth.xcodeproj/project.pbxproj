@@ -81,6 +81,7 @@
 		C1A50E2D1786C5BA00D43439 /* SMImagePickerAssetsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1A50E2C1786C5BA00D43439 /* SMImagePickerAssetsCell.xib */; };
 		C1A50E301786C69800D43439 /* SMImagePickerAssetsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C1A50E2F1786C69700D43439 /* SMImagePickerAssetsCell.m */; };
 		C1A50E331786E5BA00D43439 /* button_upload@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1A50E321786E5BA00D43439 /* button_upload@2x.png */; };
+		C1A77F05178EE76D0055E4B3 /* DCIntrospect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1A77F04178EE76D0055E4B3 /* DCIntrospect.framework */; };
 		C1ABAB0F1766107A007DE168 /* SMPostGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1ABAB061766107A007DE168 /* SMPostGroupViewController.m */; };
 		C1ABAB101766107A007DE168 /* SMPostGroupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1ABAB071766107A007DE168 /* SMPostGroupViewController.xib */; };
 		C1ABAB111766107A007DE168 /* SMMainpageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C1ABAB0A1766107A007DE168 /* SMMainpageCell.m */; };
@@ -279,6 +280,7 @@
 		C1A50E2E1786C69700D43439 /* SMImagePickerAssetsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMImagePickerAssetsCell.h; sourceTree = "<group>"; };
 		C1A50E2F1786C69700D43439 /* SMImagePickerAssetsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMImagePickerAssetsCell.m; sourceTree = "<group>"; };
 		C1A50E321786E5BA00D43439 /* button_upload@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_upload@2x.png"; sourceTree = "<group>"; };
+		C1A77F04178EE76D0055E4B3 /* DCIntrospect.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DCIntrospect.framework; sourceTree = "<group>"; };
 		C1ABAB051766107A007DE168 /* SMPostGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMPostGroupViewController.h; sourceTree = "<group>"; };
 		C1ABAB061766107A007DE168 /* SMPostGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMPostGroupViewController.m; sourceTree = "<group>"; };
 		C1ABAB071766107A007DE168 /* SMPostGroupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMPostGroupViewController.xib; sourceTree = "<group>"; };
@@ -408,6 +410,7 @@
 				C1BFB8DF174F6A620092FD2E /* Foundation.framework in Frameworks */,
 				C1011DA01779654900E0485D /* libGoogleAnalytics.a in Frameworks */,
 				C1011DA517796A5400E0485D /* libGoogleAnalytics_debug.a in Frameworks */,
+				C1A77F05178EE76D0055E4B3 /* DCIntrospect.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -742,6 +745,7 @@
 		C1BFB91F174F6F5B0092FD2E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C1A77F04178EE76D0055E4B3 /* DCIntrospect.framework */,
 				C1011D981779654900E0485D /* GoogleAnalytics */,
 				C1BFB920174F6F5B0092FD2E /* asi-http-request */,
 			);
@@ -1169,6 +1173,10 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/newsmth/Frameworks\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "newsmth/newsmth-Prefix.pch";
 				INFOPLIST_FILE = "newsmth/newsmth-Info.plist";
@@ -1266,6 +1274,10 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer: WenDong Zhang (98EQXDKJAE)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Wendong Zhang (64YN458A3D)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/newsmth/Frameworks\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "newsmth/newsmth-Prefix.pch";
 				INFOPLIST_FILE = "newsmth/newsmth-Info.plist";
@@ -1285,6 +1297,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/newsmth/Frameworks\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "newsmth/newsmth-Prefix.pch";
 				INFOPLIST_FILE = "newsmth/newsmth-Info.plist";
