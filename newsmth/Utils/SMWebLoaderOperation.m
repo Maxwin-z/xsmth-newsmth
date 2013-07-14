@@ -54,7 +54,7 @@
     
     _request.delegate = self;
     
-    XLog_d(@"url[%@] start", _url);
+//    XLog_d(@"url[%@] start", _url);
     [_request startSynchronous];
 }
 

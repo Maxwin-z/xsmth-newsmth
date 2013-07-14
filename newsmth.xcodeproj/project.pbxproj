@@ -81,7 +81,7 @@
 		C1A50E2D1786C5BA00D43439 /* SMImagePickerAssetsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1A50E2C1786C5BA00D43439 /* SMImagePickerAssetsCell.xib */; };
 		C1A50E301786C69800D43439 /* SMImagePickerAssetsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C1A50E2F1786C69700D43439 /* SMImagePickerAssetsCell.m */; };
 		C1A50E331786E5BA00D43439 /* button_upload@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1A50E321786E5BA00D43439 /* button_upload@2x.png */; };
-		C1A77F05178EE76D0055E4B3 /* DCIntrospect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1A77F04178EE76D0055E4B3 /* DCIntrospect.framework */; };
+		C1A77F05178EE76D0055E4B3 /* DCIntrospect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1A77F04178EE76D0055E4B3 /* DCIntrospect.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		C1ABAB0F1766107A007DE168 /* SMPostGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1ABAB061766107A007DE168 /* SMPostGroupViewController.m */; };
 		C1ABAB101766107A007DE168 /* SMPostGroupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1ABAB071766107A007DE168 /* SMPostGroupViewController.xib */; };
 		C1ABAB111766107A007DE168 /* SMMainpageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C1ABAB0A1766107A007DE168 /* SMMainpageCell.m */; };

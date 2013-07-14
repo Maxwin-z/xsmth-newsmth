@@ -68,7 +68,7 @@ static SMPostGroupContentCell *_instance;
 - (void)setPost:(SMPost *)post
 {
     _post = post;
-    NSString *body = [NSString stringWithFormat:@"<html><body style='margin:0; padding: 10px; font-size: 15px;'>%@</body></html>", [self formatContent:post.content]];
+    NSString *body = [NSString stringWithFormat:@"<html><body style='margin:0; padding: 10px; font-size: 15px;font-family: Verdana;'>%@</body></html>", [self formatContent:post.content]];
     [_webViewForContent loadHTMLString:body baseURL:nil];
 }
 

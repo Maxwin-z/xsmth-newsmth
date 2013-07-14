@@ -56,8 +56,9 @@
     [self setupGoogleAnalytics];
     
     [SMUtils trackEventWithCategory:@"channel" action:@"appstore" label:nil];
-    
+#if TARGET_IPHONE_SIMULATOR
     [[DCIntrospect sharedIntrospector] start];
+#endif
     
     return YES;
 }

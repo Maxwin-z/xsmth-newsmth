@@ -30,7 +30,7 @@
 - (void)dealloc
 {
     _webView = nil;
-    XLog_v(@"%s", __PRETTY_FUNCTION__);
+//    XLog_v(@"%s", __PRETTY_FUNCTION__);
 }
 
 - (void)parseHtml:(NSString *)html withJSFile:(NSString *)jsFile

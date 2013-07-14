@@ -55,7 +55,7 @@ function prints(content) {
     data.date = matchs == null ? 0 : Date.parse(matchs[1]);
 
     matchs = content.match(contentRegex);
-    data.content = matchs == null ? content : matchs[1];
+    data.content = formatContent(matchs == null ? content : matchs[1]);
     data.content = data.content.replace(/\r\[[\d;]*m/g, '');
 }
 
@@ -66,6 +66,15 @@ function attach(name, len, pos) {
         len: len,
         pos: pos
     });
+}
+
+function formatContent(content) {
+    return content.replace(/\[b\](.*?)\[\/b\]/g, '<b>$1</b>')
+        .replace(/\[i\](.*?)\[\/i\]/g, '<i>$1</i>')
+        .replace(/\[u\](.*?)\[\/u\]/g, '<u>$1</u>')
+        .replace(/\[email=(.*?)\](.*?)\[\/email\]/g, '$2 mailto:$1 ')
+        .replace(/\[(img|swf|mp3|url)=(.*?)\](.*?)\[\/\1\]/g, '$3 $2 ')
+        .replace(/(newsmth\.net)(·\[FROM)/g, '$1 $2');
 }
 
 function $parse(html) {
