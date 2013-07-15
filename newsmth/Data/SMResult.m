@@ -1,24 +1,22 @@
 #import "SMData.h"
 
 @implementation SMResult
-- (int)code
+- (void)decode:(id)json
 {
-	return [[self.dict objectForKey:@"code"] intValue];
+	NSDictionary *dict = json;
+	_code = [[dict objectForKey:@"code"] intValue];
+
+	_message = [dict objectForKey:@"message"];
 }
 
-- (void)setCode:(int)code_
+- (id)encode
 {
-	[self.dict setValue:@(code_) forKey:@"code"];
-}
+	NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+	[dict setObject:@(_code) forKey:@"code"];
 
-- (NSString *)message
-{
-	return [self.dict objectForKey:@"message"];
+	if (_message != nil) {
+		[dict setObject:_message forKey:@"message"];
+	}
+	return dict;
 }
-
-- (void)setMessage:(NSString *)message_
-{
-	[self.dict setObject:message_ forKey:@"message"];
-}
-
 @end

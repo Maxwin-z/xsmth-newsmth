@@ -93,6 +93,7 @@
 		C1AE9140175A24AF0084C618 /* SMErrorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1AE913F175A24AF0084C618 /* SMErrorView.xib */; };
 		C1B581F3177723F500441299 /* SMWritePostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B581F1177723F500441299 /* SMWritePostViewController.m */; };
 		C1B581F4177723F500441299 /* SMWritePostViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1B581F2177723F500441299 /* SMWritePostViewController.xib */; };
+		C1BEC9671794243C002A1E1C /* xlistview_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1BEC9661794243C002A1E1C /* xlistview_arrow@2x.png */; };
 		C1BFB8DD174F6A620092FD2E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1BFB8DC174F6A620092FD2E /* UIKit.framework */; };
 		C1BFB8DF174F6A620092FD2E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1BFB8DE174F6A620092FD2E /* Foundation.framework */; };
 		C1BFB8E1174F6A620092FD2E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1BFB8E0174F6A620092FD2E /* CoreGraphics.framework */; };
@@ -297,6 +298,7 @@
 		C1B581F0177723F500441299 /* SMWritePostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMWritePostViewController.h; sourceTree = "<group>"; };
 		C1B581F1177723F500441299 /* SMWritePostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMWritePostViewController.m; sourceTree = "<group>"; };
 		C1B581F2177723F500441299 /* SMWritePostViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMWritePostViewController.xib; sourceTree = "<group>"; };
+		C1BEC9661794243C002A1E1C /* xlistview_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "xlistview_arrow@2x.png"; sourceTree = "<group>"; };
 		C1BFB8D9174F6A620092FD2E /* newsmth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = newsmth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1BFB8DC174F6A620092FD2E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C1BFB8DE174F6A620092FD2E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -518,6 +520,7 @@
 		C16714361766CFED00F56535 /* XPullRefreshTableView */ = {
 			isa = PBXGroup;
 			children = (
+				C1BEC9661794243C002A1E1C /* xlistview_arrow@2x.png */,
 				C16714371766CFED00F56535 /* XPullRefreshTableView.h */,
 				C16714381766CFED00F56535 /* XPullRefreshTableView.m */,
 				C167143A1766D01700F56535 /* XPullRefreshTableViewHeader.xib */,
@@ -993,6 +996,7 @@
 				C1A50E2D1786C5BA00D43439 /* SMImagePickerAssetsCell.xib in Resources */,
 				C1A50E331786E5BA00D43439 /* button_upload@2x.png in Resources */,
 				C17F4B84178C0A21002F4934 /* SMImageUploadListViewController.xib in Resources */,
+				C1BEC9671794243C002A1E1C /* xlistview_arrow@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

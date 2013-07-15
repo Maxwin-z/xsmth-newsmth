@@ -1,24 +1,24 @@
 #import "SMData.h"
 
 @implementation SMUploadItem
-- (NSString *)name
+- (void)decode:(id)json
 {
-	return [self.dict objectForKey:@"name"];
+	NSDictionary *dict = json;
+	_name = [dict objectForKey:@"name"];
+
+	_key = [dict objectForKey:@"key"];
 }
 
-- (void)setName:(NSString *)name_
+- (id)encode
 {
-	[self.dict setObject:name_ forKey:@"name"];
-}
+	NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+	if (_name != nil) {
+		[dict setObject:_name forKey:@"name"];
+	}
 
-- (NSString *)key
-{
-	return [self.dict objectForKey:@"key"];
+	if (_key != nil) {
+		[dict setObject:_key forKey:@"key"];
+	}
+	return dict;
 }
-
-- (void)setKey:(NSString *)key_
-{
-	[self.dict setObject:key_ forKey:@"key"];
-}
-
 @end

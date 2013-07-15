@@ -1,45 +1,34 @@
 #import "SMData.h"
 
 @implementation SMBoardListItem
-- (BOOL)isDir
+- (void)decode:(id)json
 {
-	return [[self.dict objectForKey:@"isDir"] boolValue];
+	NSDictionary *dict = json;
+	_isDir = [[dict objectForKey:@"isDir"] boolValue];
+
+	_title = [dict objectForKey:@"title"];
+
+	_url = [dict objectForKey:@"url"];
+
+	_board = [[SMBoard alloc] initWithJSON:[dict objectForKey:@"board"]];
 }
 
-- (void)setIsDir:(BOOL)isDir_
+- (id)encode
 {
-	[self.dict setValue:@(isDir_) forKey:@"isDir"];
-}
+	NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+	[dict setObject:@(_isDir) forKey:@"isDir"];
 
-- (NSString *)title
-{
-	return [self.dict objectForKey:@"title"];
-}
+	if (_title != nil) {
+		[dict setObject:_title forKey:@"title"];
+	}
 
-- (void)setTitle:(NSString *)title_
-{
-	[self.dict setObject:title_ forKey:@"title"];
-}
+	if (_url != nil) {
+		[dict setObject:_url forKey:@"url"];
+	}
 
-- (NSString *)url
-{
-	return [self.dict objectForKey:@"url"];
+	if (_board != nil) {
+		[dict setObject:[_board encode] forKey:@"board"];
+	}
+	return dict;
 }
-
-- (void)setUrl:(NSString *)url_
-{
-	[self.dict setObject:url_ forKey:@"url"];
-}
-
-- (SMBoard *)board
-{
-	SMBoard *data = [[SMBoard alloc] initWithData:[self.dict objectForKey:@"board"]];
-	return data;
-}
-
-- (void)setBoard:(SMBaseData *)board_
-{
-	[self.dict setObject:board_.dict forKey:@"board"];
-}
-
 @end

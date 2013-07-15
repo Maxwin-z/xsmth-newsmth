@@ -1,145 +1,85 @@
 #import "SMData.h"
 
 @implementation SMPost
-- (int)pid
+- (void)decode:(id)json
 {
-	return [[self.dict objectForKey:@"pid"] intValue];
-}
+	NSDictionary *dict = json;
+	_pid = [[dict objectForKey:@"pid"] intValue];
 
-- (void)setPid:(int)pid_
-{
-	[self.dict setValue:@(pid_) forKey:@"pid"];
-}
+	_gid = [[dict objectForKey:@"gid"] intValue];
 
-- (int)gid
-{
-	return [[self.dict objectForKey:@"gid"] intValue];
-}
+	_board = [[SMBoard alloc] initWithJSON:[dict objectForKey:@"board"]];
 
-- (void)setGid:(int)gid_
-{
-	[self.dict setValue:@(gid_) forKey:@"gid"];
-}
+	_author = [dict objectForKey:@"author"];
 
-- (SMBoard *)board
-{
-	SMBoard *data = [[SMBoard alloc] initWithData:[self.dict objectForKey:@"board"]];
-	return data;
-}
+	_nick = [dict objectForKey:@"nick"];
 
-- (void)setBoard:(SMBaseData *)board_
-{
-	[self.dict setObject:board_.dict forKey:@"board"];
-}
+	_title = [dict objectForKey:@"title"];
 
-- (NSString *)author
-{
-	return [self.dict objectForKey:@"author"];
-}
+	_content = [dict objectForKey:@"content"];
 
-- (void)setAuthor:(NSString *)author_
-{
-	[self.dict setObject:author_ forKey:@"author"];
-}
+	_date = [[dict objectForKey:@"date"] longLongValue];
 
-- (NSString *)nick
-{
-	return [self.dict objectForKey:@"nick"];
-}
+	_replyAuthor = [dict objectForKey:@"replyAuthor"];
 
-- (void)setNick:(NSString *)nick_
-{
-	[self.dict setObject:nick_ forKey:@"nick"];
-}
+	_replyDate = [[dict objectForKey:@"replyDate"] longLongValue];
 
-- (NSString *)title
-{
-	return [self.dict objectForKey:@"title"];
-}
+	_replyCount = [[dict objectForKey:@"replyCount"] intValue];
 
-- (void)setTitle:(NSString *)title_
-{
-	[self.dict setObject:title_ forKey:@"title"];
-}
+	_isTop = [[dict objectForKey:@"isTop"] boolValue];
 
-- (NSString *)content
-{
-	return [self.dict objectForKey:@"content"];
-}
-
-- (void)setContent:(NSString *)content_
-{
-	[self.dict setObject:content_ forKey:@"content"];
-}
-
-- (long long)date
-{
-	return [[self.dict objectForKey:@"date"] longLongValue];
-}
-
-- (void)setDate:(long long)date_
-{
-	[self.dict setValue:@(date_) forKey:@"date"];
-}
-
-- (NSString *)replyAuthor
-{
-	return [self.dict objectForKey:@"replyAuthor"];
-}
-
-- (void)setReplyAuthor:(NSString *)replyAuthor_
-{
-	[self.dict setObject:replyAuthor_ forKey:@"replyAuthor"];
-}
-
-- (long long)replyDate
-{
-	return [[self.dict objectForKey:@"replyDate"] longLongValue];
-}
-
-- (void)setReplyDate:(long long)replyDate_
-{
-	[self.dict setValue:@(replyDate_) forKey:@"replyDate"];
-}
-
-- (int)replyCount
-{
-	return [[self.dict objectForKey:@"replyCount"] intValue];
-}
-
-- (void)setReplyCount:(int)replyCount_
-{
-	[self.dict setValue:@(replyCount_) forKey:@"replyCount"];
-}
-
-- (BOOL)isTop
-{
-	return [[self.dict objectForKey:@"isTop"] boolValue];
-}
-
-- (void)setIsTop:(BOOL)isTop_
-{
-	[self.dict setValue:@(isTop_) forKey:@"isTop"];
-}
-
-- (NSArray *)attaches
-{
-	NSArray *objs = [self.dict objectForKey:@"attaches"];
-	NSMutableArray *res = [[NSMutableArray alloc] init];
-	for (int i = 0; i != objs.count; ++i) {
-		SMBaseData *data = [[SMBaseData alloc] initWithData:objs[i]];
-		[res addObject:data];
+	NSMutableArray *tmp_attaches = [[NSMutableArray alloc] init];
+	NSArray *attaches = [dict objectForKey:@"attaches"];
+	for (int i = 0; i != attaches.count; ++i) {
+		[tmp_attaches addObject:[[SMAttach alloc] initWithJSON:attaches[i]]];
 	}
-	return res;
+	_attaches = tmp_attaches;
 }
 
-- (void)setAttaches:(NSArray *)attaches_
+- (id)encode
 {
-    NSMutableArray *arr = [[NSMutableArray alloc] initWithCapacity:attaches_.count];
-    for (int i = 0; i != attaches_.count; ++i) {
-        [arr addObject:[attaches_[i] dict]];
-    }
-    [self.dict setObject:arr forKey:@"attaches"];
-}
+	NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+	[dict setObject:@(_pid) forKey:@"pid"];
 
+	[dict setObject:@(_gid) forKey:@"gid"];
+
+	if (_board != nil) {
+		[dict setObject:[_board encode] forKey:@"board"];
+	}
+
+	if (_author != nil) {
+		[dict setObject:_author forKey:@"author"];
+	}
+
+	if (_nick != nil) {
+		[dict setObject:_nick forKey:@"nick"];
+	}
+
+	if (_title != nil) {
+		[dict setObject:_title forKey:@"title"];
+	}
+
+	if (_content != nil) {
+		[dict setObject:_content forKey:@"content"];
+	}
+
+	[dict setObject:@(_date) forKey:@"date"];
+
+	if (_replyAuthor != nil) {
+		[dict setObject:_replyAuthor forKey:@"replyAuthor"];
+	}
+
+	[dict setObject:@(_replyDate) forKey:@"replyDate"];
+
+	[dict setObject:@(_replyCount) forKey:@"replyCount"];
+
+	[dict setObject:@(_isTop) forKey:@"isTop"];
+
+	NSMutableArray *tmp_attaches = [[NSMutableArray alloc] init];
+	for (int i = 0; i != _attaches.count; ++i) {
+		[tmp_attaches addObject:[_attaches[i] encode]];
+	}
+	[dict setObject:tmp_attaches forKey:@"attaches"];
+	return dict;
+}
 @end

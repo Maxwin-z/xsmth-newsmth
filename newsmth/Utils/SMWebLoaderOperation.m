@@ -100,7 +100,7 @@
 //    XLog_d(@"url[%@] parsed", _url);
     NSInteger code = [[json objectForKey:@"code"] integerValue];
     if (code == 0) {
-        SMBaseData *tmp = [[SMBaseData alloc] initWithData:[json objectForKey:@"data"]];
+        SMBaseData *tmp = [SMBaseData dataWithJSON:[json objectForKey:@"data"]];
         _data = tmp;
         [_delegate webLoaderOperationFinished:self];
     } else {

@@ -1,24 +1,25 @@
 #import "SMData.h"
 
 @implementation SMFavor
-- (NSArray *)boards
+- (void)decode:(id)json
 {
-	NSArray *objs = [self.dict objectForKey:@"boards"];
-	NSMutableArray *res = [[NSMutableArray alloc] init];
-	for (int i = 0; i != objs.count; ++i) {
-		SMBaseData *data = [[SMBaseData alloc] initWithData:objs[i]];
-		[res addObject:data];
+	NSDictionary *dict = json;
+	NSMutableArray *tmp_boards = [[NSMutableArray alloc] init];
+	NSArray *boards = [dict objectForKey:@"boards"];
+	for (int i = 0; i != boards.count; ++i) {
+		[tmp_boards addObject:[[SMBoard alloc] initWithJSON:boards[i]]];
 	}
-	return res;
+	_boards = tmp_boards;
 }
 
-- (void)setBoards:(NSArray *)boards_
+- (id)encode
 {
-    NSMutableArray *arr = [[NSMutableArray alloc] initWithCapacity:boards_.count];
-    for (int i = 0; i != boards_.count; ++i) {
-        [arr addObject:[boards_[i] dict]];
-    }
-    [self.dict setObject:arr forKey:@"boards"];
+	NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+	NSMutableArray *tmp_boards = [[NSMutableArray alloc] init];
+	for (int i = 0; i != _boards.count; ++i) {
+		[tmp_boards addObject:[_boards[i] encode]];
+	}
+	[dict setObject:tmp_boards forKey:@"boards"];
+	return dict;
 }
-
 @end

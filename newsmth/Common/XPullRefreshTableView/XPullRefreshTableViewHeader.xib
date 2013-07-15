@@ -53,7 +53,7 @@
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<object class="NSCustomResource" key="IBUIImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">blueArrow@2x.png</string>
+									<string key="NSResourceName">xlistview_arrow@2x.png</string>
 								</object>
 							</object>
 							<object class="IBUILabel" id="302638136">
@@ -285,8 +285,20 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">XPullRefreshTableView</string>
 					<string key="superclassName">UITableView</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">onRetryButtonClick:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">onRetryButtonClick:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">onRetryButtonClick:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="activityIndicatorForRefresh">UIActivityIndicatorView</string>
+						<string key="buttonForRetry">UIButton</string>
 						<string key="imageViewForArrow">UIImageView</string>
 						<string key="labelForRefreshDate">UILabel</string>
 						<string key="labelForRefreshHint">UILabel</string>
@@ -298,6 +310,10 @@
 						<object class="IBToOneOutletInfo" key="activityIndicatorForRefresh">
 							<string key="name">activityIndicatorForRefresh</string>
 							<string key="candidateClassName">UIActivityIndicatorView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="buttonForRetry">
+							<string key="name">buttonForRetry</string>
+							<string key="candidateClassName">UIButton</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="imageViewForArrow">
 							<string key="name">imageViewForArrow</string>
@@ -336,8 +352,8 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="NS.key.0">blueArrow@2x.png</string>
-			<string key="NS.object.0">{16, 16}</string>
+			<string key="NS.key.0">xlistview_arrow@2x.png</string>
+			<string key="NS.object.0">{32, 46}</string>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">2083</string>
 	</data>

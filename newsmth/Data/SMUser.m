@@ -1,14 +1,18 @@
 #import "SMData.h"
 
 @implementation SMUser
-- (NSString *)info
+- (void)decode:(id)json
 {
-	return [self.dict objectForKey:@"info"];
+	NSDictionary *dict = json;
+	_info = [dict objectForKey:@"info"];
 }
 
-- (void)setInfo:(NSString *)info_
+- (id)encode
 {
-	[self.dict setObject:info_ forKey:@"info"];
+	NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+	if (_info != nil) {
+		[dict setObject:_info forKey:@"info"];
+	}
+	return dict;
 }
-
 @end

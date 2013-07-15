@@ -1,64 +1,43 @@
 #import "SMData.h"
 
 @implementation SMUpload
-- (int)act
+- (void)decode:(id)json
 {
-	return [[self.dict objectForKey:@"act"] intValue];
-}
+	NSDictionary *dict = json;
+	_act = [[dict objectForKey:@"act"] intValue];
 
-- (void)setAct:(int)act_
-{
-	[self.dict setValue:@(act_) forKey:@"act"];
-}
+	_message = [dict objectForKey:@"message"];
 
-- (NSString *)message
-{
-	return [self.dict objectForKey:@"message"];
-}
-
-- (void)setMessage:(NSString *)message_
-{
-	[self.dict setObject:message_ forKey:@"message"];
-}
-
-- (NSArray *)items
-{
-	NSArray *objs = [self.dict objectForKey:@"items"];
-	NSMutableArray *res = [[NSMutableArray alloc] init];
-	for (int i = 0; i != objs.count; ++i) {
-		SMBaseData *data = [[SMBaseData alloc] initWithData:objs[i]];
-		[res addObject:data];
+	NSMutableArray *tmp_items = [[NSMutableArray alloc] init];
+	NSArray *items = [dict objectForKey:@"items"];
+	for (int i = 0; i != items.count; ++i) {
+		[tmp_items addObject:[[SMUploadItem alloc] initWithJSON:items[i]]];
 	}
-	return res;
+	_items = tmp_items;
+
+	_leftCount = [[dict objectForKey:@"leftCount"] intValue];
+
+	_leftSize = [[dict objectForKey:@"leftSize"] intValue];
 }
 
-- (void)setItems:(NSArray *)items_
+- (id)encode
 {
-    NSMutableArray *arr = [[NSMutableArray alloc] initWithCapacity:items_.count];
-    for (int i = 0; i != items_.count; ++i) {
-        [arr addObject:[items_[i] dict]];
-    }
-    [self.dict setObject:arr forKey:@"items"];
-}
+	NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+	[dict setObject:@(_act) forKey:@"act"];
 
-- (int)leftCount
-{
-	return [[self.dict objectForKey:@"leftCount"] intValue];
-}
+	if (_message != nil) {
+		[dict setObject:_message forKey:@"message"];
+	}
 
-- (void)setLeftCount:(int)leftCount_
-{
-	[self.dict setValue:@(leftCount_) forKey:@"leftCount"];
-}
+	NSMutableArray *tmp_items = [[NSMutableArray alloc] init];
+	for (int i = 0; i != _items.count; ++i) {
+		[tmp_items addObject:[_items[i] encode]];
+	}
+	[dict setObject:tmp_items forKey:@"items"];
 
-- (int)leftSize
-{
-	return [[self.dict objectForKey:@"leftSize"] intValue];
-}
+	[dict setObject:@(_leftCount) forKey:@"leftCount"];
 
-- (void)setLeftSize:(int)leftSize_
-{
-	[self.dict setValue:@(leftSize_) forKey:@"leftSize"];
+	[dict setObject:@(_leftSize) forKey:@"leftSize"];
+	return dict;
 }
-
 @end

@@ -1,6 +1,6 @@
 #import "SMBaseData.h"
 
-
+@class SMPost;
 @interface SMPostGroup : SMBaseData
 @property (assign, nonatomic) int bid;
 @property (assign, nonatomic) int tpage;

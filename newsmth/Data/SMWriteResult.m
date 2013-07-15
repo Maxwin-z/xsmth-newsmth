@@ -1,14 +1,16 @@
 #import "SMData.h"
 
 @implementation SMWriteResult
-- (BOOL)success
+- (void)decode:(id)json
 {
-	return [[self.dict objectForKey:@"success"] boolValue];
+	NSDictionary *dict = json;
+	_success = [[dict objectForKey:@"success"] boolValue];
 }
 
-- (void)setSuccess:(BOOL)success_
+- (id)encode
 {
-	[self.dict setValue:@(success_) forKey:@"success"];
+	NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+	[dict setObject:@(_success) forKey:@"success"];
+	return dict;
 }
-
 @end

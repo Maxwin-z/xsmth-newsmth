@@ -1,24 +1,25 @@
 #import "SMData.h"
 
 @implementation SMMainPage
-- (NSArray *)sections
+- (void)decode:(id)json
 {
-	NSArray *objs = [self.dict objectForKey:@"sections"];
-	NSMutableArray *res = [[NSMutableArray alloc] init];
-	for (int i = 0; i != objs.count; ++i) {
-		SMBaseData *data = [[SMBaseData alloc] initWithData:objs[i]];
-		[res addObject:data];
+	NSDictionary *dict = json;
+	NSMutableArray *tmp_sections = [[NSMutableArray alloc] init];
+	NSArray *sections = [dict objectForKey:@"sections"];
+	for (int i = 0; i != sections.count; ++i) {
+		[tmp_sections addObject:[[SMSection alloc] initWithJSON:sections[i]]];
 	}
-	return res;
+	_sections = tmp_sections;
 }
 
-- (void)setSections:(NSArray *)sections_
+- (id)encode
 {
-    NSMutableArray *arr = [[NSMutableArray alloc] initWithCapacity:sections_.count];
-    for (int i = 0; i != sections_.count; ++i) {
-        [arr addObject:[sections_[i] dict]];
-    }
-    [self.dict setObject:arr forKey:@"sections"];
+	NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+	NSMutableArray *tmp_sections = [[NSMutableArray alloc] init];
+	for (int i = 0; i != _sections.count; ++i) {
+		[tmp_sections addObject:[_sections[i] encode]];
+	}
+	[dict setObject:tmp_sections forKey:@"sections"];
+	return dict;
 }
-
 @end

@@ -1,54 +1,39 @@
 #import "SMData.h"
 
 @implementation SMPostGroup
-- (int)bid
+- (void)decode:(id)json
 {
-	return [[self.dict objectForKey:@"bid"] intValue];
-}
+	NSDictionary *dict = json;
+	_bid = [[dict objectForKey:@"bid"] intValue];
 
-- (void)setBid:(int)bid_
-{
-	[self.dict setValue:@(bid_) forKey:@"bid"];
-}
+	_tpage = [[dict objectForKey:@"tpage"] intValue];
 
-- (int)tpage
-{
-	return [[self.dict objectForKey:@"tpage"] intValue];
-}
+	_title = [dict objectForKey:@"title"];
 
-- (void)setTpage:(int)tpage_
-{
-	[self.dict setValue:@(tpage_) forKey:@"tpage"];
-}
-
-- (NSString *)title
-{
-	return [self.dict objectForKey:@"title"];
-}
-
-- (void)setTitle:(NSString *)title_
-{
-	[self.dict setObject:title_ forKey:@"title"];
-}
-
-- (NSArray *)posts
-{
-	NSArray *objs = [self.dict objectForKey:@"posts"];
-	NSMutableArray *res = [[NSMutableArray alloc] init];
-	for (int i = 0; i != objs.count; ++i) {
-		SMBaseData *data = [[SMBaseData alloc] initWithData:objs[i]];
-		[res addObject:data];
+	NSMutableArray *tmp_posts = [[NSMutableArray alloc] init];
+	NSArray *posts = [dict objectForKey:@"posts"];
+	for (int i = 0; i != posts.count; ++i) {
+		[tmp_posts addObject:[[SMPost alloc] initWithJSON:posts[i]]];
 	}
-	return res;
+	_posts = tmp_posts;
 }
 
-- (void)setPosts:(NSArray *)posts_
+- (id)encode
 {
-    NSMutableArray *arr = [[NSMutableArray alloc] initWithCapacity:posts_.count];
-    for (int i = 0; i != posts_.count; ++i) {
-        [arr addObject:[posts_[i] dict]];
-    }
-    [self.dict setObject:arr forKey:@"posts"];
-}
+	NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+	[dict setObject:@(_bid) forKey:@"bid"];
 
+	[dict setObject:@(_tpage) forKey:@"tpage"];
+
+	if (_title != nil) {
+		[dict setObject:_title forKey:@"title"];
+	}
+
+	NSMutableArray *tmp_posts = [[NSMutableArray alloc] init];
+	for (int i = 0; i != _posts.count; ++i) {
+		[tmp_posts addObject:[_posts[i] encode]];
+	}
+	[dict setObject:tmp_posts forKey:@"posts"];
+	return dict;
+}
 @end

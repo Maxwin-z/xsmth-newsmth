@@ -1,6 +1,6 @@
 #import "SMBaseData.h"
 
-
+@class SMUploadItem;
 @interface SMUpload : SMBaseData
 @property (assign, nonatomic) int act;
 @property (strong, nonatomic) NSString* message;

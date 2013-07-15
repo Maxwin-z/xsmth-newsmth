@@ -1,24 +1,25 @@
 #import "SMData.h"
 
 @implementation SMBoardList
-- (NSArray *)items
+- (void)decode:(id)json
 {
-	NSArray *objs = [self.dict objectForKey:@"items"];
-	NSMutableArray *res = [[NSMutableArray alloc] init];
-	for (int i = 0; i != objs.count; ++i) {
-		SMBaseData *data = [[SMBaseData alloc] initWithData:objs[i]];
-		[res addObject:data];
+	NSDictionary *dict = json;
+	NSMutableArray *tmp_items = [[NSMutableArray alloc] init];
+	NSArray *items = [dict objectForKey:@"items"];
+	for (int i = 0; i != items.count; ++i) {
+		[tmp_items addObject:[[SMBoardListItem alloc] initWithJSON:items[i]]];
 	}
-	return res;
+	_items = tmp_items;
 }
 
-- (void)setItems:(NSArray *)items_
+- (id)encode
 {
-    NSMutableArray *arr = [[NSMutableArray alloc] initWithCapacity:items_.count];
-    for (int i = 0; i != items_.count; ++i) {
-        [arr addObject:[items_[i] dict]];
-    }
-    [self.dict setObject:arr forKey:@"items"];
+	NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+	NSMutableArray *tmp_items = [[NSMutableArray alloc] init];
+	for (int i = 0; i != _items.count; ++i) {
+		[tmp_items addObject:[_items[i] encode]];
+	}
+	[dict setObject:tmp_items forKey:@"items"];
+	return dict;
 }
-
 @end
