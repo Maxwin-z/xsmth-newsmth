@@ -161,6 +161,10 @@ while ((match = regex.exec(scheme)) != null) {
 				encodeTpl = encodeMap[type];
 				if (type == 'string') {
 					props.push('@property (strong, nonatomic) NSString* ' + field + ';');
+				} else if (type == 'long') {
+					props.push('@property (assign, nonatomic) long long ' + field + ';');
+				} else if (type == 'bool') {
+					props.push('@property (assign, nonatomic) BOOL ' + field + ';');
 				} else {
 					props.push('@property (assign, nonatomic) ' + type + ' ' + field + ';');
 				}

@@ -2,5 +2,5 @@
 
 
 @interface SMWriteResult : SMBaseData
-@property (assign, nonatomic) bool success;
+@property (assign, nonatomic) BOOL success;
 @end

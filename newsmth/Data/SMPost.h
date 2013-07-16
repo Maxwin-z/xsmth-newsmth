@@ -10,10 +10,10 @@
 @property (strong, nonatomic) NSString* nick;
 @property (strong, nonatomic) NSString* title;
 @property (strong, nonatomic) NSString* content;
-@property (assign, nonatomic) long date;
+@property (assign, nonatomic) long long date;
 @property (strong, nonatomic) NSString* replyAuthor;
-@property (assign, nonatomic) long replyDate;
+@property (assign, nonatomic) long long replyDate;
 @property (assign, nonatomic) int replyCount;
-@property (assign, nonatomic) bool isTop;
+@property (assign, nonatomic) BOOL isTop;
 @property (strong, nonatomic) NSArray* attaches;
 @end
