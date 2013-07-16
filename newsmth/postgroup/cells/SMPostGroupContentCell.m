@@ -84,6 +84,10 @@ static SMPostGroupContentCell *_instance;
     if ([request.URL.absoluteString isEqualToString:@"about:blank"]) {
         return YES;
     }
+    XLog_d(@"%@", request.URL.absoluteString);
+    if ([_delegate respondsToSelector:@selector(postGroupContentCell:shouldLoadUrl:)]) {
+        [_delegate postGroupContentCell:self shouldLoadUrl:request.URL];
+    }
     return NO;
 }
 

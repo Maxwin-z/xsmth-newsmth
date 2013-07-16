@@ -21,7 +21,7 @@
 #import "SMPostGroupContentCell.h"
 #import "SMPostGroupAttachCell.h"
 #import "SMPostFailCell.h"
-
+#import "PBWebViewController.h"
 
 ////////////////////////////////////////////////
 @implementation SMPostGroupItem
@@ -93,6 +93,12 @@
                                                       target:self
                                                       action:@selector(onRightBarButtonClick)];
     }
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationController.toolbarHidden = YES;
 }
 
 - (void)onRightBarButtonClick
@@ -474,6 +480,13 @@
     [_postHeightMap setObject:@(height) forKey:@(pid)];
     [_tableView beginUpdates];
     [_tableView endUpdates];
+}
+
+- (void)postGroupContentCell:(SMPostGroupContentCell *)cell shouldLoadUrl:(NSURL *)url
+{
+    PBWebViewController *webView = [[PBWebViewController alloc] init];
+    webView.URL = url;
+    [self.navigationController pushViewController:webView animated:YES];
 }
 
 #pragma mark - UIActionSheetDelegate

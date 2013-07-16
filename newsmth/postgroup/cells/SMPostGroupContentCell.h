@@ -13,6 +13,8 @@
 
 @protocol SMPostGroupContentCellDelegate <NSObject>
 - (void)postGroupContentCell:(SMPostGroupContentCell *)cell heightChanged:(CGFloat)height;
+@optional
+- (void)postGroupContentCell:(SMPostGroupContentCell *)cell shouldLoadUrl:(NSURL *)url;
 @end
 
 @interface SMPostGroupContentCell : UITableViewCell

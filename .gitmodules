@@ -1,3 +1,9 @@
 [submodule "newsmth/Frameworks/asi-http-request"]
 	path = newsmth/Frameworks/asi-http-request
 	url = git@github.com:Maxwin-z/asi-http-request.git
+[submodule "newsmth/ThirdParty/OWActivityViewController"]
+	path = newsmth/ThirdParty/OWActivityViewController
+	url = git@github.com:Maxwin-z/OWActivityViewController.git
+[submodule "newsmth/ThirdParty/PBWebViewController"]
+	path = newsmth/ThirdParty/PBWebViewController
+	url = git@github.com:Maxwin-z/PBWebViewController.git

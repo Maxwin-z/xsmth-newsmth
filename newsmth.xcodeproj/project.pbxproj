@@ -93,6 +93,7 @@
 		C1AE9140175A24AF0084C618 /* SMErrorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1AE913F175A24AF0084C618 /* SMErrorView.xib */; };
 		C1B581F3177723F500441299 /* SMWritePostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B581F1177723F500441299 /* SMWritePostViewController.m */; };
 		C1B581F4177723F500441299 /* SMWritePostViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1B581F2177723F500441299 /* SMWritePostViewController.xib */; };
+		C1BA92C917954EC300F76ACF /* PBWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1BA929817954EC300F76ACF /* PBWebViewController.m */; };
 		C1BEC9671794243C002A1E1C /* xlistview_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1BEC9661794243C002A1E1C /* xlistview_arrow@2x.png */; };
 		C1BFB8DD174F6A620092FD2E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1BFB8DC174F6A620092FD2E /* UIKit.framework */; };
 		C1BFB8DF174F6A620092FD2E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1BFB8DE174F6A620092FD2E /* Foundation.framework */; };
@@ -298,6 +299,8 @@
 		C1B581F0177723F500441299 /* SMWritePostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMWritePostViewController.h; sourceTree = "<group>"; };
 		C1B581F1177723F500441299 /* SMWritePostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMWritePostViewController.m; sourceTree = "<group>"; };
 		C1B581F2177723F500441299 /* SMWritePostViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMWritePostViewController.xib; sourceTree = "<group>"; };
+		C1BA929717954EC300F76ACF /* PBWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBWebViewController.h; sourceTree = "<group>"; };
+		C1BA929817954EC300F76ACF /* PBWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBWebViewController.m; sourceTree = "<group>"; };
 		C1BEC9661794243C002A1E1C /* xlistview_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "xlistview_arrow@2x.png"; sourceTree = "<group>"; };
 		C1BFB8D9174F6A620092FD2E /* newsmth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = newsmth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1BFB8DC174F6A620092FD2E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -628,6 +631,31 @@
 			path = write;
 			sourceTree = "<group>";
 		};
+		C1BA923917954EC300F76ACF /* ThirdParty */ = {
+			isa = PBXGroup;
+			children = (
+				C1BA927B17954EC300F76ACF /* PBWebViewController */,
+			);
+			path = ThirdParty;
+			sourceTree = "<group>";
+		};
+		C1BA927B17954EC300F76ACF /* PBWebViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C1BA929617954EC300F76ACF /* PBWebViewController */,
+			);
+			path = PBWebViewController;
+			sourceTree = "<group>";
+		};
+		C1BA929617954EC300F76ACF /* PBWebViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C1BA929717954EC300F76ACF /* PBWebViewController.h */,
+				C1BA929817954EC300F76ACF /* PBWebViewController.m */,
+			);
+			path = PBWebViewController;
+			sourceTree = "<group>";
+		};
 		C1BFB8D0174F6A620092FD2E = {
 			isa = PBXGroup;
 			children = (
@@ -670,6 +698,7 @@
 		C1BFB8E2174F6A620092FD2E /* newsmth */ = {
 			isa = PBXGroup;
 			children = (
+				C1BA923917954EC300F76ACF /* ThirdParty */,
 				C1C4C87D1781B4D60092E77C /* boardlist */,
 				C1B581EF1777231C00441299 /* write */,
 				C1E628931764BAD4007ACF2A /* Data */,
@@ -917,6 +946,11 @@
 			knownRegions = (
 				en,
 				English,
+				de,
+				fr,
+				ru,
+				sv,
+				"zh-Hans",
 			);
 			mainGroup = C1BFB8D0174F6A620092FD2E;
 			productRefGroup = C1BFB8DA174F6A620092FD2E /* Products */;
@@ -1096,6 +1130,7 @@
 				C17F4B83178C0A21002F4934 /* SMImageUploadListViewController.m in Sources */,
 				C17F4B89178C11CA002F4934 /* SMUpload.m in Sources */,
 				C17F4B8A178C11CA002F4934 /* SMUploadItem.m in Sources */,
+				C1BA92C917954EC300F76ACF /* PBWebViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
