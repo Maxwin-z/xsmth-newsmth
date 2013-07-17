@@ -108,7 +108,7 @@ typedef NS_ENUM(NSInteger, CellType) {
         vc = [[SMUserViewController alloc] init];
         evt = @"user";
     } else if (cellType == CellTypeSections) {
-        SMSectionViewController *tvc = [[SMSectionViewController alloc] init];
+        SMSectionViewController *tvc = [SMSectionViewController instance];
         tvc.url = @"http://m.newsmth.net/section";
         vc = tvc;
         evt = @"section";

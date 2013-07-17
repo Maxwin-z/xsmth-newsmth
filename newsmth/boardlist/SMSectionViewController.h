@@ -9,5 +9,5 @@
 #import "SMBaseBorardListViewController.h"
 
 @interface SMSectionViewController : SMBaseBorardListViewController
-
++ (SMSectionViewController *)instance;
 @end

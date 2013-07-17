@@ -8,11 +8,20 @@
 
 #import "SMSectionViewController.h"
 
+static SMSectionViewController *_instance;
+
 @interface SMSectionViewController ()
 
 @end
 
 @implementation SMSectionViewController
++ (SMSectionViewController *)instance
+{
+    if (_instance == nil) {
+        _instance = [[SMSectionViewController alloc] init];
+    }
+    return _instance;
+}
 
 - (void)viewDidLoad
 {
