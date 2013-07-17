@@ -99,6 +99,11 @@
 {
     [super viewWillAppear:animated];
     self.navigationController.toolbarHidden = YES;
+    
+    NSIndexPath *indexPath = [_tableView indexPathForSelectedRow];
+    if (indexPath != nil) {
+        [_tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
 }
 
 - (void)onRightBarButtonClick
@@ -250,8 +255,7 @@
         default:
             break;
     }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    return cell; 
+    return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -280,12 +284,24 @@
     return 0;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    SMPostGroupCellData *data = _cellDatas[indexPath.row];
+    if (data.type == SMPostGroupCellTypeAttach) {
+        NSString *attachUrl = [self getAttachOriginalUrl:data];
+        PBWebViewController *webView = [[PBWebViewController alloc] init];
+        webView.URL = [NSURL URLWithString:attachUrl];
+        [self.navigationController pushViewController:webView animated:YES];
+    }
+}
+
 - (UITableViewCell *)cellForTitle:(SMPostGroupCellData *)data
 {
     NSString *cellid = @"title_cell";
     SMPostGroupHeaderCell *cell = (SMPostGroupHeaderCell *)[self.tableView dequeueReusableCellWithIdentifier:cellid];
     if (cell == nil) {
         cell = [[SMPostGroupHeaderCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.delegate = self;
     }
     cell.post = data.item.post;
@@ -298,6 +314,7 @@
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:cellid];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     cell.textLabel.text = @"Loading...";
     return cell;
@@ -309,6 +326,7 @@
     SMPostFailCell *cell = (SMPostFailCell *)[self.tableView dequeueReusableCellWithIdentifier:cellid];
     if (cell == nil) {
         cell = [[SMPostFailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     cell.cellData = data;
     cell.delegate = self;
@@ -321,6 +339,7 @@
     SMPostGroupContentCell *cell = (SMPostGroupContentCell *)[self.tableView dequeueReusableCellWithIdentifier:cellid];
     if (cell == nil) {
         cell = [[SMPostGroupContentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.delegate = self;
     }
     cell.post = data.item.post;
@@ -342,6 +361,11 @@
 - (NSString *)getAttachUrl:(SMPostGroupCellData *)data
 {
     return [NSString stringWithFormat:@"http://att.newsmth.net/nForum/att/%@/%d/%d/large", _board.name, data.item.post.pid, data.attach.pos];
+}
+
+- (NSString *)getAttachOriginalUrl:(SMPostGroupCellData *)data
+{
+    return [NSString stringWithFormat:@"http://att.newsmth.net/nForum/att/%@/%d/%d", _board.name, data.item.post.pid, data.attach.pos];
 }
 
 #pragma mark - XPullRefreshTableViewDelegate

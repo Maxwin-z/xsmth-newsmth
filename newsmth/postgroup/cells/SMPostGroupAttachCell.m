@@ -36,6 +36,12 @@
         _bgForPhotoFrame.image = [SMUtils stretchedImage:_bgForPhotoFrame.image];
         
         [self.contentView addSubview:_viewForCell];
+        
+        // select bg view
+        UIView *selectBgView = [[UIView alloc] initWithFrame:self.contentView.bounds];
+        selectBgView.backgroundColor = [UIColor colorWithRed:0.199 green:0.592 blue:0.896 alpha:0.330];
+        
+        self.selectedBackgroundView = selectBgView;
     }
     return self;
 }

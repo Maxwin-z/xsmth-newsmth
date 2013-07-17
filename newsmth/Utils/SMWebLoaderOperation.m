@@ -100,8 +100,13 @@
 //    XLog_d(@"url[%@] parsed", _url);
     NSInteger code = [[json objectForKey:@"code"] integerValue];
     if (code == 0) {
-        SMBaseData *tmp = [SMBaseData dataWithJSON:[json objectForKey:@"data"]];
-        _data = tmp;
+        id rspData = [json objectForKey:@"data"];
+        if (rspData != nil && ![rspData isKindOfClass:[NSNull class]]) {
+            SMBaseData *tmp = [SMBaseData dataWithJSON:[json objectForKey:@"data"]];
+            _data = tmp;
+        } else {
+            _data = nil;
+        }
         [_delegate webLoaderOperationFinished:self];
     } else {
         SMMessage *error = [[SMMessage alloc] initWithCode:code message:[json objectForKey:@"message"]];
