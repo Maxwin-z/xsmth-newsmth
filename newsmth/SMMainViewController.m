@@ -73,9 +73,7 @@ static SMMainViewController *_instance;
 
 - (void)onLeftBarButtonClick
 {
-//    [self setLeftVisiable:YES];
-    SMImagePickerViewController *picker = [[SMImagePickerViewController alloc] init];
-    [self presentModalViewController:picker animated:YES];
+    [self setLeftVisiable:YES];
 }
 
 - (void)setRootViewController:(UIViewController *)viewController
