@@ -33,6 +33,7 @@ typedef NS_ENUM(NSInteger, CellType) {
     self = [super init];
     if (self) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onAccountNotification) name:NOTIFICATION_ACCOUT object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onBecomeActivity) name:UIApplicationDidBecomeActiveNotification object:nil];
     }
     return self;
 }
@@ -51,6 +52,12 @@ typedef NS_ENUM(NSInteger, CellType) {
 - (void)onAccountNotification
 {
     [self.tableView reloadData];
+}
+
+- (void)onBecomeActivity
+{
+    SMWebLoaderOperation *keepLoginOp = [[SMWebLoaderOperation alloc] init];
+    [keepLoginOp loadUrl:@"http://m.newsmth.net/user/query/" withParser:nil];
 }
 
 #pragma mark - UITableViewDataSource/Delegate

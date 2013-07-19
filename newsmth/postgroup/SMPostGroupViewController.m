@@ -56,6 +56,10 @@
 @property (strong, nonatomic) SMPost *replyPost;    // 准备回复的主题
 @property (strong, nonatomic) NSString *postTitle;
 
+@property (weak, nonatomic) IBOutlet UIView *viewForPageHint;
+@property (weak, nonatomic) IBOutlet UIImageView *imageViewForPageHintBg;
+@property (weak, nonatomic) IBOutlet UILabel *labelForPageHint;
+
 @end
 
 @implementation SMPostGroupViewController
@@ -93,6 +97,8 @@
                                                       target:self
                                                       action:@selector(onRightBarButtonClick)];
     }
+    
+    _imageViewForPageHintBg.image = [SMUtils stretchedImage:_imageViewForPageHintBg.image];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -153,6 +159,7 @@
         
         // header
         SMPostGroupCellData *header = [[SMPostGroupCellData alloc] init];
+        header.index = idx;
         header.item = item;
         header.type = SMPostGroupCellTypeHeader;
         [datas addObject:header];
@@ -220,7 +227,43 @@
     if (_prepareCellDatas != nil) {
         self.cellDatas = _prepareCellDatas;
     }
+    if (!decelerate) {
+        [self hidePageHint];
+    }
 }
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    [self hidePageHint];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    NSString *text = [NSString stringWithFormat:@"%d/%d页", _pno, _tpage];
+    _labelForPageHint.text = text;
+    
+    CGSize size = [text sizeWithFont:_labelForPageHint.font];
+    
+    CGRect frame = _viewForPageHint.frame;
+    frame.size = size;
+    frame.size.width += 10.0f;
+    frame.size.height += 6.0f;
+    frame.origin.x = self.view.frame.size.width - frame.size.width - 10.0f;
+    frame.origin.y = self.view.frame.size.height - frame.size.height - 10.0f;
+    _viewForPageHint.frame = frame;
+    
+    [UIView animateWithDuration:0.5f animations:^{
+        _viewForPageHint.alpha = 1.0f;
+    }];
+}
+
+- (void)hidePageHint
+{
+    [UIView animateWithDuration:0.5f animations:^{
+        _viewForPageHint.alpha = 0.0f;
+    }];
+}
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -295,6 +338,7 @@
     }
 }
 
+#pragma create cell
 - (UITableViewCell *)cellForTitle:(SMPostGroupCellData *)data
 {
     NSString *cellid = @"title_cell";
@@ -304,7 +348,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.delegate = self;
     }
-    cell.post = data.item.post;
+    cell.data = data;
     return cell;
 }
 

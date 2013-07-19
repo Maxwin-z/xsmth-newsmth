@@ -30,6 +30,7 @@ typedef NS_ENUM(NSInteger, SMPostGroupCellType) {
 @end
 
 @interface SMPostGroupCellData : NSObject
+@property (assign, nonatomic) NSInteger index;
 @property (strong, nonatomic) SMPostGroupItem *item;
 @property (assign, nonatomic) SMPostGroupCellType type;
 @property (strong, nonatomic) SMAttach *attach;
