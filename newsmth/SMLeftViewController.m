@@ -23,9 +23,11 @@ typedef NS_ENUM(NSInteger, CellType) {
     CellTypeNotice
 };
 
-@interface SMLeftViewController ()<UITableViewDataSource, UITableViewDelegate>
+@interface SMLeftViewController ()<UITableViewDataSource, UITableViewDelegate, SMWebLoaderOperationDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray *cellTypes;
+
+@property (strong, nonatomic) SMWebLoaderOperation *keepLoginOp;
 @end
 
 @implementation SMLeftViewController
@@ -58,8 +60,11 @@ typedef NS_ENUM(NSInteger, CellType) {
 
 - (void)onBecomeActivity
 {
-    SMWebLoaderOperation *keepLoginOp = [[SMWebLoaderOperation alloc] init];
-    [keepLoginOp loadUrl:@"http://m.newsmth.net/user/query/" withParser:nil];
+    if ([SMAccountManager instance].isLogin) {
+        _keepLoginOp = [[SMWebLoaderOperation alloc] init];
+        _keepLoginOp.delegate = self;
+        [_keepLoginOp loadUrl:@"http://m.newsmth.net/user/query/" withParser:@"notice"];
+    }
 }
 
 #pragma mark - UITableViewDataSource/Delegate
@@ -86,7 +91,20 @@ typedef NS_ENUM(NSInteger, CellType) {
     if (cellType == CellTypeTop) {
         text = @"首页";
     } else if (cellType == CellTypeNotice) {
-        text = [NSString stringWithFormat:@"消息 (%d)", [SMAccountManager instance].noticeCount];
+        SMNotice *notice = [SMAccountManager instance].notice;
+        NSMutableArray *comps = [[NSMutableArray alloc] init];
+        if (notice.at > 0) {
+            [comps addObject:[NSString stringWithFormat:@"At:%d", notice.at]];
+        }
+        if (notice.reply > 0) {
+            [comps addObject:[NSString stringWithFormat:@"Re:%d", notice.reply]];
+        }
+        if (notice.mail > 0) {
+            [comps addObject:@"信"];
+        }
+        
+        NSString *hint = [comps componentsJoinedByString:@", "];
+        text = [NSString stringWithFormat:@"消息(%@)", hint.length > 0 ? hint : @"0"];
     } else if (cellType == CellTypeFavor) {
         text = @"收藏";
     } else if (cellType == CellTypeUser) {
@@ -134,6 +152,18 @@ typedef NS_ENUM(NSInteger, CellType) {
     [[SMMainViewController instance] setLeftVisiable:NO];
     
     [SMUtils trackEventWithCategory:@"left" action:evt label:nil];
+}
+
+#pragma mark - SMWebLoaderOperationDelegate
+- (void)webLoaderOperationFinished:(SMWebLoaderOperation *)opt
+{
+    [SMAccountManager instance].notice = opt.data;
+    [self.tableView reloadData];
+}
+
+- (void)webLoaderOperationFail:(SMWebLoaderOperation *)opt error:(SMMessage *)error
+{
+    XLog_e(@"%@", error);
 }
 
 @end

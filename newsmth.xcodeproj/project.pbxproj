@@ -54,6 +54,8 @@
 		C167143B1766D01700F56535 /* XPullRefreshTableViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = C167143A1766D01700F56535 /* XPullRefreshTableViewHeader.xib */; };
 		C167143D1766D02100F56535 /* XPullRefreshTableViewFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = C167143C1766D02100F56535 /* XPullRefreshTableViewFooter.xib */; };
 		C1671441176766FD00F56535 /* SMMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1671440176766FD00F56535 /* SMMainViewController.m */; };
+		C16C1098179A1CA200A14727 /* SMNotice.m in Sources */ = {isa = PBXBuildFile; fileRef = C16C1097179A1CA200A14727 /* SMNotice.m */; };
+		C16C109A179A238F00A14727 /* notice.js in Resources */ = {isa = PBXBuildFile; fileRef = C16C1099179A238F00A14727 /* notice.js */; };
 		C17F4B83178C0A21002F4934 /* SMImageUploadListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C17F4B81178C0A21002F4934 /* SMImageUploadListViewController.m */; };
 		C17F4B84178C0A21002F4934 /* SMImageUploadListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C17F4B82178C0A21002F4934 /* SMImageUploadListViewController.xib */; };
 		C17F4B89178C11CA002F4934 /* SMUpload.m in Sources */ = {isa = PBXBuildFile; fileRef = C17F4B86178C11CA002F4934 /* SMUpload.m */; };
@@ -262,6 +264,9 @@
 		C167143C1766D02100F56535 /* XPullRefreshTableViewFooter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XPullRefreshTableViewFooter.xib; sourceTree = "<group>"; };
 		C167143F176766FD00F56535 /* SMMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMMainViewController.h; sourceTree = "<group>"; };
 		C1671440176766FD00F56535 /* SMMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMMainViewController.m; sourceTree = "<group>"; };
+		C16C1096179A1CA200A14727 /* SMNotice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMNotice.h; sourceTree = "<group>"; };
+		C16C1097179A1CA200A14727 /* SMNotice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMNotice.m; sourceTree = "<group>"; };
+		C16C1099179A238F00A14727 /* notice.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = notice.js; sourceTree = "<group>"; };
 		C17F4B80178C0A21002F4934 /* SMImageUploadListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMImageUploadListViewController.h; sourceTree = "<group>"; };
 		C17F4B81178C0A21002F4934 /* SMImageUploadListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMImageUploadListViewController.m; sourceTree = "<group>"; };
 		C17F4B82178C0A21002F4934 /* SMImageUploadListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMImageUploadListViewController.xib; sourceTree = "<group>"; };
@@ -428,7 +433,6 @@
 		C1E3A2271780600900994CE6 /* SMUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMUserViewController.h; sourceTree = "<group>"; };
 		C1E3A2281780600900994CE6 /* SMUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMUserViewController.m; sourceTree = "<group>"; };
 		C1E3A2291780600900994CE6 /* SMUserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMUserViewController.xib; sourceTree = "<group>"; };
-		C1E628941764BAD4007ACF2A /* codegen.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = codegen.js; sourceTree = "<group>"; };
 		C1E628951764BAD4007ACF2A /* SMAttach.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMAttach.h; sourceTree = "<group>"; };
 		C1E628961764BAD4007ACF2A /* SMAttach.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMAttach.m; sourceTree = "<group>"; };
 		C1E628971764BAD4007ACF2A /* SMPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMPost.h; sourceTree = "<group>"; };
@@ -549,6 +553,7 @@
 		C121F2991750EE790081FD87 /* jsParser */ = {
 			isa = PBXGroup;
 			children = (
+				C16C1099179A238F00A14727 /* notice.js */,
 				C1A182D6178ABB330080EEDB /* upload.js */,
 				C1C4C88F1781BD4B0092E77C /* boardlist.js */,
 				C1FD13B817815A21006A6061 /* bbsqry.js */,
@@ -974,6 +979,8 @@
 		C1E628931764BAD4007ACF2A /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				C16C1096179A1CA200A14727 /* SMNotice.h */,
+				C16C1097179A1CA200A14727 /* SMNotice.m */,
 				C17F4B85178C11CA002F4934 /* SMUpload.h */,
 				C17F4B86178C11CA002F4934 /* SMUpload.m */,
 				C17F4B87178C11CA002F4934 /* SMUploadItem.h */,
@@ -1007,7 +1014,6 @@
 				C1E628961764BAD4007ACF2A /* SMAttach.m */,
 				C1E628971764BAD4007ACF2A /* SMPost.h */,
 				C1E628981764BAD4007ACF2A /* SMPost.m */,
-				C1E628941764BAD4007ACF2A /* codegen.js */,
 				C1E628991764BAD4007ACF2A /* types.schema */,
 			);
 			path = Data;
@@ -1090,6 +1096,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C16C109A179A238F00A14727 /* notice.js in Resources */,
 				C1A182D7178ABB330080EEDB /* upload.js in Resources */,
 				C1C4C8901781BD4B0092E77C /* boardlist.js in Resources */,
 				C1FD13B917815A21006A6061 /* bbsqry.js in Resources */,
@@ -1270,6 +1277,7 @@
 				C1C07A641796857900906ED7 /* OWSaveToCameraRollActivity.m in Sources */,
 				C1C07A651796857900906ED7 /* OWSinaWeiboActivity.m in Sources */,
 				C1C07A661796857900906ED7 /* OWTwitterActivity.m in Sources */,
+				C16C1098179A1CA200A14727 /* SMNotice.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

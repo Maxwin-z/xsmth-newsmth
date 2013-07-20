@@ -17,7 +17,7 @@
 //@property (strong, nonatomic) NSArray *cookies;
 @property (assign, nonatomic, readonly) BOOL isLogin;
 @property (strong, nonatomic, readonly) NSString *name;
-@property (assign, nonatomic) NSInteger noticeCount;
+@property (strong, nonatomic) SMNotice *notice;
 
 + (SMAccountManager *)instance;
 - (void)setCookies:(NSArray *)cookies;

@@ -84,3 +84,9 @@ SMUpload {
 	int leftCount
 	int leftSize
 }
+
+SMNotice {
+	int at
+	int reply
+	int mail
+}

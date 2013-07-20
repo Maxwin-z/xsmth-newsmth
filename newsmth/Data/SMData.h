@@ -12,3 +12,4 @@
 #import "SMBoardList.h"
 #import "SMUploadItem.h"
 #import "SMUpload.h"
+#import "SMNotice.h"
