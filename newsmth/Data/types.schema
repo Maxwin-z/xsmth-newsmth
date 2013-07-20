@@ -54,6 +54,7 @@ SMFavor {
 
 SMWriteResult {
 	bool success
+	string message
 }
 
 SMUser {

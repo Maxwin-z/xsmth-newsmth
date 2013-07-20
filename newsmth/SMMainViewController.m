@@ -79,6 +79,7 @@ static SMMainViewController *_instance;
 - (void)setRootViewController:(UIViewController *)viewController
 {
     [_centerViewController popToRootViewControllerAnimated:NO];
+    _centerViewController.toolbarHidden = YES;
     _centerViewController.viewControllers = @[viewController];
     viewController.navigationItem.leftBarButtonItem =
         [[UIBarButtonItem alloc]

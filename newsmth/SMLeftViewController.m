@@ -13,12 +13,14 @@
 #import "SMAccountManager.h"
 #import "SMUserViewController.h"
 #import "SMSectionViewController.h"
+#import "PBWebViewController.h"
 
 typedef NS_ENUM(NSInteger, CellType) {
     CellTypeTop,
     CellTypeUser,
     CellTypeFavor,
-    CellTypeSections
+    CellTypeSections,
+    CellTypeNotice
 };
 
 @interface SMLeftViewController ()<UITableViewDataSource, UITableViewDelegate>
@@ -63,7 +65,7 @@ typedef NS_ENUM(NSInteger, CellType) {
 #pragma mark - UITableViewDataSource/Delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    _cellTypes = @[@(CellTypeUser), @(CellTypeSections), @(CellTypeFavor), @(CellTypeTop)];
+    _cellTypes = @[@(CellTypeUser), @(CellTypeSections), @(CellTypeFavor), @(CellTypeNotice), @(CellTypeTop)];
     return _cellTypes.count;
 }
 
@@ -83,6 +85,8 @@ typedef NS_ENUM(NSInteger, CellType) {
     NSString *text;
     if (cellType == CellTypeTop) {
         text = @"首页";
+    } else if (cellType == CellTypeNotice) {
+        text = [NSString stringWithFormat:@"消息 (%d)", [SMAccountManager instance].noticeCount];
     } else if (cellType == CellTypeFavor) {
         text = @"收藏";
     } else if (cellType == CellTypeUser) {
@@ -108,6 +112,11 @@ typedef NS_ENUM(NSInteger, CellType) {
     if (cellType == CellTypeTop) {
         vc = [SMMainpageViewController instance];
         evt = @"home";
+    }else if (cellType == CellTypeNotice) {
+        PBWebViewController *pvc = [[PBWebViewController alloc] init];
+        pvc.URL = [NSURL URLWithString:@"http://m.newsmth.net/refer/reply"];
+        vc = pvc;
+        evt = @"notice";
     } else if (cellType == CellTypeFavor) {
         vc = [SMFavorListViewController instance];
         evt = @"favor";

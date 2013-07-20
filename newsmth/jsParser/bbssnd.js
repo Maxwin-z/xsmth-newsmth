@@ -1,11 +1,25 @@
 var data = {
 	__type: 'SMWriteResult',
-	success: true
+	success: true,
+	message: ''
 };
 
 function $parse(html) {
+	// default is success
 	var rsp = {code: 0, data: data, message: ''};
-	data.success = html.indexOf('操作成功: 发文成功！') != -1;
+
+	// fail
+	if (html.indexOf('<div id="m_main"><div class="sp hl f">发表成功</div>') == -1) {
+		var matches = html.match(/<div id="m_main"><div class="sp hl f">(.+?)<\/div>/);
+		if (matches) {	// 权限错误等
+			data.success = false;
+			data.message = matches[1];
+		} else {	// 未知错误
+			rsp.code = -1;
+			rsp.message = '未知错误';
+		}
+	}
+
 	console.log(rsp);
 	window.location.href = 'newsmth://' + encodeURIComponent(JSON.stringify(rsp));
 }

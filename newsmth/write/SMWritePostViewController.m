@@ -139,13 +139,21 @@
         return ;
     }
     
-    NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding ( kCFStringEncodingMacChineseSimp );
-    NSString *title = [_textFieldForTitle.text stringByAddingPercentEscapesUsingEncoding:enc];
-    NSString *text = [_textViewForText.text stringByAddingPercentEscapesUsingEncoding:enc];
+//    NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding ( kCFStringEncodingMacChineseSimp );
+//    NSString *title = [_textFieldForTitle.text stringByAddingPercentEscapesUsingEncoding:enc];
+//    NSString *text = [_textViewForText.text stringByAddingPercentEscapesUsingEncoding:enc];
+    NSString *title = [_textFieldForTitle.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *text = [_textViewForText.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 
-    NSString *postBody = [NSString stringWithFormat:@"title=%@&text=%@&signature=1", title, text];
+    NSString *postBody = [NSString stringWithFormat:@"subject=%@&content=%@", title, text];
     
-    NSString *formUrl = [NSString stringWithFormat:@"http://www.newsmth.net/bbssnd.php?board=%@&reid=%d", _post.board.name, _post.pid];
+//    NSString *formUrl = [NSString stringWithFormat:@"http://www.newsmth.net/bbssnd.php?board=%@&reid=%d", _post.board.name, _post.pid];
+    NSString *formUrl;
+    if (_post.pid == 0) {
+        formUrl = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/post", _post.board.name];
+    } else {
+        formUrl = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/post/%d", _post.board.name, _post.pid];
+    }
     SMHttpRequest *request = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:formUrl]];
     [request setRequestMethod:@"POST"];
     [request addRequestHeader:@"Content-type" value:@"application/x-www-form-urlencoded"];
@@ -198,7 +206,7 @@
 
             [SMUtils trackEventWithCategory:@"write" action:@"success" label:_post.board.name];
         } else {
-            [self toast:@"发表失败，文章已保存"];
+            [self toast:result.message];
             // save post
             [def setObject:_textFieldForTitle.text forKey:USER_DEF_LAST_POST_TITLE];
             [def setObject:_textViewForText.text forKey:USER_DEF_LAST_POST_CONTENT];
