@@ -70,7 +70,16 @@ typedef NS_ENUM(NSInteger, CellType) {
 #pragma mark - UITableViewDataSource/Delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    _cellTypes = @[@(CellTypeUser), @(CellTypeSections), @(CellTypeFavor), @(CellTypeNotice), @(CellTypeTop)];
+    NSMutableArray *cellTypes = [[NSMutableArray alloc] init];
+    if ([SMAccountManager instance].isLogin) {
+        [cellTypes addObject:@(CellTypeNotice)];
+    }
+    [cellTypes addObject:@(CellTypeUser)];
+    [cellTypes addObject:@(CellTypeSections)];
+    [cellTypes addObject:@(CellTypeFavor)];
+    [cellTypes addObject:@(CellTypeTop)];
+    
+    _cellTypes = cellTypes;
     return _cellTypes.count;
 }
 
