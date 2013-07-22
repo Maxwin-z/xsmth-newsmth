@@ -493,7 +493,8 @@
 #pragma mark - SMPostGroupHeaderCellDelegate
 - (void)postAfterLogin
 {
-    [self performSelector:@selector(postGroupHeaderCellOnReply:) withObject:_replyPost afterDelay:TOAST_DURTAION + 0.2f];
+    [self postGroupHeaderCellOnReply:_replyPost];
+//    [self performSelector:@selector(postGroupHeaderCellOnReply:) withObject:_replyPost afterDelay:TOAST_DURTAION + 0.2f];
 }
 
 - (void)postGroupHeaderCellOnReply:(SMPost *)post
