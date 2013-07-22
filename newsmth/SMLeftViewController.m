@@ -60,7 +60,14 @@ typedef NS_ENUM(NSInteger, CellType) {
 
 - (void)onBecomeActivity
 {
+    [self loadNotice];
+}
+
+- (void)loadNotice
+{
     if ([SMAccountManager instance].isLogin) {
+        XLog_d(@"load notice");
+        [_keepLoginOp cancel];
         _keepLoginOp = [[SMWebLoaderOperation alloc] init];
         _keepLoginOp.delegate = self;
         [_keepLoginOp loadUrl:@"http://m.newsmth.net/user/query/" withParser:@"notice"];

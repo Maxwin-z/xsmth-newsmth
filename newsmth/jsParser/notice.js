@@ -35,7 +35,7 @@ function getNotice(html) {
 			var a = as[i];
 			if (a.pathname == '/mail') {
 				if (a.innerHTML.match(/邮箱\(.+/)) {
-					notice.match = 1;
+					notice.mail = 1;
 				}
 			}
 
