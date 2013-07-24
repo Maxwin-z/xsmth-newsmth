@@ -47,4 +47,10 @@
 {
     return nil;
 }
+
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"%@", [self encode]];
+}
+
 @end

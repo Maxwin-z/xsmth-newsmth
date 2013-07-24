@@ -46,6 +46,7 @@
 @property (strong, nonatomic) NSMutableDictionary *postHeightMap;   // cache post webview height;
 
 @property (strong, nonatomic) SMWebLoaderOperation *pageOp; // 分页加载数据用op
+@property (assign, nonatomic) BOOL isLoading;
 
 @property (assign, nonatomic) NSInteger bid;    // board id
 @property (assign, nonatomic) NSInteger tpage;  // total page
@@ -134,6 +135,7 @@
     NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbstcon.php?board=%@&gid=%d&start=%d&pno=%d", _board.name, _gid, _gid, _pno];
     _pageOp = [[SMWebLoaderOperation alloc] init];
     _pageOp.delegate = self;
+    _isLoading = YES;
     [_pageOp loadUrl:url withParser:@"bbstcon"];
 }
 

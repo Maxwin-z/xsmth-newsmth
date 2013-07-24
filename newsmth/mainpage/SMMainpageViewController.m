@@ -9,6 +9,7 @@
 #import "SMMainpageViewController.h"
 #import "XPullRefreshTableView.h"
 #import "SMPostGroupViewController.h"
+#import "SMPostViewController.h"
 #import "SMMainpageCell.h"
 #import "SMMainPage.h"
 #import "SMSection.h"
@@ -129,7 +130,8 @@ static SMMainpageViewController *_instance;
     SMSection *secdata = _sections[indexPath.section];
     SMPost *post = secdata.posts[indexPath.row];
     
-    SMPostGroupViewController *vc = [[SMPostGroupViewController alloc] init];
+//    SMPostGroupViewController *vc = [[SMPostGroupViewController alloc] init];
+    SMPostViewController *vc = [[SMPostViewController alloc] init];
     vc.board = post.board;
     vc.gid = post.gid;
     [self.navigationController pushViewController:vc animated:YES];

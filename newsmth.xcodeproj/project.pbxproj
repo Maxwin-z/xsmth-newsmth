@@ -176,6 +176,8 @@
 		C1FD13D3178182E3006A6061 /* button_red_default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1FD13CD178182E2006A6061 /* button_red_default@2x.png */; };
 		C1FD13D4178182E3006A6061 /* button_red_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1FD13CE178182E2006A6061 /* button_red_pressed@2x.png */; };
 		C1FD13DD1781B26F006A6061 /* left_shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1FD13DC1781B26F006A6061 /* left_shadow@2x.png */; };
+		C1FF62B1179E6DF4001F7A15 /* SMPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FF62AF179E6DF4001F7A15 /* SMPostViewController.m */; };
+		C1FF62B2179E6DF4001F7A15 /* SMPostViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1FF62B0179E6DF4001F7A15 /* SMPostViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -460,6 +462,9 @@
 		C1FD13CD178182E2006A6061 /* button_red_default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_red_default@2x.png"; sourceTree = "<group>"; };
 		C1FD13CE178182E2006A6061 /* button_red_pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_red_pressed@2x.png"; sourceTree = "<group>"; };
 		C1FD13DC1781B26F006A6061 /* left_shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left_shadow@2x.png"; sourceTree = "<group>"; };
+		C1FF62AE179E6DF4001F7A15 /* SMPostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMPostViewController.h; sourceTree = "<group>"; };
+		C1FF62AF179E6DF4001F7A15 /* SMPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMPostViewController.m; sourceTree = "<group>"; };
+		C1FF62B0179E6DF4001F7A15 /* SMPostViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMPostViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -649,6 +654,9 @@
 				C1ABAB051766107A007DE168 /* SMPostGroupViewController.h */,
 				C1ABAB061766107A007DE168 /* SMPostGroupViewController.m */,
 				C1ABAB071766107A007DE168 /* SMPostGroupViewController.xib */,
+				C1FF62AE179E6DF4001F7A15 /* SMPostViewController.h */,
+				C1FF62AF179E6DF4001F7A15 /* SMPostViewController.m */,
+				C1FF62B0179E6DF4001F7A15 /* SMPostViewController.xib */,
 			);
 			path = postgroup;
 			sourceTree = "<group>";
@@ -1163,6 +1171,7 @@
 				C1C07A571796857900906ED7 /* OWActivityViewController.strings in Resources */,
 				C1C07A5B1796857900906ED7 /* OWActivityViewController.bundle in Resources */,
 				C122B41B17992A56000AC67E /* bg_text_hint@2x.png in Resources */,
+				C1FF62B2179E6DF4001F7A15 /* SMPostViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1278,6 +1287,7 @@
 				C1C07A651796857900906ED7 /* OWSinaWeiboActivity.m in Sources */,
 				C1C07A661796857900906ED7 /* OWTwitterActivity.m in Sources */,
 				C16C1098179A1CA200A14727 /* SMNotice.m in Sources */,
+				C1FF62B1179E6DF4001F7A15 /* SMPostViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
