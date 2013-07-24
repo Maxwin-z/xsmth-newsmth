@@ -8,7 +8,6 @@
 
 #import "SMMainpageViewController.h"
 #import "XPullRefreshTableView.h"
-#import "SMPostGroupViewController.h"
 #import "SMPostViewController.h"
 #import "SMMainpageCell.h"
 #import "SMMainPage.h"

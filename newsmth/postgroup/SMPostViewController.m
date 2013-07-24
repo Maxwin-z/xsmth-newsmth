@@ -15,8 +15,9 @@
 #import "PBWebViewController.h"
 #import "SMWritePostViewController.h"
 #import "SMUserViewController.h"
+#import "SMBoardViewController.h"
 
-@interface SMPostViewController ()<UITableViewDataSource, UITableViewDelegate, SMWebLoaderOperationDelegate, XPullRefreshTableViewDelegate, XImageViewDelegate, SMPostGroupHeaderCellDelegate, SMPostGroupContentCellDelegate, SMPostFailCellDelegate>
+@interface SMPostViewController ()<UITableViewDataSource, UITableViewDelegate, SMWebLoaderOperationDelegate, XPullRefreshTableViewDelegate, XImageViewDelegate, SMPostGroupHeaderCellDelegate, SMPostGroupContentCellDelegate, SMPostFailCellDelegate, UIActionSheetDelegate>
 
 @property (weak, nonatomic) IBOutlet XPullRefreshTableView *tableView;
 @property (strong, nonatomic) IBOutlet UIView *tableViewHeader;
@@ -50,6 +51,17 @@
     return self;
 }
 
+- (void)dealloc
+{
+    // cancel all requests
+    [_pageOp cancel];
+    [_postItems enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        SMPostItem *item = obj;
+        [item.op cancel];
+    }];
+}
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -66,7 +78,27 @@
     if (indexPath != nil) {
         [_tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
+    
+    if (!_fromBoard) {
+        self.navigationItem.rightBarButtonItem =
+        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+                                                      target:self
+                                                      action:@selector(onRightBarButtonClick)];
+    }
 }
+
+- (void)onRightBarButtonClick
+{
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] init];
+    if (!_fromBoard) {
+        [actionSheet addButtonWithTitle:[NSString stringWithFormat:@"进入[%@]版", _board.cnName]];
+    }
+    [actionSheet addButtonWithTitle:@"取消"];
+    actionSheet.destructiveButtonIndex = actionSheet.numberOfButtons - 1;
+    actionSheet.delegate = self;
+    [actionSheet showInView:self.view];
+}
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -422,6 +454,19 @@
 
     [SMUtils trackEventWithCategory:@"postgroup" action:@"retry_cell" label:_board.name];
 }
+
+#pragma mark - UIActionSheetDelegate
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex != actionSheet.destructiveButtonIndex) {
+        SMBoardViewController *vc = [[SMBoardViewController alloc] init];
+        vc.board = _board;
+        [self.navigationController pushViewController:vc animated:YES];
+        
+        [SMUtils trackEventWithCategory:@"postgroup" action:@"enter_board" label:_board.name];
+    }
+}
+
 
 @end
 

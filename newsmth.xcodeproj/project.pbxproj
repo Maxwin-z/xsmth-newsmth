@@ -85,8 +85,6 @@
 		C1A50E301786C69800D43439 /* SMImagePickerAssetsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C1A50E2F1786C69700D43439 /* SMImagePickerAssetsCell.m */; };
 		C1A50E331786E5BA00D43439 /* button_upload@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1A50E321786E5BA00D43439 /* button_upload@2x.png */; };
 		C1A77F05178EE76D0055E4B3 /* DCIntrospect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1A77F04178EE76D0055E4B3 /* DCIntrospect.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		C1ABAB0F1766107A007DE168 /* SMPostGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1ABAB061766107A007DE168 /* SMPostGroupViewController.m */; };
-		C1ABAB101766107A007DE168 /* SMPostGroupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1ABAB071766107A007DE168 /* SMPostGroupViewController.xib */; };
 		C1ABAB111766107A007DE168 /* SMMainpageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C1ABAB0A1766107A007DE168 /* SMMainpageCell.m */; };
 		C1ABAB121766107A007DE168 /* SMMainpageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1ABAB0B1766107A007DE168 /* SMMainpageCell.xib */; };
 		C1ABAB131766107A007DE168 /* SMMainpageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1ABAB0D1766107A007DE168 /* SMMainpageViewController.m */; };
@@ -311,9 +309,6 @@
 		C1A50E2F1786C69700D43439 /* SMImagePickerAssetsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMImagePickerAssetsCell.m; sourceTree = "<group>"; };
 		C1A50E321786E5BA00D43439 /* button_upload@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_upload@2x.png"; sourceTree = "<group>"; };
 		C1A77F04178EE76D0055E4B3 /* DCIntrospect.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DCIntrospect.framework; sourceTree = "<group>"; };
-		C1ABAB051766107A007DE168 /* SMPostGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMPostGroupViewController.h; sourceTree = "<group>"; };
-		C1ABAB061766107A007DE168 /* SMPostGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMPostGroupViewController.m; sourceTree = "<group>"; };
-		C1ABAB071766107A007DE168 /* SMPostGroupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMPostGroupViewController.xib; sourceTree = "<group>"; };
 		C1ABAB091766107A007DE168 /* SMMainpageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMMainpageCell.h; sourceTree = "<group>"; };
 		C1ABAB0A1766107A007DE168 /* SMMainpageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMMainpageCell.m; sourceTree = "<group>"; };
 		C1ABAB0B1766107A007DE168 /* SMMainpageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMMainpageCell.xib; sourceTree = "<group>"; };
@@ -651,9 +646,6 @@
 			isa = PBXGroup;
 			children = (
 				C1ABAB15176610D9007DE168 /* cells */,
-				C1ABAB051766107A007DE168 /* SMPostGroupViewController.h */,
-				C1ABAB061766107A007DE168 /* SMPostGroupViewController.m */,
-				C1ABAB071766107A007DE168 /* SMPostGroupViewController.xib */,
 				C1FF62AE179E6DF4001F7A15 /* SMPostViewController.h */,
 				C1FF62AF179E6DF4001F7A15 /* SMPostViewController.m */,
 				C1FF62B0179E6DF4001F7A15 /* SMPostViewController.xib */,
@@ -1122,7 +1114,6 @@
 				C1BFB8F9174F6A620092FD2E /* ViewController.xib in Resources */,
 				C1AE9140175A24AF0084C618 /* SMErrorView.xib in Resources */,
 				C1E6289D1764BAD4007ACF2A /* types.schema in Resources */,
-				C1ABAB101766107A007DE168 /* SMPostGroupViewController.xib in Resources */,
 				C1ABAB121766107A007DE168 /* SMMainpageCell.xib in Resources */,
 				C1ABAB141766107A007DE168 /* SMMainpageViewController.xib in Resources */,
 				C1ABAB1A17661156007DE168 /* SMPostGroupHeaderCell.xib in Resources */,
@@ -1234,7 +1225,6 @@
 				C1E628AA1764C594007ACF2A /* SMMainPage.m in Sources */,
 				C1E628AB1764C594007ACF2A /* SMPostGroup.m in Sources */,
 				C1E628AC1764C594007ACF2A /* SMSection.m in Sources */,
-				C1ABAB0F1766107A007DE168 /* SMPostGroupViewController.m in Sources */,
 				C1ABAB111766107A007DE168 /* SMMainpageCell.m in Sources */,
 				C1ABAB131766107A007DE168 /* SMMainpageViewController.m in Sources */,
 				C1ABAB181766114A007DE168 /* SMPostGroupHeaderCell.m in Sources */,

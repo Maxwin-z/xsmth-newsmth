@@ -9,7 +9,7 @@
 #import "SMBoardViewController.h"
 #import "XPullRefreshTableView.h"
 #import "SMBoardCell.h"
-#import "SMPostGroupViewController.h"
+#import "SMPostViewController.h"
 #import "SMWritePostViewController.h"
 #import "SMUserViewController.h"
 
@@ -135,7 +135,7 @@
 {
     SMPost *post = _posts[indexPath.row];
  
-    SMPostGroupViewController *vc = [[SMPostGroupViewController alloc] init];
+    SMPostViewController *vc = [[SMPostViewController alloc] init];
     vc.gid = post.gid;
     vc.board = _board;
     vc.fromBoard = YES;
