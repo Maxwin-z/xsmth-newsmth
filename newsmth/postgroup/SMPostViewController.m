@@ -12,9 +12,16 @@
 #import "SMPostFailCell.h"
 #import "SMPostGroupContentCell.h"
 #import "SMPostGroupAttachCell.h"
+#import "PBWebViewController.h"
+#import "SMWritePostViewController.h"
+#import "SMUserViewController.h"
 
-@interface SMPostViewController ()<UITableViewDataSource, UITableViewDelegate, SMWebLoaderOperationDelegate, XPullRefreshTableViewDelegate>
+@interface SMPostViewController ()<UITableViewDataSource, UITableViewDelegate, SMWebLoaderOperationDelegate, XPullRefreshTableViewDelegate, XImageViewDelegate, SMPostGroupHeaderCellDelegate, SMPostGroupContentCellDelegate, SMPostFailCellDelegate>
+
 @property (weak, nonatomic) IBOutlet XPullRefreshTableView *tableView;
+@property (strong, nonatomic) IBOutlet UIView *tableViewHeader;
+@property (weak, nonatomic) IBOutlet UILabel *labelForTitle;
+
 
 @property (strong, nonatomic) SMWebLoaderOperation *pageOp; // 分页加载数据用op
 @property (assign, nonatomic) BOOL isLoading;
@@ -50,6 +57,17 @@
     [self.tableView beginRefreshing];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationController.toolbarHidden = YES;
+    
+    NSIndexPath *indexPath = [_tableView indexPathForSelectedRow];
+    if (indexPath != nil) {
+        [_tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -80,6 +98,25 @@
     [self.tableView reloadData];
 }
 
+- (void)updateTableView
+{
+    [UIView setAnimationsEnabled:NO];
+    [_tableView beginUpdates];
+    [_tableView endUpdates];
+    [UIView setAnimationsEnabled:YES];
+}
+
+- (void)makeupTableViewHeader:(NSString *)text
+{
+    _labelForTitle.text = text;
+    self.title = text;
+    CGFloat delta = [_labelForTitle.text sizeWithFont:_labelForTitle.font constrainedToSize:CGSizeMake(_labelForTitle.frame.size.width, CGFLOAT_MAX) lineBreakMode:_labelForTitle.lineBreakMode].height - _labelForTitle.frame.size.height;
+    CGRect frame = _tableViewHeader.frame;
+    frame.size.height += delta;
+    _tableViewHeader.frame = frame;
+    _tableView.tableHeaderView = _tableViewHeader;
+}
+
 #pragma mark - UITableView
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -89,9 +126,6 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     SMPostItem *item = _postItems[section];
-    SMWebLoaderOperation *postOp = item.op;
-    item.post = postOp.data;
-    
     // 1. header    2. content  3... attach
     return 2 + item.post.attaches.count;
 }
@@ -107,11 +141,22 @@
         if (v != nil) {
             return [v floatValue];
         }
-        return 100.0f;
+        return 60.0f;
     }
     // attachs
     return [SMPostGroupAttachCell cellHeight:[self getAttachUrl:[self attachAtIndexPath:indexPath]]];
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row > 1) {    // attach
+        NSString *attachUrl = [self getAttachOriginalUrl:[self attachAtIndexPath:indexPath]];
+        PBWebViewController *webView = [[PBWebViewController alloc] init];
+        webView.URL = [NSURL URLWithString:attachUrl];
+        [self.navigationController pushViewController:webView animated:YES];
+    }
+}
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -126,9 +171,10 @@
     } else if (indexPath.row == 1) {    // content
         if (!item.op.isFinished) {
             return [self cellForLoading:item];
-        } else if (item.post == nil) {
+        } else if (item.op.data == nil) {
             return [self cellForFail:item];
         } else {
+            item.post = item.op.data;
             return [self cellForContent:item];
         }
     } else {
@@ -151,7 +197,7 @@
     if (cell == nil) {
         cell = [[SMPostGroupHeaderCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//        cell.delegate = self;
+        cell.delegate = self;
     }
     cell.item = item;
     return cell;
@@ -178,7 +224,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     cell.item = item;
-//    cell.delegate = self;
+    cell.delegate = self;
     return cell;
 }
 
@@ -189,7 +235,7 @@
     if (cell == nil) {
         cell = [[SMPostGroupContentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//        cell.delegate = self;
+        cell.delegate = self;
     }
     cell.post = item.post;
     return cell;
@@ -202,7 +248,7 @@
     if (cell == nil) {
         cell = [[SMPostGroupAttachCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
     }
-//    cell.imageViewForAttach.delegate = self;
+    cell.imageViewForAttach.delegate = self;
     cell.url = [self getAttachUrl:attach];
     return cell;
 }
@@ -240,7 +286,7 @@
             _bid = postGroup.bid;
             
             _postTitle = postGroup.title;
-//            [self makeupTableViewHeader:postGroup.title];
+            [self makeupTableViewHeader:postGroup.title];
         } else {
             tmp = [_postItems mutableCopy];
         }
@@ -264,9 +310,7 @@
         // next page
         ++_pno;
     } else {
-        XLog_d(@"%@", opt.url);
         [self.tableView reloadData];
-//        [self makeupCellDatas];
     }
 
 }
@@ -283,7 +327,7 @@
         }
         [self toast:error.message];
     } else {
-//        [self makeupCellDatas];
+        [_tableView reloadData];
     }
 }
 
@@ -300,6 +344,84 @@
     [SMUtils trackEventWithCategory:@"postgroup" action:@"retry" label:_board.name];
 }
 
+#pragma mark - XImageViewDelegate
+- (void)xImageViewDidLoad:(XImageView *)imageView
+{
+    [self updateTableView];
+}
+
+#pragma mark - SMPostGroupHeaderCellDelegate
+- (void)postAfterLogin
+{
+    [self postGroupHeaderCellOnReply:_replyPost];
+}
+
+- (void)postGroupHeaderCellOnReply:(SMPost *)post
+{
+    if (![SMAccountManager instance].isLogin) {
+        _replyPost = post;
+        [self performSelectorAfterLogin:@selector(postAfterLogin)];
+        return ;
+    }
+    SMWritePostViewController *writeViewController = [[SMWritePostViewController alloc] init];
+    writeViewController.post = post;
+    writeViewController.postTitle = _postTitle;
+    writeViewController.title = [NSString stringWithFormat:@"回复-%@", _postTitle];
+    P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:writeViewController];
+    [self.navigationController presentModalViewController:nvc animated:YES];
+    
+    [SMUtils trackEventWithCategory:@"postgroup" action:@"reply" label:_board.name];
+}
+
+- (void)postGroupHeaderCellOnUsernameClick:(NSString *)username
+{
+    SMUserViewController *vc = [[SMUserViewController alloc] init];
+    vc.username = username;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+
+#pragma mark - SMPostGroupContentCellDelegate
+- (void)postGroupContentCell:(SMPostGroupContentCell *)cell heightChanged:(CGFloat)height
+{
+    int pid = cell.post.pid;
+    [_postHeightMap setObject:@(height) forKey:@(pid)];
+    [self updateTableView];
+}
+
+- (void)postGroupContentCell:(SMPostGroupContentCell *)cell shouldLoadUrl:(NSURL *)url
+{
+    PBWebViewController *webView = [[PBWebViewController alloc] init];
+    webView.URL = url;
+    [self.navigationController pushViewController:webView animated:YES];
+}
+
+#pragma mark - SMPostFailCellDelegate
+- (void)postFailCellOnRetry:(SMPostFailCell *)cell
+{
+    SMPostItem *item = cell.item;
+    SMPost *post = item.post;
+//    NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbscon.php?bid=%d&id=%d", _bid, post.pid];
+
+    // use m.newsmth to retry
+    // http://m.newsmth.net/article/AdvancedEdu/single/31071/0
+    NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/single/%d/0", _board.name, post.pid];
+//    XLog_d(@"%@", url);
+
+    [item.op cancel];
+
+    SMWebLoaderOperation *op = [[SMWebLoaderOperation alloc] init];
+    op.highPriority = YES;
+    op.delegate = self;
+    item.op = op;
+    
+    [op loadUrl:url withParser:@"bbscon"];
+
+    NSIndexPath *indexPath = [_tableView indexPathForCell:cell];
+    [_tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:NO];
+
+    [SMUtils trackEventWithCategory:@"postgroup" action:@"retry_cell" label:_board.name];
+}
 
 @end
 

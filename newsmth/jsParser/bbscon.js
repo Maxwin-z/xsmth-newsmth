@@ -10,6 +10,8 @@ var data = {
     date: 0,
     attaches:[  /* SMAttach */
         /*{
+            boardName: '',
+            pid: 0,
             name: '',
             len: 0,
             pos: 0
@@ -69,6 +71,8 @@ function prints(content) {
 function attach(name, len, pos) {
     data.attaches.push({
         __type: 'SMAttach',
+        boardName: data.board.name,
+        pid: data.pid,
         name: name,
         len: len,
         pos: pos
