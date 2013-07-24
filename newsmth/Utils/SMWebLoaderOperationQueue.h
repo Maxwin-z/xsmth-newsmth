@@ -10,4 +10,5 @@
 
 @interface SMWebLoaderOperationQueue : NSOperationQueue
 + (SMWebLoaderOperationQueue *)sharedInstance;
++ (SMWebLoaderOperationQueue *)sharedBackupInstance;
 @end

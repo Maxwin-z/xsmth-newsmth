@@ -35,15 +35,15 @@
     return self;
 }
 
-- (void)setData:(SMPostGroupCellData *)data
+- (void)setItem:(SMPostItem *)item
 {
-    _data = data;
-    SMPost *post = data.item.post;
+    _item = item;
+    SMPost *post = item.post;
     
     NSString *author = [NSString stringWithFormat:@"%@(%@)", post.author, post.nick];
     [_buttonForAuthor setTitle:author forState:UIControlStateNormal];
     
-    _labelForIndex.text = [NSString stringWithFormat:@"#%d", data.index + 1];
+    _labelForIndex.text = [NSString stringWithFormat:@"#%d", item.index + 1];
     
     if (post.date > 0) {
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -59,13 +59,13 @@
 
 - (IBAction)onReplyButtonClick:(id)sender
 {
-    [_delegate postGroupHeaderCellOnReply:_data.item.post];
+    [_delegate postGroupHeaderCellOnReply:_item.post];
 }
 
 - (IBAction)onUsernameClick:(UIButton *)sender
 {
     if ([_delegate respondsToSelector:@selector(postGroupHeaderCellOnUsernameClick:)]) {
-        [_delegate postGroupHeaderCellOnUsernameClick:_data.item.post.author];
+        [_delegate postGroupHeaderCellOnUsernameClick:_item.post.author];
     }
 }
 

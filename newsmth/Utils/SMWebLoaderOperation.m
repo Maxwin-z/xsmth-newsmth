@@ -24,7 +24,7 @@
 {
     _url = url;
     _parser = parser;
-    [[SMWebLoaderOperationQueue sharedInstance] addOperation:self];
+    [self enqueue];
 }
 
 - (void)loadRequest:(SMHttpRequest *)request withParser:(NSString *)parser
@@ -32,7 +32,16 @@
     _request = request;
     _parser = parser;
     _url = _request.url.absoluteString;
-    [[SMWebLoaderOperationQueue sharedInstance] addOperation:self];
+    [self enqueue];
+}
+
+- (void)enqueue
+{
+    if (_highPriority) {
+        [[SMWebLoaderOperationQueue sharedBackupInstance] addOperation:self];
+    } else {
+        [[SMWebLoaderOperationQueue sharedInstance] addOperation:self];
+    }
 }
 
 - (void)main

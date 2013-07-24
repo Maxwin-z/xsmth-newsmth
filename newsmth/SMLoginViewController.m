@@ -81,8 +81,8 @@
 
     [_loginOp cancel];
     _loginOp = [[SMWebLoaderOperation alloc] init];
+    _loginOp.highPriority = YES;
     _loginOp.delegate = self;
-    [_loginOp setThreadPriority:1.0f];
     
     [self showLoading:@"正在登录..."];
     

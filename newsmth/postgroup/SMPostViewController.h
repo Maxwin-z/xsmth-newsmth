@@ -9,6 +9,7 @@
 #import "SMViewController.h"
 
 @interface SMPostItem : NSObject
+@property (assign, nonatomic) NSInteger index;
 @property (strong, nonatomic) SMPost *post;
 @property (strong, nonatomic) SMWebLoaderOperation *op;
 @property (assign, nonatomic) BOOL loadFail;

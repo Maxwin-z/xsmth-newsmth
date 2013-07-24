@@ -9,6 +9,7 @@
 #import "SMWebLoaderOperationQueue.h"
 
 static SMWebLoaderOperationQueue *instance = nil;
+static SMWebLoaderOperationQueue *backupInstance = nil;
 
 @implementation SMWebLoaderOperationQueue
 
@@ -20,11 +21,16 @@ static SMWebLoaderOperationQueue *instance = nil;
     return instance;
 }
 
++ (SMWebLoaderOperationQueue *)sharedBackupInstance
+{
+    if (backupInstance == nil) {
+        backupInstance = [[SMWebLoaderOperationQueue alloc] init];
+    }
+    return backupInstance;
+}
+
 - (id)init
 {
-    if (instance != nil) {
-        return instance;
-    }
     self = [super init];
     if (self) {
         self.maxConcurrentOperationCount = 1;

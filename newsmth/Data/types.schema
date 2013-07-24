@@ -4,6 +4,8 @@ SMResult {
 }
 
 SMAttach {
+    string boardName
+    int pid
 	string name
 	int len
 	int pos

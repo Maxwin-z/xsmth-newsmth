@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SMPostGroupViewController.h"
+#import "SMPostViewController.h"
 
 @class SMPostFailCell;
 @protocol SMPostFailCellDelegate <NSObject>
@@ -16,6 +16,6 @@
 @end
 
 @interface SMPostFailCell : UITableViewCell
-@property (strong, nonatomic) SMPostGroupCellData *cellData;
+@property (strong, nonatomic) SMPostItem *item;
 @property (weak, nonatomic) id<SMPostFailCellDelegate> delegate;
 @end

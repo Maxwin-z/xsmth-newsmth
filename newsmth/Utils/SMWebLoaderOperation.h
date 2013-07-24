@@ -20,6 +20,7 @@
 @property (weak, nonatomic) id<SMWebLoaderOperationDelegate> delegate;
 @property (strong, nonatomic, readonly) NSString *url;
 @property (strong, nonatomic, readonly) id data;
+@property (assign, nonatomic) BOOL highPriority;
 
 - (void)loadUrl:(NSString *)url withParser:(NSString *)parser;
 - (void)loadRequest:(SMHttpRequest *)request withParser:(NSString *)parser;

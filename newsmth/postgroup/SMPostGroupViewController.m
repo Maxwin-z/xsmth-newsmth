@@ -350,7 +350,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.delegate = self;
     }
-    cell.data = data;
+//    cell.item = data.item;
     return cell;
 }
 
@@ -374,7 +374,7 @@
         cell = [[SMPostFailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    cell.cellData = data;
+//    cell.cellData = data;
     cell.delegate = self;
     return cell;
 }
@@ -526,27 +526,27 @@
 #pragma mark - SMPostFailCellDelegate
 - (void)postFailCellOnRetry:(SMPostFailCell *)cell
 {
-    SMPostGroupCellData *data = cell.cellData;
-    SMPostGroupItem *item = data.item;
-    SMPost *post = item.post;
-//    NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbscon.php?bid=%d&id=%d", _bid, post.pid];
-    
-    // use m.newsmth to retry
-    // http://m.newsmth.net/article/AdvancedEdu/single/31071/0
-    NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/single/%d/0", _board.name, post.pid];
-//    XLog_d(@"%@", url);
-
-    [item.op cancel];
-    
-    SMWebLoaderOperation *op = [[SMWebLoaderOperation alloc] init];
-    op.delegate = self;
-    item.op = op;
-    
-    [op loadUrl:url withParser:@"bbscon"];
-    
-    [self.tableView reloadData];
-    
-    [SMUtils trackEventWithCategory:@"postgroup" action:@"retry_cell" label:_board.name];
+//    SMPostGroupCellData *data = cell.cellData;
+//    SMPostGroupItem *item = data.item;
+//    SMPost *post = item.post;
+////    NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbscon.php?bid=%d&id=%d", _bid, post.pid];
+//    
+//    // use m.newsmth to retry
+//    // http://m.newsmth.net/article/AdvancedEdu/single/31071/0
+//    NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/single/%d/0", _board.name, post.pid];
+////    XLog_d(@"%@", url);
+//
+//    [item.op cancel];
+//    
+//    SMWebLoaderOperation *op = [[SMWebLoaderOperation alloc] init];
+//    op.delegate = self;
+//    item.op = op;
+//    
+//    [op loadUrl:url withParser:@"bbscon"];
+//    
+//    [self.tableView reloadData];
+//    
+//    [SMUtils trackEventWithCategory:@"postgroup" action:@"retry_cell" label:_board.name];
 }
 
 #pragma mark - SMPostGroupContentCellDelegate

@@ -8,6 +8,10 @@
 
 #import "SMPostViewController.h"
 #import "XPullRefreshTableView.h"
+#import "SMPostGroupHeaderCell.h"
+#import "SMPostFailCell.h"
+#import "SMPostGroupContentCell.h"
+#import "SMPostGroupAttachCell.h"
 
 @interface SMPostViewController ()<UITableViewDataSource, UITableViewDelegate, SMWebLoaderOperationDelegate, XPullRefreshTableViewDelegate>
 @property (weak, nonatomic) IBOutlet XPullRefreshTableView *tableView;
@@ -64,6 +68,7 @@
     }
     NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbstcon.php?board=%@&gid=%d&start=%d&pno=%d", _board.name, _gid, _gid, _pno];
     _pageOp = [[SMWebLoaderOperation alloc] init];
+    _pageOp.highPriority = YES;
     _pageOp.delegate = self;
     _isLoading = YES;
     [_pageOp loadUrl:url withParser:@"bbstcon"];
@@ -91,28 +96,125 @@
     return 2 + item.post.attaches.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SMPostItem *item = _postItems[indexPath.section];
-    SMPost *post = item.post;
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
     if (indexPath.row == 0) {   // header
-        cell.textLabel.text = [NSString stringWithFormat:@"#%d %@", indexPath.section, post.author];
-    } else if (indexPath.row == 1) {    // content
-        if (!item.op.isFinished) {
-            cell.textLabel.text = @"Loading";
-        } else if (item.post == nil) {
-            cell.textLabel.text = @"Fail";
-        } else {
-            cell.textLabel.text = post.content;
-        }
+        return [SMPostGroupHeaderCell cellHeight];
     }
-    
+    if (indexPath.row == 1) {
+        id v = [_postHeightMap objectForKey:@(item.post.pid)];
+        if (v != nil) {
+            return [v floatValue];
+        }
+        return 100.0f;
+    }
+    // attachs
+    return [SMPostGroupAttachCell cellHeight:[self getAttachUrl:[self attachAtIndexPath:indexPath]]];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     if (_pno != _tpage && !_isLoading && indexPath.section == _postItems.count - 1) {    // last post, load next
         [self loadData:YES];
     }
-    
+
+    SMPostItem *item = _postItems[indexPath.section];
+
+    if (indexPath.row == 0) {   // header
+        return [self cellForTitle:item];
+    } else if (indexPath.row == 1) {    // content
+        if (!item.op.isFinished) {
+            return [self cellForLoading:item];
+        } else if (item.post == nil) {
+            return [self cellForFail:item];
+        } else {
+            return [self cellForContent:item];
+        }
+    } else {
+        return [self cellForAttach:[self attachAtIndexPath:indexPath]];
+    }
+}
+
+#pragma cells
+
+- (SMAttach *)attachAtIndexPath:(NSIndexPath *)indexPath
+{
+    SMPostItem *item = _postItems[indexPath.section];
+    return item.post.attaches[indexPath.row - 2];
+}
+
+- (UITableViewCell *)cellForTitle:(SMPostItem *)item
+{
+    NSString *cellid = @"title_cell";
+    SMPostGroupHeaderCell *cell = (SMPostGroupHeaderCell *)[self.tableView dequeueReusableCellWithIdentifier:cellid];
+    if (cell == nil) {
+        cell = [[SMPostGroupHeaderCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//        cell.delegate = self;
+    }
+    cell.item = item;
     return cell;
+}
+
+- (UITableViewCell *)cellForLoading:(SMPostItem *)item
+{
+    NSString *cellid = @"loading_cell";
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:cellid];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    cell.textLabel.text = @"Loading...";
+    return cell;
+}
+
+- (UITableViewCell *)cellForFail:(SMPostItem *)item
+{
+    NSString *cellid = @"fail_cell";
+    SMPostFailCell *cell = (SMPostFailCell *)[self.tableView dequeueReusableCellWithIdentifier:cellid];
+    if (cell == nil) {
+        cell = [[SMPostFailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    cell.item = item;
+//    cell.delegate = self;
+    return cell;
+}
+
+- (UITableViewCell *)cellForContent:(SMPostItem *)item
+{
+    NSString *cellid = @"content_cell";
+    SMPostGroupContentCell *cell = (SMPostGroupContentCell *)[self.tableView dequeueReusableCellWithIdentifier:cellid];
+    if (cell == nil) {
+        cell = [[SMPostGroupContentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//        cell.delegate = self;
+    }
+    cell.post = item.post;
+    return cell;
+}
+
+- (UITableViewCell *)cellForAttach:(SMAttach *)attach
+{
+    NSString *cellid = @"attach_cell";
+    SMPostGroupAttachCell *cell = (SMPostGroupAttachCell *)[self.tableView dequeueReusableCellWithIdentifier:cellid];
+    if (cell == nil) {
+        cell = [[SMPostGroupAttachCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
+    }
+//    cell.imageViewForAttach.delegate = self;
+    cell.url = [self getAttachUrl:attach];
+    return cell;
+}
+
+- (NSString *)getAttachUrl:(SMAttach *)attach
+{
+    return [NSString stringWithFormat:@"http://att.newsmth.net/nForum/att/%@/%d/%d/large", attach.boardName, attach.pid, attach.pos];
+}
+
+- (NSString *)getAttachOriginalUrl:(SMAttach *)attach
+{
+    return [NSString stringWithFormat:@"http://att.newsmth.net/nForum/att/%@/%d/%d", attach.boardName, attach.pid, attach.pos];
 }
 
 #pragma mark - SMWebLoaderOperationDelegate
@@ -153,6 +255,7 @@
             SMPostItem *item = [[SMPostItem alloc] init];
             item.op = op;
             item.post = post;
+            item.index = tmp.count;
             [tmp addObject:item];
         }];
         XLog_d(@"%d", tmp.count);
