@@ -120,7 +120,6 @@
 {
     if (opt == _pageOp) {
         _isLoading = NO;
-        ++_pno;
         
         // add post to postOps
         SMPostGroup *postGroup = opt.data;
@@ -158,6 +157,9 @@
         }];
         XLog_d(@"%d", tmp.count);
         self.postItems = tmp;
+        
+        // next page
+        ++_pno;
     } else {
         XLog_d(@"%@", opt.url);
         [self.tableView reloadData];
