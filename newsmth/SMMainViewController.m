@@ -12,6 +12,7 @@
 #import <QuartzCore/CALayer.h>
 
 #import "SMImagePickerViewController.h"
+#import "SMPostViewController.h"
 
 #define LEFT_SIZE   270.0f
 #define ANIMATION_DURATION  0.5f
@@ -73,7 +74,13 @@ static SMMainViewController *_instance;
 
 - (void)onLeftBarButtonClick
 {
-    [self setLeftVisiable:YES];
+    // debug
+    // http://m.newsmth.net/refer/reply/read?index=204
+    NSString *url = @"http://m.newsmth.net/refer/reply/read?index=204";
+    SMPostViewController *vc = [[SMPostViewController alloc] init];
+    vc.postUrl = url;
+    [self setRootViewController:vc];
+//    [self setLeftVisiable:YES];
 }
 
 - (void)setRootViewController:(UIViewController *)viewController

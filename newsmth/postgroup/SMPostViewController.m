@@ -17,12 +17,17 @@
 #import "SMUserViewController.h"
 #import "SMBoardViewController.h"
 
+#define STRING_EXPAND_HERE  @"从此处展开"
+#define STRING_EXPAND_ALL  @"同主题展开"
+
 @interface SMPostViewController ()<UITableViewDataSource, UITableViewDelegate, SMWebLoaderOperationDelegate, XPullRefreshTableViewDelegate, XImageViewDelegate, SMPostGroupHeaderCellDelegate, SMPostGroupContentCellDelegate, SMPostFailCellDelegate, UIActionSheetDelegate>
 
 @property (weak, nonatomic) IBOutlet XPullRefreshTableView *tableView;
 @property (strong, nonatomic) IBOutlet UIView *tableViewHeader;
 @property (weak, nonatomic) IBOutlet UILabel *labelForTitle;
 
+@property (strong, nonatomic) SMWebLoaderOperation *singlePostOp;   // Re, At, Search...
+@property (strong, nonatomic) SMPost *singlePost;
 
 @property (strong, nonatomic) SMWebLoaderOperation *pageOp; // 分页加载数据用op
 @property (assign, nonatomic) BOOL isLoading;
@@ -31,6 +36,7 @@
 @property (assign, nonatomic) NSInteger bid;    // board id
 @property (assign, nonatomic) NSInteger tpage;  // total page
 @property (assign, nonatomic) NSInteger pno;    // current page
+@property (assign, nonatomic) BOOL isSinglePost;
 
 @property (strong, nonatomic) NSMutableDictionary *postHeightMap;   // cache post webview height;
 
@@ -55,6 +61,7 @@
 {
     // cancel all requests
     [_pageOp cancel];
+    [_singlePostOp cancel];
     [_postItems enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         SMPostItem *item = obj;
         [item.op cancel];
@@ -65,6 +72,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    if (_board == nil && _postUrl != nil) {
+        _isSinglePost = YES;
+    }
+    
     self.tableView.xdelegate = self;
     [self.tableView beginRefreshing];
 }
@@ -79,7 +91,7 @@
         [_tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
     
-    if (!_fromBoard) {
+    if (!_fromBoard || _isSinglePost) {
         self.navigationItem.rightBarButtonItem =
         [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
                                                       target:self
@@ -90,6 +102,10 @@
 - (void)onRightBarButtonClick
 {
     UIActionSheet *actionSheet = [[UIActionSheet alloc] init];
+    if (_isSinglePost) {
+        [actionSheet addButtonWithTitle:STRING_EXPAND_HERE];
+        [actionSheet addButtonWithTitle:STRING_EXPAND_ALL];
+    }
     if (!_fromBoard) {
         [actionSheet addButtonWithTitle:[NSString stringWithFormat:@"进入[%@]版", _board.cnName]];
     }
@@ -113,15 +129,24 @@
 
 - (void)loadData:(BOOL)more
 {
-    if (!more) {
-        _pno = 1;
+    if (_isSinglePost) {    // at me.
+        _pno = _tpage = 1;
+        [_singlePostOp cancel];
+        _singlePostOp = [[SMWebLoaderOperation alloc] init];
+        _singlePostOp.delegate = self;
+        [_singlePostOp loadUrl:_postUrl withParser:@"bbscon"];
+    } else {
+        if (!more) {
+            _pno = 1;
+        }
+        [_pageOp cancel];
+        NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbstcon.php?board=%@&gid=%d&start=%d&pno=%d", _board.name, _gid, _start > 0 ? _start : _gid, _pno];
+        _pageOp = [[SMWebLoaderOperation alloc] init];
+        _pageOp.highPriority = YES;
+        _pageOp.delegate = self;
+        _isLoading = YES;
+        [_pageOp loadUrl:url withParser:@"bbstcon"];
     }
-    NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbstcon.php?board=%@&gid=%d&start=%d&pno=%d", _board.name, _gid, _gid, _pno];
-    _pageOp = [[SMWebLoaderOperation alloc] init];
-    _pageOp.highPriority = YES;
-    _pageOp.delegate = self;
-    _isLoading = YES;
-    [_pageOp loadUrl:url withParser:@"bbstcon"];
 }
 
 - (void)setPostItems:(NSArray *)postItems
@@ -136,6 +161,7 @@
     [_tableView beginUpdates];
     [_tableView endUpdates];
     [UIView setAnimationsEnabled:YES];
+//    [_tableView reloadData];
 }
 
 - (void)makeupTableViewHeader:(NSString *)text
@@ -159,7 +185,11 @@
 {
     SMPostItem *item = _postItems[section];
     // 1. header    2. content  3... attach
-    return 2 + item.post.attaches.count;
+    int row = 2 + item.post.attaches.count;
+    if (section == 0) {
+        XLog_d(@"------ %d", row);
+    }
+    return row;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -341,6 +371,22 @@
         
         // next page
         ++_pno;
+    } else if (opt == _singlePostOp) {
+        [_tableView endRefreshing:YES];
+        SMPost *post = opt.data;
+        XLog_d(@"%@", post);
+        SMPostItem *item = [[SMPostItem alloc] init];
+        item.op = opt;
+        item.post = post;
+        item.index = 1;
+        
+        _postTitle = post.title;
+        [self makeupTableViewHeader:_postTitle];
+        _board = post.board;
+
+        self.postItems = @[item];
+        
+        _singlePost = post;
     } else {
         [self.tableView reloadData];
     }
@@ -379,7 +425,8 @@
 #pragma mark - XImageViewDelegate
 - (void)xImageViewDidLoad:(XImageView *)imageView
 {
-    [self updateTableView];
+//    [self updateTableView];
+    [_tableView reloadData];
 }
 
 #pragma mark - SMPostGroupHeaderCellDelegate
@@ -418,7 +465,7 @@
 {
     int pid = cell.post.pid;
     [_postHeightMap setObject:@(height) forKey:@(pid)];
-    [self updateTableView];
+    [_tableView reloadData];
 }
 
 - (void)postGroupContentCell:(SMPostGroupContentCell *)cell shouldLoadUrl:(NSURL *)url
@@ -459,11 +506,24 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex != actionSheet.destructiveButtonIndex) {
-        SMBoardViewController *vc = [[SMBoardViewController alloc] init];
-        vc.board = _board;
-        [self.navigationController pushViewController:vc animated:YES];
-        
-        [SMUtils trackEventWithCategory:@"postgroup" action:@"enter_board" label:_board.name];
+        NSString *title = [actionSheet buttonTitleAtIndex:buttonIndex];
+        if ([title isEqualToString:STRING_EXPAND_HERE]) {
+            _gid = _singlePost.gid;
+            _start = _singlePost.pid;
+            _isSinglePost = NO;
+            [_tableView beginRefreshing];
+        } else if ([title isEqualToString:STRING_EXPAND_ALL]) {
+            _gid = _singlePost.gid;
+            _start = _singlePost.gid;
+            _isSinglePost = NO;
+            [_tableView beginRefreshing];
+        } else {
+            SMBoardViewController *vc = [[SMBoardViewController alloc] init];
+            vc.board = _board;
+            [self.navigationController pushViewController:vc animated:YES];
+            
+            [SMUtils trackEventWithCategory:@"postgroup" action:@"enter_board" label:_board.name];
+        }
     }
 }
 

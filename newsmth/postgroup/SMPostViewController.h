@@ -18,5 +18,9 @@
 @interface SMPostViewController : SMViewController
 @property (strong, nonatomic) SMBoard *board;  // 版面
 @property (assign, nonatomic) NSInteger gid;    // group id
+@property (assign, nonatomic) NSInteger start;
 @property (assign, nonatomic) BOOL fromBoard;
+
+@property (strong, nonatomic) NSString *postUrl;
+
 @end
