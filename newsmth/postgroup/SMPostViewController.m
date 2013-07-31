@@ -186,9 +186,6 @@
     SMPostItem *item = _postItems[section];
     // 1. header    2. content  3... attach
     int row = 2 + item.post.attaches.count;
-    if (section == 0) {
-        XLog_d(@"------ %d", row);
-    }
     return row;
 }
 
@@ -201,6 +198,7 @@
     if (indexPath.row == 1) {
         id v = [_postHeightMap objectForKey:@(item.post.pid)];
         if (v != nil) {
+            XLog_d(@"has height: %f", [v floatValue]);
             return [v floatValue];
         }
         return 60.0f;
@@ -222,7 +220,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (_pno != _tpage && !_isLoading && indexPath.section == _postItems.count - 1) {    // last post, load next
+    if (!_isSinglePost && _pno <= _tpage && !_isLoading && indexPath.section == _postItems.count - 1) {    // last post, load next
         [self loadData:YES];
     }
 
@@ -463,9 +461,11 @@
 #pragma mark - SMPostGroupContentCellDelegate
 - (void)postGroupContentCell:(SMPostGroupContentCell *)cell heightChanged:(CGFloat)height
 {
-    int pid = cell.post.pid;
-    [_postHeightMap setObject:@(height) forKey:@(pid)];
-    [_tableView reloadData];
+    id pid = @(cell.post.pid);
+    if ([_postHeightMap objectForKey:pid] == nil) {
+        [_postHeightMap setObject:@(height) forKey:pid];
+        [_tableView reloadData];
+    }
 }
 
 - (void)postGroupContentCell:(SMPostGroupContentCell *)cell shouldLoadUrl:(NSURL *)url

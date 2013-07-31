@@ -14,6 +14,7 @@
 #import "SMUserViewController.h"
 #import "SMSectionViewController.h"
 #import "PBWebViewController.h"
+#import "SMNoticeViewController.h"
 
 typedef NS_ENUM(NSInteger, CellType) {
     CellTypeTop,
@@ -147,9 +148,10 @@ typedef NS_ENUM(NSInteger, CellType) {
         vc = [SMMainpageViewController instance];
         evt = @"home";
     }else if (cellType == CellTypeNotice) {
-        PBWebViewController *pvc = [[PBWebViewController alloc] init];
-        pvc.URL = [NSURL URLWithString:@"http://m.newsmth.net/refer/reply"];
-        vc = pvc;
+        vc = [[SMNoticeViewController alloc] init];
+//        PBWebViewController *pvc = [[PBWebViewController alloc] init];
+//        pvc.URL = [NSURL URLWithString:@"http://m.newsmth.net/refer/reply"];
+//        vc = pvc;
         evt = @"notice";
     } else if (cellType == CellTypeFavor) {
         vc = [SMFavorListViewController instance];
