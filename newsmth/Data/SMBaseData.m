@@ -9,19 +9,42 @@
 #import "SMBaseData.h"
 
 @implementation SMBaseData
-- (id)initWithData:(NSDictionary *)dict
+
++ (SMBaseData *)dataWithJSON:(id)json
 {
-    NSString *clzName = nil;
-    if ([dict isKindOfClass:[NSDictionary class]]) {
-        clzName = [dict objectForKey:@"__type"];
+    Class clz = [SMBaseData class];
+    NSString *clzName = [json objectForKey:@"__type"];
+    if (clzName != nil) {
+        clz = NSClassFromString(clzName);
     }
-    Class clz = clzName != nil ? NSClassFromString(clzName) : nil;
-    if (clz) {
-        self = [[clz alloc] init];
-    } else {
-        self = [super init];
+    return [[clz alloc] initWithJSON:json];
+}
+
++ (SMBaseData *)dataWithJSON:(id)json type:(NSString *)className
+{
+    Class clz = [SMBaseData class];
+    if (className != nil) {
+        clz = NSClassFromString(className);
     }
-    self.dict = dict;
+    return [[clz alloc] initWithJSON:json];
+}
+
+- (id)initWithJSON:(id)json
+{
+    self = [super init];
+    if (self) {
+        [self decode:json];
+    }
     return self;
+}
+
+- (void)decode:(id)json
+{
+    
+}
+
+- (id)encode
+{
+    return nil;
 }
 @end

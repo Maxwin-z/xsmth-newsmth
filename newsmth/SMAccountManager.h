@@ -13,18 +13,12 @@
 #define NOTIFICATION_ACCOUT @"notification_account"
 
 @interface SMAccountManager : NSObject
-{
-    NSMutableArray *_cookies;
-}
 
 //@property (strong, nonatomic) NSArray *cookies;
 @property (assign, nonatomic, readonly) BOOL isLogin;
 @property (strong, nonatomic, readonly) NSString *name;
+@property (strong, nonatomic) SMNotice *notice;
 
 + (SMAccountManager *)instance;
 - (void)setCookies:(NSArray *)cookies;
-- (NSArray *)cookies;
-
-- (void)loadCookie;
-
 @end

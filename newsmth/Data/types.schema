@@ -1,3 +1,8 @@
+SMResult {
+	int code
+	string message
+}
+
 SMAttach {
 	string name
 	int len
@@ -7,8 +12,7 @@ SMAttach {
 SMPost {
 	int pid
 	int gid
-	string board
-	string boardName
+	SMBoard board
 	string author
 	string nick
 	string title
@@ -17,7 +21,7 @@ SMPost {
     string replyAuthor
     long replyDate
     int replyCount
-    bool isTop;
+    bool isTop
 	SMAttach[] attaches
 }
 
@@ -46,4 +50,43 @@ SMBoard {
 
 SMFavor {
 	SMBoard[] boards
+}
+
+SMWriteResult {
+	bool success
+	string message
+}
+
+SMUser {
+	string info
+}
+
+SMBoardListItem {
+	bool isDir
+	string title
+	string url	
+	SMBoard board
+}
+
+SMBoardList {
+	SMBoardListItem[] items
+}
+
+SMUploadItem {
+	string name
+	string key
+}
+
+SMUpload {
+	int act
+	string message
+	SMUploadItem[] items
+	int leftCount
+	int leftSize
+}
+
+SMNotice {
+	int at
+	int reply
+	int mail
 }

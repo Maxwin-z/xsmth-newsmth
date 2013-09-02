@@ -37,8 +37,8 @@
 - (void)setup
 {
     [super setDelegate:self];
-    self.requestCookies = [[SMAccountManager instance].cookies mutableCopy];
-    XLog_d(@"%@", self.requestCookies);
+//    self.requestCookies = [[SMAccountManager instance].cookies mutableCopy];
+//    XLog_d(@"%@", self.requestCookies);
 }
 
 #pragma mark - ASIHTTPRequestDelegate

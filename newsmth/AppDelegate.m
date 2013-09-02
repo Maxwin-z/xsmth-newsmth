@@ -6,12 +6,15 @@
 //  Copyright (c) 2013年 nju. All rights reserved.
 //
 
+#import "GAI.h"
 #import "AppDelegate.h"
 #import "SMAccountManager.h"
 
 #import "ViewController.h"
 #import "SMMainViewController.h"
 #import "SMMainpageViewController.h"
+
+#import <DCIntrospect/DCIntrospect.h>
 
 @interface AppDelegate ()
 @property (strong, nonatomic) UINavigationController *nvc;
@@ -22,24 +25,41 @@
 
 @implementation AppDelegate
 
+- (void)setupGoogleAnalytics
+{
+    // Optional: automatically send uncaught exceptions to Google Analytics.
+    [GAI sharedInstance].trackUncaughtExceptions = YES;
+    // Optional: set Google Analytics dispatch interval to e.g. 20 seconds.
+    [GAI sharedInstance].dispatchInterval = 20;
+    // Optional: set debug to YES for extra debugging information.
+    [GAI sharedInstance].debug = NO;
+    // Create tracker instance.
+    [[GAI sharedInstance] trackerWithTrackingId:@"UA-41978299-1"];
+}
+
+- (void)setupTheme
+{
+//    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"common_titlebar_bg"] forBarMetrics:UIBarMetricsDefault];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    
-//    _mainpageViewController = [[SMMainpageViewController alloc] init];
-//    _nvc = [[UINavigationController alloc] initWithRootViewController:_mainpageViewController];
-//    self.window.rootViewController = _nvc;
-//    
-//    _viewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
-//    self.window.rootViewController = _viewController;
-    
-    [[SMAccountManager instance] loadCookie];
-    
+    [self setupTheme];
+
     _mainViewController = [[SMMainViewController alloc] init];
     self.window.rootViewController = _mainViewController;
     
     [self.window makeKeyAndVisible];
+    
+    [self setupGoogleAnalytics];
+    
+    [SMUtils trackEventWithCategory:@"channel" action:@"appstore" label:nil];
+#if TARGET_IPHONE_SIMULATOR
+    [[DCIntrospect sharedIntrospector] start];
+#endif
+    
     return YES;
 }
 

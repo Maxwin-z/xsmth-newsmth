@@ -9,6 +9,11 @@
 #import <Foundation/Foundation.h>
 
 @interface SMBaseData : NSObject
-- (id)initWithData:(NSDictionary *)data;
-@property (strong, nonatomic) id dict;
+
++ (SMBaseData *)dataWithJSON:(id)json;
++ (SMBaseData *)dataWithJSON:(id)json type:(NSString *)className;
+
+- (id)initWithJSON:(id)json;
+- (void)decode:(id)json;
+- (id)encode;
 @end

@@ -12,6 +12,8 @@
 #define SM_DATA_SCHEMA @"newsmth://"
 #define SM_ERROR_DOMAIN @"newsmth_error"
 
+#define SMRGB(r, g, b)  [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:1.0f]
+
 #define SuppressPerformSelectorLeakWarning(Stuff) \
 do { \
 _Pragma("clang diagnostic push") \
@@ -27,5 +29,7 @@ typedef enum {
 }SMNetworkErrorCode;
 
 
+#define USERDEFAULTS_USERNAME   @"username"
+#define USERDEFAULTS_PASSWORD   @"password"
 
 #endif

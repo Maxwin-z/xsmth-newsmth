@@ -12,51 +12,53 @@
 #import "SMPost.h"
 #import "SMAttach.h"
 #import "SMPostGroup.h"
+#import "SMWritePostViewController.h"
+#import "P2PNavigationController.h"
+#import "SMBoardViewController.h"
+#import "SMUserViewController.h"
 
 #import "SMPostGroupHeaderCell.h"
 #import "SMPostGroupContentCell.h"
 #import "SMPostGroupAttachCell.h"
-
-typedef enum {
-    CellTypeHeader,
-    CellTypeLoading,
-    CellTypeFail,
-    CellTypeContent,
-    CellTypeAttach
-}CellType;
+#import "SMPostFailCell.h"
+#import "PBWebViewController.h"
 
 ////////////////////////////////////////////////
-@interface SMPostGroupItem : NSObject
-@property (strong, nonatomic) SMPost *post;
-@property (strong, nonatomic) SMWebLoaderOperation *op;
-@property (assign, nonatomic) BOOL loadFail;
-@end
 @implementation SMPostGroupItem
 @end
 
 ////////////////////////////////////////////////
 
-@interface SMPostGroupCellData : NSObject
-@property (strong, nonatomic) SMPostGroupItem *item;
-@property (assign, nonatomic) CellType type;
-@property (strong, nonatomic) SMAttach *attach;
-@end
-
 @implementation SMPostGroupCellData
 @end
 
 ////////////////////////////////////////////////
-@interface SMPostGroupViewController ()<UITableViewDataSource, UITableViewDelegate, XPullRefreshTableViewDelegate, SMWebLoaderOperationDelegate, XImageViewDelegate>
+@interface SMPostGroupViewController ()<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate,  XPullRefreshTableViewDelegate, SMWebLoaderOperationDelegate, XImageViewDelegate, SMPostGroupHeaderCellDelegate, SMPostFailCellDelegate, SMPostGroupContentCellDelegate>
 @property (weak, nonatomic) IBOutlet XPullRefreshTableView *tableView;
+@property (strong, nonatomic) IBOutlet UIView *tableViewHeader;
+@property (weak, nonatomic) IBOutlet UILabel *labelForTitle;
 
 // data
 @property (strong, nonatomic) NSArray *postItems;
 @property (strong, nonatomic) NSArray *cellDatas;
+@property (strong, nonatomic) NSArray *prepareCellDatas;
+
+@property (strong, nonatomic) NSMutableDictionary *postHeightMap;   // cache post webview height;
+
 @property (strong, nonatomic) SMWebLoaderOperation *pageOp; // 分页加载数据用op
 
 @property (assign, nonatomic) NSInteger bid;    // board id
 @property (assign, nonatomic) NSInteger tpage;  // total page
 @property (assign, nonatomic) NSInteger pno;    // current page
+
+@property (assign, nonatomic) BOOL needReloadData;
+
+@property (strong, nonatomic) SMPost *replyPost;    // 准备回复的主题
+@property (strong, nonatomic) NSString *postTitle;
+
+@property (weak, nonatomic) IBOutlet UIView *viewForPageHint;
+@property (weak, nonatomic) IBOutlet UIImageView *imageViewForPageHintBg;
+@property (weak, nonatomic) IBOutlet UILabel *labelForPageHint;
 
 @end
 
@@ -67,13 +69,13 @@ typedef enum {
     self = [super initWithNibName:@"SMPostGroupViewController" bundle:nil];
     if (self) {
         _pno = 1;
+        _postHeightMap = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
 
 - (void)dealloc
 {
-    XLog_d(@"%s", __PRETTY_FUNCTION__);
     // cancel all requests
     [_pageOp cancel];
     [_postItems enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -85,9 +87,41 @@ typedef enum {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.title = [NSString stringWithFormat:@"同主题：%@", _board.cnName];
     self.tableView.xdelegate = self;
     [self.tableView beginRefreshing];
-//    [self loadData:NO];
+    
+    if (!_fromBoard) {
+        self.navigationItem.rightBarButtonItem =
+        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+                                                      target:self
+                                                      action:@selector(onRightBarButtonClick)];
+    }
+    
+    _imageViewForPageHintBg.image = [SMUtils stretchedImage:_imageViewForPageHintBg.image];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationController.toolbarHidden = YES;
+    
+    NSIndexPath *indexPath = [_tableView indexPathForSelectedRow];
+    if (indexPath != nil) {
+        [_tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
+}
+
+- (void)onRightBarButtonClick
+{
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] init];
+    if (!_fromBoard) {
+        [actionSheet addButtonWithTitle:[NSString stringWithFormat:@"进入[%@]版", _board.cnName]];
+    }
+    [actionSheet addButtonWithTitle:@"取消"];
+    actionSheet.destructiveButtonIndex = actionSheet.numberOfButtons - 1;
+    actionSheet.delegate = self;
+    [actionSheet showInView:self.view];
 }
 
 - (void)loadData:(BOOL)more
@@ -97,7 +131,7 @@ typedef enum {
     } else {
         ++_pno;
     }
-    NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbstcon.php?board=%@&gid=%d&start=%d&pno=%d", _board, _gid, _gid, _pno];
+    NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbstcon.php?board=%@&gid=%d&start=%d&pno=%d", _board.name, _gid, _gid, _pno];
     _pageOp = [[SMWebLoaderOperation alloc] init];
     _pageOp.delegate = self;
     [_pageOp loadUrl:url withParser:@"bbstcon"];
@@ -117,22 +151,28 @@ typedef enum {
         if (item.op.data != nil) {  // post loaded
             item.post = item.op.data;
         }
+        if (item.op.isFinished && item.op.data == nil) {
+            item.loadFail = YES;
+        } else {
+            item.loadFail = NO;
+        }
         
         // header
         SMPostGroupCellData *header = [[SMPostGroupCellData alloc] init];
+        header.index = idx;
         header.item = item;
-        header.type = CellTypeHeader;
+        header.type = SMPostGroupCellTypeHeader;
         [datas addObject:header];
         
         // content
         SMPostGroupCellData *content = [[SMPostGroupCellData alloc] init];
         content.item = item;
         if (item.loadFail) {
-            content.type = CellTypeFail;
+            content.type = SMPostGroupCellTypeFail;
         } else if (item.op.data == nil) {
-            content.type = CellTypeLoading;
+            content.type = SMPostGroupCellTypeLoading;
         } else if (item.op.data) {
-            content.type = CellTypeContent;
+            content.type = SMPostGroupCellTypeContent;
         }
         [datas addObject:content];
         
@@ -142,7 +182,7 @@ typedef enum {
             [post.attaches enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                 SMPostGroupCellData *data = [[SMPostGroupCellData alloc] init];
                 data.item = item;
-                data.type = CellTypeAttach;
+                data.type = SMPostGroupCellTypeAttach;
                 data.attach = obj;
                 
                 [datas addObject:data];
@@ -150,16 +190,81 @@ typedef enum {
         }
         
     }];
-    self.cellDatas = datas;
+    self.prepareCellDatas = datas;
 }
 
 - (void)setCellDatas:(NSArray *)cellDatas
 {
+    _prepareCellDatas = nil;
     _cellDatas = cellDatas;
     [self.tableView reloadData];
 }
 
+- (void)setPrepareCellDatas:(NSArray *)prepareCellDatas
+{
+    if (_tableView.isDragging) {
+        _prepareCellDatas = prepareCellDatas;
+    } else {
+        self.cellDatas = prepareCellDatas;
+    }
+}
+
+
+- (void)makeupTableViewHeader:(NSString *)text
+{
+    _labelForTitle.text = text;
+    self.title = text;
+    CGFloat delta = [_labelForTitle.text sizeWithFont:_labelForTitle.font constrainedToSize:CGSizeMake(_labelForTitle.frame.size.width, CGFLOAT_MAX) lineBreakMode:_labelForTitle.lineBreakMode].height - _labelForTitle.frame.size.height;
+    CGRect frame = _tableViewHeader.frame;
+    frame.size.height += delta;
+    _tableViewHeader.frame = frame;
+    _tableView.tableHeaderView = _tableViewHeader;
+}
+
 #pragma mark - UITableViewDataSource/Delegate
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    if (_prepareCellDatas != nil) {
+        self.cellDatas = _prepareCellDatas;
+    }
+    if (!decelerate) {
+        [self hidePageHint];
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    [self hidePageHint];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    NSString *text = [NSString stringWithFormat:@"%d/%d页", _pno, _tpage];
+    _labelForPageHint.text = text;
+    
+    CGSize size = [text sizeWithFont:_labelForPageHint.font];
+    
+    CGRect frame = _viewForPageHint.frame;
+    frame.size = size;
+    frame.size.width += 10.0f;
+    frame.size.height += 6.0f;
+    frame.origin.x = self.view.frame.size.width - frame.size.width - 10.0f;
+    frame.origin.y = self.view.frame.size.height - frame.size.height - 10.0f;
+    _viewForPageHint.frame = frame;
+    
+    [UIView animateWithDuration:0.5f animations:^{
+        _viewForPageHint.alpha = 1.0f;
+    }];
+}
+
+- (void)hidePageHint
+{
+    [UIView animateWithDuration:0.5f animations:^{
+        _viewForPageHint.alpha = 0.0f;
+    }];
+}
+
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return _cellDatas.count;
@@ -175,41 +280,46 @@ typedef enum {
     
     UITableViewCell *cell;
     switch (data.type) {
-        case CellTypeHeader:
+        case SMPostGroupCellTypeHeader:
             cell = [self cellForTitle:data];
             break;
-        case CellTypeFail:
+        case SMPostGroupCellTypeFail:
             cell = [self cellForFail:data];
             break;
-        case CellTypeLoading:
+        case SMPostGroupCellTypeLoading:
             cell = [self cellForLoading:data];
             break;
-        case CellTypeContent:
+        case SMPostGroupCellTypeContent:
             cell = [self cellForContent:data];
             break;
-        case CellTypeAttach:
+        case SMPostGroupCellTypeAttach:
             cell = [self cellForAttach:data];
             break;
         default:
             break;
     }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    return cell; 
+    return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SMPostGroupCellData *data = _cellDatas[indexPath.row];
+
+    id v = [_postHeightMap objectForKey:@(data.item.post.pid)];
     switch (data.type) {
-        case CellTypeHeader:
+        case SMPostGroupCellTypeHeader:
             return [SMPostGroupHeaderCell cellHeight];
-        case CellTypeFail:
+        case SMPostGroupCellTypeFail:
             return 44.0f;
-        case CellTypeLoading:
+        case SMPostGroupCellTypeLoading:
             return 44.0f;
-        case CellTypeContent:
-            return [SMPostGroupContentCell cellHeight:data.item.post];
-        case CellTypeAttach:
+        case SMPostGroupCellTypeContent:
+            if (v != nil) {
+                return [v floatValue];
+            }
+            return 100.0f;
+//            return [SMPostGroupContentCell cellHeight:data.item.post];
+        case SMPostGroupCellTypeAttach:
             return [SMPostGroupAttachCell cellHeight:[self getAttachUrl:data]];
         default:
             break;
@@ -217,14 +327,28 @@ typedef enum {
     return 0;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    SMPostGroupCellData *data = _cellDatas[indexPath.row];
+    if (data.type == SMPostGroupCellTypeAttach) {
+        NSString *attachUrl = [self getAttachOriginalUrl:data];
+        PBWebViewController *webView = [[PBWebViewController alloc] init];
+        webView.URL = [NSURL URLWithString:attachUrl];
+        [self.navigationController pushViewController:webView animated:YES];
+    }
+}
+
+#pragma create cell
 - (UITableViewCell *)cellForTitle:(SMPostGroupCellData *)data
 {
     NSString *cellid = @"title_cell";
     SMPostGroupHeaderCell *cell = (SMPostGroupHeaderCell *)[self.tableView dequeueReusableCellWithIdentifier:cellid];
     if (cell == nil) {
         cell = [[SMPostGroupHeaderCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.delegate = self;
     }
-    cell.post = data.item.post;
+    cell.data = data;
     return cell;
 }
 
@@ -234,6 +358,7 @@ typedef enum {
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:cellid];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     cell.textLabel.text = @"Loading...";
     return cell;
@@ -242,11 +367,13 @@ typedef enum {
 - (UITableViewCell *)cellForFail:(SMPostGroupCellData *)data
 {
     NSString *cellid = @"fail_cell";
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:cellid];
+    SMPostFailCell *cell = (SMPostFailCell *)[self.tableView dequeueReusableCellWithIdentifier:cellid];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
+        cell = [[SMPostFailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    cell.textLabel.text = @"Fail";
+    cell.cellData = data;
+    cell.delegate = self;
     return cell;
 }
 
@@ -256,6 +383,8 @@ typedef enum {
     SMPostGroupContentCell *cell = (SMPostGroupContentCell *)[self.tableView dequeueReusableCellWithIdentifier:cellid];
     if (cell == nil) {
         cell = [[SMPostGroupContentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.delegate = self;
     }
     cell.post = data.item.post;
     return cell;
@@ -275,13 +404,25 @@ typedef enum {
 
 - (NSString *)getAttachUrl:(SMPostGroupCellData *)data
 {
-    return [NSString stringWithFormat:@"http://att.newsmth.net/nForum/att/%@/%d/%d/large", _board, data.item.post.pid, data.attach.pos];
+    return [NSString stringWithFormat:@"http://att.newsmth.net/nForum/att/%@/%d/%d/large", _board.name, data.item.post.pid, data.attach.pos];
+}
+
+- (NSString *)getAttachOriginalUrl:(SMPostGroupCellData *)data
+{
+    return [NSString stringWithFormat:@"http://att.newsmth.net/nForum/att/%@/%d/%d", _board.name, data.item.post.pid, data.attach.pos];
 }
 
 #pragma mark - XPullRefreshTableViewDelegate
 - (void)tableViewDoRefresh:(XPullRefreshTableView *)tableView
 {
     [self loadData:NO];
+    [SMUtils trackEventWithCategory:@"postgroup" action:@"refresh" label:_board.name];
+}
+
+- (void)tableViewDoRetry:(XPullRefreshTableView *)tableView
+{
+    [self loadData:YES];
+    [SMUtils trackEventWithCategory:@"postgroup" action:@"retry" label:_board.name];
 }
 
 #pragma mark - XImageViewDelegate
@@ -309,12 +450,16 @@ typedef enum {
             [self.tableView endRefreshing:YES];
             tmp = [[NSMutableArray alloc] initWithCapacity:0];
             _bid = postGroup.bid;
+            
+            _postTitle = postGroup.title;
+            [self makeupTableViewHeader:postGroup.title];
         } else {
             tmp = [_postItems mutableCopy];
         }
         [postGroup.posts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             SMPost *post = obj;
             NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbscon.php?bid=%d&id=%d", _bid, post.pid];
+            
             SMWebLoaderOperation *op = [[SMWebLoaderOperation alloc] init];
             op.delegate = self;
             [op loadUrl:url withParser:@"bbscon"];
@@ -333,7 +478,101 @@ typedef enum {
 - (void)webLoaderOperationFail:(SMWebLoaderOperation *)opt error:(SMMessage *)error
 {
     XLog_e(@"%@", error);
+    if (opt == _pageOp) {
+        if (_pno == 1) {
+            [self.tableView endRefreshing:NO];
+        } else {
+            [self.tableView setLoadMoreFail];
+        }
+        [self toast:error.message];
+    } else {
+        [self makeupCellDatas];
+    }
 }
 
+#pragma mark - SMPostGroupHeaderCellDelegate
+- (void)postAfterLogin
+{
+    [self postGroupHeaderCellOnReply:_replyPost];
+//    [self performSelector:@selector(postGroupHeaderCellOnReply:) withObject:_replyPost afterDelay:TOAST_DURTAION + 0.2f];
+}
+
+- (void)postGroupHeaderCellOnReply:(SMPost *)post
+{
+    if (![SMAccountManager instance].isLogin) {
+        _replyPost = post;
+        [self performSelectorAfterLogin:@selector(postAfterLogin)];
+        return ;
+    }
+    SMWritePostViewController *writeViewController = [[SMWritePostViewController alloc] init];
+    writeViewController.post = post;
+    writeViewController.postTitle = _postTitle;
+    writeViewController.title = [NSString stringWithFormat:@"回复-%@", _postTitle];
+    P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:writeViewController];
+    [self.navigationController presentModalViewController:nvc animated:YES];
+    
+    [SMUtils trackEventWithCategory:@"postgroup" action:@"reply" label:_board.name];
+}
+
+- (void)postGroupHeaderCellOnUsernameClick:(NSString *)username
+{
+    SMUserViewController *vc = [[SMUserViewController alloc] init];
+    vc.username = username;
+    [self.navigationController pushViewController:vc animated:YES];   
+}
+
+#pragma mark - SMPostFailCellDelegate
+- (void)postFailCellOnRetry:(SMPostFailCell *)cell
+{
+    SMPostGroupCellData *data = cell.cellData;
+    SMPostGroupItem *item = data.item;
+    SMPost *post = item.post;
+//    NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbscon.php?bid=%d&id=%d", _bid, post.pid];
+    
+    // use m.newsmth to retry
+    // http://m.newsmth.net/article/AdvancedEdu/single/31071/0
+    NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/single/%d/0", _board.name, post.pid];
+//    XLog_d(@"%@", url);
+
+    [item.op cancel];
+    
+    SMWebLoaderOperation *op = [[SMWebLoaderOperation alloc] init];
+    op.delegate = self;
+    item.op = op;
+    
+    [op loadUrl:url withParser:@"bbscon"];
+    
+    [self.tableView reloadData];
+    
+    [SMUtils trackEventWithCategory:@"postgroup" action:@"retry_cell" label:_board.name];
+}
+
+#pragma mark - SMPostGroupContentCellDelegate
+- (void)postGroupContentCell:(SMPostGroupContentCell *)cell heightChanged:(CGFloat)height
+{
+    int pid = cell.post.pid;
+    [_postHeightMap setObject:@(height) forKey:@(pid)];
+    [_tableView beginUpdates];
+    [_tableView endUpdates];
+}
+
+- (void)postGroupContentCell:(SMPostGroupContentCell *)cell shouldLoadUrl:(NSURL *)url
+{
+    PBWebViewController *webView = [[PBWebViewController alloc] init];
+    webView.URL = url;
+    [self.navigationController pushViewController:webView animated:YES];
+}
+
+#pragma mark - UIActionSheetDelegate
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex != actionSheet.destructiveButtonIndex) {
+        SMBoardViewController *vc = [[SMBoardViewController alloc] init];
+        vc.board = _board;
+        [self.navigationController pushViewController:vc animated:YES];
+        
+        [SMUtils trackEventWithCategory:@"postgroup" action:@"enter_board" label:_board.name];
+    }
+}
 
 @end

@@ -1,20 +1,31 @@
-#import "SMSection.h"
+#import "SMData.h"
 
 @implementation SMSection
-- (NSString *)sectionTitle
+- (void)decode:(id)json
 {
-	return [self.dict objectForKey:@"sectionTitle"];
-}
+	NSDictionary *dict = json;
+	_sectionTitle = [dict objectForKey:@"sectionTitle"];
 
-- (NSArray *)posts
-{
-	NSArray *objs = [self.dict objectForKey:@"posts"];
-	NSMutableArray *res = [[NSMutableArray alloc] init];
-	for (int i = 0; i != objs.count; ++i) {
-		SMBaseData *data = [[SMBaseData alloc] initWithData:objs[i]];
-		[res addObject:data];
+	NSMutableArray *tmp_posts = [[NSMutableArray alloc] init];
+	NSArray *posts = [dict objectForKey:@"posts"];
+	for (int i = 0; i != posts.count; ++i) {
+		[tmp_posts addObject:[[SMPost alloc] initWithJSON:posts[i]]];
 	}
-	return res;
+	_posts = tmp_posts;
 }
 
+- (id)encode
+{
+	NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+	if (_sectionTitle != nil) {
+		[dict setObject:_sectionTitle forKey:@"sectionTitle"];
+	}
+
+	NSMutableArray *tmp_posts = [[NSMutableArray alloc] init];
+	for (int i = 0; i != _posts.count; ++i) {
+		[tmp_posts addObject:[_posts[i] encode]];
+	}
+	[dict setObject:tmp_posts forKey:@"posts"];
+	return dict;
+}
 @end

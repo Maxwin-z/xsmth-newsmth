@@ -1,15 +1,25 @@
-#import "SMMainPage.h"
+#import "SMData.h"
 
 @implementation SMMainPage
-- (NSArray *)sections
+- (void)decode:(id)json
 {
-	NSArray *objs = [self.dict objectForKey:@"sections"];
-	NSMutableArray *res = [[NSMutableArray alloc] init];
-	for (int i = 0; i != objs.count; ++i) {
-		SMBaseData *data = [[SMBaseData alloc] initWithData:objs[i]];
-		[res addObject:data];
+	NSDictionary *dict = json;
+	NSMutableArray *tmp_sections = [[NSMutableArray alloc] init];
+	NSArray *sections = [dict objectForKey:@"sections"];
+	for (int i = 0; i != sections.count; ++i) {
+		[tmp_sections addObject:[[SMSection alloc] initWithJSON:sections[i]]];
 	}
-	return res;
+	_sections = tmp_sections;
 }
 
+- (id)encode
+{
+	NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+	NSMutableArray *tmp_sections = [[NSMutableArray alloc] init];
+	for (int i = 0; i != _sections.count; ++i) {
+		[tmp_sections addObject:[_sections[i] encode]];
+	}
+	[dict setObject:tmp_sections forKey:@"sections"];
+	return dict;
+}
 @end

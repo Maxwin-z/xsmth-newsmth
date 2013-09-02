@@ -12,6 +12,7 @@
 
 @interface SMPostGroupAttachCell ()
 @property (strong, nonatomic) IBOutlet UIView *viewForCell;
+@property (strong, nonatomic) IBOutlet UIImageView *bgForPhotoFrame;
 @end
 
 @implementation SMPostGroupAttachCell
@@ -22,7 +23,7 @@
     if (image) {
         return image.size.height * 300.0f / image.size.width + 20.0f;
     }
-    return 180.0f;
+    return 187.5f;
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -31,7 +32,16 @@
     if (self) {
         [[NSBundle mainBundle] loadNibNamed:@"SMPostGroupAttachCell" owner:self options:nil];
         _viewForCell.frame = self.contentView.bounds;
+        
+        _bgForPhotoFrame.image = [SMUtils stretchedImage:_bgForPhotoFrame.image];
+        
         [self.contentView addSubview:_viewForCell];
+        
+        // select bg view
+        UIView *selectBgView = [[UIView alloc] initWithFrame:self.contentView.bounds];
+        selectBgView.backgroundColor = [UIColor colorWithRed:0.199 green:0.592 blue:0.896 alpha:0.330];
+        
+        self.selectedBackgroundView = selectBgView;
     }
     return self;
 }

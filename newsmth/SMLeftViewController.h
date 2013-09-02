@@ -9,5 +9,5 @@
 #import "SMViewController.h"
 
 @interface SMLeftViewController : SMViewController
-
+- (void)loadNotice;
 @end

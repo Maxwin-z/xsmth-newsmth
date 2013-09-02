@@ -23,6 +23,7 @@ tconWriter.prototype.o = function(arr) {
 		var post = {
 			__type: 'SMPost',
 			pid: arr[i][0],
+			author: arr[i][1],
 			nick: arr[i][1]
 		}
 		data.posts.push(post);
@@ -32,10 +33,19 @@ tconWriter.prototype.o = function(arr) {
 tconWriter.prototype.h = function() {}
 
 function $parse(html) {
-	var script = html.match(/<!--((.|\s)*?)\/\/-->/)[0];
-    eval(script);
+	var rsp = {code: 0, data: null, message: ''};
+	var script = html.match(/<!--((.|\s)*?)\/\/-->/);
+	if (script == null) {	// error
+		var errorTable = html.match(/<table class="error">(.|\s)*?<\/table>/)[0];
+		if (errorTable) {
+			var msg = errorTable.replace(/<.+?>/g, '').replace(/\s+/g, ' ');
+			rsp = {code: -1, data: null, message: msg};
+		}
+	} else {
+    	eval(script[0]);
+    	rsp.data = data;
+    }
 
-	var rsp = {code: 0, data: data, message: ''};
 	console.log(rsp);
 	window.location.href = 'newsmth://' + encodeURIComponent(JSON.stringify(rsp));
 }

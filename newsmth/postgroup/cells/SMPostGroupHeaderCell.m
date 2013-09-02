@@ -7,10 +7,12 @@
 //
 
 #import "SMPostGroupHeaderCell.h"
+#import "UIButton+Custom.h"
 
 @interface SMPostGroupHeaderCell ()
 @property (strong, nonatomic) IBOutlet UIView *viewForCell;
 @property (weak, nonatomic) IBOutlet UIButton *buttonForAuthor;
+@property (weak, nonatomic) IBOutlet UILabel *labelForIndex;
 @property (weak, nonatomic) IBOutlet UILabel *labelForDate;
 @property (weak, nonatomic) IBOutlet UIButton *buttonForReply;
 @end
@@ -33,13 +35,37 @@
     return self;
 }
 
-- (void)setPost:(SMPost *)post
+- (void)setData:(SMPostGroupCellData *)data
 {
-    _post = post;
+    _data = data;
+    SMPost *post = data.item.post;
+    
     NSString *author = [NSString stringWithFormat:@"%@(%@)", post.author, post.nick];
     [_buttonForAuthor setTitle:author forState:UIControlStateNormal];
+    
+    _labelForIndex.text = [NSString stringWithFormat:@"#%d", data.index + 1];
+    
     if (post.date > 0) {
-        _labelForDate.text = [NSString stringWithFormat:@"%@", [NSDate dateWithTimeIntervalSince1970:post.date / 1000.0f]];
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"yyyy/MM/dd HH:mm:ss"];
+        _labelForDate.text = [formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:post.date / 1000l]];
+    }
+    
+    [_labelForIndex sizeToFit];
+    CGRect frame = _labelForDate.frame;
+    frame.origin.x = _labelForIndex.frame.origin.x + _labelForIndex.frame.size.width + 10.0f;
+    _labelForDate.frame = frame;
+}
+
+- (IBAction)onReplyButtonClick:(id)sender
+{
+    [_delegate postGroupHeaderCellOnReply:_data.item.post];
+}
+
+- (IBAction)onUsernameClick:(UIButton *)sender
+{
+    if ([_delegate respondsToSelector:@selector(postGroupHeaderCellOnUsernameClick:)]) {
+        [_delegate postGroupHeaderCellOnUsernameClick:_data.item.post.author];
     }
 }
 

@@ -8,17 +8,21 @@
 
 #import "SMViewController.h"
 #import "SMLoginViewController.h"
+#import "UIButton+Custom.h"
 
 @interface SMViewController ()
-@property (assign, nonatomic) CGFloat keyboardHeight;
-
 @property (assign, nonatomic) SEL selectorAfterLogin;
 
 @property (strong, nonatomic) IBOutlet UIView *viewForPopover;
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewForPopoverBg;
 @property (weak, nonatomic) IBOutlet UILabel *labelForPoperoverMessage;
 
-//@property (strong, nonatomic) SMLoginViewController *loginViewController;
+@property (strong, nonatomic) IBOutlet UIView *viewForLoadingPopover;
+@property (weak, nonatomic) IBOutlet UIImageView *imageViewForLoadingLeftBg;
+@property (weak, nonatomic) IBOutlet UILabel *labelForLoadingMessage;
+
+@property (strong, nonatomic) IBOutlet UIView *viewForLogin;
+@property (weak, nonatomic) IBOutlet UIButton *buttonForLogin;
 
 @end
 
@@ -33,6 +37,24 @@
         
     }
     return self;
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    self.trackedViewName = NSStringFromClass([self class]);
+    
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background"]];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+}
+
+- (void)popViewController
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)toast:(NSString *)message
@@ -56,12 +78,65 @@
     [_viewForPopover removeFromSuperview];
 }
 
+- (void)showLoading:(NSString *)message
+{
+    UIView *window = [UIApplication sharedApplication].keyWindow;
+    if (_viewForLoadingPopover == nil) {
+        [[NSBundle mainBundle] loadNibNamed:@"SMViewControllerPopover" owner:self options:nil];
+        _imageViewForLoadingLeftBg.image = [_imageViewForLoadingLeftBg.image stretchableImageWithLeftCapWidth:20 topCapHeight:20];
+    }
+    
+    _labelForLoadingMessage.text = message;
+    
+    CGRect frame = window.bounds;
+    frame.size.height -= _keyboardHeight;
+    _viewForLoadingPopover.frame = frame;
+    [window addSubview:_viewForLoadingPopover];
+
+}
+
+- (void)hideLoading
+{
+    [_viewForLoadingPopover removeFromSuperview];
+}
+
+- (void)cancelLoading
+{
+    // do sth
+}
+
+- (IBAction)onCancelLoadingButtonClick:(id)sender
+{
+    [self hideLoading];
+    [self cancelLoading];
+}
+
+- (void)showLogin
+{
+    if (_viewForLogin == nil) {
+        [[NSBundle mainBundle] loadNibNamed:@"SMViewControllerNeedLogin" owner:self options:nil];
+        [_buttonForLogin setButtonSMType:SMButtonTypeGray];
+    }
+    _viewForLogin.frame = self.view.bounds;
+    [self.view addSubview:_viewForLogin];
+}
+
+- (void)hideLogin
+{
+    [_viewForLogin removeFromSuperview];
+}
+
 - (void)performSelectorAfterLogin:(SEL)aSelector
 {
     SMLoginViewController *loginVc = [[SMLoginViewController alloc] init];
     [loginVc setAfterLoginTarget:self selector:aSelector];
-    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:loginVc];
+    P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:loginVc];
     [self presentModalViewController:nvc animated:YES];
+}
+
+- (IBAction)onLoginButtonClick:(id)sender
+{
+    [self performSelectorAfterLogin:NULL];
 }
 
 - (void)dealloc

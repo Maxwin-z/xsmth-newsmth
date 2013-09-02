@@ -46,13 +46,13 @@
 								<int key="NSvFlags">300</int>
 								<string key="NSFrame">{{52, 19}, {16, 23}}</string>
 								<reference key="NSSuperview" ref="578905576"/>
-								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<object class="NSCustomResource" key="IBUIImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">blueArrow@2x.png</string>
+									<string key="NSResourceName">xlistview_arrow@2x.png</string>
 								</object>
 							</object>
 							<object class="IBUILabel" id="302638136">
@@ -60,7 +60,6 @@
 								<int key="NSvFlags">290</int>
 								<string key="NSFrame">{{50, 9}, {220, 19}}</string>
 								<reference key="NSSuperview" ref="578905576"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="25230088"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<object class="NSColor" key="IBUIBackgroundColor" id="730951721">
@@ -72,7 +71,7 @@
 								<int key="IBUIContentMode">7</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<string key="IBUIText">下拉载入更多</string>
+								<string key="IBUIText">下拉刷新</string>
 								<object class="NSColor" key="IBUITextColor" id="490455552">
 									<int key="NSColorSpace">1</int>
 									<bytes key="NSRGB">MCAwIDAAA</bytes>
@@ -97,7 +96,6 @@
 								<int key="NSvFlags">290</int>
 								<string key="NSFrame">{{50, 36}, {220, 16}}</string>
 								<reference key="NSSuperview" ref="578905576"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="1033988554"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<reference key="IBUIBackgroundColor" ref="730951721"/>
@@ -106,7 +104,7 @@
 								<int key="IBUIContentMode">7</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<string key="IBUIText">上次更新：ganggang</string>
+								<string key="IBUIText">上次更新：无</string>
 								<reference key="IBUITextColor" ref="490455552"/>
 								<nil key="IBUIHighlightedColor"/>
 								<int key="IBUIBaselineAdjustment">0</int>
@@ -127,7 +125,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{51, 19}, {20, 20}}</string>
 								<reference key="NSSuperview" ref="578905576"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="95441111"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -139,7 +136,6 @@
 						</array>
 						<string key="NSFrame">{{0, 240}, {320, 60}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="302638136"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<reference key="IBUIBackgroundColor" ref="730951721"/>
@@ -148,12 +144,8 @@
 				</array>
 				<string key="NSFrameSize">{320, 300}</string>
 				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="578905576"/>
-				<object class="NSColor" key="IBUIBackgroundColor">
-					<int key="NSColorSpace">1</int>
-					<bytes key="NSRGB">MCAxIDAAA</bytes>
-				</object>
+				<reference key="IBUIBackgroundColor" ref="730951721"/>
 				<object class="IBUISimulatedSizeMetrics" key="IBUISimulatedDestinationMetrics">
 					<string key="IBUISimulatedSizeMetricsClass">IBUISimulatedFreeformSizeMetricsSentinel</string>
 					<string key="IBUIDisplayName">Freeform</string>
@@ -282,64 +274,14 @@
 			<nil key="sourceID"/>
 			<int key="maxID">16</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes">
-			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
-				<object class="IBPartialClassDescription">
-					<string key="className">XPullRefreshTableView</string>
-					<string key="superclassName">UITableView</string>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="activityIndicatorForRefresh">UIActivityIndicatorView</string>
-						<string key="imageViewForArrow">UIImageView</string>
-						<string key="labelForRefreshDate">UILabel</string>
-						<string key="labelForRefreshHint">UILabel</string>
-						<string key="viewForLoadMoreFail">UIView</string>
-						<string key="viewForLoadingMore">UIView</string>
-						<string key="viewForRefreshHeader">UIView</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="activityIndicatorForRefresh">
-							<string key="name">activityIndicatorForRefresh</string>
-							<string key="candidateClassName">UIActivityIndicatorView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="imageViewForArrow">
-							<string key="name">imageViewForArrow</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="labelForRefreshDate">
-							<string key="name">labelForRefreshDate</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="labelForRefreshHint">
-							<string key="name">labelForRefreshHint</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="viewForLoadMoreFail">
-							<string key="name">viewForLoadMoreFail</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="viewForLoadingMore">
-							<string key="name">viewForLoadingMore</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="viewForRefreshHeader">
-							<string key="name">viewForRefreshHeader</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/XPullRefreshTableView.h</string>
-					</object>
-				</object>
-			</array>
-		</object>
+		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="NS.key.0">blueArrow@2x.png</string>
-			<string key="NS.object.0">{16, 16}</string>
+			<string key="NS.key.0">xlistview_arrow@2x.png</string>
+			<string key="NS.object.0">{32, 46}</string>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">2083</string>
 	</data>

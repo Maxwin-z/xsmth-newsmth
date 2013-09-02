@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "-[SMMainpageViewController tableView:numberOfRowsInSection:]:SMMainpageViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[SMMainpageViewController webLoaderOperationFinished:]:SMMainpageViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[SMBaseData initWithData:]:SMBaseData.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

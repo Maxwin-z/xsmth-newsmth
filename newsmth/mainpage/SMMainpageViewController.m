@@ -44,7 +44,7 @@ static SMMainpageViewController *_instance;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"Top10";
+    self.title = @"首页导读";
     _tableView.xdelegate = self;
     [_tableView beginRefreshing];
 }
@@ -79,6 +79,7 @@ static SMMainpageViewController *_instance;
 - (void)tableViewDoRefresh:(XPullRefreshTableView *)tableView
 {
     [self loadData:NO];
+    [SMUtils trackEventWithCategory:@"mainpage" action:@"refresh" label:nil];
 }
 
 #pragma mark - UITableViewDataSource/Delegate
@@ -105,6 +106,12 @@ static SMMainpageViewController *_instance;
     return [SMMainpageCell cellHeight:post];
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    SMSection *secdata = _sections[section];
+    return secdata.sectionTitle;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *cellid = @"cell";
@@ -121,10 +128,15 @@ static SMMainpageViewController *_instance;
 {
     SMSection *secdata = _sections[indexPath.section];
     SMPost *post = secdata.posts[indexPath.row];
+    
     SMPostGroupViewController *vc = [[SMPostGroupViewController alloc] init];
     vc.board = post.board;
     vc.gid = post.gid;
     [self.navigationController pushViewController:vc animated:YES];
+    
+    [SMUtils trackEventWithCategory:@"mainpage" action:@"row_click" label:
+     [NSString stringWithFormat:@"%d-%d", indexPath.section, indexPath.row]
+     ];
 }
 
 #pragma mark - SMWebLoaderOperationDelegate
@@ -137,8 +149,8 @@ static SMMainpageViewController *_instance;
 
 - (void)webLoaderOperationFail:(SMWebLoaderOperation *)opt error:(SMMessage *)error
 {
-    XLog_d(@"error: %@", error);
     [_tableView endRefreshing:NO];
+    [self toast:error.message];
 }
 
 @end

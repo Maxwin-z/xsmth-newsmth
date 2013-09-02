@@ -8,8 +8,11 @@ var data = {
 		posts:[{	// SMPostGroup
 			author: '',
 			title: '',
-			board: '',
-			boardName: '',
+			board: {
+				__type: 'SMBoard',
+				name: '',
+				cnName: ''
+			},
 			gid: 0
 		}, ...]
 	}, ...
@@ -21,14 +24,16 @@ function $parse(html) {
 	var rsp = {code: 0, data: null, message: ''};
 	try {
 		parseTop10(html);
-		console.log(data);
 		rsp.data = data;
+
+		parseSections(html);
 	} catch (e) {
 		rsp.code = -1;
 		rsp.message = e.message;
 	}
+
+	console.log(rsp);
 	window.location.href = 'newsmth://' + encodeURIComponent(JSON.stringify(rsp));
-	return rsp;
 }
 
 function parseTop10(html) {
@@ -62,8 +67,11 @@ function parseTop10item(tr) {
 	var as = tr.querySelectorAll('a');
 
 	var a_board = as[0];
-	item.boardName = a_board.innerHTML;
-	item.board = a_board.search.match(/board=(.+)/)[1];
+	item.board = {
+		__type: 'SMBoard',
+		name: a_board.search.match(/board=(.+)/)[1],
+		cnName: a_board.innerHTML
+	};
 
 	var a_post = as[1];
 	item.title = a_post.innerHTML;
@@ -72,4 +80,66 @@ function parseTop10item(tr) {
 	item.author = as[2].innerHTML;
 
 	return item;
+}
+
+function parseSections(html) {
+	var secsRegex = /<table[^>]*class="SecTable"(.|\s)*?<\/table>/;
+	var matchs = html.match(secsRegex);
+	var secsHtml = matchs[0];
+
+	var div = document.createElement('div');
+	div.innerHTML = secsHtml;
+	document.body.appendChild(div);
+
+	var tds = div.querySelectorAll('td');
+
+	var section = null;
+	/*
+	= {
+		__type: 'SMSection',
+		sectionTitle: '',
+		posts: []
+	};
+	*/
+	for (var i = 0; i != tds.length; ++i) {
+		var td = tds[i];
+		if (td.className == 'SecLine') {
+			data.sections.push(section);
+		}
+		if (td.className == 'SectionTitle') {	// new sec
+			section = {
+				__type: 'SMSection',
+				sectionTitle: '',
+				posts: []
+			};
+			section.sectionTitle = td.querySelector('.SectionName a').innerHTML;
+		}
+
+		if (td.className == 'SectionItem') {
+			var post = {
+				__type: 'SMPost',
+				title: '',
+				gid: '',
+				author: '',
+				board: {
+					__type: 'SMBoard',
+					name: '',
+					cnName: ''
+				}
+			};
+
+			var as = td.querySelectorAll('a');
+			var a_board = as[0];
+			var a_post = as[1];
+
+			post.title = a_post.innerHTML;
+			post.gid = a_post.search.match(/gid=(\d+)/)[1];
+
+			post.board.name = a_board.search.match(/board=(.+)/)[1];
+			post.board.cnName = a_board.innerHTML;
+
+			section.posts.push(post);
+		}
+	}
+
 }

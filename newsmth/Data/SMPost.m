@@ -1,86 +1,85 @@
-#import "SMPost.h"
+#import "SMData.h"
 
 @implementation SMPost
-- (int)pid
+- (void)decode:(id)json
 {
-	return [[self.dict objectForKey:@"pid"] intValue];
-}
+	NSDictionary *dict = json;
+	_pid = [[dict objectForKey:@"pid"] intValue];
 
-- (int)gid
-{
-	return [[self.dict objectForKey:@"gid"] intValue];
-}
+	_gid = [[dict objectForKey:@"gid"] intValue];
 
-- (NSString *)board
-{
-	return [self.dict objectForKey:@"board"];
-}
+	_board = [[SMBoard alloc] initWithJSON:[dict objectForKey:@"board"]];
 
-- (NSString *)boardName
-{
-	return [self.dict objectForKey:@"boardName"];
-}
+	_author = [dict objectForKey:@"author"];
 
-- (NSString *)author
-{
-	return [self.dict objectForKey:@"author"];
-}
+	_nick = [dict objectForKey:@"nick"];
 
-- (NSString *)nick
-{
-	return [self.dict objectForKey:@"nick"];
-}
+	_title = [dict objectForKey:@"title"];
 
-- (NSString *)title
-{
-	return [self.dict objectForKey:@"title"];
-}
+	_content = [dict objectForKey:@"content"];
 
-- (NSString *)content
-{
-	return [self.dict objectForKey:@"content"];
-}
+	_date = [[dict objectForKey:@"date"] longLongValue];
 
-- (long long)date
-{
-	return [[self.dict objectForKey:@"date"] longLongValue];
-}
+	_replyAuthor = [dict objectForKey:@"replyAuthor"];
 
-- (NSString *)replyAuthor
-{
-	return [self.dict objectForKey:@"replyAuthor"];
-}
+	_replyDate = [[dict objectForKey:@"replyDate"] longLongValue];
 
-- (long long)replyDate
-{
-	return [[self.dict objectForKey:@"replyDate"] longLongValue];
-}
+	_replyCount = [[dict objectForKey:@"replyCount"] intValue];
 
-- (int)replyCount
-{
-	return [[self.dict objectForKey:@"replyCount"] intValue];
-}
+	_isTop = [[dict objectForKey:@"isTop"] boolValue];
 
-- (NSArray *)isTop;
-{
-	NSArray *objs = [self.dict objectForKey:@"isTop;"];
-	NSMutableArray *res = [[NSMutableArray alloc] init];
-	for (int i = 0; i != objs.count; ++i) {
-		SMBaseData *data = [[SMBaseData alloc] initWithData:objs[i]];
-		[res addObject:data];
+	NSMutableArray *tmp_attaches = [[NSMutableArray alloc] init];
+	NSArray *attaches = [dict objectForKey:@"attaches"];
+	for (int i = 0; i != attaches.count; ++i) {
+		[tmp_attaches addObject:[[SMAttach alloc] initWithJSON:attaches[i]]];
 	}
-	return res;
+	_attaches = tmp_attaches;
 }
 
-- (NSArray *)attaches
+- (id)encode
 {
-	NSArray *objs = [self.dict objectForKey:@"attaches"];
-	NSMutableArray *res = [[NSMutableArray alloc] init];
-	for (int i = 0; i != objs.count; ++i) {
-		SMBaseData *data = [[SMBaseData alloc] initWithData:objs[i]];
-		[res addObject:data];
-	}
-	return res;
-}
+	NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+	[dict setObject:@(_pid) forKey:@"pid"];
 
+	[dict setObject:@(_gid) forKey:@"gid"];
+
+	if (_board != nil) {
+		[dict setObject:[_board encode] forKey:@"board"];
+	}
+
+	if (_author != nil) {
+		[dict setObject:_author forKey:@"author"];
+	}
+
+	if (_nick != nil) {
+		[dict setObject:_nick forKey:@"nick"];
+	}
+
+	if (_title != nil) {
+		[dict setObject:_title forKey:@"title"];
+	}
+
+	if (_content != nil) {
+		[dict setObject:_content forKey:@"content"];
+	}
+
+	[dict setObject:@(_date) forKey:@"date"];
+
+	if (_replyAuthor != nil) {
+		[dict setObject:_replyAuthor forKey:@"replyAuthor"];
+	}
+
+	[dict setObject:@(_replyDate) forKey:@"replyDate"];
+
+	[dict setObject:@(_replyCount) forKey:@"replyCount"];
+
+	[dict setObject:@(_isTop) forKey:@"isTop"];
+
+	NSMutableArray *tmp_attaches = [[NSMutableArray alloc] init];
+	for (int i = 0; i != _attaches.count; ++i) {
+		[tmp_attaches addObject:[_attaches[i] encode]];
+	}
+	[dict setObject:tmp_attaches forKey:@"attaches"];
+	return dict;
+}
 @end

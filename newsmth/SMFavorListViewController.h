@@ -6,8 +6,8 @@
 //  Copyright (c) 2013年 nju. All rights reserved.
 //
 
-#import "SMViewController.h"
+#import "SMBaseBorardListViewController.h"
 
-@interface SMFavorListViewController : SMViewController
+@interface SMFavorListViewController : SMBaseBorardListViewController
 + (SMFavorListViewController *)instance;
 @end

@@ -1,30 +1,41 @@
-#import "SMBoard.h"
+#import "SMData.h"
 
 @implementation SMBoard
-- (NSString *)name
+- (void)decode:(id)json
 {
-	return [self.dict objectForKey:@"name"];
-}
+	NSDictionary *dict = json;
+	_name = [dict objectForKey:@"name"];
 
-- (NSString *)cnName
-{
-	return [self.dict objectForKey:@"cnName"];
-}
+	_cnName = [dict objectForKey:@"cnName"];
 
-- (int)bid
-{
-	return [[self.dict objectForKey:@"bid"] intValue];
-}
+	_bid = [[dict objectForKey:@"bid"] intValue];
 
-- (NSArray *)posts
-{
-	NSArray *objs = [self.dict objectForKey:@"posts"];
-	NSMutableArray *res = [[NSMutableArray alloc] init];
-	for (int i = 0; i != objs.count; ++i) {
-		SMBaseData *data = [[SMBaseData alloc] initWithData:objs[i]];
-		[res addObject:data];
+	NSMutableArray *tmp_posts = [[NSMutableArray alloc] init];
+	NSArray *posts = [dict objectForKey:@"posts"];
+	for (int i = 0; i != posts.count; ++i) {
+		[tmp_posts addObject:[[SMPost alloc] initWithJSON:posts[i]]];
 	}
-	return res;
+	_posts = tmp_posts;
 }
 
+- (id)encode
+{
+	NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+	if (_name != nil) {
+		[dict setObject:_name forKey:@"name"];
+	}
+
+	if (_cnName != nil) {
+		[dict setObject:_cnName forKey:@"cnName"];
+	}
+
+	[dict setObject:@(_bid) forKey:@"bid"];
+
+	NSMutableArray *tmp_posts = [[NSMutableArray alloc] init];
+	for (int i = 0; i != _posts.count; ++i) {
+		[tmp_posts addObject:[_posts[i] encode]];
+	}
+	[dict setObject:tmp_posts forKey:@"posts"];
+	return dict;
+}
 @end

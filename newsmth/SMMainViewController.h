@@ -15,6 +15,4 @@
 +(SMMainViewController *)instance;
 - (void)setRootViewController:(UIViewController *)viewController;
 - (void)setLeftVisiable:(BOOL)visiable;
-- (void)showPushAnimation;
-- (void)popCenterViewController;
 @end

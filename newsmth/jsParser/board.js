@@ -64,8 +64,11 @@ function $parse(html) {
 }
 
 function parseDate(dateStr) {
-	if (dateStr.indexOf(':') != -1) {
+	if (dateStr.indexOf(':') != -1) {	// is 12:12:12
 		dateStr = new Date().toString().replace(/\d\d:\d\d:\d\d/, dateStr);
+	} else {	// 2013-06-12
+		var ymd = dateStr.split('-');
+		return new Date(ymd[0], ymd[1] - 1, ymd[2]).getTime();
 	}
-	return Date.parse(dateStr);
+	return Date.parse(dateStr) + dateStr;
 }

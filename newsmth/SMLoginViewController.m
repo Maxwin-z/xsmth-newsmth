@@ -7,10 +7,17 @@
 //
 
 #import "SMLoginViewController.h"
+#import "UIButton+Custom.h"
 
 @interface SMLoginViewController ()<SMWebLoaderOperationDelegate>
+
+@property (weak, nonatomic) IBOutlet UIView *viewFromContainer;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldForUsername;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldForPassword;
+
+@property (weak, nonatomic) IBOutlet UIButton *buttonForCancel;
+@property (weak, nonatomic) IBOutlet UIButton *buttonForSubmit;
+
 
 @property (strong, nonatomic) SMWebLoaderOperation *loginOp;
 
@@ -24,7 +31,28 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonItemStyleDone target:self action:@selector(dismiss)];
+    self.title = @"登录";
+
+    _textFieldForUsername.text = [[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_USERNAME];
+    _textFieldForPassword.text = [[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_PASSWORD];
+    
+    // format textfield ui
+    [@[_textFieldForUsername, _textFieldForPassword] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        UITextField *textField = obj;
+        
+        textField.background = [SMUtils stretchedImage:textField.background];
+        
+        UIView *lv = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 5, 1)];
+        textField.leftView = lv;
+        textField.leftViewMode = UITextFieldViewModeAlways;
+        
+        UIView *rv = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 5, 1)];
+        textField.rightView = rv;
+        textField.rightViewMode = UITextFieldViewModeAlways;
+    }];
+    
+    [_buttonForCancel setButtonSMType:SMButtonTypeGray];
+    [_buttonForSubmit setButtonSMType:SMButtonTypeBlue];
 }
 
 - (void)dealloc
@@ -46,30 +74,78 @@
 - (IBAction)onLoginButtonClick:(id)sender
 {
     SMHttpRequest *request = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:@"http://m.newsmth.net/user/login"]];
-    NSString *postBody = [NSString stringWithFormat:@"id=%@&passwd=%@", _textFieldForUsername.text, _textFieldForPassword.text];
+    NSString *postBody = [NSString stringWithFormat:@"id=%@&passwd=%@&save=on", _textFieldForUsername.text, _textFieldForPassword.text];
     [request setRequestMethod:@"POST"];
     [request addRequestHeader:@"Content-type" value:@"application/x-www-form-urlencoded"];
     [request setPostBody:[[postBody dataUsingEncoding:NSUTF8StringEncoding] mutableCopy]];
 
+    [_loginOp cancel];
     _loginOp = [[SMWebLoaderOperation alloc] init];
     _loginOp.delegate = self;
+    [_loginOp setThreadPriority:1.0f];
+    
+    [self showLoading:@"正在登录..."];
+    
     [_loginOp loadRequest:request withParser:@"login"];
+}
+
+- (void)cancelLoading
+{
+    [super cancelLoading];
+    [_loginOp cancel];
+    _loginOp = nil;
+}
+
+- (IBAction)onCancelButtonClick:(id)sender
+{
+    [self dismiss];
 }
 
 - (void)webLoaderOperationFinished:(SMWebLoaderOperation *)opt
 {
+    [self hideLoading];
     if ([[SMAccountManager instance] isLogin]) {
-        [self dismiss];
-        if (_afterLoginTarget) {
-            SuppressPerformSelectorLeakWarning([_afterLoginTarget performSelector:_afterLoginSelector]);
-        }
+        // save user & password
+        [[NSUserDefaults standardUserDefaults] setObject:_textFieldForUsername.text forKey:USERDEFAULTS_USERNAME];
+        [[NSUserDefaults standardUserDefaults] setObject:_textFieldForPassword.text forKey:USERDEFAULTS_PASSWORD];
+
+        [SMUtils trackEventWithCategory:@"user" action:@"login" label:_textFieldForUsername.text];
+
+        [self dismissViewControllerAnimated:YES completion:^{
+            if (_afterLoginTarget) {
+                SuppressPerformSelectorLeakWarning([_afterLoginTarget performSelector:_afterLoginSelector]);
+            }
+        }];
+        
     }
 }
 
 - (void)webLoaderOperationFail:(SMWebLoaderOperation *)opt error:(SMMessage *)error
 {
+    [self hideLoading];
     [self toast:error.message];
 }
+
+#pragma mark - keyboard
+- (void)onKeyboardDidShow:(NSNotification *)n
+{
+    [super onKeyboardDidShow:n];
+    [self fitLoginFrame];
+}
+
+- (void)onKeyboardDidHide:(NSNotification *)n
+{
+    [super onKeyboardDidHide:n];
+    [self fitLoginFrame];
+}
+
+- (void)fitLoginFrame
+{
+    [UIView animateWithDuration:0.1f animations:^{
+        _viewFromContainer.center = CGPointMake(self.view.frame.size.width / 2.0f, (self.view.frame.size.height - self.keyboardHeight) / 2.0f);
+    }];
+}
+
 
 
 @end

@@ -7,10 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SMPost.h"
+#import "SMPostGroupViewController.h"
+
+@protocol SMPostGroupHeaderCellDelegate <NSObject>
+- (void)postGroupHeaderCellOnReply:(SMPost *)post;
+@optional
+- (void)postGroupHeaderCellOnUsernameClick:(NSString *)username;
+@end
 
 @interface SMPostGroupHeaderCell : UITableViewCell
-@property (strong, nonatomic) SMPost *post;
+@property (strong, nonatomic) SMPostGroupCellData *data;
+@property (weak, nonatomic) id<SMPostGroupHeaderCellDelegate> delegate;
 
 + (CGFloat)cellHeight;
 @end

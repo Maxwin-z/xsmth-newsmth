@@ -10,8 +10,10 @@
 #import "XPullRefreshTableView.h"
 #import "SMBoardCell.h"
 #import "SMPostGroupViewController.h"
+#import "SMWritePostViewController.h"
+#import "SMUserViewController.h"
 
-@interface SMBoardViewController ()<UITableViewDelegate, UITableViewDataSource, XPullRefreshTableViewDelegate, SMWebLoaderOperationDelegate>
+@interface SMBoardViewController ()<UITableViewDelegate, UITableViewDataSource, XPullRefreshTableViewDelegate, SMWebLoaderOperationDelegate, SMBoardCellDelegate>
 @property (weak, nonatomic) IBOutlet XPullRefreshTableView *tableView;
 
 @property (strong, nonatomic) SMWebLoaderOperation *boardOp;
@@ -34,6 +36,8 @@
     
     _tableView.xdelegate = self;
     [_tableView beginRefreshing];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(writePost)];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -55,8 +59,10 @@
 {
     if (!more) {
         _page = 1;
+        [SMUtils trackEventWithCategory:@"board" action:@"refresh" label:_board.name];
     } else {
         ++_page;
+        [SMUtils trackEventWithCategory:@"board" action:@"loadmore" label:[NSString stringWithFormat:@"%@:%d", _board.name, _page]];
     }
     NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/board/%@?p=%d", _board.name, _page];
     
@@ -64,6 +70,25 @@
     _boardOp = [[SMWebLoaderOperation alloc] init];
     _boardOp.delegate = self;
     [_boardOp loadUrl:url withParser:@"board"];
+    
+}
+
+- (void)writePost
+{
+    if (![SMAccountManager instance].isLogin) {
+        [self performSelectorAfterLogin:@selector(writePost)];
+        return ;
+    }
+    SMWritePostViewController *writeViewController = [[SMWritePostViewController alloc] init];
+    SMPost *newPost = [[SMPost alloc] init];
+    newPost.board = _board;
+    newPost.pid = 0;
+    writeViewController.post = newPost;
+    writeViewController.title = [NSString stringWithFormat:@"发表-%@", _board.cnName];
+    P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:writeViewController];
+    [self.navigationController presentModalViewController:nvc animated:YES];
+    
+    [SMUtils trackEventWithCategory:@"board" action:@"write" label:_board.name];
 }
 
 #pragma mark - XPullRefreshTableViewDelegate
@@ -96,6 +121,7 @@
         cell = [[SMBoardCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
     }
     cell.post = _posts[indexPath.row];
+    cell.delegate = self;
     
     if (indexPath.row == _posts.count - 1) {
         [self loadData:YES];
@@ -111,8 +137,11 @@
  
     SMPostGroupViewController *vc = [[SMPostGroupViewController alloc] init];
     vc.gid = post.gid;
-    vc.board = _board.name;
+    vc.board = _board;
+    vc.fromBoard = YES;
     [self.navigationController pushViewController:vc animated:YES];
+    
+    [SMUtils trackEventWithCategory:@"board" action:@"view_post" label:_board.name];
 }
 
 #pragma mark - SMWebLoaderOperationDelegate
@@ -134,8 +163,20 @@
 
 - (void)webLoaderOperationFail:(SMWebLoaderOperation *)opt error:(SMMessage *)error
 {
-    [_tableView endRefreshing:NO];
     [self toast:error.message];
+    if (_page == 1) {
+        [_tableView endRefreshing:NO];
+    } else {
+        [self.tableView setLoadMoreFail];
+    }
+}
+
+#pragma mark - SMBoardCellDelegate
+- (void)boardCellOnUserClick:(NSString *)username
+{
+    SMUserViewController *vc = [[SMUserViewController alloc] init];
+    vc.username = username;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end

@@ -1,19 +1,26 @@
-#import "SMAttach.h"
+#import "SMData.h"
 
 @implementation SMAttach
-- (NSString *)name
+- (void)decode:(id)json
 {
-	return [self.dict objectForKey:@"name"];
+	NSDictionary *dict = json;
+	_name = [dict objectForKey:@"name"];
+
+	_len = [[dict objectForKey:@"len"] intValue];
+
+	_pos = [[dict objectForKey:@"pos"] intValue];
 }
 
-- (int)len
+- (id)encode
 {
-	return [[self.dict objectForKey:@"len"] intValue];
-}
+	NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+	if (_name != nil) {
+		[dict setObject:_name forKey:@"name"];
+	}
 
-- (int)pos
-{
-	return [[self.dict objectForKey:@"pos"] intValue];
-}
+	[dict setObject:@(_len) forKey:@"len"];
 
+	[dict setObject:@(_pos) forKey:@"pos"];
+	return dict;
+}
 @end
