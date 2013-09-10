@@ -44,7 +44,7 @@ void _XLog_print(NSString *tag, NSString *colorStr, const char *fileName, const 
 
 BOOL _XLog_isEnable()
 {
-    return YES;
+    return NO;
     if (isXLogEnable == -1) {   // init
         char *xlogEnv = getenv("XLOG_FLAG");
         if (xlogEnv && !strcmp(xlogEnv, "YES")) {

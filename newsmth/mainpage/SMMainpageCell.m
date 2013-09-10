@@ -32,7 +32,8 @@ static SMMainpageCell *_instance;
 {
     SMMainpageCell *cell = [self instance];
     CGFloat heightExpectTitle = cell.viewForCell.frame.size.height - cell.labelForTitle.frame.size.height;
-    CGFloat titleHeight = [post.title sizeWithFont:cell.labelForTitle.font constrainedToSize:CGSizeMake(cell.labelForTitle.frame.size.width, CGFLOAT_MAX) lineBreakMode:cell.labelForTitle.lineBreakMode].height;
+    CGFloat titleHeight = [post.title sizeWithFont:cell.labelForTitle.font constrainedToSize:CGSizeMake(cell.labelForTitle.frame.size.width, CGFLOAT_MAX) lineBreakMode:cell.labelForTitle.lineBreakMode].height + 10.0f;
+    XLog_d(@"%@", NSStringFromCGRect(cell.labelForTitle.frame));
     return heightExpectTitle + titleHeight;
 }
 

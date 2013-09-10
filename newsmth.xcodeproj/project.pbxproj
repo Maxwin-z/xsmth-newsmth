@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		39C4071117DF711700E39FDF /* fishhook.c in Sources */ = {isa = PBXBuildFile; fileRef = 39C4070D17DF711700E39FDF /* fishhook.c */; };
+		39C4071217DF711700E39FDF /* fishhook.c in Sources */ = {isa = PBXBuildFile; fileRef = 39C4070D17DF711700E39FDF /* fishhook.c */; };
+		39C4071817DF714A00E39FDF /* QuietAssertMacros.c in Sources */ = {isa = PBXBuildFile; fileRef = 39C4071717DF714A00E39FDF /* QuietAssertMacros.c */; };
+		39C4071917DF714A00E39FDF /* QuietAssertMacros.c in Sources */ = {isa = PBXBuildFile; fileRef = 39C4071717DF714A00E39FDF /* QuietAssertMacros.c */; };
 		C10080D31785984700487A45 /* SMImagePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C10080D11785984700487A45 /* SMImagePickerViewController.m */; };
 		C10080D41785984700487A45 /* SMImagePickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C10080D21785984700487A45 /* SMImagePickerViewController.xib */; };
 		C10080D6178598D900487A45 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C10080D5178598D900487A45 /* AssetsLibrary.framework */; };
@@ -189,6 +193,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		39C4070D17DF711700E39FDF /* fishhook.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fishhook.c; sourceTree = "<group>"; };
+		39C4070E17DF711700E39FDF /* fishhook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fishhook.h; sourceTree = "<group>"; };
+		39C4071717DF714A00E39FDF /* QuietAssertMacros.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = QuietAssertMacros.c; sourceTree = "<group>"; };
 		C10080D01785984700487A45 /* SMImagePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMImagePickerViewController.h; sourceTree = "<group>"; };
 		C10080D11785984700487A45 /* SMImagePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMImagePickerViewController.m; sourceTree = "<group>"; };
 		C10080D21785984700487A45 /* SMImagePickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMImagePickerViewController.xib; sourceTree = "<group>"; };
@@ -499,6 +506,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		39C4070C17DF711700E39FDF /* fishhook */ = {
+			isa = PBXGroup;
+			children = (
+				39C4070D17DF711700E39FDF /* fishhook.c */,
+				39C4070E17DF711700E39FDF /* fishhook.h */,
+				39C4071717DF714A00E39FDF /* QuietAssertMacros.c */,
+			);
+			path = fishhook;
+			sourceTree = "<group>";
+		};
 		C10080CF1785983800487A45 /* XImagePicker */ = {
 			isa = PBXGroup;
 			children = (
@@ -703,6 +720,7 @@
 		C1BA923917954EC300F76ACF /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				39C4070C17DF711700E39FDF /* fishhook */,
 				C1C07A141796857900906ED7 /* OWActivityViewController */,
 				C1BA927B17954EC300F76ACF /* PBWebViewController */,
 			);
@@ -1210,6 +1228,7 @@
 				C1BFB9C5174F6F5C0092FD2E /* ASIDataDecompressor.m in Sources */,
 				C1BFB9C6174F6F5C0092FD2E /* ASIDownloadCache.m in Sources */,
 				C1BFB9C7174F6F5C0092FD2E /* ASIFormDataRequest.m in Sources */,
+				39C4071817DF714A00E39FDF /* QuietAssertMacros.c in Sources */,
 				C1BFB9C8174F6F5C0092FD2E /* ASIHTTPRequest.m in Sources */,
 				C1BFB9C9174F6F5C0092FD2E /* ASIInputStream.m in Sources */,
 				C1BFB9CA174F6F5C0092FD2E /* ASINetworkQueue.m in Sources */,
@@ -1264,6 +1283,7 @@
 				C1A50E301786C69800D43439 /* SMImagePickerAssetsCell.m in Sources */,
 				C1A182D2178AB1260080EEDB /* SMImageUploader.m in Sources */,
 				C1A182D5178ABB290080EEDB /* SMResult.m in Sources */,
+				39C4071117DF711700E39FDF /* fishhook.c in Sources */,
 				C17F4B83178C0A21002F4934 /* SMImageUploadListViewController.m in Sources */,
 				C17F4B89178C11CA002F4934 /* SMUpload.m in Sources */,
 				C17F4B8A178C11CA002F4934 /* SMUploadItem.m in Sources */,
@@ -1290,7 +1310,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				39C4071217DF711700E39FDF /* fishhook.c in Sources */,
 				C1BFB90E174F6A620092FD2E /* newsmthTests.m in Sources */,
+				39C4071917DF714A00E39FDF /* QuietAssertMacros.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,3 +7,7 @@
 [submodule "newsmth/ThirdParty/PBWebViewController"]
 	path = newsmth/ThirdParty/PBWebViewController
 	url = git@github.com:Maxwin-z/PBWebViewController.git
+[submodule "newsmth/ThirdParty/fishhook"]
+	path = newsmth/ThirdParty/fishhook
+	url = git@github.com:Maxwin-z/fishhook.git
+
