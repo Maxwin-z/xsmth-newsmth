@@ -1066,6 +1066,11 @@
 			attributes = {
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = nju;
+				TargetAttributes = {
+					C1BFB8D8174F6A620092FD2E = {
+						DevelopmentTeam = 4K4MS8S6B8;
+					};
+				};
 			};
 			buildConfigurationList = C1BFB8D4174F6A620092FD2E /* Build configuration list for PBXProject "newsmth" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1370,7 +1375,7 @@
 		C102B8C11782D2E0000E2EEB /* Distribution */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1471,7 +1476,7 @@
 		C1BFB912174F6A620092FD2E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: WenDong Zhang (98EQXDKJAE)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Wendong Zhang (64YN458A3D)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

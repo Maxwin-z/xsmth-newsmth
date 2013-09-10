@@ -45,6 +45,12 @@
     self.trackedViewName = NSStringFromClass([self class]);
     
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background"]];
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0f) {
+        self.navigationController.navigationBar.translucent = YES;
+        self.wantsFullScreenLayout = YES;
+    } else {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
