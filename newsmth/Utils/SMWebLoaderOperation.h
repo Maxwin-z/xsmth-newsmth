@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SMBaseData.h"
+#import "ASIHTTPRequest.h"
 
 @class SMWebLoaderOperation;
 
@@ -22,5 +23,5 @@
 @property (strong, nonatomic, readonly) id data;
 
 - (void)loadUrl:(NSString *)url withParser:(NSString *)parser;
-- (void)loadRequest:(SMHttpRequest *)request withParser:(NSString *)parser;
+- (void)loadRequest:(ASIHTTPRequest *)request withParser:(NSString *)parser;
 @end
