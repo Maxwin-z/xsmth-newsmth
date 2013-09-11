@@ -10,6 +10,8 @@
 
 @interface SMUtils : NSObject
 
++ (NSInteger)systemVersion;
+
 // unique format for sm
 + (NSString *)formatDate:(NSDate *)date;
 

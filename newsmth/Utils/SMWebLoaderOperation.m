@@ -14,7 +14,7 @@
 @interface SMWebLoaderOperation ()<ASIHTTPRequestDelegate, SMWebParserDelegate>
 @property (strong, nonatomic) NSString *parser;
 
-@property (strong, nonatomic) SMHttpRequest *request;
+@property (strong, nonatomic) ASIHTTPRequest *request;
 @property (strong, nonatomic) SMWebParser *webParser;
 
 @end
@@ -27,7 +27,7 @@
     [self enqueue];
 }
 
-- (void)loadRequest:(SMHttpRequest *)request withParser:(NSString *)parser
+- (void)loadRequest:(ASIHTTPRequest *)request withParser:(NSString *)parser
 {
     _request = request;
     _parser = parser;

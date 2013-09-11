@@ -11,6 +11,7 @@
 
 #define ANIMATION_DURATION  0.1f
 #define REFRESH_TRIGGER_HEIGHT  60.0f
+#define NAVIGATION_HEIGHT   64.0f
 
 @interface XPullRefreshTableView ()<UITableViewDelegate>
 @property (weak, nonatomic) id<UITableViewDelegate> originalDelegate;
@@ -104,9 +105,10 @@
     _activityIndicatorForRefresh.hidden = NO;
     if (!self.isDragging) {
         UIEdgeInsets inset = self.contentInset;
-        inset.top = REFRESH_TRIGGER_HEIGHT;
+        inset.top = REFRESH_TRIGGER_HEIGHT + NAVIGATION_HEIGHT;
         [UIView animateWithDuration:ANIMATION_DURATION animations:^{
             self.contentInset = inset;
+            self.scrollIndicatorInsets = inset;
             self.contentOffset = CGPointMake(0, -self.contentInset.top);
         }];
     }
@@ -118,9 +120,10 @@
     _isRefreshing = NO;
     
     UIEdgeInsets insets = self.contentInset;
-    insets.top = 0;
+    insets.top = NAVIGATION_HEIGHT;
     [UIView animateWithDuration:ANIMATION_DURATION animations:^{
         self.contentInset = insets;
+        self.scrollIndicatorInsets = insets;
     } completion:^(BOOL finished) {
         [self resetRefreshHeader];
     }];

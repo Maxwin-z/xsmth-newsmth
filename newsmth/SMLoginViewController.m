@@ -112,7 +112,7 @@
         [SMUtils trackEventWithCategory:@"user" action:@"login" label:_textFieldForUsername.text];
 
         [self dismissViewControllerAnimated:YES completion:^{
-            if (_afterLoginTarget != nil && _afterLoginSelector != NULL) {
+            if (_afterLoginTarget && _afterLoginSelector) {
                 SuppressPerformSelectorLeakWarning([_afterLoginTarget performSelector:_afterLoginSelector]);
             }
         }];

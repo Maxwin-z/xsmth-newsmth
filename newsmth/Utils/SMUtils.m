@@ -11,6 +11,11 @@
 
 @implementation SMUtils
 
++ (NSInteger)systemVersion
+{
+    return [[[UIDevice currentDevice] systemVersion] integerValue];
+}
+
 + (NSString *)formatDate:(NSDate *)date
 {
     int secPerDay = 24 * 3600;
