@@ -46,3 +46,29 @@
 }
 
 @end
+
+
+@implementation NSString (SMUtils)
+
+-(CGSize) smSizeWithFont:(UIFont *)font constrainedToSize:(CGSize)size lineBreakMode:(NSLineBreakMode)mode
+{
+    if (!self || self.length == 0) {
+        return CGSizeZero;
+    }
+    if ([self respondsToSelector:@selector(boundingRectWithSize:options:attributes:context:)]) {
+        NSDictionary * attrs = @{NSFontAttributeName: font};
+        //IOS7 测量字符串问题，需向下取整
+        CGSize sbSize = [self boundingRectWithSize:size
+                                           options:NSStringDrawingUsesLineFragmentOrigin | 
+                         NSStringDrawingTruncatesLastVisibleLine
+                                        attributes:attrs context:nil].size;
+        sbSize.height = ceilf(sbSize.height + 1);   // todo 1...
+        sbSize.width = ceilf(sbSize.width);
+        return sbSize;
+    } else {
+        return [self sizeWithFont:font constrainedToSize:size lineBreakMode:mode];
+    }
+}
+
+
+@end

@@ -168,7 +168,7 @@
 {
     _labelForTitle.text = text;
     self.title = text;
-    CGFloat delta = [_labelForTitle.text sizeWithFont:_labelForTitle.font constrainedToSize:CGSizeMake(_labelForTitle.frame.size.width, CGFLOAT_MAX) lineBreakMode:_labelForTitle.lineBreakMode].height - _labelForTitle.frame.size.height;
+    CGFloat delta = [_labelForTitle.text smSizeWithFont:_labelForTitle.font constrainedToSize:CGSizeMake(_labelForTitle.frame.size.width, CGFLOAT_MAX) lineBreakMode:_labelForTitle.lineBreakMode].height - _labelForTitle.frame.size.height;
     CGRect frame = _tableViewHeader.frame;
     frame.size.height += delta;
     _tableViewHeader.frame = frame;
