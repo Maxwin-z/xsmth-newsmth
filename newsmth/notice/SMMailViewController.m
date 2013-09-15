@@ -17,10 +17,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"邮箱"
-                                                    image:[UIImage imageNamed:@"tabbar_mail"]
-                                                      tag:0];
-    self.tabBarItem.badgeValue = @"信";
+    self.title = @"邮箱";
 }
 
 @end

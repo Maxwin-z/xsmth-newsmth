@@ -32,6 +32,8 @@ static SMNoticeViewController *_instance;
 - (id)init
 {
     if (_instance == nil) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accountChanged) name:NOTIFICATION_ACCOUT object:nil];
+
         _instance = self = [super initWithNibName:@"SMNoticeViewController" bundle:nil];
         _currentSelectIndex = -1;
     }
@@ -63,14 +65,16 @@ static SMNoticeViewController *_instance;
         return ;
     }
     
-    UIView *v = [self viewAtIndex:currentSelectIndex];
+    UIView *v = [self viewControllerAtIndex:currentSelectIndex].view;
     [v removeFromSuperview];
     
     _currentSelectIndex = currentSelectIndex;
-    v = [self viewAtIndex:_currentSelectIndex];
-    [_viewForContainer addSubview:v];
-    v.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    v.frame = _viewForContainer.bounds;
+    UIViewController *vc = [self viewControllerAtIndex:_currentSelectIndex];
+    [_viewForContainer addSubview:vc.view];
+    vc.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    vc.view.frame = _viewForContainer.bounds;
+    
+    self.title = vc.title;
     
     if (_currentSelectIndex >= 0 && _currentSelectIndex <= _tabbar.items.count) {
         self.tabbar.selectedItem = self.tabbar.items[_currentSelectIndex];
@@ -78,12 +82,25 @@ static SMNoticeViewController *_instance;
 
 }
 
-- (UIView *)viewAtIndex:(NSInteger)index
+- (UIViewController *)viewControllerAtIndex:(NSInteger)index
 {
     if (index >= 0 && index < _viewControllers.count) {
-        return [_viewControllers[index] view];
+        return _viewControllers[index];
     }
     return nil;
+}
+
+- (void)accountChanged
+{
+    if ([SMAccountManager instance].isLogin) {
+        self.tabbar.hidden = self.viewForContainer.hidden = NO;
+        [self hideLogin];
+        
+        [SMUtils trackEventWithCategory:@"notice" action:@"enter" label:nil];
+    } else {
+        self.tabbar.hidden = self.viewForContainer.hidden = YES;
+        [self showLogin];
+    }
 }
 
 #pragma mark - UITabBarDelegate
