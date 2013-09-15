@@ -92,3 +92,16 @@ SMNotice {
 	int reply
 	int mail
 }
+
+SMMailItem {
+	string author
+	string title
+	long date	
+	string url
+}
+
+SMMailList {
+	SMMailItem[] items
+	int tpage
+	bool hasMail
+}

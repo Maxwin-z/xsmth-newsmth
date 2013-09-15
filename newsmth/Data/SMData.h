@@ -13,3 +13,5 @@
 #import "SMUploadItem.h"
 #import "SMUpload.h"
 #import "SMNotice.h"
+#import "SMMailItem.h"
+#import "SMMailList.h"

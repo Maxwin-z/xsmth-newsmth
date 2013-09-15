@@ -107,6 +107,7 @@
         return;
     }
 //    XLog_d(@"url[%@] parsed", _url);
+//    XLog_d(@"%@", json);
     NSInteger code = [[json objectForKey:@"code"] integerValue];
     if (code == 0) {
         id rspData = [json objectForKey:@"data"];
