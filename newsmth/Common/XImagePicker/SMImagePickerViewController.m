@@ -47,7 +47,6 @@
     SMImagePickerGroupViewController *groupVc = [[SMImagePickerGroupViewController alloc] init];
     _pickerNvc = [[P2PNavigationController alloc] initWithRootViewController:groupVc];
     _pickerNvc.view.frame = self.pickerContainer.bounds;
-    _pickerNvc.navigationBar.barStyle = UIBarStyleBlack;
     _pickerNvc.navigationBar.translucent = YES;
 
     groupVc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(dismiss)];
