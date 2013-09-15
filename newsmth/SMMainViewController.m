@@ -76,11 +76,11 @@ static SMMainViewController *_instance;
 {
     // debug
     // http://m.newsmth.net/refer/reply/read?index=204
-    NSString *url = @"http://m.newsmth.net/refer/reply/read?index=204";
-    SMPostViewController *vc = [[SMPostViewController alloc] init];
-    vc.postUrl = url;
-    [self setRootViewController:vc];
-//    [self setLeftVisiable:YES];
+//    NSString *url = @"http://m.newsmth.net/refer/reply/read?index=204";
+//    SMPostViewController *vc = [[SMPostViewController alloc] init];
+//    vc.postUrl = url;
+//    [self setRootViewController:vc];
+    [self setLeftVisiable:YES];
 }
 
 - (void)setRootViewController:(UIViewController *)viewController

@@ -148,10 +148,7 @@ typedef NS_ENUM(NSInteger, CellType) {
         vc = [SMMainpageViewController instance];
         evt = @"home";
     }else if (cellType == CellTypeNotice) {
-        vc = [[SMNoticeViewController alloc] init];
-//        PBWebViewController *pvc = [[PBWebViewController alloc] init];
-//        pvc.URL = [NSURL URLWithString:@"http://m.newsmth.net/refer/reply"];
-//        vc = pvc;
+        vc = [SMNoticeViewController instance];
         evt = @"notice";
     } else if (cellType == CellTypeFavor) {
         vc = [SMFavorListViewController instance];

@@ -9,5 +9,5 @@
 #import "SMViewController.h"
 
 @interface SMNoticeViewController : SMViewController
-
++ (SMNoticeViewController *)instance;
 @end
