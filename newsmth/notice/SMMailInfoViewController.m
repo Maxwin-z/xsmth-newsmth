@@ -7,8 +7,9 @@
 //
 
 #import "SMMailInfoViewController.h"
+#import "PBWebViewController.h"
 
-@interface SMMailInfoViewController ()<SMWebLoaderOperationDelegate>
+@interface SMMailInfoViewController ()<SMWebLoaderOperationDelegate, UIWebViewDelegate>
 @property (weak, nonatomic) IBOutlet UIWebView *webViewForContent;
 @property (weak, nonatomic) IBOutlet UIView *viewForInfo;
 @property (weak, nonatomic) IBOutlet UILabel *labelForTitle;
@@ -83,6 +84,19 @@
 - (void)webLoaderOperationFail:(SMWebLoaderOperation *)opt error:(SMMessage *)error
 {
     [self toast:error.message];
+}
+
+#pragma mark - UIWebViewDelegate
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    if ([request.URL.absoluteString isEqualToString:@"about:blank"]) {
+        return YES;
+    }
+    
+    PBWebViewController *pbvc = [[PBWebViewController alloc] init];
+    pbvc.URL = request.URL;
+    [self.navigationController pushViewController:pbvc animated:YES];
+    return NO;
 }
 
 

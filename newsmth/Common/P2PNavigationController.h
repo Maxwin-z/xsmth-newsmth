@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "P2PViewController.h"
+
+@protocol P2PNavigationControllerDelegate <NSObject>
+@optional
+- (BOOL)navigationUnsupportPanToPop;
+@end
 
 @interface P2PNavigationController : UINavigationController
 

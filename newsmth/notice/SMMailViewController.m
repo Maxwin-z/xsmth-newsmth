@@ -117,6 +117,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [_tableView deselectRowAtIndexPath:indexPath animated:YES];
+
     if (_mails.count > indexPath.row) {
         SMMailItem *item = _mails[indexPath.row];
         SMMailInfoViewController *mailInfoVc = [[SMMailInfoViewController alloc] init];
