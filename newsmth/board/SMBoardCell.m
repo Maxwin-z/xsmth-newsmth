@@ -54,27 +54,24 @@ static SMBoardCell *_instance;
     _labelForReplyTime.text = [SMUtils formatDate:[NSDate dateWithTimeIntervalSince1970:_post.replyDate / 1000]];
     [_buttonForAuthor setTitle:_post.author forState:UIControlStateNormal];
     [_buttonForReplyAuthor setTitle:_post.replyAuthor forState:UIControlStateNormal];
-    
-    
+
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
     // fix position
     __block CGFloat left = _labelForPostTime.frame.origin.x;
+    CGFloat centerY = _labelForPostTime.center.y;
     [@[_labelForPostTime, _buttonForAuthor, _labelForReplyTime, _buttonForReplyAuthor]
      enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
          UIView *view = obj;
          [view sizeToFit];
          
-         if ([SMUtils systemVersion] == 7) {
-             if ([obj isKindOfClass:[UIButton class]]) {
-                 UIButton *btn = obj;
-                 CGRect frame = btn.frame;
-                 frame.size = btn.titleLabel.bounds.size;
-                 btn.frame = frame;
-             }
-         }
-         
          CGRect frame = view.frame;
          frame.origin.x = left;
          view.frame = frame;
+         view.center = CGPointMake(view.center.x, centerY);
          
          left += frame.size.width + 10.0f;   //padding
      }];
