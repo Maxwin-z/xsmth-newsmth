@@ -9,6 +9,8 @@
 #import "SMMailViewController.h"
 #import "XPullRefreshTableView.h"
 #import "SMMailCell.h"
+#import "SMMailInfoViewController.h"
+#import "SMNoticeViewController.h"
 
 @interface SMMailViewController ()<SMWebLoaderOperationDelegate, XPullRefreshTableViewDelegate, UITableViewDataSource, UITableViewDelegate>
 @property (assign, nonatomic) NSInteger page;
@@ -111,6 +113,16 @@
     }
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (_mails.count > indexPath.row) {
+        SMMailItem *item = _mails[indexPath.row];
+        SMMailInfoViewController *mailInfoVc = [[SMMailInfoViewController alloc] init];
+        mailInfoVc.mail = item;
+        [[SMNoticeViewController instance].navigationController pushViewController:mailInfoVc animated:YES];
+    }
 }
 
 #pragma mark - SMWebLoaderOperationDelegate
