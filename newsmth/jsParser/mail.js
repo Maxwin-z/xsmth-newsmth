@@ -30,7 +30,7 @@ function $parse(html) {
 		document.body.appendChild(div);
 
 		var lis = div.querySelectorAll('li');
-		if (lis.length == 0 && lis[0].innerHTML == '没有任何信件') {
+		if (lis.length == 1 && lis[0].innerHTML == '没有任何信件') {
 			data.hasMail = false;
 		} else {
 			data.hasMail = true;

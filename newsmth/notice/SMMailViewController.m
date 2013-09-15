@@ -16,6 +16,8 @@
 
 @property (strong, nonatomic) SMWebLoaderOperation *mailOp;
 @property (weak, nonatomic) IBOutlet XPullRefreshTableView *tableView;
+@property (strong, nonatomic) IBOutlet UIView *viewForTableHeader;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 @property (strong, nonatomic) NSArray *mails;
 @end
 
@@ -26,6 +28,7 @@
     [super viewDidLoad];
     self.title = @"邮箱";
     _tableView.xdelegate = self;
+    _tableView.tableHeaderView = _viewForTableHeader;
     [self loadData:NO];
 }
 
@@ -36,7 +39,16 @@
     } else {
         ++_page;
     }
-    NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/mail/inbox?p=%d", _page];
+    
+    NSString *mailType = @"inbox";
+    if (_segmentedControl.selectedSegmentIndex == 1) {
+        mailType = @"outbox";
+    }
+    if (_segmentedControl.selectedSegmentIndex == 2) {
+        mailType = @"deleted";
+    }
+    
+    NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/mail/%@?p=%d", mailType, _page];
     
     [_mailOp cancel];
     _mailOp = [[SMWebLoaderOperation alloc] init];
@@ -50,21 +62,41 @@
     [self.tableView reloadData];
 }
 
+- (IBAction)onSegmentedControlValueChanged:(UISegmentedControl *)sender
+{
+    [self loadData:NO];
+}
+
+
 #pragma mark - UITableViewDataSource/Delegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SMMailItem *item = _mails[indexPath.row];
-    return [SMMailCell cellHeight:item];
+    if (indexPath.row < _mails.count) {
+        SMMailItem *item = _mails[indexPath.row];
+        return [SMMailCell cellHeight:item];
+    }
+    return 44.0f;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _mails.count;
+    return _mails.count == 0 ? 1 : _mails.count;
+}
+
+- (UITableViewCell *)emptyCell
+{
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+    cell.textLabel.text = @"没有任何信件";
+    return cell;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (_mails.count == 0) {    // empty
+        return [self emptyCell];
+    }
+
     NSString *cellId = @"mail_cell";
     SMMailCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     if (cell == nil) {
@@ -84,7 +116,7 @@
 #pragma mark - SMWebLoaderOperationDelegate
 - (void)webLoaderOperationFinished:(SMWebLoaderOperation *)opt
 {
-    XLog_d(@"%@", opt.data);
+//    XLog_d(@"%@", opt.data);
     [_tableView endRefreshing:YES];
 
     SMMailList *mailList = opt.data;
