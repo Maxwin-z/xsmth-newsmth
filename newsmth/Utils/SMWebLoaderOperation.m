@@ -61,6 +61,10 @@
         _request = [[SMHttpRequest alloc] initWithURL:url];
     }
     
+    if ([_url hasPrefix:@"http://www.newsmth.net/nForum/"]) {
+        [_request addRequestHeader:@"X-Requested-With" value:@"XMLHttpRequest"];
+    }
+    
     _request.delegate = self;
     
 //    XLog_d(@"url[%@] start", _url);

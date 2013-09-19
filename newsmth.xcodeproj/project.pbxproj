@@ -58,6 +58,7 @@
 		C14505E51750787C00DC5431 /* SMAccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C14505E41750787C00DC5431 /* SMAccountManager.m */; };
 		C14505E817507A9800DC5431 /* SMHttpRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C14505E717507A9800DC5431 /* SMHttpRequest.m */; };
 		C14505ED17507DD400DC5431 /* XLogUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = C14505EC17507DD400DC5431 /* XLogUtil.m */; };
+		C147EC4B17EAEEBD00530E86 /* refer_me.js in Resources */ = {isa = PBXBuildFile; fileRef = C147EC4917EAEE7B00530E86 /* refer_me.js */; };
 		C15188CF17A7B2A900E8344D /* SMNoticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C15188CD17A7B2A900E8344D /* SMNoticeViewController.m */; };
 		C15188D017A7B2A900E8344D /* SMNoticeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C15188CE17A7B2A900E8344D /* SMNoticeViewController.xib */; };
 		C1643A7917E9A54C00107559 /* icon_120@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1643A7817E9A54C00107559 /* icon_120@2x.png */; };
@@ -290,6 +291,7 @@
 		C14505E717507A9800DC5431 /* SMHttpRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SMHttpRequest.m; path = ../SMHttpRequest.m; sourceTree = "<group>"; };
 		C14505EB17507DD400DC5431 /* XLogUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLogUtil.h; sourceTree = "<group>"; };
 		C14505EC17507DD400DC5431 /* XLogUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLogUtil.m; sourceTree = "<group>"; };
+		C147EC4917EAEE7B00530E86 /* refer_me.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = refer_me.js; sourceTree = "<group>"; };
 		C15188CC17A7B2A900E8344D /* SMNoticeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMNoticeViewController.h; sourceTree = "<group>"; };
 		C15188CD17A7B2A900E8344D /* SMNoticeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMNoticeViewController.m; sourceTree = "<group>"; };
 		C15188CE17A7B2A900E8344D /* SMNoticeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMNoticeViewController.xib; sourceTree = "<group>"; };
@@ -611,6 +613,7 @@
 		C121F2991750EE790081FD87 /* jsParser */ = {
 			isa = PBXGroup;
 			children = (
+				C147EC4917EAEE7B00530E86 /* refer_me.js */,
 				C10F2F8717E59E4800F83206 /* mailcontent.js */,
 				C10F2F7917E5805A00F83206 /* mail.js */,
 				C16C1099179A238F00A14727 /* notice.js */,
@@ -1193,6 +1196,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C147EC4B17EAEEBD00530E86 /* refer_me.js in Resources */,
 				C10F2F8917E59E5A00F83206 /* mailcontent.js in Resources */,
 				C10F2F7B17E5808D00F83206 /* mail.js in Resources */,
 				C16C109A179A238F00A14727 /* notice.js in Resources */,
