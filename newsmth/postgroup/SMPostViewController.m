@@ -138,6 +138,7 @@
     } else {
         if (!more) {
             _pno = 1;
+            [_postHeightMap removeAllObjects];  // clear cache
         }
         [_pageOp cancel];
         NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbstcon.php?board=%@&gid=%d&start=%d&pno=%d", _board.name, _gid, _start > 0 ? _start : _gid, _pno];

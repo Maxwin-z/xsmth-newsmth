@@ -105,7 +105,7 @@
     _activityIndicatorForRefresh.hidden = NO;
     if (!self.isDragging) {
         UIEdgeInsets inset = self.contentInset;
-        inset.top = REFRESH_TRIGGER_HEIGHT + NAVIGATION_HEIGHT;
+        inset.top = REFRESH_TRIGGER_HEIGHT; // + NAVIGATION_HEIGHT;
         [UIView animateWithDuration:ANIMATION_DURATION animations:^{
             self.contentInset = inset;
             self.scrollIndicatorInsets = inset;
@@ -167,7 +167,7 @@
     if (_isRefreshing) {
         return ;
     }
-    XLog_d(@"%f", scrollView.contentOffset.y);
+//    XLog_d(@"%f", scrollView.contentOffset.y);
     if (scrollView.contentOffset.y < -REFRESH_TRIGGER_HEIGHT) {
         _labelForRefreshHint.text = @"释放立即刷新";
         [UIView animateWithDuration:ANIMATION_DURATION animations:^{
