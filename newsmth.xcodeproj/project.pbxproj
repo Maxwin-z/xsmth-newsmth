@@ -60,6 +60,7 @@
 		C14505ED17507DD400DC5431 /* XLogUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = C14505EC17507DD400DC5431 /* XLogUtil.m */; };
 		C15188CF17A7B2A900E8344D /* SMNoticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C15188CD17A7B2A900E8344D /* SMNoticeViewController.m */; };
 		C15188D017A7B2A900E8344D /* SMNoticeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C15188CE17A7B2A900E8344D /* SMNoticeViewController.xib */; };
+		C1643A7917E9A54C00107559 /* icon_120@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1643A7817E9A54C00107559 /* icon_120@2x.png */; };
 		C16714391766CFED00F56535 /* XPullRefreshTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = C16714381766CFED00F56535 /* XPullRefreshTableView.m */; };
 		C167143B1766D01700F56535 /* XPullRefreshTableViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = C167143A1766D01700F56535 /* XPullRefreshTableViewHeader.xib */; };
 		C167143D1766D02100F56535 /* XPullRefreshTableViewFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = C167143C1766D02100F56535 /* XPullRefreshTableViewFooter.xib */; };
@@ -292,6 +293,7 @@
 		C15188CC17A7B2A900E8344D /* SMNoticeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMNoticeViewController.h; sourceTree = "<group>"; };
 		C15188CD17A7B2A900E8344D /* SMNoticeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMNoticeViewController.m; sourceTree = "<group>"; };
 		C15188CE17A7B2A900E8344D /* SMNoticeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMNoticeViewController.xib; sourceTree = "<group>"; };
+		C1643A7817E9A54C00107559 /* icon_120@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_120@2x.png"; sourceTree = "<group>"; };
 		C16714371766CFED00F56535 /* XPullRefreshTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPullRefreshTableView.h; sourceTree = "<group>"; };
 		C16714381766CFED00F56535 /* XPullRefreshTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPullRefreshTableView.m; sourceTree = "<group>"; };
 		C167143A1766D01700F56535 /* XPullRefreshTableViewHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XPullRefreshTableViewHeader.xib; sourceTree = "<group>"; };
@@ -790,6 +792,7 @@
 		C1BFB8D0174F6A620092FD2E = {
 			isa = PBXGroup;
 			children = (
+				C1643A7817E9A54C00107559 /* icon_120@2x.png */,
 				C102B8C31782D4A3000E2EEB /* icon.png */,
 				C13D4121176DCD5100BD03A4 /* icon@2x.png */,
 				C1BFB8E2174F6A620092FD2E /* newsmth */,
@@ -1242,6 +1245,7 @@
 				C1FD13D1178182E3006A6061 /* button_gray_default@2x.png in Resources */,
 				C1FD13D2178182E3006A6061 /* button_gray_pressed@2x.png in Resources */,
 				C1FD13D3178182E3006A6061 /* button_red_default@2x.png in Resources */,
+				C1643A7917E9A54C00107559 /* icon_120@2x.png in Resources */,
 				C1FD13D4178182E3006A6061 /* button_red_pressed@2x.png in Resources */,
 				C1FD13DD1781B26F006A6061 /* left_shadow@2x.png in Resources */,
 				C1C4C8821781B4FF0092E77C /* SMBaseBorardListViewController.xib in Resources */,
