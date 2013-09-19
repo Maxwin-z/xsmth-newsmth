@@ -9,6 +9,8 @@
 #import "SMReplyMeViewController.h"
 #import "XPullRefreshTableView.h"
 #import "SMMainpageCell.h"
+#import "SMPostViewController.h"
+#import "SMNoticeViewController.h"
 
 @interface SMReplyMeViewController ()<XPullRefreshTableViewDelegate, UITableViewDelegate, UITableViewDataSource, SMWebLoaderOperationDelegate>
 @property (assign, nonatomic) NSInteger page;
@@ -78,6 +80,14 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    SMPost *post = _posts[indexPath.row];
+    NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/refer/reply/read?index=%d", post.gid];
+    SMPostViewController *vc = [[SMPostViewController alloc] init];
+    vc.postUrl = url;
+    [[SMNoticeViewController instance].navigationController pushViewController:vc animated:YES];
+}
 
 #pragma mark - SMWebLoaderOperationDelegate
 - (void)webLoaderOperationFinished:(SMWebLoaderOperation *)opt
