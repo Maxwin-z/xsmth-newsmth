@@ -9,5 +9,5 @@
 #import "SMViewController.h"
 
 @interface SMReplyMeViewController : SMViewController
-
+@property (strong, nonatomic) NSString *refer;  // reply|at
 @end

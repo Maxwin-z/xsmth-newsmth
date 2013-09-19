@@ -199,7 +199,7 @@
     if (indexPath.row == 1) {
         id v = [_postHeightMap objectForKey:@(item.post.pid)];
         if (v != nil) {
-            XLog_d(@"has height: %f", [v floatValue]);
+//            XLog_d(@"has height: %f", [v floatValue]);
             return [v floatValue];
         }
         return 60.0f;

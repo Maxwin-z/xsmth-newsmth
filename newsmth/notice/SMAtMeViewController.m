@@ -13,6 +13,14 @@
 @end
 
 @implementation SMAtMeViewController
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        self.refer = @"at";
+    }
+    return self;
+}
 
 - (void)viewDidLoad
 {

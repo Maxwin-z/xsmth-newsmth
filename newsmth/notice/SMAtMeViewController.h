@@ -7,7 +7,8 @@
 //
 
 #import "SMViewController.h"
+#import "SMReplyMeViewController.h"
 
-@interface SMAtMeViewController : SMViewController
+@interface SMAtMeViewController : SMReplyMeViewController
 
 @end

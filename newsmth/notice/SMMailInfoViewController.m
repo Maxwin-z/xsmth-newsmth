@@ -69,7 +69,7 @@
 #pragma mark - SMWebLoaderOperationDelegate
 - (void)webLoaderOperationFinished:(SMWebLoaderOperation *)opt
 {
-    XLog_d(@"%@", opt.data);
+//    XLog_d(@"%@", opt.data);
     SMResult *result = opt.data;
     NSString *html = [NSString stringWithFormat:@"<html><body style='margin:0; padding: 10px; font-size: 15px;font-family: Verdana;'>%@</body></html>", result.message];
     [_webViewForContent loadHTMLString:html baseURL:nil];

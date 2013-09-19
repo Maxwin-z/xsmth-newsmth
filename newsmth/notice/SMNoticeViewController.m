@@ -54,7 +54,7 @@ static SMNoticeViewController *_instance;
     SMMailViewController *mailVc = [[SMMailViewController alloc] init];
     SMAtMeViewController *atMeVc = [[SMAtMeViewController alloc] init];
     SMReplyMeViewController *replyVc = [[SMReplyMeViewController alloc] init];
-    _viewControllers = @[mailVc, atMeVc, replyVc];
+    _viewControllers = @[mailVc, replyVc, atMeVc];
     
     self.currentSelectIndex = 0;
 }
