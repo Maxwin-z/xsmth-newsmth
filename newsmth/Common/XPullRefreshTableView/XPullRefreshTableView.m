@@ -10,8 +10,8 @@
 #import "UIButton+Custom.h"
 
 #define ANIMATION_DURATION  0.1f
-#define REFRESH_TRIGGER_HEIGHT  60.0f
 #define NAVIGATION_HEIGHT   64.0f
+#define REFRESH_TRIGGER_HEIGHT  (60.0f + NAVIGATION_HEIGHT)
 
 @interface XPullRefreshTableView ()<UITableViewDelegate>
 @property (weak, nonatomic) id<UITableViewDelegate> originalDelegate;
@@ -167,7 +167,7 @@
     if (_isRefreshing) {
         return ;
     }
-    
+    XLog_d(@"%f", scrollView.contentOffset.y);
     if (scrollView.contentOffset.y < -REFRESH_TRIGGER_HEIGHT) {
         _labelForRefreshHint.text = @"释放立即刷新";
         [UIView animateWithDuration:ANIMATION_DURATION animations:^{
