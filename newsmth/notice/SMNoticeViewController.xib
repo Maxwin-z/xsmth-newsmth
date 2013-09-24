@@ -7,6 +7,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SMNoticeViewController">
             <connections>
+                <outlet property="tabBarItemForAt" destination="11" id="Twm-qg-yPI"/>
+                <outlet property="tabBarItemForMail" destination="5" id="puE-2C-vhG"/>
+                <outlet property="tabBarItemForReply" destination="6" id="4Rb-nS-Nz0"/>
                 <outlet property="tabbar" destination="4" id="eNx-7O-qR1"/>
                 <outlet property="view" destination="1" id="3"/>
                 <outlet property="viewForContainer" destination="10" id="4pw-xh-eZQ"/>

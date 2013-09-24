@@ -38,6 +38,7 @@ typedef NS_ENUM(NSInteger, CellType) {
     self = [super init];
     if (self) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onAccountNotification) name:NOTIFICATION_ACCOUT object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onNoticeNofitication) name:NOTIFICATION_NOTICE object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onBecomeActivity) name:UIApplicationDidBecomeActiveNotification object:nil];
     }
     return self;
@@ -55,6 +56,11 @@ typedef NS_ENUM(NSInteger, CellType) {
 }
 
 - (void)onAccountNotification
+{
+    [self.tableView reloadData];
+}
+
+- (void)onNoticeNofitication
 {
     [self.tableView reloadData];
 }
@@ -173,7 +179,6 @@ typedef NS_ENUM(NSInteger, CellType) {
 - (void)webLoaderOperationFinished:(SMWebLoaderOperation *)opt
 {
     [SMAccountManager instance].notice = opt.data;
-    [self.tableView reloadData];
 }
 
 - (void)webLoaderOperationFail:(SMWebLoaderOperation *)opt error:(SMMessage *)error

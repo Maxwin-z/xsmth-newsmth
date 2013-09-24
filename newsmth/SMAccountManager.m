@@ -34,6 +34,14 @@ static SMAccountManager *_instance;
     return self;
 }
 
+- (void)setNotice:(SMNotice *)notice
+{
+    if (_notice != notice) {
+        _notice = notice;
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_NOTICE object:nil];
+}
+
 - (void)loadCookie
 {
     NSURL *url = [NSURL URLWithString:@"http://m.newsmth.net"];

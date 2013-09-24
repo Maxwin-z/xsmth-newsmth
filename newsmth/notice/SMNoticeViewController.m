@@ -18,6 +18,12 @@ static SMNoticeViewController *_instance;
 @property (weak, nonatomic) IBOutlet UIView *viewForContainer;
 @property (weak, nonatomic) IBOutlet UITabBar *tabbar;
 @property (assign, nonatomic) NSInteger currentSelectIndex;
+
+@property (weak, nonatomic) IBOutlet UITabBarItem *tabBarItemForMail;
+@property (weak, nonatomic) IBOutlet UITabBarItem *tabBarItemForReply;
+@property (weak, nonatomic) IBOutlet UITabBarItem *tabBarItemForAt;
+
+
 @end
 
 @implementation SMNoticeViewController
@@ -33,6 +39,7 @@ static SMNoticeViewController *_instance;
 {
     if (_instance == nil) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accountChanged) name:NOTIFICATION_ACCOUT object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onNoticeNotification) name:NOTIFICATION_NOTICE object:nil];
 
         _instance = self = [super initWithNibName:@"SMNoticeViewController" bundle:nil];
         _currentSelectIndex = -1;
@@ -57,6 +64,8 @@ static SMNoticeViewController *_instance;
     _viewControllers = @[mailVc, replyVc, atMeVc];
     
     self.currentSelectIndex = 0;
+    
+    [self onNoticeNotification]; 
 }
 
 - (void)setCurrentSelectIndex:(NSInteger)currentSelectIndex
@@ -65,7 +74,7 @@ static SMNoticeViewController *_instance;
         return ;
     }
     
-    UIView *v = [self viewControllerAtIndex:currentSelectIndex].view;
+    UIView *v = [self viewControllerAtIndex:_currentSelectIndex].view;
     [v removeFromSuperview];
     
     _currentSelectIndex = currentSelectIndex;
@@ -101,6 +110,14 @@ static SMNoticeViewController *_instance;
         self.tabbar.hidden = self.viewForContainer.hidden = YES;
         [self showLogin];
     }
+}
+
+- (void)onNoticeNotification
+{
+    SMNotice *notice = [SMAccountManager instance].notice;
+    _tabBarItemForMail.badgeValue = notice.mail > 0 ? @"信" : nil;
+    _tabBarItemForReply.badgeValue = notice.reply > 0 ? [NSString stringWithFormat:@"%d", notice.reply] : nil;
+    _tabBarItemForAt.badgeValue = notice.at > 0 ? [NSString stringWithFormat:@"%d", notice.at] : nil;
 }
 
 #pragma mark - UITabBarDelegate

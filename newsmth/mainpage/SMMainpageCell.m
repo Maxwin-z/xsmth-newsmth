@@ -11,14 +11,6 @@
 
 static SMMainpageCell *_instance;
 
-
-@interface SMMainpageCell ()
-@property (strong, nonatomic) IBOutlet UIView *viewForCell;
-@property (weak, nonatomic) IBOutlet UILabel *labelForTitle;
-@property (weak, nonatomic) IBOutlet UILabel *labelForBoardName;
-@property (weak, nonatomic) IBOutlet UILabel *labelForAuthor;
-@end
-
 @implementation SMMainpageCell
 
 + (SMMainpageCell *)instance

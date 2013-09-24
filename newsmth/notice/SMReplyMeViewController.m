@@ -12,6 +12,18 @@
 #import "SMPostViewController.h"
 #import "SMNoticeViewController.h"
 
+@interface SMReferMeCell : SMMainpageCell
+@end
+
+@implementation SMReferMeCell
+- (void)setPost:(SMPost *)post
+{
+    [super setPost:post];
+
+    self.imageViewForStatus.hidden = !post.isTop;
+}
+@end
+
 @interface SMReplyMeViewController ()<XPullRefreshTableViewDelegate, UITableViewDelegate, UITableViewDataSource, SMWebLoaderOperationDelegate>
 @property (assign, nonatomic) NSInteger page;
 @property (assign, nonatomic) NSInteger tpage;
@@ -76,9 +88,9 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SMMainpageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    SMReferMeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     if (cell == nil) {
-        cell = [[SMMainpageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+        cell = [[SMReferMeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
     }
     cell.post = _posts[indexPath.row];
     
@@ -95,7 +107,20 @@
     NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/refer/%@/read?index=%d", _refer, post.gid];
     SMPostViewController *vc = [[SMPostViewController alloc] init];
     vc.postUrl = url;
-    [[SMNoticeViewController instance].navigationController pushViewController:vc animated:YES];
+    [[SMNoticeViewController instance].navigationController pushViewController:vc animated:YES];\
+    
+    if (post.isTop) {
+        post.isTop = NO;
+        SMNotice *notice = [SMAccountManager instance].notice;
+        if ([_refer isEqualToString:@"at"]) {
+            --notice.at;
+        } else {
+            --notice.reply;
+        }
+        [SMAccountManager instance].notice = notice;
+        
+        [_tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
 }
 
 #pragma mark - SMWebLoaderOperationDelegate
