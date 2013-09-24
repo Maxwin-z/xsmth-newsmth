@@ -99,6 +99,7 @@
 
 - (void)tableViewDoRetry:(XPullRefreshTableView *)tableView
 {
+    [self.tableView setLoadMoreShow];
     [self loadData:YES];
 }
 

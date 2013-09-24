@@ -418,6 +418,7 @@
 - (void)tableViewDoRetry:(XPullRefreshTableView *)tableView
 {
     [self loadData:YES];
+    [self.tableView setLoadMoreShow];
     [SMUtils trackEventWithCategory:@"postgroup" action:@"retry" label:_board.name];
 }
 
