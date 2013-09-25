@@ -1486,7 +1486,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "18B7B0EF-20DB-4FFD-84F1-D8DE55A0EC82";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1510,7 +1510,7 @@
 					"\"$(SRCROOT)/newsmth/Frameworks/GoogleAnalytics\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "18B7B0EF-20DB-4FFD-84F1-D8DE55A0EC82";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1561,7 +1561,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "18B7B0EF-20DB-4FFD-84F1-D8DE55A0EC82";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1587,7 +1587,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "18B7B0EF-20DB-4FFD-84F1-D8DE55A0EC82";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1597,7 +1597,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: WenDong Zhang (98EQXDKJAE)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/newsmth/Frameworks\"",
@@ -1611,8 +1611,8 @@
 					"\"$(SRCROOT)/newsmth/Frameworks/GoogleAnalytics\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4384F1AE-1CD6-4CD2-9894-9FF1D2415E1E";
+				PROVISIONING_PROFILE = "18B7B0EF-20DB-4FFD-84F1-D8DE55A0EC82";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "18B7B0EF-20DB-4FFD-84F1-D8DE55A0EC82";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1635,7 +1635,7 @@
 					"\"$(SRCROOT)/newsmth/Frameworks/GoogleAnalytics\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "18B7B0EF-20DB-4FFD-84F1-D8DE55A0EC82";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

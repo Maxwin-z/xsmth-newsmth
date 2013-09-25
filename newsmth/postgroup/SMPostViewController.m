@@ -78,6 +78,7 @@
     }
     
     self.tableView.xdelegate = self;
+    self.tableView.enablePullLoad = YES;
     [self.tableView beginRefreshing];
 }
 
@@ -413,6 +414,11 @@
 {
     [self loadData:NO];
     [SMUtils trackEventWithCategory:@"postgroup" action:@"refresh" label:_board.name];
+}
+
+- (void)tableViewDoLoadMore:(XPullRefreshTableView *)tableView
+{
+    XLog_d(@"tableViewDoLoadMoretableViewDoLoadMoretableViewDoLoadMore");
 }
 
 - (void)tableViewDoRetry:(XPullRefreshTableView *)tableView

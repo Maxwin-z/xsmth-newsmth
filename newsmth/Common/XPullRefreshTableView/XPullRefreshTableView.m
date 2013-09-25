@@ -17,6 +17,7 @@
 @property (weak, nonatomic) id<UITableViewDelegate> originalDelegate;
 
 @property (assign, nonatomic) BOOL isRefreshing;
+@property (assign, nonatomic) BOOL isLoadingMore;
 
 #pragma refresh header
 @property (strong, nonatomic) IBOutlet UIView *viewForRefreshHeader;
@@ -28,6 +29,8 @@
 #pragma load more footer
 @property (strong, nonatomic) IBOutlet UIView *viewForLoadingMore;
 @property (strong, nonatomic) IBOutlet UIView *viewForLoadMoreFail;
+@property (strong, nonatomic) IBOutlet UIView *viewForLoadPull;
+@property (weak, nonatomic) IBOutlet UILabel *labelForPullHint;
 @property (weak, nonatomic) IBOutlet UIButton *buttonForRetry;
 
 @end
@@ -134,17 +137,43 @@
 
 - (void)setLoadMoreShow
 {
+    [self setLoadPullHide];
     self.tableFooterView = _viewForLoadingMore;
+    _isLoadingMore = NO;
 }
 
 - (void)setLoadMoreHide
 {
     self.tableFooterView = nil;
+    _isLoadingMore = NO;
+    [self setLoadPullShow];
 }
 
 - (void)setLoadMoreFail
 {
+    [self setLoadPullHide];
     self.tableFooterView = _viewForLoadMoreFail;
+    _isLoadingMore = NO;
+}
+
+- (void)setLoadPullShow
+{
+    if (_enablePullLoad) {
+        self.tableFooterView = _viewForLoadPull;
+        UIEdgeInsets inset = self.contentInset;
+        inset.bottom = -_viewForLoadPull.frame.size.height;
+        self.contentInset = self.scrollIndicatorInsets = inset;
+    }
+}
+
+- (void)setLoadPullHide
+{
+    if (_enablePullLoad) {
+        self.tableFooterView = nil;
+        UIEdgeInsets inset = self.contentInset;
+        inset.bottom = 0;
+        self.contentInset = self.scrollIndicatorInsets = inset;
+    }
 }
 
 #pragma mark - Method forward
@@ -164,7 +193,7 @@
     if ([_originalDelegate respondsToSelector:@selector(scrollViewDidScroll:)]) {
         [_originalDelegate scrollViewDidScroll:scrollView];
     }
-    if (_isRefreshing) {
+    if (_isRefreshing || _isLoadingMore) {
         return ;
     }
 //    XLog_d(@"%f", scrollView.contentOffset.y);
@@ -180,6 +209,20 @@
         }];
     }
 
+    if (!_enablePullLoad) {
+        return ;
+    }
+    
+    CGFloat bottom = scrollView.contentOffset.y + scrollView.bounds.size.height - scrollView.contentInset.bottom;
+    CGFloat height = scrollView.contentSize.height;
+    
+    if (bottom > height) {
+        _labelForPullHint.text = @"上拉载入更多";
+    }
+    
+    if (bottom > height + _viewForLoadPull.frame.size.height) {
+        _labelForPullHint.text = @"释放立即加载";
+    }
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
@@ -187,13 +230,29 @@
     if ([_originalDelegate respondsToSelector:@selector(scrollViewDidEndDragging:willDecelerate:)]) {
         [_originalDelegate scrollViewDidEndDragging:scrollView willDecelerate:decelerate];
     }
-    if (_isRefreshing) {
+    if (_isRefreshing || _isLoadingMore) {
         return ;
     }
     
     if (scrollView.contentOffset.y < -REFRESH_TRIGGER_HEIGHT) {
         _labelForRefreshHint.text = @"正在载入...";
         [self beginRefreshing];
+    }
+    
+    if (!_enablePullLoad) {
+        return ;
+    }
+    
+    CGFloat bottom = scrollView.contentOffset.y + scrollView.bounds.size.height - scrollView.contentInset.bottom;
+    CGFloat height = scrollView.contentSize.height;
+    
+    if (bottom > height + _viewForLoadPull.frame.size.height) {
+        // trgger load more
+        [self setLoadMoreShow];
+        if ([_xdelegate respondsToSelector:@selector(tableViewDoLoadMore:)]) {
+            [_xdelegate tableViewDoLoadMore:self];
+            _isLoadingMore = YES;
+        }
     }
 }
 
