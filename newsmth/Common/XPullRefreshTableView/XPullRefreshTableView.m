@@ -135,6 +135,16 @@
     }
 }
 
+- (void)beginLoadMore
+{
+    [self setLoadPullHide];
+    [self setLoadMoreShow];
+    if ([_xdelegate respondsToSelector:@selector(tableViewDoLoadMore:)]) {
+        [_xdelegate tableViewDoLoadMore:self];
+        _isLoadingMore = YES;
+    }
+}
+
 - (void)setLoadMoreShow
 {
     [self setLoadPullHide];
@@ -159,20 +169,21 @@
 - (void)setLoadPullShow
 {
     if (_enablePullLoad) {
-        self.tableFooterView = _viewForLoadPull;
-        UIEdgeInsets inset = self.contentInset;
-        inset.bottom = -_viewForLoadPull.frame.size.height;
-        self.contentInset = self.scrollIndicatorInsets = inset;
+        CGRect frame = _viewForLoadPull.frame;
+        frame.origin.y = self.bounds.size.height - SM_TOP_INSET;
+        if (self.contentSize.height > self.bounds.size.height) {
+            frame.origin.y = self.contentSize.height;
+        }
+        
+        _viewForLoadPull.frame = frame;
+        [self addSubview:_viewForLoadPull];
     }
 }
 
 - (void)setLoadPullHide
 {
     if (_enablePullLoad) {
-        self.tableFooterView = nil;
-        UIEdgeInsets inset = self.contentInset;
-        inset.bottom = 0;
-        self.contentInset = self.scrollIndicatorInsets = inset;
+        [_viewForLoadPull removeFromSuperview];
     }
 }
 
@@ -213,8 +224,15 @@
         return ;
     }
     
-    CGFloat bottom = scrollView.contentOffset.y + scrollView.bounds.size.height - scrollView.contentInset.bottom;
+    CGFloat bottom = scrollView.contentOffset.y + scrollView.bounds.size.height;
     CGFloat height = scrollView.contentSize.height;
+    if (scrollView.bounds.size.height > height) {   // 不满屏
+        height = scrollView.bounds.size.height;
+        bottom += SM_TOP_INSET;
+    }
+    
+    XLog_d(@"%f, %f", bottom, height);
+    [self setLoadPullShow];
     
     if (bottom > height) {
         _labelForPullHint.text = @"上拉载入更多";
@@ -243,16 +261,16 @@
         return ;
     }
     
-    CGFloat bottom = scrollView.contentOffset.y + scrollView.bounds.size.height - scrollView.contentInset.bottom;
+    CGFloat bottom = scrollView.contentOffset.y + scrollView.bounds.size.height;
     CGFloat height = scrollView.contentSize.height;
+    if (scrollView.bounds.size.height > height) {   // 不满屏
+        height = scrollView.bounds.size.height;
+        bottom += SM_TOP_INSET;
+    }
     
     if (bottom > height + _viewForLoadPull.frame.size.height) {
         // trgger load more
-        [self setLoadMoreShow];
-        if ([_xdelegate respondsToSelector:@selector(tableViewDoLoadMore:)]) {
-            [_xdelegate tableViewDoLoadMore:self];
-            _isLoadingMore = YES;
-        }
+        [self beginLoadMore];
     }
 }
 

@@ -24,6 +24,7 @@
 
 - (void)beginRefreshing;
 - (void)endRefreshing:(BOOL)success;
+- (void)beginLoadMore;
 
 - (void)setLoadMoreShow;
 - (void)setLoadMoreHide;
