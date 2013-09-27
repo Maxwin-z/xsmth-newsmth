@@ -231,7 +231,7 @@
         bottom += SM_TOP_INSET;
     }
     
-    XLog_d(@"%f, %f", bottom, height);
+//    XLog_d(@"%f, %f", bottom, height);
     [self setLoadPullShow];
     
     if (bottom > height) {

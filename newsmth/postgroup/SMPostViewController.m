@@ -38,6 +38,18 @@
 @property (assign, nonatomic) NSInteger pno;    // current page
 @property (assign, nonatomic) BOOL isSinglePost;
 
+// 支持继续加载
+@property (assign, nonatomic) NSInteger totalPage;   // 一共有多少页
+//@property (assign, nonatomic) NSInteger start;  // 当前开始的post id
+//@property (assign, nonatomic) NSInteger pno;    // 从开始的post id已加载了多少页
+//@property (assign, nonatomic) NSInteger tpage;  // 从开始的post id，一共有多少页
+
+/*
+ 默认totalPage = 0, start = 第一个post id
+ 每次触发继续加载，设置当前最后一个post id为start, pno = 1
+ 数据返回，加数据合并到当前list中, totalPage += tpage - 1.
+*/
+
 @property (strong, nonatomic) NSMutableDictionary *postHeightMap;   // cache post webview height;
 
 @property (strong, nonatomic) SMPost *replyPost;    // 准备回复的主题
@@ -52,6 +64,7 @@
     self = [super initWithNibName:@"SMPostViewController" bundle:nil];
     if (self) {
         _pno = 1;
+        _totalPage = 0;
         _postHeightMap = [[NSMutableDictionary alloc] init];
     }
     return self;
@@ -139,7 +152,9 @@
     } else {
         if (!more) {
             _pno = 1;
-            [_postHeightMap removeAllObjects];  // clear cache
+            if (_totalPage == 0) {  // 刷新操作
+                [_postHeightMap removeAllObjects];  // clear cache
+            }
         }
         [_pageOp cancel];
         NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbstcon.php?board=%@&gid=%d&start=%d&pno=%d", _board.name, _gid, _start > 0 ? _start : _gid, _pno];
@@ -333,16 +348,9 @@
         
         // add post to postOps
         SMPostGroup *postGroup = opt.data;
-        _tpage = postGroup.tpage;
-        XLog_d(@"%d, %d", _pno, _tpage);
-        if (_pno != _tpage) {
-            [_tableView setLoadMoreShow];
-        } else {
-            [_tableView setLoadMoreHide];
-        }
         
         NSMutableArray *tmp;
-        if (_pno == 1) {    // first page
+        if (_totalPage == 0) {  // 首次或刷新操作，构建新的数组
             [self.tableView endRefreshing:YES];
             tmp = [[NSMutableArray alloc] initWithCapacity:0];
             _bid = postGroup.bid;
@@ -352,8 +360,20 @@
         } else {
             tmp = [_postItems mutableCopy];
         }
+
+        __block BOOL needRemoveFirstPost = _totalPage != 0 && _pno == 1; // 继续加载使用最后一条做开始，会导致重复
         [postGroup.posts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             SMPost *post = obj;
+
+            // 再次检测是否第一条重复（保险期间）
+            if (needRemoveFirstPost) {
+                needRemoveFirstPost = NO;
+                SMPostItem *lastItem = [tmp lastObject];
+                if (lastItem.post.pid == post.pid) {    // 重复，跳过
+                    return ;
+                }
+            }
+            
             NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbscon.php?bid=%d&id=%d", _bid, post.pid];
             
             SMWebLoaderOperation *op = [[SMWebLoaderOperation alloc] init];
@@ -364,11 +384,31 @@
             item.op = op;
             item.post = post;
             item.index = tmp.count;
+
             [tmp addObject:item];
         }];
         XLog_d(@"%d", tmp.count);
-        self.postItems = tmp;
         
+        // 更新页数
+        _tpage = postGroup.tpage;
+        if (_pno != _tpage) {
+            [_tableView setLoadMoreShow];
+        } else {
+            [_tableView setLoadMoreHide];
+        }
+        
+        if (_pno == 1) {
+            if (_totalPage == 0) {
+                _totalPage = _tpage;
+            } else {
+                _totalPage += _tpage - 1;
+            }
+        }
+
+        self.postItems = tmp;
+
+        XLog_d(@"pno[%d], tpage[%d], total[%d]", _pno, _tpage, _totalPage);
+
         // next page
         ++_pno;
     } else if (opt == _singlePostOp) {
@@ -412,13 +452,18 @@
 #pragma mark - XPullRefreshTableViewDelegate
 - (void)tableViewDoRefresh:(XPullRefreshTableView *)tableView
 {
+    _totalPage = 0;
     [self loadData:NO];
     [SMUtils trackEventWithCategory:@"postgroup" action:@"refresh" label:_board.name];
 }
 
 - (void)tableViewDoLoadMore:(XPullRefreshTableView *)tableView
 {
-    XLog_d(@"tableViewDoLoadMoretableViewDoLoadMoretableViewDoLoadMore");
+    SMPostItem *item = [_postItems lastObject];
+    if (item) {
+        _start = item.post.pid;
+        [self loadData:NO];
+    }
 }
 
 - (void)tableViewDoRetry:(XPullRefreshTableView *)tableView
