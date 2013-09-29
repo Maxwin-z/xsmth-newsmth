@@ -13,4 +13,5 @@
 @property (assign, nonatomic) NSInteger selectedIndex;
 @property (strong, nonatomic) UIFont *normalFont;
 @property (strong, nonatomic) UIFont *highlightFont;
+@property (assign, nonatomic) BOOL isDragging;
 @end

@@ -31,9 +31,10 @@
 
 - (void)setSelectedIndex:(NSInteger)selectedIndex
 {
-    if (selectedIndex >= 0 && selectedIndex < self.titles.count) {
+    if (selectedIndex >= 0 && selectedIndex < self.titles.count && _selectedIndex != selectedIndex) {
         _selectedIndex = selectedIndex;
         [self makeup];
+        [self sendActionsForControlEvents:UIControlEventValueChanged];
     }
 }
 
@@ -140,13 +141,38 @@
     return res;
 }
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [super touchesBegan:touches withEvent:event];
+    _isDragging = YES;
+}
+
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    [super touchesMoved:touches withEvent:event];
     UITouch *touch = [[touches allObjects] firstObject];
     CGPoint point = [touch locationInView:self];
 //    NSLog(@"%@", NSStringFromCGPoint(point));
     CGFloat y = point.y;
     self.selectedIndex = (int)(y * self.titles.count / self.bounds.size.height);
+}
+
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [super touchesCancelled:touches withEvent:event];
+    [self endTouch];
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [super touchesEnded:touches withEvent:event];
+    [self endTouch];
+}
+
+- (void)endTouch
+{
+    _isDragging = NO;
+    [self sendActionsForControlEvents:UIControlEventTouchCancel];
 }
 
 /*

@@ -15,10 +15,21 @@
 @property (assign, nonatomic) BOOL loadFail;
 @end
 
+// 分页信息
+@interface SMPostPageItem : NSObject
+@property (assign, nonatomic) BOOL isPageLoaded;
+@property (assign, nonatomic) NSInteger gid;
+@property (assign, nonatomic) NSInteger start;
+@property (assign, nonatomic) NSInteger pno;
+@property (assign, nonatomic) NSInteger tpage;
+@property (assign, nonatomic) NSInteger pageIndex;
+@end
+
 @interface SMPostViewController : SMViewController
 @property (strong, nonatomic) SMBoard *board;  // 版面
 @property (assign, nonatomic) NSInteger gid;    // group id
 @property (assign, nonatomic) NSInteger start;
+@property (strong, nonatomic) SMPostPageItem *currentPageItem;
 @property (assign, nonatomic) BOOL fromBoard;
 
 @property (strong, nonatomic) NSString *postUrl;
