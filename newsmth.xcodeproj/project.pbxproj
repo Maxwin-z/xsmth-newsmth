@@ -174,6 +174,7 @@
 		C1C4C8941781C4A60092E77C /* SMSectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1C4C8931781C4A60092E77C /* SMSectionViewController.m */; };
 		C1CC1B40177857FB00FC63A8 /* P2PNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1CC1B3C177857FB00FC63A8 /* P2PNavigationController.m */; };
 		C1CC1B41177857FB00FC63A8 /* P2PViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1CC1B3F177857FB00FC63A8 /* P2PViewController.m */; };
+		C1D190D017F7F3E00056F3FE /* XScrollIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = C1D190CE17F7F3E00056F3FE /* XScrollIndicator.m */; };
 		C1E3A22A1780600900994CE6 /* SMUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E3A2281780600900994CE6 /* SMUserViewController.m */; };
 		C1E3A22B1780600900994CE6 /* SMUserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1E3A2291780600900994CE6 /* SMUserViewController.xib */; };
 		C1E6289B1764BAD4007ACF2A /* SMAttach.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E628961764BAD4007ACF2A /* SMAttach.m */; };
@@ -478,6 +479,8 @@
 		C1CC1B3D177857FB00FC63A8 /* P2PNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P2PNavigationController.h; sourceTree = "<group>"; };
 		C1CC1B3E177857FB00FC63A8 /* P2PViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P2PViewController.h; sourceTree = "<group>"; };
 		C1CC1B3F177857FB00FC63A8 /* P2PViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P2PViewController.m; sourceTree = "<group>"; };
+		C1D190CE17F7F3E00056F3FE /* XScrollIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XScrollIndicator.m; sourceTree = "<group>"; };
+		C1D190CF17F7F3E00056F3FE /* XScrollIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XScrollIndicator.h; sourceTree = "<group>"; };
 		C1E2AB9A177DB051007AE5AC /* SMData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMData.h; sourceTree = "<group>"; };
 		C1E3A2271780600900994CE6 /* SMUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMUserViewController.h; sourceTree = "<group>"; };
 		C1E3A2281780600900994CE6 /* SMUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMUserViewController.m; sourceTree = "<group>"; };
@@ -586,6 +589,8 @@
 		C10D161B175617D4002D6FAD /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				C1D190CF17F7F3E00056F3FE /* XScrollIndicator.h */,
+				C1D190CE17F7F3E00056F3FE /* XScrollIndicator.m */,
 				C10080CF1785983800487A45 /* XImagePicker */,
 				C1CC1B3D177857FB00FC63A8 /* P2PNavigationController.h */,
 				C1CC1B3C177857FB00FC63A8 /* P2PNavigationController.m */,
@@ -1399,6 +1404,7 @@
 				C1C07A661796857900906ED7 /* OWTwitterActivity.m in Sources */,
 				C16C1098179A1CA200A14727 /* SMNotice.m in Sources */,
 				C1FF62B1179E6DF4001F7A15 /* SMPostViewController.m in Sources */,
+				C1D190D017F7F3E00056F3FE /* XScrollIndicator.m in Sources */,
 				C1C18D9B17A533F3008C598C /* SMMailViewController.m in Sources */,
 				C1C18DA617A534D1008C598C /* SMAtMeViewController.m in Sources */,
 				C1C18DAB17A534FE008C598C /* SMReplyMeViewController.m in Sources */,

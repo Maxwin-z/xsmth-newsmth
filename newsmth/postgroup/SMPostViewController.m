@@ -16,6 +16,7 @@
 #import "SMWritePostViewController.h"
 #import "SMUserViewController.h"
 #import "SMBoardViewController.h"
+#import "XScrollIndicator.h"
 
 #define STRING_EXPAND_HERE  @"从此处展开"
 #define STRING_EXPAND_ALL  @"同主题展开"
@@ -25,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet XPullRefreshTableView *tableView;
 @property (strong, nonatomic) IBOutlet UIView *tableViewHeader;
 @property (weak, nonatomic) IBOutlet UILabel *labelForTitle;
+@property (strong, nonatomic) XScrollIndicator *scrollIndicator;
 
 @property (strong, nonatomic) SMWebLoaderOperation *singlePostOp;   // Re, At, Search...
 @property (strong, nonatomic) SMPost *singlePost;
@@ -93,6 +95,16 @@
     self.tableView.xdelegate = self;
     self.tableView.enablePullLoad = YES;
     [self.tableView beginRefreshing];
+
+    CGRect frame = self.view.bounds;
+    frame.origin.y = SM_TOP_INSET + 20.0f;;
+    frame.size.height -= frame.origin.y + 40.0f;
+    frame.origin.x = 290.0f;
+    frame.size.width -= frame.origin.x;
+    
+    _scrollIndicator = [[XScrollIndicator alloc] initWithFrame:frame];
+    [self.view addSubview:_scrollIndicator];
+    _scrollIndicator.autoresizingMask = UIViewAutoresizingFlexibleHeight;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -170,6 +182,18 @@
 {
     _postItems = postItems;
     [self.tableView reloadData];
+}
+
+- (void)setTotalPage:(NSInteger)totalPage
+{
+    _totalPage = totalPage;
+    
+    if (_totalPage < 2) return ;
+    NSMutableArray *pages = [[NSMutableArray alloc] init];
+    for (int i = 0; i < _totalPage; ++i) {
+        [pages addObject:[NSString stringWithFormat:@"%d", i + 1]];
+    }
+    _scrollIndicator.titles = pages;
 }
 
 - (void)updateTableView
@@ -399,9 +423,9 @@
         
         if (_pno == 1) {
             if (_totalPage == 0) {
-                _totalPage = _tpage;
+                self.totalPage = _tpage;
             } else {
-                _totalPage += _tpage - 1;
+                self.totalPage += _tpage - 1;
             }
         }
 

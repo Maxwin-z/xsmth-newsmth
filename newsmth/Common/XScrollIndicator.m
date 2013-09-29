@@ -17,7 +17,8 @@
         // Initialization code
         _normalFont = [UIFont systemFontOfSize:12.0f];
         _highlightFont = [UIFont systemFontOfSize:25.0f];
-        _selectedIndex = 5;
+        _selectedIndex = 0;
+        self.backgroundColor = SMRGB(0xf0, 0xf0, 0xff);
     }
     return self;
 }
@@ -44,6 +45,8 @@
         [obj removeFromSuperview];
     }];
     
+    XLog_d(@"%d", _selectedIndex);
+    
     CGFloat totalHeight = self.bounds.size.height;
     
     CGFloat itemHeight = [self heightForFont:_normalFont];
@@ -56,7 +59,7 @@
     }
     
     NSArray *availTitles = _titles;
-    __block NSInteger tmpSelectedIndex = 0;
+    __block NSInteger tmpSelectedIndex = _selectedIndex;
     if (count > maxAvailCount && count > 2) {    // 不能够容纳所以的项目，按固定间距挑选
         // 0, selectedIndex, n-1 必选, ids用于存储被选中的id（这些id会被全部选择或者剔除）
         NSMutableArray *ids = [[NSMutableArray alloc] init];
