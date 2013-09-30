@@ -19,6 +19,7 @@
 // 分页信息
 @interface SMPostPageItem : NSObject
 @property (assign, nonatomic) BOOL isPageLoaded;
+@property (assign, nonatomic) BOOL isLastOne;
 @property (assign, nonatomic) NSInteger gid;
 @property (assign, nonatomic) NSInteger start;
 @property (assign, nonatomic) NSInteger pno;

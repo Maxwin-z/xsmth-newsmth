@@ -96,19 +96,8 @@
     
     if (_board == nil && _postUrl != nil) {
         _isSinglePost = YES;
-    } else {
-        SMPostPageItem *pageItem = [[SMPostPageItem alloc] init];
-        pageItem.gid = _gid;
-        if (_start == 0) {
-            pageItem.start = _gid;
-        }
-        pageItem.pageIndex = 1;
-        pageItem.pno = 1;
-        pageItem.startIndex = 0;
-        
-        [self.tableView beginRefreshing];
-        self.items = @[pageItem];
     }
+    [self.tableView beginRefreshing];
     
 
     CGRect frame = self.view.bounds;
@@ -181,20 +170,16 @@
         _singlePostOp.delegate = self;
         [_singlePostOp loadUrl:_postUrl withParser:@"bbscon"];
     } else {
-//        if (!more) {
-////            _pno = 1;
-//            _currentPageItem.pno = 1;   // ?
-//            if (_totalPage == 0) {  // 刷新操作
-//                [_postHeightMap removeAllObjects];  // clear cache
-//            }
-//        }
-//        [_pageOp cancel];
-//        NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbstcon.php?board=%@&gid=%d&start=%d&pno=%d", _board.name, _gid, _currentPageItem.start, _currentPageItem.pno];
-//        _pageOp = [[SMWebLoaderOperation alloc] init];
-//        _pageOp.highPriority = YES;
-//        _pageOp.delegate = self;
-//        _isLoading = YES;
-//        [_pageOp loadUrl:url withParser:@"bbstcon"];
+        SMPostPageItem *pageItem = [[SMPostPageItem alloc] init];
+        pageItem.gid = _gid;
+        if (_start == 0) {
+            pageItem.start = _gid;
+        }
+        pageItem.pageIndex = 1;
+        pageItem.pno = 1;
+        pageItem.startIndex = 0;
+        
+        self.items = @[pageItem];
     }
 }
 
@@ -216,7 +201,6 @@
         return; // 程序设置的位置，不做处理
     }
     
-    XLog_d(@"%d", _scrollIndicator.selectedIndex);
     NSInteger index = _scrollIndicator.selectedIndex;
     __block NSInteger section = 0;
     [_items enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -507,8 +491,12 @@
             _postTitle = postGroup.title;
             [self makeupTableViewHeader:postGroup.title];
         }
+        [self.tableView setLoadMoreHide];
         
         NSInteger index = [_items indexOfObject:_currentPageItem];
+        if (_currentPageItem.isLastOne) {
+            index = _items.count - 1;
+        }
         NSMutableArray *headArray = [[_items subarrayWithRange:NSMakeRange(0, index + 1)] mutableCopy];
         NSArray *tailArray = [_items subarrayWithRange:NSMakeRange(index + 1, _items.count - index - 1)];
         
@@ -541,7 +529,7 @@
             [headArray addObject:item];
         }];
         
-        if (_totalPage == 0) {  // 首次或刷新操作，构建新的数组postItems
+        if (_currentPageItem.pno == 1 && postGroup.tpage > 1) {  // 首次加载，构建新的数组postItems
             int countPerPage = postGroup.posts.count;
             for (int i = 2; i <= postGroup.tpage; ++i) {
                 SMPostPageItem *pageItem = [[SMPostPageItem alloc] init];
@@ -549,11 +537,13 @@
                 pageItem.start = _currentPageItem.start;
                 pageItem.pno = i;
                 pageItem.pageIndex = _totalPage + i;
-                pageItem.startIndex = countPerPage * (i - 1);
+                pageItem.startIndex = countPerPage * (i - 1) + _currentPageItem.startIndex;
                 
                 [headArray addObject:pageItem];
             }
-            self.totalPage = postGroup.tpage;
+            self.totalPage += postGroup.tpage;
+        } else if (_totalPage == 0) {
+            self.totalPage = 1;
         }
         
         [headArray addObjectsFromArray:tailArray];
@@ -579,7 +569,7 @@
 
         self.items = headArray;
 
-        XLog_d(@"pno[%d], tpage[%d], total[%d]", _currentPageItem.pno, _currentPageItem.tpage, _totalPage);
+//        XLog_d(@"pno[%d], tpage[%d], total[%d]", _currentPageItem.pno, _currentPageItem.tpage, _totalPage);
     } else if (opt == _singlePostOp) {
         [_tableView endRefreshing:YES];
         SMPost *post = opt.data;
@@ -607,11 +597,8 @@
     XLog_d(@"%@ %@", opt.url, error);
     if (opt == _pageOp) {
         _isLoading = NO;
-        if (_currentPageItem.pno == 1) {
-            [self.tableView endRefreshing:NO];
-        } else {
-            [self.tableView setLoadMoreFail];
-        }
+        [self.tableView endRefreshing:NO];
+        [self.tableView setLoadMoreFail];
         [self toast:error.message];
     } else if (!_scrollIndicator.isDragging) {
         [_tableView reloadData];
@@ -628,10 +615,28 @@
 
 - (void)tableViewDoLoadMore:(XPullRefreshTableView *)tableView
 {
-    SMPostItem *item = [_items lastObject];
-    if (item) {
-        _currentPageItem.start = item.post.pid;
-        [self loadData:NO];
+    // get last page item
+    SMPostPageItem *pageItem = nil;
+    for (int i = _items.count - 1; i >= 0; --i) {
+        id item = _items[i];
+        if ([item isKindOfClass:[SMPostPageItem class]]) {
+            pageItem = item;
+            break;
+        }
+    }
+    if (pageItem) { // should be always exists
+        SMPostItem *postItem = [_items lastObject];
+        if ([postItem isKindOfClass:[SMPostItem class]]) {  // should be
+            pageItem.start = postItem.post.pid;
+            pageItem.startIndex = postItem.pageIndex - 1;
+            pageItem.pno = 1;
+            pageItem.isLastOne = YES;
+            [self loadPageData:pageItem];
+        } else {
+            XLog_e(@"last item is not post");
+        }
+    } else {
+        XLog_e(@"cannot find page item");
     }
 }
 
