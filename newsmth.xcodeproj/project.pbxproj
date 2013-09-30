@@ -175,6 +175,7 @@
 		C1CC1B40177857FB00FC63A8 /* P2PNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1CC1B3C177857FB00FC63A8 /* P2PNavigationController.m */; };
 		C1CC1B41177857FB00FC63A8 /* P2PViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1CC1B3F177857FB00FC63A8 /* P2PViewController.m */; };
 		C1D190D017F7F3E00056F3FE /* XScrollIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = C1D190CE17F7F3E00056F3FE /* XScrollIndicator.m */; };
+		C1D190DA17F9244D0056F3FE /* SMPageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1D190D917F9244D0056F3FE /* SMPageCell.xib */; };
 		C1E3A22A1780600900994CE6 /* SMUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E3A2281780600900994CE6 /* SMUserViewController.m */; };
 		C1E3A22B1780600900994CE6 /* SMUserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1E3A2291780600900994CE6 /* SMUserViewController.xib */; };
 		C1E6289B1764BAD4007ACF2A /* SMAttach.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E628961764BAD4007ACF2A /* SMAttach.m */; };
@@ -481,6 +482,7 @@
 		C1CC1B3F177857FB00FC63A8 /* P2PViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P2PViewController.m; sourceTree = "<group>"; };
 		C1D190CE17F7F3E00056F3FE /* XScrollIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XScrollIndicator.m; sourceTree = "<group>"; };
 		C1D190CF17F7F3E00056F3FE /* XScrollIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XScrollIndicator.h; sourceTree = "<group>"; };
+		C1D190D917F9244D0056F3FE /* SMPageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMPageCell.xib; sourceTree = "<group>"; };
 		C1E2AB9A177DB051007AE5AC /* SMData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMData.h; sourceTree = "<group>"; };
 		C1E3A2271780600900994CE6 /* SMUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMUserViewController.h; sourceTree = "<group>"; };
 		C1E3A2281780600900994CE6 /* SMUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMUserViewController.m; sourceTree = "<group>"; };
@@ -755,6 +757,7 @@
 				C100984E17828305001608EE /* SMPostFailCell.h */,
 				C100984F17828305001608EE /* SMPostFailCell.m */,
 				C100985117828310001608EE /* SMPostFailCell.xib */,
+				C1D190D917F9244D0056F3FE /* SMPageCell.xib */,
 			);
 			path = cells;
 			sourceTree = "<group>";
@@ -1270,6 +1273,7 @@
 				C102B8C41782D4A3000E2EEB /* icon.png in Resources */,
 				C10080D41785984700487A45 /* SMImagePickerViewController.xib in Resources */,
 				C10080F81785A4D700487A45 /* SMImagePickerAssetsViewController.xib in Resources */,
+				C1D190DA17F9244D0056F3FE /* SMPageCell.xib in Resources */,
 				C1A50E2D1786C5BA00D43439 /* SMImagePickerAssetsCell.xib in Resources */,
 				C1A50E331786E5BA00D43439 /* button_upload@2x.png in Resources */,
 				C17F4B84178C0A21002F4934 /* SMImageUploadListViewController.xib in Resources */,

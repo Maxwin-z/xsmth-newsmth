@@ -10,6 +10,7 @@
 
 @interface SMPostItem : NSObject
 @property (assign, nonatomic) NSInteger index;
+@property (assign, nonatomic) NSInteger pageIndex;
 @property (strong, nonatomic) SMPost *post;
 @property (strong, nonatomic) SMWebLoaderOperation *op;
 @property (assign, nonatomic) BOOL loadFail;
@@ -22,6 +23,7 @@
 @property (assign, nonatomic) NSInteger start;
 @property (assign, nonatomic) NSInteger pno;
 @property (assign, nonatomic) NSInteger tpage;
+@property (assign, nonatomic) NSInteger startIndex; // 起始楼层
 @property (assign, nonatomic) NSInteger pageIndex;
 @end
 

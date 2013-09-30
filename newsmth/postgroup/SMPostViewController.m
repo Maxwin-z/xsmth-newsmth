@@ -104,6 +104,7 @@
         }
         pageItem.pageIndex = 1;
         pageItem.pno = 1;
+        pageItem.startIndex = 0;
         
         [self.tableView beginRefreshing];
         self.items = @[pageItem];
@@ -118,6 +119,7 @@
     
     _scrollIndicator = [[XScrollIndicator alloc] initWithFrame:frame];
     [self.view addSubview:_scrollIndicator];
+    _scrollIndicator.hidden = YES;
     _scrollIndicator.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     [_scrollIndicator addTarget:self action:@selector(onScrollIndicatorValueChanged) forControlEvents:UIControlEventValueChanged];
     [_scrollIndicator addTarget:self action:@selector(onScrollIndicatorTouchEnd) forControlEvents:UIControlEventTouchCancel];
@@ -210,6 +212,10 @@
 
 - (void)onScrollIndicatorValueChanged
 {
+    if (!_scrollIndicator.isDragging) {
+        return; // 程序设置的位置，不做处理
+    }
+    
     XLog_d(@"%d", _scrollIndicator.selectedIndex);
     NSInteger index = _scrollIndicator.selectedIndex;
     __block NSInteger section = 0;
@@ -223,7 +229,7 @@
         }
     }];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:section];
-    [_tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    [_tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
 }
 
 - (void)onScrollIndicatorTouchEnd
@@ -343,17 +349,28 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:pageCellId];
         }
         SMPostPageItem *pageItem = item;
-        cell.textLabel.text = [NSString stringWithFormat:@"%@ %d", pageItem.isPageLoaded ? @"Loaded" : @"UnLoaded", pageItem.pageIndex];
+        cell.textLabel.font = [UIFont systemFontOfSize:80.0f];
+        cell.textLabel.textColor = [UIColor grayColor];
+        cell.textLabel.shadowOffset = CGSizeMake(2, 2);
+        cell.textLabel.shadowColor = [UIColor blackColor];
+        cell.textLabel.textAlignment = UITextAlignmentCenter;
+        cell.textLabel.text = [NSString stringWithFormat:@"%d", pageItem.pageIndex];
         
         if (!pageItem.isPageLoaded && !self.scrollIndicator.isDragging) {
             [self loadPageData:pageItem];
         }
         
-        self.scrollIndicator.selectedIndex = pageItem.pageIndex - 1;
+        if (!self.scrollIndicator.isDragging) {
+            self.scrollIndicator.selectedIndex = pageItem.pageIndex - 1;
+        }
         
         return cell;
     } else {
         SMPostItem *postItem = item;
+        
+        if (!self.scrollIndicator.isDragging) {
+            self.scrollIndicator.selectedIndex = postItem.pageIndex - 1;
+        }
         
         if (indexPath.row == 0) {   // header
             return [self cellForTitle:item];
@@ -374,11 +391,14 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    self.scrollIndicator.hidden = NO;
+    if (self.scrollIndicator.titles.count > 1) {
+        self.scrollIndicator.hidden = NO;
+    }
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideScrollIndicator) object:nil];
     [self performSelector:@selector(hideScrollIndicator) withObject:nil afterDelay:1.0f];
 }
 
@@ -514,18 +534,21 @@
             SMPostItem *item = [[SMPostItem alloc] init];
             item.op = op;
             item.post = post;
-            item.index = headArray.count;
+            item.index = _currentPageItem.startIndex + idx;
+            item.pageIndex = _currentPageItem.pageIndex;
 
             [headArray addObject:item];
         }];
         
         if (_totalPage == 0) {  // 首次或刷新操作，构建新的数组postItems
-            for (int i = 2; i < postGroup.tpage; ++i) {
+            int countPerPage = postGroup.posts.count;
+            for (int i = 2; i <= postGroup.tpage; ++i) {
                 SMPostPageItem *pageItem = [[SMPostPageItem alloc] init];
                 pageItem.gid = _currentPageItem.gid;
                 pageItem.start = _currentPageItem.start;
                 pageItem.pno = i;
                 pageItem.pageIndex = _totalPage + i;
+                pageItem.startIndex = countPerPage * (i - 1);
                 
                 [headArray addObject:pageItem];
             }
