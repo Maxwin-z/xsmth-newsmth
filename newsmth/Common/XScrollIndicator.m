@@ -9,16 +9,32 @@
 #import "XScrollIndicator.h"
 
 @implementation XScrollIndicator
+{
+    UIView *_contentView;
+}
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        _normalFont = [UIFont systemFontOfSize:12.0f];
-        _highlightFont = [UIFont systemFontOfSize:25.0f];
+        _normalFont = [UIFont systemFontOfSize:13.0f];
+        _highlightFont = [UIFont systemFontOfSize:20.0f];
         _selectedIndex = 0;
-        self.backgroundColor = SMRGB(0xf0, 0xf0, 0xff);
+
+        UIImageView *bgView = [[UIImageView alloc] initWithFrame:self.bounds];
+        bgView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        bgView.image = [[UIImage imageNamed:@"bg_scrollindicator"] stretchableImageWithLeftCapWidth:5 topCapHeight:15];
+        [self addSubview:bgView];
+        
+        CGRect contentFrame = self.bounds;
+        contentFrame.origin.y = 6.0f;
+        contentFrame.size.height -= 2 * contentFrame.origin.y;
+        _contentView = [[UIView alloc] initWithFrame:contentFrame];
+        _contentView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        _contentView.backgroundColor = [UIColor clearColor];
+        [self addSubview:_contentView];
+        
     }
     return self;
 }
@@ -42,16 +58,18 @@
 {
     if (_titles.count < 1) return ;
     
-    [self.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    [_contentView.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         [obj removeFromSuperview];
     }];
     
-    XLog_d(@"%d", _selectedIndex);
+//    XLog_d(@"%d", _selectedIndex);
     
-    CGFloat totalHeight = self.bounds.size.height;
+    CGFloat totalHeight = _contentView.bounds.size.height;
     
     CGFloat itemHeight = [self heightForFont:_normalFont];
     CGFloat highlightHeight = [self heightForFont:_highlightFont];
+    
+    CGFloat delta = highlightHeight - itemHeight;
     
     int count = _titles.count;
     int maxAvailCount = (totalHeight - highlightHeight) / itemHeight;
@@ -105,27 +123,43 @@
         }];
         availTitles = tmp;
     } else {
-        itemHeight = (totalHeight - highlightHeight) / (count - 1);
+        itemHeight = (totalHeight - delta) / count;
+        highlightHeight = itemHeight + delta;
     }
     
     __block CGFloat x = 0, y = 0;
+//    __block CGFloat maxWidth = 0;
     [availTitles enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         NSString *title = obj;
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(x, y, 100.0f, idx == tmpSelectedIndex ? highlightHeight : itemHeight)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(x, y, _contentView.bounds.size.width, idx == tmpSelectedIndex ? highlightHeight : itemHeight)];
         label.text = title;
         label.font = idx == tmpSelectedIndex ? _highlightFont : _normalFont;
         label.textColor = idx == tmpSelectedIndex ? [UIColor blueColor] : [UIColor blackColor];
+        label.textAlignment = UITextAlignmentCenter;
+        label.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+//        label.backgroundColor = [UIColor redColor];
+//        label.userInteractionEnabled = NO;
         
-        [self addSubview:label];
+        [_contentView addSubview:label];
         y += label.frame.size.height;
+
+//        CGFloat width = [self sizeForContent:label.text withFont:label.font].width;
+//        maxWidth = MAX(maxWidth, width);
     }];
+    
+//    CGRect frame = self.frame;
+//    frame.size.width = maxWidth + 10.0f;
+//    self.frame = frame;
 }
 
 - (CGFloat)heightForFont:(UIFont *)font
 {
-    NSDictionary * attrs = [NSDictionary dictionaryWithObjectsAndKeys:font, NSFontAttributeName, nil];
-    CGSize sbSize = [@"TEST" boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX) options:NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin attributes:attrs context:nil].size;
-    return ceilf(sbSize.height);
+    return [self sizeForContent:@"TEST" withFont:font].height;
+}
+
+- (CGSize)sizeForContent:(NSString *)content withFont:(UIFont *)font
+{
+    return [content smSizeWithFont:font constrainedToSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX) lineBreakMode:NSLineBreakByCharWrapping];
 }
 
 - (NSArray *)pickup:(NSInteger)start end:(NSInteger)end count:(NSInteger)count

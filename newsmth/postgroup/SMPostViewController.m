@@ -114,8 +114,8 @@
     CGRect frame = self.view.bounds;
     frame.origin.y = SM_TOP_INSET + 20.0f;;
     frame.size.height -= frame.origin.y + 40.0f;
-    frame.origin.x = 290.0f;
-    frame.size.width -= frame.origin.x;
+    frame.origin.x = 280.0f;
+    frame.size.width -= frame.origin.x + 10;
     
     _scrollIndicator = [[XScrollIndicator alloc] initWithFrame:frame];
     [self.view addSubview:_scrollIndicator];
@@ -228,8 +228,10 @@
             }
         }
     }];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:section];
-    [_tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    if (section < _items.count) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:section];
+        [_tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    }
 }
 
 - (void)onScrollIndicatorTouchEnd
@@ -263,7 +265,6 @@
     [_tableView beginUpdates];
     [_tableView endUpdates];
     [UIView setAnimationsEnabled:YES];
-//    [_tableView reloadData];
 }
 
 - (void)makeupTableViewHeader:(NSString *)text
@@ -644,8 +645,9 @@
 #pragma mark - XImageViewDelegate
 - (void)xImageViewDidLoad:(XImageView *)imageView
 {
-//    [self updateTableView];
-    [_tableView reloadData];
+    if (!_scrollIndicator.isDragging) {
+        [_tableView reloadData];
+    }
 }
 
 #pragma mark - SMPostGroupHeaderCellDelegate
