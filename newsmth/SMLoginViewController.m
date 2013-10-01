@@ -142,7 +142,7 @@
 - (void)fitLoginFrame
 {
     [UIView animateWithDuration:0.1f animations:^{
-        _viewFromContainer.center = CGPointMake(self.view.frame.size.width / 2.0f, (self.view.frame.size.height - self.keyboardHeight) / 2.0f);
+        _viewFromContainer.center = CGPointMake(self.view.frame.size.width / 2.0f, (self.view.frame.size.height - self.keyboardHeight + SM_TOP_INSET) / 2.0f);
     }];
 }
 
