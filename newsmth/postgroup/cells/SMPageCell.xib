@@ -14,12 +14,12 @@
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="1">
+        <view clipsSubviews="YES" contentMode="scaleToFill" id="1">
             <rect key="frame" x="0.0" y="0.0" width="320" height="400"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" id="aWp-cY-ZmB" userLabel="container">
-                    <rect key="frame" x="0.0" y="100" width="320" height="200"/>
+                    <rect key="frame" x="0.0" y="80" width="320" height="200"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="18" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Xaq-jY-9wu" userLabel="page num">
@@ -43,9 +43,12 @@
                             <state key="highlighted">
                                 <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
                             </state>
+                            <connections>
+                                <action selector="onRetryButtonClick:" destination="-1" eventType="touchUpInside" id="PCP-dl-8v3"/>
+                            </connections>
                         </button>
-                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" id="ecP-78-0ck">
-                            <rect key="frame" x="143" y="156" width="37" height="37"/>
+                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" id="ecP-78-0ck">
+                            <rect key="frame" x="152" y="164" width="20" height="20"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         </activityIndicatorView>

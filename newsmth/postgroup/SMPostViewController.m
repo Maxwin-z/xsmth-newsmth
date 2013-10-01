@@ -23,7 +23,7 @@
 #define STRING_EXPAND_ALL  @"同主题展开"
 
 
-@interface SMPostViewController ()<UITableViewDataSource, UITableViewDelegate, SMWebLoaderOperationDelegate, XPullRefreshTableViewDelegate, XImageViewDelegate, SMPostGroupHeaderCellDelegate, SMPostGroupContentCellDelegate, SMPostFailCellDelegate, UIActionSheetDelegate>
+@interface SMPostViewController ()<UITableViewDataSource, UITableViewDelegate, SMWebLoaderOperationDelegate, XPullRefreshTableViewDelegate, XImageViewDelegate, SMPostGroupHeaderCellDelegate, SMPostGroupContentCellDelegate, SMPostFailCellDelegate, SMPageCellDelegate, UIActionSheetDelegate>
 
 @property (weak, nonatomic) IBOutlet XPullRefreshTableView *tableView;
 @property (strong, nonatomic) IBOutlet UIView *tableViewHeader;
@@ -82,6 +82,10 @@
     [_items enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         if ([obj isKindOfClass:[SMPostItem class]]) {
             SMPostItem *item = obj;
+            [item.op cancel];
+        }
+        if ([obj isKindOfClass:[SMPostPageItem class]]) {
+            SMPostPageItem *item = obj;
             [item.op cancel];
         }
     }];
@@ -189,11 +193,15 @@
 - (void)loadPageData:(SMPostPageItem *)item
 {
     _currentPageItem = item;
+    _currentPageItem.isPageLoaded = NO;
+    _currentPageItem.isLoadFail = NO;
+    
     [_pageOp cancel];
     NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbstcon.php?board=%@&gid=%d&start=%d&pno=%d", _board.name, _gid, _currentPageItem.start, _currentPageItem.pno];
     _pageOp = [[SMWebLoaderOperation alloc] init];
     _pageOp.highPriority = YES;
     _pageOp.delegate = self;
+    _currentPageItem.op = _pageOp;
     _isLoading = YES;
     [_pageOp loadUrl:url withParser:@"bbstcon"];
 }
@@ -335,11 +343,13 @@
         SMPageCell *cell = [tableView dequeueReusableCellWithIdentifier:pageCellId];
         if (cell == nil) {
             cell = [[SMPageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:pageCellId];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.delegate = self;
         }
         SMPostPageItem *pageItem = item;
         cell.pageItem = item;
         
-        if (!pageItem.isPageLoaded && !self.scrollIndicator.isDragging) {
+        if (!pageItem.isPageLoaded && !pageItem.isLoadFail && !self.scrollIndicator.isDragging) {
             [self loadPageData:pageItem];
         }
         
@@ -572,7 +582,12 @@
 - (void)webLoaderOperationFail:(SMWebLoaderOperation *)opt error:(SMMessage *)error
 {
     XLog_d(@"%@ %@", opt.url, error);
-    if (opt == _pageOp || opt == _singlePostOp) {
+    if (opt == _pageOp) {
+        _currentPageItem.isLoadFail = YES;
+        [_tableView setLoadMoreHide];
+    }
+    
+    if (opt == _singlePostOp) {
         _isLoading = NO;
         [self.tableView endRefreshing:NO];
         [self toast:error.message];
@@ -706,6 +721,12 @@
     [_tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:NO];
 
     [SMUtils trackEventWithCategory:@"postgroup" action:@"retry_cell" label:_board.name];
+}
+
+#pragma mark - SMPageCellDelegate
+- (void)pageCellDoRetry:(SMPostPageItem *)pageItem
+{
+    [self loadPageData:pageItem];
 }
 
 #pragma mark - UIActionSheetDelegate

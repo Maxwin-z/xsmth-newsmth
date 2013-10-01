@@ -88,11 +88,18 @@ static SMMainViewController *_instance;
     [_centerViewController popToRootViewControllerAnimated:NO];
     _centerViewController.toolbarHidden = YES;
     _centerViewController.viewControllers = @[viewController];
-    viewController.navigationItem.leftBarButtonItem =
-        [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_menu"]
-                                         style:UIBarButtonItemStyleBordered
-                                    target:self
-                                    action:@selector(onLeftBarButtonClick)];
+    if ([SMUtils systemVersion] == 7) {
+        viewController.navigationItem.leftBarButtonItem =
+            [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_menu"]
+                                             style:UIBarButtonItemStyleBordered
+                                        target:self
+                                        action:@selector(onLeftBarButtonClick)];
+    } else {
+        viewController.navigationItem.leftBarButtonItem =
+            [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks
+                                                          target:self
+                                                          action:@selector(onLeftBarButtonClick)];
+    }
 }
 
 

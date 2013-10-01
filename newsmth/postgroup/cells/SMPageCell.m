@@ -39,8 +39,15 @@
     if (_pageItem.op && _pageItem.op.isExecuting) {
         _activityIndicator.hidden = NO;
     }
-    if (_pageItem.op && _pageItem.op.isFinished && _pageItem.op.data == nil) {
+    if (_pageItem.isLoadFail) {
         _buttonForRetry.hidden = NO;
     }
 }
+
+- (IBAction)onRetryButtonClick:(id)sender
+{
+    [_delegate pageCellDoRetry:_pageItem];
+    [self setPageItem:_pageItem];
+}
+
 @end

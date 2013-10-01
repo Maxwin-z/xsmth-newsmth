@@ -9,6 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "SMPostViewController.h"
 
+@protocol SMPageCellDelegate <NSObject>
+- (void)pageCellDoRetry:(SMPostPageItem *)pageItem;
+@end
+
 @interface SMPageCell : UITableViewCell
 @property (strong, nonatomic) SMPostPageItem *pageItem;
+@property (weak, nonatomic) id<SMPageCellDelegate> delegate;
 @end
