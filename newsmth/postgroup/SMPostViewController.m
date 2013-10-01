@@ -103,8 +103,8 @@
     CGRect frame = self.view.bounds;
     frame.origin.y = SM_TOP_INSET + 20.0f;;
     frame.size.height -= frame.origin.y + 40.0f;
-    frame.origin.x = 280.0f;
-    frame.size.width -= frame.origin.x + 10;
+    frame.origin.x = 292.0f;
+    frame.size.width -= frame.origin.x;
     
     _scrollIndicator = [[XScrollIndicator alloc] initWithFrame:frame];
     [self.view addSubview:_scrollIndicator];
