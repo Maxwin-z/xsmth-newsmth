@@ -91,6 +91,5 @@
     </objects>
     <resources>
         <image name="bg_input_field.png" width="49" height="31"/>
-        <image name="bg_input_field.png" width="49" height="31"/>
     </resources>
 </document>
