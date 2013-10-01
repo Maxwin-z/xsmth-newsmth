@@ -8,6 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SMMailCell">
             <connections>
                 <outlet property="buttonForAuthor" destination="hxa-Vg-jLq" id="8Bq-Vk-8Ot"/>
+                <outlet property="imageViewForReadStatus" destination="wmw-61-oiU" id="24X-b6-ylM"/>
                 <outlet property="labelForDate" destination="4S2-j8-sz6" id="tvQ-NJ-d6w"/>
                 <outlet property="labelForTitle" destination="4qU-6c-Kxb" id="qyP-Wz-Tzs"/>
                 <outlet property="viewForCell" destination="Y4V-nb-qBv" id="AWa-rV-JQT"/>
@@ -18,6 +19,10 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
+                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="unread.png" id="wmw-61-oiU">
+                    <rect key="frame" x="3" y="15" width="10" height="10"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4qU-6c-Kxb">
                     <rect key="frame" x="15" y="10" width="290" height="30"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -43,10 +48,16 @@
                     <state key="highlighted">
                         <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
                     </state>
+                    <connections>
+                        <action selector="onUserClick:" destination="-1" eventType="touchUpInside" id="amn-rU-83v"/>
+                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>
     </objects>
+    <resources>
+        <image name="unread.png" width="12" height="12"/>
+    </resources>
 </document>

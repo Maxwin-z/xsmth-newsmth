@@ -9,6 +9,7 @@
 #import "SMMailInfoViewController.h"
 #import "PBWebViewController.h"
 #import "SMMailComposeViewController.h"
+#import "SMUserViewController.h"
 
 @interface SMMailInfoViewController ()<SMWebLoaderOperationDelegate, UIWebViewDelegate>
 @property (weak, nonatomic) IBOutlet UIWebView *webViewForContent;
@@ -43,11 +44,24 @@
 - (void)onRightBarButtonItemClick
 {
     SMMailComposeViewController *mailComposeViewController = [[SMMailComposeViewController alloc] init];
+    NSString *title = _mail.title;
+    NSRange r = [title rangeOfString:@"Re: "];
+    if (r.length == 0 || (r.length > 0 && r.location > 0)) {
+        title = [NSString stringWithFormat:@"Re: %@", title];
+    }
+    _mail.title = title;
     mailComposeViewController.mail = _mail;
     
     P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:mailComposeViewController];
     [self.navigationController presentModalViewController:nvc animated:YES];
     
+}
+
+- (IBAction)onUserButtonClick:(id)sender
+{
+    SMUserViewController *vc = [[SMUserViewController alloc] init];
+    vc.username = _mail.author;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)loadMailInfo

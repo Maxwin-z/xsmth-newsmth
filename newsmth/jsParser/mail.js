@@ -38,6 +38,7 @@ function $parse(html) {
 				var li = lis[i];
 				var as = li.querySelectorAll('a');
 				var title_a = as[0];
+				var unread = title_a.className.indexOf('top')  != -1;
 				var url = title_a.pathname;
 				var title = title_a.innerHTML;
 				var author_a = as[1];
@@ -50,6 +51,7 @@ function $parse(html) {
 					title: title,
 					author: author,
 					date: date,
+					unread: unread,
 					url: url
 				});
 			}

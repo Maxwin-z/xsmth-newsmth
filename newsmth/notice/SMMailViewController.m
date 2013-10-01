@@ -12,8 +12,9 @@
 #import "SMMailInfoViewController.h"
 #import "SMNoticeViewController.h"
 #import "SMMailComposeViewController.h"
+#import "SMUserViewController.h"
 
-@interface SMMailViewController ()<SMWebLoaderOperationDelegate, XPullRefreshTableViewDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface SMMailViewController ()<SMWebLoaderOperationDelegate, XPullRefreshTableViewDelegate, UITableViewDataSource, UITableViewDelegate, SMMailCellDelegate>
 @property (assign, nonatomic) NSInteger page;
 @property (assign, nonatomic) NSInteger tpage;
 
@@ -117,6 +118,7 @@
     SMMailCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     if (cell == nil) {
         cell = [[SMMailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        cell.delegate = self;
     }
     
     SMMailItem *item = _mails[indexPath.row];
@@ -189,6 +191,14 @@
     [self loadData:YES];
     [self.tableView setLoadMoreShow];
     [_tableView reloadData];
+}
+
+#pragma mark - SMMailCellDelegate
+- (void)mailCellOnUserClick:(NSString *)username
+{
+    SMUserViewController *vc = [[SMUserViewController alloc] init];
+    vc.username = username;
+    [[SMNoticeViewController instance].navigationController pushViewController:vc animated:YES];
 }
 
 @end

@@ -8,8 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol SMMailCellDelegate <NSObject>
+@optional
+- (void)mailCellOnUserClick:(NSString *)username;
+@end
+
 @interface SMMailCell : UITableViewCell
 @property (strong, nonatomic) SMMailItem *item;
-
+@property (weak, nonatomic) id<SMMailCellDelegate> delegate;
 + (CGFloat)cellHeight:(SMMailItem *)item;
 @end

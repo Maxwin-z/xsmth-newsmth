@@ -4,6 +4,8 @@
 - (void)decode:(id)json
 {
 	NSDictionary *dict = json;
+	_unread = [[dict objectForKey:@"unread"] boolValue];
+
 	_author = [dict objectForKey:@"author"];
 
 	_title = [dict objectForKey:@"title"];
@@ -18,6 +20,8 @@
 - (id)encode
 {
 	NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+	[dict setObject:@(_unread) forKey:@"unread"];
+
 	if (_author != nil) {
 		[dict setObject:_author forKey:@"author"];
 	}

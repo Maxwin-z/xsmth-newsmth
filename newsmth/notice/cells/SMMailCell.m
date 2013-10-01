@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelForTitle;
 @property (weak, nonatomic) IBOutlet UIButton *buttonForAuthor;
 @property (weak, nonatomic) IBOutlet UILabel *labelForDate;
+@property (weak, nonatomic) IBOutlet UIImageView *imageViewForReadStatus;
 @end
 
 @implementation SMMailCell
@@ -40,6 +41,13 @@
     return self;
 }
 
+- (IBAction)onUserClick:(UIButton *)button
+{
+    if ([_delegate respondsToSelector:@selector(mailCellOnUserClick:)]) {
+        [_delegate mailCellOnUserClick:button.titleLabel.text];
+    }
+}
+
 - (void)setItem:(SMMailItem *)item
 {
     _item = item;
@@ -47,6 +55,7 @@
     _labelForDate.text = [SMUtils formatDate:[NSDate dateWithTimeIntervalSince1970:item.date / 1000]];
     [_buttonForAuthor setTitle:item.author forState:UIControlStateNormal];
     [_buttonForAuthor sizeToFit];
+    _imageViewForReadStatus.hidden = !_item.unread;
 }
 
 @end

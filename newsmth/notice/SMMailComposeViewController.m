@@ -38,9 +38,22 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"发送" style:UIBarButtonItemStyleBordered target:self action:@selector(doSend)];
     
-    _textFieldForTitle.background = [SMUtils stretchedImage:_textFieldForTitle.background];
-    _textFieldForReciver.background = [SMUtils stretchedImage:_textFieldForReciver.background];
     _imageViewForTextViewBg.image = [SMUtils stretchedImage:_imageViewForTextViewBg.image];
+    
+    [@[_textFieldForTitle, _textFieldForReciver] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        UITextField *textField = obj;
+        
+        textField.background = [SMUtils stretchedImage:textField.background];
+        
+        UIView *lv = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 5, 1)];
+        textField.leftView = lv;
+        textField.leftViewMode = UITextFieldViewModeAlways;
+        
+        UIView *rv = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 5, 1)];
+        textField.rightView = rv;
+        textField.rightViewMode = UITextFieldViewModeAlways;
+    }];
+
 
     _textFieldForTitle.text = _mail.title;
     _textFieldForReciver.text = _mail.author;
@@ -194,10 +207,10 @@
     SMWriteResult *result = opt.data;
     if (result.success) {
         [self toast:@"发送成功"];
+        [self performSelector:@selector(dismiss) withObject:nil afterDelay:TOAST_DURTAION + 0.1];
     } else {
         [self toast:result.message];
     }
-    [self performSelector:@selector(dismiss) withObject:nil afterDelay:TOAST_DURTAION + 0.1];
 }
 
 - (void)webLoaderOperationFail:(SMWebLoaderOperation *)opt error:(SMMessage *)error

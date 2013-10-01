@@ -94,6 +94,7 @@ SMNotice {
 }
 
 SMMailItem {
+	bool unread
 	string author
 	string title
 	long date	
