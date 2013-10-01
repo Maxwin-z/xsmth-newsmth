@@ -174,6 +174,8 @@
         pageItem.gid = _gid;
         if (_start == 0) {
             pageItem.start = _gid;
+        } else {
+            pageItem.start = _start;
         }
         pageItem.pageIndex = 1;
         pageItem.pno = 1;
@@ -739,12 +741,12 @@
         NSString *title = [actionSheet buttonTitleAtIndex:buttonIndex];
         if ([title isEqualToString:STRING_EXPAND_HERE]) {
             _gid = _singlePost.gid;
-            _currentPageItem.start = _singlePost.pid;
+            _start = _singlePost.pid;
             _isSinglePost = NO;
             [_tableView beginRefreshing];
         } else if ([title isEqualToString:STRING_EXPAND_ALL]) {
             _gid = _singlePost.gid;
-            _currentPageItem.start = _singlePost.gid;
+            _start = _singlePost.gid;
             _isSinglePost = NO;
             [_tableView beginRefreshing];
         } else {

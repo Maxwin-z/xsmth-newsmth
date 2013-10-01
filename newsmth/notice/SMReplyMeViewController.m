@@ -103,6 +103,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [_tableView deselectRowAtIndexPath:indexPath animated:YES];
+
     SMPost *post = _posts[indexPath.row];
     NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/refer/%@/read?index=%d", _refer, post.gid];
     SMPostViewController *vc = [[SMPostViewController alloc] init];
