@@ -39,6 +39,14 @@
 {
     [super viewDidLoad];
     
+    // add left shadow
+    UIView *shadowView = [[UIView alloc] init];
+    CGFloat shadowWidth = -3.0f;
+    shadowView.frame = CGRectMake(0, 0, shadowWidth, self.view.frame.size.height);
+    shadowView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    shadowView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"left_shadow"]];
+    [self.view addSubview:shadowView];
+
     if (ENABLE_P2P) {
         _backImageView = [[UIImageView alloc] init];
         _backImageView.autoresizingMask = self.view.autoresizingMask;
@@ -49,14 +57,6 @@
         _panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onPanGesture:)];
         _panGesture.delegate = self;
         [self.view addGestureRecognizer:_panGesture];
-        
-        // add left shadow
-        UIView *shadowView = [[UIView alloc] init];
-        CGFloat shadowWidth = -3.0f;
-        shadowView.frame = CGRectMake(0, 0, shadowWidth, self.view.frame.size.height);
-        shadowView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-        shadowView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"left_shadow"]];
-        [self.view addSubview:shadowView];
         
         // add bottom black view
         UIView *backgroundView = [[UIView alloc] initWithFrame:self.view.bounds];
