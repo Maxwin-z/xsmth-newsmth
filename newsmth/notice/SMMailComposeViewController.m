@@ -98,9 +98,12 @@
 
 - (void)doSend
 {
-    NSString *path = _mail.url;
-    path = [path stringByReplacingOccurrencesOfString:@"inbox/" withString:@"inbox/send/"];
-    NSString *formUrl = [NSString stringWithFormat:@"http://m.newsmth.net/%@", path];
+    NSString *formUrl = @"http://m.newsmth.net/mail/send";
+    if (_mail.url.length > 0) {
+        NSString *path = _mail.url;
+        path = [path stringByReplacingOccurrencesOfString:@"inbox/" withString:@"inbox/send/"];
+        formUrl = [NSString stringWithFormat:@"http://m.newsmth.net/%@", path];
+    }
  
     NSString *title = [_textFieldForTitle.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSString *receiver = [_textFieldForReciver.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -118,7 +121,7 @@
         return;
     }
     
-    NSString *postBody = [NSString stringWithFormat:@"id=%@&title=%@&content=%@", receiver, title, content];
+    NSString *postBody = [NSString stringWithFormat:@"id=%@&title=%@&content=%@&backup=1", receiver, title, content];
 
     SMHttpRequest *request = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:formUrl]];
     [request setRequestMethod:@"POST"];
@@ -148,6 +151,39 @@
     frame.origin.y = SM_TOP_INSET;
     frame.size.height -= frame.origin.y;
     _viewForContainer.frame = frame;
+}
+
+#pragma mark - UITextFieldDelegate
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    if (textField == _textFieldForReciver) {
+        [self resizeReciverToWidth:200];
+    }
+    return YES;
+}
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
+{
+    if (textField == _textFieldForReciver) {
+        [self resizeReciverToWidth:65];
+    }
+    return YES;
+}
+
+- (void)resizeReciverToWidth:(CGFloat)width
+{
+    CGRect receiverFrame = _textFieldForReciver.frame;
+    CGRect titleFrame = _textFieldForTitle.frame;
+    
+    CGFloat delta = width - receiverFrame.size.width;
+    titleFrame.size.width -= delta;
+    receiverFrame.size.width = width;
+    receiverFrame.origin.x -= delta;
+
+    [UIView animateWithDuration:0.2 animations:^{
+        _textFieldForTitle.frame = titleFrame;
+        _textFieldForReciver.frame = receiverFrame;
+    }];
 }
 
 #pragma mark - SMWebLoaderOperationDelegate
