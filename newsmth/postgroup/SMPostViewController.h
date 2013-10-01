@@ -20,6 +20,7 @@
 @interface SMPostPageItem : NSObject
 @property (assign, nonatomic) BOOL isPageLoaded;
 @property (assign, nonatomic) BOOL isLastOne;
+@property (strong, nonatomic) SMWebLoaderOperation *op;
 @property (assign, nonatomic) NSInteger gid;
 @property (assign, nonatomic) NSInteger start;
 @property (assign, nonatomic) NSInteger pno;

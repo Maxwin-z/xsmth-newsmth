@@ -18,17 +18,17 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        _normalFont = [UIFont systemFontOfSize:13.0f];
-        _highlightFont = [UIFont systemFontOfSize:20.0f];
+        _normalFont = [UIFont fontWithName:@"Courier New" size:13];
+        _highlightFont = [UIFont fontWithName:@"Courier New" size:17];
         _selectedIndex = 0;
 
         UIImageView *bgView = [[UIImageView alloc] initWithFrame:self.bounds];
         bgView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        bgView.image = [[UIImage imageNamed:@"bg_scrollindicator"] stretchableImageWithLeftCapWidth:5 topCapHeight:15];
+        bgView.image = [[UIImage imageNamed:@"bg_scrollindicator"] stretchableImageWithLeftCapWidth:15 topCapHeight:20];
         [self addSubview:bgView];
         
         CGRect contentFrame = self.bounds;
-        contentFrame.origin.y = 6.0f;
+        contentFrame.origin.y = 3.0f;
         contentFrame.size.height -= 2 * contentFrame.origin.y;
         _contentView = [[UIView alloc] initWithFrame:contentFrame];
         _contentView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;

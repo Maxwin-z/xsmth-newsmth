@@ -17,6 +17,7 @@
 #import "SMUserViewController.h"
 #import "SMBoardViewController.h"
 #import "XScrollIndicator.h"
+#import "SMPageCell.h"
 
 #define STRING_EXPAND_HERE  @"从此处展开"
 #define STRING_EXPAND_ALL  @"同主题展开"
@@ -331,17 +332,12 @@
     id item = _items[indexPath.section];
     if ([item isKindOfClass:[SMPostPageItem class]]) {
         static NSString *pageCellId = @"pagecellid";
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:pageCellId];
+        SMPageCell *cell = [tableView dequeueReusableCellWithIdentifier:pageCellId];
         if (cell == nil) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:pageCellId];
+            cell = [[SMPageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:pageCellId];
         }
         SMPostPageItem *pageItem = item;
-        cell.textLabel.font = [UIFont systemFontOfSize:80.0f];
-        cell.textLabel.textColor = [UIColor grayColor];
-        cell.textLabel.shadowOffset = CGSizeMake(2, 2);
-        cell.textLabel.shadowColor = [UIColor blackColor];
-        cell.textLabel.textAlignment = UITextAlignmentCenter;
-        cell.textLabel.text = [NSString stringWithFormat:@"%d", pageItem.pageIndex];
+        cell.pageItem = item;
         
         if (!pageItem.isPageLoaded && !self.scrollIndicator.isDragging) {
             [self loadPageData:pageItem];
