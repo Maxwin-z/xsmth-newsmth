@@ -137,7 +137,7 @@
         label.textColor = idx == tmpSelectedIndex ? [UIColor blueColor] : [UIColor blackColor];
         label.textAlignment = UITextAlignmentCenter;
         label.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-//        label.backgroundColor = [UIColor redColor];
+        label.backgroundColor = [UIColor clearColor];
 //        label.userInteractionEnabled = NO;
         
         [_contentView addSubview:label];

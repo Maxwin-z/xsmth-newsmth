@@ -8,6 +8,7 @@
 
 #import "SMMailInfoViewController.h"
 #import "PBWebViewController.h"
+#import "SMMailComposeViewController.h"
 
 @interface SMMailInfoViewController ()<SMWebLoaderOperationDelegate, UIWebViewDelegate>
 @property (weak, nonatomic) IBOutlet UIWebView *webViewForContent;
@@ -37,6 +38,16 @@
     [self makeupHeadInfo];
     
     [self loadMailInfo];
+}
+
+- (void)onRightBarButtonItemClick
+{
+    SMMailComposeViewController *mailComposeViewController = [[SMMailComposeViewController alloc] init];
+    mailComposeViewController.mail = _mail;
+    
+    P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:mailComposeViewController];
+    [self.navigationController presentModalViewController:nvc animated:YES];
+    
 }
 
 - (void)loadMailInfo
@@ -78,6 +89,10 @@
     UIEdgeInsets inset = scrollView.contentInset;
     inset.top = SM_TOP_INSET + _viewForInfo.frame.size.height;
     scrollView.contentInset = scrollView.scrollIndicatorInsets = inset;
+    
+    _mail.content = result.message;
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(onRightBarButtonItemClick)];
 }
 
 

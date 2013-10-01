@@ -6,4 +6,5 @@
 @property (strong, nonatomic) NSString* title;
 @property (assign, nonatomic) long long date;
 @property (strong, nonatomic) NSString* url;
+@property (strong, nonatomic) NSString* content;
 @end

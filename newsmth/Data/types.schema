@@ -98,6 +98,7 @@ SMMailItem {
 	string title
 	long date	
 	string url
+    string content
 }
 
 SMMailList {

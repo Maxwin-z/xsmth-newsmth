@@ -11,6 +11,8 @@
 	_date = [[dict objectForKey:@"date"] longLongValue];
 
 	_url = [dict objectForKey:@"url"];
+
+	_content = [dict objectForKey:@"content"];
 }
 
 - (id)encode
@@ -28,6 +30,10 @@
 
 	if (_url != nil) {
 		[dict setObject:_url forKey:@"url"];
+	}
+
+	if (_content != nil) {
+		[dict setObject:_content forKey:@"content"];
 	}
 	return dict;
 }

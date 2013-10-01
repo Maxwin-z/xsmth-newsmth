@@ -11,6 +11,7 @@
 #import "SMMailCell.h"
 #import "SMMailInfoViewController.h"
 #import "SMNoticeViewController.h"
+#import "SMMailComposeViewController.h"
 
 @interface SMMailViewController ()<SMWebLoaderOperationDelegate, XPullRefreshTableViewDelegate, UITableViewDataSource, UITableViewDelegate>
 @property (assign, nonatomic) NSInteger page;
@@ -32,6 +33,13 @@
     _tableView.xdelegate = self;
     _tableView.tableHeaderView = _viewForTableHeader;
     [self loadData:NO];
+
+    [SMNoticeViewController instance].navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(onRightBarButtonItemClick)];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [SMNoticeViewController instance].navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(onRightBarButtonItemClick)];
 }
 
 - (void)loadData:(BOOL)more
@@ -69,6 +77,12 @@
     [self loadData:NO];
 }
 
+- (void)onRightBarButtonItemClick
+{
+    SMMailComposeViewController *mailComposeViewController = [[SMMailComposeViewController alloc] init];
+    P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:mailComposeViewController];
+    [[SMNoticeViewController instance].navigationController presentModalViewController:nvc animated:YES];
+}
 
 #pragma mark - UITableViewDataSource/Delegate
 

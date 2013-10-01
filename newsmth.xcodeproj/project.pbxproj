@@ -61,6 +61,8 @@
 		C147EC5217EB368C00530E86 /* unread@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C147EC5117EB368C00530E86 /* unread@2x.png */; };
 		C14B22F117FAB00700CF081A /* XTimeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C14B22F017FAB00700CF081A /* XTimeLabel.m */; };
 		C14B22F517FABDD100CF081A /* bg_navigationbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C14B22F417FABDD100CF081A /* bg_navigationbar@2x.png */; };
+		C14B22F917FAC65700CF081A /* SMMailComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C14B22F717FAC65700CF081A /* SMMailComposeViewController.m */; };
+		C14B22FA17FAC65700CF081A /* SMMailComposeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C14B22F817FAC65700CF081A /* SMMailComposeViewController.xib */; };
 		C15188CF17A7B2A900E8344D /* SMNoticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C15188CD17A7B2A900E8344D /* SMNoticeViewController.m */; };
 		C15188D017A7B2A900E8344D /* SMNoticeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C15188CE17A7B2A900E8344D /* SMNoticeViewController.xib */; };
 		C1643A7917E9A54C00107559 /* icon_120@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1643A7817E9A54C00107559 /* icon_120@2x.png */; };
@@ -300,6 +302,9 @@
 		C14B22EF17FAB00700CF081A /* XTimeLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTimeLabel.h; sourceTree = "<group>"; };
 		C14B22F017FAB00700CF081A /* XTimeLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTimeLabel.m; sourceTree = "<group>"; };
 		C14B22F417FABDD100CF081A /* bg_navigationbar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_navigationbar@2x.png"; sourceTree = "<group>"; };
+		C14B22F617FAC65700CF081A /* SMMailComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMMailComposeViewController.h; sourceTree = "<group>"; };
+		C14B22F717FAC65700CF081A /* SMMailComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMMailComposeViewController.m; sourceTree = "<group>"; };
+		C14B22F817FAC65700CF081A /* SMMailComposeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMMailComposeViewController.xib; sourceTree = "<group>"; };
 		C15188CC17A7B2A900E8344D /* SMNoticeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMNoticeViewController.h; sourceTree = "<group>"; };
 		C15188CD17A7B2A900E8344D /* SMNoticeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMNoticeViewController.m; sourceTree = "<group>"; };
 		C15188CE17A7B2A900E8344D /* SMNoticeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMNoticeViewController.xib; sourceTree = "<group>"; };
@@ -1070,6 +1075,9 @@
 				C1C18DA817A534FE008C598C /* SMReplyMeViewController.h */,
 				C1C18DA917A534FE008C598C /* SMReplyMeViewController.m */,
 				C1C18DAA17A534FE008C598C /* SMReplyMeViewController.xib */,
+				C14B22F617FAC65700CF081A /* SMMailComposeViewController.h */,
+				C14B22F717FAC65700CF081A /* SMMailComposeViewController.m */,
+				C14B22F817FAC65700CF081A /* SMMailComposeViewController.xib */,
 			);
 			path = notice;
 			sourceTree = "<group>";
@@ -1239,6 +1247,7 @@
 				C1BFB8F9174F6A620092FD2E /* ViewController.xib in Resources */,
 				C1AE9140175A24AF0084C618 /* SMErrorView.xib in Resources */,
 				C1E6289D1764BAD4007ACF2A /* types.schema in Resources */,
+				C14B22FA17FAC65700CF081A /* SMMailComposeViewController.xib in Resources */,
 				C1ABAB121766107A007DE168 /* SMMainpageCell.xib in Resources */,
 				C1ABAB141766107A007DE168 /* SMMainpageViewController.xib in Resources */,
 				C1ABAB1A17661156007DE168 /* SMPostGroupHeaderCell.xib in Resources */,
@@ -1384,6 +1393,7 @@
 				C1011D96177946D500E0485D /* SMUtils.m in Sources */,
 				C1011DAC1779946600E0485D /* UIButton+Custom.m in Sources */,
 				C1E3A22A1780600900994CE6 /* SMUserViewController.m in Sources */,
+				C14B22F917FAC65700CF081A /* SMMailComposeViewController.m in Sources */,
 				C1FD13C217817AAA006A6061 /* SMUser.m in Sources */,
 				C1C4C8811781B4FF0092E77C /* SMBaseBorardListViewController.m in Sources */,
 				C1C4C8851781B6C00092E77C /* SMBoardList.m in Sources */,
