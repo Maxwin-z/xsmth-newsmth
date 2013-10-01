@@ -549,29 +549,8 @@
         }
         
         [headArray addObjectsFromArray:tailArray];
-        
-        XLog_d(@"%d", headArray.count);
-        
-        // 更新页数
-//        _tpage = postGroup.tpage;
-//        _currentPageItem.tpage = postGroup.tpage;
-//        if (_currentPageItem.pno != _currentPageItem.tpage) {
-//            [_tableView setLoadMoreShow];
-//        } else {
-//            [_tableView setLoadMoreHide];
-//        }
-//        
-//        if (_currentPageItem.pno == 1) {
-//            if (_totalPage == 0) {
-//                self.totalPage = _currentPageItem.tpage;
-//            } else {
-//                self.totalPage += _currentPageItem.tpage - 1;
-//            }
-//        }
-
         self.items = headArray;
 
-//        XLog_d(@"pno[%d], tpage[%d], total[%d]", _currentPageItem.pno, _currentPageItem.tpage, _totalPage);
     } else if (opt == _singlePostOp) {
         [_tableView endRefreshing:YES];
         SMPost *post = opt.data;
@@ -597,10 +576,9 @@
 - (void)webLoaderOperationFail:(SMWebLoaderOperation *)opt error:(SMMessage *)error
 {
     XLog_d(@"%@ %@", opt.url, error);
-    if (opt == _pageOp) {
+    if (opt == _pageOp || opt == _singlePostOp) {
         _isLoading = NO;
         [self.tableView endRefreshing:NO];
-        [self.tableView setLoadMoreFail];
         [self toast:error.message];
     } else if (!_scrollIndicator.isDragging) {
         [_tableView reloadData];
