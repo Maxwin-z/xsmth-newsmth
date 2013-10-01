@@ -8,6 +8,7 @@
 
 #import "XPullRefreshTableView.h"
 #import "UIButton+Custom.h"
+#import "XTimeLabel.h"
 
 #define ANIMATION_DURATION  0.1f
 #define NAVIGATION_HEIGHT   64.0f
@@ -24,14 +25,16 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewForArrow;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorForRefresh;
 @property (weak, nonatomic) IBOutlet UILabel *labelForRefreshHint;
-@property (weak, nonatomic) IBOutlet UILabel *labelForRefreshDate;
+@property (weak, nonatomic) IBOutlet XTimeLabel *labelForRefreshDate;
 
 #pragma load more footer
 @property (strong, nonatomic) IBOutlet UIView *viewForLoadingMore;
 @property (strong, nonatomic) IBOutlet UIView *viewForLoadMoreFail;
 @property (strong, nonatomic) IBOutlet UIView *viewForLoadPull;
+@property (strong, nonatomic) IBOutlet UIView *viewForLoadMoreNormal;
 @property (weak, nonatomic) IBOutlet UILabel *labelForPullHint;
 @property (weak, nonatomic) IBOutlet UIButton *buttonForRetry;
+@property (weak, nonatomic) IBOutlet XTimeLabel *labelForLoadMoreHint;
 
 @end
 
@@ -87,7 +90,9 @@
 {
     _lastUpdated = lastUpdated;
     if (_lastUpdated) {
-        _labelForRefreshDate.text = [NSString stringWithFormat:@"上次更新:%@", [SMUtils formatDate:_lastUpdated]];
+        _labelForRefreshDate.beginTime = lastUpdated;
+        _labelForRefreshDate.formatter = @"上次更新:%@";
+//        _labelForRefreshDate.text = [NSString stringWithFormat:@"上次更新:%@", [SMUtils formatDate:_lastUpdated]];
     }
 }
 
@@ -132,6 +137,7 @@
     }];
     if (success) {
         self.lastUpdated = [[NSDate alloc] init];
+        
     }
 }
 
@@ -154,7 +160,9 @@
 
 - (void)setLoadMoreHide
 {
-    self.tableFooterView = nil;
+    self.tableFooterView = _viewForLoadMoreNormal;
+    _labelForLoadMoreHint.formatter = @"更新时间：%@";
+    _labelForLoadMoreHint.beginTime = [[NSDate alloc] init];
     _isLoadingMore = NO;
     [self setLoadPullShow];
 }

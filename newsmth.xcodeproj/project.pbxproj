@@ -60,6 +60,7 @@
 		C14505ED17507DD400DC5431 /* XLogUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = C14505EC17507DD400DC5431 /* XLogUtil.m */; };
 		C147EC4B17EAEEBD00530E86 /* refer_me.js in Resources */ = {isa = PBXBuildFile; fileRef = C147EC4917EAEE7B00530E86 /* refer_me.js */; };
 		C147EC5217EB368C00530E86 /* unread@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C147EC5117EB368C00530E86 /* unread@2x.png */; };
+		C14B22F117FAB00700CF081A /* XTimeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C14B22F017FAB00700CF081A /* XTimeLabel.m */; };
 		C15188CF17A7B2A900E8344D /* SMNoticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C15188CD17A7B2A900E8344D /* SMNoticeViewController.m */; };
 		C15188D017A7B2A900E8344D /* SMNoticeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C15188CE17A7B2A900E8344D /* SMNoticeViewController.xib */; };
 		C1643A7917E9A54C00107559 /* icon_120@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1643A7817E9A54C00107559 /* icon_120@2x.png */; };
@@ -297,6 +298,8 @@
 		C14505EC17507DD400DC5431 /* XLogUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLogUtil.m; sourceTree = "<group>"; };
 		C147EC4917EAEE7B00530E86 /* refer_me.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = refer_me.js; sourceTree = "<group>"; };
 		C147EC5117EB368C00530E86 /* unread@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unread@2x.png"; sourceTree = "<group>"; };
+		C14B22EF17FAB00700CF081A /* XTimeLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTimeLabel.h; sourceTree = "<group>"; };
+		C14B22F017FAB00700CF081A /* XTimeLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTimeLabel.m; sourceTree = "<group>"; };
 		C15188CC17A7B2A900E8344D /* SMNoticeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMNoticeViewController.h; sourceTree = "<group>"; };
 		C15188CD17A7B2A900E8344D /* SMNoticeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMNoticeViewController.m; sourceTree = "<group>"; };
 		C15188CE17A7B2A900E8344D /* SMNoticeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMNoticeViewController.xib; sourceTree = "<group>"; };
@@ -607,6 +610,8 @@
 				C191283C17588501005AC60F /* XImageViewCache.m */,
 				C1011DAA1779946600E0485D /* UIButton+Custom.h */,
 				C1011DAB1779946600E0485D /* UIButton+Custom.m */,
+				C14B22EF17FAB00700CF081A /* XTimeLabel.h */,
+				C14B22F017FAB00700CF081A /* XTimeLabel.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1332,6 +1337,7 @@
 				C1BFB8F6174F6A620092FD2E /* ViewController.m in Sources */,
 				C1BFB9C3174F6F5C0092FD2E /* ASIAuthenticationDialog.m in Sources */,
 				C1BFB9C4174F6F5C0092FD2E /* ASIDataCompressor.m in Sources */,
+				C14B22F117FAB00700CF081A /* XTimeLabel.m in Sources */,
 				C1BFB9C5174F6F5C0092FD2E /* ASIDataDecompressor.m in Sources */,
 				C1BFB9C6174F6F5C0092FD2E /* ASIDownloadCache.m in Sources */,
 				C1BFB9C7174F6F5C0092FD2E /* ASIFormDataRequest.m in Sources */,
