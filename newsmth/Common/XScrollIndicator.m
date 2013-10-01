@@ -28,7 +28,7 @@
         [self addSubview:bgView];
         
         CGRect contentFrame = self.bounds;
-        contentFrame.origin.y = 3.0f;
+        contentFrame.origin.y = 5.0f;
         contentFrame.size.height -= 2 * contentFrame.origin.y;
         _contentView = [[UIView alloc] initWithFrame:contentFrame];
         _contentView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -87,7 +87,7 @@
         NSInteger selectedCount = maxAvailCount - 2;
         if (maxAvailCount > count / 2) {
             include = NO;
-            selectedCount = count - maxAvailCount - 2;
+            selectedCount = count - maxAvailCount;
         }
         
         NSInteger leftCount = _selectedIndex * selectedCount / count;
@@ -105,8 +105,8 @@
         NSArray *rightIds = [self pickup:_selectedIndex end:count - 1 count:rightCount];
         [ids addObjectsFromArray:leftIds];
         [ids addObjectsFromArray:rightIds];
-        NSLog(@"(%d, e%d), (%d, e%d), %d", leftIds.count, leftCount, rightIds.count, rightCount, _selectedIndex);
-        NSLog(@"%d      %@", ids.count, [ids componentsJoinedByString:@","]);
+//        NSLog(@"(%d, e%d), (%d, e%d), %d", leftIds.count, leftCount, rightIds.count, rightCount, _selectedIndex);
+//        NSLog(@"%d      %@", ids.count, [ids componentsJoinedByString:@","]);
         
         NSMutableArray *tmp = [[NSMutableArray alloc] init];
         [_titles enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -175,20 +175,24 @@
     return res;
 }
 
+- (void)handleTouch:(UITouch *)touch
+{
+    CGPoint point = [touch locationInView:self];
+    CGFloat y = point.y;
+    self.selectedIndex = (int)(y * self.titles.count / self.bounds.size.height);
+}
+
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [super touchesBegan:touches withEvent:event];
     _isDragging = YES;
+    [self handleTouch:[[touches allObjects] firstObject]];
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [super touchesMoved:touches withEvent:event];
-    UITouch *touch = [[touches allObjects] firstObject];
-    CGPoint point = [touch locationInView:self];
-//    NSLog(@"%@", NSStringFromCGPoint(point));
-    CGFloat y = point.y;
-    self.selectedIndex = (int)(y * self.titles.count / self.bounds.size.height);
+    [self handleTouch:[[touches allObjects] firstObject]];
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event

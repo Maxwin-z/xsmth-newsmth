@@ -36,6 +36,7 @@
 @property (strong, nonatomic) SMWebLoaderOperation *pageOp; // 分页加载数据用op
 @property (assign, nonatomic) BOOL isLoading;
 @property (strong, nonatomic) NSArray *items;   // items列表
+@property (strong, nonatomic) NSArray *prepareItems;    // 滚动时，临时存储数据
 
 @property (assign, nonatomic) NSInteger bid;    // board id
 //@property (assign, nonatomic) NSInteger tpage;  // total page
@@ -186,16 +187,19 @@
         pageItem.pno = 1;
         pageItem.startIndex = 0;
         
-        self.items = @[pageItem];
+        self.prepareItems = @[pageItem];
     }
 }
 
 - (void)loadPageData:(SMPostPageItem *)item
 {
+    _currentPageItem.isLoading = NO;
     _currentPageItem = item;
     _currentPageItem.isPageLoaded = NO;
     _currentPageItem.isLoadFail = NO;
-    
+    _currentPageItem.isLoading = YES;
+
+    [_currentPageItem.op cancel];
     [_pageOp cancel];
     NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbstcon.php?board=%@&gid=%d&start=%d&pno=%d", _board.name, _gid, _currentPageItem.start, _currentPageItem.pno];
     _pageOp = [[SMWebLoaderOperation alloc] init];
@@ -224,6 +228,7 @@
         }
     }];
     if (section < _items.count) {
+        XLog_v(@"scrollto section: %d of %d", section, _items.count);
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:section];
         [_tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
     }
@@ -231,14 +236,26 @@
 
 - (void)onScrollIndicatorTouchEnd
 {
-    [_tableView reloadData];
+    if (_prepareItems) {
+        self.items = _prepareItems;
+    } else {
+        [self.tableView reloadData];
+    }
 }
 
 - (void)setItems:(NSArray *)items
 {
     _items = items;
+    _prepareItems = nil;    // clear tmp data
+    [self.tableView reloadData];
+}
+
+- (void)setPrepareItems:(NSArray *)prepareItems
+{
     if (!_scrollIndicator.isDragging) {
-        [self.tableView reloadData];
+        self.items = prepareItems;
+    } else {
+        _prepareItems = prepareItems;
     }
 }
 
@@ -349,7 +366,7 @@
         SMPostPageItem *pageItem = item;
         cell.pageItem = item;
         
-        if (!pageItem.isPageLoaded && !pageItem.isLoadFail && !self.scrollIndicator.isDragging) {
+        if (!pageItem.isPageLoaded && !pageItem.isLoadFail && !pageItem.isLoading && !self.scrollIndicator.isDragging) {
             [self loadPageData:pageItem];
         }
         
@@ -489,6 +506,7 @@
     if (opt == _pageOp) {
         _isLoading = NO;
         _currentPageItem.isPageLoaded = YES;
+        _currentPageItem.isLoading = NO;
         
         // add post to postOps
         SMPostGroup *postGroup = opt.data;
@@ -555,7 +573,7 @@
         }
         
         [headArray addObjectsFromArray:tailArray];
-        self.items = headArray;
+        self.prepareItems = headArray;
 
     } else if (opt == _singlePostOp) {
         [_tableView endRefreshing:YES];
@@ -570,7 +588,7 @@
         [self makeupTableViewHeader:_postTitle];
         _board = post.board;
 
-        self.items = @[item];
+        self.prepareItems = @[item];
         
         _singlePost = post;
     } else if (!_scrollIndicator.isDragging) {
@@ -584,6 +602,7 @@
     XLog_d(@"%@ %@", opt.url, error);
     if (opt == _pageOp) {
         _currentPageItem.isLoadFail = YES;
+        _currentPageItem.isLoading = NO;
         [_tableView setLoadMoreHide];
     }
     

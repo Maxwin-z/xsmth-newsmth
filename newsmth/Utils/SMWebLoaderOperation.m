@@ -47,7 +47,7 @@
 - (void)main
 {
     if (self.isCancelled) {
-//        XLog_d(@"opt is cancelled");
+        XLog_v(@"opt %@ is cancelled", _url);
         return;
     }
     if (_url == nil && _request == nil) {
@@ -67,7 +67,7 @@
     
     _request.delegate = self;
     
-//    XLog_d(@"url[%@] start", _url);
+    XLog_d(@"url[%@] start", _url);
     [_request startSynchronous];
 }
 
@@ -78,7 +78,7 @@
         return;
     }
 
-//    XLog_d(@"url[%@] response", _url);
+    XLog_d(@"url[%@] response", _url);
     NSString *body;
     NSString *contentType = [request.responseHeaders objectForKey:@"Content-Type"];
     if ([[contentType lowercaseString] rangeOfString:@"charset=utf-8"].location != NSNotFound) {
@@ -109,6 +109,7 @@
 {
     _webParser = nil;
     if (self.isCancelled) {
+    XLog_e(@"req cancel [%@]", _url);
         return;
     }
 //    XLog_d(@"url[%@] parsed", _url);

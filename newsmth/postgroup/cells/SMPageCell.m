@@ -36,8 +36,9 @@
     
     _activityIndicator.hidden = _buttonForRetry.hidden = YES;
     
-    if (_pageItem.op && _pageItem.op.isExecuting) {
+    if (_pageItem.op && _pageItem.isLoading) {
         _activityIndicator.hidden = NO;
+        [_activityIndicator startAnimating];
     }
     if (_pageItem.isLoadFail) {
         _buttonForRetry.hidden = NO;
