@@ -98,7 +98,8 @@
 
 - (void)requestFailed:(ASIHTTPRequest *)request
 {
-//    XLog_d(@"url[%@] fail", _url);
+    XLog_d(@"url[%@] fail [%@]", _url, request.error);
+    
     SMMessage *error = [[SMMessage alloc] initWithCode:SMNetworkErrorCodeRequestFail message:@"网络请求超时"];
     [_delegate webLoaderOperationFail:self error:error];
 }
