@@ -63,6 +63,7 @@
 		C14B22F517FABDD100CF081A /* bg_navigationbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C14B22F417FABDD100CF081A /* bg_navigationbar@2x.png */; };
 		C14B22F917FAC65700CF081A /* SMMailComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C14B22F717FAC65700CF081A /* SMMailComposeViewController.m */; };
 		C14B22FA17FAC65700CF081A /* SMMailComposeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C14B22F817FAC65700CF081A /* SMMailComposeViewController.xib */; };
+		C14B22FD17FAD3FB00CF081A /* mailsend.js in Resources */ = {isa = PBXBuildFile; fileRef = C14B22FB17FAD3E100CF081A /* mailsend.js */; };
 		C15188CF17A7B2A900E8344D /* SMNoticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C15188CD17A7B2A900E8344D /* SMNoticeViewController.m */; };
 		C15188D017A7B2A900E8344D /* SMNoticeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C15188CE17A7B2A900E8344D /* SMNoticeViewController.xib */; };
 		C1643A7917E9A54C00107559 /* icon_120@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1643A7817E9A54C00107559 /* icon_120@2x.png */; };
@@ -305,6 +306,7 @@
 		C14B22F617FAC65700CF081A /* SMMailComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMMailComposeViewController.h; sourceTree = "<group>"; };
 		C14B22F717FAC65700CF081A /* SMMailComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMMailComposeViewController.m; sourceTree = "<group>"; };
 		C14B22F817FAC65700CF081A /* SMMailComposeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMMailComposeViewController.xib; sourceTree = "<group>"; };
+		C14B22FB17FAD3E100CF081A /* mailsend.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = mailsend.js; sourceTree = "<group>"; };
 		C15188CC17A7B2A900E8344D /* SMNoticeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMNoticeViewController.h; sourceTree = "<group>"; };
 		C15188CD17A7B2A900E8344D /* SMNoticeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMNoticeViewController.m; sourceTree = "<group>"; };
 		C15188CE17A7B2A900E8344D /* SMNoticeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMNoticeViewController.xib; sourceTree = "<group>"; };
@@ -634,6 +636,7 @@
 		C121F2991750EE790081FD87 /* jsParser */ = {
 			isa = PBXGroup;
 			children = (
+				C14B22FB17FAD3E100CF081A /* mailsend.js */,
 				C147EC4917EAEE7B00530E86 /* refer_me.js */,
 				C10F2F8717E59E4800F83206 /* mailcontent.js */,
 				C10F2F7917E5805A00F83206 /* mail.js */,
@@ -1223,6 +1226,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C14B22FD17FAD3FB00CF081A /* mailsend.js in Resources */,
 				C1D190DE17F94CA40056F3FE /* bg_scrollindicator@2x.png in Resources */,
 				C147EC4B17EAEEBD00530E86 /* refer_me.js in Resources */,
 				C10F2F8917E59E5A00F83206 /* mailcontent.js in Resources */,

@@ -8,12 +8,14 @@
 
 #import "SMMailComposeViewController.h"
 
-@interface SMMailComposeViewController ()<UITextFieldDelegate>
+@interface SMMailComposeViewController ()<UITextFieldDelegate, SMWebLoaderOperationDelegate>
 @property (weak, nonatomic) IBOutlet UIView *viewForContainer;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldForTitle;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldForReciver;
 @property (weak, nonatomic) IBOutlet UITextView *textViewForContent;
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewForTextViewBg;
+
+@property (strong, nonatomic) SMWebLoaderOperation *sendOp;
 
 @end
 
@@ -94,6 +96,41 @@
     [self.navigationController dismissModalViewControllerAnimated:YES];
 }
 
+- (void)doSend
+{
+    NSString *path = _mail.url;
+    path = [path stringByReplacingOccurrencesOfString:@"inbox/" withString:@"inbox/send/"];
+    NSString *formUrl = [NSString stringWithFormat:@"http://m.newsmth.net/%@", path];
+ 
+    NSString *title = [_textFieldForTitle.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *receiver = [_textFieldForReciver.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *content = [_textViewForContent.text  stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    if (title.length == 0) {
+        [self toast:@"请输入主题"];
+        [_textFieldForTitle becomeFirstResponder];
+        return ;
+    }
+    
+    if (receiver.length == 0) {
+        [self toast:@"请输入收件人"];
+        [_textFieldForReciver becomeFirstResponder];
+        return;
+    }
+    
+    NSString *postBody = [NSString stringWithFormat:@"id=%@&title=%@&content=%@", receiver, title, content];
+
+    SMHttpRequest *request = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:formUrl]];
+    [request setRequestMethod:@"POST"];
+    [request addRequestHeader:@"Content-type" value:@"application/x-www-form-urlencoded"];
+    [request setPostBody:[[postBody dataUsingEncoding:NSUTF8StringEncoding] mutableCopy]];
+    _sendOp = [[SMWebLoaderOperation alloc] init];
+    _sendOp.delegate = self;
+    [self showLoading:@"正在发送..."];
+    [_sendOp loadRequest:request withParser:@"mailsend"];
+
+}
+
 - (void)onKeyboardWillShow:(NSNotification *)n
 {
     NSDictionary* info = [n userInfo];
@@ -113,5 +150,23 @@
     _viewForContainer.frame = frame;
 }
 
+#pragma mark - SMWebLoaderOperationDelegate
+- (void)webLoaderOperationFinished:(SMWebLoaderOperation *)opt
+{
+    [self hideLoading]; // this->hideLoading();
+    SMWriteResult *result = opt.data;
+    if (result.success) {
+        [self toast:@"发送成功"];
+    } else {
+        [self toast:result.message];
+    }
+    [self performSelector:@selector(dismiss) withObject:nil afterDelay:TOAST_DURTAION + 0.1];
+}
+
+- (void)webLoaderOperationFail:(SMWebLoaderOperation *)opt error:(SMMessage *)error
+{
+    [self hideLoading];
+    [self toast:error.message];
+}
 
 @end
