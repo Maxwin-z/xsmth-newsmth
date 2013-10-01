@@ -26,6 +26,7 @@ typedef NS_ENUM(NSInteger, CellType) {
 
 @interface SMLeftViewController ()<UITableViewDataSource, UITableViewDelegate, SMWebLoaderOperationDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) IBOutlet UIView *viewForSetting;
 @property (strong, nonatomic) NSArray *cellTypes;
 
 @property (strong, nonatomic) SMWebLoaderOperation *keepLoginOp;
@@ -53,6 +54,12 @@ typedef NS_ENUM(NSInteger, CellType) {
 {
     [super viewDidLoad];
     _tableView.transform = CGAffineTransformRotate(CGAffineTransformIdentity, M_PI);
+    _tableView.scrollsToTop = NO;
+    
+    CGRect frame = _viewForSetting.frame;
+    frame.origin.y = 20.0f;
+    _viewForSetting.frame = frame;
+    [self.view addSubview:_viewForSetting];
 }
 
 - (void)onAccountNotification

@@ -64,6 +64,8 @@
 		C14B22F917FAC65700CF081A /* SMMailComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C14B22F717FAC65700CF081A /* SMMailComposeViewController.m */; };
 		C14B22FA17FAC65700CF081A /* SMMailComposeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C14B22F817FAC65700CF081A /* SMMailComposeViewController.xib */; };
 		C14B22FD17FAD3FB00CF081A /* mailsend.js in Resources */ = {isa = PBXBuildFile; fileRef = C14B22FB17FAD3E100CF081A /* mailsend.js */; };
+		C14B22FF17FAE75A00CF081A /* icon_setting@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C14B22FE17FAE75A00CF081A /* icon_setting@2x.png */; };
+		C14B230117FB0E9500CF081A /* icon_menu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C14B230017FB0E9500CF081A /* icon_menu@2x.png */; };
 		C15188CF17A7B2A900E8344D /* SMNoticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C15188CD17A7B2A900E8344D /* SMNoticeViewController.m */; };
 		C15188D017A7B2A900E8344D /* SMNoticeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C15188CE17A7B2A900E8344D /* SMNoticeViewController.xib */; };
 		C1643A7917E9A54C00107559 /* icon_120@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1643A7817E9A54C00107559 /* icon_120@2x.png */; };
@@ -307,6 +309,8 @@
 		C14B22F717FAC65700CF081A /* SMMailComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMMailComposeViewController.m; sourceTree = "<group>"; };
 		C14B22F817FAC65700CF081A /* SMMailComposeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMMailComposeViewController.xib; sourceTree = "<group>"; };
 		C14B22FB17FAD3E100CF081A /* mailsend.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = mailsend.js; sourceTree = "<group>"; };
+		C14B22FE17FAE75A00CF081A /* icon_setting@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_setting@2x.png"; sourceTree = "<group>"; };
+		C14B230017FB0E9500CF081A /* icon_menu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_menu@2x.png"; sourceTree = "<group>"; };
 		C15188CC17A7B2A900E8344D /* SMNoticeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMNoticeViewController.h; sourceTree = "<group>"; };
 		C15188CD17A7B2A900E8344D /* SMNoticeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMNoticeViewController.m; sourceTree = "<group>"; };
 		C15188CE17A7B2A900E8344D /* SMNoticeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMNoticeViewController.xib; sourceTree = "<group>"; };
@@ -690,6 +694,8 @@
 		C19FF0B01769A71B00EB6F7E /* images */ = {
 			isa = PBXGroup;
 			children = (
+				C14B230017FB0E9500CF081A /* icon_menu@2x.png */,
+				C14B22FE17FAE75A00CF081A /* icon_setting@2x.png */,
 				C14B22F417FABDD100CF081A /* bg_navigationbar@2x.png */,
 				C1D190DD17F94CA40056F3FE /* bg_scrollindicator@2x.png */,
 				C147EC5117EB368C00530E86 /* unread@2x.png */,
@@ -1263,6 +1269,7 @@
 				C115816E17685606008A421A /* SMLoginViewController.xib in Resources */,
 				C19FF0B21769A71C00EB6F7E /* popup_bg@2x.png in Resources */,
 				C19FF0B41769A7A800EB6F7E /* SMViewControllerPopover.xib in Resources */,
+				C14B230117FB0E9500CF081A /* icon_menu@2x.png in Resources */,
 				C19FF0C31769CEC700EB6F7E /* SMBoardViewController.xib in Resources */,
 				C19FF0C81769D0E600EB6F7E /* SMBoardCell.xib in Resources */,
 				C13D4122176DCD5100BD03A4 /* icon@2x.png in Resources */,
@@ -1292,6 +1299,7 @@
 				C10098591782A136001608EE /* popup_btn_close_pressed@2x.png in Resources */,
 				C100985A1782A136001608EE /* popup_btn_close_rest@2x.png in Resources */,
 				C100985C1782AF99001608EE /* bg_input_field@2x.png in Resources */,
+				C14B22FF17FAE75A00CF081A /* icon_setting@2x.png in Resources */,
 				C102B8C41782D4A3000E2EEB /* icon.png in Resources */,
 				C10080D41785984700487A45 /* SMImagePickerViewController.xib in Resources */,
 				C10080F81785A4D700487A45 /* SMImagePickerAssetsViewController.xib in Resources */,
