@@ -42,6 +42,7 @@
 {
     if ([SMUtils systemVersion] < 7) {
         [[UINavigationBar appearance] setBackgroundImage:[[UIImage imageNamed:@"bg_navigationbar"] stretchableImageWithLeftCapWidth:1 topCapHeight:1] forBarMetrics:UIBarMetricsDefault];
+        [[UIBarButtonItem appearance] setTintColor:SM_TINTCOLOR];
     }
 }
 
