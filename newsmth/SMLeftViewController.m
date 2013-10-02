@@ -83,6 +83,7 @@ typedef NS_ENUM(NSInteger, CellType) {
     SMSettingViewController *vc = [[SMSettingViewController alloc] init];
     [[SMMainViewController instance] setRootViewController:vc];
     [[SMMainViewController instance] setLeftVisiable:NO];
+    [SMUtils trackEventWithCategory:@"left" action:@"setting" label:nil];
 }
 
 - (void)loadNotice

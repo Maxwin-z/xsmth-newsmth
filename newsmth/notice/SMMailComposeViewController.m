@@ -208,8 +208,10 @@
     if (result.success) {
         [self toast:@"发送成功"];
         [self performSelector:@selector(dismiss) withObject:nil afterDelay:TOAST_DURTAION + 0.1];
+        [SMUtils trackEventWithCategory:@"mail" action:@"send" label:@"success"];
     } else {
         [self toast:result.message];
+        [SMUtils trackEventWithCategory:@"mail" action:@"send" label:@"fail"];
     }
 }
 
@@ -217,6 +219,7 @@
 {
     [self hideLoading];
     [self toast:error.message];
+    [SMUtils trackEventWithCategory:@"mail" action:@"send" label:@"net_error"];
 }
 
 @end

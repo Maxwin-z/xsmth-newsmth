@@ -94,6 +94,9 @@ typedef enum {
     if (buttonIndex == 1) { // 站内信
         [self doSendMail];
     }
+    if (buttonIndex == actionSheet.cancelButtonIndex) {
+        [SMUtils trackEventWithCategory:@"setting" action:@"feedback" label:@"cancel"];
+    }
 }
 
 - (void)doSendMail
@@ -110,6 +113,8 @@ typedef enum {
     
     P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:mailComposeViewController];
     [self.navigationController presentModalViewController:nvc animated:YES];
+    
+    [SMUtils trackEventWithCategory:@"setting" action:@"feedback" label:@"sm_mail"];
 }
 
 #pragma mark MFMailComposeViewControllerDelegate
@@ -118,6 +123,8 @@ typedef enum {
     // do nothing
     if (error != nil) {
         [self toast:[NSString stringWithFormat:@"%@", error.userInfo]];
+    } else {
+        [SMUtils trackEventWithCategory:@"setting" action:@"feedback" label:@"mail"];
     }
     [self dismissModalViewControllerAnimated:YES];
 }

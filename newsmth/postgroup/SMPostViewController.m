@@ -228,7 +228,7 @@
         }
     }];
     if (section < _items.count) {
-        XLog_v(@"scrollto section: %d of %d", section, _items.count);
+//        XLog_v(@"scrollto section: %d of %d", section, _items.count);
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:section];
         [_tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
     }
@@ -241,6 +241,9 @@
     } else {
         [self.tableView reloadData];
     }
+    NSString *label = [NSString stringWithFormat:@"%d/%d", _scrollIndicator.selectedIndex, _scrollIndicator.titles.count];
+    [SMUtils trackEventWithCategory:@"postgroup" action:@"scrollindicator" label:label];
+    XLog_d(@"%@", label);
 }
 
 - (void)setItems:(NSArray *)items
@@ -642,6 +645,7 @@
             pageItem.pno = 1;
             pageItem.isLastOne = YES;
             [self loadPageData:pageItem];
+            [SMUtils trackEventWithCategory:@"postgroup" action:@"loadmore" label:_board.name];
         } else {
             XLog_e(@"last item is not post");
         }
@@ -758,11 +762,13 @@
             _start = _singlePost.pid;
             _isSinglePost = NO;
             [_tableView beginRefreshing];
+            [SMUtils trackEventWithCategory:@"postgroup" action:@"expand" label:@"here"];
         } else if ([title isEqualToString:STRING_EXPAND_ALL]) {
             _gid = _singlePost.gid;
             _start = _singlePost.gid;
             _isSinglePost = NO;
             [_tableView beginRefreshing];
+            [SMUtils trackEventWithCategory:@"postgroup" action:@"expand" label:@"all"];
         } else {
             SMBoardViewController *vc = [[SMBoardViewController alloc] init];
             vc.board = _board;

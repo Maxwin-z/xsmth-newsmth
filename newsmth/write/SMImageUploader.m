@@ -202,7 +202,9 @@ typedef NS_ENUM(NSInteger, SMUploadAct) {
             _isUploading = NO;
             [self next];
         }
+        [SMUtils trackEventWithCategory:@"upload" action:@"success" label:nil];
     } else {    // delete op
+        [SMUtils trackEventWithCategory:@"upload" action:@"delete" label:nil];
         XLog_d(@"删除成功");
     }
 }
@@ -216,7 +218,8 @@ typedef NS_ENUM(NSInteger, SMUploadAct) {
         ++_currentIndex;
         _isUploading = NO;
         [self next];
-    } 
+        [SMUtils trackEventWithCategory:@"upload" action:@"fail" label:nil];
+    }
     XLog_e(@"upload: %@", error.message);
 }
 
