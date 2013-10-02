@@ -15,6 +15,7 @@
 #import "SMSectionViewController.h"
 #import "PBWebViewController.h"
 #import "SMNoticeViewController.h"
+#import "SMSettingViewController.h"
 
 typedef NS_ENUM(NSInteger, CellType) {
     CellTypeTop,
@@ -75,6 +76,13 @@ typedef NS_ENUM(NSInteger, CellType) {
 - (void)onBecomeActivity
 {
     [self loadNotice];
+}
+
+- (IBAction)onMoreButtonClick:(id)sender
+{
+    SMSettingViewController *vc = [[SMSettingViewController alloc] init];
+    [[SMMainViewController instance] setRootViewController:vc];
+    [[SMMainViewController instance] setLeftVisiable:NO];
 }
 
 - (void)loadNotice

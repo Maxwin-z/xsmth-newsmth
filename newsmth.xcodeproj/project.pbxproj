@@ -67,6 +67,8 @@
 		C14B22FF17FAE75A00CF081A /* icon_setting@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C14B22FE17FAE75A00CF081A /* icon_setting@2x.png */; };
 		C14B230117FB0E9500CF081A /* icon_menu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C14B230017FB0E9500CF081A /* icon_menu@2x.png */; };
 		C14B230417FB189B00CF081A /* SMPageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C14B230317FB189B00CF081A /* SMPageCell.m */; };
+		C14B230917FBB0E500CF081A /* SMSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C14B230717FBB0E500CF081A /* SMSettingViewController.m */; };
+		C14B230A17FBB0E500CF081A /* SMSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C14B230817FBB0E500CF081A /* SMSettingViewController.xib */; };
 		C15188CF17A7B2A900E8344D /* SMNoticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C15188CD17A7B2A900E8344D /* SMNoticeViewController.m */; };
 		C15188D017A7B2A900E8344D /* SMNoticeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C15188CE17A7B2A900E8344D /* SMNoticeViewController.xib */; };
 		C1643A7917E9A54C00107559 /* icon_120@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1643A7817E9A54C00107559 /* icon_120@2x.png */; };
@@ -314,6 +316,9 @@
 		C14B230017FB0E9500CF081A /* icon_menu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_menu@2x.png"; sourceTree = "<group>"; };
 		C14B230217FB189B00CF081A /* SMPageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMPageCell.h; sourceTree = "<group>"; };
 		C14B230317FB189B00CF081A /* SMPageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMPageCell.m; sourceTree = "<group>"; };
+		C14B230617FBB0E500CF081A /* SMSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMSettingViewController.h; sourceTree = "<group>"; };
+		C14B230717FBB0E500CF081A /* SMSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMSettingViewController.m; sourceTree = "<group>"; };
+		C14B230817FBB0E500CF081A /* SMSettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMSettingViewController.xib; sourceTree = "<group>"; };
 		C15188CC17A7B2A900E8344D /* SMNoticeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMNoticeViewController.h; sourceTree = "<group>"; };
 		C15188CD17A7B2A900E8344D /* SMNoticeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMNoticeViewController.m; sourceTree = "<group>"; };
 		C15188CE17A7B2A900E8344D /* SMNoticeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMNoticeViewController.xib; sourceTree = "<group>"; };
@@ -543,9 +548,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1C07A78179686BD00906ED7 /* MessageUI.framework in Frameworks */,
 				C1C07A7C179686F600906ED7 /* Twitter.framework in Frameworks */,
 				C1C07A7A179686E300906ED7 /* Social.framework in Frameworks */,
-				C1C07A78179686BD00906ED7 /* MessageUI.framework in Frameworks */,
 				C10080D6178598D900487A45 /* AssetsLibrary.framework in Frameworks */,
 				C1011DA31779657000E0485D /* CoreData.framework in Frameworks */,
 				C10D16BB1756276D002D6FAD /* QuartzCore.framework in Frameworks */,
@@ -680,6 +685,16 @@
 				C1011D95177946D500E0485D /* SMUtils.m */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		C14B230517FBAFDF00CF081A /* more */ = {
+			isa = PBXGroup;
+			children = (
+				C14B230617FBB0E500CF081A /* SMSettingViewController.h */,
+				C14B230717FBB0E500CF081A /* SMSettingViewController.m */,
+				C14B230817FBB0E500CF081A /* SMSettingViewController.xib */,
+			);
+			path = more;
 			sourceTree = "<group>";
 		};
 		C16714361766CFED00F56535 /* XPullRefreshTableView */ = {
@@ -876,6 +891,7 @@
 		C1BFB8E2174F6A620092FD2E /* newsmth */ = {
 			isa = PBXGroup;
 			children = (
+				C14B230517FBAFDF00CF081A /* more */,
 				C1C18D9217A52FFA008C598C /* notice */,
 				C1BA923917954EC300F76ACF /* ThirdParty */,
 				C1C4C87D1781B4D60092E77C /* boardlist */,
@@ -1238,6 +1254,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C14B22FD17FAD3FB00CF081A /* mailsend.js in Resources */,
+				C14B230A17FBB0E500CF081A /* SMSettingViewController.xib in Resources */,
 				C1D190DE17F94CA40056F3FE /* bg_scrollindicator@2x.png in Resources */,
 				C147EC4B17EAEEBD00530E86 /* refer_me.js in Resources */,
 				C10F2F8917E59E5A00F83206 /* mailcontent.js in Resources */,
@@ -1399,6 +1416,7 @@
 				C11581631768285C008A421A /* SMLeftViewController.m in Sources */,
 				C1158168176851B6008A421A /* SMFavorListViewController.m in Sources */,
 				C115816D17685606008A421A /* SMLoginViewController.m in Sources */,
+				C14B230917FBB0E500CF081A /* SMSettingViewController.m in Sources */,
 				C19FF0BA1769CA1000EB6F7E /* SMBoard.m in Sources */,
 				C19FF0BB1769CA1000EB6F7E /* SMFavor.m in Sources */,
 				C19FF0C21769CEC700EB6F7E /* SMBoardViewController.m in Sources */,
