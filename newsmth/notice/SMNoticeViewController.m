@@ -74,7 +74,6 @@ static SMNoticeViewController *_instance;
         return ;
     }
     
-    self.navigationItem.leftBarButtonItem = nil;
     self.navigationItem.rightBarButtonItem = nil;
     
     UIView *v = [self viewControllerAtIndex:_currentSelectIndex].view;
