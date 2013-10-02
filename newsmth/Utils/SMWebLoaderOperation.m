@@ -14,7 +14,7 @@
 @interface SMWebLoaderOperation ()<ASIHTTPRequestDelegate, SMWebParserDelegate>
 @property (strong, nonatomic) NSString *parser;
 
-@property (strong, nonatomic) SMHttpRequest *request;
+@property (strong, nonatomic) ASIHTTPRequest *request;
 @property (strong, nonatomic) SMWebParser *webParser;
 
 @end
@@ -24,21 +24,30 @@
 {
     _url = url;
     _parser = parser;
-    [[SMWebLoaderOperationQueue sharedInstance] addOperation:self];
+    [self enqueue];
 }
 
-- (void)loadRequest:(SMHttpRequest *)request withParser:(NSString *)parser
+- (void)loadRequest:(ASIHTTPRequest *)request withParser:(NSString *)parser
 {
     _request = request;
     _parser = parser;
     _url = _request.url.absoluteString;
-    [[SMWebLoaderOperationQueue sharedInstance] addOperation:self];
+    [self enqueue];
+}
+
+- (void)enqueue
+{
+    if (_highPriority) {
+        [[SMWebLoaderOperationQueue sharedBackupInstance] addOperation:self];
+    } else {
+        [[SMWebLoaderOperationQueue sharedInstance] addOperation:self];
+    }
 }
 
 - (void)main
 {
     if (self.isCancelled) {
-//        XLog_d(@"opt is cancelled");
+        XLog_v(@"opt %@ is cancelled", _url);
         return;
     }
     if (_url == nil && _request == nil) {
@@ -52,9 +61,13 @@
         _request = [[SMHttpRequest alloc] initWithURL:url];
     }
     
+    if ([_url hasPrefix:@"http://www.newsmth.net/nForum/"]) {
+        [_request addRequestHeader:@"X-Requested-With" value:@"XMLHttpRequest"];
+    }
+    
     _request.delegate = self;
     
-//    XLog_d(@"url[%@] start", _url);
+    XLog_d(@"url[%@] start", _url);
     [_request startSynchronous];
 }
 
@@ -65,7 +78,7 @@
         return;
     }
 
-//    XLog_d(@"url[%@] response", _url);
+    XLog_d(@"url[%@] response", _url);
     NSString *body;
     NSString *contentType = [request.responseHeaders objectForKey:@"Content-Type"];
     if ([[contentType lowercaseString] rangeOfString:@"charset=utf-8"].location != NSNotFound) {
@@ -85,7 +98,8 @@
 
 - (void)requestFailed:(ASIHTTPRequest *)request
 {
-//    XLog_d(@"url[%@] fail", _url);
+    XLog_d(@"url[%@] fail [%@]", _url, request.error);
+    
     SMMessage *error = [[SMMessage alloc] initWithCode:SMNetworkErrorCodeRequestFail message:@"网络请求超时"];
     [_delegate webLoaderOperationFail:self error:error];
 }
@@ -95,9 +109,11 @@
 {
     _webParser = nil;
     if (self.isCancelled) {
+    XLog_e(@"req cancel [%@]", _url);
         return;
     }
 //    XLog_d(@"url[%@] parsed", _url);
+//    XLog_d(@"%@", json);
     NSInteger code = [[json objectForKey:@"code"] integerValue];
     if (code == 0) {
         id rspData = [json objectForKey:@"data"];

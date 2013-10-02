@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "GAITrackedViewController.h"
+#import "P2PNavigationController.h"
 
-@interface P2PViewController : GAITrackedViewController
+//@protocol P2PNavigationControllerDelegate;
+
+@interface P2PViewController : GAITrackedViewController<P2PNavigationControllerDelegate>
 @property (strong, nonatomic) UIImage *captureImage;
 @end

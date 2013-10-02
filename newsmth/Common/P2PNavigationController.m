@@ -7,12 +7,17 @@
 //
 
 #import "P2PNavigationController.h"
+#import "P2PViewController.h"
+
 #import <QuartzCore/QuartzCore.h>
 
 #define ANIMATION_DURATION  0.5f
 
 #define BACK_IMAGE_SCALE  0.96f
 #define BACK_MASKER_ALPHA 0.7f
+
+#define ENABLE_P2P  [self enableP2P]
+
 
 
 @interface P2PNavigationController ()<UIGestureRecognizerDelegate>
@@ -25,19 +30,14 @@
 
 @implementation P2PNavigationController
 
+- (BOOL)enableP2P
+{
+    return [[[UIDevice currentDevice] systemVersion] integerValue] < 7;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    _backImageView = [[UIImageView alloc] init];
-    _backImageView.autoresizingMask = self.view.autoresizingMask;
-    
-    _backMaskerView = [[UIView alloc] init];
-    _backMaskerView.autoresizingMask = self.view.autoresizingMask;
-    
-    _panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onPanGesture:)];
-    _panGesture.delegate = self;
-    [self.view addGestureRecognizer:_panGesture];
     
     // add left shadow
     UIView *shadowView = [[UIView alloc] init];
@@ -46,67 +46,105 @@
     shadowView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     shadowView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"left_shadow"]];
     [self.view addSubview:shadowView];
+
+    if (ENABLE_P2P) {
+        _backImageView = [[UIImageView alloc] init];
+        _backImageView.autoresizingMask = self.view.autoresizingMask;
+        
+        _backMaskerView = [[UIView alloc] init];
+        _backMaskerView.autoresizingMask = self.view.autoresizingMask;
+        
+        _panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onPanGesture:)];
+        _panGesture.delegate = self;
+        [self.view addGestureRecognizer:_panGesture];
+        
+        // add bottom black view
+        UIView *backgroundView = [[UIView alloc] initWithFrame:self.view.bounds];
+        backgroundView.backgroundColor = [UIColor blackColor];
+        backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        [self.view insertSubview:backgroundView atIndex:0];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    _backImageView.frame = self.view.frame;
-    _backMaskerView.frame = self.view.frame;
-    UIView *superview = self.view.superview;
-    [superview insertSubview:_backImageView belowSubview:self.view];
-    [superview insertSubview:_backMaskerView belowSubview:self.view];
-    
-    _backImageView.hidden = YES;
-    _backMaskerView.hidden = YES;
+    if (ENABLE_P2P) {
+        _backImageView.frame = self.view.frame;
+        _backMaskerView.frame = self.view.frame;
+        _backImageView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0f, 1.0f);
+        _backMaskerView.backgroundColor = [UIColor clearColor];
+        
+        UIView *superview = self.view.superview;
+        [superview insertSubview:_backImageView belowSubview:self.view];
+        [superview insertSubview:_backMaskerView belowSubview:self.view];
+        
+        _backImageView.hidden = YES;
+        _backMaskerView.hidden = YES;
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    _backImageView.frame = self.view.frame;
-    _backMaskerView.frame = self.view.frame;
-    _backImageView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0f, 1.0f);
-    _backMaskerView.backgroundColor = [UIColor clearColor];
+    if (ENABLE_P2P) {
+        _backImageView.frame = self.view.frame;
+        _backMaskerView.frame = self.view.frame;
+        _backImageView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0f, 1.0f);
+        _backMaskerView.backgroundColor = [UIColor clearColor];
+    }
 }
 
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
-    UIImage *image = [self captureView:self.view];
-    [self setBackImage:image];
-    P2PViewController *topVc = (P2PViewController *)self.topViewController;
-    topVc.captureImage = image;
-
-    [super pushViewController:viewController animated:NO];
-    
-    // animation, self.view is viewController now
-    if (self.viewControllers.count > 1) {
-        // set initial status
-        CGRect frame = self.view.frame;
-        frame.origin.x = frame.size.width;
-        self.view.frame = frame;
+    if (ENABLE_P2P) {
+        UIImage *image = [self captureView:self.view];
+        [self setBackImage:image];
+        P2PViewController *topVc = (P2PViewController *)self.topViewController;
+        topVc.captureImage = image;
         
-        _backImageView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0f, 1.0f);
-        _backMaskerView.backgroundColor = [UIColor clearColor];
+        [super pushViewController:viewController animated:NO];
         
-        _backImageView.hidden = NO;
-        _backMaskerView.hidden = NO;
-        
-        [self panToPop:NO];
+        // animation, self.view is viewController now
+        if (self.viewControllers.count > 1) {
+            // set initial status
+            CGRect frame = self.view.frame;
+            frame.origin.x = frame.size.width - 100;
+            self.view.frame = frame;
+            
+            _backImageView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0f, 1.0f);
+            _backMaskerView.backgroundColor = [UIColor clearColor];
+            
+            _backImageView.hidden = NO;
+            _backMaskerView.hidden = NO;
+            
+            [self panToPop:NO];
+        }
+    } else {
+        return [super pushViewController:viewController animated:YES];
     }
 }
 
 - (UIViewController *)popViewControllerAnimated:(BOOL)animated
 {
-    P2PViewController *vc = self.viewControllers[self.viewControllers.count  - 2];
-    [self setBackImage:vc.captureImage];
-
-    _backImageView.hidden = NO;
-    _backMaskerView.hidden = NO;
-
-
-    [self panToPop:YES];
-    return [self.viewControllers lastObject];
+    if (ENABLE_P2P) {
+        P2PViewController *topVc = [self.viewControllers lastObject];
+        if ([topVc respondsToSelector:@selector(navigationUnsupportPanToPop)] && [topVc navigationUnsupportPanToPop]) {
+            return [super popViewControllerAnimated:YES];
+        }
+        
+        P2PViewController *vc = self.viewControllers[self.viewControllers.count  - 2];
+        [self setBackImage:vc.captureImage];
+        
+        _backImageView.hidden = NO;
+        _backMaskerView.hidden = NO;
+        
+        
+        [self panToPop:YES];
+        return [self.viewControllers lastObject];
+    } else {
+        return [super popViewControllerAnimated:YES];
+    }
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)gestureRecognizer
@@ -114,6 +152,12 @@
     if (_panGesture == gestureRecognizer) {
         CGPoint pan = [gestureRecognizer translationInView:self.view];
         BOOL begin = fabsf(pan.x) > fabsf(pan.y) && (self.viewControllers.count > 1);
+        
+        P2PViewController *topVc = [self.viewControllers lastObject];
+        if ([topVc respondsToSelector:@selector(navigationUnsupportPanToPop)]) {
+            begin &= ![topVc navigationUnsupportPanToPop];
+        }
+        
         if (begin) {
             _lastPanX = pan.x;
             P2PViewController *vc = self.viewControllers[self.viewControllers.count  - 2];
@@ -164,13 +208,13 @@
 {
     CGFloat totalWidth = self.view.bounds.size.width;
     CGFloat currentX = self.view.frame.origin.x;
-
+    
     CGFloat scale = 1 - (totalWidth - currentX) * (1 - BACK_IMAGE_SCALE) / totalWidth;
     _backImageView.transform = CGAffineTransformScale(CGAffineTransformIdentity, scale, scale);
     
     CGFloat alpha = 1 - (totalWidth - currentX) * (1 - BACK_MASKER_ALPHA) / totalWidth;
     _backMaskerView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1 - alpha];
-
+    
     CGFloat endX = pop ? totalWidth : 0;
     CGFloat duration = ANIMATION_DURATION * fabs(currentX - endX) / totalWidth;
     [UIView animateWithDuration:duration animations:^{

@@ -20,8 +20,6 @@
     self = [super init];
     if (self) {
         _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
-//        _webView.backgroundColor = [UIColor redColor];
-//        [[UIApplication sharedApplication].keyWindow addSubview:_webView];
         _webView.delegate = self;
     }
     return self;
@@ -29,6 +27,7 @@
 
 - (void)dealloc
 {
+    _webView.delegate = nil;
     _webView = nil;
 //    XLog_v(@"%s", __PRETTY_FUNCTION__);
 }

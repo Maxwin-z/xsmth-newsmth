@@ -23,7 +23,7 @@
 {
     [super viewDidLoad];    
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
-    _tableView.contentInset = UIEdgeInsetsMake(self.navigationController.navigationBar.bounds.size.height, 0, 0, 0);
+    _tableView.contentInset = UIEdgeInsetsMake(SM_TOP_INSET, 0, 0, 0);
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];

@@ -14,6 +14,8 @@
 #import "SMUserViewController.h"
 #import "SMSectionViewController.h"
 #import "PBWebViewController.h"
+#import "SMNoticeViewController.h"
+#import "SMSettingViewController.h"
 
 typedef NS_ENUM(NSInteger, CellType) {
     CellTypeTop,
@@ -25,6 +27,7 @@ typedef NS_ENUM(NSInteger, CellType) {
 
 @interface SMLeftViewController ()<UITableViewDataSource, UITableViewDelegate, SMWebLoaderOperationDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) IBOutlet UIView *viewForSetting;
 @property (strong, nonatomic) NSArray *cellTypes;
 
 @property (strong, nonatomic) SMWebLoaderOperation *keepLoginOp;
@@ -37,6 +40,7 @@ typedef NS_ENUM(NSInteger, CellType) {
     self = [super init];
     if (self) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onAccountNotification) name:NOTIFICATION_ACCOUT object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onNoticeNofitication) name:NOTIFICATION_NOTICE object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onBecomeActivity) name:UIApplicationDidBecomeActiveNotification object:nil];
     }
     return self;
@@ -51,6 +55,12 @@ typedef NS_ENUM(NSInteger, CellType) {
 {
     [super viewDidLoad];
     _tableView.transform = CGAffineTransformRotate(CGAffineTransformIdentity, M_PI);
+    _tableView.scrollsToTop = NO;
+    
+    CGRect frame = _viewForSetting.frame;
+    frame.origin.y = 20.0f;
+    _viewForSetting.frame = frame;
+    [self.view addSubview:_viewForSetting];
 }
 
 - (void)onAccountNotification
@@ -58,9 +68,22 @@ typedef NS_ENUM(NSInteger, CellType) {
     [self.tableView reloadData];
 }
 
+- (void)onNoticeNofitication
+{
+    [self.tableView reloadData];
+}
+
 - (void)onBecomeActivity
 {
     [self loadNotice];
+}
+
+- (IBAction)onMoreButtonClick:(id)sender
+{
+    SMSettingViewController *vc = [[SMSettingViewController alloc] init];
+    [[SMMainViewController instance] setRootViewController:vc];
+    [[SMMainViewController instance] setLeftVisiable:NO];
+    [SMUtils trackEventWithCategory:@"left" action:@"setting" label:nil];
 }
 
 - (void)loadNotice
@@ -147,9 +170,7 @@ typedef NS_ENUM(NSInteger, CellType) {
         vc = [SMMainpageViewController instance];
         evt = @"home";
     }else if (cellType == CellTypeNotice) {
-        PBWebViewController *pvc = [[PBWebViewController alloc] init];
-        pvc.URL = [NSURL URLWithString:@"http://m.newsmth.net/refer/reply"];
-        vc = pvc;
+        vc = [SMNoticeViewController instance];
         evt = @"notice";
     } else if (cellType == CellTypeFavor) {
         vc = [SMFavorListViewController instance];
@@ -174,7 +195,6 @@ typedef NS_ENUM(NSInteger, CellType) {
 - (void)webLoaderOperationFinished:(SMWebLoaderOperation *)opt
 {
     [SMAccountManager instance].notice = opt.data;
-    [self.tableView reloadData];
 }
 
 - (void)webLoaderOperationFail:(SMWebLoaderOperation *)opt error:(SMMessage *)error

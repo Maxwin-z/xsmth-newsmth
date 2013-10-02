@@ -7,16 +7,9 @@
 //
 
 #import "SMMainpageCell.h"
+#import "SMUtils.h"
 
 static SMMainpageCell *_instance;
-
-
-@interface SMMainpageCell ()
-@property (strong, nonatomic) IBOutlet UIView *viewForCell;
-@property (weak, nonatomic) IBOutlet UILabel *labelForTitle;
-@property (weak, nonatomic) IBOutlet UILabel *labelForBoardName;
-@property (weak, nonatomic) IBOutlet UILabel *labelForAuthor;
-@end
 
 @implementation SMMainpageCell
 
@@ -32,7 +25,8 @@ static SMMainpageCell *_instance;
 {
     SMMainpageCell *cell = [self instance];
     CGFloat heightExpectTitle = cell.viewForCell.frame.size.height - cell.labelForTitle.frame.size.height;
-    CGFloat titleHeight = [post.title sizeWithFont:cell.labelForTitle.font constrainedToSize:CGSizeMake(cell.labelForTitle.frame.size.width, CGFLOAT_MAX) lineBreakMode:cell.labelForTitle.lineBreakMode].height;
+    CGFloat titleHeight = [post.title smSizeWithFont:cell.labelForTitle.font constrainedToSize:CGSizeMake(cell.labelForTitle.frame.size.width, CGFLOAT_MAX) lineBreakMode:cell.labelForTitle.lineBreakMode].height;
+    
     return heightExpectTitle + titleHeight;
 }
 

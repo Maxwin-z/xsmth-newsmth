@@ -11,6 +11,7 @@
 #import <Foundation/Foundation.h>
 
 #define NOTIFICATION_ACCOUT @"notification_account"
+#define NOTIFICATION_NOTICE @"notification_notice"
 
 @interface SMAccountManager : NSObject
 

@@ -7,6 +7,7 @@
 //
 
 #import "SMBoardCell.h"
+#import "SMUtils.h"
 
 static SMBoardCell *_instance;
 
@@ -28,7 +29,8 @@ static SMBoardCell *_instance;
     }
     CGFloat heightExpectTitle = _instance.viewForCell.frame.size.height - _instance.labelForTitle.frame.size.height;
     NSString *title = [NSString stringWithFormat:@"%@(%d)", post.title, post.replyCount];
-    CGFloat titleHeight = [title sizeWithFont:_instance.labelForTitle.font constrainedToSize:CGSizeMake(_instance.labelForTitle.frame.size.width, CGFLOAT_MAX) lineBreakMode:_instance.labelForTitle.lineBreakMode].height;
+    CGFloat titleHeight = [title smSizeWithFont:_instance.labelForTitle.font constrainedToSize:CGSizeMake(_instance.labelForTitle.frame.size.width, CGFLOAT_MAX) lineBreakMode:_instance.labelForTitle.lineBreakMode].height;
+
     return titleHeight + heightExpectTitle;
 }
 
@@ -52,9 +54,15 @@ static SMBoardCell *_instance;
     _labelForReplyTime.text = [SMUtils formatDate:[NSDate dateWithTimeIntervalSince1970:_post.replyDate / 1000]];
     [_buttonForAuthor setTitle:_post.author forState:UIControlStateNormal];
     [_buttonForReplyAuthor setTitle:_post.replyAuthor forState:UIControlStateNormal];
-    
+
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
     // fix position
     __block CGFloat left = _labelForPostTime.frame.origin.x;
+    CGFloat centerY = _labelForPostTime.center.y;
     [@[_labelForPostTime, _buttonForAuthor, _labelForReplyTime, _buttonForReplyAuthor]
      enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
          UIView *view = obj;
@@ -63,6 +71,7 @@ static SMBoardCell *_instance;
          CGRect frame = view.frame;
          frame.origin.x = left;
          view.frame = frame;
+         view.center = CGPointMake(view.center.x, centerY);
          
          left += frame.size.width + 10.0f;   //padding
      }];

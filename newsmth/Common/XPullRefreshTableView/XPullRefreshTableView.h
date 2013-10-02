@@ -14,14 +14,17 @@
 - (void)tableViewDoRefresh:(XPullRefreshTableView *)tableView;
 @optional
 - (void)tableViewDoRetry:(XPullRefreshTableView *)tableView;
+- (void)tableViewDoLoadMore:(XPullRefreshTableView *)tableView;
 @end
 
 @interface XPullRefreshTableView : UITableView
 @property (weak, nonatomic) id<XPullRefreshTableViewDelegate> xdelegate;
 @property (strong, nonatomic) NSDate *lastUpdated;
+@property (assign, nonatomic) BOOL enablePullLoad;
 
 - (void)beginRefreshing;
 - (void)endRefreshing:(BOOL)success;
+- (void)beginLoadMore;
 
 - (void)setLoadMoreShow;
 - (void)setLoadMoreHide;

@@ -184,13 +184,17 @@
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
 
     CGRect frame = self.view.bounds;
-    frame.size.height -= kbSize.height;
+    frame.origin.y = _viewForContainer.frame.origin.y;
+    frame.size.height -= (kbSize.height + SM_TOP_INSET);
     _viewForContainer.frame = frame;
 }
 
 - (void)onKeyboardWillHide:(NSNotification *)n
 {
-    _viewForContainer.frame = self.view.bounds;
+    CGRect frame = self.view.bounds;
+    frame.origin.y = SM_TOP_INSET;
+    frame.size.height -= frame.origin.y;
+    _viewForContainer.frame = frame;
 }
 
 - (void)webLoaderOperationFinished:(SMWebLoaderOperation *)opt

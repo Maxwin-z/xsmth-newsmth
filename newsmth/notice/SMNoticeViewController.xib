@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+    <dependencies>
+        <deployment defaultVersion="1280" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SMNoticeViewController">
+            <connections>
+                <outlet property="tabBarItemForAt" destination="11" id="Twm-qg-yPI"/>
+                <outlet property="tabBarItemForMail" destination="5" id="puE-2C-vhG"/>
+                <outlet property="tabBarItemForReply" destination="6" id="4Rb-nS-Nz0"/>
+                <outlet property="tabbar" destination="4" id="eNx-7O-qR1"/>
+                <outlet property="view" destination="1" id="3"/>
+                <outlet property="viewForContainer" destination="10" id="4pw-xh-eZQ"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="1">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tabBar contentMode="scaleToFill" id="4">
+                    <rect key="frame" x="0.0" y="519" width="320" height="49"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <items>
+                        <tabBarItem title="邮箱" image="tabbar_mail.png" id="5"/>
+                        <tabBarItem tag="1" title="回复我" image="tabbar_reply.png" id="6"/>
+                        <tabBarItem tag="2" title="@我" image="tabbar_at.png" id="11"/>
+                    </items>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="kde-MG-Mi6"/>
+                    </connections>
+                </tabBar>
+                <view contentMode="scaleToFill" id="10">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="tabbar_at.png" width="30" height="30"/>
+        <image name="tabbar_mail.png" width="30" height="30"/>
+        <image name="tabbar_reply.png" width="30" height="30"/>
+    </resources>
+</document>

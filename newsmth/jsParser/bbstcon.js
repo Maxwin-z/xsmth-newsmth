@@ -11,6 +11,14 @@ var data = {
 	}, ... */]
 }
 
+function $parse(html) {
+    if (html.indexOf('<?xml version="1.0" encoding="utf-8"?>') != -1) {
+        parse_m(html);
+    } else {
+        parse_www(html);
+    }
+}
+
 function tconWriter(board, bid, gid, start, tpage, pno, serial, prevgid, nextgid,title) {
 	data.bid = bid;
 	data.tpage = tpage;
@@ -32,7 +40,7 @@ tconWriter.prototype.o = function(arr) {
 
 tconWriter.prototype.h = function() {}
 
-function $parse(html) {
+function parse_www(html) {
 	var rsp = {code: 0, data: null, message: ''};
 	var script = html.match(/<!--((.|\s)*?)\/\/-->/);
 	if (script == null) {	// error
@@ -48,4 +56,22 @@ function $parse(html) {
 
 	console.log(rsp);
 	window.location.href = 'newsmth://' + encodeURIComponent(JSON.stringify(rsp));
+}
+
+
+/////////////////////////////////////////////
+function parse_m(html) {
+    var body = html.match(/<body(.*)<\/body>/i)[1];
+    var div = document.createElement('div');
+    div.innerHTML = body;
+    document.body.appendChild(div);
+
+    var as = div.querySelectorAll('#m_main .sec.nav form a.plant');
+    for (var i = 0; i != as.length; ++i) {
+    	var a = as[i];
+    	var matches = a.innerHTML(/(\d+)\/(\d+)/);
+    	if (matches) {
+    		data.tpage = matches[2];
+    	}
+    }
 }

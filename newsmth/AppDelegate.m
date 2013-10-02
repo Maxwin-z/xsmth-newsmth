@@ -13,6 +13,7 @@
 #import "ViewController.h"
 #import "SMMainViewController.h"
 #import "SMMainpageViewController.h"
+#import "SMUtils.h"
 
 #import <DCIntrospect/DCIntrospect.h>
 
@@ -39,7 +40,10 @@
 
 - (void)setupTheme
 {
-//    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"common_titlebar_bg"] forBarMetrics:UIBarMetricsDefault];
+    if ([SMUtils systemVersion] < 7) {
+        [[UINavigationBar appearance] setBackgroundImage:[[UIImage imageNamed:@"bg_navigationbar"] stretchableImageWithLeftCapWidth:1 topCapHeight:1] forBarMetrics:UIBarMetricsDefault];
+        [[UIBarButtonItem appearance] setTintColor:SM_TINTCOLOR];
+    }
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions

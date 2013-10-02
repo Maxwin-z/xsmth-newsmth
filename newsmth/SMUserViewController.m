@@ -9,6 +9,7 @@
 #import "SMUserViewController.h"
 #import "SMLoginViewController.h"
 #import "UIButton+Custom.h"
+#import "SMMailComposeViewController.h"
 
 @interface SMUserViewController ()<SMWebLoaderOperationDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *labelForUserInfo;
@@ -45,6 +46,28 @@
     [self accountChanged];
     
     [_buttonForLogout setButtonSMType:SMButtonTypeRed];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"站内信" style:UIBarButtonItemStyleBordered target:self action:@selector(onRightBarButtonClick)];
+}
+
+- (void)onRightBarButtonClick
+{
+    if (![SMAccountManager instance].isLogin) {
+        [self performSelectorAfterLogin:@selector(doSendMail)];
+        return ;
+    }
+    [self doSendMail];
+}
+
+- (void)doSendMail
+{
+    SMMailComposeViewController *mailComposeViewController = [[SMMailComposeViewController alloc] init];
+    SMMailItem *mail = [[SMMailItem alloc] init];
+    mail.author = _username;
+    mailComposeViewController.mail = mail;
+    
+    P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:mailComposeViewController];
+    [self.navigationController presentModalViewController:nvc animated:YES];
 }
 
 - (void)accountChanged
@@ -58,6 +81,8 @@
         _userInfoOp.delegate = self;
         
         NSString *username =  _username == nil ? [SMAccountManager instance].name : _username;
+        username = [username stringByTrimmingCharactersInSet:
+                    [NSCharacterSet whitespaceCharacterSet]];
         self.title = username;
         
         NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbsqry.php?userid=%@", username];

@@ -13,7 +13,7 @@ static SMPostGroupContentCell *_instance;
 @interface SMPostGroupContentCell ()<UIWebViewDelegate>
 @property (strong, nonatomic) IBOutlet UIView *viewForCell;
 @property (strong, nonatomic) IBOutlet UILabel *labelForContent;    // unused
-@property (strong, nonatomic) IBOutlet UIWebView *webViewForContent;
+@property (weak, nonatomic) IBOutlet UIWebView *webViewForContent;
 @end
 
 @implementation SMPostGroupContentCell
@@ -30,8 +30,14 @@ static SMPostGroupContentCell *_instance;
 {
     SMPostGroupContentCell *cell = [self instance];
     CGFloat heightExceptContent = cell.viewForCell.frame.size.height - cell.labelForContent.frame.size.height;
-    CGFloat contentHeight = [post.content sizeWithFont:cell.labelForContent.font constrainedToSize:CGSizeMake(cell.labelForContent.frame.size.width, CGFLOAT_MAX) lineBreakMode:cell.labelForContent.lineBreakMode].height;
+    CGFloat contentHeight = [post.content smSizeWithFont:cell.labelForContent.font constrainedToSize:CGSizeMake(cell.labelForContent.frame.size.width, CGFLOAT_MAX) lineBreakMode:cell.labelForContent.lineBreakMode].height;
     return heightExceptContent + contentHeight;
+}
+
+- (void)dealloc
+{
+    _webViewForContent.delegate = nil;
+    _webViewForContent = nil;
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier

@@ -4,6 +4,8 @@ SMResult {
 }
 
 SMAttach {
+    string boardName
+    int pid
 	string name
 	int len
 	int pos
@@ -89,4 +91,19 @@ SMNotice {
 	int at
 	int reply
 	int mail
+}
+
+SMMailItem {
+	bool unread
+	string author
+	string title
+	long date	
+	string url
+    string content
+}
+
+SMMailList {
+	SMMailItem[] items
+	int tpage
+	bool hasMail
 }
