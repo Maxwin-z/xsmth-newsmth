@@ -1561,8 +1561,8 @@
 		C102B8C11782D2E0000E2EEB /* Distribution */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: WenDong Zhang";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/newsmth/Frameworks\"",
@@ -1576,8 +1576,8 @@
 					"\"$(SRCROOT)/newsmth/Frameworks/GoogleAnalytics\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "4384F1AE-1CD6-4CD2-9894-9FF1D2415E1E";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "76D88282-750A-4D79-9DC1-ABBC93BB8A75";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "76D88282-750A-4D79-9DC1-ABBC93BB8A75";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Distribution;
