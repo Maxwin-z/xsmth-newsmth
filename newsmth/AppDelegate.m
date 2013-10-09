@@ -17,14 +17,43 @@
 
 #import <DCIntrospect/DCIntrospect.h>
 
-@interface AppDelegate ()
+@interface AppDelegate ()<SMWebLoaderOperationDelegate>
 @property (strong, nonatomic) UINavigationController *nvc;
 @property (strong, nonatomic) SMMainpageViewController *mainpageViewController;
 @property (strong, nonatomic) ViewController *viewController;
 @property (strong, nonatomic) SMMainViewController *mainViewController;
+
+@property (strong, nonatomic) SMWebLoaderOperation *keepLoginOp;
+@property (strong, nonatomic) SMWebLoaderOperation *loginOp;
+
+@property (strong, nonatomic) void (^completionHandler)(UIBackgroundFetchResult);
 @end
 
 @implementation AppDelegate
+
+- (void)showNotification:(NSString *)notice
+{
+    UIApplication *app = [UIApplication sharedApplication];
+    NSArray *oldNotifications = [app scheduledLocalNotifications];
+    
+    // Clear out the old notification before scheduling a new one.
+    if ([oldNotifications count] > 0)
+        [app cancelAllLocalNotifications];
+    
+    // Create a new notification.
+    UILocalNotification* alarm = [[UILocalNotification alloc] init];
+    if (alarm)
+    {
+        alarm.fireDate = [NSDate date];
+        //        alarm.timeZone = [NSTimeZone defaultTimeZone];
+        alarm.repeatInterval = 0;
+        alarm.soundName = UILocalNotificationDefaultSoundName;
+        alarm.alertBody = notice;
+        
+        [app scheduleLocalNotification:alarm];
+    }
+}
+
 
 - (void)setupGoogleAnalytics
 {
@@ -64,34 +93,100 @@
     [[DCIntrospect sharedIntrospector] start];
 #endif
     
+    // enable background fetch
+    if ([SMUtils systemVersion] >= 7) {
+        [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
+    }
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+
     return YES;
 }
 
-- (void)applicationWillResignActive:(UIApplication *)application
+-(void)applicationDidBecomeActive:(UIApplication *)application
 {
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
 }
 
-- (void)applicationDidEnterBackground:(UIApplication *)application
+- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    XLog_d(@"");
+    if ([SMAccountManager instance].isLogin) {
+        XLog_d(@"load notice");
+        [_keepLoginOp cancel];
+        _keepLoginOp = [[SMWebLoaderOperation alloc] init];
+        _keepLoginOp.delegate = self;
+        _completionHandler = completionHandler;
+        [_keepLoginOp loadUrl:@"http://m.newsmth.net/user/query/" withParser:@"notice"];
+    } else {
+        NSString *user = [[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_USERNAME];
+        NSString *passwd =  [[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_PASSWORD];
+        if (user && passwd) {
+            SMHttpRequest *request = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:@"http://m.newsmth.net/user/login"]];
+            NSString *postBody = [NSString stringWithFormat:@"id=%@&passwd=%@&save=on", user, passwd];
+            [request setRequestMethod:@"POST"];
+            [request addRequestHeader:@"Content-type" value:@"application/x-www-form-urlencoded"];
+            [request setPostBody:[[postBody dataUsingEncoding:NSUTF8StringEncoding] mutableCopy]];
+            
+            [_loginOp cancel];
+            _loginOp = [[SMWebLoaderOperation alloc] init];
+            _loginOp.delegate = self;
+            _completionHandler = completionHandler;
+            [_loginOp loadRequest:request withParser:@"notice"];
+        } else {
+            completionHandler(UIBackgroundFetchResultNoData);
+        }
+    }
+
+//    NSURL *url = [NSURL URLWithString:@"http://m.newsmth.net/user/query/"];
+//    NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+//        NSString *content = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+//        XLog_d(@"%@", content);
+//        [self showNotification:@"got it"];
+//        completionHandler(UIBackgroundFetchResultNewData);
+//    }];
+//    [task resume];
 }
 
-- (void)applicationWillEnterForeground:(UIApplication *)application
+- (void)application:(UIApplication *)application handleEventsForBackgroundURLSession:(NSString *)identifier completionHandler:(void (^)())completionHandler
 {
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    XLog_d(@"");
+    completionHandler(UIBackgroundFetchResultNewData);
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application
+- (void)webLoaderOperationFinished:(SMWebLoaderOperation *)opt
 {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    XLog_d(@"%@", opt.data);
+    SMNotice *oldNotice = [SMAccountManager instance].notice;
+    SMNotice *newNotice = opt.data;
+    NSMutableArray *res = [[NSMutableArray alloc] init];
+    int badge = 0;
+    if (newNotice.mail > oldNotice.mail) {
+        [res addObject:@"邮件"];
+        badge += newNotice.mail - oldNotice.mail;
+    }
+    if (newNotice.reply > oldNotice.reply) {
+        [res addObject:[NSString stringWithFormat:@"%d条回复", newNotice.reply - oldNotice.reply]];
+        badge += newNotice.reply - oldNotice.reply;
+    }
+    if (newNotice.at > oldNotice.at) {
+        [res addObject:[NSString stringWithFormat:@"%d条@", newNotice.at - oldNotice.at]];
+        badge += newNotice.at - oldNotice.at;
+    }
+    if (res.count > 0) {
+        NSString *message = [NSString stringWithFormat:@"%@ 新的消息：%@", opt == _loginOp ? @"登录" : @"", [res componentsJoinedByString:@", "]];
+        [UIApplication sharedApplication].applicationIconBadgeNumber = badge;
+        [self showNotification:message];
+    }
+    _completionHandler(UIBackgroundFetchResultNewData);
+    _completionHandler = nil;
 }
 
-- (void)applicationWillTerminate:(UIApplication *)application
+- (void)webLoaderOperationFail:(SMWebLoaderOperation *)opt error:(SMMessage *)error
 {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    XLog_d(@"%@", error);
+    [self showNotification:[NSString stringWithFormat:@"%@", error]];
+    _completionHandler(UIBackgroundFetchResultFailed);
+    _completionHandler = nil;
 }
 
 @end
