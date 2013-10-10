@@ -38,6 +38,7 @@ static SMAccountManager *_instance;
 {
     if (_notice != notice) {
         _notice = notice;
+        [[NSUserDefaults standardUserDefaults] setObject:[_notice encode] forKey:USERDEFAULTS_NOTICE];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_NOTICE object:nil];
 }

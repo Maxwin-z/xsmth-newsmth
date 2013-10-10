@@ -156,7 +156,8 @@
 - (void)webLoaderOperationFinished:(SMWebLoaderOperation *)opt
 {
     XLog_d(@"%@", opt.data);
-    SMNotice *oldNotice = [SMAccountManager instance].notice;
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    SMNotice *oldNotice = [[SMNotice alloc] initWithJSON:[def objectForKey:USERDEFAULTS_NOTICE]];
     SMNotice *newNotice = opt.data;
     NSMutableArray *res = [[NSMutableArray alloc] init];
     int badge = 0;

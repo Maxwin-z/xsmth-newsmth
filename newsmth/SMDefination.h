@@ -34,5 +34,6 @@ typedef enum {
 
 #define USERDEFAULTS_USERNAME   @"username"
 #define USERDEFAULTS_PASSWORD   @"password"
+#define USERDEFAULTS_NOTICE @"notice"
 
 #endif
