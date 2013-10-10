@@ -19,4 +19,7 @@
 #import "SMHttpRequest.h"
 #import "P2PNavigationController.h"
 #import "P2PViewController.h"
+
+#import "SMConfig.h"
+
 #endif

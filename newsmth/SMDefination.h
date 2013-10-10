@@ -36,4 +36,6 @@ typedef enum {
 #define USERDEFAULTS_PASSWORD   @"password"
 #define USERDEFAULTS_NOTICE @"notice"
 
+#define USERDEFAULTS_CONFIG_BACKGROUND_FETCH    @"backgroundfetch"
+
 #endif

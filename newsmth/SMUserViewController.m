@@ -111,6 +111,7 @@
     // disable 
     if ([SMUtils systemVersion] >= 7) {
         [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalNever];
+        XLog_v(@"disable bg fetch");
     }
     
     [SMUtils trackEventWithCategory:@"user" action:@"logout" label:[SMAccountManager instance].name];

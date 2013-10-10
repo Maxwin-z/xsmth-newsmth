@@ -71,6 +71,12 @@ static SMAccountManager *_instance;
             // notify account changed.
             if ((name != nil || _name != nil) && ![name isEqualToString:_name]) {
                 _name = name;
+                
+                if ([SMConfig enableBackgroundFetch]) {
+                    [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
+                    XLog_v(@"enable bg fetch");
+                }
+                
                 [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ACCOUT object:nil];
             }
         }

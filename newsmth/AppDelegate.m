@@ -94,9 +94,10 @@
 #endif
     
     // enable background fetch
-    if ([SMUtils systemVersion] >= 7) {
-        [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
-    }
+//    if ([SMUtils systemVersion] >= 7) {
+//        [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
+//    }
+    
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
 
     return YES;
