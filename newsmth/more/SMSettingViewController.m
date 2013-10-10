@@ -15,6 +15,8 @@
 typedef enum {
     CellTypeHideTop,
     CellTypeUserClickable,
+    CellTypeEnableQMD,
+    CellTypeSwipeBack,
     CellTypeBackgroundFetch,
     
     CellTypeFeedback,
@@ -24,6 +26,7 @@ typedef enum {
 typedef enum {
     SectionTypeBoard,
     SectionTypeBackgroundFetch,
+    SectionTypeInteract,
     SectionTypeMore
 }SectionType;
 
@@ -38,10 +41,17 @@ typedef struct {
 static SectionData sections[] = {
     {
         SectionTypeBoard,
-        "版面",
+        "浏览",
         NULL,
-        2,
-        {CellTypeHideTop, CellTypeUserClickable}
+        3,
+        {CellTypeHideTop, CellTypeUserClickable, CellTypeEnableQMD}
+    },
+    {
+        SectionTypeInteract,
+        "右滑返回",
+        "iOS7系统默认支持右滑返回，需要从屏幕最左边滑动。不习惯的用户请禁用此项。",
+        1,
+        {CellTypeSwipeBack}
     },
     {
         SectionTypeBackgroundFetch,
@@ -52,7 +62,7 @@ static SectionData sections[] = {
     },
     {
         SectionTypeMore,
-        NULL,
+        "其他",
         NULL,
         2,
         {CellTypeFeedback, CellTypeRate}
@@ -66,9 +76,19 @@ static SectionData sections[] = {
 
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForHideTop;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForUserClickable;
+@property (strong, nonatomic) IBOutlet UITableViewCell *cellForShowQMD;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForBackgroundFetch;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForFeedback;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForRate;
+@property (strong, nonatomic) IBOutlet UITableViewCell *cellForSwipeBack;
+
+@property (weak, nonatomic) IBOutlet UILabel *labelForAppVersion;
+@property (weak, nonatomic) IBOutlet UISwitch *switchForHideTop;
+@property (weak, nonatomic) IBOutlet UISwitch *switchForUserClickable;
+@property (weak, nonatomic) IBOutlet UISwitch *switchForShowQMD;
+@property (weak, nonatomic) IBOutlet UISwitch *switchForBackgroundFetch;
+@property (weak, nonatomic) IBOutlet UISwitch *switchForSwipeBack;
+
 
 @end
 
@@ -89,7 +109,18 @@ static SectionData sections[] = {
     _tableView.backgroundColor = [UIColor clearColor];
     _tableView.backgroundView = nil;
     _tableView.tableHeaderView = _viewForTableViewHeader;
+
+    _labelForAppVersion.text = [NSString stringWithFormat:@"xsmth %@ @Maxwin", [SMUtils appVersionString]];
     
+    _switchForHideTop.on = [SMConfig disableShowTopPost];
+    _switchForUserClickable.on = [SMConfig enableUserClick];
+    _switchForSwipeBack.on = [SMConfig enableIOS7SwipeBack];
+    _switchForBackgroundFetch.on = [SMConfig enableBackgroundFetch];
+}
+
+- (IBAction)onSwitchValueChanged:(UISwitch *)sender
+{
+    XLog_d(@"%@, %d", sender, sender.on);
 }
 
 #pragma mark - UITableViewDataSource/Delegate
@@ -100,12 +131,20 @@ static SectionData sections[] = {
             return _cellForHideTop;
         case CellTypeUserClickable:
             return _cellForUserClickable;
+        case CellTypeEnableQMD:
+            return _cellForShowQMD;
+            
+        case CellTypeSwipeBack:
+            return _cellForSwipeBack;
+            
         case CellTypeBackgroundFetch:
             return _cellForBackgroundFetch;
+            
         case CellTypeFeedback:
             return _cellForFeedback;
         case CellTypeRate:
             return _cellForRate;
+            
         default:
             return [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
     }

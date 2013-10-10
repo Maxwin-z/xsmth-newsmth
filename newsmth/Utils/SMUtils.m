@@ -16,6 +16,16 @@
     return [[[UIDevice currentDevice] systemVersion] integerValue];
 }
 
++ (NSString *)systemVersionString
+{
+    return [[UIDevice currentDevice] systemVersion];
+}
++ (NSString *)appVersionString
+{
+    return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
+}
+
+
 + (NSString *)formatDate:(NSDate *)date
 {
     int secPerDay = 24 * 3600;

@@ -10,4 +10,7 @@
 
 @interface SMConfig : NSObject
 + (BOOL)enableBackgroundFetch;
++ (BOOL)disableShowTopPost;
++ (BOOL)enableUserClick;
++ (BOOL)enableIOS7SwipeBack;
 @end
