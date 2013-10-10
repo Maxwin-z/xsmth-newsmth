@@ -22,27 +22,38 @@ typedef enum {
 }CellType;
 
 typedef enum {
-    SectionTypeSetting,
+    SectionTypeBoard,
+    SectionTypeBackgroundFetch,
     SectionTypeMore
 }SectionType;
 
 typedef struct {
     SectionType sectionType;
     char *title;
+    char *footer;
     int cellCount;
     CellType cells[MAX_CELL_COUNT];
 }SectionData;
 
 static SectionData sections[] = {
     {
-        SectionTypeSetting,
-        "设置",
-        3,
-        {CellTypeHideTop, CellTypeUserClickable, CellTypeBackgroundFetch}
+        SectionTypeBoard,
+        "版面",
+        NULL,
+        2,
+        {CellTypeHideTop, CellTypeUserClickable}
+    },
+    {
+        SectionTypeBackgroundFetch,
+        "后台获取最新消息",
+        "iOS7支持后台定时获取网络数据，一般间隔10min。一天流量大约100kB。需要登录。",
+        1,
+        {CellTypeBackgroundFetch}
     },
     {
         SectionTypeMore,
-        "更多",
+        NULL,
+        NULL,
         2,
         {CellTypeFeedback, CellTypeRate}
     }
@@ -72,6 +83,9 @@ static SectionData sections[] = {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.title = @"更多";
+    
     _tableView.backgroundColor = [UIColor clearColor];
     _tableView.backgroundView = nil;
     _tableView.tableHeaderView = _viewForTableViewHeader;
@@ -110,6 +124,15 @@ static SectionData sections[] = {
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     char *title = sections[section].title;
+    if (title != NULL) {
+        return [NSString stringWithUTF8String:title];
+    }
+    return nil;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
+{
+    char *title = sections[section].footer;
     if (title != NULL) {
         return [NSString stringWithUTF8String:title];
     }
