@@ -10,15 +10,55 @@
 #import "SMMailComposeViewController.h"
 #import <MessageUI/MessageUI.h>
 
+#define MAX_CELL_COUNT  4
+
 typedef enum {
+    CellTypeHideTop,
+    CellTypeUserClickable,
+    CellTypeBackgroundFetch,
+    
     CellTypeFeedback,
     CellTypeRate
 }CellType;
 
+typedef enum {
+    SectionTypeSetting,
+    SectionTypeMore
+}SectionType;
+
+typedef struct {
+    SectionType sectionType;
+    char *title;
+    int cellCount;
+    CellType cells[MAX_CELL_COUNT];
+}SectionData;
+
+static SectionData sections[] = {
+    {
+        SectionTypeSetting,
+        "设置",
+        3,
+        {CellTypeHideTop, CellTypeUserClickable, CellTypeBackgroundFetch}
+    },
+    {
+        SectionTypeMore,
+        "更多",
+        2,
+        {CellTypeFeedback, CellTypeRate}
+    }
+};
+
+
 @interface SMSettingViewController ()<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
 @property (strong, nonatomic) IBOutlet UIView *viewForTableViewHeader;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) NSArray *cellTypes;
+
+@property (strong, nonatomic) IBOutlet UITableViewCell *cellForHideTop;
+@property (strong, nonatomic) IBOutlet UITableViewCell *cellForUserClickable;
+@property (strong, nonatomic) IBOutlet UITableViewCell *cellForBackgroundFetch;
+@property (strong, nonatomic) IBOutlet UITableViewCell *cellForFeedback;
+@property (strong, nonatomic) IBOutlet UITableViewCell *cellForRate;
+
 @end
 
 @implementation SMSettingViewController
@@ -35,37 +75,57 @@ typedef enum {
     _tableView.backgroundColor = [UIColor clearColor];
     _tableView.backgroundView = nil;
     _tableView.tableHeaderView = _viewForTableViewHeader;
-    _cellTypes = @[@(CellTypeFeedback), @(CellTypeRate)];
+    
 }
 
 #pragma mark - UITableViewDataSource/Delegate
+- (UITableViewCell *)cellForType:(CellType)type;
+{
+    switch (type) {
+        case CellTypeHideTop:
+            return _cellForHideTop;
+        case CellTypeUserClickable:
+            return _cellForUserClickable;
+        case CellTypeBackgroundFetch:
+            return _cellForBackgroundFetch;
+        case CellTypeFeedback:
+            return _cellForFeedback;
+        case CellTypeRate:
+            return _cellForRate;
+        default:
+            return [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+    }
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return sizeof(sections) / sizeof(SectionData);
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _cellTypes.count;
+    return sections[section].cellCount;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    char *title = sections[section].title;
+    if (title != NULL) {
+        return [NSString stringWithUTF8String:title];
+    }
+    return nil;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *cellId = @"cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
-        cell.textLabel.backgroundColor = [UIColor clearColor];
-    }
-    CellType cellType = [_cellTypes[indexPath.row] intValue];
-    if (cellType == CellTypeFeedback) {
-        cell.textLabel.text = @"意见与反馈";
-    }
-    if (cellType == CellTypeRate) {
-        cell.textLabel.text = @"喜欢，去评分";
-    }
-    return cell;
+    CellType cellType = sections[indexPath.section].cells[indexPath.row];
+    return [self cellForType:cellType];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    CellType cellType = [_cellTypes[indexPath.row] intValue];
+    CellType cellType = sections[indexPath.section].cells[indexPath.row];
     if (cellType == CellTypeFeedback) {
         UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"邮件", @"站内信", nil];
         [actionSheet showInView:self.view];
