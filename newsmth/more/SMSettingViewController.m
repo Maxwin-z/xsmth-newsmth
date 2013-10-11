@@ -139,6 +139,8 @@ static SectionData sections[] = {
     }
     if (sender == _switchForSwipeBack) {
         [def setBool:sender.on forKey:USERDEFAULTS_CONFIG_IOS7_SWIPE_BACK];
+        
+        [[[UIAlertView alloc] initWithTitle:@"!!注意!!" message:@"需要重启应用，使之生效" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil] show];
     }
     if (sender == _switchForBackgroundFetch) {
         [def setBool:sender.on forKey:USERDEFAULTS_CONFIG_BACKGROUND_FETCH];
