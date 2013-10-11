@@ -40,7 +40,11 @@
     _item = item;
     SMPost *post = item.post;
     
-    NSString *author = [NSString stringWithFormat:@"%@(%@)", post.author, post.nick];
+    NSString *author = post.author;
+    if (post.nick.length > 0) {
+        author = [NSString stringWithFormat:@"%@(%@)", post.author, post.nick];
+    }
+    
     [_buttonForAuthor setTitle:author forState:UIControlStateNormal];
     
     _labelForIndex.text = [NSString stringWithFormat:@"#%d", item.index + 1];
