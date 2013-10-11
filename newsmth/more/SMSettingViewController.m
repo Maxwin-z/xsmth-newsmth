@@ -116,11 +116,32 @@ static SectionData sections[] = {
     _switchForUserClickable.on = [SMConfig enableUserClick];
     _switchForSwipeBack.on = [SMConfig enableIOS7SwipeBack];
     _switchForBackgroundFetch.on = [SMConfig enableBackgroundFetch];
+    
+    if ([SMUtils systemVersion] < 7) {
+        _switchForBackgroundFetch.on = _switchForSwipeBack.on = NO;
+        _switchForBackgroundFetch.enabled = _switchForSwipeBack.enabled = NO;
+    }
 }
 
 - (IBAction)onSwitchValueChanged:(UISwitch *)sender
 {
     XLog_d(@"%@, %d", sender, sender.on);
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    if (sender == _switchForHideTop) {
+        [def setBool:sender.on forKey:USERDEFAULTS_CONFIG_HIDE_TOP_POST];
+    }
+    if (sender == _switchForShowQMD) {
+        [def setBool:sender.on forKey:USERDEFAULTS_CONFIG_SHOW_QMD];
+    }
+    if (sender == _switchForUserClickable) {
+        [def setBool:sender.on forKey:USERDEFAULTS_CONFIG_USER_CLICKABLE];
+    }
+    if (sender == _switchForSwipeBack) {
+        [def setBool:sender.on forKey:USERDEFAULTS_CONFIG_IOS7_SWIPE_BACK];
+    }
+    if (sender == _switchForBackgroundFetch) {
+        [def setBool:sender.on forKey:USERDEFAULTS_CONFIG_BACKGROUND_FETCH];
+    }
 }
 
 #pragma mark - UITableViewDataSource/Delegate
