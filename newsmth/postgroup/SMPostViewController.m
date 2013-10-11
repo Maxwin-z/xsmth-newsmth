@@ -544,7 +544,11 @@
             }
             
             NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbscon.php?bid=%d&id=%d", _bid, post.pid];
-            
+            if (![SMConfig enableShowQMD]) {
+                url = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/single/%d/0",
+                             _board.name, post.pid];
+            }
+
             SMWebLoaderOperation *op = [[SMWebLoaderOperation alloc] init];
             op.delegate = self;
             [op loadUrl:url withParser:@"bbscon"];

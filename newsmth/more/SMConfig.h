@@ -13,4 +13,5 @@
 + (BOOL)disableShowTopPost;
 + (BOOL)enableUserClick;
 + (BOOL)enableIOS7SwipeBack;
++ (BOOL)enableShowQMD;
 @end
