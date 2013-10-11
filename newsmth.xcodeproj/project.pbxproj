@@ -86,6 +86,7 @@
 		C185CD3C1766286100BD3714 /* SMPostGroupContentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C185CD3B1766286100BD3714 /* SMPostGroupContentCell.xib */; };
 		C185CD3F17662BAF00BD3714 /* SMPostGroupAttachCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C185CD3E17662BAE00BD3714 /* SMPostGroupAttachCell.m */; };
 		C185CD4117662BBF00BD3714 /* SMPostGroupAttachCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C185CD4017662BBF00BD3714 /* SMPostGroupAttachCell.xib */; };
+		C1888D0E1807F2C300024B47 /* icon_top@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1888D0D1807F2C300024B47 /* icon_top@2x.png */; };
 		C19018E81769FBCA0098150A /* board.js in Resources */ = {isa = PBXBuildFile; fileRef = C19018E71769FBCA0098150A /* board.js */; };
 		C1902DC0177E672E00967211 /* button_reply@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1902DBF177E672E00967211 /* button_reply@2x.png */; };
 		C191281D17586DDF005AC60F /* XImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C191281C17586DDF005AC60F /* XImageView.m */; };
@@ -346,6 +347,7 @@
 		C185CD3D17662BAE00BD3714 /* SMPostGroupAttachCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMPostGroupAttachCell.h; sourceTree = "<group>"; };
 		C185CD3E17662BAE00BD3714 /* SMPostGroupAttachCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMPostGroupAttachCell.m; sourceTree = "<group>"; };
 		C185CD4017662BBF00BD3714 /* SMPostGroupAttachCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMPostGroupAttachCell.xib; sourceTree = "<group>"; };
+		C1888D0D1807F2C300024B47 /* icon_top@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_top@2x.png"; sourceTree = "<group>"; };
 		C19018E71769FBCA0098150A /* board.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = board.js; sourceTree = "<group>"; };
 		C1902DBF177E672E00967211 /* button_reply@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_reply@2x.png"; sourceTree = "<group>"; };
 		C191281B17586DDF005AC60F /* XImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XImageView.h; sourceTree = "<group>"; };
@@ -717,6 +719,7 @@
 		C19FF0B01769A71B00EB6F7E /* images */ = {
 			isa = PBXGroup;
 			children = (
+				C1888D0D1807F2C300024B47 /* icon_top@2x.png */,
 				C14B230017FB0E9500CF081A /* icon_menu@2x.png */,
 				C14B22FE17FAE75A00CF081A /* icon_setting@2x.png */,
 				C14B22F417FABDD100CF081A /* bg_navigationbar@2x.png */,
@@ -1320,6 +1323,7 @@
 				C1FD13CF178182E3006A6061 /* button_blue_default@2x.png in Resources */,
 				C1FD13D0178182E3006A6061 /* button_blue_pressed@2x.png in Resources */,
 				C1FD13D1178182E3006A6061 /* button_gray_default@2x.png in Resources */,
+				C1888D0E1807F2C300024B47 /* icon_top@2x.png in Resources */,
 				C1FD13D2178182E3006A6061 /* button_gray_pressed@2x.png in Resources */,
 				C1FD13D3178182E3006A6061 /* button_red_default@2x.png in Resources */,
 				C1643A7917E9A54C00107559 /* icon_120@2x.png in Resources */,

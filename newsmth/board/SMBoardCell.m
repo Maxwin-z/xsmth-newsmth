@@ -18,12 +18,17 @@ static SMBoardCell *_instance;
 @property (weak, nonatomic) IBOutlet UIButton *buttonForAuthor;
 @property (weak, nonatomic) IBOutlet UILabel *labelForReplyTime;
 @property (weak, nonatomic) IBOutlet UIButton *buttonForReplyAuthor;
+@property (weak, nonatomic) IBOutlet UIImageView *imageViewForTop;
 @end
 
 @implementation SMBoardCell
 
 + (CGFloat)cellHeight:(SMPost *)post
 {
+    if (post.isTop && [SMConfig disableShowTopPost]) {
+        return 0;
+    }
+    
     if (_instance == nil) {
         _instance = [[SMBoardCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
     }
@@ -54,6 +59,10 @@ static SMBoardCell *_instance;
     _labelForReplyTime.text = [SMUtils formatDate:[NSDate dateWithTimeIntervalSince1970:_post.replyDate / 1000]];
     [_buttonForAuthor setTitle:_post.author forState:UIControlStateNormal];
     [_buttonForReplyAuthor setTitle:_post.replyAuthor forState:UIControlStateNormal];
+    
+    _imageViewForTop.hidden = !_post.isTop;
+    
+    _buttonForAuthor.enabled = [SMConfig enableUserClick];
 
 }
 

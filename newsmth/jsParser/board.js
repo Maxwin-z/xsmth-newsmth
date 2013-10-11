@@ -32,6 +32,7 @@ function $parse(html) {
 			var titleDiv = li.querySelector('div');
 
 			var gid = li.querySelector('a').href.match(/\d+$/)[0];
+			var isTop = li.querySelector('a').className.indexOf('top') != -1;
 			var title = titleDiv.childNodes[0].innerHTML;
 			var replyCount = titleDiv.childNodes[1].nodeValue.replace(/[^\d]/g, '');
 
@@ -51,7 +52,8 @@ function $parse(html) {
 				date: date,
 				replyAuthor: replyAuthor,
 				replyDate: replyDate,
-				replyCount: replyCount
+				replyCount: replyCount,
+				isTop: isTop
 			});
 		}
 	} else {
