@@ -141,11 +141,8 @@
         return ;
     }
     
-//    NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding ( kCFStringEncodingMacChineseSimp );
-//    NSString *title = [_textFieldForTitle.text stringByAddingPercentEscapesUsingEncoding:enc];
-//    NSString *text = [_textViewForText.text stringByAddingPercentEscapesUsingEncoding:enc];
-    NSString *title = [_textFieldForTitle.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSString *text = [_textViewForText.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *title = [SMUtils encodeurl:_textFieldForTitle.text];
+    NSString *text = [SMUtils encodeurl:_textViewForText.text];
 
     NSString *postBody = [NSString stringWithFormat:@"subject=%@&content=%@", title, text];
     

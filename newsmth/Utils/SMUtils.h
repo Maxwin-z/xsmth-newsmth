@@ -17,6 +17,8 @@
 // unique format for sm
 + (NSString *)formatDate:(NSDate *)date;
 
++ (NSString *)encodeurl:(NSString *)url;
+
 // stretch image at center
 + (UIImage *)stretchedImage:(UIImage *)image;
 

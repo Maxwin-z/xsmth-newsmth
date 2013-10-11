@@ -39,6 +39,17 @@
     return [formatter stringFromDate:date];
 }
 
++ (NSString *)encodeurl:(NSString *)url
+{
+    CFStringRef escapedStr = CFURLCreateStringByAddingPercentEscapes(NULL,
+                                                                     (CFStringRef)url,
+                                                                     NULL,
+                                                                     (CFStringRef)@"!*'();:@&=+$,/?%#[]",
+                                                                     kCFStringEncodingUTF8);
+    NSString *result = [NSString stringWithFormat:@"%@", escapedStr];
+    CFRelease(escapedStr);
+    return result;
+}
 + (UIImage *)stretchedImage:(UIImage *)image
 {
     return [image stretchableImageWithLeftCapWidth:(image.size.width + 1) / 2 topCapHeight:(image.size.height + 1) / 2];

@@ -119,9 +119,9 @@
         formUrl = [NSString stringWithFormat:@"http://m.newsmth.net/%@", path];
     }
  
-    NSString *title = [_textFieldForTitle.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSString *receiver = [_textFieldForReciver.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSString *content = [_textViewForContent.text  stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *title = [SMUtils encodeurl:_textFieldForTitle.text];
+    NSString *receiver = [SMUtils encodeurl:_textFieldForReciver.text ];
+    NSString *content = [SMUtils encodeurl:_textViewForContent.text];
     
     if (title.length == 0) {
         [self toast:@"请输入主题"];
