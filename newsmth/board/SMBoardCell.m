@@ -25,10 +25,6 @@ static SMBoardCell *_instance;
 
 + (CGFloat)cellHeight:(SMPost *)post
 {
-    if (post.isTop && [SMConfig disableShowTopPost]) {
-        return 0;
-    }
-    
     if (_instance == nil) {
         _instance = [[SMBoardCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
     }

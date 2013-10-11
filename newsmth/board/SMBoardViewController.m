@@ -157,7 +157,14 @@
     }
     
     SMBoard *board = opt.data;
-    [tmp addObjectsFromArray:board.posts];
+    [board.posts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        SMPost *post = obj;
+        if (post.isTop && [SMConfig disableShowTopPost]) {
+            return ;
+        }
+        [tmp addObject:post];
+    }];
+//    [tmp addObjectsFromArray:board.posts];
 
     self.posts = tmp;
 }
