@@ -32,7 +32,7 @@
 
 - (BOOL)enableP2P
 {
-    return [[[UIDevice currentDevice] systemVersion] integerValue] < 7;
+    return [[[UIDevice currentDevice] systemVersion] integerValue] < 7 || ![SMConfig enableIOS7SwipeBack];
 }
 
 - (void)viewDidLoad

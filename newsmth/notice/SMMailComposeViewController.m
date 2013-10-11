@@ -23,7 +23,7 @@
 
 - (id)init
 {
-    self = [super initWithNibName:@"SMMailComposeViewController" bundle:nil];
+    self = [super init];
     if (self) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onKeyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onKeyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];

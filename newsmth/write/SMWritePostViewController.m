@@ -76,9 +76,9 @@
             if ([line isEqualToString:@"--"]) {   // qmd start
                 break;
             }
-            if (![line hasPrefix:@":"]) {
+            if (![line hasPrefix:@":"]) {   // 已是引用的文字，不再引用。
                 --quoteLine;
-                [quoteString appendFormat:@"\n:%@", line];
+                [quoteString appendFormat:@"\n: %@", line];
             }
         }
     }
@@ -90,7 +90,9 @@
         [quoteString insertString:str atIndex:0];
     }
     
-    [quoteString appendString:@"\n发自xsmth (iOS版)"];
+    if ([quoteString rangeOfString:@"xsmth"].length == 0) {
+        [quoteString appendString:@"\n发自xsmth (iOS版)"];
+    }
     _textViewForText.text = quoteString;
     
     // style
