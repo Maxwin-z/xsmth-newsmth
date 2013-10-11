@@ -13,6 +13,7 @@
 #import "SMMainPage.h"
 #import "SMSection.h"
 #import "SMPost.h"
+#import "SMBoardSearchDelegateImpl.h"
 
 static SMMainpageViewController *_instance;
 
@@ -22,6 +23,8 @@ static SMMainpageViewController *_instance;
 @property (strong, nonatomic) SMWebLoaderOperation *op;
 
 @property (strong, nonatomic) NSArray *sections;
+
+@property SMBoardSearchDelegateImpl *boardSearchDelegateImpl;
 @end
 
 @implementation SMMainpageViewController
@@ -47,6 +50,14 @@ static SMMainpageViewController *_instance;
     self.title = @"首页导读";
     _tableView.xdelegate = self;
     [_tableView beginRefreshing];
+    
+    _boardSearchDelegateImpl = [[SMBoardSearchDelegateImpl alloc] init];
+    _boardSearchDelegateImpl.mainpage = self;
+    self.searchDisplayController.searchBar.hidden = YES;
+    self.searchDisplayController.searchBar.delegate = _boardSearchDelegateImpl;
+    self.searchDisplayController.delegate = _boardSearchDelegateImpl;
+    self.searchDisplayController.searchResultsDataSource = _boardSearchDelegateImpl;
+    self.searchDisplayController.searchResultsDelegate = _boardSearchDelegateImpl;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -56,12 +67,21 @@ static SMMainpageViewController *_instance;
     if (indexPath) {
         [_tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(onRightBarButtonItemClick)];
 }
 
 - (void)setSections:(NSArray *)sections
 {
     _sections = sections;
     [self.tableView reloadData];
+}
+
+- (void)onRightBarButtonItemClick
+{
+    self.searchDisplayController.searchBar.hidden = NO;
+
+    [self.searchDisplayController.searchBar becomeFirstResponder];
 }
 
 - (void)dealloc

@@ -117,6 +117,7 @@
 		C1AE9140175A24AF0084C618 /* SMErrorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1AE913F175A24AF0084C618 /* SMErrorView.xib */; };
 		C1B581F3177723F500441299 /* SMWritePostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B581F1177723F500441299 /* SMWritePostViewController.m */; };
 		C1B581F4177723F500441299 /* SMWritePostViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1B581F2177723F500441299 /* SMWritePostViewController.xib */; };
+		C1B68848180824160085DC69 /* SMBoardSearchDelegateImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B68847180824160085DC69 /* SMBoardSearchDelegateImpl.m */; };
 		C1BA92C917954EC300F76ACF /* PBWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1BA929817954EC300F76ACF /* PBWebViewController.m */; };
 		C1BEC9671794243C002A1E1C /* xlistview_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1BEC9661794243C002A1E1C /* xlistview_arrow@2x.png */; };
 		C1BFB8DD174F6A620092FD2E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1BFB8DC174F6A620092FD2E /* UIKit.framework */; };
@@ -390,6 +391,8 @@
 		C1B581F0177723F500441299 /* SMWritePostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMWritePostViewController.h; sourceTree = "<group>"; };
 		C1B581F1177723F500441299 /* SMWritePostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMWritePostViewController.m; sourceTree = "<group>"; };
 		C1B581F2177723F500441299 /* SMWritePostViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMWritePostViewController.xib; sourceTree = "<group>"; };
+		C1B68846180824160085DC69 /* SMBoardSearchDelegateImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMBoardSearchDelegateImpl.h; sourceTree = "<group>"; };
+		C1B68847180824160085DC69 /* SMBoardSearchDelegateImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMBoardSearchDelegateImpl.m; sourceTree = "<group>"; };
 		C1BA929717954EC300F76ACF /* PBWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBWebViewController.h; sourceTree = "<group>"; };
 		C1BA929817954EC300F76ACF /* PBWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBWebViewController.m; sourceTree = "<group>"; };
 		C1BEC9661794243C002A1E1C /* xlistview_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "xlistview_arrow@2x.png"; sourceTree = "<group>"; };
@@ -786,6 +789,8 @@
 				C1ABAB0C1766107A007DE168 /* SMMainpageViewController.h */,
 				C1ABAB0D1766107A007DE168 /* SMMainpageViewController.m */,
 				C1ABAB0E1766107A007DE168 /* SMMainpageViewController.xib */,
+				C1B68846180824160085DC69 /* SMBoardSearchDelegateImpl.h */,
+				C1B68847180824160085DC69 /* SMBoardSearchDelegateImpl.m */,
 			);
 			path = mainpage;
 			sourceTree = "<group>";
@@ -1422,6 +1427,7 @@
 				C1ABAB111766107A007DE168 /* SMMainpageCell.m in Sources */,
 				C10F2F7717E5621800F83206 /* SMMailItem.m in Sources */,
 				C1ABAB131766107A007DE168 /* SMMainpageViewController.m in Sources */,
+				C1B68848180824160085DC69 /* SMBoardSearchDelegateImpl.m in Sources */,
 				C1ABAB181766114A007DE168 /* SMPostGroupHeaderCell.m in Sources */,
 				C185CD3A1766285900BD3714 /* SMPostGroupContentCell.m in Sources */,
 				C185CD3F17662BAF00BD3714 /* SMPostGroupAttachCell.m in Sources */,
