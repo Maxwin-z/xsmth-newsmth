@@ -116,6 +116,7 @@ static SectionData sections[] = {
     _switchForUserClickable.on = [SMConfig enableUserClick];
     _switchForSwipeBack.on = [SMConfig enableIOS7SwipeBack];
     _switchForBackgroundFetch.on = [SMConfig enableBackgroundFetch];
+    _switchForShowQMD.on = [SMConfig enableShowQMD];
     
     if ([SMUtils systemVersion] < 7) {
         _switchForBackgroundFetch.on = _switchForSwipeBack.on = NO;
