@@ -11,3 +11,6 @@
 	path = newsmth/ThirdParty/fishhook
 	url = git@github.com:Maxwin-z/fishhook.git
 
+[submodule "newsmth/ThirdParty/iOS-blur"]
+	path = newsmth/ThirdParty/iOS-blur
+	url = git@github.com:JagCesar/iOS-blur.git

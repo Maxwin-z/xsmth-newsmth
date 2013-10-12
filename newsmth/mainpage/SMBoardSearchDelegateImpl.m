@@ -25,6 +25,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    tableView.backgroundView = nil;
+    tableView.backgroundColor = [UIColor clearColor];
     return filters.count;
 }
 
@@ -49,6 +51,7 @@ shouldReloadTableForSearchString:(NSString *)searchString
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
     NSDictionary *board = filters[indexPath.row];
     cell.textLabel.text = [NSString stringWithFormat:@"%@(%@)", board[@"name"], board[@"title"]];
+    cell.backgroundColor = cell.contentView.backgroundColor = [UIColor clearColor];
     return cell;
 }
 
@@ -57,33 +60,15 @@ shouldReloadTableForSearchString:(NSString *)searchString
     controller.searchBar.hidden = YES;
 }
 
-//- (void)searchDisplayController:(UISearchDisplayController *)controller didHideSearchResultsTableView:(UITableView *)tableView
-//{
-//    // add the tableview back in
-//    [controller.searchContentsController.view addSubview:controller.searchResultsTableView];
-//}
-//
-//- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
-//{
-////    [self performSelector:@selector(showHis) withObject:nil afterDelay:1];
-////
-////    [self.mainpage.view addSubview:self.mainpage.searchDisplayController.searchResultsTableView];
-////    [self.mainpage.searchDisplayController.searchResultsTableView reloadData];
-//}
-//
-//- (void)showHis
-//{
-//    self.mainpage.searchDisplayController.searchBar.text = @" ";
-//}
-
-- (void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 {
-    // after the data has been preloaded
-    [controller.searchResultsTableView reloadData];
+    [self performSelector:@selector(showHis) withObject:nil afterDelay:0.1];
 }
 
-- (void)searchDisplayControllerDidBeginSearch:(UISearchDisplayController *)controller
+- (void)showHis
 {
-    [controller.searchContentsController.view addSubview:controller.searchResultsTableView];
+    self.mainpage.searchDisplayController.searchBar.text = @" ";
 }
+
+
 @end
