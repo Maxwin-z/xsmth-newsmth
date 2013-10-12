@@ -38,6 +38,8 @@
     [_tableView beginRefreshing];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(writePost)];
+    
+    [SMConfig addBoardToHistory:_board];
 }
 
 - (void)viewWillAppear:(BOOL)animated

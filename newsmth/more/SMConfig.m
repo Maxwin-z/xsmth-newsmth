@@ -56,7 +56,7 @@
     [boards insertObject:dict atIndex:0];
     for (int i = boards.count - 1; i > 0; --i) {
         NSDictionary *b = boards[i];
-        if ([b[@"name"] isEqualToString:board.name]) {
+        if (i > 10 || [b[@"name"] isEqualToString:board.name]) {    // 最多保存10个最近浏览版面
             [boards removeObjectAtIndex:i];
         }
     }

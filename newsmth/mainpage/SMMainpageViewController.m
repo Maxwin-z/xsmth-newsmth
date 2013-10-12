@@ -69,6 +69,8 @@ static SMMainpageViewController *_instance;
     }
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(onRightBarButtonItemClick)];
+    
+    [_boardSearchDelegateImpl reload];
 }
 
 - (void)setSections:(NSArray *)sections

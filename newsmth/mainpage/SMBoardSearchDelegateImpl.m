@@ -7,7 +7,7 @@
 //
 
 #import "SMBoardSearchDelegateImpl.h"
-#import "AMBlurView.h"
+#import "SMBoardViewController.h"
 
 @implementation SMBoardSearchDelegateImpl
 {
@@ -19,9 +19,17 @@
 {
     self = [super init];
     if (self) {
-        boards = filters = @[@{@"name":@"Civilization",@"title": @"文明"},@{@"name":@"CrossGate",@"title": @"魔力宝贝"},@{@"name":@"CStrike",@"title": @"反恐精英"},@{@"name":@"Diablo",@"title": @"暗黑破坏神"},@{@"name":@"DotaAllstars",@"title": @"Dota爱好者"},@{@"name":@"Falcom",@"title": @"Falcom之家"},@{@"name":@"GalGame",@"title": @"美少女游戏"},@{@"name":@"Game",@"title": @"电脑游戏"},@{@"name":@"GameIndustry",@"title": @"游戏圈"},@{@"name":@"Heroes",@"title": @"魔法门之英雄无敌"},@{@"name":@"KOEI",@"title": @"光荣游戏"},@{@"name":@"LOL",@"title": @"英雄联盟"},@{@"name":@"MonsterHunter",@"title": @"怪物猎人"},@{@"name":@"Mud",@"title": @"网络泥巴"},@{@"name":@"OnlineGame",@"title": @"网络游戏"},@{@"name":@"PalSword",@"title": @"御剑江湖"},@{@"name":@"SimulateFlight",@"title": @"模拟飞行"},@{@"name":@"SportsGame",@"title": @"体育游戏"},@{@"name":@"StarCraft",@"title": @"星际争霸"},@{@"name":@"StarCraftII",@"title": @"星际争霸2"},@{@"name":@"TouHou",@"title": @"东方幻想乡"},@{@"name":@"TVGame",@"title": @"视频游戏"},@{@"name":@"WarCraft",@"title": @"魔兽争霸"},@{@"name":@"WebGame",@"title": @"网页游戏"},@{@"name":@"WesternRPG",@"title": @"欧美RPG"},@{@"name":@"WoW",@"title": @"魔兽世界"}];
+        NSString *filePath = [[NSBundle mainBundle] pathForResource:@"boards" ofType:@"json"];
+        NSData *data = [NSData dataWithContentsOfFile:filePath];
+        boards = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+
     }
     return self;
+}
+
+- (void)reload
+{
+    filters = [SMConfig historyBoards];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -30,16 +38,16 @@
 }
 
 -(BOOL)searchDisplayController:(UISearchDisplayController *)controller
-shouldReloadTableForSearchString:(NSString *)searchString
+    shouldReloadTableForSearchString:(NSString *)searchString
 {
     searchString = [searchString stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" "]];
     if (searchString.length) {
         NSPredicate *resultPredicate = [NSPredicate
-                                        predicateWithFormat:@"(name contains[cd] %@)",
-                                        searchString];
+                                        predicateWithFormat:@"(name contains[cd] %@) or (cnName contains[cd] %@)",
+                                        searchString, searchString];
         filters = [boards filteredArrayUsingPredicate:resultPredicate];
     } else {
-        filters = boards;
+        filters = [SMConfig historyBoards];
     }
     
     return YES;
@@ -47,10 +55,21 @@ shouldReloadTableForSearchString:(NSString *)searchString
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:nil];
     NSDictionary *board = filters[indexPath.row];
-    cell.textLabel.text = [NSString stringWithFormat:@"%@(%@)", board[@"name"], board[@"title"]];
+    cell.textLabel.text = board[@"name"];
+    cell.detailTextLabel.text = board[@"cnName"];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    NSDictionary *b = filters[indexPath.row];
+    SMBoard *board = [[SMBoard alloc] initWithJSON:b];
+    SMBoardViewController *vc = [[SMBoardViewController alloc] init];
+    vc.board = board;
+    [self.mainpage.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)searchDisplayControllerDidEndSearch:(UISearchDisplayController *)controller
