@@ -36,6 +36,8 @@ typedef enum {
 #define USERDEFAULTS_PASSWORD   @"password"
 #define USERDEFAULTS_NOTICE @"notice"
 
+#define USERDEFAULTS_BOARD_HISTORY @"board_history"
+
 #define USERDEFAULTS_CONFIG_BACKGROUND_FETCH    @"cfg_backgroundfetch"
 #define USERDEFAULTS_CONFIG_HIDE_TOP_POST    @"cfg_hidetoppost"
 #define USERDEFAULTS_CONFIG_SHOW_QMD    @"cfg_showqmd"

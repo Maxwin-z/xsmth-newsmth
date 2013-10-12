@@ -41,4 +41,27 @@
     return [SMConfig configForKey:USERDEFAULTS_CONFIG_SHOW_QMD defaults:YES];
 }
 
++ (NSArray *)historyBoards
+{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_BOARD_HISTORY];
+}
+
++ (void)addBoardToHistory:(SMBoard *)board
+{
+    NSDictionary *dict = @{@"name": board.name, @"cnName": board.cnName};
+    NSMutableArray *boards = [[SMConfig historyBoards] mutableCopy];
+    if (boards == nil) {
+        boards = [[NSMutableArray alloc] init];
+    }
+    [boards insertObject:dict atIndex:0];
+    for (int i = boards.count - 1; i > 0; --i) {
+        NSDictionary *b = boards[i];
+        if ([b[@"name"] isEqualToString:board.name]) {
+            [boards removeObjectAtIndex:i];
+        }
+    }
+    [[NSUserDefaults standardUserDefaults] setObject:boards forKey:USERDEFAULTS_BOARD_HISTORY];
+}
+
+
 @end

@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SMData.h"
 
 @interface SMConfig : NSObject
 + (BOOL)enableBackgroundFetch;
@@ -14,4 +15,6 @@
 + (BOOL)enableUserClick;
 + (BOOL)enableIOS7SwipeBack;
 + (BOOL)enableShowQMD;
++ (void)addBoardToHistory:(SMBoard *)board;
++ (NSArray *)historyBoards;
 @end

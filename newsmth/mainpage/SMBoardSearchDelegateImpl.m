@@ -7,6 +7,7 @@
 //
 
 #import "SMBoardSearchDelegateImpl.h"
+#import "AMBlurView.h"
 
 @implementation SMBoardSearchDelegateImpl
 {
@@ -25,8 +26,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    tableView.backgroundView = nil;
-    tableView.backgroundColor = [UIColor clearColor];
     return filters.count;
 }
 
@@ -51,7 +50,6 @@ shouldReloadTableForSearchString:(NSString *)searchString
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
     NSDictionary *board = filters[indexPath.row];
     cell.textLabel.text = [NSString stringWithFormat:@"%@(%@)", board[@"name"], board[@"title"]];
-    cell.backgroundColor = cell.contentView.backgroundColor = [UIColor clearColor];
     return cell;
 }
 
