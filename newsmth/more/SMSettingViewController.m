@@ -49,6 +49,13 @@ typedef struct {
 
 static SectionData sections[] = {
     {
+        SectionTypeBackgroundFetch,
+        "后台获取最新消息",
+        "iOS7支持后台定时获取网络数据，一般间隔10min。一天流量大约100KB。需要登录。",
+        1,
+        {CellTypeBackgroundFetch}
+    },
+    {
         SectionTypeBoard,
         "浏览",
         NULL,
@@ -61,13 +68,6 @@ static SectionData sections[] = {
         "iOS7系统默认支持右滑返回，需要从屏幕最左边滑动。不习惯的用户请禁用此项。",
         1,
         {CellTypeSwipeBack}
-    },
-    {
-        SectionTypeBackgroundFetch,
-        "后台获取最新消息",
-        "iOS7支持后台定时获取网络数据，一般间隔10min。一天流量大约100kB。需要登录。",
-        1,
-        {CellTypeBackgroundFetch}
     },
     {
         SectionTypePostFont,
