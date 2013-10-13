@@ -94,7 +94,6 @@
     </objects>
     <resources>
         <image name="bg_input_field.png" width="49" height="31"/>
-        <image name="bg_input_field.png" width="49" height="31"/>
         <image name="button_upload.png" width="32" height="32"/>
     </resources>
 </document>

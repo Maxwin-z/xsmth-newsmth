@@ -136,6 +136,7 @@ static SectionData sections[] = {
     _switchForBackgroundFetch.on = [SMConfig enableBackgroundFetch];
     _switchForShowQMD.on = [SMConfig enableShowQMD];
     
+    _sliderForListFont.value = [SMConfig listFont].pointSize;
     _sliderForPostFont.value = [SMConfig postFont].pointSize;
     
     if ([SMUtils systemVersion] < 7) {
