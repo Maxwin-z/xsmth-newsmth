@@ -71,6 +71,7 @@ static SMMainpageViewController *_instance;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(onRightBarButtonItemClick)];
     
     [_boardSearchDelegateImpl reload];
+    [self.tableView reloadData];
 }
 
 - (void)setSections:(NSArray *)sections

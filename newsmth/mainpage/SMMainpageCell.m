@@ -25,7 +25,7 @@ static SMMainpageCell *_instance;
 {
     SMMainpageCell *cell = [self instance];
     CGFloat heightExpectTitle = cell.viewForCell.frame.size.height - cell.labelForTitle.frame.size.height;
-    CGFloat titleHeight = [post.title smSizeWithFont:cell.labelForTitle.font constrainedToSize:CGSizeMake(cell.labelForTitle.frame.size.width, CGFLOAT_MAX) lineBreakMode:cell.labelForTitle.lineBreakMode].height;
+    CGFloat titleHeight = [post.title smSizeWithFont:[SMConfig listFont] constrainedToSize:CGSizeMake(cell.labelForTitle.frame.size.width, CGFLOAT_MAX) lineBreakMode:cell.labelForTitle.lineBreakMode].height;
     
     return heightExpectTitle + titleHeight;
 }
@@ -45,6 +45,7 @@ static SMMainpageCell *_instance;
 {
     _post = post;
     _labelForTitle.text = post.title;
+    _labelForTitle.font = [SMConfig listFont];
     _labelForBoardName.text = post.board.cnName;
     _labelForAuthor.text = post.author;
 }
