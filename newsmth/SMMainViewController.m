@@ -80,6 +80,7 @@ static SMMainViewController *_instance;
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     [btn setImage:[UIImage imageNamed:@"icon_menu"] forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(onLeftBarButtonClick) forControlEvents:UIControlEventTouchUpInside];
     btn.frame = v.bounds;
     [v addSubview:btn];
     
