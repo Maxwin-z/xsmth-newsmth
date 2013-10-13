@@ -202,6 +202,7 @@
 		C1E7A19A1809A7F1002CAEEC /* SMFontSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E7A1991809A7F1002CAEEC /* SMFontSelectorViewController.m */; };
 		C1E7A19D180A7D5D002CAEEC /* icon_58@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1E7A19C180A7D5D002CAEEC /* icon_58@2x.png */; };
 		C1E7A19F180A7D9A002CAEEC /* icon_80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1E7A19E180A7D9A002CAEEC /* icon_80@2x.png */; };
+		C1E7A1A3180A91EB002CAEEC /* bg_barbuttonitem@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1E7A1A2180A91EB002CAEEC /* bg_barbuttonitem@2x.png */; };
 		C1F4C5AC1806D4BD00E8A52D /* SMConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F4C5AB1806D4BD00E8A52D /* SMConfig.m */; };
 		C1FD13B3178130C3006A6061 /* bg_input@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1FD13B2178130C3006A6061 /* bg_input@2x.png */; };
 		C1FD13B517813A3A006A6061 /* background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1FD13B417813A3A006A6061 /* background@2x.png */; };
@@ -542,6 +543,7 @@
 		C1E7A1991809A7F1002CAEEC /* SMFontSelectorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMFontSelectorViewController.m; sourceTree = "<group>"; };
 		C1E7A19C180A7D5D002CAEEC /* icon_58@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_58@2x.png"; sourceTree = "<group>"; };
 		C1E7A19E180A7D9A002CAEEC /* icon_80@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_80@2x.png"; sourceTree = "<group>"; };
+		C1E7A1A2180A91EB002CAEEC /* bg_barbuttonitem@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_barbuttonitem@2x.png"; sourceTree = "<group>"; };
 		C1F4C5AA1806D4BD00E8A52D /* SMConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMConfig.h; sourceTree = "<group>"; };
 		C1F4C5AB1806D4BD00E8A52D /* SMConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMConfig.m; sourceTree = "<group>"; };
 		C1FD13B2178130C3006A6061 /* bg_input@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_input@2x.png"; sourceTree = "<group>"; };
@@ -736,6 +738,7 @@
 		C19FF0B01769A71B00EB6F7E /* images */ = {
 			isa = PBXGroup;
 			children = (
+				C1E7A1A2180A91EB002CAEEC /* bg_barbuttonitem@2x.png */,
 				C1888D0D1807F2C300024B47 /* icon_top@2x.png */,
 				C14B230017FB0E9500CF081A /* icon_menu@2x.png */,
 				C14B22FE17FAE75A00CF081A /* icon_setting@2x.png */,
@@ -1314,6 +1317,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1E7A1A3180A91EB002CAEEC /* bg_barbuttonitem@2x.png in Resources */,
 				C14B22FD17FAD3FB00CF081A /* mailsend.js in Resources */,
 				C14B230A17FBB0E500CF081A /* SMSettingViewController.xib in Resources */,
 				C1D190DE17F94CA40056F3FE /* bg_scrollindicator@2x.png in Resources */,

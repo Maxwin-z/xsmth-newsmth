@@ -31,6 +31,8 @@ static SMMainViewController *_instance;
 @property (strong, nonatomic) UIView *viewForCenterMasker;
 @property (assign, nonatomic) CGFloat leftPanX;
 @property (assign, nonatomic) DragDirection dragDirection;
+
+@property (strong, nonatomic) UIBarButtonItem *menuBarButtonItem;
 @end
 
 @implementation SMMainViewController
@@ -47,6 +49,7 @@ static SMMainViewController *_instance;
 {
     if (_instance == nil) {
         _instance = [super init];
+        [self makeupMenuBarButtonItem];
     }
     return _instance;
 }
@@ -72,6 +75,21 @@ static SMMainViewController *_instance;
     [_centerViewController.view addGestureRecognizer:panGesture];
 }
 
+- (void)makeupMenuBarButtonItem
+{
+    UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btn setImage:[UIImage imageNamed:@"icon_menu"] forState:UIControlStateNormal];
+    btn.frame = v.bounds;
+    [v addSubview:btn];
+    
+    UIImageView *badge = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"unread"]];
+    badge.frame = CGRectMake(0, 2, 10, 10);
+    [v addSubview:badge];
+
+    _menuBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:v];
+}
+
 - (void)onLeftBarButtonClick
 {
     // debug
@@ -89,16 +107,16 @@ static SMMainViewController *_instance;
     _centerViewController.toolbarHidden = YES;
     _centerViewController.viewControllers = @[viewController];
     if ([SMUtils systemVersion] == 7) {
-        viewController.navigationItem.leftBarButtonItem =
-            [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_menu"]
-                                             style:UIBarButtonItemStyleBordered
-                                        target:self
-                                        action:@selector(onLeftBarButtonClick)];
+        viewController.navigationItem.leftBarButtonItem = _menuBarButtonItem;
+//            [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_menu"]
+//                                             style:UIBarButtonItemStyleBordered
+//                                        target:self
+//                                        action:@selector(onLeftBarButtonClick)];
     } else {
-        viewController.navigationItem.leftBarButtonItem =
-            [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks
-                                                          target:self
-                                                          action:@selector(onLeftBarButtonClick)];
+        viewController.navigationItem.leftBarButtonItem = _menuBarButtonItem;
+//            [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks
+//                                                          target:self
+//                                                          action:@selector(onLeftBarButtonClick)];
     }
 }
 

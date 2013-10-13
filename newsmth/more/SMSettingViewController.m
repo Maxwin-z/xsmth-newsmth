@@ -367,7 +367,10 @@ static SectionData sections[] = {
 #pragma mark - UIAlertViewDelegate
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    
+    if (buttonIndex != alertView.cancelButtonIndex) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://maxwin.me/xsmth/start.html"]];
+        exit(0);
+    }
 }
 
 @end
