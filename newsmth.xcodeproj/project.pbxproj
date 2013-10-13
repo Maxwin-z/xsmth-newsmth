@@ -200,6 +200,8 @@
 		C1E7A18618098AAB002CAEEC /* AMBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E7A17118098AAA002CAEEC /* AMBlurView.m */; };
 		C1E7A1971809900F002CAEEC /* boards.json in Resources */ = {isa = PBXBuildFile; fileRef = C1E7A1961809900F002CAEEC /* boards.json */; };
 		C1E7A19A1809A7F1002CAEEC /* SMFontSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E7A1991809A7F1002CAEEC /* SMFontSelectorViewController.m */; };
+		C1E7A19D180A7D5D002CAEEC /* icon_58@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1E7A19C180A7D5D002CAEEC /* icon_58@2x.png */; };
+		C1E7A19F180A7D9A002CAEEC /* icon_80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1E7A19E180A7D9A002CAEEC /* icon_80@2x.png */; };
 		C1F4C5AC1806D4BD00E8A52D /* SMConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F4C5AB1806D4BD00E8A52D /* SMConfig.m */; };
 		C1FD13B3178130C3006A6061 /* bg_input@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1FD13B2178130C3006A6061 /* bg_input@2x.png */; };
 		C1FD13B517813A3A006A6061 /* background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1FD13B417813A3A006A6061 /* background@2x.png */; };
@@ -538,6 +540,8 @@
 		C1E7A1961809900F002CAEEC /* boards.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = boards.json; sourceTree = "<group>"; };
 		C1E7A1981809A7F1002CAEEC /* SMFontSelectorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMFontSelectorViewController.h; sourceTree = "<group>"; };
 		C1E7A1991809A7F1002CAEEC /* SMFontSelectorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMFontSelectorViewController.m; sourceTree = "<group>"; };
+		C1E7A19C180A7D5D002CAEEC /* icon_58@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_58@2x.png"; sourceTree = "<group>"; };
+		C1E7A19E180A7D9A002CAEEC /* icon_80@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_80@2x.png"; sourceTree = "<group>"; };
 		C1F4C5AA1806D4BD00E8A52D /* SMConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMConfig.h; sourceTree = "<group>"; };
 		C1F4C5AB1806D4BD00E8A52D /* SMConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMConfig.m; sourceTree = "<group>"; };
 		C1FD13B2178130C3006A6061 /* bg_input@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_input@2x.png"; sourceTree = "<group>"; };
@@ -872,6 +876,8 @@
 		C1BFB8D0174F6A620092FD2E = {
 			isa = PBXGroup;
 			children = (
+				C1E7A19E180A7D9A002CAEEC /* icon_80@2x.png */,
+				C1E7A19C180A7D5D002CAEEC /* icon_58@2x.png */,
 				C1643A7817E9A54C00107559 /* icon_120@2x.png */,
 				C102B8C31782D4A3000E2EEB /* icon.png */,
 				C13D4121176DCD5100BD03A4 /* icon@2x.png */,
@@ -1317,6 +1323,7 @@
 				C16C109A179A238F00A14727 /* notice.js in Resources */,
 				C1A182D7178ABB330080EEDB /* upload.js in Resources */,
 				C1C4C8901781BD4B0092E77C /* boardlist.js in Resources */,
+				C1E7A19D180A7D5D002CAEEC /* icon_58@2x.png in Resources */,
 				C1FD13B917815A21006A6061 /* bbsqry.js in Resources */,
 				C1011D9017787E7E00E0485D /* bbssnd.js in Resources */,
 				C10F2F8617E595A100F83206 /* SMMailInfoViewController.xib in Resources */,
@@ -1354,6 +1361,7 @@
 				C1B581F4177723F500441299 /* SMWritePostViewController.xib in Resources */,
 				C1011DB01779988800E0485D /* button_back@2x.png in Resources */,
 				C1011DB11779988800E0485D /* button_compose@2x.png in Resources */,
+				C1E7A19F180A7D9A002CAEEC /* icon_80@2x.png in Resources */,
 				C1902DC0177E672E00967211 /* button_reply@2x.png in Resources */,
 				C1E3A22B1780600900994CE6 /* SMUserViewController.xib in Resources */,
 				C14B22F517FABDD100CF081A /* bg_navigationbar@2x.png in Resources */,

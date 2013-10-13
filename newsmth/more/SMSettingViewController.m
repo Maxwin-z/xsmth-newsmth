@@ -83,7 +83,7 @@ static SectionData sections[] = {
 };
 
 
-@interface SMSettingViewController ()<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
+@interface SMSettingViewController ()<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate, UIAlertViewDelegate>
 @property (strong, nonatomic) IBOutlet UIView *viewForTableViewHeader;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -175,7 +175,7 @@ static SectionData sections[] = {
     if (sender == _switchForSwipeBack) {
         [def setBool:sender.on forKey:USERDEFAULTS_CONFIG_IOS7_SWIPE_BACK];
         
-        [[[UIAlertView alloc] initWithTitle:@"!!注意!!" message:@"需要重启应用，使之生效" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil] show];
+        [[[UIAlertView alloc] initWithTitle:@"!!注意!!" message:@"需要重启应用，使之生效" delegate:self cancelButtonTitle:@"撤销更改" otherButtonTitles:@"现在重启", nil] show];
     }
     if (sender == _switchForBackgroundFetch) {
         [def setBool:sender.on forKey:USERDEFAULTS_CONFIG_BACKGROUND_FETCH];
@@ -362,6 +362,12 @@ static SectionData sections[] = {
         [SMUtils trackEventWithCategory:@"setting" action:@"feedback" label:@"mail"];
     }
     [self dismissModalViewControllerAnimated:YES];
+}
+
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    
 }
 
 @end
