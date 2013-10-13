@@ -30,7 +30,7 @@ static SMBoardCell *_instance;
     }
     CGFloat heightExpectTitle = _instance.viewForCell.frame.size.height - _instance.labelForTitle.frame.size.height;
     NSString *title = [NSString stringWithFormat:@"%@(%d)", post.title, post.replyCount];
-    CGFloat titleHeight = [title smSizeWithFont:_instance.labelForTitle.font constrainedToSize:CGSizeMake(_instance.labelForTitle.frame.size.width, CGFLOAT_MAX) lineBreakMode:_instance.labelForTitle.lineBreakMode].height;
+    CGFloat titleHeight = [title smSizeWithFont:[SMConfig listFont] constrainedToSize:CGSizeMake(_instance.labelForTitle.frame.size.width, CGFLOAT_MAX) lineBreakMode:_instance.labelForTitle.lineBreakMode].height;
 
     return titleHeight + heightExpectTitle;
 }
@@ -51,6 +51,7 @@ static SMBoardCell *_instance;
     _post = post;
     NSString *title = [NSString stringWithFormat:@"%@(%d)", _post.title, _post.replyCount];
     _labelForTitle.text = title;
+    _labelForTitle.font = [SMConfig listFont];
     _labelForPostTime.text = [SMUtils formatDate:[NSDate dateWithTimeIntervalSince1970:_post.date / 1000]];
     _labelForReplyTime.text = [SMUtils formatDate:[NSDate dateWithTimeIntervalSince1970:_post.replyDate / 1000]];
     [_buttonForAuthor setTitle:_post.author forState:UIControlStateNormal];
@@ -58,7 +59,7 @@ static SMBoardCell *_instance;
     
     _imageViewForTop.hidden = !_post.isTop;
     
-    _buttonForAuthor.enabled = [SMConfig enableUserClick];
+    _buttonForAuthor.enabled = _buttonForReplyAuthor.enabled = [SMConfig enableUserClick];
 
 }
 
