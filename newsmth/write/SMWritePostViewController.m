@@ -161,7 +161,7 @@
     _writeOp = [[SMWebLoaderOperation alloc] init];
     _writeOp.delegate = self;
     [self showLoading:@"正在发表..."];
-    [_writeOp loadRequest:request withParser:@"bbssnd"];
+    [_writeOp loadRequest:request withParser:@"bbssnd,util_notice"];
 }
 
 - (void)cancelLoading

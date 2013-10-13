@@ -173,7 +173,7 @@
         [_singlePostOp cancel];
         _singlePostOp = [[SMWebLoaderOperation alloc] init];
         _singlePostOp.delegate = self;
-        [_singlePostOp loadUrl:_postUrl withParser:@"bbscon"];
+        [_singlePostOp loadUrl:_postUrl withParser:@"bbscon,util_notice"];
     } else {
         SMPostPageItem *pageItem = [[SMPostPageItem alloc] init];
         pageItem.gid = _gid;
@@ -551,7 +551,7 @@
 
             SMWebLoaderOperation *op = [[SMWebLoaderOperation alloc] init];
             op.delegate = self;
-            [op loadUrl:url withParser:@"bbscon"];
+            [op loadUrl:url withParser:@"bbscon,util_notice"];
             
             SMPostItem *item = [[SMPostItem alloc] init];
             item.op = op;
@@ -598,8 +598,17 @@
         self.prepareItems = @[item];
         
         _singlePost = post;
-    } else if (!_scrollIndicator.isDragging) {
-        [self.tableView reloadData];
+    } else {
+        if ([opt.data isKindOfClass:[SMPost class]]) {
+            SMPost *post = opt.data;
+            if (post.hasNotice) {
+                [SMAccountManager instance].notice = post.notice;
+            }
+        }
+        
+        if (!_scrollIndicator.isDragging) {
+            [self.tableView reloadData];
+        }
     }
 
 }
@@ -742,7 +751,7 @@
     op.delegate = self;
     item.op = op;
     
-    [op loadUrl:url withParser:@"bbscon"];
+    [op loadUrl:url withParser:@"bbscon,util_notice"];
 
     NSIndexPath *indexPath = [_tableView indexPathForCell:cell];
     [_tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:NO];

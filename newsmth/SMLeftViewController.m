@@ -93,7 +93,7 @@ typedef NS_ENUM(NSInteger, CellType) {
         [_keepLoginOp cancel];
         _keepLoginOp = [[SMWebLoaderOperation alloc] init];
         _keepLoginOp.delegate = self;
-        [_keepLoginOp loadUrl:@"http://m.newsmth.net/user/query/" withParser:@"notice"];
+        [_keepLoginOp loadUrl:@"http://m.newsmth.net/user/query/" withParser:@"notice,util_notice"];
     }
 }
 

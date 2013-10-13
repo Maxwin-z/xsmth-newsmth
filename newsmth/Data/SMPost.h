@@ -2,6 +2,7 @@
 
 @class SMBoard;
 @class SMAttach;
+@class SMNotice;
 @interface SMPost : SMBaseData
 @property (assign, nonatomic) int pid;
 @property (assign, nonatomic) int gid;
@@ -16,4 +17,6 @@
 @property (assign, nonatomic) int replyCount;
 @property (assign, nonatomic) BOOL isTop;
 @property (strong, nonatomic) NSArray* attaches;
+@property (assign, nonatomic) BOOL hasNotice;
+@property (strong, nonatomic) SMNotice* notice;
 @end

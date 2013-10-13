@@ -34,6 +34,10 @@
 		[tmp_attaches addObject:[[SMAttach alloc] initWithJSON:attaches[i]]];
 	}
 	_attaches = tmp_attaches;
+
+	_hasNotice = [[dict objectForKey:@"hasNotice"] boolValue];
+
+	_notice = [[SMNotice alloc] initWithJSON:[dict objectForKey:@"notice"]];
 }
 
 - (id)encode
@@ -80,6 +84,12 @@
 		[tmp_attaches addObject:[_attaches[i] encode]];
 	}
 	[dict setObject:tmp_attaches forKey:@"attaches"];
+
+	[dict setObject:@(_hasNotice) forKey:@"hasNotice"];
+
+	if (_notice != nil) {
+		[dict setObject:[_notice encode] forKey:@"notice"];
+	}
 	return dict;
 }
 @end

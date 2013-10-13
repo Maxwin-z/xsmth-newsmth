@@ -144,7 +144,7 @@
     _sendOp = [[SMWebLoaderOperation alloc] init];
     _sendOp.delegate = self;
     [self showLoading:@"正在发送..."];
-    [_sendOp loadRequest:request withParser:@"mailsend"];
+    [_sendOp loadRequest:request withParser:@"mailsend,util_notice"];
 
 }
 

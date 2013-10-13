@@ -124,7 +124,7 @@
         _keepLoginOp = [[SMWebLoaderOperation alloc] init];
         _keepLoginOp.delegate = self;
         _completionHandler = completionHandler;
-        [_keepLoginOp loadUrl:@"http://m.newsmth.net/user/query/" withParser:@"notice"];
+        [_keepLoginOp loadUrl:@"http://m.newsmth.net/user/query/" withParser:@"notice,util_notice"];
     } else {
         NSString *user = [[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_USERNAME];
         NSString *passwd =  [[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_PASSWORD];
@@ -139,7 +139,7 @@
             _loginOp = [[SMWebLoaderOperation alloc] init];
             _loginOp.delegate = self;
             _completionHandler = completionHandler;
-            [_loginOp loadRequest:request withParser:@"notice"];
+            [_loginOp loadRequest:request withParser:@"notice,util_notice"];
         } else {
             completionHandler(UIBackgroundFetchResultNoData);
         }

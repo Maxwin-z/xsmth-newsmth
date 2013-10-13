@@ -146,6 +146,12 @@ function parse_m(html) {
             }
         }
     }
+    try {
+        data.notice = getNotice(html);
+        data.hasNotice = true;
+    } catch(ignore) {
+        data.title = ignore.message;
+    }
     console.log(rsp);
     window.location.href = 'newsmth://' + encodeURIComponent(JSON.stringify(rsp));
 

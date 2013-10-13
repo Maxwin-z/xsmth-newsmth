@@ -36,7 +36,17 @@
 {
     _html = html;
     
-    NSString *js = [self loadJS:jsFile];
+    NSArray *files = [jsFile componentsSeparatedByString:@","];
+    NSMutableString *js = [[NSMutableString alloc] init];
+    [files enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        NSString *file = obj;
+        file = [file stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" "]];
+        NSString *content = [self loadJS:file];
+        if (content) {
+            [js appendString:content];
+        }
+    }];
+    
     NSString *body = [NSString stringWithFormat:@"<html><script>%@</script><body>hello</body></html>", js];
     [_webView loadHTMLString:body baseURL:nil];
 }
@@ -44,6 +54,9 @@
 - (NSString *)loadJS:(NSString *)filename
 {
     NSString *filePath = [[NSBundle mainBundle] pathForResource:filename ofType:@"js"];
+
+    if (!filePath) return @"";
+    
     NSData *data = [NSData dataWithContentsOfFile:filePath];
     return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 }
@@ -84,7 +97,7 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    NSString *js = [NSString stringWithFormat:@"$parse(\"%@\")", [self escape:_html]];
+    NSString *js = [NSString stringWithFormat:@"try{$parse(\"%@\")}catch(e){window.location.href='newsmth://'+encodeURIComponent(JSON.stringify({code:-2,message:e.toString()}))}", [self escape:_html]];
 //    XLog_d(@"execute: %@", js);
     [_webView stringByEvaluatingJavaScriptFromString:js];
 }

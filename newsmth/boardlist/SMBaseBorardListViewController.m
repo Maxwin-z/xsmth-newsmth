@@ -55,7 +55,7 @@
     [_listOp cancel];
     _listOp = [[SMWebLoaderOperation alloc] init];
     _listOp.delegate = self;
-    [_listOp loadUrl:_url withParser:@"boardlist"];
+    [_listOp loadUrl:_url withParser:@"boardlist,util_notice"];
 }
 
 - (void)setItems:(NSArray *)items

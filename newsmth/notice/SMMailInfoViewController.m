@@ -69,7 +69,7 @@
     _mailContentOp = [[SMWebLoaderOperation alloc] init];
     NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/%@", _mail.url];
     _mailContentOp.delegate = self;
-    [_mailContentOp loadUrl:url withParser:@"mailcontent"];
+    [_mailContentOp loadUrl:url withParser:@"mailcontent,util_notice"];
 }
 
 - (void)makeupHeadInfo

@@ -25,6 +25,8 @@ SMPost {
     int replyCount
     bool isTop
 	SMAttach[] attaches
+	bool hasNotice
+	SMNotice notice
 }
 
 SMPostGroup {

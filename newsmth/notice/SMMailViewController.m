@@ -65,7 +65,7 @@
     [_mailOp cancel];
     _mailOp = [[SMWebLoaderOperation alloc] init];
     _mailOp.delegate = self;
-    [_mailOp loadUrl:url withParser:@"mail"];
+    [_mailOp loadUrl:url withParser:@"mail,util_notice"];
 }
 
 - (void)setMails:(NSArray *)mails

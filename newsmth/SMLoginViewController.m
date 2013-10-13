@@ -89,7 +89,7 @@
     
     [self showLoading:@"正在登录..."];
     
-    [_loginOp loadRequest:request withParser:@"login"];
+    [_loginOp loadRequest:request withParser:@"login,util_notice"];
 }
 
 - (void)cancelLoading
