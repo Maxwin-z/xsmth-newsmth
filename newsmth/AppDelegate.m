@@ -77,9 +77,7 @@
         [[UINavigationBar appearance] setTitleTextAttributes:
           @{
            UITextAttributeTextColor: [UIColor blackColor],
-           UITextAttributeTextShadowColor: [UIColor grayColor]
-        //   UITextAttributeTextShadowOffset: [NSValue valueWithUIOffset:UIOffsetMake(0, -1)],
-//           UITextAttributeFont: [UIFont fontWithName:@"Arial-Bold" size:0.0],
+           UITextAttributeTextShadowColor: [UIColor clearColor]
            }];
     }
 }

@@ -84,6 +84,7 @@
     _imageViewForArrow.hidden = NO;
     _activityIndicatorForRefresh.hidden = YES;
     _imageViewForArrow.transform = CGAffineTransformRotate(CGAffineTransformIdentity, 0);
+    _viewForRefreshHeader.hidden = YES;
 }
 
 - (void)setLastUpdated:(NSDate *)lastUpdated
@@ -215,7 +216,9 @@
     if (_isRefreshing || _isLoadingMore) {
         return ;
     }
-//    XLog_d(@"%f", scrollView.contentOffset.y);
+    XLog_d(@"%f", scrollView.contentOffset.y);
+    _viewForRefreshHeader.hidden = scrollView.contentOffset.y > -NAVIGATION_HEIGHT - 1;
+    
     if (scrollView.contentOffset.y < -REFRESH_TRIGGER_HEIGHT) {
         _labelForRefreshHint.text = @"释放立即刷新";
         [UIView animateWithDuration:ANIMATION_DURATION animations:^{
@@ -263,6 +266,8 @@
     if (scrollView.contentOffset.y < -REFRESH_TRIGGER_HEIGHT) {
         _labelForRefreshHint.text = @"正在载入...";
         [self beginRefreshing];
+    } else {
+        [self resetRefreshHeader];
     }
     
     if (!_enablePullLoad) {
