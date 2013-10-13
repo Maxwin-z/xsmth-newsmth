@@ -22,6 +22,8 @@
 // stretch image at center
 + (UIImage *)stretchedImage:(UIImage *)image;
 
++ (NSString *)formatSize:(unsigned long long)size;
+
 + (void)trackEventWithCategory:(NSString *)category
                         action:(NSString *)action
                          label:(NSString *)label;

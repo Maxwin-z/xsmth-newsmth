@@ -55,6 +55,16 @@
     return [image stretchableImageWithLeftCapWidth:(image.size.width + 1) / 2 topCapHeight:(image.size.height + 1) / 2];
 }
 
++ (NSString *)formatSize:(unsigned long long)size
+{
+    if (size < 1000) {
+        return [NSString stringWithFormat:@"%lld", size];
+    }
+    if (size < 1000 * 1024) {
+        return [NSString stringWithFormat:@"%.2fK", size / 1024.0];
+    }
+    return [NSString stringWithFormat:@"%.2fM", size / 1024.0 / 1024.0];
+}
 
 + (void)trackEventWithCategory:(NSString *)category
                         action:(NSString *)action

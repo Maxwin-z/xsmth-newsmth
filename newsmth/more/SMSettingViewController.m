@@ -9,6 +9,7 @@
 #import "SMSettingViewController.h"
 #import "SMMailComposeViewController.h"
 #import "SMFontSelectorViewController.h"
+#import "XImageViewCache.h"
 #import <MessageUI/MessageUI.h>
 
 #define MAX_CELL_COUNT  4
@@ -25,7 +26,9 @@ typedef enum {
     CellTypePostFont,
     
     CellTypeFeedback,
-    CellTypeRate
+    CellTypeRate,
+    CellTypeClearCache
+    
 }CellType;
 
 typedef enum {
@@ -77,8 +80,8 @@ static SectionData sections[] = {
         SectionTypeMore,
         "其他",
         NULL,
-        2,
-        {CellTypeFeedback, CellTypeRate}
+        3,
+        {CellTypeFeedback, CellTypeRate, CellTypeClearCache}
     }
 };
 
@@ -97,6 +100,7 @@ static SectionData sections[] = {
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForSwipeBack;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForPostFont;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForListFont;
+@property (strong, nonatomic) IBOutlet UITableViewCell *cellForClearCache;
 
 @property (weak, nonatomic) IBOutlet UILabel *labelForAppVersion;
 @property (weak, nonatomic) IBOutlet UISwitch *switchForHideTop;
@@ -110,6 +114,8 @@ static SectionData sections[] = {
 @property (weak, nonatomic) IBOutlet UISlider *sliderForPostFont;
 @property (weak, nonatomic) IBOutlet UILabel *labelForListFont;
 @property (weak, nonatomic) IBOutlet UISlider *sliderForListFont;
+
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorForClearCache;
 
 @end
 
@@ -147,6 +153,15 @@ static SectionData sections[] = {
         _switchForBackgroundFetch.on = _switchForSwipeBack.on = NO;
         _switchForBackgroundFetch.enabled = _switchForSwipeBack.enabled = NO;
     }
+    
+    __block unsigned long long cacheSize = 0;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        cacheSize = [[XImageViewCache sharedInstance] cacheSize];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            _cellForClearCache.detailTextLabel.text = [SMUtils formatSize:cacheSize];
+            _activityIndicatorForClearCache.hidden = YES;
+        });
+    });
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -228,6 +243,8 @@ static SectionData sections[] = {
             return _cellForFeedback;
         case CellTypeRate:
             return _cellForRate;
+        case CellTypeClearCache:
+            return _cellForClearCache;
             
         default:
             return [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
@@ -261,6 +278,7 @@ static SectionData sections[] = {
         CGFloat delta = _cellForPostFont.frame.size.height - _labelForPostFont.frame.size.height;
         return delta + [_labelForPostFont.text smSizeWithFont:_labelForPostFont.font constrainedToSize:CGSizeMake(_labelForPostFont.frame.size.width, CGFLOAT_MAX) lineBreakMode:_labelForPostFont.lineBreakMode].height;
     }
+    
     return 44.0f;
 }
 
@@ -313,6 +331,19 @@ static SectionData sections[] = {
     if (cellType == CellTypeRate) {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/us/app/xsmth-shui-mu-she-qu/id669036871?ls=1&mt=8"]];
     }
+    
+    if (cellType == CellTypeClearCache) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            _activityIndicatorForClearCache.hidden = YES;
+            _cellForClearCache.detailTextLabel.text = @"";
+            [[XImageViewCache sharedInstance] clearCache];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                _cellForClearCache.detailTextLabel.text = @"0";
+                _activityIndicatorForClearCache.hidden = YES;
+            });
+        });
+    }
+
 }
 
 #pragma mark - UIActionSheetDelegate

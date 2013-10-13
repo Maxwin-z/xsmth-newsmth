@@ -91,7 +91,7 @@ static SMMainViewController *_instance;
     _badgeView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"badge_notice"]];
     _badgeView.frame = CGRectMake(-1, 3, 10, 10);
     [v addSubview:_badgeView];
-//    _badgeView.hidden = YES;
+    _badgeView.hidden = YES;
 
     _menuBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:v];
 }
@@ -109,15 +109,6 @@ static SMMainViewController *_instance;
 
 - (void)onLeftBarButtonClick
 {
-    // debug
-    // http://m.newsmth.net/refer/reply/read?index=204
-//    NSString *url = @"http://m.newsmth.net/refer/reply/read?index=204";
-//    SMPostViewController *vc = [[SMPostViewController alloc] init];
-//    vc.postUrl = url;
-//    [self setRootViewController:vc];
-    unsigned long long cacheSize = [[XImageViewCache sharedInstance] cacheSize];
-    XLog_d(@"%lld", cacheSize);
-    [[XImageViewCache sharedInstance] clearCache];
     [self setLeftVisiable:YES];
 }
 

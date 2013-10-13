@@ -7,7 +7,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SMSettingViewController">
             <connections>
+                <outlet property="activityIndicatorForClearCache" destination="1x1-P4-3gu" id="DD8-vs-rzd"/>
                 <outlet property="cellForBackgroundFetch" destination="vib-hD-Pay" id="bcI-aI-9M3"/>
+                <outlet property="cellForClearCache" destination="7vN-lA-cao" id="1h7-47-rO7"/>
                 <outlet property="cellForFeedback" destination="9VP-6J-eot" id="Crj-c0-U0j"/>
                 <outlet property="cellForHideTop" destination="VWe-NO-y7A" id="QRu-jU-ziT"/>
                 <outlet property="cellForListFont" destination="J5h-jh-sQ0" id="z3V-GV-7KE"/>
@@ -294,6 +296,34 @@
                             <action selector="onPostFontSliderValueChanged:" destination="-1" eventType="valueChanged" id="yyT-A7-3mf"/>
                         </connections>
                     </slider>
+                </subviews>
+            </tableViewCellContentView>
+        </tableViewCell>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="78P-Hk-h7q" detailTextLabel="cgo-L6-xal" style="IBUITableViewCellStyleValue1" id="7vN-lA-cao" userLabel="clear image cache">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7vN-lA-cao" id="2rF-Wz-eFQ">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="清除图片缓存" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="78P-Hk-h7q">
+                        <rect key="frame" x="15" y="11" width="102" height="21"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cgo-L6-xal">
+                        <rect key="frame" x="261" y="11" width="44" height="21"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" id="1x1-P4-3gu">
+                        <rect key="frame" x="290" y="11" width="20" height="20"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                    </activityIndicatorView>
                 </subviews>
             </tableViewCellContentView>
         </tableViewCell>
