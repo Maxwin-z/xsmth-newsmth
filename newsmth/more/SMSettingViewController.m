@@ -135,6 +135,7 @@ static SectionData sections[] = {
     
     _switchForHideTop.on = [SMConfig disableShowTopPost];
     _switchForUserClickable.on = [SMConfig enableUserClick];
+    _switchForShowReplyAuthor.on = [SMConfig enableShowReplyAuthor];
     _switchForSwipeBack.on = [SMConfig enableIOS7SwipeBack];
     _switchForBackgroundFetch.on = [SMConfig enableBackgroundFetch];
     _switchForShowQMD.on = [SMConfig enableShowQMD];
