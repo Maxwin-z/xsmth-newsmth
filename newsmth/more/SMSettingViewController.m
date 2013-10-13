@@ -324,7 +324,7 @@ static SectionData sections[] = {
         MFMailComposeViewController *mail = [[MFMailComposeViewController alloc] init];
         mail.mailComposeDelegate = self;
         [mail setToRecipients:@[@"zwd2005@gmail.com"]];
-        [mail setSubject:@"[xsmth v1.2]意见与反馈"];
+        [mail setSubject:[NSString stringWithFormat:@"[xsmth v%@]意见与反馈", [SMUtils appVersionString]]];
         [self.navigationController presentModalViewController:mail animated:YES];
     }
     if (buttonIndex == 1) { // 站内信
@@ -344,7 +344,7 @@ static SectionData sections[] = {
     SMMailComposeViewController *mailComposeViewController = [[SMMailComposeViewController alloc] init];
     SMMailItem *mail = [[SMMailItem alloc] init];
     mail.author = @"Maxwin";
-    mail.title = @"[xsmth v1.2]意见与反馈";
+    mail.title = [NSString stringWithFormat:@"[xsmth v%@]意见与反馈", [SMUtils appVersionString]];
     mailComposeViewController.mail = mail;
     
     P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:mailComposeViewController];
