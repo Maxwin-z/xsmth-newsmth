@@ -21,7 +21,8 @@
 
 + (CGFloat)cellHeight
 {
-    return 46.0f;
+    CGFloat fontHeight = [SMConfig postFont].lineHeight;
+    return fontHeight * 2 + 10.0f;
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -47,18 +48,35 @@
     
     [_buttonForAuthor setTitle:author forState:UIControlStateNormal];
     
-    _labelForIndex.text = [NSString stringWithFormat:@"#%d", item.index + 1];
+//    _labelForIndex.text = [NSString stringWithFormat:@"#%d", item.index + 1];
     
+    NSString *dateStr = @"";
     if (post.date > 0) {
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"yyyy/MM/dd HH:mm:ss"];
-        _labelForDate.text = [formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:post.date / 1000l]];
+        dateStr = [formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:post.date / 1000l]];
     }
+    _labelForDate.text = [NSString stringWithFormat:@"#%d  %@", item.index + 1, dateStr];
+
+    UIFont *font = [SMConfig postFont];
+    _buttonForAuthor.titleLabel.font = font;
+    _labelForDate.font = font;
     
-    [_labelForIndex sizeToFit];
-    CGRect frame = _labelForDate.frame;
-    frame.origin.x = _labelForIndex.frame.origin.x + _labelForIndex.frame.size.width + 10.0f;
+    // use
+    CGFloat fontHeight = font.lineHeight;
+    CGRect frame = _buttonForAuthor.frame;
+    frame.size.height = fontHeight;
+    _buttonForAuthor.frame = frame;
+    
+    frame = _labelForDate.frame;
+    frame.origin.y = CGRectGetMaxY(_buttonForAuthor.frame);
+    frame.size.height = fontHeight;
     _labelForDate.frame = frame;
+    
+//    [_labelForIndex sizeToFit];
+//    CGRect frame = _labelForDate.frame;
+//    frame.origin.x = _labelForIndex.frame.origin.x + _labelForIndex.frame.size.width + 10.0f;
+//    _labelForDate.frame = frame;
 }
 
 - (IBAction)onReplyButtonClick:(id)sender
