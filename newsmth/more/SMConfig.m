@@ -73,10 +73,10 @@
     NSString *listFontFamily = [[NSUserDefaults standardUserDefaults] stringForKey:USERDEFAULTS_LIST_FONT_FAMILY];
     NSInteger listFontSize = [[NSUserDefaults standardUserDefaults] integerForKey:USERDEFAULTS_LIST_FONT_SIZE];
     if (listFontFamily == nil) {
-        listFontFamily = @"Georgia";
+        listFontFamily = @"Helvetica";
     }
     if (listFontSize == 0) {
-        listFontSize = 17;
+        listFontSize = 15;
     }
     return [UIFont fontWithName:listFontFamily size:listFontSize];
 }
@@ -86,7 +86,7 @@
     NSString *postFontFamily = [[NSUserDefaults standardUserDefaults] stringForKey:USERDEFAULTS_POST_FONT_FAMILY];
     NSInteger postFontSize = [[NSUserDefaults standardUserDefaults] integerForKey:USERDEFAULTS_POST_FONT_SIZE];
     if (postFontFamily == nil) {
-        postFontFamily = @"Georgia";
+        postFontFamily = @"Helvetica";
     }
     if (postFontSize == 0) {
         postFontSize = 17;

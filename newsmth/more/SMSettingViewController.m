@@ -257,7 +257,7 @@ static SectionData sections[] = {
         CGFloat delta = _cellForPostFont.frame.size.height - _labelForPostFont.frame.size.height;
         return delta + [_labelForPostFont.text smSizeWithFont:_labelForPostFont.font constrainedToSize:CGSizeMake(_labelForPostFont.frame.size.width, CGFLOAT_MAX) lineBreakMode:_labelForPostFont.lineBreakMode].height;
     }
-    return [self cellForType:cellType].frame.size.height;
+    return 44.0f;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
