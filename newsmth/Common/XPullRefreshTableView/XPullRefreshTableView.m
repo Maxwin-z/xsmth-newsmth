@@ -216,7 +216,7 @@
     if (_isRefreshing || _isLoadingMore) {
         return ;
     }
-    XLog_d(@"%f", scrollView.contentOffset.y);
+//    XLog_d(@"%f", scrollView.contentOffset.y);
     _viewForRefreshHeader.hidden = scrollView.contentOffset.y > -NAVIGATION_HEIGHT - 1;
     
     if (scrollView.contentOffset.y < -REFRESH_TRIGGER_HEIGHT) {

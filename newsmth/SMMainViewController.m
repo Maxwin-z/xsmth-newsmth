@@ -84,8 +84,8 @@ static SMMainViewController *_instance;
     btn.frame = v.bounds;
     [v addSubview:btn];
     
-    UIImageView *badge = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"unread"]];
-    badge.frame = CGRectMake(0, 2, 10, 10);
+    UIImageView *badge = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"badge_notice"]];
+    badge.frame = CGRectMake(-1, 3, 10, 10);
     [v addSubview:badge];
 
     _menuBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:v];
@@ -107,18 +107,7 @@ static SMMainViewController *_instance;
     [_centerViewController popToRootViewControllerAnimated:NO];
     _centerViewController.toolbarHidden = YES;
     _centerViewController.viewControllers = @[viewController];
-    if ([SMUtils systemVersion] == 7) {
-        viewController.navigationItem.leftBarButtonItem = _menuBarButtonItem;
-//            [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_menu"]
-//                                             style:UIBarButtonItemStyleBordered
-//                                        target:self
-//                                        action:@selector(onLeftBarButtonClick)];
-    } else {
-        viewController.navigationItem.leftBarButtonItem = _menuBarButtonItem;
-//            [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks
-//                                                          target:self
-//                                                          action:@selector(onLeftBarButtonClick)];
-    }
+    viewController.navigationItem.leftBarButtonItem = _menuBarButtonItem;
 }
 
 
