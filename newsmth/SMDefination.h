@@ -31,12 +31,13 @@ typedef enum {
     SMNetworkErrorCodeRequestFail = 1,
 }SMNetworkErrorCode;
 
-
 #define USERDEFAULTS_USERNAME   @"username"
 #define USERDEFAULTS_PASSWORD   @"password"
 #define USERDEFAULTS_NOTICE @"notice"
 
 #define USERDEFAULTS_BOARD_HISTORY @"board_history"
+#define USERDEFAULTS_POST_FONT_FAMILY  @"post_font_family"
+#define USERDEFAULTS_POST_FONT_SIZE  @"post_font_size"
 
 #define USERDEFAULTS_CONFIG_BACKGROUND_FETCH    @"cfg_backgroundfetch"
 #define USERDEFAULTS_CONFIG_HIDE_TOP_POST    @"cfg_hidetoppost"

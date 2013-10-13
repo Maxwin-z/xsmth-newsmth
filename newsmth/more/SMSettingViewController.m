@@ -8,6 +8,7 @@
 
 #import "SMSettingViewController.h"
 #import "SMMailComposeViewController.h"
+#import "SMFontSelectorViewController.h"
 #import <MessageUI/MessageUI.h>
 
 #define MAX_CELL_COUNT  4
@@ -19,6 +20,8 @@ typedef enum {
     CellTypeSwipeBack,
     CellTypeBackgroundFetch,
     
+    CellTypePostFont,
+    
     CellTypeFeedback,
     CellTypeRate
 }CellType;
@@ -27,6 +30,7 @@ typedef enum {
     SectionTypeBoard,
     SectionTypeBackgroundFetch,
     SectionTypeInteract,
+    SectionTypePostFont,
     SectionTypeMore
 }SectionType;
 
@@ -61,6 +65,13 @@ static SectionData sections[] = {
         {CellTypeBackgroundFetch}
     },
     {
+        SectionTypePostFont,
+        "字体",
+        NULL,
+        1,
+        {CellTypePostFont}
+    },
+    {
         SectionTypeMore,
         "其他",
         NULL,
@@ -81,6 +92,7 @@ static SectionData sections[] = {
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForFeedback;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForRate;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForSwipeBack;
+@property (strong, nonatomic) IBOutlet UITableViewCell *cellForPostFont;
 
 @property (weak, nonatomic) IBOutlet UILabel *labelForAppVersion;
 @property (weak, nonatomic) IBOutlet UISwitch *switchForHideTop;
@@ -89,6 +101,8 @@ static SectionData sections[] = {
 @property (weak, nonatomic) IBOutlet UISwitch *switchForBackgroundFetch;
 @property (weak, nonatomic) IBOutlet UISwitch *switchForSwipeBack;
 
+@property (weak, nonatomic) IBOutlet UILabel *labelForPostFont;
+@property (weak, nonatomic) IBOutlet UISlider *sliderForPostFont;
 
 @end
 
@@ -118,10 +132,19 @@ static SectionData sections[] = {
     _switchForBackgroundFetch.on = [SMConfig enableBackgroundFetch];
     _switchForShowQMD.on = [SMConfig enableShowQMD];
     
+    _sliderForPostFont.value = [SMConfig postFont].pointSize;
+    
     if ([SMUtils systemVersion] < 7) {
         _switchForBackgroundFetch.on = _switchForSwipeBack.on = NO;
         _switchForBackgroundFetch.enabled = _switchForSwipeBack.enabled = NO;
     }
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [_tableView beginUpdates];
+    [_tableView endUpdates];
 }
 
 - (IBAction)onSwitchValueChanged:(UISwitch *)sender
@@ -147,6 +170,13 @@ static SectionData sections[] = {
     }
 }
 
+- (IBAction)onPostFontSliderValueChanged:(id)sender
+{
+    NSInteger size = (int)_sliderForPostFont.value;
+    [[NSUserDefaults standardUserDefaults] setInteger:size forKey:USERDEFAULTS_POST_FONT_SIZE];
+    [_tableView beginUpdates];
+    [_tableView endUpdates];
+}
 #pragma mark - UITableViewDataSource/Delegate
 - (UITableViewCell *)cellForType:(CellType)type;
 {
@@ -163,6 +193,9 @@ static SectionData sections[] = {
             
         case CellTypeBackgroundFetch:
             return _cellForBackgroundFetch;
+            
+        case CellTypePostFont:
+            return _cellForPostFont;
             
         case CellTypeFeedback:
             return _cellForFeedback;
@@ -182,6 +215,18 @@ static SectionData sections[] = {
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return sections[section].cellCount;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CellType cellType = sections[indexPath.section].cells[indexPath.row];
+    if (cellType == CellTypePostFont) {
+        _labelForPostFont.font = [SMConfig postFont];   // change font.
+        _labelForPostFont.text = [NSString stringWithFormat:@"字体预览：%@", _labelForPostFont.font.familyName];
+        CGFloat delta = _cellForPostFont.frame.size.height - _labelForPostFont.frame.size.height;
+        return delta + [_labelForPostFont.text smSizeWithFont:_labelForPostFont.font constrainedToSize:CGSizeMake(_labelForPostFont.frame.size.width, CGFLOAT_MAX) lineBreakMode:_labelForPostFont.lineBreakMode].height;
+    }
+    return [self cellForType:cellType].frame.size.height;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -212,6 +257,13 @@ static SectionData sections[] = {
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     CellType cellType = sections[indexPath.section].cells[indexPath.row];
+    
+    if (cellType == CellTypePostFont) {
+        SMFontSelectorViewController *vc = [[SMFontSelectorViewController alloc] init];
+        P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:vc];
+        [self.navigationController presentModalViewController:nvc animated:YES];
+    }
+    
     if (cellType == CellTypeFeedback) {
         UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"邮件", @"站内信", nil];
         [actionSheet showInView:self.view];

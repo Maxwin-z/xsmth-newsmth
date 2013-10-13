@@ -63,5 +63,17 @@
     [[NSUserDefaults standardUserDefaults] setObject:boards forKey:USERDEFAULTS_BOARD_HISTORY];
 }
 
++ (UIFont *)postFont
+{
+    NSString *postFontFamily = [[NSUserDefaults standardUserDefaults] stringForKey:USERDEFAULTS_POST_FONT_FAMILY];
+    NSInteger postFontSize = [[NSUserDefaults standardUserDefaults] integerForKey:USERDEFAULTS_POST_FONT_SIZE];
+    if (postFontFamily == nil) {
+        postFontFamily = @"Georgia";
+    }
+    if (postFontSize == 0) {
+        postFontSize = 17;
+    }
+    return [UIFont fontWithName:postFontFamily size:postFontSize];
+}
 
 @end

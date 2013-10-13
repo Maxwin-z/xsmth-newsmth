@@ -91,7 +91,7 @@
     }
     
     if ([quoteString rangeOfString:@"xsmth"].length == 0) {
-        [quoteString appendString:@"\n发自xsmth (iOS版)"];
+        [quoteString appendString:@"\n--\n发自xsmth (iOS版)"];
     }
     _textViewForText.text = quoteString;
     

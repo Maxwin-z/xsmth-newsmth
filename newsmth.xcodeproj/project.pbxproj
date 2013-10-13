@@ -199,6 +199,7 @@
 		C1E628AC1764C594007ACF2A /* SMSection.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E628A91764C594007ACF2A /* SMSection.m */; };
 		C1E7A18618098AAB002CAEEC /* AMBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E7A17118098AAA002CAEEC /* AMBlurView.m */; };
 		C1E7A1971809900F002CAEEC /* boards.json in Resources */ = {isa = PBXBuildFile; fileRef = C1E7A1961809900F002CAEEC /* boards.json */; };
+		C1E7A19A1809A7F1002CAEEC /* SMFontSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E7A1991809A7F1002CAEEC /* SMFontSelectorViewController.m */; };
 		C1F4C5AC1806D4BD00E8A52D /* SMConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F4C5AB1806D4BD00E8A52D /* SMConfig.m */; };
 		C1FD13B3178130C3006A6061 /* bg_input@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1FD13B2178130C3006A6061 /* bg_input@2x.png */; };
 		C1FD13B517813A3A006A6061 /* background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1FD13B417813A3A006A6061 /* background@2x.png */; };
@@ -535,6 +536,8 @@
 		C1E7A17018098AAA002CAEEC /* AMBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBlurView.h; sourceTree = "<group>"; };
 		C1E7A17118098AAA002CAEEC /* AMBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBlurView.m; sourceTree = "<group>"; };
 		C1E7A1961809900F002CAEEC /* boards.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = boards.json; sourceTree = "<group>"; };
+		C1E7A1981809A7F1002CAEEC /* SMFontSelectorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMFontSelectorViewController.h; sourceTree = "<group>"; };
+		C1E7A1991809A7F1002CAEEC /* SMFontSelectorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMFontSelectorViewController.m; sourceTree = "<group>"; };
 		C1F4C5AA1806D4BD00E8A52D /* SMConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMConfig.h; sourceTree = "<group>"; };
 		C1F4C5AB1806D4BD00E8A52D /* SMConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMConfig.m; sourceTree = "<group>"; };
 		C1FD13B2178130C3006A6061 /* bg_input@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_input@2x.png"; sourceTree = "<group>"; };
@@ -708,6 +711,8 @@
 				C14B230817FBB0E500CF081A /* SMSettingViewController.xib */,
 				C1F4C5AA1806D4BD00E8A52D /* SMConfig.h */,
 				C1F4C5AB1806D4BD00E8A52D /* SMConfig.m */,
+				C1E7A1981809A7F1002CAEEC /* SMFontSelectorViewController.h */,
+				C1E7A1991809A7F1002CAEEC /* SMFontSelectorViewController.m */,
 			);
 			path = more;
 			sourceTree = "<group>";
@@ -1485,6 +1490,7 @@
 				C1FD13C217817AAA006A6061 /* SMUser.m in Sources */,
 				C1C4C8811781B4FF0092E77C /* SMBaseBorardListViewController.m in Sources */,
 				C1C4C8851781B6C00092E77C /* SMBoardList.m in Sources */,
+				C1E7A19A1809A7F1002CAEEC /* SMFontSelectorViewController.m in Sources */,
 				C1C4C8881781BACC0092E77C /* SMBoardListItem.m in Sources */,
 				C1C4C8941781C4A60092E77C /* SMSectionViewController.m in Sources */,
 				C100985017828305001608EE /* SMPostFailCell.m in Sources */,

@@ -78,7 +78,7 @@
             }
             if (![line hasPrefix:@":"]) {
                 --quoteLine;
-                [quoteString appendFormat:@"\n:%@", line];
+                [quoteString appendFormat:@"\n: %@", line];
             }
         }
     }

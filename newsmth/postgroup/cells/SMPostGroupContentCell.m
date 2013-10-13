@@ -74,7 +74,8 @@ static SMPostGroupContentCell *_instance;
 - (void)setPost:(SMPost *)post
 {
     _post = post;
-    NSString *body = [NSString stringWithFormat:@"<html><body style='margin:0; padding: 10px; font-size: 15px;font-family: Verdana;'>%@</body></html>", [self formatContent:post.content]];
+    UIFont *font = [SMConfig postFont];
+    NSString *body = [NSString stringWithFormat:@"<html><body style='margin:0; padding: 10px; font-size: %dpx;font-family: %@;'>%@</body></html>", (int)font.pointSize, font.fontName, [self formatContent:post.content]];
     [_webViewForContent loadHTMLString:body baseURL:nil];
 }
 
