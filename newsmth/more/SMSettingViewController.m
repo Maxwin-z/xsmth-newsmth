@@ -174,8 +174,9 @@ static SectionData sections[] = {
     }
     if (sender == _switchForSwipeBack) {
         [def setBool:sender.on forKey:USERDEFAULTS_CONFIG_IOS7_SWIPE_BACK];
-        
-        [[[UIAlertView alloc] initWithTitle:@"!!注意!!" message:@"需要重启应用，使之生效" delegate:self cancelButtonTitle:@"撤销更改" otherButtonTitles:@"现在重启", nil] show];
+
+        [def synchronize];
+        [[[UIAlertView alloc] initWithTitle:@"!!注意!!" message:@"需要重启应用，使之生效" delegate:self cancelButtonTitle:@"稍后重启" otherButtonTitles:@"现在重启", nil] show];
     }
     if (sender == _switchForBackgroundFetch) {
         [def setBool:sender.on forKey:USERDEFAULTS_CONFIG_BACKGROUND_FETCH];
