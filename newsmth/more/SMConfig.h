@@ -17,5 +17,6 @@
 + (BOOL)enableShowQMD;
 + (void)addBoardToHistory:(SMBoard *)board;
 + (NSArray *)historyBoards;
++ (UIFont *)listFont;
 + (UIFont *)postFont;
 @end

@@ -29,9 +29,11 @@
 {
     [super viewDidLoad];
 
+    self.title = @"选择字体";
+    
     _fonts = [UIFont familyNames];
-    _fontSize = 15; // [SMConfig postFont].pointSize;
-    _fontName = [SMConfig postFont].fontName;
+    _fontSize = 15;
+    _fontName = _selectedFont.fontName;
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
 //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStyleBordered target:self action:@selector(save)];
@@ -50,7 +52,7 @@
 
 - (void)save
 {
-    [[NSUserDefaults standardUserDefaults] setObject:_fontName forKey:USERDEFAULTS_POST_FONT_FAMILY];
+    _fontSelectedBlock(_fontName);
     [self dismiss];
 }
 
@@ -60,11 +62,6 @@
 {
     return _fonts.count;
 }
-
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    
-//}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {

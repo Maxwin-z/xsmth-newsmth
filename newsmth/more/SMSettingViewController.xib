@@ -10,13 +10,16 @@
                 <outlet property="cellForBackgroundFetch" destination="vib-hD-Pay" id="bcI-aI-9M3"/>
                 <outlet property="cellForFeedback" destination="9VP-6J-eot" id="Crj-c0-U0j"/>
                 <outlet property="cellForHideTop" destination="VWe-NO-y7A" id="QRu-jU-ziT"/>
+                <outlet property="cellForListFont" destination="J5h-jh-sQ0" id="z3V-GV-7KE"/>
                 <outlet property="cellForPostFont" destination="ni6-wg-VaA" id="JBi-wA-jeK"/>
                 <outlet property="cellForRate" destination="QvN-rk-4dd" id="0I0-2w-rVI"/>
                 <outlet property="cellForShowQMD" destination="IEc-6j-UZO" id="IkR-ZY-vGK"/>
                 <outlet property="cellForSwipeBack" destination="lES-sT-Vuo" id="Mgl-gI-s7S"/>
                 <outlet property="cellForUserClickable" destination="eSj-J1-e1Y" id="2CY-0f-FeW"/>
                 <outlet property="labelForAppVersion" destination="sAq-aJ-VXr" id="7I5-A1-04b"/>
+                <outlet property="labelForListFont" destination="xnr-Tc-fXn" id="BoB-8D-mOO"/>
                 <outlet property="labelForPostFont" destination="9HU-NW-ZR5" id="jXl-Qt-J3O"/>
+                <outlet property="sliderForListFont" destination="2rr-zj-8sT" id="qGo-go-hta"/>
                 <outlet property="sliderForPostFont" destination="vIx-9p-iMN" id="4Iw-X9-uPW"/>
                 <outlet property="switchForBackgroundFetch" destination="6w0-LD-wEj" id="nPt-XF-iId"/>
                 <outlet property="switchForHideTop" destination="UlZ-KK-UsR" id="jrw-iE-qde"/>
@@ -220,7 +223,7 @@
                 </subviews>
             </tableViewCellContentView>
         </tableViewCell>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="127" id="ni6-wg-VaA" userLabel="字体">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="127" id="ni6-wg-VaA" userLabel="文章字体">
             <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ni6-wg-VaA" id="rfQ-Oo-d6O">
@@ -234,11 +237,35 @@
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="17" minValue="12" maxValue="50" id="vIx-9p-iMN">
+                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="17" minValue="12" maxValue="30" id="vIx-9p-iMN">
                         <rect key="frame" x="13" y="79" width="295" height="34"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <connections>
                             <action selector="onPostFontSliderValueChanged:" destination="-1" eventType="valueChanged" id="hSP-xO-NUK"/>
+                        </connections>
+                    </slider>
+                </subviews>
+            </tableViewCellContentView>
+        </tableViewCell>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="127" id="J5h-jh-sQ0" userLabel="列表字体">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="J5h-jh-sQ0" id="jNz-l3-S9F">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="119"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="列表字体 (Font)" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xnr-Tc-fXn">
+                        <rect key="frame" x="15" y="11" width="291" height="60"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="17" minValue="12" maxValue="30" id="2rr-zj-8sT">
+                        <rect key="frame" x="13" y="79" width="295" height="34"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                        <connections>
+                            <action selector="onPostFontSliderValueChanged:" destination="-1" eventType="valueChanged" id="yyT-A7-3mf"/>
                         </connections>
                     </slider>
                 </subviews>

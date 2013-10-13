@@ -20,6 +20,7 @@ typedef enum {
     CellTypeSwipeBack,
     CellTypeBackgroundFetch,
     
+    CellTypeListFont,
     CellTypePostFont,
     
     CellTypeFeedback,
@@ -68,8 +69,8 @@ static SectionData sections[] = {
         SectionTypePostFont,
         "字体",
         NULL,
-        1,
-        {CellTypePostFont}
+        2,
+        {CellTypeListFont, CellTypePostFont}
     },
     {
         SectionTypeMore,
@@ -93,6 +94,7 @@ static SectionData sections[] = {
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForRate;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForSwipeBack;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForPostFont;
+@property (strong, nonatomic) IBOutlet UITableViewCell *cellForListFont;
 
 @property (weak, nonatomic) IBOutlet UILabel *labelForAppVersion;
 @property (weak, nonatomic) IBOutlet UISwitch *switchForHideTop;
@@ -103,6 +105,8 @@ static SectionData sections[] = {
 
 @property (weak, nonatomic) IBOutlet UILabel *labelForPostFont;
 @property (weak, nonatomic) IBOutlet UISlider *sliderForPostFont;
+@property (weak, nonatomic) IBOutlet UILabel *labelForListFont;
+@property (weak, nonatomic) IBOutlet UISlider *sliderForListFont;
 
 @end
 
@@ -170,10 +174,15 @@ static SectionData sections[] = {
     }
 }
 
-- (IBAction)onPostFontSliderValueChanged:(id)sender
+- (IBAction)onPostFontSliderValueChanged:(UISlider *)slider
 {
-    NSInteger size = (int)_sliderForPostFont.value;
-    [[NSUserDefaults standardUserDefaults] setInteger:size forKey:USERDEFAULTS_POST_FONT_SIZE];
+    NSInteger size = (int)slider.value;
+    if (slider == _sliderForListFont) {
+        [[NSUserDefaults standardUserDefaults] setInteger:size forKey:USERDEFAULTS_LIST_FONT_SIZE];
+    }
+    if (slider == _sliderForPostFont) {
+        [[NSUserDefaults standardUserDefaults] setInteger:size forKey:USERDEFAULTS_POST_FONT_SIZE];
+    }
     [_tableView beginUpdates];
     [_tableView endUpdates];
 }
@@ -194,6 +203,8 @@ static SectionData sections[] = {
         case CellTypeBackgroundFetch:
             return _cellForBackgroundFetch;
             
+        case CellTypeListFont:
+            return _cellForListFont;
         case CellTypePostFont:
             return _cellForPostFont;
             
@@ -220,9 +231,17 @@ static SectionData sections[] = {
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CellType cellType = sections[indexPath.section].cells[indexPath.row];
+
+    if (cellType == CellTypeListFont) {
+        _labelForListFont.font = [SMConfig listFont];   // change font.
+        _labelForListFont.text = [NSString stringWithFormat:@"列表字体预览：%@", _labelForListFont.font.familyName];
+        CGFloat delta = _cellForListFont.frame.size.height - _labelForListFont.frame.size.height;
+        return delta + [_labelForListFont.text smSizeWithFont:_labelForListFont.font constrainedToSize:CGSizeMake(_labelForListFont.frame.size.width, CGFLOAT_MAX) lineBreakMode:_labelForListFont.lineBreakMode].height;
+    }
+
     if (cellType == CellTypePostFont) {
         _labelForPostFont.font = [SMConfig postFont];   // change font.
-        _labelForPostFont.text = [NSString stringWithFormat:@"字体预览：%@", _labelForPostFont.font.familyName];
+        _labelForPostFont.text = [NSString stringWithFormat:@"文章字体预览：%@", _labelForPostFont.font.familyName];
         CGFloat delta = _cellForPostFont.frame.size.height - _labelForPostFont.frame.size.height;
         return delta + [_labelForPostFont.text smSizeWithFont:_labelForPostFont.font constrainedToSize:CGSizeMake(_labelForPostFont.frame.size.width, CGFLOAT_MAX) lineBreakMode:_labelForPostFont.lineBreakMode].height;
     }
@@ -258,8 +277,14 @@ static SectionData sections[] = {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     CellType cellType = sections[indexPath.section].cells[indexPath.row];
     
-    if (cellType == CellTypePostFont) {
+    if (cellType == CellTypePostFont || cellType == CellTypeListFont) {
         SMFontSelectorViewController *vc = [[SMFontSelectorViewController alloc] init];
+        __weak SMSettingViewController *weakSelf = self;
+        vc.fontSelectedBlock = ^(NSString *fontName) {
+            [[NSUserDefaults standardUserDefaults] setObject:fontName forKey:cellType == CellTypePostFont ? USERDEFAULTS_POST_FONT_FAMILY : USERDEFAULTS_LIST_FONT_FAMILY];
+            [weakSelf.tableView reloadData];
+        };
+        vc.selectedFont = cellType == CellTypePostFont ? [SMConfig postFont] : [SMConfig listFont];
         P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:vc];
         [self.navigationController presentModalViewController:nvc animated:YES];
     }

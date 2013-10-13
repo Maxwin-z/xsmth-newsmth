@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface SMFontSelectorViewController : UITableViewController
-
+@property (strong, nonatomic) void (^fontSelectedBlock)(NSString *fontName);
+@property (strong, nonatomic) UIFont *selectedFont;
 @end
