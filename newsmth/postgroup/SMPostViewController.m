@@ -98,7 +98,6 @@
     [super viewDidLoad];
 
     self.tableView.xdelegate = self;
-    self.tableView.enablePullLoad = YES;
     
     if (_board == nil && _postUrl != nil) {
         _isSinglePost = YES;
@@ -188,6 +187,7 @@
         pageItem.startIndex = 0;
         
         self.prepareItems = @[pageItem];
+        self.tableView.enablePullLoad = YES;
     }
 }
 
