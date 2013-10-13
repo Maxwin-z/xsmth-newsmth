@@ -16,6 +16,7 @@
 typedef enum {
     CellTypeHideTop,
     CellTypeUserClickable,
+    CellTypeShowReplyAuthor,
     CellTypeEnableQMD,
     CellTypeSwipeBack,
     CellTypeBackgroundFetch,
@@ -48,8 +49,8 @@ static SectionData sections[] = {
         SectionTypeBoard,
         "浏览",
         NULL,
-        3,
-        {CellTypeHideTop, CellTypeUserClickable, CellTypeEnableQMD}
+        4,
+        {CellTypeHideTop, CellTypeEnableQMD, CellTypeUserClickable, CellTypeShowReplyAuthor}
     },
     {
         SectionTypeInteract,
@@ -88,6 +89,7 @@ static SectionData sections[] = {
 
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForHideTop;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForUserClickable;
+@property (strong, nonatomic) IBOutlet UITableViewCell *cellForShowReplyAuthor;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForShowQMD;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForBackgroundFetch;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForFeedback;
@@ -99,6 +101,7 @@ static SectionData sections[] = {
 @property (weak, nonatomic) IBOutlet UILabel *labelForAppVersion;
 @property (weak, nonatomic) IBOutlet UISwitch *switchForHideTop;
 @property (weak, nonatomic) IBOutlet UISwitch *switchForUserClickable;
+@property (weak, nonatomic) IBOutlet UISwitch *switchForShowReplyAuthor;
 @property (weak, nonatomic) IBOutlet UISwitch *switchForShowQMD;
 @property (weak, nonatomic) IBOutlet UISwitch *switchForBackgroundFetch;
 @property (weak, nonatomic) IBOutlet UISwitch *switchForSwipeBack;
@@ -165,6 +168,9 @@ static SectionData sections[] = {
     if (sender == _switchForUserClickable) {
         [def setBool:sender.on forKey:USERDEFAULTS_CONFIG_USER_CLICKABLE];
     }
+    if (sender == _switchForShowReplyAuthor) {
+        [def setBool:sender.on forKey:USERDEFAULTS_CONFIG_SHOW_REPLY_AUTHOR];
+    }
     if (sender == _switchForSwipeBack) {
         [def setBool:sender.on forKey:USERDEFAULTS_CONFIG_IOS7_SWIPE_BACK];
         
@@ -193,8 +199,12 @@ static SectionData sections[] = {
     switch (type) {
         case CellTypeHideTop:
             return _cellForHideTop;
+            
         case CellTypeUserClickable:
             return _cellForUserClickable;
+        case CellTypeShowReplyAuthor:
+            return _cellForShowReplyAuthor;
+            
         case CellTypeEnableQMD:
             return _cellForShowQMD;
             

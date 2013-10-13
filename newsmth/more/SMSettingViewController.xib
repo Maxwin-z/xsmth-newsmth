@@ -14,6 +14,7 @@
                 <outlet property="cellForPostFont" destination="ni6-wg-VaA" id="JBi-wA-jeK"/>
                 <outlet property="cellForRate" destination="QvN-rk-4dd" id="0I0-2w-rVI"/>
                 <outlet property="cellForShowQMD" destination="IEc-6j-UZO" id="IkR-ZY-vGK"/>
+                <outlet property="cellForShowReplyAuthor" destination="uQw-2k-lKd" id="XBa-Rx-a3m"/>
                 <outlet property="cellForSwipeBack" destination="lES-sT-Vuo" id="Mgl-gI-s7S"/>
                 <outlet property="cellForUserClickable" destination="eSj-J1-e1Y" id="2CY-0f-FeW"/>
                 <outlet property="labelForAppVersion" destination="sAq-aJ-VXr" id="7I5-A1-04b"/>
@@ -24,6 +25,7 @@
                 <outlet property="switchForBackgroundFetch" destination="6w0-LD-wEj" id="nPt-XF-iId"/>
                 <outlet property="switchForHideTop" destination="UlZ-KK-UsR" id="jrw-iE-qde"/>
                 <outlet property="switchForShowQMD" destination="otX-D1-B7P" id="Npl-o9-crf"/>
+                <outlet property="switchForShowReplyAuthor" destination="5ux-ld-sk8" id="bpH-oF-xjP"/>
                 <outlet property="switchForSwipeBack" destination="JgB-K1-49Y" id="F4d-Pp-e1L"/>
                 <outlet property="switchForUserClickable" destination="Mcm-je-LXE" id="gSX-SX-J5r"/>
                 <outlet property="tableView" destination="4NM-pv-3nm" id="9Zs-Nt-NOC"/>
@@ -112,6 +114,30 @@
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                         <connections>
                             <action selector="onSwitchValueChanged:" destination="-1" eventType="valueChanged" id="2ea-z2-Cb8"/>
+                        </connections>
+                    </switch>
+                </subviews>
+            </tableViewCellContentView>
+        </tableViewCell>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" textLabel="xju-wr-UmT" style="IBUITableViewCellStyleDefault" id="uQw-2k-lKd" userLabel="显示最后回复id">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uQw-2k-lKd" id="n8d-kH-ryg">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="文章列表显示回复id" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xju-wr-UmT">
+                        <rect key="frame" x="15" y="0.0" width="290" height="43"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="5ux-ld-sk8">
+                        <rect key="frame" x="259" y="6" width="51" height="31"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                        <connections>
+                            <action selector="onSwitchValueChanged:" destination="-1" eventType="valueChanged" id="m4n-2R-Ez9"/>
                         </connections>
                     </switch>
                 </subviews>

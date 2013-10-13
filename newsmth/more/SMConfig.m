@@ -31,6 +31,11 @@
     return [SMConfig configForKey:USERDEFAULTS_CONFIG_USER_CLICKABLE defaults:YES];
 }
 
++ (BOOL)enableShowReplyAuthor
+{
+    return [SMConfig configForKey:USERDEFAULTS_CONFIG_SHOW_REPLY_AUTHOR defaults:YES];
+}
+
 + (BOOL)enableIOS7SwipeBack
 {
     return [SMUtils systemVersion] >= 7 && [SMConfig configForKey:USERDEFAULTS_CONFIG_IOS7_SWIPE_BACK defaults:YES];

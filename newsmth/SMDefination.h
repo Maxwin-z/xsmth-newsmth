@@ -46,6 +46,7 @@ typedef enum {
 #define USERDEFAULTS_CONFIG_HIDE_TOP_POST    @"cfg_hidetoppost"
 #define USERDEFAULTS_CONFIG_SHOW_QMD    @"cfg_showqmd"
 #define USERDEFAULTS_CONFIG_USER_CLICKABLE    @"cfg_userclickable"
+#define USERDEFAULTS_CONFIG_SHOW_REPLY_AUTHOR    @"cfg_showreplyauthor"
 #define USERDEFAULTS_CONFIG_IOS7_SWIPE_BACK    @"cfg_ios7swipeback"
 
 #endif

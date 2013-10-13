@@ -13,10 +13,13 @@
 + (BOOL)enableBackgroundFetch;
 + (BOOL)disableShowTopPost;
 + (BOOL)enableUserClick;
++ (BOOL)enableShowReplyAuthor;
 + (BOOL)enableIOS7SwipeBack;
 + (BOOL)enableShowQMD;
+
 + (void)addBoardToHistory:(SMBoard *)board;
 + (NSArray *)historyBoards;
+
 + (UIFont *)listFont;
 + (UIFont *)postFont;
 @end

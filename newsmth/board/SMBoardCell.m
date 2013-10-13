@@ -60,6 +60,8 @@ static SMBoardCell *_instance;
     _imageViewForTop.hidden = !_post.isTop;
     
     _buttonForAuthor.enabled = _buttonForReplyAuthor.enabled = [SMConfig enableUserClick];
+    
+    _buttonForReplyAuthor.hidden = _labelForReplyTime.hidden = ![SMConfig enableShowReplyAuthor];
 
 }
 
