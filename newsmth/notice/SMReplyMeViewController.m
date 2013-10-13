@@ -53,6 +53,12 @@
     [_tableView beginRefreshing];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.tableView reloadData];
+}
+
 - (void)loadData:(BOOL)more
 {
     if (!more) {

@@ -41,6 +41,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [SMNoticeViewController instance].navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(onRightBarButtonItemClick)];
+    [self.tableView reloadData];
 }
 
 - (void)loadData:(BOOL)more

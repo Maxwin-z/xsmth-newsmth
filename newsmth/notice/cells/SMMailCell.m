@@ -8,7 +8,6 @@
 
 #import "SMMailCell.h"
 
-#define FONT  [UIFont systemFontOfSize:15.0f]
 #define HEIGHT_EXPECT_TITLE     50.0f
 #define WIDTH_FOR_TITLE 290.0f
 
@@ -24,7 +23,7 @@
 
 + (CGFloat)cellHeight:(SMMailItem *)item
 {
-    CGFloat titleHeight = [item.title smSizeWithFont:FONT constrainedToSize:CGSizeMake(WIDTH_FOR_TITLE, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping].height;
+    CGFloat titleHeight = [item.title smSizeWithFont:[SMConfig listFont] constrainedToSize:CGSizeMake(WIDTH_FOR_TITLE, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping].height;
     return titleHeight + HEIGHT_EXPECT_TITLE;
 }
 
@@ -52,6 +51,7 @@
 {
     _item = item;
     _labelForTitle.text = item.title;
+    _labelForTitle.font = [SMConfig listFont];
     _labelForDate.text = [SMUtils formatDate:[NSDate dateWithTimeIntervalSince1970:item.date / 1000]];
     [_buttonForAuthor setTitle:item.author forState:UIControlStateNormal];
     [_buttonForAuthor sizeToFit];

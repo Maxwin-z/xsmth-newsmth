@@ -68,6 +68,12 @@ static SMNoticeViewController *_instance;
     [self onNoticeNotification]; 
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [[self viewControllerAtIndex:_currentSelectIndex] viewWillAppear:animated];
+}
+
 - (void)setCurrentSelectIndex:(NSInteger)currentSelectIndex
 {
     if (currentSelectIndex == _currentSelectIndex) {
