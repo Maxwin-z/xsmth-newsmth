@@ -33,6 +33,7 @@ static SMMainViewController *_instance;
 @property (assign, nonatomic) DragDirection dragDirection;
 
 @property (strong, nonatomic) UIBarButtonItem *menuBarButtonItem;
+@property (strong, nonatomic) UIImageView *badgeView;
 @end
 
 @implementation SMMainViewController
@@ -84,9 +85,10 @@ static SMMainViewController *_instance;
     btn.frame = v.bounds;
     [v addSubview:btn];
     
-    UIImageView *badge = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"badge_notice"]];
-    badge.frame = CGRectMake(-1, 3, 10, 10);
-    [v addSubview:badge];
+    _badgeView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"badge_notice"]];
+    _badgeView.frame = CGRectMake(-1, 3, 10, 10);
+    [v addSubview:_badgeView];
+//    _badgeView.hidden = YES;
 
     _menuBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:v];
 }
