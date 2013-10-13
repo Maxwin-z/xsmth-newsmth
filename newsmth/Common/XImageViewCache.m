@@ -118,4 +118,45 @@ static XImageViewCache *instance;
     return image;
 }
 
+- (unsigned long long)cacheSize
+{
+    NSArray *filesArray = [[NSFileManager defaultManager] subpathsOfDirectoryAtPath:self.cacheDir error:nil];
+    NSEnumerator *filesEnumerator = [filesArray objectEnumerator];
+    NSString *fileName;
+    unsigned long long fileSize = 0;
+    
+    while (fileName = [filesEnumerator nextObject]) {
+        NSError *error;
+        NSString *fullPath = [self.cacheDir stringByAppendingPathComponent:fileName];
+        NSDictionary *fileDictionary = [[NSFileManager defaultManager] attributesOfItemAtPath:fullPath error:&error];
+        if (!error) {
+            fileSize += [fileDictionary fileSize];
+        } else {
+            XLog_e(@"attribute file error: %@, %@", fullPath, error);
+        }
+    }
+    
+    return fileSize;
+}
+
+- (void)clearCache
+{
+    NSFileManager *fileMgr = [[NSFileManager alloc] init];
+    NSError *error = nil;
+    NSArray *directoryContents = [fileMgr contentsOfDirectoryAtPath:self.cacheDir error:&error];
+    if (error == nil) {
+        for (NSString *path in directoryContents) {
+            NSString *fullPath = [self.cacheDir stringByAppendingPathComponent:path];
+            BOOL removeSuccess = [fileMgr removeItemAtPath:fullPath error:&error];
+            if (!removeSuccess) {
+                XLog_e(@"remove file fail: %@", fullPath);
+            } else {
+                XLog_d(@"remove file success: %@", fullPath);
+            }
+        }
+    } else {
+        XLog_e(@"%@", error);
+    }
+}
+
 @end

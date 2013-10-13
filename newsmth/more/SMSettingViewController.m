@@ -195,6 +195,9 @@ static SectionData sections[] = {
     [_tableView beginUpdates];
     [_tableView endUpdates];
 }
+
+#pragma mark - cache
+
 #pragma mark - UITableViewDataSource/Delegate
 - (UITableViewCell *)cellForType:(CellType)type;
 {

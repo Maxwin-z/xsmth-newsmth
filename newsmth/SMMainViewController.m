@@ -14,6 +14,8 @@
 #import "SMImagePickerViewController.h"
 #import "SMPostViewController.h"
 
+#import "XImageViewCache.h"
+
 #define LEFT_SIZE   270.0f
 #define ANIMATION_DURATION  0.5f
 
@@ -113,6 +115,9 @@ static SMMainViewController *_instance;
 //    SMPostViewController *vc = [[SMPostViewController alloc] init];
 //    vc.postUrl = url;
 //    [self setRootViewController:vc];
+    unsigned long long cacheSize = [[XImageViewCache sharedInstance] cacheSize];
+    XLog_d(@"%lld", cacheSize);
+    [[XImageViewCache sharedInstance] clearCache];
     [self setLeftVisiable:YES];
 }
 

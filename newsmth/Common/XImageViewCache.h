@@ -14,4 +14,7 @@
 - (UIImage *)getImage:(NSString *)key;
 - (void)setImage:(UIImage *)image forUrl:(NSString *)key;
 - (void)setImageData:(NSData *)data forUrl:(NSString *)key;
+
+- (unsigned long long)cacheSize;
+- (void)clearCache;
 @end
