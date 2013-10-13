@@ -195,6 +195,8 @@ typedef NS_ENUM(NSInteger, CellType) {
 - (void)webLoaderOperationFinished:(SMWebLoaderOperation *)opt
 {
     [SMAccountManager instance].notice = opt.data;
+    [[SMMainViewController instance] setBadgeVisiable:NO];
+    [[NSUserDefaults standardUserDefaults] setObject:[[SMAccountManager instance].notice encode] forKey:USERDEFAULTS_NOTICE_LATEST];
 }
 
 - (void)webLoaderOperationFail:(SMWebLoaderOperation *)opt error:(SMMessage *)error

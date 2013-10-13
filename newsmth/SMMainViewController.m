@@ -51,6 +51,7 @@ static SMMainViewController *_instance;
     if (_instance == nil) {
         _instance = [super init];
         [self makeupMenuBarButtonItem];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onNoticeNofitication) name:NOTIFICATION_NOTICE object:nil];
     }
     return _instance;
 }
@@ -93,6 +94,17 @@ static SMMainViewController *_instance;
     _menuBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:v];
 }
 
+- (void)onNoticeNofitication
+{
+    SMNotice *notice = [SMAccountManager instance].notice;
+    SMNotice *latestNotice = [[SMNotice alloc] initWithJSON:[[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_NOTICE_LATEST]];
+    if (notice.mail != latestNotice.mail || notice.at != latestNotice.at || notice.reply != latestNotice.reply) {
+        [self setBadgeVisiable:YES];
+    } else {
+        [self setBadgeVisiable:NO];
+    }
+}
+
 - (void)onLeftBarButtonClick
 {
     // debug
@@ -112,6 +124,10 @@ static SMMainViewController *_instance;
     viewController.navigationItem.leftBarButtonItem = _menuBarButtonItem;
 }
 
+- (void)setBadgeVisiable:(BOOL)visiable
+{
+    _badgeView.hidden = !visiable;
+}
 
 - (void)setLeftVisiable:(BOOL)visiable
 {

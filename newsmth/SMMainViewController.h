@@ -15,4 +15,5 @@
 +(SMMainViewController *)instance;
 - (void)setRootViewController:(UIViewController *)viewController;
 - (void)setLeftVisiable:(BOOL)visiable;
+- (void)setBadgeVisiable:(BOOL)visiable;
 @end

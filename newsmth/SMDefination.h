@@ -33,7 +33,8 @@ typedef enum {
 
 #define USERDEFAULTS_USERNAME   @"username"
 #define USERDEFAULTS_PASSWORD   @"password"
-#define USERDEFAULTS_NOTICE @"notice"
+#define USERDEFAULTS_NOTICE @"notice"   // 保存当前notice信息
+#define USERDEFAULTS_NOTICE_LATEST    @"notice_latest"  // 保持最近一次打开Left看到的notice
 
 #define USERDEFAULTS_BOARD_HISTORY @"board_history"
 
