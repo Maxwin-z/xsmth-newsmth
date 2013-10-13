@@ -36,6 +36,12 @@
     self.tableView.backgroundColor = [UIColor clearColor];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.tableView reloadData];
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     NSIndexPath *indexPath = [_tableView indexPathForSelectedRow];
@@ -65,6 +71,11 @@
     return _items.count;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 44.0f + [SMConfig listFont].lineHeight - [UIFont systemFontOfSize:15].lineHeight;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *cellid = @"cellId";
@@ -72,11 +83,12 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellid];
         cell.textLabel.backgroundColor = [UIColor clearColor];
-        cell.textLabel.font = [UIFont systemFontOfSize:15.0f];
         cell.detailTextLabel.backgroundColor = [UIColor clearColor];
         cell.detailTextLabel.font = [UIFont systemFontOfSize:13.0f];
         cell.backgroundColor = [UIColor clearColor];
     }
+
+    cell.textLabel.font = [SMConfig listFont];
     
     SMBoardListItem *item = _items[indexPath.row];
     if (item.isDir) {
