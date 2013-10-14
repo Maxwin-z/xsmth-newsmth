@@ -61,6 +61,12 @@ function $parse(html) {
 					rsp.data.items.push(item);
 			}
 		}
+
+		try {
+	    	data.notice = getNotice(html);
+	    	data.hasNotice = true;
+		} catch (ignore) {}
+
 	} else {
 		rsp.code = -1;
 		rsp.message = 'cannot find board list';

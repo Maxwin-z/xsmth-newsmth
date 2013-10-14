@@ -130,6 +130,11 @@
     [self.tableView endRefreshing:YES];
     SMBoardList *boardList = opt.data;
     self.items = boardList.items;
+    
+    if (boardList.hasNotice) {
+//        XLog_d(@"%@", boardList.notice);
+        [SMAccountManager instance].notice = boardList.notice;
+    }
 }
 
 - (void)webLoaderOperationFail:(SMWebLoaderOperation *)opt error:(SMMessage *)error

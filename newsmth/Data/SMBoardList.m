@@ -10,6 +10,10 @@
 		[tmp_items addObject:[[SMBoardListItem alloc] initWithJSON:items[i]]];
 	}
 	_items = tmp_items;
+
+	_hasNotice = [[dict objectForKey:@"hasNotice"] boolValue];
+
+	_notice = [[SMNotice alloc] initWithJSON:[dict objectForKey:@"notice"]];
 }
 
 - (id)encode
@@ -20,6 +24,12 @@
 		[tmp_items addObject:[_items[i] encode]];
 	}
 	[dict setObject:tmp_items forKey:@"items"];
+
+	[dict setObject:@(_hasNotice) forKey:@"hasNotice"];
+
+	if (_notice != nil) {
+		[dict setObject:[_notice encode] forKey:@"notice"];
+	}
 	return dict;
 }
 @end
