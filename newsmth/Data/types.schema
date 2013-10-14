@@ -1,6 +1,8 @@
 SMResult {
 	int code
 	string message
+    bool hasNotice
+    SMNotice notice
 }
 
 SMAttach {

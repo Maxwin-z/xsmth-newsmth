@@ -13,6 +13,12 @@ function $parse(html) {
 	document.body.appendChild(div);
 
 	data.message = div.querySelector('#m_main div.sp').innerHTML;
+
+	try {
+    	data.notice = getNotice(html);
+    	data.hasNotice = true;
+	} catch (ignore) {}
+
 	
 	console.log(rsp);
 	window.location.href = 'newsmth://' + encodeURIComponent(JSON.stringify(rsp));

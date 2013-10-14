@@ -107,6 +107,11 @@
     _mail.content = result.message;
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(onRightBarButtonItemClick)];
+    
+    if (result.hasNotice) {
+//        XLog_d(@"%@", result.notice);
+        [SMAccountManager instance].notice = result.notice;
+    }
 }
 
 
