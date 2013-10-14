@@ -56,6 +56,11 @@ function $parse(html) {
 				isTop: isTop
 			});
 		}
+
+		try {
+        	data.notice = getNotice(html);
+        	data.hasNotice = true;
+		} catch (ignore) {}
 	} else {
 		rsp.code = -1;
 		rsp.message = 'cannot find list <ul>';	

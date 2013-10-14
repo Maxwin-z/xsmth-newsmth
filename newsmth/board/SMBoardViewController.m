@@ -71,7 +71,7 @@
     [_boardOp cancel];
     _boardOp = [[SMWebLoaderOperation alloc] init];
     _boardOp.delegate = self;
-    [_boardOp loadUrl:url withParser:@"board"];
+    [_boardOp loadUrl:url withParser:@"board,util_notice"];
     
 }
 
@@ -159,6 +159,9 @@
     }
     
     SMBoard *board = opt.data;
+    if (board.hasNotice) {
+        [SMAccountManager instance].notice = board.notice;
+    }
     [board.posts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         SMPost *post = obj;
         if (post.isTop && [SMConfig disableShowTopPost]) {

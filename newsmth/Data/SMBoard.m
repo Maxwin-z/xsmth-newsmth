@@ -16,6 +16,10 @@
 		[tmp_posts addObject:[[SMPost alloc] initWithJSON:posts[i]]];
 	}
 	_posts = tmp_posts;
+
+	_hasNotice = [[dict objectForKey:@"hasNotice"] boolValue];
+
+	_notice = [[SMNotice alloc] initWithJSON:[dict objectForKey:@"notice"]];
 }
 
 - (id)encode
@@ -36,6 +40,12 @@
 		[tmp_posts addObject:[_posts[i] encode]];
 	}
 	[dict setObject:tmp_posts forKey:@"posts"];
+
+	[dict setObject:@(_hasNotice) forKey:@"hasNotice"];
+
+	if (_notice != nil) {
+		[dict setObject:[_notice encode] forKey:@"notice"];
+	}
 	return dict;
 }
 @end

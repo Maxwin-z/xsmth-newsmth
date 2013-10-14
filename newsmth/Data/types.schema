@@ -50,6 +50,8 @@ SMBoard {
 	string cnName
 	int bid
 	SMPost[] posts
+    bool hasNotice
+    SMNotice notice
 }
 
 SMFavor {
