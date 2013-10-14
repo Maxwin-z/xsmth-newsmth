@@ -18,6 +18,7 @@
                 <outlet property="cellForShowQMD" destination="IEc-6j-UZO" id="IkR-ZY-vGK"/>
                 <outlet property="cellForShowReplyAuthor" destination="uQw-2k-lKd" id="XBa-Rx-a3m"/>
                 <outlet property="cellForSwipeBack" destination="lES-sT-Vuo" id="Mgl-gI-s7S"/>
+                <outlet property="cellForThxPsyYiYi" destination="6Lb-kv-qNW" id="94s-J7-TAf"/>
                 <outlet property="cellForUserClickable" destination="eSj-J1-e1Y" id="2CY-0f-FeW"/>
                 <outlet property="labelForAppVersion" destination="sAq-aJ-VXr" id="7I5-A1-04b"/>
                 <outlet property="labelForListFont" destination="xnr-Tc-fXn" id="BoB-8D-mOO"/>
@@ -324,6 +325,23 @@
                         <rect key="frame" x="290" y="11" width="20" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                     </activityIndicatorView>
+                </subviews>
+            </tableViewCellContentView>
+        </tableViewCell>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="jNG-A6-2gz" style="IBUITableViewCellStyleDefault" id="6Lb-kv-qNW">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6Lb-kv-qNW" id="dIf-i7-6tN">
+                <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="PsyYiYi@newsmth 提供App icon" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jNG-A6-2gz">
+                        <rect key="frame" x="15" y="0.0" width="270" height="43"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
             </tableViewCellContentView>
         </tableViewCell>

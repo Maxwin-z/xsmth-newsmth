@@ -10,6 +10,7 @@
 #import "SMMailComposeViewController.h"
 #import "SMFontSelectorViewController.h"
 #import "XImageViewCache.h"
+#import "PBWebViewController.h"
 #import <MessageUI/MessageUI.h>
 
 #define MAX_CELL_COUNT  4
@@ -27,7 +28,9 @@ typedef enum {
     
     CellTypeFeedback,
     CellTypeRate,
-    CellTypeClearCache
+    CellTypeClearCache,
+    
+    CellTypeThxPsyYiYi
     
 }CellType;
 
@@ -36,7 +39,8 @@ typedef enum {
     SectionTypeBackgroundFetch,
     SectionTypeInteract,
     SectionTypePostFont,
-    SectionTypeMore
+    SectionTypeMore,
+    SectionTypeThanks
 }SectionType;
 
 typedef struct {
@@ -82,6 +86,13 @@ static SectionData sections[] = {
         NULL,
         3,
         {CellTypeFeedback, CellTypeRate, CellTypeClearCache}
+    },
+    {
+        SectionTypeThanks,
+        "感谢",
+        NULL,
+        1,
+        {CellTypeThxPsyYiYi}
     }
 };
 
@@ -101,6 +112,7 @@ static SectionData sections[] = {
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForPostFont;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForListFont;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForClearCache;
+@property (strong, nonatomic) IBOutlet UITableViewCell *cellForThxPsyYiYi;
 
 @property (weak, nonatomic) IBOutlet UILabel *labelForAppVersion;
 @property (weak, nonatomic) IBOutlet UISwitch *switchForHideTop;
@@ -246,6 +258,8 @@ static SectionData sections[] = {
         case CellTypeClearCache:
             return _cellForClearCache;
             
+        case CellTypeThxPsyYiYi:
+            return _cellForThxPsyYiYi;
         default:
             return [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
     }
@@ -330,6 +344,12 @@ static SectionData sections[] = {
     
     if (cellType == CellTypeRate) {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/us/app/xsmth-shui-mu-she-qu/id669036871?ls=1&mt=8"]];
+    }
+    
+    if (cellType == CellTypeThxPsyYiYi) {
+        PBWebViewController *vc = [[PBWebViewController alloc] init];
+        vc.URL = [NSURL URLWithString:@"http://maxwin.me/xsmth/PsyYiYi.html"];
+        [self.navigationController pushViewController:vc animated:YES];
     }
     
     if (cellType == CellTypeClearCache) {
