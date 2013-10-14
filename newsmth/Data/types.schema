@@ -110,4 +110,6 @@ SMMailList {
 	SMMailItem[] items
 	int tpage
 	bool hasMail
+    bool hasNotice
+    SMNotice notice
 }

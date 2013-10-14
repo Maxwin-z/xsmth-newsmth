@@ -14,6 +14,10 @@
 	_tpage = [[dict objectForKey:@"tpage"] intValue];
 
 	_hasMail = [[dict objectForKey:@"hasMail"] boolValue];
+
+	_hasNotice = [[dict objectForKey:@"hasNotice"] boolValue];
+
+	_notice = [[SMNotice alloc] initWithJSON:[dict objectForKey:@"notice"]];
 }
 
 - (id)encode
@@ -28,6 +32,12 @@
 	[dict setObject:@(_tpage) forKey:@"tpage"];
 
 	[dict setObject:@(_hasMail) forKey:@"hasMail"];
+
+	[dict setObject:@(_hasNotice) forKey:@"hasNotice"];
+
+	if (_notice != nil) {
+		[dict setObject:[_notice encode] forKey:@"notice"];
+	}
 	return dict;
 }
 @end

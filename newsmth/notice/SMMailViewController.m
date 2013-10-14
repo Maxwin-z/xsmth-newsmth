@@ -138,6 +138,7 @@
 
     if (_mails.count > indexPath.row) {
         SMMailItem *item = _mails[indexPath.row];
+        item.unread = NO;
         SMMailInfoViewController *mailInfoVc = [[SMMailInfoViewController alloc] init];
         mailInfoVc.mail = item;
         [[SMNoticeViewController instance].navigationController pushViewController:mailInfoVc animated:YES];
@@ -169,6 +170,10 @@
         [_tableView setLoadMoreHide];
     }
 
+    if (mailList.hasNotice) {
+//        XLog_d(@"%@", mailList.notice);
+        [SMAccountManager instance].notice = mailList.notice;
+    }
 }
 
 - (void)webLoaderOperationFail:(SMWebLoaderOperation *)opt error:(SMMessage *)error
