@@ -22,4 +22,8 @@
 
 + (UIFont *)listFont;
 + (UIFont *)postFont;
+
++ (NSInteger)nextFetchTime;
++ (void)resetFetchTime;
+
 @end

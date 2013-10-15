@@ -35,6 +35,9 @@ typedef enum {
 #define USERDEFAULTS_PASSWORD   @"password"
 #define USERDEFAULTS_NOTICE @"notice"   // 保存当前notice信息
 #define USERDEFAULTS_NOTICE_LATEST    @"notice_latest"  // 保持最近一次打开Left看到的notice
+#define USERDEFAULTS_NOTICE_FETCH @"notice_fetch"   // 保存上次后台获取的notice，检测是否变更
+
+#define USERDEFAULTS_BACKGROUND_FETCH_INDEX @"backgroundfetchindex" // 斐波那契数列下标
 
 #define USERDEFAULTS_BOARD_HISTORY @"board_history"
 

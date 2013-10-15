@@ -100,7 +100,8 @@ static SMMainViewController *_instance;
 {
     SMNotice *notice = [SMAccountManager instance].notice;
     SMNotice *latestNotice = [[SMNotice alloc] initWithJSON:[[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_NOTICE_LATEST]];
-    if (notice.mail != latestNotice.mail || notice.at != latestNotice.at || notice.reply != latestNotice.reply) {
+    if (notice.mail > latestNotice.mail || notice.at > latestNotice.at || notice.reply > latestNotice.reply) {
+        [SMConfig resetFetchTime];
         [self setBadgeVisiable:YES];
     } else {
         [self setBadgeVisiable:NO];

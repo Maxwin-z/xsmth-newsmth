@@ -94,4 +94,25 @@
     return [UIFont fontWithName:postFontFamily size:postFontSize];
 }
 
++ (NSInteger)nextFetchTime
+{
+    static int delays[] = {10, 20, 30, 50, 80, 130, 210, 340, 550, 890};
+    NSInteger index = [[NSUserDefaults standardUserDefaults] integerForKey:USERDEFAULTS_BACKGROUND_FETCH_INDEX];
+    int max = sizeof(delays) / sizeof(int);
+    if (index < 0) {
+        index = 0;
+    }
+    
+    // save next index
+    [[NSUserDefaults standardUserDefaults] setInteger:index + 1 forKey:USERDEFAULTS_BACKGROUND_FETCH_INDEX];
+    
+    return delays[MIN(index, max - 1)];
+}
+
++ (void)resetFetchTime
+{
+    [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:USERDEFAULTS_BACKGROUND_FETCH_INDEX];
+}
+
+
 @end
