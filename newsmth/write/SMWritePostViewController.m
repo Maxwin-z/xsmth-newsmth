@@ -207,6 +207,8 @@
             [def removeObjectForKey:USER_DEF_LAST_POST_TITLE];
             [def removeObjectForKey:USER_DEF_LAST_POST_CONTENT];
 
+            [SMConfig resetFetchTime];
+            
             [SMUtils trackEventWithCategory:@"write" action:@"success" label:_post.board.name];
         } else {
             [self toast:result.message];

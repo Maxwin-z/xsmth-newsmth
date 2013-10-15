@@ -207,6 +207,9 @@
     SMWriteResult *result = opt.data;
     if (result.success) {
         [self toast:@"发送成功"];
+
+        [SMConfig resetFetchTime];
+
         [self performSelector:@selector(dismiss) withObject:nil afterDelay:TOAST_DURTAION + 0.1];
         [SMUtils trackEventWithCategory:@"mail" action:@"send" label:@"success"];
     } else {
