@@ -122,7 +122,7 @@
 
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
-    [self showNotification:@"start bg fetch"];
+//    [self showNotification:@"start bg fetch"];
     if ([SMAccountManager instance].isLogin) {
         XLog_d(@"load notice");
         [_keepLoginOp cancel];
@@ -146,7 +146,7 @@
             _completionHandler = completionHandler;
             [_loginOp loadRequest:request withParser:@"notice,util_notice"];
         } else {
-            [self showNotification:@"no account, stop bg fetch"];
+//            [self showNotification:@"no account, stop bg fetch"];
             [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalNever];
             completionHandler(UIBackgroundFetchResultNoData);
         }
@@ -198,7 +198,7 @@
     
     if (newNotice.mail > lastFetchNotice.mail || newNotice.at > lastFetchNotice.at || newNotice.reply > lastFetchNotice.reply) {
         [SMConfig resetFetchTime];
-        [self showNotification:@"notice change, reset fetch time"];
+//        [self showNotification:@"notice change, reset fetch time"];
     }
 
     [self scheduleNextBackgroundFetch];
@@ -212,7 +212,7 @@
 - (void)webLoaderOperationFail:(SMWebLoaderOperation *)opt error:(SMMessage *)error
 {
     XLog_d(@"%@", error);
-    [self showNotification:[NSString stringWithFormat:@"%@", error]];
+//    [self showNotification:[NSString stringWithFormat:@"%@", error]];
     _completionHandler(UIBackgroundFetchResultFailed);
     _completionHandler = nil;
     [self scheduleNextBackgroundFetch];
@@ -222,8 +222,8 @@
 {
     NSInteger mins = [SMConfig nextFetchTime];
     [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:mins * 60];
-    NSString *msg = [NSString stringWithFormat:@"fetch after %dmin", mins];
-    [self showNotification:msg];
+//    NSString *msg = [NSString stringWithFormat:@"fetch after %dmin", mins];
+//    [self showNotification:msg];
 }
 
 @end
