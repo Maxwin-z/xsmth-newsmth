@@ -66,7 +66,7 @@ function prints(content) {
     matchs = content.match(contentRegex);
     data.content = formatContent(matchs == null ? content : matchs[1]);
     data.content = data.content.replace(/\r\[[\d;]*m/g, '');
-    data.content = data.content.replace(/※ 来源:·水木社区 [:\/\/\.\w]{10,30} ·\[FROM: [\d\w\.\*]{7,30}\]\n$/, '');
+    data.content = data.content.replace(/※ 来源:·水木社区 [:\/\/\.\w]{10,30} ·\[FROM: [\d\w\.\*]{7,30}\]\n*$/, '');
 }
 
 function attach(name, len, pos) {
