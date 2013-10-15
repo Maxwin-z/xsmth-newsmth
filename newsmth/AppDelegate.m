@@ -100,6 +100,11 @@
     [[DCIntrospect sharedIntrospector] start];
 #endif
     
+    NSString *latestVersion = [[NSUserDefaults standardUserDefaults] stringForKey:USERDEFAULTS_STAT_VERSION];
+    if (![[SMUtils appVersionString] isEqualToString:latestVersion]) {
+        [SMUtils trackEventWithCategory:@"user" action:@"unique" label:[SMUtils appVersionString]];
+        [[NSUserDefaults standardUserDefaults] setObject:[SMUtils appVersionString] forKey:USERDEFAULTS_STAT_VERSION];
+    }
     // enable background fetch
 //    if ([SMUtils systemVersion] >= 7) {
 //        [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];

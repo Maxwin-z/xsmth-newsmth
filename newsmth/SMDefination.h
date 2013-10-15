@@ -31,6 +31,8 @@ typedef enum {
     SMNetworkErrorCodeRequestFail = 1,
 }SMNetworkErrorCode;
 
+#define USERDEFAULTS_STAT_VERSION   @"statversion"  // 每个版本统计一次ga，唯一用户
+
 #define USERDEFAULTS_USERNAME   @"username"
 #define USERDEFAULTS_PASSWORD   @"password"
 #define USERDEFAULTS_NOTICE @"notice"   // 保存当前notice信息
