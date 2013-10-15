@@ -17,6 +17,14 @@ var data = {
 	]
 };
 
+function decode(html) {
+	return html.replace(/&lt;/ig, '<')
+			.replace(/&gt;/ig, '>')
+			.replace(/&quot;/ig, '"')
+			.replace(/&#039;/g, "'")
+			.replace(/&nbsp;/ig, ' ')
+			.replace(/&amp;/ig, '&');
+}
 
 function $parse(html) {
 	var rsp = {code: 0, data: data, message: ''};
@@ -33,7 +41,7 @@ function $parse(html) {
 
 			var gid = li.querySelector('a').href.match(/\d+$/)[0];
 			var isTop = li.querySelector('a').className.indexOf('top') != -1;
-			var title = titleDiv.childNodes[0].innerHTML;
+			var title = decode(titleDiv.childNodes[0].innerHTML);
 			var replyCount = titleDiv.childNodes[1].nodeValue.replace(/[^\d]/g, '');
 
 			var authorDiv = li.querySelectorAll('div')[1];

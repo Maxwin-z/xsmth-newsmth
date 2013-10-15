@@ -38,7 +38,7 @@ function conWriter(ftype, board, bid, id, gid, reid, favtxt, num, istex, title) 
         bid: bid,
         name: board
     };
-    data.title = title;
+    data.title = decode(title);
 }
 
 conWriter.prototype.h = emptyFn;
@@ -125,7 +125,7 @@ function parse_m(html) {
             data.board.cnName = boardTitle.match(/\-(.*?)\(/)[1];
         }
 
-        data.title = div.querySelector('#m_main .list.sec li.f').innerHTML;
+        data.title = decode(div.querySelector('#m_main .list.sec li.f').innerHTML);
 
         // author 
         as = div.querySelectorAll('#m_main .list.sec .nav.hl a');
@@ -171,4 +171,14 @@ function parseDate(dateStr) {
     return new Date(comps[0], comps[1] - 1, comps[2], comps[3], comps[4], comps[5]).getTime();
     // return Date.parse(dateStr);
 }
+
+function decode(html) {
+    return html.replace(/&lt;/ig, '<')
+            .replace(/&gt;/ig, '>')
+            .replace(/&quot;/ig, '"')
+            .replace(/&#039;/g, "'")
+            .replace(/&nbsp;/ig, ' ')
+            .replace(/&amp;/ig, '&');
+}
+
 

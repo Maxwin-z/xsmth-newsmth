@@ -43,7 +43,7 @@ function $parse(html) {
 
 		var title_a = as[2];
 		var index = title_a.getAttribute('_index');
-		var title = title_a.innerHTML;
+		var title = decode(title_a.innerHTML);
 		var date = parseDate(tr.querySelector('.title_4').innerHTML);
 
 		var post = {
@@ -82,3 +82,13 @@ function parseDate(dateStr) {
 	var ymdhis = dateStr.split(/[^\d]+/);
 	return new Date(ymdhis[0], ymdhis[1] - 1, ymdhis[2], ymdhis[3], ymdhis[4], ymdhis[5]).getTime();
 }
+
+function decode(html) {
+    return html.replace(/&lt;/ig, '<')
+            .replace(/&gt;/ig, '>')
+            .replace(/&quot;/ig, '"')
+            .replace(/&#039;/g, "'")
+            .replace(/&nbsp;/ig, ' ')
+            .replace(/&amp;/ig, '&');
+}
+

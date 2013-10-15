@@ -11,6 +11,15 @@ var data = {
 	}, ... */]
 }
 
+function decode(html) {
+	return html.replace(/&lt;/ig, '<')
+			.replace(/&gt;/ig, '>')
+			.replace(/&quot;/ig, '"')
+			.replace(/&#039;/g, "'")
+			.replace(/&nbsp;/ig, ' ')
+			.replace(/&amp;/ig, '&');
+}
+
 function $parse(html) {
     if (html.indexOf('<?xml version="1.0" encoding="utf-8"?>') != -1) {
         parse_m(html);
@@ -22,7 +31,7 @@ function $parse(html) {
 function tconWriter(board, bid, gid, start, tpage, pno, serial, prevgid, nextgid,title) {
 	data.bid = bid;
 	data.tpage = tpage;
-	data.title = title;
+	data.title = decode(title);
 }
 
 tconWriter.prototype.o = function(arr) {
