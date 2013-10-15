@@ -16,6 +16,7 @@
 
 #define SMRGB(r, g, b)  [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:1.0f]
 #define SM_TINTCOLOR    SMRGB(0, 124, 247)
+#define i2s(val)    [NSString stringWithFormat:@"%d", val]
 
 #define SuppressPerformSelectorLeakWarning(Stuff) \
 do { \

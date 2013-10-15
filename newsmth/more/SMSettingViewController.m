@@ -191,22 +191,27 @@ static SectionData sections[] = {
 
 - (IBAction)onSwitchValueChanged:(UISwitch *)sender
 {
-    XLog_d(@"%@, %d", sender, sender.on);
+    NSString *action = @"";
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     if (sender == _switchForHideTop) {
         [def setBool:sender.on forKey:USERDEFAULTS_CONFIG_HIDE_TOP_POST];
+        action = @"hideTopPost";
     }
     if (sender == _switchForShowQMD) {
         [def setBool:sender.on forKey:USERDEFAULTS_CONFIG_SHOW_QMD];
+        action = @"showQMD";
     }
     if (sender == _switchForUserClickable) {
         [def setBool:sender.on forKey:USERDEFAULTS_CONFIG_USER_CLICKABLE];
+        action = @"userClickable";
     }
     if (sender == _switchForShowReplyAuthor) {
         [def setBool:sender.on forKey:USERDEFAULTS_CONFIG_SHOW_REPLY_AUTHOR];
+        action = @"showReplyAuthor";
     }
     if (sender == _switchForSwipeBack) {
         [def setBool:sender.on forKey:USERDEFAULTS_CONFIG_IOS7_SWIPE_BACK];
+        action = @"swipeBack";
 
         [def synchronize];
         [[[UIAlertView alloc] initWithTitle:@"!!注意!!" message:@"需要重启应用，使之生效" delegate:self cancelButtonTitle:@"稍后重启" otherButtonTitles:@"现在重启", nil] show];
@@ -214,10 +219,14 @@ static SectionData sections[] = {
     if (sender == _switchForBackgroundFetch) {
         [def setBool:sender.on forKey:USERDEFAULTS_CONFIG_BACKGROUND_FETCH];
         _switchForBackgroundFetchSmartMode.enabled = _switchForBackgroundFetch.on;
+        action = @"backgroundFetch";
     }
     if (sender == _switchForBackgroundFetchSmartMode) {
         [def setBool:sender.on forKey:USERDEFAULTS_CONFIG_BACKGROUND_FETCH_SMART_MODE];
+        action = @"backgroundFetchSmartMode";
     }
+    
+    [SMUtils trackEventWithCategory:@"setting" action:action label:sender.on ? @"on" : @"off"];
 }
 
 - (IBAction)onPostFontSliderValueChanged:(UISlider *)slider
@@ -225,9 +234,11 @@ static SectionData sections[] = {
     NSInteger size = (int)slider.value;
     if (slider == _sliderForListFont) {
         [[NSUserDefaults standardUserDefaults] setInteger:size forKey:USERDEFAULTS_LIST_FONT_SIZE];
+        [SMUtils trackEventWithCategory:@"setting" action:@"listfont" label:i2s(size)];
     }
     if (slider == _sliderForPostFont) {
         [[NSUserDefaults standardUserDefaults] setInteger:size forKey:USERDEFAULTS_POST_FONT_SIZE];
+        [SMUtils trackEventWithCategory:@"setting" action:@"postfont" label:i2s(size)];
     }
     [_tableView beginUpdates];
     [_tableView endUpdates];
@@ -339,6 +350,7 @@ static SectionData sections[] = {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     CellType cellType = sections[indexPath.section].cells[indexPath.row];
     
+    NSString *action = @"";
     if (cellType == CellTypePostFont || cellType == CellTypeListFont) {
         SMFontSelectorViewController *vc = [[SMFontSelectorViewController alloc] init];
         __weak SMSettingViewController *weakSelf = self;
@@ -349,6 +361,8 @@ static SectionData sections[] = {
         vc.selectedFont = cellType == CellTypePostFont ? [SMConfig postFont] : [SMConfig listFont];
         P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:vc];
         [self.navigationController presentModalViewController:nvc animated:YES];
+        
+        action = cellType == CellTypePostFont ? @"changePostFont" : @"changeListFont";
     }
     
     if (cellType == CellTypeFeedback) {
@@ -358,18 +372,21 @@ static SectionData sections[] = {
     
     if (cellType == CellTypeRate) {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/us/app/xsmth-shui-mu-she-qu/id669036871?ls=1&mt=8"]];
+        action = @"rate";
     }
     
     if (cellType == CellTypeThxPsyYiYi) {
         PBWebViewController *vc = [[PBWebViewController alloc] init];
         vc.URL = [NSURL URLWithString:@"http://maxwin.me/xsmth/PsyYiYi.html"];
         [self.navigationController pushViewController:vc animated:YES];
+        action = @"PsyYiYi";
     }
 
     if (cellType == CellTypeBackgroundFetchHelp) {
         PBWebViewController *vc = [[PBWebViewController alloc] init];
         vc.URL = [NSURL URLWithString:@"http://maxwin.me/xsmth/background_fetch_help.html"];
         [self.navigationController pushViewController:vc animated:YES];
+        action = @"fetchHelp";
     }
 
     if (cellType == CellTypeClearCache) {
@@ -382,14 +399,14 @@ static SectionData sections[] = {
                 _activityIndicatorForClearCache.hidden = YES;
             });
         });
+        action = @"clearImageCache";
     }
-
+    [SMUtils trackEventWithCategory:@"setting" action:action label:nil];
 }
 
 #pragma mark - UIActionSheetDelegate
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    XLog_d(@"%d", buttonIndex);
     if (buttonIndex == 0) { // mail
         if (![MFMailComposeViewController canSendMail]) {
             [[[UIAlertView alloc] initWithTitle:@"提示" message:@"当前设备未设置邮件帐号。请至“系统设置”-“邮件”设置邮件账户" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil] show];
@@ -444,6 +461,7 @@ static SectionData sections[] = {
 {
     if (buttonIndex != alertView.cancelButtonIndex) {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://maxwin.me/xsmth/start.html"]];
+        [SMUtils trackEventWithCategory:@"setting" action:@"restart" label:nil];
         exit(0);
     }
 }
