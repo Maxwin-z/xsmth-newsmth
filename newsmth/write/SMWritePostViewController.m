@@ -64,6 +64,10 @@
     NSMutableString *quoteString = [[NSMutableString alloc] initWithString:@"  \n  \n"];
     if (_post.pid != 0) {   // re
         if (_postTitle != nil) {
+            NSString *head = @"主题:Re: ";
+            if ([_postTitle hasPrefix:head]) {
+                _postTitle = [_postTitle substringFromIndex:head.length];
+            }
             _textFieldForTitle.text = [NSString stringWithFormat:@"Re: %@", _postTitle];
         }
         [quoteString appendFormat:@"【 在 %@ (%@) 的大作中提到: 】", _post.author, _post.nick];
