@@ -85,6 +85,8 @@ static SMMainpageViewController *_instance;
     self.searchDisplayController.searchBar.hidden = NO;
 
     [self.searchDisplayController.searchBar becomeFirstResponder];
+    
+    [SMUtils trackEventWithCategory:@"mainpage" action:@"boardSearch" label:nil];
 }
 
 - (void)dealloc
