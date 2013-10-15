@@ -61,7 +61,7 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"发表" style:UIBarButtonItemStyleBordered target:self action:@selector(doPost)];
     
-    NSMutableString *quoteString = [[NSMutableString alloc] initWithString:@"\n\n"];
+    NSMutableString *quoteString = [[NSMutableString alloc] initWithString:@"  \n  \n"];
     if (_post.pid != 0) {   // re
         if (_postTitle != nil) {
             _textFieldForTitle.text = [NSString stringWithFormat:@"Re: %@", _postTitle];
