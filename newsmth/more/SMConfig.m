@@ -21,6 +21,11 @@
     return [SMUtils systemVersion] >= 7 && [SMConfig configForKey:USERDEFAULTS_CONFIG_BACKGROUND_FETCH defaults:YES];
 }
 
++ (BOOL)enableBackgroundFetchSmartMode
+{
+    return [SMUtils systemVersion] >= 7 && [SMConfig configForKey:USERDEFAULTS_CONFIG_BACKGROUND_FETCH_SMART_MODE defaults:YES];
+}
+
 + (BOOL)disableShowTopPost
 {
     return [SMConfig configForKey:USERDEFAULTS_CONFIG_HIDE_TOP_POST defaults:YES];
@@ -96,6 +101,11 @@
 
 + (NSInteger)nextFetchTime
 {
+    // 非只能模式下，固定时间
+    if (![SMConfig enableBackgroundFetchSmartMode]) {
+        return UIApplicationBackgroundFetchIntervalMinimum;
+    }
+    
     static int delays[] = {10, 20, 30, 50, 80, 130, 210, 340, 550, 890};
     NSInteger index = [[NSUserDefaults standardUserDefaults] integerForKey:USERDEFAULTS_BACKGROUND_FETCH_INDEX];
     int max = sizeof(delays) / sizeof(int);

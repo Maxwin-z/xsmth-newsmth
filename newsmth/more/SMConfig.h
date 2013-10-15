@@ -11,6 +11,7 @@
 
 @interface SMConfig : NSObject
 + (BOOL)enableBackgroundFetch;
++ (BOOL)enableBackgroundFetchSmartMode;
 + (BOOL)disableShowTopPost;
 + (BOOL)enableUserClick;
 + (BOOL)enableShowReplyAuthor;

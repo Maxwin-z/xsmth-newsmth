@@ -22,6 +22,8 @@ typedef enum {
     CellTypeEnableQMD,
     CellTypeSwipeBack,
     CellTypeBackgroundFetch,
+    CellTypeBackgroundFetchSmartMode,
+    CellTypeBackgroundFetchHelp,
     
     CellTypeListFont,
     CellTypePostFont,
@@ -54,10 +56,10 @@ typedef struct {
 static SectionData sections[] = {
     {
         SectionTypeBackgroundFetch,
-        "后台获取最新消息",
-        "iOS7支持后台定时获取网络数据，一般间隔10min。一天流量大约100KB。需要登录。",
-        1,
-        {CellTypeBackgroundFetch}
+        "后台获取最新邮件、回复、AT",
+        "iOS7支持后台定时获取网络数据，需要登录。",
+        3,
+        {CellTypeBackgroundFetch, CellTypeBackgroundFetchSmartMode, CellTypeBackgroundFetchHelp}
     },
     {
         SectionTypeBoard,
@@ -106,6 +108,7 @@ static SectionData sections[] = {
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForShowReplyAuthor;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForShowQMD;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForBackgroundFetch;
+@property (strong, nonatomic) IBOutlet UITableViewCell *cellForBackgroundFetchSmartMode;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForFeedback;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForRate;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForSwipeBack;
@@ -113,6 +116,7 @@ static SectionData sections[] = {
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForListFont;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForClearCache;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForThxPsyYiYi;
+@property (strong, nonatomic) IBOutlet UITableViewCell *cellForBackgroundFetchHelp;
 
 @property (weak, nonatomic) IBOutlet UILabel *labelForAppVersion;
 @property (weak, nonatomic) IBOutlet UISwitch *switchForHideTop;
@@ -120,6 +124,7 @@ static SectionData sections[] = {
 @property (weak, nonatomic) IBOutlet UISwitch *switchForShowReplyAuthor;
 @property (weak, nonatomic) IBOutlet UISwitch *switchForShowQMD;
 @property (weak, nonatomic) IBOutlet UISwitch *switchForBackgroundFetch;
+@property (weak, nonatomic) IBOutlet UISwitch *switchForBackgroundFetchSmartMode;
 @property (weak, nonatomic) IBOutlet UISwitch *switchForSwipeBack;
 
 @property (weak, nonatomic) IBOutlet UILabel *labelForPostFont;
@@ -156,14 +161,15 @@ static SectionData sections[] = {
     _switchForShowReplyAuthor.on = [SMConfig enableShowReplyAuthor];
     _switchForSwipeBack.on = [SMConfig enableIOS7SwipeBack];
     _switchForBackgroundFetch.on = [SMConfig enableBackgroundFetch];
+    _switchForBackgroundFetchSmartMode.on = [SMConfig enableBackgroundFetchSmartMode];
     _switchForShowQMD.on = [SMConfig enableShowQMD];
     
     _sliderForListFont.value = [SMConfig listFont].pointSize;
     _sliderForPostFont.value = [SMConfig postFont].pointSize;
     
     if ([SMUtils systemVersion] < 7) {
-        _switchForBackgroundFetch.on = _switchForSwipeBack.on = NO;
-        _switchForBackgroundFetch.enabled = _switchForSwipeBack.enabled = NO;
+        _switchForBackgroundFetch.on = _switchForSwipeBack.on = _switchForBackgroundFetchSmartMode.on = NO;
+        _switchForBackgroundFetch.enabled = _switchForSwipeBack.enabled = _switchForBackgroundFetchSmartMode.enabled = NO;
     }
     
     __block unsigned long long cacheSize = 0;
@@ -207,6 +213,10 @@ static SectionData sections[] = {
     }
     if (sender == _switchForBackgroundFetch) {
         [def setBool:sender.on forKey:USERDEFAULTS_CONFIG_BACKGROUND_FETCH];
+        _switchForBackgroundFetchSmartMode.enabled = _switchForBackgroundFetch.on;
+    }
+    if (sender == _switchForBackgroundFetchSmartMode) {
+        [def setBool:sender.on forKey:USERDEFAULTS_CONFIG_BACKGROUND_FETCH_SMART_MODE];
     }
 }
 
@@ -245,6 +255,10 @@ static SectionData sections[] = {
             
         case CellTypeBackgroundFetch:
             return _cellForBackgroundFetch;
+        case CellTypeBackgroundFetchSmartMode:
+            return _cellForBackgroundFetchSmartMode;
+        case CellTypeBackgroundFetchHelp:
+            return _cellForBackgroundFetchHelp;
             
         case CellTypeListFont:
             return _cellForListFont;
@@ -351,7 +365,13 @@ static SectionData sections[] = {
         vc.URL = [NSURL URLWithString:@"http://maxwin.me/xsmth/PsyYiYi.html"];
         [self.navigationController pushViewController:vc animated:YES];
     }
-    
+
+    if (cellType == CellTypeBackgroundFetchHelp) {
+        PBWebViewController *vc = [[PBWebViewController alloc] init];
+        vc.URL = [NSURL URLWithString:@"http://maxwin.me/xsmth/background_fetch_help.html"];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+
     if (cellType == CellTypeClearCache) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
             _activityIndicatorForClearCache.hidden = YES;
