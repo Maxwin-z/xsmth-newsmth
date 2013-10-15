@@ -70,6 +70,8 @@
     SMBoardViewController *vc = [[SMBoardViewController alloc] init];
     vc.board = board;
     [self.mainpage.navigationController pushViewController:vc animated:YES];
+    
+    [SMUtils trackEventWithCategory:@"boardsearch" action:@"enterBoard" label:self.mainpage.searchDisplayController.searchBar.text];
 }
 
 - (void)searchDisplayControllerDidEndSearch:(UISearchDisplayController *)controller
@@ -84,7 +86,9 @@
 
 - (void)showHis
 {
-    self.mainpage.searchDisplayController.searchBar.text = @" ";
+    if (self.mainpage.searchDisplayController.searchBar.text.length == 0) {
+        self.mainpage.searchDisplayController.searchBar.text = @" ";
+    }
 }
 
 
