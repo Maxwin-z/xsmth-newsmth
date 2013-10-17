@@ -29,8 +29,10 @@
 
 - (void)reload
 {
-    filters = [SMConfig historyBoards];
-    [self.mainpage.searchDisplayController.searchResultsTableView reloadData];
+    if ([self.mainpage.searchDisplayController.searchBar.text isEqualToString:@" "]) {
+        filters = [SMConfig historyBoards];
+        [self.mainpage.searchDisplayController.searchResultsTableView reloadData];
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
