@@ -412,7 +412,7 @@
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideScrollIndicator) object:nil];
-    [self performSelector:@selector(hideScrollIndicator) withObject:nil afterDelay:1.0f];
+    [self performSelector:@selector(hideScrollIndicator) withObject:nil afterDelay:0.5f];
 }
 
 - (void)hideScrollIndicator
