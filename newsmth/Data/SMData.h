@@ -15,3 +15,5 @@
 #import "SMNotice.h"
 #import "SMMailItem.h"
 #import "SMMailList.h"
+#import "SMVersion.h"
+#import "SMParserItem.h"

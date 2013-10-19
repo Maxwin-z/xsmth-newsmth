@@ -24,6 +24,8 @@
 
 + (NSString *)formatSize:(unsigned long long)size;
 
++ (id)string2json:(NSString *)str;
+
 + (void)trackEventWithCategory:(NSString *)category
                         action:(NSString *)action
                          label:(NSString *)label;

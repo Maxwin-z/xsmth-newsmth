@@ -117,3 +117,15 @@ SMMailList {
     bool hasNotice
     SMNotice notice
 }
+
+SMVersion {
+    int version
+    int parser
+}
+
+SMParserItem {
+    string js
+    string path
+    string md5
+}
+

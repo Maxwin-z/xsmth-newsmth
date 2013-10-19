@@ -14,6 +14,7 @@
 #import "SMMainViewController.h"
 #import "SMMainpageViewController.h"
 #import "SMUtils.h"
+#import "SMUpdater.h"
 
 @interface AppDelegate ()<SMWebLoaderOperationDelegate>
 @property (strong, nonatomic) UINavigationController *nvc;
@@ -25,6 +26,8 @@
 @property (strong, nonatomic) SMWebLoaderOperation *loginOp;
 
 @property (strong, nonatomic) void (^completionHandler)(UIBackgroundFetchResult);
+
+@property (strong, nonatomic) SMUpdater *updater;
 @end
 
 @implementation AppDelegate
@@ -93,8 +96,6 @@
     
     [self setupGoogleAnalytics];
     
-    [SMUtils trackEventWithCategory:@"channel" action:@"appstore" label:nil];
-    
     NSString *latestVersion = [[NSUserDefaults standardUserDefaults] stringForKey:USERDEFAULTS_STAT_VERSION];
     if (![[SMUtils appVersionString] isEqualToString:latestVersion]) {
         [SMUtils trackEventWithCategory:@"user" action:@"unique" label:[SMUtils appVersionString]];
@@ -102,6 +103,9 @@
     }
     
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+
+    _updater = [[SMUpdater alloc] init];
+    [_updater checkAndUpdate];
 
     return YES;
 }

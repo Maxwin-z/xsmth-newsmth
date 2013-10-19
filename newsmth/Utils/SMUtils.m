@@ -66,6 +66,17 @@
     return [NSString stringWithFormat:@"%.2fM", size / 1024.0 / 1024.0];
 }
 
++ (id)string2json:(NSString *)str
+{
+    NSError *error;
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:[str dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:&error];
+    if (error != nil) {
+        json = nil;
+        XLog_e(@"parse[%@], error[%@]", str, error);
+    }
+    return json;
+}
+
 + (void)trackEventWithCategory:(NSString *)category
                         action:(NSString *)action
                          label:(NSString *)label

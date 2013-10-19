@@ -184,6 +184,9 @@
 		C1C4C8941781C4A60092E77C /* SMSectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1C4C8931781C4A60092E77C /* SMSectionViewController.m */; };
 		C1CC1B40177857FB00FC63A8 /* P2PNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1CC1B3C177857FB00FC63A8 /* P2PNavigationController.m */; };
 		C1CC1B41177857FB00FC63A8 /* P2PViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1CC1B3F177857FB00FC63A8 /* P2PViewController.m */; };
+		C1CE10BC1812293900B04E15 /* SMUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = C1CE10BB1812293900B04E15 /* SMUpdater.m */; };
+		C1CE10C018122D7B00B04E15 /* SMParserItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C1CE10BE18122D7B00B04E15 /* SMParserItem.m */; };
+		C1CE10C218122D8500B04E15 /* SMVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = C1CE10C118122D8500B04E15 /* SMVersion.m */; };
 		C1D190D017F7F3E00056F3FE /* XScrollIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = C1D190CE17F7F3E00056F3FE /* XScrollIndicator.m */; };
 		C1D190DA17F9244D0056F3FE /* SMPageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1D190D917F9244D0056F3FE /* SMPageCell.xib */; };
 		C1D190DE17F94CA40056F3FE /* bg_scrollindicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1D190DD17F94CA40056F3FE /* bg_scrollindicator@2x.png */; };
@@ -515,6 +518,13 @@
 		C1CC1B3D177857FB00FC63A8 /* P2PNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P2PNavigationController.h; sourceTree = "<group>"; };
 		C1CC1B3E177857FB00FC63A8 /* P2PViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P2PViewController.h; sourceTree = "<group>"; };
 		C1CC1B3F177857FB00FC63A8 /* P2PViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P2PViewController.m; sourceTree = "<group>"; };
+		C1CE10BA1812293900B04E15 /* SMUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMUpdater.h; sourceTree = "<group>"; };
+		C1CE10BB1812293900B04E15 /* SMUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMUpdater.m; sourceTree = "<group>"; };
+		C1CE10BD18122D7B00B04E15 /* SMParserItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMParserItem.h; sourceTree = "<group>"; };
+		C1CE10BE18122D7B00B04E15 /* SMParserItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMParserItem.m; sourceTree = "<group>"; };
+		C1CE10BF18122D7B00B04E15 /* SMVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMVersion.h; sourceTree = "<group>"; };
+		C1CE10C118122D8500B04E15 /* SMVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMVersion.m; sourceTree = "<group>"; };
+		C1CE10C3181278FD00B04E15 /* libcommonCrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcommonCrypto.dylib; path = usr/lib/system/libcommonCrypto.dylib; sourceTree = SDKROOT; };
 		C1D190CE17F7F3E00056F3FE /* XScrollIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XScrollIndicator.m; sourceTree = "<group>"; };
 		C1D190CF17F7F3E00056F3FE /* XScrollIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XScrollIndicator.h; sourceTree = "<group>"; };
 		C1D190D917F9244D0056F3FE /* SMPageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMPageCell.xib; sourceTree = "<group>"; };
@@ -707,6 +717,8 @@
 				C10D160A1755EFEE002D6FAD /* SMWebLoaderOperationQueue.m */,
 				C1011D94177946D500E0485D /* SMUtils.h */,
 				C1011D95177946D500E0485D /* SMUtils.m */,
+				C1CE10BA1812293900B04E15 /* SMUpdater.h */,
+				C1CE10BB1812293900B04E15 /* SMUpdater.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -906,6 +918,7 @@
 		C1BFB8DB174F6A620092FD2E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C1CE10C3181278FD00B04E15 /* libcommonCrypto.dylib */,
 				C1BFB91D174F6F390092FD2E /* libz.dylib */,
 				C10080D5178598D900487A45 /* AssetsLibrary.framework */,
 				C1BFB917174F6F200092FD2E /* CFNetwork.framework */,
@@ -1162,6 +1175,10 @@
 		C1E628931764BAD4007ACF2A /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				C1CE10BD18122D7B00B04E15 /* SMParserItem.h */,
+				C1CE10BE18122D7B00B04E15 /* SMParserItem.m */,
+				C1CE10BF18122D7B00B04E15 /* SMVersion.h */,
+				C1CE10C118122D8500B04E15 /* SMVersion.m */,
 				C1E7A1961809900F002CAEEC /* boards.json */,
 				C10F2F7317E5621800F83206 /* SMMailItem.h */,
 				C10F2F7417E5621800F83206 /* SMMailItem.m */,
@@ -1505,6 +1522,7 @@
 				C14B22F917FAC65700CF081A /* SMMailComposeViewController.m in Sources */,
 				C1FD13C217817AAA006A6061 /* SMUser.m in Sources */,
 				C1C4C8811781B4FF0092E77C /* SMBaseBorardListViewController.m in Sources */,
+				C1CE10C018122D7B00B04E15 /* SMParserItem.m in Sources */,
 				C1C4C8851781B6C00092E77C /* SMBoardList.m in Sources */,
 				C1E7A19A1809A7F1002CAEEC /* SMFontSelectorViewController.m in Sources */,
 				C1C4C8881781BACC0092E77C /* SMBoardListItem.m in Sources */,
@@ -1532,10 +1550,12 @@
 				C1C07A5E1796857900906ED7 /* OWFacebookActivity.m in Sources */,
 				C1C07A5F1796857900906ED7 /* OWMailActivity.m in Sources */,
 				C1E7A18618098AAB002CAEEC /* AMBlurView.m in Sources */,
+				C1CE10BC1812293900B04E15 /* SMUpdater.m in Sources */,
 				C1C07A601796857900906ED7 /* OWMapsActivity.m in Sources */,
 				C1C07A611796857900906ED7 /* OWMessageActivity.m in Sources */,
 				C1C07A621796857900906ED7 /* OWPrintActivity.m in Sources */,
 				C1C07A631796857900906ED7 /* OWSafariActivity.m in Sources */,
+				C1CE10C218122D8500B04E15 /* SMVersion.m in Sources */,
 				C1C07A641796857900906ED7 /* OWSaveToCameraRollActivity.m in Sources */,
 				C1C07A651796857900906ED7 /* OWSinaWeiboActivity.m in Sources */,
 				C1C07A661796857900906ED7 /* OWTwitterActivity.m in Sources */,
@@ -1650,7 +1670,9 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/newsmth/Frameworks/GoogleAnalytics\"",
+					"$(SRCROOT)/newsmth/Frameworks/GoogleAnalytics",
+					"$(SDKROOT)/usr/lib/system",
+					"$(SDKROOT)/user/include",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "89C46ACF-B470-4F0B-A11A-0D57BBD8E894";
@@ -1751,7 +1773,9 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/newsmth/Frameworks/GoogleAnalytics\"",
+					"$(SRCROOT)/newsmth/Frameworks/GoogleAnalytics",
+					"$(SDKROOT)/usr/lib/system",
+					"$(SDKROOT)/user/include",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1775,7 +1799,9 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/newsmth/Frameworks/GoogleAnalytics\"",
+					"$(SRCROOT)/newsmth/Frameworks/GoogleAnalytics",
+					"$(SDKROOT)/usr/lib/system",
+					"$(SDKROOT)/user/include",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
