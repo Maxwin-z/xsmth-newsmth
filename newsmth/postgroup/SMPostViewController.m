@@ -737,12 +737,7 @@
 {
     SMPostItem *item = cell.item;
     SMPost *post = item.post;
-//    NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbscon.php?bid=%d&id=%d", _bid, post.pid];
-
-    // use m.newsmth to retry
-    // http://m.newsmth.net/article/AdvancedEdu/single/31071/0
     NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/single/%d/0", _board.name, post.pid];
-//    XLog_d(@"%@", url);
 
     [item.op cancel];
 
