@@ -106,6 +106,8 @@
 
     _updater = [[SMUpdater alloc] init];
     [_updater checkAndUpdate];
+    
+    XLog_d(@"%@", NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES));
 
     return YES;
 }

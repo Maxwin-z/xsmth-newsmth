@@ -30,6 +30,10 @@
                         action:(NSString *)action
                          label:(NSString *)label;
 
++ (BOOL)writeData:(NSData *)data toDocumentFolder:(NSString *)path;
++ (NSData *)readDataFromDocumentFolder:(NSString *)path;
++ (BOOL)fileExistsInDocumentFolder:(NSString *)path;
+
 @end
 
 @interface NSString (SMUtils)

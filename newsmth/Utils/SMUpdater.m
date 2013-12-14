@@ -66,6 +66,16 @@
         SMParserItem *item = [[SMParserItem alloc] initWithJSON:obj];
         XLog_d(@"%@", item);
         if (item.path && item.js && item.md5) {
+            NSString *path = [NSString stringWithFormat:@"parser/%@", item.js];
+            if ([SMUtils fileExistsInDocumentFolder:path]) {
+                NSData *data = [SMUtils readDataFromDocumentFolder:path];
+                NSString *js = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                if ([js rangeOfString:item.md5].length != 0) {
+                    XLog_d(@"%@ exists, skip", item);
+                    return ;    // 同类文件已存在，不再下载。
+                }
+            }
+            
             NSString *jsUrl = [NSString stringWithFormat:API_PREFIX @"/parser/%@", item.path];
             ASIHTTPRequest *jsReq = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:jsUrl]];
             [jsReq startSynchronous];
@@ -85,34 +95,8 @@
 
 - (void)saveJS:(NSString *)js toFile:(NSString *)filename
 {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    if (paths.count == 0) {
-        XLog_e(@"documents folder not exists!!");
-        return ;
-    }
-    NSString *doc = [paths objectAtIndex:0];
-    NSString *path = [NSString stringWithFormat:@"%@/parser/%@", doc, filename];
-    [self saveData:[js dataUsingEncoding:NSUTF8StringEncoding] toPath:path];
-}
-
-- (void)saveData:(NSData *)data toPath:(NSString *)path
-{
-    NSString *folder = [path stringByDeletingLastPathComponent];
-    BOOL isDir;
-    NSError *error;
-    if (![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir] || !isDir) {
-        [[NSFileManager defaultManager] createDirectoryAtPath:folder
-                                  withIntermediateDirectories:YES
-                                                   attributes:nil
-                                                        error:&error];
-        if (error) {
-            XLog_e(@"create folder:[%@] error[%@]", folder, error);
-        }
-    }
-    [data writeToFile:path options:NSDataWritingFileProtectionComplete error:&error];
-    if (error) {
-        XLog_e(@"write [%@] error: %@", path, error);
-    }
+    NSString *path = [NSString stringWithFormat:@"parser/%@", filename];
+    [SMUtils writeData:[js dataUsingEncoding:NSUTF8StringEncoding] toDocumentFolder:path];
 }
 
 #pragma mark - ASIHTTPRequestDelegate

@@ -87,6 +87,61 @@
                                                      withValue:nil];
 }
 
++ (BOOL)writeData:(NSData *)data toDocumentFolder:(NSString *)path
+{
+    // generate absulote path
+    NSString *filepath = [self _absulotePathInDocument:path];
+    
+    // create folder
+    NSString *folder = [filepath stringByDeletingLastPathComponent];
+    BOOL isDir;
+    NSError *error;
+    if (![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir] || !isDir) {
+        [[NSFileManager defaultManager] createDirectoryAtPath:folder
+                                  withIntermediateDirectories:YES
+                                                   attributes:nil
+                                                        error:&error];
+        if (error) {
+            XLog_e(@"create folder:[%@] error[%@]", folder, error);
+            return NO;
+        }
+    }
+    
+    // write data
+    [data writeToFile:filepath options:NSDataWritingFileProtectionComplete error:&error];
+    if (error) {
+        XLog_e(@"write [%@] error: %@", path, error);
+        return NO;
+    }
+    XLog_d(@"save data to %@", filepath);
+    return YES;
+}
+
++ (NSData *)readDataFromDocumentFolder:(NSString *)path
+{
+    NSString *filepath = [self _absulotePathInDocument:path];
+    return [[NSData alloc] initWithContentsOfFile:filepath];
+}
+
++ (BOOL)fileExistsInDocumentFolder:(NSString *)path
+{
+    NSString *filepath = [self _absulotePathInDocument:path];
+    BOOL isDir;
+    return [[NSFileManager defaultManager] fileExistsAtPath:filepath isDirectory:&isDir] && !isDir;
+}
+
++ (NSString *)_absulotePathInDocument:(NSString *)path
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    if (paths.count == 0) {
+        XLog_e(@"documents folder not exists!!");
+        return nil;
+    }
+    NSString *doc = [paths objectAtIndex:0];
+    NSString *filepath = [NSString stringWithFormat:@"%@/%@", doc, path];
+    return filepath;
+}
+
 @end
 
 
