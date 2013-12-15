@@ -66,7 +66,7 @@
         ++_page;
         [SMUtils trackEventWithCategory:@"board" action:@"loadmore" label:[NSString stringWithFormat:@"%@:%d", _board.name, _page]];
     }
-    NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/board/%@?p=%d", _board.name, _page];
+    NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/board/%@/0?p=%d", _board.name, _page];
     
     [_boardOp cancel];
     _boardOp = [[SMWebLoaderOperation alloc] init];

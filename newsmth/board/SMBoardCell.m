@@ -49,13 +49,19 @@ static SMBoardCell *_instance;
 - (void)setPost:(SMPost *)post
 {
     _post = post;
-    NSString *title = [NSString stringWithFormat:@"%@(%d)", _post.title, _post.replyCount];
+    NSString *title = _post.title;
+    if (_post.replyCount > 0) {
+        title = [NSString stringWithFormat:@"%@(%d)", _post.title, _post.replyCount];
+    }
     _labelForTitle.text = title;
     _labelForTitle.font = [SMConfig listFont];
     _labelForPostTime.text = [SMUtils formatDate:[NSDate dateWithTimeIntervalSince1970:_post.date / 1000]];
+    
     _labelForReplyTime.text = [SMUtils formatDate:[NSDate dateWithTimeIntervalSince1970:_post.replyDate / 1000]];
     [_buttonForAuthor setTitle:_post.author forState:UIControlStateNormal];
-    [_buttonForReplyAuthor setTitle:_post.replyAuthor forState:UIControlStateNormal];
+    if (_post.replyAuthor) {
+        [_buttonForReplyAuthor setTitle:_post.replyAuthor forState:UIControlStateNormal];
+    }
     
     _imageViewForTop.hidden = !_post.isTop;
     

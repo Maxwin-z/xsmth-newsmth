@@ -29,6 +29,7 @@ function decode(html) {
 function $parse(html) {
 	var rsp = {code: 0, data: data, message: ''};
 	var matches = html.match(/<ul class="list sec">.*?<\/ul>/);
+	var isTzt = isTztMode(html);
 	if (matches) {
 		var div = document.createElement('div');
 		div.innerHTML = matches[0];
@@ -37,32 +38,8 @@ function $parse(html) {
 		var lis = div.querySelectorAll('li');
 		for (var i = 0; i != lis.length; ++i) {
 			var li = lis[i];
-			var titleDiv = li.querySelector('div');
-
-			var gid = li.querySelector('a').href.match(/\d+$/)[0];
-			var isTop = li.querySelector('a').className.indexOf('top') != -1;
-			var title = decode(titleDiv.childNodes[0].innerHTML);
-			var replyCount = titleDiv.childNodes[1].nodeValue.replace(/[^\d]/g, '');
-
-			var authorDiv = li.querySelectorAll('div')[1];
-			var date = parseDate(authorDiv.childNodes[0].nodeValue.replace(/[^\d\-:]/g, ''));
-			var author = authorDiv.childNodes[1].innerHTML;
-			var replyDate = parseDate(authorDiv.childNodes[2].nodeValue.replace(/[^\d\-:]/g, ''));
-			var replyAuthor = authorDiv.childNodes[3].innerHTML;
-
-			var isTop = !!(li.querySelector('.top'));
-
-			data.posts.push({
-				__type: 'SMPost',
-				gid: gid,
-				title: title,
-				author: author,
-				date: date,
-				replyAuthor: replyAuthor,
-				replyDate: replyDate,
-				replyCount: replyCount,
-				isTop: isTop
-			});
+			var post = isTzt ? parseTztPost(li) : parseNormalPost(li);
+			data.posts.push(post);
 		}
 
 		try {
@@ -78,6 +55,69 @@ function $parse(html) {
 
 }
 
+function isTztMode (html) {
+	var matches = html.match(/<div id="m_main"><div class="sec nav">.*?<\/div>/); 
+	if (matches) {
+		return matches[0].indexOf('经典') != -1;	// 显示"经典"按钮时表示同主题模式
+	}
+	return true;	// should not be here
+}
+
+function parseTztPost(li) {	// Tzt -> 同主题...
+	var titleDiv = li.querySelector('div');
+
+	var gid = li.querySelector('a').href.match(/\d+$/)[0];
+	var isTop = li.querySelector('a').className.indexOf('top') != -1;
+	var title = decode(titleDiv.childNodes[0].innerHTML);
+	var replyCount = titleDiv.childNodes[1] ? titleDiv.childNodes[1].nodeValue.replace(/[^\d]/g, '') : 0;
+
+	var authorDiv = li.querySelectorAll('div')[1];
+	var date = parseDate(authorDiv.childNodes[0].nodeValue.replace(/[^\d\-:]/g, ''));
+	var author = authorDiv.childNodes[1].innerHTML;
+	var replyDate = parseDate(authorDiv.childNodes[2].nodeValue.replace(/[^\d\-:]/g, ''));
+	var replyAuthor = authorDiv.childNodes[3].innerHTML;
+
+	var isTop = !!(li.querySelector('.top'));
+
+	return {
+		__type: 'SMPost',
+		gid: gid,
+		title: title,
+		author: author,
+		date: date,
+		replyAuthor: replyAuthor,
+		replyDate: replyDate,
+		replyCount: replyCount,
+		isTop: isTop
+	};	
+}
+
+function parseNormalPost(li) {
+	var titleDiv = li.querySelector('div');
+
+	var gid = li.querySelector('a').href.match(/(\d+)\/0$/)[1];
+	var isTop = li.querySelector('a').className.indexOf('top') != -1;
+	var title = decode(titleDiv.childNodes[0].innerHTML);
+
+	var authorDiv = li.querySelectorAll('div')[1];
+	var date = parseDate(authorDiv.childNodes[0].nodeValue.replace(/\d*[^\d]*([\d\-:]+)\s*/, '$1'));
+	var author = authorDiv.childNodes[1].innerHTML;
+
+	var isTop = !!(li.querySelector('.top'));
+
+	return {
+		__type: 'SMPost',
+		gid: gid,
+		title: title,
+		author: author,
+		date: date,
+		replyAuthor: null,
+		replyDate: 0,
+		replyCount: 0,
+		isTop: isTop
+	};
+}
+
 function parseDate(dateStr) {
 	if (dateStr.indexOf(':') != -1) {	// is 12:12:12
 		dateStr = new Date().toString().replace(/\d\d:\d\d:\d\d/, dateStr);
@@ -85,5 +125,5 @@ function parseDate(dateStr) {
 		var ymd = dateStr.split('-');
 		return new Date(ymd[0], ymd[1] - 1, ymd[2]).getTime();
 	}
-	return Date.parse(dateStr) + dateStr;
+	return Date.parse(dateStr);
 }
