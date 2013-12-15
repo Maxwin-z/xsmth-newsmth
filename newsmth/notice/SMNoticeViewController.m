@@ -71,6 +71,7 @@ static SMNoticeViewController *_instance;
 
 - (void)setupTheme
 {
+    [super setupTheme];
     if ([_tabbar respondsToSelector:@selector(setBarTintColor:)]) {
         _tabbar.barTintColor = [SMTheme colorForBarTintColor];
     }

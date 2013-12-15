@@ -65,6 +65,7 @@
 
 - (void)setupTheme
 {
+    [super setupTheme];
     [_buttonForTitleView setTitleColor:[SMTheme colorForPrimary] forState:UIControlStateNormal];
 }
 
