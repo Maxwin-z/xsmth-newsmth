@@ -49,6 +49,7 @@ static SMPostGroupContentCell *_instance;
         [self.contentView addSubview:_viewForCell];
         
         _webViewForContent.scrollView.scrollEnabled = NO;
+        
     }
     return self;
 }

@@ -32,6 +32,12 @@
         [[NSBundle mainBundle] loadNibNamed:@"SMPostGroupHeaderCell" owner:self options:nil];
         _viewForCell.frame = self.contentView.bounds;
         [self.contentView addSubview:_viewForCell];
+        
+        // theme
+        self.backgroundColor = [SMTheme colorForBackground];
+        _labelForIndex.textColor = _labelForDate.textColor = [SMTheme colorForSecondary];
+        [_buttonForAuthor setTitleColor:[SMTheme colorForTintColor] forState:UIControlStateNormal];
+        [_buttonForReply setTitleColor:[SMTheme colorForTintColor] forState:UIControlStateNormal];
     }
     return self;
 }
