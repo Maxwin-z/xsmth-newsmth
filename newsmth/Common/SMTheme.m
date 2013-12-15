@@ -15,7 +15,8 @@
 // color
 + (UIColor *)colorForPrimary
 {
-    return SMRGB(0x32, 0x32, 0x32);
+    return SMRGB(0xf0, 0xf0, 0xf0);
+//    return SMRGB(0x32, 0x32, 0x32);
 }
 + (UIColor *)colorForSecondary
 {
@@ -26,6 +27,11 @@
     return SMRGB(0xc0, 0x87, 0x32);
 }
 + (UIColor *)colorForBarTintColor
+{
+    return SM_TINTCOLOR;
+}
+
++ (UIColor *)colorForBackground
 {
     return SMRGB(0, 0, 0);
 }

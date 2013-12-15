@@ -116,11 +116,13 @@ typedef NS_ENUM(NSInteger, CellType) {
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell_id"];
+    cell.backgroundColor = [SMTheme colorForBackground];
+    cell.textLabel.textColor = [SMTheme colorForPrimary];
     
     UIView *seperator = [[UIView alloc] init];
     CGRect frame = cell.contentView.bounds;
     seperator.frame = CGRectMake(0, frame.size.height - 1, frame.size.width, 1);
-    seperator.backgroundColor = SMRGB(224, 224, 224);
+    seperator.backgroundColor = [SMTheme colorForPrimary];
     seperator.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
     [cell.contentView addSubview:seperator];
     
