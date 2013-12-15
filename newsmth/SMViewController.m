@@ -188,7 +188,6 @@
 
 - (void)setupTheme
 {
-    XLog_d(@"%d", [SMConfig enableDayMode]);
     self.view.backgroundColor = [SMTheme colorForBackground];
     _labelForLoginHint.textColor = [SMTheme colorForPrimary];
 

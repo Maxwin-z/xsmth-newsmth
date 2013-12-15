@@ -84,12 +84,13 @@
     _labelForIndex.textColor = _labelForDate.textColor = [SMTheme colorForSecondary];
     [_buttonForAuthor setTitleColor:[SMTheme colorForTintColor] forState:UIControlStateNormal];
     [_buttonForReply setTitleColor:[SMTheme colorForTintColor] forState:UIControlStateNormal];
-    UIImage *image = [_buttonForAuthor imageForState:UIControlStateNormal];
+
+    UIImage *image = [_buttonForReply imageForState:UIControlStateNormal];
     if ([image respondsToSelector:@selector(imageWithRenderingMode:)]) {
         image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     }
-    [_buttonForAuthor setImage:image forState:UIControlStateNormal];
-    [_buttonForAuthor setBackgroundImage:nil forState:UIControlStateNormal];
+    [_buttonForReply setImage:image forState:UIControlStateNormal];
+    [_buttonForReply setBackgroundImage:nil forState:UIControlStateNormal];
 
 }
 
