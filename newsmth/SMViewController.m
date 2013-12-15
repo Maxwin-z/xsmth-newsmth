@@ -189,8 +189,8 @@
 - (void)setupTheme
 {
     self.view.backgroundColor = [SMTheme colorForBackground];
-    _labelForLoginHint.textColor = [SMTheme colorForPrimary];
-
+    _labelForLoginHint.textColor = _labelForLoadingMessage.textColor = _labelForPoperoverMessage.textColor = [SMTheme colorForPrimary];
+    
     // status bar
     if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
         [self setNeedsStatusBarAppearanceUpdate];
