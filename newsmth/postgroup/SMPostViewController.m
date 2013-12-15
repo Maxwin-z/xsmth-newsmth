@@ -291,6 +291,7 @@
     frame.size.height += delta;
     _tableViewHeader.frame = frame;
     _tableView.tableHeaderView = _tableViewHeader;
+    _labelForTitle.textColor = [SMTheme colorForPrimary];
 }
 
 #pragma mark - UITableView
