@@ -17,6 +17,8 @@
 @interface SMBoardViewController ()<UITableViewDelegate, UITableViewDataSource, XPullRefreshTableViewDelegate, SMWebLoaderOperationDelegate, SMBoardCellDelegate>
 @property (weak, nonatomic) IBOutlet XPullRefreshTableView *tableView;
 
+@property (strong, nonatomic) UIButton *buttonForTitleView;
+
 @property (strong, nonatomic) SMWebLoaderOperation *boardOp;
 @property (assign, nonatomic) int page;
 @property (assign, nonatomic) int currentPage;  // 从www加载文章列表时，页码有后台数据决定
@@ -61,6 +63,11 @@
     }
 }
 
+- (void)setupTheme
+{
+    [_buttonForTitleView setTitleColor:[SMTheme colorForPrimary] forState:UIControlStateNormal];
+}
+
 - (void)makeupViewTypeSelector
 {
     _viewTypeSelector = [SMBoardViewTypeSelectorView new];
@@ -98,7 +105,6 @@
     UIButton *button = [UIButton buttonWithType:[SMUtils systemVersion] >= 7 ? UIButtonTypeSystem : UIButtonTypeCustom];
     [button addTarget:self action:@selector(onTitleButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [button setTitle:_board.cnName forState:UIControlStateNormal];
-    [button setTitleColor:[SMTheme colorForPrimary] forState:UIControlStateNormal];
     button.titleLabel.font = [UIFont systemFontOfSize:18];
     button.titleLabel.lineBreakMode = NSLineBreakByClipping;
     button.titleLabel.adjustsFontSizeToFitWidth = YES;
@@ -112,14 +118,14 @@
     [button sizeToFit];
 
     self.navigationItem.titleView = button;
-    
+    _buttonForTitleView = button;
     // relayout after title render.
     [self performSelector:@selector(layoutTitleView) withObject:nil afterDelay:0];
 }
 
 - (void)layoutTitleView
 {
-    UIButton *button = (UIButton *)self.navigationItem.titleView;
+    UIButton *button = _buttonForTitleView;
     CGSize titleSize = button.titleLabel.frame.size;
     CGSize imageSize = button.imageView.bounds.size;
     CGFloat padding = 3.0f;

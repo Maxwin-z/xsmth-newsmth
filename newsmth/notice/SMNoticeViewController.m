@@ -67,11 +67,13 @@ static SMNoticeViewController *_instance;
     
     [self onNoticeNotification];
     
-    // theme
+}
+
+- (void)setupTheme
+{
     if ([_tabbar respondsToSelector:@selector(setBarTintColor:)]) {
         _tabbar.barTintColor = [SMTheme colorForBarTintColor];
     }
-    self.view.backgroundColor = [SMTheme colorForBackground];
 }
 
 - (void)viewWillAppear:(BOOL)animated

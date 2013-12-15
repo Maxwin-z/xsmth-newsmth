@@ -192,19 +192,38 @@
     self.view.backgroundColor = [SMTheme colorForBackground];
     _labelForLoginHint.textColor = [SMTheme colorForPrimary];
 
-    if ([self.navigationController.navigationBar respondsToSelector:@selector(setBarTintColor:)]) {
-        self.navigationController.navigationBar.barTintColor = [SMTheme colorForBarTintColor];
-    }
+    // status bar
     if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
         [self setNeedsStatusBarAppearanceUpdate];
     }
     
+    if ([[UIApplication sharedApplication].keyWindow respondsToSelector:@selector(setTintColor:)]) {
+        [UIApplication sharedApplication].keyWindow.tintColor = [SMTheme colorForTintColor];
+    }
+
+    // navigation bar
+    if ([self.navigationController.navigationBar respondsToSelector:@selector(setBarTintColor:)]) {
+        self.navigationController.navigationBar.barTintColor = [SMTheme colorForBarTintColor];
+        [UINavigationBar appearance].barTintColor = [SMTheme colorForBarTintColor];
+    }
+    
     [self.navigationController.navigationBar setTintColor:[SMTheme colorForTintColor]];
+    [UINavigationBar appearance].tintColor = [SMTheme colorForTintColor];
     [self.navigationController.navigationBar setTitleTextAttributes:
      @{
        UITextAttributeTextColor: [SMTheme colorForPrimary],
        UITextAttributeTextShadowColor: [UIColor clearColor]
        }];
+    
+    // fixme. tableview
+    if ([self respondsToSelector:@selector(tableView)]) {
+        UITableView *tableView = [self performSelector:@selector(tableView)];
+        if ([tableView isKindOfClass:[UITableView class]]) {
+            tableView.backgroundColor = [SMTheme colorForBackground];
+            tableView.backgroundView = nil;
+            [tableView reloadData];
+        }
+    }
 }
 
 @end

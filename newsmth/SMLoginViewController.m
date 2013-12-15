@@ -54,6 +54,10 @@
     
     [_buttonForCancel setButtonSMType:SMButtonTypeGray];
     [_buttonForSubmit setButtonSMType:SMButtonTypeBlue];
+}
+
+- (void)setupTheme
+{
     _labelForRegHint.textColor = [SMTheme colorForSecondary];
 }
 

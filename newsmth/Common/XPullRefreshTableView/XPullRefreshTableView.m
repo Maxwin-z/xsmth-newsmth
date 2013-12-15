@@ -63,6 +63,11 @@
     [self setup];
 }
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)setup
 {
     [super setDelegate:self];
@@ -71,10 +76,16 @@
     _viewForRefreshHeader.frame = CGRectMake(0.0f, 0.0f - self.bounds.size.height, self.bounds.size.width, self.bounds.size.height);
     [_buttonForRetry setButtonSMType:SMButtonTypeGray];
     [self addSubview:_viewForRefreshHeader];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupTheme) name:NOTIFYCATION_THEME_CHANGED object:nil];
     
-    // set theme
+    [self setupTheme];
+}
+
+- (void)setupTheme
+{
     _labelForLoadMoreHint.textColor = _labelForPullHint.textColor = _labelForRefreshDate.textColor = _labelForRefreshHint.textColor = [SMTheme colorForSecondary];
-    _activityIndicatorForRefresh.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+    _activityIndicatorForRefresh.activityIndicatorViewStyle = [SMConfig enableDayMode] ? UIActivityIndicatorViewStyleGray : UIActivityIndicatorViewStyleWhite;
     if ([_activityIndicatorForRefresh respondsToSelector:@selector(setTintColor:)]) {
         _activityIndicatorForRefresh.tintColor = [SMTheme colorForTintColor];
     }

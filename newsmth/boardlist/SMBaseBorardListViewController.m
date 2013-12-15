@@ -85,12 +85,12 @@
         cell.textLabel.backgroundColor = [UIColor clearColor];
         cell.detailTextLabel.backgroundColor = [UIColor clearColor];
         cell.detailTextLabel.font = [UIFont systemFontOfSize:13.0f];
-        cell.backgroundColor = [SMTheme colorForBackground];
-        cell.textLabel.textColor = [SMTheme colorForPrimary];
-        cell.detailTextLabel.textColor = [SMTheme colorForSecondary];
     }
 
     cell.textLabel.font = [SMConfig listFont];
+    cell.backgroundColor = [SMTheme colorForBackground];
+    cell.textLabel.textColor = [SMTheme colorForPrimary];
+    cell.detailTextLabel.textColor = [SMTheme colorForSecondary];
     
     SMBoardListItem *item = _items[indexPath.row];
     if (item.isDir) {

@@ -49,9 +49,6 @@ static SMPostGroupContentCell *_instance;
         [self.contentView addSubview:_viewForCell];
         
         _webViewForContent.scrollView.scrollEnabled = NO;
-        
-        self.backgroundColor = [SMTheme colorForBackground];
-        _labelForContent.textColor = [SMTheme colorForPrimary];
     }
     return self;
 }
@@ -92,6 +89,9 @@ static SMPostGroupContentCell *_instance;
     UIFont *font = [SMConfig postFont];
     NSString *body = [NSString stringWithFormat:@"<html><body style='margin:0; padding: 10px; font-size: %dpx;font-family: %@;line-height:%dpx;background-color:%@'>%@</body></html>", (int)font.pointSize, font.fontName, (int)(font.lineHeight * 1.2), [self color2hex:[SMTheme colorForBackground]], [self formatContent:post.content]];
     [_webViewForContent loadHTMLString:body baseURL:nil];
+    
+    self.backgroundColor = [SMTheme colorForBackground];
+    _labelForContent.textColor = [SMTheme colorForPrimary];
 }
 
 #pragma mark - UIWebViewDelegate

@@ -22,7 +22,6 @@
         _viewForCell.frame = self.contentView.bounds;
         
         [self.contentView addSubview:_viewForCell];
-        
         self.backgroundColor = [SMTheme colorForBackground];
     }
     return self;

@@ -46,9 +46,14 @@
     [self accountChanged];
     
     [_buttonForLogout setButtonSMType:SMButtonTypeRed];
-    _labelForUserInfo.textColor = [SMTheme colorForPrimary];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"站内信" style:UIBarButtonItemStyleBordered target:self action:@selector(onRightBarButtonClick)];
+}
+
+-(void)setupTheme
+{
+    [super setupTheme];
+    _labelForUserInfo.textColor = [SMTheme colorForPrimary];
 }
 
 - (void)onRightBarButtonClick

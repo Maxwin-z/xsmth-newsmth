@@ -68,32 +68,32 @@
     [[GAI sharedInstance] trackerWithTrackingId:@"UA-41978299-1"];
 }
 
-- (void)setupTheme
-{
-    if ([self.window respondsToSelector:@selector(setTintColor:)]) {
-        self.window.tintColor = [SMTheme colorForTintColor];
-    }
-    [[UIBarButtonItem appearance] setTintColor:[SMTheme colorForTintColor]];
-    [[UINavigationBar appearance] setTitleTextAttributes:
-     @{
-       UITextAttributeTextColor: [SMTheme colorForPrimary],
-       UITextAttributeTextShadowColor: [UIColor clearColor]
-       }];
-
-    if ([SMUtils systemVersion] < 7) {
-        [[UINavigationBar appearance] setBackgroundImage:[[UIImage imageNamed:@"bg_navigationbar"] stretchableImageWithLeftCapWidth:1 topCapHeight:1] forBarMetrics:UIBarMetricsDefault];
-//        [[UIBarButtonItem appearance] setBackgroundImage:[[UIImage imageNamed:@"bg_barbuttonitem"] stretchableImageWithLeftCapWidth:2 topCapHeight:2] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-        
-    } else {
-        [[UINavigationBar appearance] setBarTintColor:[SMTheme colorForBarTintColor]];
-    }
-}
+//- (void)setupTheme
+//{
+//    if ([self.window respondsToSelector:@selector(setTintColor:)]) {
+//        self.window.tintColor = [SMTheme colorForTintColor];
+//    }
+//    [[UIBarButtonItem appearance] setTintColor:[SMTheme colorForTintColor]];
+//    [[UINavigationBar appearance] setTitleTextAttributes:
+//     @{
+//       UITextAttributeTextColor: [SMTheme colorForPrimary],
+//       UITextAttributeTextShadowColor: [UIColor clearColor]
+//       }];
+//
+//    if ([SMUtils systemVersion] < 7) {
+//        [[UINavigationBar appearance] setBackgroundImage:[[UIImage imageNamed:@"bg_navigationbar"] stretchableImageWithLeftCapWidth:1 topCapHeight:1] forBarMetrics:UIBarMetricsDefault];
+////        [[UIBarButtonItem appearance] setBackgroundImage:[[UIImage imageNamed:@"bg_barbuttonitem"] stretchableImageWithLeftCapWidth:2 topCapHeight:2] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+//        
+//    } else {
+//        [[UINavigationBar appearance] setBarTintColor:[SMTheme colorForBarTintColor]];
+//    }
+//}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    [self setupTheme];
+//    [self setupTheme];
 
     _mainViewController = [[SMMainViewController alloc] init];
     self.window.rootViewController = _mainViewController;

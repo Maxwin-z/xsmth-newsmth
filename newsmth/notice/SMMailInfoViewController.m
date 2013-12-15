@@ -39,9 +39,6 @@
     [self makeupHeadInfo];
     
     [self loadMailInfo];
-    
-    self.view.backgroundColor = [SMTheme colorForBackground];
-
 }
 
 - (void)onRightBarButtonItemClick

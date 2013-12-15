@@ -51,8 +51,6 @@
     
     _tableView.xdelegate = self;
     [_tableView beginRefreshing];
-    
-    self.view.backgroundColor = [SMTheme colorForBackground];
 }
 
 - (void)viewWillAppear:(BOOL)animated

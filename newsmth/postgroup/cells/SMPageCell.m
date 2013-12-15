@@ -25,8 +25,6 @@
         [[NSBundle mainBundle] loadNibNamed:@"SMPageCell" owner:self options:nil];
         _viewForCell.frame = self.contentView.bounds;
         [self.contentView addSubview:_viewForCell];
-        
-        self.backgroundColor = [SMTheme colorForBackground];
     }
     return self;
 }
@@ -45,6 +43,8 @@
     if (_pageItem.isLoadFail) {
         _buttonForRetry.hidden = NO;
     }
+    
+    self.backgroundColor = [SMTheme colorForBackground];
 }
 
 - (IBAction)onRetryButtonClick:(id)sender

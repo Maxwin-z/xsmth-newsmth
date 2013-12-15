@@ -137,6 +137,12 @@
     }
 }
 
+- (void)setupTheme
+{
+    [super setupTheme];
+    _labelForTitle.textColor = [SMTheme colorForPrimary];
+}
+
 - (void)onRightBarButtonClick
 {
     UIActionSheet *actionSheet = [[UIActionSheet alloc] init];
@@ -291,7 +297,6 @@
     frame.size.height += delta;
     _tableViewHeader.frame = frame;
     _tableView.tableHeaderView = _tableViewHeader;
-    _labelForTitle.textColor = [SMTheme colorForPrimary];
 }
 
 #pragma mark - UITableView
@@ -451,10 +456,11 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.backgroundColor = [SMTheme colorForBackground];
-        cell.textLabel.textColor = [SMTheme colorForPrimary];
     }
     cell.textLabel.text = @"Loading...";
+    cell.backgroundColor = [SMTheme colorForBackground];
+    cell.textLabel.textColor = [SMTheme colorForPrimary];
+
     return cell;
 }
 

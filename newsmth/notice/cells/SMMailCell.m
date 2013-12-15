@@ -36,11 +36,6 @@
         _viewForCell.frame = self.contentView.bounds;
         _viewForCell.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [self.contentView addSubview:_viewForCell];
-        
-        self.backgroundColor = [SMTheme colorForBackground];
-        _labelForTitle.textColor = [SMTheme colorForPrimary];
-        _labelForDate.textColor = [SMTheme colorForSecondary];
-        [_buttonForAuthor setTitleColor:[SMTheme colorForTintColor] forState:UIControlStateNormal];
     }
     return self;
 }
@@ -61,6 +56,11 @@
     [_buttonForAuthor setTitle:item.author forState:UIControlStateNormal];
     [_buttonForAuthor sizeToFit];
     _imageViewForReadStatus.hidden = !_item.unread;
+    
+    self.backgroundColor = [SMTheme colorForBackground];
+    _labelForTitle.textColor = [SMTheme colorForPrimary];
+    _labelForDate.textColor = [SMTheme colorForSecondary];
+    [_buttonForAuthor setTitleColor:[SMTheme colorForTintColor] forState:UIControlStateNormal];
 }
 
 @end

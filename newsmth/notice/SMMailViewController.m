@@ -36,8 +36,6 @@
     [self loadData:NO];
 
     [SMNoticeViewController instance].navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(onRightBarButtonItemClick)];
-    
-    self.view.backgroundColor = [SMTheme colorForBackground];
 }
 
 - (void)viewWillAppear:(BOOL)animated

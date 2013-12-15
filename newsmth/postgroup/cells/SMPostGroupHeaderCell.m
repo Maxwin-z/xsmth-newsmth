@@ -33,17 +33,6 @@
         _viewForCell.frame = self.contentView.bounds;
         [self.contentView addSubview:_viewForCell];
         
-        // theme
-        self.backgroundColor = [SMTheme colorForBackground];
-        _labelForIndex.textColor = _labelForDate.textColor = [SMTheme colorForSecondary];
-        [_buttonForAuthor setTitleColor:[SMTheme colorForTintColor] forState:UIControlStateNormal];
-        [_buttonForReply setTitleColor:[SMTheme colorForTintColor] forState:UIControlStateNormal];
-        UIImage *image = [_buttonForAuthor imageForState:UIControlStateNormal];
-        if ([image respondsToSelector:@selector(imageWithRenderingMode:)]) {
-            image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-        }
-        [_buttonForAuthor setImage:image forState:UIControlStateNormal];
-        [_buttonForAuthor setBackgroundImage:nil forState:UIControlStateNormal];
     }
     return self;
 }
@@ -89,6 +78,19 @@
 //    CGRect frame = _labelForDate.frame;
 //    frame.origin.x = _labelForIndex.frame.origin.x + _labelForIndex.frame.size.width + 10.0f;
 //    _labelForDate.frame = frame;
+    
+    // theme
+    self.backgroundColor = [SMTheme colorForBackground];
+    _labelForIndex.textColor = _labelForDate.textColor = [SMTheme colorForSecondary];
+    [_buttonForAuthor setTitleColor:[SMTheme colorForTintColor] forState:UIControlStateNormal];
+    [_buttonForReply setTitleColor:[SMTheme colorForTintColor] forState:UIControlStateNormal];
+    UIImage *image = [_buttonForAuthor imageForState:UIControlStateNormal];
+    if ([image respondsToSelector:@selector(imageWithRenderingMode:)]) {
+        image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    }
+    [_buttonForAuthor setImage:image forState:UIControlStateNormal];
+    [_buttonForAuthor setBackgroundImage:nil forState:UIControlStateNormal];
+
 }
 
 - (IBAction)onReplyButtonClick:(id)sender
