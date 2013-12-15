@@ -53,8 +53,13 @@
     } else {
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
-    
+        
     _labelForLoginHint.textColor = [SMTheme colorForPrimary];
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
 }
 
 - (void)viewDidAppear:(BOOL)animated
