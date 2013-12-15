@@ -21,5 +21,6 @@
 #import "P2PViewController.h"
 
 #import "SMConfig.h"
+#import "SMTheme.h"
 
 #endif

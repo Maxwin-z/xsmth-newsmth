@@ -52,6 +52,7 @@
 		C12027B61754E08A00EB9E9E /* bbscon.js in Resources */ = {isa = PBXBuildFile; fileRef = C121F29A1750EE790081FD87 /* bbscon.js */; };
 		C121F29E175106A00081FD87 /* SMWebParser.m in Sources */ = {isa = PBXBuildFile; fileRef = C121F29D175106A00081FD87 /* SMWebParser.m */; };
 		C122B41B17992A56000AC67E /* bg_text_hint@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C122B41A17992A56000AC67E /* bg_text_hint@2x.png */; };
+		C124CAEE185D8BC500B9CEA3 /* SMTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = C124CAED185D8BC500B9CEA3 /* SMTheme.m */; };
 		C13D4122176DCD5100BD03A4 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C13D4121176DCD5100BD03A4 /* icon@2x.png */; };
 		C13D4124176DD5EC00BD03A4 /* placeholder@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C13D4123176DD5EC00BD03A4 /* placeholder@2x.jpg */; };
 		C14505E51750787C00DC5431 /* SMAccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C14505E41750787C00DC5431 /* SMAccountManager.m */; };
@@ -307,6 +308,8 @@
 		C121F29D175106A00081FD87 /* SMWebParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMWebParser.m; sourceTree = "<group>"; };
 		C121F29F175108010081FD87 /* utils.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = utils.js; sourceTree = "<group>"; };
 		C122B41A17992A56000AC67E /* bg_text_hint@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_text_hint@2x.png"; sourceTree = "<group>"; };
+		C124CAEC185D8BC500B9CEA3 /* SMTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMTheme.h; sourceTree = "<group>"; };
+		C124CAED185D8BC500B9CEA3 /* SMTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMTheme.m; sourceTree = "<group>"; };
 		C13D4121176DCD5100BD03A4 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 		C13D4123176DD5EC00BD03A4 /* placeholder@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "placeholder@2x.jpg"; sourceTree = "<group>"; };
 		C144B68E1768C62500DA2958 /* login.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = login.js; sourceTree = "<group>"; };
@@ -664,6 +667,8 @@
 				C1011DAB1779946600E0485D /* UIButton+Custom.m */,
 				C14B22EF17FAB00700CF081A /* XTimeLabel.h */,
 				C14B22F017FAB00700CF081A /* XTimeLabel.m */,
+				C124CAEC185D8BC500B9CEA3 /* SMTheme.h */,
+				C124CAED185D8BC500B9CEA3 /* SMTheme.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1534,6 +1539,7 @@
 				C10080F71785A4D700487A45 /* SMImagePickerAssetsViewController.m in Sources */,
 				C1A50E301786C69800D43439 /* SMImagePickerAssetsCell.m in Sources */,
 				C1A182D2178AB1260080EEDB /* SMImageUploader.m in Sources */,
+				C124CAEE185D8BC500B9CEA3 /* SMTheme.m in Sources */,
 				C1A182D5178ABB290080EEDB /* SMResult.m in Sources */,
 				C17F4B83178C0A21002F4934 /* SMImageUploadListViewController.m in Sources */,
 				C17F4B89178C11CA002F4934 /* SMUpload.m in Sources */,

@@ -40,7 +40,8 @@ typedef enum {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = _board.cnName;
+//    self.title = _board.cnName;
+    [self makeupTitleView];
     
     _viewType = SMBoardViewTypeTztSortByReply;
     
@@ -59,6 +60,42 @@ typedef enum {
     if (indexPath) {
         [_tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
+}
+
+- (void)makeupTitleView
+{
+    UIButton *button = [UIButton buttonWithType:[SMUtils systemVersion] >= 7 ? UIButtonTypeSystem : UIButtonTypeCustom];
+    [button setTitle:_board.cnName forState:UIControlStateNormal];
+    [button setTitleColor:[SMTheme colorForPrimary] forState:UIControlStateNormal];
+    button.titleLabel.font = [UIFont systemFontOfSize:18];
+    button.titleLabel.lineBreakMode = NSLineBreakByClipping;
+    button.titleLabel.adjustsFontSizeToFitWidth = YES;
+    if ([button.titleLabel respondsToSelector:@selector(setMinimumScaleFactor:)]) {
+        button.titleLabel.minimumScaleFactor = 0.6f;
+    } else {
+        button.titleLabel.minimumFontSize = 12.0f;
+    }
+
+    [button setImage:[UIImage imageNamed:@"icon_top"] forState:UIControlStateNormal];
+
+    self.navigationItem.titleView = button;
+    
+    [button sizeToFit];
+    
+    // relayout after title render.
+    [self performSelector:@selector(layoutTitleView) withObject:nil afterDelay:0];
+}
+
+- (void)layoutTitleView
+{
+    UIButton *button = (UIButton *)self.navigationItem.titleView;
+    CGSize titleSize = button.titleLabel.frame.size;
+    CGSize imageSize = button.imageView.bounds.size;
+    CGFloat padding = 3.0f;
+    
+    [button setTitleEdgeInsets:UIEdgeInsetsMake(0, -imageSize.width, 0, imageSize.width)];
+    [button setImageEdgeInsets:UIEdgeInsetsMake(0, titleSize.width + padding, 0, -titleSize.width - padding)];
+    
 }
 
 - (void)setPosts:(NSArray *)posts
