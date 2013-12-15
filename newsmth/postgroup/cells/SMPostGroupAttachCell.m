@@ -50,6 +50,7 @@
 {
     _url = url;
     _imageViewForAttach.url = url;
+    self.backgroundColor = [SMTheme colorForBackground];
 }
 
 @end
