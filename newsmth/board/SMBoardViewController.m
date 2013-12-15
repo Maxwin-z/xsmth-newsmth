@@ -13,6 +13,12 @@
 #import "SMWritePostViewController.h"
 #import "SMUserViewController.h"
 
+typedef enum {
+    SMBoardViewTypeTztSortByReply,
+    SMBoardViewTypeTztSortByPost,
+    SMBoardViewTypeNormal
+}SMBoardViewType;
+
 @interface SMBoardViewController ()<UITableViewDelegate, UITableViewDataSource, XPullRefreshTableViewDelegate, SMWebLoaderOperationDelegate, SMBoardCellDelegate>
 @property (weak, nonatomic) IBOutlet XPullRefreshTableView *tableView;
 
@@ -20,6 +26,8 @@
 @property (assign, nonatomic) int page;
 
 @property (strong, nonatomic) NSArray *posts;
+@property (assign, nonatomic) SMBoardViewType viewType;
+
 @end
 
 @implementation SMBoardViewController
@@ -33,6 +41,8 @@
 {
     [super viewDidLoad];
     self.title = _board.cnName;
+    
+    _viewType = SMBoardViewTypeTztSortByReply;
     
     _tableView.xdelegate = self;
     [_tableView beginRefreshing];
@@ -66,7 +76,14 @@
         ++_page;
         [SMUtils trackEventWithCategory:@"board" action:@"loadmore" label:[NSString stringWithFormat:@"%@:%d", _board.name, _page]];
     }
-    NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/board/%@/0?p=%d", _board.name, _page];
+    NSString *url;
+    if (_viewType == SMBoardViewTypeTztSortByReply) {
+        url = [NSString stringWithFormat:@"http://m.newsmth.net/board/%@?p=%d", _board.name, _page];
+    } else if (_viewType == SMBoardViewTypeNormal) {
+        url = [NSString stringWithFormat:@"http://m.newsmth.net/board/%@/0?p=%d", _board.name, _page];
+    } else {
+        // todo
+    }
     
     [_boardOp cancel];
     _boardOp = [[SMWebLoaderOperation alloc] init];
@@ -139,9 +156,12 @@
     SMPost *post = _posts[indexPath.row];
  
     SMPostViewController *vc = [[SMPostViewController alloc] init];
-//    vc.gid = post.gid;
-//    vc.board = _board;
-    vc.postUrl = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/single/%d/0", _board.name, post.gid];
+    if (_viewType == SMBoardViewTypeTztSortByReply) {
+        vc.gid = post.gid;
+        vc.board = _board;
+    } else {
+        vc.postUrl = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/single/%d/0", _board.name, post.gid];
+    }
     vc.fromBoard = YES;
     [self.navigationController pushViewController:vc animated:YES];
     
