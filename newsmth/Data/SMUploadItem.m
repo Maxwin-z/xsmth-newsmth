@@ -4,9 +4,15 @@
 - (void)decode:(id)json
 {
 	NSDictionary *dict = json;
-	_name = [dict objectForKey:@"name"];
+	id name = [dict objectForKey:@"name"];
+	if (name != [NSNull null]) {
+		_name = name;
+	}
 
-	_key = [dict objectForKey:@"key"];
+	id key = [dict objectForKey:@"key"];
+	if (key != [NSNull null]) {
+		_key = key;
+	}
 }
 
 - (id)encode

@@ -10,17 +10,32 @@
 
 	_board = [[SMBoard alloc] initWithJSON:[dict objectForKey:@"board"]];
 
-	_author = [dict objectForKey:@"author"];
+	id author = [dict objectForKey:@"author"];
+	if (author != [NSNull null]) {
+		_author = author;
+	}
 
-	_nick = [dict objectForKey:@"nick"];
+	id nick = [dict objectForKey:@"nick"];
+	if (nick != [NSNull null]) {
+		_nick = nick;
+	}
 
-	_title = [dict objectForKey:@"title"];
+	id title = [dict objectForKey:@"title"];
+	if (title != [NSNull null]) {
+		_title = title;
+	}
 
-	_content = [dict objectForKey:@"content"];
+	id content = [dict objectForKey:@"content"];
+	if (content != [NSNull null]) {
+		_content = content;
+	}
 
 	_date = [[dict objectForKey:@"date"] longLongValue];
 
-	_replyAuthor = [dict objectForKey:@"replyAuthor"];
+	id replyAuthor = [dict objectForKey:@"replyAuthor"];
+	if (replyAuthor != [NSNull null]) {
+		_replyAuthor = replyAuthor;
+	}
 
 	_replyDate = [[dict objectForKey:@"replyDate"] longLongValue];
 

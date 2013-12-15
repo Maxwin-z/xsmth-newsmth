@@ -3,7 +3,13 @@
 
 /////////// decode ///////////
 // NSString
-var decodeTplString = '\t_${field} = [dict objectForKey:@"${field}"];';
+// var decodeTplString = '\t_${field} = [dict objectForKey:@"${field}"];';
+var decodeTplString = [
+	'\tid ${field} = [dict objectForKey:@"${field}"];',
+	'\tif (${field} != [NSNull null]) {',
+	'\t\t_${field} = ${field};',
+	'\t}'
+].join('\n');
 
 // NSArray 
 var decodeTplArray = [

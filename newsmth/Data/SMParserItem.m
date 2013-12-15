@@ -4,11 +4,20 @@
 - (void)decode:(id)json
 {
 	NSDictionary *dict = json;
-	_js = [dict objectForKey:@"js"];
+	id js = [dict objectForKey:@"js"];
+	if (js != [NSNull null]) {
+		_js = js;
+	}
 
-	_path = [dict objectForKey:@"path"];
+	id path = [dict objectForKey:@"path"];
+	if (path != [NSNull null]) {
+		_path = path;
+	}
 
-	_md5 = [dict objectForKey:@"md5"];
+	id md5 = [dict objectForKey:@"md5"];
+	if (md5 != [NSNull null]) {
+		_md5 = md5;
+	}
 }
 
 - (id)encode

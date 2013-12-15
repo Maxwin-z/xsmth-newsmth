@@ -4,11 +4,17 @@
 - (void)decode:(id)json
 {
 	NSDictionary *dict = json;
-	_boardName = [dict objectForKey:@"boardName"];
+	id boardName = [dict objectForKey:@"boardName"];
+	if (boardName != [NSNull null]) {
+		_boardName = boardName;
+	}
 
 	_pid = [[dict objectForKey:@"pid"] intValue];
 
-	_name = [dict objectForKey:@"name"];
+	id name = [dict objectForKey:@"name"];
+	if (name != [NSNull null]) {
+		_name = name;
+	}
 
 	_len = [[dict objectForKey:@"len"] intValue];
 

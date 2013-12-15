@@ -6,15 +6,27 @@
 	NSDictionary *dict = json;
 	_unread = [[dict objectForKey:@"unread"] boolValue];
 
-	_author = [dict objectForKey:@"author"];
+	id author = [dict objectForKey:@"author"];
+	if (author != [NSNull null]) {
+		_author = author;
+	}
 
-	_title = [dict objectForKey:@"title"];
+	id title = [dict objectForKey:@"title"];
+	if (title != [NSNull null]) {
+		_title = title;
+	}
 
 	_date = [[dict objectForKey:@"date"] longLongValue];
 
-	_url = [dict objectForKey:@"url"];
+	id url = [dict objectForKey:@"url"];
+	if (url != [NSNull null]) {
+		_url = url;
+	}
 
-	_content = [dict objectForKey:@"content"];
+	id content = [dict objectForKey:@"content"];
+	if (content != [NSNull null]) {
+		_content = content;
+	}
 }
 
 - (id)encode

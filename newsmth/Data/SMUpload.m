@@ -6,7 +6,10 @@
 	NSDictionary *dict = json;
 	_act = [[dict objectForKey:@"act"] intValue];
 
-	_message = [dict objectForKey:@"message"];
+	id message = [dict objectForKey:@"message"];
+	if (message != [NSNull null]) {
+		_message = message;
+	}
 
 	NSMutableArray *tmp_items = [[NSMutableArray alloc] init];
 	NSArray *items = [dict objectForKey:@"items"];

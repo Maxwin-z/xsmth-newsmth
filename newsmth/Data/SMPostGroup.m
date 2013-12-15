@@ -8,7 +8,10 @@
 
 	_tpage = [[dict objectForKey:@"tpage"] intValue];
 
-	_title = [dict objectForKey:@"title"];
+	id title = [dict objectForKey:@"title"];
+	if (title != [NSNull null]) {
+		_title = title;
+	}
 
 	NSMutableArray *tmp_posts = [[NSMutableArray alloc] init];
 	NSArray *posts = [dict objectForKey:@"posts"];

@@ -4,9 +4,15 @@
 - (void)decode:(id)json
 {
 	NSDictionary *dict = json;
-	_name = [dict objectForKey:@"name"];
+	id name = [dict objectForKey:@"name"];
+	if (name != [NSNull null]) {
+		_name = name;
+	}
 
-	_cnName = [dict objectForKey:@"cnName"];
+	id cnName = [dict objectForKey:@"cnName"];
+	if (cnName != [NSNull null]) {
+		_cnName = cnName;
+	}
 
 	_bid = [[dict objectForKey:@"bid"] intValue];
 

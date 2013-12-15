@@ -4,7 +4,10 @@
 - (void)decode:(id)json
 {
 	NSDictionary *dict = json;
-	_sectionTitle = [dict objectForKey:@"sectionTitle"];
+	id sectionTitle = [dict objectForKey:@"sectionTitle"];
+	if (sectionTitle != [NSNull null]) {
+		_sectionTitle = sectionTitle;
+	}
 
 	NSMutableArray *tmp_posts = [[NSMutableArray alloc] init];
 	NSArray *posts = [dict objectForKey:@"posts"];

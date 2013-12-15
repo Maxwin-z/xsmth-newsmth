@@ -6,9 +6,15 @@
 	NSDictionary *dict = json;
 	_isDir = [[dict objectForKey:@"isDir"] boolValue];
 
-	_title = [dict objectForKey:@"title"];
+	id title = [dict objectForKey:@"title"];
+	if (title != [NSNull null]) {
+		_title = title;
+	}
 
-	_url = [dict objectForKey:@"url"];
+	id url = [dict objectForKey:@"url"];
+	if (url != [NSNull null]) {
+		_url = url;
+	}
 
 	_board = [[SMBoard alloc] initWithJSON:[dict objectForKey:@"board"]];
 }

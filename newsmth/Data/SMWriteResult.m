@@ -6,7 +6,10 @@
 	NSDictionary *dict = json;
 	_success = [[dict objectForKey:@"success"] boolValue];
 
-	_message = [dict objectForKey:@"message"];
+	id message = [dict objectForKey:@"message"];
+	if (message != [NSNull null]) {
+		_message = message;
+	}
 }
 
 - (id)encode
