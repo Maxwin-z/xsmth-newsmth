@@ -46,7 +46,7 @@ function parse_www(html) {
 				title: title,
 				author: author,
 				date: time * 1000,
-				isTop: flag.indexOf('d') != -1
+				isTop: flag.indexOf('d') != -1 || flag.indexOf('D') != -1
 			});
 		},
 		t: function() {},

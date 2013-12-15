@@ -75,6 +75,14 @@ static SMBoardCell *_instance;
 - (void)layoutSubviews
 {
     [super layoutSubviews];
+    
+    // 重置title位置。由于置顶cell会返回高度10，导致title auto adjust错乱
+    CGRect frame = _labelForTitle.frame;
+    frame.origin = _instance.labelForTitle.frame.origin;
+    frame.size.width = _instance.labelForTitle.frame.size.width;
+    frame.size.height = self.frame.size.height - (_instance.frame.size.height - _instance.labelForTitle.frame.size.height);
+    _labelForTitle.frame = frame;
+    
     // fix position
     __block CGFloat left = _labelForPostTime.frame.origin.x;
     CGFloat centerY = _labelForPostTime.center.y;

@@ -22,6 +22,7 @@
 @property (assign, nonatomic) int currentPage;  // 从www加载文章列表时，页码有后台数据决定
 
 @property (strong, nonatomic) NSArray *posts;
+@property (assign, nonatomic) BOOL showTop; // 用户主动触发显示置顶
 
 @property (strong, nonatomic) SMBoardViewTypeSelectorView *viewTypeSelector;
 @property (strong, nonatomic) UIView *viewForMasker;
@@ -154,6 +155,7 @@
 
 - (void)onViewTypeSelectorValueChanged
 {
+    _showTop = NO;
     [_tableView beginRefreshing];
     [self hideViewTypeSelector];
 }
@@ -246,6 +248,11 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    SMPost *post = _posts[indexPath.row];
+    if (post.isTop && [SMConfig disableShowTopPost] && !_showTop) {
+        return 10;
+    }
+    
     return [SMBoardCell cellHeight:_posts[indexPath.row]];
 }
 
@@ -270,6 +277,14 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SMPost *post = _posts[indexPath.row];
+    
+    // 点击置顶帖，展开显示
+    if (post.isTop && [SMConfig disableShowTopPost] && !_showTop) {
+        _showTop = YES;
+        [self.tableView reloadData];
+        [SMUtils trackEventWithCategory:@"board" action:@"expand_top" label:_board.name];
+        return ;
+    }
  
     SMPostViewController *vc = [[SMPostViewController alloc] init];
     if (_viewTypeSelector.viewType == SMBoardViewTypeTztSortByReply
@@ -302,9 +317,9 @@
     }
     [board.posts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         SMPost *post = obj;
-        if (post.isTop && [SMConfig disableShowTopPost]) {
-            return ;
-        }
+//        if (post.isTop && [SMConfig disableShowTopPost]) {
+//            return ;
+//        }
         [tmp addObject:post];
     }];
 
