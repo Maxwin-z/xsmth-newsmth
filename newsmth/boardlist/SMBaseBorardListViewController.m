@@ -85,7 +85,9 @@
         cell.textLabel.backgroundColor = [UIColor clearColor];
         cell.detailTextLabel.backgroundColor = [UIColor clearColor];
         cell.detailTextLabel.font = [UIFont systemFontOfSize:13.0f];
-        cell.backgroundColor = [UIColor clearColor];
+        cell.backgroundColor = [SMTheme colorForBackground];
+        cell.textLabel.textColor = [SMTheme colorForPrimary];
+        cell.detailTextLabel.textColor = [SMTheme colorForSecondary];
     }
 
     cell.textLabel.font = [SMConfig listFont];
