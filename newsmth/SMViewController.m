@@ -68,7 +68,7 @@
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
-    return UIStatusBarStyleLightContent;
+    return [SMConfig enableDayMode] ? UIStatusBarStyleDefault : UIStatusBarStyleLightContent;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -191,6 +191,20 @@
     XLog_d(@"%d", [SMConfig enableDayMode]);
     self.view.backgroundColor = [SMTheme colorForBackground];
     _labelForLoginHint.textColor = [SMTheme colorForPrimary];
+
+    if ([self.navigationController.navigationBar respondsToSelector:@selector(setBarTintColor:)]) {
+        self.navigationController.navigationBar.barTintColor = [SMTheme colorForBarTintColor];
+    }
+    if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
+        [self setNeedsStatusBarAppearanceUpdate];
+    }
+    
+    [self.navigationController.navigationBar setTintColor:[SMTheme colorForTintColor]];
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     @{
+       UITextAttributeTextColor: [SMTheme colorForPrimary],
+       UITextAttributeTextShadowColor: [UIColor clearColor]
+       }];
 }
 
 @end

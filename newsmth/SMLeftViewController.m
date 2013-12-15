@@ -63,6 +63,12 @@ typedef NS_ENUM(NSInteger, CellType) {
     [self.view addSubview:_viewForSetting];
 }
 
+- (void)setupTheme
+{
+    [super setupTheme];
+    [self.tableView reloadData];
+}
+
 - (void)onAccountNotification
 {
     [self.tableView reloadData];
@@ -122,7 +128,7 @@ typedef NS_ENUM(NSInteger, CellType) {
     UIView *seperator = [[UIView alloc] init];
     CGRect frame = cell.contentView.bounds;
     seperator.frame = CGRectMake(0, frame.size.height - 1, frame.size.width, 1);
-    seperator.backgroundColor = [SMTheme colorForPrimary];
+    seperator.backgroundColor = [SMTheme colorForSecondary];
     seperator.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
     [cell.contentView addSubview:seperator];
     
