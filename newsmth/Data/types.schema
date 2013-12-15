@@ -54,6 +54,7 @@ SMBoard {
 	SMPost[] posts
     bool hasNotice
     SMNotice notice
+    int currentPage
 }
 
 SMFavor {

@@ -26,6 +26,8 @@
 	_hasNotice = [[dict objectForKey:@"hasNotice"] boolValue];
 
 	_notice = [[SMNotice alloc] initWithJSON:[dict objectForKey:@"notice"]];
+
+	_currentPage = [[dict objectForKey:@"currentPage"] intValue];
 }
 
 - (id)encode
@@ -52,6 +54,8 @@
 	if (_notice != nil) {
 		[dict setObject:[_notice encode] forKey:@"notice"];
 	}
+
+	[dict setObject:@(_currentPage) forKey:@"currentPage"];
 	return dict;
 }
 @end

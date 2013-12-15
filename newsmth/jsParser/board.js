@@ -14,7 +14,8 @@ var data = {
 			isTop: false
 		}
 		*/
-	]
+	],
+	currentPage: 0
 };
 
 function decode(html) {
@@ -27,6 +28,33 @@ function decode(html) {
 }
 
 function $parse(html) {
+    if (html.indexOf('<?xml version="1.0" encoding="utf-8"?>') != -1) {
+        parse_m(html);
+    } else {
+        parse_www(html);
+    }
+}
+
+function parse_www(html) {
+	function docWriter(board, bid, start, man, ftype, page, total, apath, showHot, normalB) {
+		data.currentPage = page;
+	}
+	docWriter.prototype = {
+		o: function (id, gid, author, flag, time, title, size, imported, is_tex) {
+			data.posts.push({
+				gid: gid,
+				title: title,
+				author: author,
+				date: time * 1000,
+				isTop: flag.indexOf('d') != -1
+			});
+		},
+		t: function() {},
+		f: function() {}
+	}
+}
+
+function parse_m(html) {
 	var rsp = {code: 0, data: data, message: ''};
 	var matches = html.match(/<ul class="list sec">.*?<\/ul>/);
 	var isTzt = isTztMode(html);

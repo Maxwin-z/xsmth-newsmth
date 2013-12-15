@@ -9,4 +9,5 @@
 @property (strong, nonatomic) NSArray* posts;
 @property (assign, nonatomic) BOOL hasNotice;
 @property (strong, nonatomic) SMNotice* notice;
+@property (assign, nonatomic) int currentPage;
 @end
