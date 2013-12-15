@@ -23,6 +23,7 @@
 
 @property (strong, nonatomic) IBOutlet UIView *viewForLogin;
 @property (weak, nonatomic) IBOutlet UIButton *buttonForLogin;
+@property (weak, nonatomic) IBOutlet UILabel *labelForLoginHint;
 
 @end
 
@@ -52,6 +53,8 @@
     } else {
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
+    
+    _labelForLoginHint.textColor = [SMTheme colorForPrimary];
 }
 
 - (void)viewDidAppear:(BOOL)animated

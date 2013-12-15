@@ -17,6 +17,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *buttonForCancel;
 @property (weak, nonatomic) IBOutlet UIButton *buttonForSubmit;
+@property (weak, nonatomic) IBOutlet UILabel *labelForRegHint;
 
 
 @property (strong, nonatomic) SMWebLoaderOperation *loginOp;
@@ -53,6 +54,7 @@
     
     [_buttonForCancel setButtonSMType:SMButtonTypeGray];
     [_buttonForSubmit setButtonSMType:SMButtonTypeBlue];
+    _labelForRegHint.textColor = [SMTheme colorForSecondary];
 }
 
 - (void)dealloc
