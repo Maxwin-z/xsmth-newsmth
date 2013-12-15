@@ -12,6 +12,7 @@
 + (UIColor *)colorForPrimary;
 + (UIColor *)colorForSecondary;
 + (UIColor *)colorForQuote;
++ (UIColor *)colorForTintColor;
 + (UIColor *)colorForBarTintColor;
 + (UIColor *)colorForBackground;
 @end

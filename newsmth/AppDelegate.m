@@ -70,16 +70,19 @@
 
 - (void)setupTheme
 {
+    [[UIBarButtonItem appearance] setTintColor:[SMTheme colorForTintColor]];
+    [[UINavigationBar appearance] setTitleTextAttributes:
+     @{
+       UITextAttributeTextColor: [SMTheme colorForPrimary],
+       UITextAttributeTextShadowColor: [UIColor clearColor]
+       }];
+
     if ([SMUtils systemVersion] < 7) {
         [[UINavigationBar appearance] setBackgroundImage:[[UIImage imageNamed:@"bg_navigationbar"] stretchableImageWithLeftCapWidth:1 topCapHeight:1] forBarMetrics:UIBarMetricsDefault];
-        [[UIBarButtonItem appearance] setTintColor:SM_TINTCOLOR];
         [[UIBarButtonItem appearance] setBackgroundImage:[[UIImage imageNamed:@"bg_barbuttonitem"] stretchableImageWithLeftCapWidth:2 topCapHeight:2] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
         
-        [[UINavigationBar appearance] setTitleTextAttributes:
-          @{
-           UITextAttributeTextColor: [UIColor blackColor],
-           UITextAttributeTextShadowColor: [UIColor clearColor]
-           }];
+    } else {
+        [[UINavigationBar appearance] setBarTintColor:[SMTheme colorForBarTintColor]];
     }
 }
 

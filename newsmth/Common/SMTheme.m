@@ -28,8 +28,14 @@
 }
 + (UIColor *)colorForBarTintColor
 {
-    return SM_TINTCOLOR;
+    return SMRGB(0x0, 0x10, 0x20);
 }
+
++ (UIColor *)colorForTintColor
+{
+    return SMRGB(0xff, 0xff, 0);
+}
+
 
 + (UIColor *)colorForBackground
 {
