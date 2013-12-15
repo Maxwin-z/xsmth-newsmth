@@ -89,6 +89,13 @@
 //    }
 //}
 
+- (void)onDeviceShake:(NSNotification *)n
+{
+    XLog_d(@"shaked: %@", n.userInfo);
+    [[NSUserDefaults standardUserDefaults] setBool:![SMConfig enableDayMode] forKey:USERDEFAULTS_CONFIG_ENABLE_DAY_MODE];
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFYCATION_THEME_CHANGED object:nil];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -114,9 +121,12 @@
     [_updater checkAndUpdate];
     
     XLog_d(@"%@", NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES));
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onDeviceShake:) name:NOTIFYCATION_SHAKE object:nil];
 
     return YES;
 }
+
 
 -(void)applicationDidBecomeActive:(UIApplication *)application
 {

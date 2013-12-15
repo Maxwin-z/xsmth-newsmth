@@ -224,6 +224,7 @@
 		C1FD13D3178182E3006A6061 /* button_red_default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1FD13CD178182E2006A6061 /* button_red_default@2x.png */; };
 		C1FD13D4178182E3006A6061 /* button_red_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1FD13CE178182E2006A6061 /* button_red_pressed@2x.png */; };
 		C1FD13DD1781B26F006A6061 /* left_shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1FD13DC1781B26F006A6061 /* left_shadow@2x.png */; };
+		C1FEC603185DFF2E007E1C24 /* UIWindow+SMShakeListener.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FEC602185DFF2E007E1C24 /* UIWindow+SMShakeListener.m */; };
 		C1FF62B1179E6DF4001F7A15 /* SMPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FF62AF179E6DF4001F7A15 /* SMPostViewController.m */; };
 		C1FF62B2179E6DF4001F7A15 /* SMPostViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1FF62B0179E6DF4001F7A15 /* SMPostViewController.xib */; };
 /* End PBXBuildFile section */
@@ -580,6 +581,8 @@
 		C1FD13CD178182E2006A6061 /* button_red_default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_red_default@2x.png"; sourceTree = "<group>"; };
 		C1FD13CE178182E2006A6061 /* button_red_pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_red_pressed@2x.png"; sourceTree = "<group>"; };
 		C1FD13DC1781B26F006A6061 /* left_shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left_shadow@2x.png"; sourceTree = "<group>"; };
+		C1FEC601185DFF2E007E1C24 /* UIWindow+SMShakeListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWindow+SMShakeListener.h"; sourceTree = "<group>"; };
+		C1FEC602185DFF2E007E1C24 /* UIWindow+SMShakeListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWindow+SMShakeListener.m"; sourceTree = "<group>"; };
 		C1FF62AE179E6DF4001F7A15 /* SMPostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMPostViewController.h; sourceTree = "<group>"; };
 		C1FF62AF179E6DF4001F7A15 /* SMPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMPostViewController.m; sourceTree = "<group>"; };
 		C1FF62B0179E6DF4001F7A15 /* SMPostViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMPostViewController.xib; sourceTree = "<group>"; };
@@ -994,6 +997,8 @@
 				C115816C17685606008A421A /* SMLoginViewController.xib */,
 				C19FF0B31769A7A700EB6F7E /* SMViewControllerPopover.xib */,
 				C1FD13BA17815BD1006A6061 /* SMViewControllerNeedLogin.xib */,
+				C1FEC601185DFF2E007E1C24 /* UIWindow+SMShakeListener.h */,
+				C1FEC602185DFF2E007E1C24 /* UIWindow+SMShakeListener.m */,
 			);
 			path = newsmth;
 			sourceTree = "<group>";
@@ -1511,6 +1516,7 @@
 				C1E628AB1764C594007ACF2A /* SMPostGroup.m in Sources */,
 				C1E628AC1764C594007ACF2A /* SMSection.m in Sources */,
 				C1ABAB111766107A007DE168 /* SMMainpageCell.m in Sources */,
+				C1FEC603185DFF2E007E1C24 /* UIWindow+SMShakeListener.m in Sources */,
 				C10F2F7717E5621800F83206 /* SMMailItem.m in Sources */,
 				C1ABAB131766107A007DE168 /* SMMainpageViewController.m in Sources */,
 				C1B68848180824160085DC69 /* SMBoardSearchDelegateImpl.m in Sources */,

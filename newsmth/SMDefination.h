@@ -34,6 +34,7 @@ typedef enum {
 }SMNetworkErrorCode;
 
 #define NOTIFYCATION_THEME_CHANGED  @"notify_theme_changed"
+#define NOTIFYCATION_SHAKE  @"notify_shake"
 
 #define USERDEFAULTS_STAT_VERSION   @"statversion"  // 每个版本统计一次ga，唯一用户
 
