@@ -78,13 +78,15 @@
             
             NSString *jsUrl = [NSString stringWithFormat:API_PREFIX @"/parser/%@", item.path];
             ASIHTTPRequest *jsReq = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:jsUrl]];
+            jsReq.responseEncoding = NSUTF8StringEncoding;
             [jsReq startSynchronous];
             if (jsReq.error != nil) {
                 XLog_e(@"load js[%@], error[%@]", jsUrl, jsReq.error);
                 return ;
             }
             // check md5
-            NSString *js = jsReq.responseString;
+            NSString *js =  [[NSString alloc] initWithData:jsReq.responseData encoding:NSUTF8StringEncoding];
+
             if ([js rangeOfString:item.md5].length > 0) {
                 // save
                 [self saveJS:js toFile:item.js];

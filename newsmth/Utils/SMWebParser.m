@@ -53,11 +53,14 @@
 
 - (NSString *)loadJS:(NSString *)filename
 {
-    NSString *filePath = [[NSBundle mainBundle] pathForResource:filename ofType:@"js"];
-
-    if (!filePath) return @"";
+    NSData *data = [SMUtils readDataFromDocumentFolder:[NSString stringWithFormat:@"parser/%@.js", filename]];
     
-    NSData *data = [NSData dataWithContentsOfFile:filePath];
+    if (data == nil) {
+        NSString *filePath = [[NSBundle mainBundle] pathForResource:filename ofType:@"js"];
+        if (!filePath) return @"";
+        data = [NSData dataWithContentsOfFile:filePath];
+    }
+    
     return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 }
 
