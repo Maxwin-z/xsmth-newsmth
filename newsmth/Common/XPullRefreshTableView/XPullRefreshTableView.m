@@ -75,7 +75,9 @@
     // set theme
     _labelForLoadMoreHint.textColor = _labelForPullHint.textColor = _labelForRefreshDate.textColor = _labelForRefreshHint.textColor = [SMTheme colorForSecondary];
     _activityIndicatorForRefresh.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
-    _activityIndicatorForRefresh.tintColor = [SMTheme colorForTintColor];
+    if ([_activityIndicatorForRefresh respondsToSelector:@selector(setTintColor:)]) {
+        _activityIndicatorForRefresh.tintColor = [SMTheme colorForTintColor];
+    }
 }
 
 - (void)setDelegate:(id<UITableViewDelegate>)delegate

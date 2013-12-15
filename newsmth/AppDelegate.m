@@ -70,7 +70,9 @@
 
 - (void)setupTheme
 {
-    self.window.tintColor = [SMTheme colorForTintColor];
+    if ([self.window respondsToSelector:@selector(setTintColor:)]) {
+        self.window.tintColor = [SMTheme colorForTintColor];
+    }
     [[UIBarButtonItem appearance] setTintColor:[SMTheme colorForTintColor]];
     [[UINavigationBar appearance] setTitleTextAttributes:
      @{

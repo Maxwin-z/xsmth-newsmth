@@ -39,7 +39,7 @@
 
 + (UIColor *)colorForBackground
 {
-    return SMRGB(0, 0, 0);
+    return SMRGB(0x15, 0x15, 0x15);
 }
 
 @end
