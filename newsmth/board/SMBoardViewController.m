@@ -139,8 +139,9 @@
     SMPost *post = _posts[indexPath.row];
  
     SMPostViewController *vc = [[SMPostViewController alloc] init];
-    vc.gid = post.gid;
-    vc.board = _board;
+//    vc.gid = post.gid;
+//    vc.board = _board;
+    vc.postUrl = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/single/%d/0", _board.name, post.gid];
     vc.fromBoard = YES;
     [self.navigationController pushViewController:vc animated:YES];
     

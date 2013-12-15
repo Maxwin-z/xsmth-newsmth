@@ -67,7 +67,8 @@ static SMBoardCell *_instance;
     
     _buttonForAuthor.enabled = _buttonForReplyAuthor.enabled = [SMConfig enableUserClick];
     
-    _buttonForReplyAuthor.hidden = _labelForReplyTime.hidden = ![SMConfig enableShowReplyAuthor];
+    _buttonForReplyAuthor.hidden = ![SMConfig enableShowReplyAuthor] || _post.replyAuthor == nil;
+    _labelForReplyTime.hidden = ![SMConfig enableShowReplyAuthor] || _post.replyDate == 0;
 
 }
 
