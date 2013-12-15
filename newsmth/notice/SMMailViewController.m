@@ -36,6 +36,8 @@
     [self loadData:NO];
 
     [SMNoticeViewController instance].navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(onRightBarButtonItemClick)];
+    
+    self.view.backgroundColor = [SMTheme colorForBackground];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -106,6 +108,8 @@
 {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
     cell.textLabel.text = @"没有任何信件";
+    cell.backgroundColor = [SMTheme colorForBackground];
+    cell.textLabel.textColor = [SMTheme colorForPrimary];
     return cell;
 }
 
