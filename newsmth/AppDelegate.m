@@ -82,7 +82,7 @@
 
     if ([SMUtils systemVersion] < 7) {
         [[UINavigationBar appearance] setBackgroundImage:[[UIImage imageNamed:@"bg_navigationbar"] stretchableImageWithLeftCapWidth:1 topCapHeight:1] forBarMetrics:UIBarMetricsDefault];
-        [[UIBarButtonItem appearance] setBackgroundImage:[[UIImage imageNamed:@"bg_barbuttonitem"] stretchableImageWithLeftCapWidth:2 topCapHeight:2] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+//        [[UIBarButtonItem appearance] setBackgroundImage:[[UIImage imageNamed:@"bg_barbuttonitem"] stretchableImageWithLeftCapWidth:2 topCapHeight:2] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
         
     } else {
         [[UINavigationBar appearance] setBarTintColor:[SMTheme colorForBarTintColor]];
