@@ -42,6 +42,16 @@ static SMBoardCell *_instance;
         [[NSBundle mainBundle] loadNibNamed:@"SMBoardCell" owner:self options:nil];
         _viewForCell.frame = self.contentView.bounds;
         [self.contentView addSubview:_viewForCell];
+        
+        self.backgroundColor = [SMTheme colorForBackground];
+        _labelForTitle.textColor = [SMTheme colorForPrimary];
+        _labelForPostTime.textColor = _labelForReplyTime.textColor = [SMTheme colorForSecondary];
+        
+        [_buttonForAuthor setTitleColor:[SMTheme colorForTintColor] forState:UIControlStateNormal];
+        [_buttonForReplyAuthor setTitleColor:[SMTheme colorForTintColor] forState:UIControlStateNormal];
+        [_buttonForAuthor setTitleColor:[SMTheme colorForSecondary] forState:UIControlStateDisabled];
+        [_buttonForReplyAuthor setTitleColor:[SMTheme colorForSecondary] forState:UIControlStateDisabled];
+        
     }
     return self;
 }

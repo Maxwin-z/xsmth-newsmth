@@ -53,7 +53,7 @@
     } else {
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
-        
+    
     _labelForLoginHint.textColor = [SMTheme colorForPrimary];
 }
 
