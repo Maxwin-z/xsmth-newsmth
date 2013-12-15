@@ -50,8 +50,22 @@ static SMPostGroupContentCell *_instance;
         
         _webViewForContent.scrollView.scrollEnabled = NO;
         
+        self.backgroundColor = [SMTheme colorForBackground];
+        _labelForContent.textColor = [SMTheme colorForPrimary];
     }
     return self;
+}
+
+- (NSString *)color2hex:(UIColor *)color
+{
+    CGFloat rf, gf, bf, af;
+    [color getRed:&rf green:&gf blue: &bf alpha: &af];
+
+    int r = (int)(255.0 * rf);
+    int g = (int)(255.0 * gf);
+    int b = (int)(255.0 * bf);
+    
+    return [NSString stringWithFormat:@"%02x%02x%02x",r,g,b];
 }
 
 - (NSString *)formatContent:(NSString *)content
@@ -63,9 +77,9 @@ static SMPostGroupContentCell *_instance;
         if (line.length == 0) {  // space line
             line = @" ";
         }
-        NSString *color = @"#323232";
+        NSString *color = [self color2hex:[SMTheme colorForPrimary]];
         if ([line hasPrefix:@":"]) {
-            color = @"#237DA1";
+            color = [self color2hex:[SMTheme colorForQuote]];
         }
         [html appendFormat:@"<div style='color:%@'>%@</div>", color, line];
     }
@@ -76,7 +90,7 @@ static SMPostGroupContentCell *_instance;
 {
     _post = post;
     UIFont *font = [SMConfig postFont];
-    NSString *body = [NSString stringWithFormat:@"<html><body style='margin:0; padding: 10px; font-size: %dpx;font-family: %@;line-height:%dpx'>%@</body></html>", (int)font.pointSize, font.fontName, (int)(font.lineHeight * 1.2), [self formatContent:post.content]];
+    NSString *body = [NSString stringWithFormat:@"<html><body style='margin:0; padding: 10px; font-size: %dpx;font-family: %@;line-height:%dpx;background-color:%@'>%@</body></html>", (int)font.pointSize, font.fontName, (int)(font.lineHeight * 1.2), [self color2hex:[SMTheme colorForBackground]], [self formatContent:post.content]];
     [_webViewForContent loadHTMLString:body baseURL:nil];
 }
 

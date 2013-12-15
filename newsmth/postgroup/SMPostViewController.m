@@ -450,6 +450,8 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.backgroundColor = [SMTheme colorForBackground];
+        cell.textLabel.textColor = [SMTheme colorForPrimary];
     }
     cell.textLabel.text = @"Loading...";
     return cell;
