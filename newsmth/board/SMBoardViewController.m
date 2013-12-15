@@ -12,12 +12,7 @@
 #import "SMPostViewController.h"
 #import "SMWritePostViewController.h"
 #import "SMUserViewController.h"
-
-typedef enum {
-    SMBoardViewTypeTztSortByReply,
-    SMBoardViewTypeTztSortByPost,
-    SMBoardViewTypeNormal
-}SMBoardViewType;
+#import "SMBoardViewTypeSelectorView.h"
 
 @interface SMBoardViewController ()<UITableViewDelegate, UITableViewDataSource, XPullRefreshTableViewDelegate, SMWebLoaderOperationDelegate, SMBoardCellDelegate>
 @property (weak, nonatomic) IBOutlet XPullRefreshTableView *tableView;
