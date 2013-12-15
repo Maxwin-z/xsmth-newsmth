@@ -21,7 +21,10 @@
 @property (assign, nonatomic) int page;
 
 @property (strong, nonatomic) NSArray *posts;
-@property (assign, nonatomic) SMBoardViewType viewType;
+
+@property (strong, nonatomic) SMBoardViewTypeSelectorView *viewTypeSelector;
+@property (strong, nonatomic) UIView *viewForMasker;
+@property (assign, nonatomic) BOOL isViewTypeSelectorVisiable;
 
 @end
 
@@ -36,9 +39,8 @@
 {
     [super viewDidLoad];
 //    self.title = _board.cnName;
+    [self makeupViewTypeSelector];
     [self makeupTitleView];
-    
-    _viewType = SMBoardViewTypeTztSortByReply;
     
     _tableView.xdelegate = self;
     [_tableView beginRefreshing];
@@ -57,9 +59,42 @@
     }
 }
 
+- (void)makeupViewTypeSelector
+{
+    _viewTypeSelector = [SMBoardViewTypeSelectorView new];
+    CGRect frame = _viewTypeSelector.frame;
+    frame.origin.x = (self.view.bounds.size.width - frame.size.width) / 2;
+    frame.origin.y = - frame.size.height;
+    _viewTypeSelector.frame = frame;
+    [self.view addSubview:_viewTypeSelector];
+    
+    // load saved view type
+    SMBoardViewType viewType = SMBoardViewTypeTztSortByReply;
+    NSString *defKey = [NSString stringWithFormat:@"user_def_view_type_%@", _board.name];
+    id obj = [[NSUserDefaults standardUserDefaults] objectForKey:defKey];
+    if (obj) {
+        viewType = [obj integerValue];
+    }
+
+    _isViewTypeSelectorVisiable = NO;
+
+    _viewTypeSelector.viewType = viewType;
+    [_viewTypeSelector addTarget:self action:@selector(onViewTypeSelectorValueChanged) forControlEvents:UIControlEventValueChanged];
+    
+    // add masker
+    _viewForMasker = [[UIView alloc] initWithFrame:self.view.bounds];
+    _viewForMasker.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    _viewForMasker.backgroundColor = SMRGBA(0, 0, 0, 0.2);
+    [self.view insertSubview:_viewForMasker belowSubview:_viewTypeSelector];
+    _viewForMasker.hidden = YES;
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onViewForMaskerTap)];
+    [_viewForMasker addGestureRecognizer:tapGesture];
+}
+
 - (void)makeupTitleView
 {
     UIButton *button = [UIButton buttonWithType:[SMUtils systemVersion] >= 7 ? UIButtonTypeSystem : UIButtonTypeCustom];
+    [button addTarget:self action:@selector(onTitleButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [button setTitle:_board.cnName forState:UIControlStateNormal];
     [button setTitleColor:[SMTheme colorForPrimary] forState:UIControlStateNormal];
     button.titleLabel.font = [UIFont systemFontOfSize:18];
@@ -72,10 +107,9 @@
     }
 
     [button setImage:[UIImage imageNamed:@"icon_top"] forState:UIControlStateNormal];
+    [button sizeToFit];
 
     self.navigationItem.titleView = button;
-    
-    [button sizeToFit];
     
     // relayout after title render.
     [self performSelector:@selector(layoutTitleView) withObject:nil afterDelay:0];
@@ -90,7 +124,51 @@
     
     [button setTitleEdgeInsets:UIEdgeInsetsMake(0, -imageSize.width, 0, imageSize.width)];
     [button setImageEdgeInsets:UIEdgeInsetsMake(0, titleSize.width + padding, 0, -titleSize.width - padding)];
-    
+}
+
+- (void)showViewTypeSelector
+{
+    _isViewTypeSelectorVisiable = YES;
+    CGRect frame = _viewTypeSelector.frame;
+    frame.origin.y = 64;
+    _viewForMasker.hidden = NO;
+    [UIView animateWithDuration:0.2 animations:^{
+        _viewTypeSelector.frame = frame;
+    }];
+}
+
+- (void)hideViewTypeSelector
+{
+    if (_isViewTypeSelectorVisiable) {
+        _viewForMasker.hidden = YES;
+        
+        CGRect frame = _viewTypeSelector.frame;
+        frame.origin.y = -frame.size.height;
+        [UIView animateWithDuration:0.2 animations:^{
+            _viewTypeSelector.frame = frame;
+        }];
+    }
+    _isViewTypeSelectorVisiable = NO;
+}
+
+- (void)onViewTypeSelectorValueChanged
+{
+    [_tableView beginRefreshing];
+    [self hideViewTypeSelector];
+}
+
+- (void)onTitleButtonClick
+{
+    if (_isViewTypeSelectorVisiable) {
+        [self hideViewTypeSelector];
+    } else {
+        [self showViewTypeSelector];
+    }
+}
+
+- (void)onViewForMaskerTap
+{
+    [self hideViewTypeSelector];
 }
 
 - (void)setPosts:(NSArray *)posts
@@ -109,12 +187,14 @@
         [SMUtils trackEventWithCategory:@"board" action:@"loadmore" label:[NSString stringWithFormat:@"%@:%d", _board.name, _page]];
     }
     NSString *url;
-    if (_viewType == SMBoardViewTypeTztSortByReply) {
+    if (_viewTypeSelector.viewType == SMBoardViewTypeTztSortByReply) {
         url = [NSString stringWithFormat:@"http://m.newsmth.net/board/%@?p=%d", _board.name, _page];
-    } else if (_viewType == SMBoardViewTypeNormal) {
+    } else if (_viewTypeSelector.viewType == SMBoardViewTypeNormal) {
         url = [NSString stringWithFormat:@"http://m.newsmth.net/board/%@/0?p=%d", _board.name, _page];
     } else {
         // todo
+        [self toast:@"todo"];
+        return ;
     }
     
     [_boardOp cancel];
@@ -126,6 +206,8 @@
 
 - (void)writePost
 {
+    [self hideViewTypeSelector];
+    
     if (![SMAccountManager instance].isLogin) {
         [self performSelectorAfterLogin:@selector(writePost)];
         return ;
@@ -188,7 +270,7 @@
     SMPost *post = _posts[indexPath.row];
  
     SMPostViewController *vc = [[SMPostViewController alloc] init];
-    if (_viewType == SMBoardViewTypeTztSortByReply) {
+    if (_viewTypeSelector.viewType == SMBoardViewTypeTztSortByReply) {
         vc.gid = post.gid;
         vc.board = _board;
     } else {

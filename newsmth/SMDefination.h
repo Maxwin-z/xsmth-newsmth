@@ -15,6 +15,7 @@
 #define SM_TOP_INSET    64.0f
 
 #define SMRGB(r, g, b)  [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:1.0f]
+#define SMRGBA(r, g, b, a)  [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:(a)]
 #define SM_TINTCOLOR    SMRGB(0, 124, 247)
 #define i2s(val)    [NSString stringWithFormat:@"%d", val]
 

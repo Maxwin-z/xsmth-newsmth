@@ -112,6 +112,7 @@
     [_xdelegate tableViewDoRefresh:self];
     _imageViewForArrow.hidden = YES;
     _activityIndicatorForRefresh.hidden = NO;
+    _viewForRefreshHeader.hidden = NO;
     if (!self.isDragging) {
         UIEdgeInsets inset = self.contentInset;
         inset.top = REFRESH_TRIGGER_HEIGHT; // + NAVIGATION_HEIGHT;
