@@ -33,6 +33,8 @@ typedef enum {
     SMNetworkErrorCodeRequestFail = 1,
 }SMNetworkErrorCode;
 
+#define NOTIFYCATION_THEME_CHANGED  @"notify_theme_changed"
+
 #define USERDEFAULTS_STAT_VERSION   @"statversion"  // 每个版本统计一次ga，唯一用户
 
 #define USERDEFAULTS_USERNAME   @"username"
@@ -57,5 +59,5 @@ typedef enum {
 #define USERDEFAULTS_CONFIG_USER_CLICKABLE    @"cfg_userclickable"
 #define USERDEFAULTS_CONFIG_SHOW_REPLY_AUTHOR    @"cfg_showreplyauthor"
 #define USERDEFAULTS_CONFIG_IOS7_SWIPE_BACK    @"cfg_ios7swipeback"
-
+#define USERDEFAULTS_CONFIG_ENABLE_DAY_MODE @"cfg_enabledaymode"
 #endif

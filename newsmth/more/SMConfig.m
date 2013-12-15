@@ -51,6 +51,11 @@
     return [SMConfig configForKey:USERDEFAULTS_CONFIG_SHOW_QMD defaults:YES];
 }
 
++ (BOOL)enableDayMode
+{
+    return [SMConfig configForKey:USERDEFAULTS_CONFIG_ENABLE_DAY_MODE defaults:YES];
+}
+
 + (NSArray *)historyBoards
 {
     return [[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_BOARD_HISTORY];

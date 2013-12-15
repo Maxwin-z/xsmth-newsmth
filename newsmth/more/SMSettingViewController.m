@@ -13,7 +13,7 @@
 #import "PBWebViewController.h"
 #import <MessageUI/MessageUI.h>
 
-#define MAX_CELL_COUNT  4
+#define MAX_CELL_COUNT  5
 
 typedef enum {
     CellTypeHideTop,
@@ -21,6 +21,8 @@ typedef enum {
     CellTypeShowReplyAuthor,
     CellTypeEnableQMD,
     CellTypeSwipeBack,
+    CellTypeEnableDayMode,
+    
     CellTypeBackgroundFetch,
     CellTypeBackgroundFetchSmartMode,
     CellTypeBackgroundFetchHelp,
@@ -65,8 +67,8 @@ static SectionData sections[] = {
         SectionTypeBoard,
         "浏览",
         NULL,
-        4,
-        {CellTypeHideTop, CellTypeEnableQMD, CellTypeUserClickable, CellTypeShowReplyAuthor}
+        5,
+        {CellTypeEnableDayMode, CellTypeHideTop, CellTypeEnableQMD, CellTypeUserClickable, CellTypeShowReplyAuthor}
     },
     {
         SectionTypeInteract,
@@ -117,6 +119,7 @@ static SectionData sections[] = {
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForClearCache;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForThxPsyYiYi;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForBackgroundFetchHelp;
+@property (strong, nonatomic) IBOutlet UITableViewCell *cellForEnableDayMode;
 
 @property (weak, nonatomic) IBOutlet UILabel *labelForAppVersion;
 @property (weak, nonatomic) IBOutlet UISwitch *switchForHideTop;
@@ -126,6 +129,7 @@ static SectionData sections[] = {
 @property (weak, nonatomic) IBOutlet UISwitch *switchForBackgroundFetch;
 @property (weak, nonatomic) IBOutlet UISwitch *switchForBackgroundFetchSmartMode;
 @property (weak, nonatomic) IBOutlet UISwitch *switchForSwipeBack;
+@property (weak, nonatomic) IBOutlet UISwitch *switchForEnableDayMode;
 
 @property (weak, nonatomic) IBOutlet UILabel *labelForPostFont;
 @property (weak, nonatomic) IBOutlet UISlider *sliderForPostFont;
@@ -164,6 +168,7 @@ static SectionData sections[] = {
     _switchForBackgroundFetch.on = [SMConfig enableBackgroundFetch];
     _switchForBackgroundFetchSmartMode.on = [SMConfig enableBackgroundFetchSmartMode];
     _switchForShowQMD.on = [SMConfig enableShowQMD];
+    _switchForEnableDayMode.on = [SMConfig enableDayMode];
     
     _sliderForListFont.value = [SMConfig listFont].pointSize;
     _sliderForPostFont.value = [SMConfig postFont].pointSize;
@@ -228,6 +233,12 @@ static SectionData sections[] = {
         action = @"backgroundFetchSmartMode";
     }
     
+    if (sender == _switchForEnableDayMode) {
+        [def setBool:sender.on forKey:USERDEFAULTS_CONFIG_ENABLE_DAY_MODE];
+        action = @"enableDayMode";
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFYCATION_THEME_CHANGED object:nil];
+    }
+    
     [SMUtils trackEventWithCategory:@"setting" action:action label:sender.on ? @"on" : @"off"];
 }
 
@@ -262,6 +273,9 @@ static SectionData sections[] = {
             
         case CellTypeEnableQMD:
             return _cellForShowQMD;
+            
+        case CellTypeEnableDayMode:
+            return _cellForEnableDayMode;
             
         case CellTypeSwipeBack:
             return _cellForSwipeBack;

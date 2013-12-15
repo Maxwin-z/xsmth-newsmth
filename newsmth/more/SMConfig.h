@@ -17,6 +17,7 @@
 + (BOOL)enableShowReplyAuthor;
 + (BOOL)enableIOS7SwipeBack;
 + (BOOL)enableShowQMD;
++ (BOOL)enableDayMode;
 
 + (void)addBoardToHistory:(SMBoard *)board;
 + (NSArray *)historyBoards;
