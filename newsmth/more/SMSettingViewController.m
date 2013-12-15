@@ -155,6 +155,7 @@ static SectionData sections[] = {
     _tableView.tableHeaderView = _viewForTableViewHeader;
 
     _labelForAppVersion.text = [NSString stringWithFormat:@"xsmth %@ @Maxwin", [SMUtils appVersionString]];
+    _labelForAppVersion.textColor = [SMTheme colorForPrimary];
     
     _switchForHideTop.on = [SMConfig disableShowTopPost];
     _switchForUserClickable.on = [SMConfig enableUserClick];
@@ -178,6 +179,7 @@ static SectionData sections[] = {
         dispatch_async(dispatch_get_main_queue(), ^{
             _cellForClearCache.detailTextLabel.text = [SMUtils formatSize:cacheSize];
             _activityIndicatorForClearCache.hidden = YES;
+            [self.tableView reloadData];
         });
     });
 }
@@ -307,6 +309,7 @@ static SectionData sections[] = {
     if (cellType == CellTypeListFont) {
         _labelForListFont.font = [SMConfig listFont];   // change font.
         _labelForListFont.text = [NSString stringWithFormat:@"列表字体预览：%@", _labelForListFont.font.familyName];
+        _labelForListFont.textColor = [SMTheme colorForPrimary];
         CGFloat delta = _cellForListFont.frame.size.height - _labelForListFont.frame.size.height;
         return delta + [_labelForListFont.text smSizeWithFont:_labelForListFont.font constrainedToSize:CGSizeMake(_labelForListFont.frame.size.width, CGFLOAT_MAX) lineBreakMode:_labelForListFont.lineBreakMode].height;
     }
@@ -314,6 +317,7 @@ static SectionData sections[] = {
     if (cellType == CellTypePostFont) {
         _labelForPostFont.font = [SMConfig postFont];   // change font.
         _labelForPostFont.text = [NSString stringWithFormat:@"文章字体预览：%@", _labelForPostFont.font.familyName];
+        _labelForPostFont.textColor = [SMTheme colorForPrimary];
         CGFloat delta = _cellForPostFont.frame.size.height - _labelForPostFont.frame.size.height;
         return delta + [_labelForPostFont.text smSizeWithFont:_labelForPostFont.font constrainedToSize:CGSizeMake(_labelForPostFont.frame.size.width, CGFLOAT_MAX) lineBreakMode:_labelForPostFont.lineBreakMode].height;
     }
@@ -342,7 +346,11 @@ static SectionData sections[] = {
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CellType cellType = sections[indexPath.section].cells[indexPath.row];
-    return [self cellForType:cellType];
+    UITableViewCell *cell = [self cellForType:cellType];
+    cell.backgroundColor = [SMTheme colorForBackground];
+    cell.textLabel.textColor = [SMTheme colorForPrimary];
+    cell.detailTextLabel.textColor = [SMTheme colorForSecondary];
+    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
