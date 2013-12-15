@@ -37,6 +37,11 @@ static SMMainpageCell *_instance;
         [[NSBundle mainBundle] loadNibNamed:@"SMMainpageCell" owner:self options:nil];
         self.viewForCell.frame = self.contentView.bounds;
         [self.contentView addSubview:self.viewForCell];
+        
+        // set style
+        self.backgroundColor = [SMTheme colorForBackground];
+        self.labelForTitle.textColor = [SMTheme colorForPrimary];
+        self.labelForBoardName.textColor = self.labelForAuthor.textColor = [SMTheme colorForSecondary];
     }
     return self;
 }
