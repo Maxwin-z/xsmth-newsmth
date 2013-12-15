@@ -71,6 +71,11 @@
     _viewForRefreshHeader.frame = CGRectMake(0.0f, 0.0f - self.bounds.size.height, self.bounds.size.width, self.bounds.size.height);
     [_buttonForRetry setButtonSMType:SMButtonTypeGray];
     [self addSubview:_viewForRefreshHeader];
+    
+    // set theme
+    _labelForLoadMoreHint.textColor = _labelForPullHint.textColor = _labelForRefreshDate.textColor = _labelForRefreshHint.textColor = [SMTheme colorForSecondary];
+    _activityIndicatorForRefresh.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+    _activityIndicatorForRefresh.tintColor = [SMTheme colorForTintColor];
 }
 
 - (void)setDelegate:(id<UITableViewDelegate>)delegate
