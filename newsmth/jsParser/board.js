@@ -41,7 +41,7 @@ function parse_www(html) {
 	}
 	docWriter.prototype = {
 		o: function (id, gid, author, flag, time, title, size, imported, is_tex) {
-			data.posts.push({
+			posts.push({
 				gid: gid,
 				title: title,
 				author: author,
@@ -52,6 +52,17 @@ function parse_www(html) {
 		t: function() {},
 		f: function() {}
 	}
+
+	var rsp = {code: 0, data: data, message: ''};
+	var posts = [];
+    
+    var script = html.match(/<!--((.|\s)*?)\/\/-->/)[0];
+    eval(script);
+
+    data.posts = posts.reverse();	// www模式，每页排序需反转
+
+	console.log(rsp);
+	window.location.href = 'newsmth://' + encodeURIComponent(JSON.stringify(rsp));
 }
 
 function parse_m(html) {

@@ -19,6 +19,7 @@
 
 @property (strong, nonatomic) SMWebLoaderOperation *boardOp;
 @property (assign, nonatomic) int page;
+@property (assign, nonatomic) int currentPage;  // 从www加载文章列表时，页码有后台数据决定
 
 @property (strong, nonatomic) NSArray *posts;
 
@@ -192,9 +193,10 @@
     } else if (_viewTypeSelector.viewType == SMBoardViewTypeNormal) {
         url = [NSString stringWithFormat:@"http://m.newsmth.net/board/%@/0?p=%d", _board.name, _page];
     } else {
-        // todo
-        [self toast:@"todo"];
-        return ;
+        url = [NSString stringWithFormat:@"http://www.newsmth.net/bbsdoc.php?board=%@&ftype=6", _board.name];
+        if (more) {
+            url = [NSString stringWithFormat:@"%@&page=%d", url, _currentPage - 1];
+        }
     }
     
     [_boardOp cancel];
@@ -270,7 +272,8 @@
     SMPost *post = _posts[indexPath.row];
  
     SMPostViewController *vc = [[SMPostViewController alloc] init];
-    if (_viewTypeSelector.viewType == SMBoardViewTypeTztSortByReply) {
+    if (_viewTypeSelector.viewType == SMBoardViewTypeTztSortByReply
+        || _viewTypeSelector.viewType == SMBoardViewTypeTztSortByPost) {
         vc.gid = post.gid;
         vc.board = _board;
     } else {
@@ -304,8 +307,9 @@
         }
         [tmp addObject:post];
     }];
-//    [tmp addObjectsFromArray:board.posts];
 
+    _currentPage = board.currentPage;
+    
     self.posts = tmp;
 }
 
