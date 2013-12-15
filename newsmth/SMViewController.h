@@ -29,4 +29,8 @@
 
 - (void)onKeyboardDidShow:(NSNotification *)n;
 - (void)onKeyboardDidHide:(NSNotification *)n;
+
+- (void)onThemeChangedNotification:(NSNotification *)n;
+- (void)setupTheme;
+
 @end

@@ -32,20 +32,30 @@
 - (id)init
 {
     self = [super init];
-    if (self) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onKeyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onKeyboardDidHide:) name:UIKeyboardDidHideNotification object:nil];
-        
-    }
+    [self _baseClassCommonInit];
     return self;
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    [self _baseClassCommonInit];
+    return self;
+}
+
+- (void)_baseClassCommonInit
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onKeyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onKeyboardDidHide:) name:UIKeyboardDidHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onThemeChangedNotification:) name:NOTIFYCATION_THEME_CHANGED object:nil];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.trackedViewName = NSStringFromClass([self class]);
-    
-    self.view.backgroundColor = [SMTheme colorForBackground];
+
+    [self setupTheme];
 //    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background"]];
     if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0f) {
         self.navigationController.navigationBar.translucent = YES;
@@ -54,7 +64,6 @@
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
     
-    _labelForLoginHint.textColor = [SMTheme colorForPrimary];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
@@ -170,6 +179,18 @@
 - (void)onKeyboardDidHide:(NSNotification *)n
 {
     _keyboardHeight = 0.0f;
+}
+
+- (void)onThemeChangedNotification:(NSNotification *)n
+{
+    [self setupTheme];
+}
+
+- (void)setupTheme
+{
+    XLog_d(@"%d", [SMConfig enableDayMode]);
+    self.view.backgroundColor = [SMTheme colorForBackground];
+    _labelForLoginHint.textColor = [SMTheme colorForPrimary];
 }
 
 @end
