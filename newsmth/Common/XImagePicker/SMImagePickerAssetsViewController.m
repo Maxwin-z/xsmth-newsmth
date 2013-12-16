@@ -33,7 +33,9 @@
     }];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:_imagePickerViewController action:@selector(onDoneButtonClick)];
-
+    if (_assets.count == 0) {
+        self.tableView = nil; 
+    }
     [_tableView reloadData];
 }
 
@@ -48,7 +50,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return ceilf((_assets.count - 1) / CELL_COLS) + 1;
+    return _assets == nil ? 0 : ceilf((_assets.count - 1) / CELL_COLS) + 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
