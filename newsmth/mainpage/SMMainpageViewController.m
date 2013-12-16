@@ -60,6 +60,13 @@ static SMMainpageViewController *_instance;
     self.searchDisplayController.searchResultsDelegate = _boardSearchDelegateImpl;
 }
 
+- (void)setupTheme
+{
+    [super setupTheme];
+    self.searchDisplayController.searchResultsTableView.backgroundColor = [SMTheme colorForBackground];
+    [self.searchDisplayController.searchResultsTableView reloadData];
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];

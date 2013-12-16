@@ -62,6 +62,9 @@
     NSDictionary *board = filters[indexPath.row];
     cell.textLabel.text = board[@"name"];
     cell.detailTextLabel.text = board[@"cnName"];
+    cell.backgroundColor = [SMTheme colorForBackground];
+    cell.textLabel.textColor = [SMTheme colorForPrimary];
+    cell.detailTextLabel.textColor = [SMTheme colorForSecondary];
     return cell;
 }
 
