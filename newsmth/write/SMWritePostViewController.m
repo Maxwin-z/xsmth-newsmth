@@ -24,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewForTitle;
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewForText;
 @property (weak, nonatomic) IBOutlet UIButton *buttonForUploadHint;
+@property (weak, nonatomic) IBOutlet UIButton *buttonForUploadImage;
 
 @property (strong, nonatomic) SMImagePickerViewController *imagePicker;
 @property (strong, nonatomic) SMWebLoaderOperation *writeOp;
@@ -107,6 +108,12 @@
     _attachListOp = [[SMWebLoaderOperation alloc] init];
     _attachListOp.delegate = self;
     [_attachListOp loadUrl:@"http://www.newsmth.net/bbsupload.php" withParser:@"upload"];
+    
+    UIImage *image = [_buttonForUploadImage imageForState:UIControlStateNormal];
+    if ([image respondsToSelector:@selector(imageWithRenderingMode:)]) {
+        image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    }
+    [_buttonForUploadImage setImage:image forState:UIControlStateNormal];
 }
 
 - (void)viewDidAppear:(BOOL)animated
