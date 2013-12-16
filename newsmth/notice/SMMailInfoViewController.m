@@ -18,6 +18,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelForDate;
 @property (weak, nonatomic) IBOutlet UIButton *buttonForAuthor;
 
+@property (strong, nonatomic) SMResult *result;
+
 @property (strong, nonatomic) SMWebLoaderOperation *mailContentOp;
 
 @end
@@ -39,6 +41,17 @@
     [self makeupHeadInfo];
     
     [self loadMailInfo];
+}
+
+- (void)setupTheme
+{
+    [super setupTheme];
+    _viewForInfo.backgroundColor = [SMTheme colorForBackground];
+    _labelForTitle.textColor = [SMTheme colorForPrimary];
+    _labelForDate.textColor = [SMTheme colorForSecondary];
+    [_buttonForAuthor setTitleColor:[SMTheme colorForTintColor] forState:UIControlStateNormal];
+    [self makeupContent];
+    
 }
 
 - (void)onRightBarButtonItemClick
@@ -91,26 +104,63 @@
     _labelForDate.text = [formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:_mail.date / 1000]];
 }
 
-#pragma mark - SMWebLoaderOperationDelegate
-- (void)webLoaderOperationFinished:(SMWebLoaderOperation *)opt
+- (void)makeupContent
 {
-//    XLog_d(@"%@", opt.data);
-    SMResult *result = opt.data;
-    NSString *html = [NSString stringWithFormat:@"<html><body style='margin:0; padding: 10px; font-size: 15px;font-family: Verdana;'>%@</body></html>", result.message];
-    [_webViewForContent loadHTMLString:html baseURL:nil];
+    UIFont *font = [SMConfig postFont];
+    NSString *body = [NSString stringWithFormat:@"<html><body style='margin:0; padding: 10px; font-size: %dpx;font-family: %@;line-height:%dpx;background-color:%@'>%@</body></html>", (int)font.pointSize, font.fontName, (int)(font.lineHeight * 1.2), [self color2hex:[SMTheme colorForBackground]], [self formatContent:_result.message]];
+
+//    NSString *html = [NSString stringWithFormat:@"<html><body style='margin:0; padding: 10px; font-size: 15px;font-family: Verdana;'>%@</body></html>", _result.message];
+    [_webViewForContent loadHTMLString:body baseURL:nil];
     
     UIScrollView *scrollView = _webViewForContent.scrollView;
     UIEdgeInsets inset = scrollView.contentInset;
     inset.top = SM_TOP_INSET + _viewForInfo.frame.size.height;
     scrollView.contentInset = scrollView.scrollIndicatorInsets = inset;
     
-    _mail.content = result.message;
+    _mail.content = _result.message;
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(onRightBarButtonItemClick)];
+
+}
+
+- (NSString *)formatContent:(NSString *)content
+{
+    NSMutableString *html = [[NSMutableString alloc] init];
+    NSArray *lines = [content componentsSeparatedByString:@"\n"];
+    for (int i = 0; i != lines.count; ++i) {
+        NSString *line = lines[i];
+        if (line.length == 0) {  // space line
+            line = @" ";
+        }
+        NSString *color = [self color2hex:[SMTheme colorForPrimary]];
+        if ([line hasPrefix:@":"]) {
+            color = [self color2hex:[SMTheme colorForQuote]];
+        }
+        [html appendFormat:@"<div style='color:%@'>%@</div>", color, line];
+    }
+    return html;
+}
+
+- (NSString *)color2hex:(UIColor *)color
+{
+    CGFloat rf, gf, bf, af;
+    [color getRed:&rf green:&gf blue: &bf alpha: &af];
     
-    if (result.hasNotice) {
-//        XLog_d(@"%@", result.notice);
-        [SMAccountManager instance].notice = result.notice;
+    int r = (int)(255.0 * rf);
+    int g = (int)(255.0 * gf);
+    int b = (int)(255.0 * bf);
+    
+    return [NSString stringWithFormat:@"%02x%02x%02x",r,g,b];
+}
+
+#pragma mark - SMWebLoaderOperationDelegate
+- (void)webLoaderOperationFinished:(SMWebLoaderOperation *)opt
+{
+//    XLog_d(@"%@", opt.data);
+    _result = opt.data;
+    [self makeupContent];
+    if (_result.hasNotice) {
+        [SMAccountManager instance].notice = _result.notice;
     }
 }
 
