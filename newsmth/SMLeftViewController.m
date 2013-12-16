@@ -28,6 +28,7 @@ typedef NS_ENUM(NSInteger, CellType) {
 @interface SMLeftViewController ()<UITableViewDataSource, UITableViewDelegate, SMWebLoaderOperationDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIView *viewForSetting;
+@property (weak, nonatomic) IBOutlet UIButton *buttonForSetting;
 @property (strong, nonatomic) NSArray *cellTypes;
 
 @property (strong, nonatomic) SMWebLoaderOperation *keepLoginOp;
@@ -61,12 +62,20 @@ typedef NS_ENUM(NSInteger, CellType) {
     frame.origin.y = 20.0f;
     _viewForSetting.frame = frame;
     [self.view addSubview:_viewForSetting];
+
+    UIImage *image = [_buttonForSetting imageForState:UIControlStateNormal];
+    if ([image respondsToSelector:@selector(imageWithRenderingMode:)]) {
+        image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    }
+    [_buttonForSetting setImage:image forState:UIControlStateNormal];
 }
 
 - (void)setupTheme
 {
     [super setupTheme];
     [self.tableView reloadData];
+
+    [_buttonForSetting setTitleColor:[SMTheme colorForTintColor] forState:UIControlStateNormal];
 }
 
 - (void)onAccountNotification

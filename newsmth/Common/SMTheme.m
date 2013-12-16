@@ -34,7 +34,7 @@
 
 + (UIColor *)colorForTintColor
 {
-    return [SMConfig enableDayMode] ? SMRGB(0x1c, 0x0, 0xce) : SMRGB(0xe3, 0xff, 0x31);
+    return [SMConfig enableDayMode] ? SMRGB(0x1c, 0x0, 0xce) : SMRGB(0x87, 0x87, 0x87);
 }
 
 

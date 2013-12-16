@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SMLeftViewController">
             <connections>
+                <outlet property="buttonForSetting" destination="3AR-Pa-iSB" id="F93-8O-H0x"/>
                 <outlet property="tableView" destination="7" id="8"/>
                 <outlet property="view" destination="1" id="3"/>
                 <outlet property="viewForSetting" destination="PwY-4T-muU" id="aWt-Qw-A1h"/>
