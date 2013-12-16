@@ -40,7 +40,7 @@
 
 + (UIColor *)colorForBackground
 {
-    return [SMConfig enableDayMode] ? SMRGB(0xf0, 0xf0, 0xf0) : SMRGB(0xf, 0xf, 0xf);
+    return [SMConfig enableDayMode] ? SMRGB(0xfc, 0xfc, 0xfc) : SMRGB(0xf, 0xf, 0xf);
 }
 
 @end
