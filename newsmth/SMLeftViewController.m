@@ -134,10 +134,10 @@ typedef NS_ENUM(NSInteger, CellType) {
     cell.backgroundColor = [SMTheme colorForBackground];
     cell.textLabel.textColor = [SMTheme colorForPrimary];
     
-    UIView *seperator = [[UIView alloc] init];
+    UIImageView *seperator = [[UIImageView alloc] init];
     CGRect frame = cell.contentView.bounds;
     seperator.frame = CGRectMake(0, frame.size.height - 1, frame.size.width, 1);
-    seperator.backgroundColor = [SMTheme colorForSecondary];
+    seperator.image = [[UIImage imageNamed:@"common_divider"] stretchableImageWithLeftCapWidth:1 topCapHeight:1];
     seperator.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
     [cell.contentView addSubview:seperator];
     

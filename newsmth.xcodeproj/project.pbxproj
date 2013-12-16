@@ -193,6 +193,7 @@
 		C1D190D017F7F3E00056F3FE /* XScrollIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = C1D190CE17F7F3E00056F3FE /* XScrollIndicator.m */; };
 		C1D190DA17F9244D0056F3FE /* SMPageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1D190D917F9244D0056F3FE /* SMPageCell.xib */; };
 		C1D190DE17F94CA40056F3FE /* bg_scrollindicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1D190DD17F94CA40056F3FE /* bg_scrollindicator@2x.png */; };
+		C1E3345D185F24D70047582E /* common_divider@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1E3345C185F24D70047582E /* common_divider@2x.png */; };
 		C1E3A22A1780600900994CE6 /* SMUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E3A2281780600900994CE6 /* SMUserViewController.m */; };
 		C1E3A22B1780600900994CE6 /* SMUserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1E3A2291780600900994CE6 /* SMUserViewController.xib */; };
 		C1E6289B1764BAD4007ACF2A /* SMAttach.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E628961764BAD4007ACF2A /* SMAttach.m */; };
@@ -539,6 +540,7 @@
 		C1D190D917F9244D0056F3FE /* SMPageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMPageCell.xib; sourceTree = "<group>"; };
 		C1D190DD17F94CA40056F3FE /* bg_scrollindicator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_scrollindicator@2x.png"; sourceTree = "<group>"; };
 		C1E2AB9A177DB051007AE5AC /* SMData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMData.h; sourceTree = "<group>"; };
+		C1E3345C185F24D70047582E /* common_divider@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "common_divider@2x.png"; sourceTree = "<group>"; };
 		C1E3A2271780600900994CE6 /* SMUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMUserViewController.h; sourceTree = "<group>"; };
 		C1E3A2281780600900994CE6 /* SMUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMUserViewController.m; sourceTree = "<group>"; };
 		C1E3A2291780600900994CE6 /* SMUserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMUserViewController.xib; sourceTree = "<group>"; };
@@ -765,6 +767,7 @@
 		C19FF0B01769A71B00EB6F7E /* images */ = {
 			isa = PBXGroup;
 			children = (
+				C1E3345C185F24D70047582E /* common_divider@2x.png */,
 				C1E7A1A4180A98DD002CAEEC /* badge_notice@2x.png */,
 				C1E7A1A2180A91EB002CAEEC /* bg_barbuttonitem@2x.png */,
 				C1888D0D1807F2C300024B47 /* icon_top@2x.png */,
@@ -1428,6 +1431,7 @@
 				C10098591782A136001608EE /* popup_btn_close_pressed@2x.png in Resources */,
 				C100985A1782A136001608EE /* popup_btn_close_rest@2x.png in Resources */,
 				C100985C1782AF99001608EE /* bg_input_field@2x.png in Resources */,
+				C1E3345D185F24D70047582E /* common_divider@2x.png in Resources */,
 				C14B22FF17FAE75A00CF081A /* icon_setting@2x.png in Resources */,
 				C102B8C41782D4A3000E2EEB /* icon.png in Resources */,
 				C10080D41785984700487A45 /* SMImagePickerViewController.xib in Resources */,
