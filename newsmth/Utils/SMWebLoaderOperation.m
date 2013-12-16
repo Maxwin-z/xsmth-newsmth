@@ -17,6 +17,7 @@
 @property (strong, nonatomic) ASIHTTPRequest *request;
 @property (strong, nonatomic) SMWebParser *webParser;
 
+@property (assign, nonatomic) BOOL isDone;
 @end
 
 @implementation SMWebLoaderOperation
@@ -69,6 +70,12 @@
     
     XLog_d(@"url[%@] start", _url);
     [_request startSynchronous];
+
+    while (!_isDone && !self.isCancelled) {
+        @autoreleasepool {
+            CFRunLoopRunInMode(kCFRunLoopDefaultMode, 1.0e10, true);
+        }
+	}
 }
 
 #pragma mark - ASIHTTPRequestDelegate
@@ -102,6 +109,7 @@
     
     SMMessage *error = [[SMMessage alloc] initWithCode:SMNetworkErrorCodeRequestFail message:@"网络请求超时"];
     [_delegate webLoaderOperationFail:self error:error];
+    _isDone = YES;
 }
 
 #pragma mark - SMWebParserDelegate
@@ -128,6 +136,7 @@
         SMMessage *error = [[SMMessage alloc] initWithCode:code message:[json objectForKey:@"message"]];
         [_delegate webLoaderOperationFail:self error:error];
     }
+    _isDone = YES;
 }
 
 #pragma mark - debug
