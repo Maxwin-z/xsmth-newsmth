@@ -58,7 +58,9 @@
 
 - (void)setupTheme
 {
+    [super setupTheme];
     _labelForRegHint.textColor = [SMTheme colorForSecondary];
+    _textFieldForPassword.keyboardAppearance = _textFieldForUsername.keyboardAppearance = [SMConfig enableDayMode] ? UIKeyboardAppearanceLight : UIKeyboardAppearanceDark;
 }
 
 - (void)dealloc

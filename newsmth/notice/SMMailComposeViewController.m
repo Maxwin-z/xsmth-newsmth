@@ -99,6 +99,12 @@
     }
 }
 
+-(void)setupTheme
+{
+    [super setupTheme];
+    _textFieldForTitle.keyboardAppearance = _textViewForContent.keyboardAppearance = _textFieldForReciver.keyboardAppearance = [SMConfig enableDayMode] ? UIKeyboardAppearanceLight : UIKeyboardAppearanceDark;
+
+}
 
 - (void)cancel
 {
