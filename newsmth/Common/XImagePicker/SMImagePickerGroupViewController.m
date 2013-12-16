@@ -23,7 +23,8 @@
 {
     [super viewDidLoad];    
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
-    _tableView.contentInset = UIEdgeInsetsMake(SM_TOP_INSET, 0, 0, 0);
+    _tableView.contentInset = _tableView.scrollIndicatorInsets = UIEdgeInsetsMake(SM_TOP_INSET, 0, 0, 0);
+    _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
