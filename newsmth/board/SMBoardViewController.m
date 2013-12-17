@@ -364,6 +364,7 @@
 - (void)boardViewTypeSelectorOnSearchButtonClick:(SMBoardViewTypeSelectorView *)v
 {
     SMBoardSearchViewController *svc = [[SMBoardSearchViewController alloc] initWithStyle:UITableViewStylePlain];
+    svc.board = _board;
     [self.navigationController pushViewController:svc animated:YES];
 }
 

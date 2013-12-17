@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface SMBoardSearchViewController : UITableViewController
-
+@property (strong, nonatomic) SMBoard *board;
 @end

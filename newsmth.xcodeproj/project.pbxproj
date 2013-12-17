@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		39C260051860A0E400AEFE0E /* SMBoardSearchResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 39C260031860A0E400AEFE0E /* SMBoardSearchResultViewController.m */; };
+		39C260061860A0E400AEFE0E /* SMBoardSearchResultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 39C260041860A0E400AEFE0E /* SMBoardSearchResultViewController.xib */; };
+		39C260081860A8DF00AEFE0E /* bbsbfind.js in Resources */ = {isa = PBXBuildFile; fileRef = 39C260071860A8DF00AEFE0E /* bbsbfind.js */; };
 		C10080D31785984700487A45 /* SMImagePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C10080D11785984700487A45 /* SMImagePickerViewController.m */; };
 		C10080D41785984700487A45 /* SMImagePickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C10080D21785984700487A45 /* SMImagePickerViewController.xib */; };
 		C10080D6178598D900487A45 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C10080D5178598D900487A45 /* AssetsLibrary.framework */; };
@@ -245,6 +248,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		39C260021860A0E400AEFE0E /* SMBoardSearchResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMBoardSearchResultViewController.h; sourceTree = "<group>"; };
+		39C260031860A0E400AEFE0E /* SMBoardSearchResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMBoardSearchResultViewController.m; sourceTree = "<group>"; };
+		39C260041860A0E400AEFE0E /* SMBoardSearchResultViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMBoardSearchResultViewController.xib; sourceTree = "<group>"; };
+		39C260071860A8DF00AEFE0E /* bbsbfind.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = bbsbfind.js; sourceTree = "<group>"; };
 		C10080D01785984700487A45 /* SMImagePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMImagePickerViewController.h; sourceTree = "<group>"; };
 		C10080D11785984700487A45 /* SMImagePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMImagePickerViewController.m; sourceTree = "<group>"; };
 		C10080D21785984700487A45 /* SMImagePickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMImagePickerViewController.xib; sourceTree = "<group>"; };
@@ -705,6 +712,7 @@
 		C121F2991750EE790081FD87 /* jsParser */ = {
 			isa = PBXGroup;
 			children = (
+				39C260071860A8DF00AEFE0E /* bbsbfind.js */,
 				C1E7A1A6180AA8C7002CAEEC /* util_notice.js */,
 				C14B22FB17FAD3E100CF081A /* mailsend.js */,
 				C147EC4917EAEE7B00530E86 /* refer_me.js */,
@@ -830,6 +838,9 @@
 				C1FCFAC91860871500759793 /* SMBoardSearchViewController.h */,
 				C1FCFACA1860871500759793 /* SMBoardSearchViewController.m */,
 				C1FCFACB1860871500759793 /* SMBoardSearchViewController.xib */,
+				39C260021860A0E400AEFE0E /* SMBoardSearchResultViewController.h */,
+				39C260031860A0E400AEFE0E /* SMBoardSearchResultViewController.m */,
+				39C260041860A0E400AEFE0E /* SMBoardSearchResultViewController.xib */,
 			);
 			path = board;
 			sourceTree = "<group>";
@@ -1371,6 +1382,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				39C260081860A8DF00AEFE0E /* bbsbfind.js in Resources */,
 				C1E7A1A7180AA8C7002CAEEC /* util_notice.js in Resources */,
 				C1E7A1A3180A91EB002CAEEC /* bg_barbuttonitem@2x.png in Resources */,
 				C14B22FD17FAD3FB00CF081A /* mailsend.js in Resources */,
@@ -1446,6 +1458,7 @@
 				C100985217828310001608EE /* SMPostFailCell.xib in Resources */,
 				C10098581782A136001608EE /* popup_bkg_left@2x.png in Resources */,
 				C10098591782A136001608EE /* popup_btn_close_pressed@2x.png in Resources */,
+				39C260061860A0E400AEFE0E /* SMBoardSearchResultViewController.xib in Resources */,
 				C100985A1782A136001608EE /* popup_btn_close_rest@2x.png in Resources */,
 				C100985C1782AF99001608EE /* bg_input_field@2x.png in Resources */,
 				C1E3345D185F24D70047582E /* common_divider@2x.png in Resources */,
@@ -1563,6 +1576,7 @@
 				C1E3A22A1780600900994CE6 /* SMUserViewController.m in Sources */,
 				C14B22F917FAC65700CF081A /* SMMailComposeViewController.m in Sources */,
 				C1FD13C217817AAA006A6061 /* SMUser.m in Sources */,
+				39C260051860A0E400AEFE0E /* SMBoardSearchResultViewController.m in Sources */,
 				C1C4C8811781B4FF0092E77C /* SMBaseBorardListViewController.m in Sources */,
 				C1CE10C018122D7B00B04E15 /* SMParserItem.m in Sources */,
 				C1C4C8851781B6C00092E77C /* SMBoardList.m in Sources */,

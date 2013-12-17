@@ -18,6 +18,8 @@ typedef enum {
 
 #import "SMBoardSearchViewController.h"
 
+#import "SMBoardSearchResultViewController.h"
+
 @interface SMBoardSearchViewController ()<UITextFieldDelegate>
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForBoardName;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldForBoardName;
@@ -61,6 +63,10 @@ typedef enum {
 {
     [super viewDidLoad];
     
+    self.title = @"版面搜索";
+    
+    _textFieldForBoardName.text = _board.name;
+    
     _cells = @[
                @(CellTypeBoardName),
                @(CellTypePostTitle),
@@ -79,8 +85,28 @@ typedef enum {
     }];
     
     self.automaticallyAdjustsScrollViewInsets = NO;
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"搜索" style:UIBarButtonItemStylePlain target:self action:@selector(doSearch)];
 }
 
+
+- (void)doSearch
+{
+    NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbsbfind.php?q=1&board=%@&title=%@&title2=%@&title3=%@&userid=%@&dt=%@&ag=%@&og=%@",
+                     [SMUtils encodeurl:_textFieldForBoardName.text],
+                     [SMUtils encodeurl:_textFieldForPostTitle1.text],
+                     [SMUtils encodeurl:_textFieldForPostTitle2.text],
+                     [SMUtils encodeurl:_textFieldForPostTitleEx.text],
+                     [SMUtils encodeurl:_textForAuthor.text],
+                     [SMUtils encodeurl:_textFieldForDate.text],
+                     _switchForHasAttach.on ? @"on" : @"",
+                     _switchForHasReply.on ? @"on" : @""
+                     ];
+    SMBoardSearchResultViewController *rvc = [SMBoardSearchResultViewController new];
+    rvc.url = url;
+    rvc.board = _board;
+    [self.navigationController pushViewController:rvc animated:YES];
+}
 
 #pragma mark - Table view data source
 
@@ -157,7 +183,7 @@ typedef enum {
         [_textFieldForDate becomeFirstResponder];
     }
     if (textField == _textFieldForDate) {
-        // do search
+        [self doSearch];
     }
     
     return YES;
