@@ -12,6 +12,9 @@
 @property (strong, nonatomic) IBOutlet UIView *rootView;
 @property (weak, nonatomic) IBOutlet UITableView *tableViewForViewType;
 
+@property (weak, nonatomic) IBOutlet UIButton *buttonForFavor;
+@property (weak, nonatomic) IBOutlet UIButton *buttonForSearch;
+
 @property (strong, nonatomic) NSArray *cells;
 @end
 
@@ -38,6 +41,9 @@
     self.frame = frame;
     
     [self addSubview:_rootView];
+    
+    [SMUtils setIOS7ButtonStyle:_buttonForFavor];
+    [SMUtils setIOS7ButtonStyle:_buttonForSearch];
 }
 
 - (void)setViewType:(SMBoardViewType)viewType
@@ -75,6 +81,16 @@
     SMBoardViewType viewType = [_cells[indexPath.row] integerValue];
     self.viewType = viewType;
     [self sendActionsForControlEvents:UIControlEventValueChanged];
+}
+
+- (IBAction)onFavorButtonClick:(id)sender
+{
+    [_delegate boardViewTypeSelectorOnFavorButtonClick:self];
+}
+
+- (IBAction)onSearchButtonClick:(id)sender
+{
+    [_delegate boardViewTypeSelectorOnSearchButtonClick:self];
 }
 
 @end

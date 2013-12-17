@@ -142,6 +142,15 @@
     return filepath;
 }
 
++ (void)setIOS7ButtonStyle:(UIButton *)button
+{
+    UIImage *image = [button imageForState:UIControlStateNormal];
+    if ([image respondsToSelector:@selector(imageWithRenderingMode:)]) {
+        image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    }
+    [button setImage:image forState:UIControlStateNormal];
+}
+
 @end
 
 

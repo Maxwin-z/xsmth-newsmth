@@ -34,6 +34,8 @@
 + (NSData *)readDataFromDocumentFolder:(NSString *)path;
 + (BOOL)fileExistsInDocumentFolder:(NSString *)path;
 
++ (void)setIOS7ButtonStyle:(UIButton *)button;
+
 @end
 
 @interface NSString (SMUtils)

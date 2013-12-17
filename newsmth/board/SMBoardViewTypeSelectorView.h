@@ -14,6 +14,14 @@ typedef enum {
     SMBoardViewTypeNormal
 }SMBoardViewType;
 
+@class SMBoardViewTypeSelectorView;
+@protocol SMBoardViewTypeSelectorViewDelegate <NSObject>
+- (void)boardViewTypeSelectorOnFavorButtonClick:(SMBoardViewTypeSelectorView *)v;
+- (void)boardViewTypeSelectorOnSearchButtonClick:(SMBoardViewTypeSelectorView *)v;
+@end
+
 @interface SMBoardViewTypeSelectorView : UIControl
 @property (assign, nonatomic) SMBoardViewType viewType;
+@property (assign, nonatomic) BOOL isFavor;
+@property (weak, nonatomic) id<SMBoardViewTypeSelectorViewDelegate> delegate;
 @end
