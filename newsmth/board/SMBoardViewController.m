@@ -14,7 +14,7 @@
 #import "SMUserViewController.h"
 #import "SMBoardViewTypeSelectorView.h"
 
-@interface SMBoardViewController ()<UITableViewDelegate, UITableViewDataSource, XPullRefreshTableViewDelegate, SMWebLoaderOperationDelegate, SMBoardCellDelegate>
+@interface SMBoardViewController ()<UITableViewDelegate, UITableViewDataSource, XPullRefreshTableViewDelegate, SMWebLoaderOperationDelegate, SMBoardCellDelegate, SMBoardViewTypeSelectorViewDelegate>
 @property (weak, nonatomic) IBOutlet XPullRefreshTableView *tableView;
 
 @property (strong, nonatomic) UIButton *buttonForTitleView;
@@ -72,6 +72,7 @@
 - (void)makeupViewTypeSelector
 {
     _viewTypeSelector = [SMBoardViewTypeSelectorView new];
+    _viewTypeSelector.delegate = self;
     CGRect frame = _viewTypeSelector.frame;
     frame.origin.x = (self.view.bounds.size.width - frame.size.width) / 2;
     frame.origin.y = - frame.size.height;
@@ -351,6 +352,17 @@
     SMUserViewController *vc = [[SMUserViewController alloc] init];
     vc.username = username;
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+#pragma mark - SMBoardViewTypeSelectorViewDelegate
+- (void)boardViewTypeSelectorOnFavorButtonClick:(SMBoardViewTypeSelectorView *)v
+{
+    
+}
+
+- (void)boardViewTypeSelectorOnSearchButtonClick:(SMBoardViewTypeSelectorView *)v
+{
+    
 }
 
 @end
