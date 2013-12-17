@@ -6,8 +6,8 @@
 //  Copyright (c) 2013年 nju. All rights reserved.
 //
 
-#import "SMViewController.h"
+#import <UIKit/UIKit.h>
 
-@interface SMBoardSearchViewController : SMViewController
+@interface SMBoardSearchViewController : UITableViewController
 
 @end

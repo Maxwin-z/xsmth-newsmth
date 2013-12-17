@@ -215,8 +215,8 @@
 		C1FCFAC11860782600759793 /* icon_search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1FCFABE1860782600759793 /* icon_search@2x.png */; };
 		C1FCFAC21860782600759793 /* icon_favor_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1FCFABF1860782600759793 /* icon_favor_on@2x.png */; };
 		C1FCFAC31860782600759793 /* icon_favor_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1FCFAC01860782600759793 /* icon_favor_off@2x.png */; };
-		C1FCFAC718607E6900759793 /* SMBoardSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FCFAC518607E6900759793 /* SMBoardSearchViewController.m */; };
-		C1FCFAC818607E6900759793 /* SMBoardSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1FCFAC618607E6900759793 /* SMBoardSearchViewController.xib */; };
+		C1FCFACC1860871500759793 /* SMBoardSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FCFACA1860871500759793 /* SMBoardSearchViewController.m */; };
+		C1FCFACD1860871500759793 /* SMBoardSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1FCFACB1860871500759793 /* SMBoardSearchViewController.xib */; };
 		C1FD13B517813A3A006A6061 /* background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1FD13B417813A3A006A6061 /* background@2x.png */; };
 		C1FD13B717814E06006A6061 /* bg_photo_border@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1FD13B617814E06006A6061 /* bg_photo_border@2x.png */; };
 		C1FD13B917815A21006A6061 /* bbsqry.js in Resources */ = {isa = PBXBuildFile; fileRef = C1FD13B817815A21006A6061 /* bbsqry.js */; };
@@ -576,9 +576,9 @@
 		C1FCFABE1860782600759793 /* icon_search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_search@2x.png"; sourceTree = "<group>"; };
 		C1FCFABF1860782600759793 /* icon_favor_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_favor_on@2x.png"; sourceTree = "<group>"; };
 		C1FCFAC01860782600759793 /* icon_favor_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_favor_off@2x.png"; sourceTree = "<group>"; };
-		C1FCFAC418607E6900759793 /* SMBoardSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMBoardSearchViewController.h; sourceTree = "<group>"; };
-		C1FCFAC518607E6900759793 /* SMBoardSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMBoardSearchViewController.m; sourceTree = "<group>"; };
-		C1FCFAC618607E6900759793 /* SMBoardSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMBoardSearchViewController.xib; sourceTree = "<group>"; };
+		C1FCFAC91860871500759793 /* SMBoardSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMBoardSearchViewController.h; sourceTree = "<group>"; };
+		C1FCFACA1860871500759793 /* SMBoardSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMBoardSearchViewController.m; sourceTree = "<group>"; };
+		C1FCFACB1860871500759793 /* SMBoardSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMBoardSearchViewController.xib; sourceTree = "<group>"; };
 		C1FD13B417813A3A006A6061 /* background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background@2x.png"; sourceTree = "<group>"; };
 		C1FD13B617814E06006A6061 /* bg_photo_border@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_photo_border@2x.png"; sourceTree = "<group>"; };
 		C1FD13B817815A21006A6061 /* bbsqry.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = bbsqry.js; sourceTree = "<group>"; };
@@ -827,9 +827,9 @@
 				C124CAF1185D962300B9CEA3 /* SMBoardViewTypeSelectorView.h */,
 				C124CAF2185D962300B9CEA3 /* SMBoardViewTypeSelectorView.m */,
 				C124CAEF185D951700B9CEA3 /* SMBoardViewTypeSelectorView.xib */,
-				C1FCFAC418607E6900759793 /* SMBoardSearchViewController.h */,
-				C1FCFAC518607E6900759793 /* SMBoardSearchViewController.m */,
-				C1FCFAC618607E6900759793 /* SMBoardSearchViewController.xib */,
+				C1FCFAC91860871500759793 /* SMBoardSearchViewController.h */,
+				C1FCFACA1860871500759793 /* SMBoardSearchViewController.m */,
+				C1FCFACB1860871500759793 /* SMBoardSearchViewController.xib */,
 			);
 			path = board;
 			sourceTree = "<group>";
@@ -1376,6 +1376,7 @@
 				C14B22FD17FAD3FB00CF081A /* mailsend.js in Resources */,
 				C14B230A17FBB0E500CF081A /* SMSettingViewController.xib in Resources */,
 				C1D190DE17F94CA40056F3FE /* bg_scrollindicator@2x.png in Resources */,
+				C1FCFACD1860871500759793 /* SMBoardSearchViewController.xib in Resources */,
 				C147EC4B17EAEEBD00530E86 /* refer_me.js in Resources */,
 				C10F2F8917E59E5A00F83206 /* mailcontent.js in Resources */,
 				C10F2F7B17E5808D00F83206 /* mail.js in Resources */,
@@ -1413,7 +1414,6 @@
 				C11581621768285C008A421A /* SMLeftViewController.xib in Resources */,
 				C115816E17685606008A421A /* SMLoginViewController.xib in Resources */,
 				C19FF0B21769A71C00EB6F7E /* popup_bg@2x.png in Resources */,
-				C1FCFAC818607E6900759793 /* SMBoardSearchViewController.xib in Resources */,
 				C19FF0B41769A7A800EB6F7E /* SMViewControllerPopover.xib in Resources */,
 				C14B230117FB0E9500CF081A /* icon_menu@2x.png in Resources */,
 				C19FF0C31769CEC700EB6F7E /* SMBoardViewController.xib in Resources */,
@@ -1578,7 +1578,7 @@
 				C1A182D2178AB1260080EEDB /* SMImageUploader.m in Sources */,
 				C124CAEE185D8BC500B9CEA3 /* SMTheme.m in Sources */,
 				C1A182D5178ABB290080EEDB /* SMResult.m in Sources */,
-				C1FCFAC718607E6900759793 /* SMBoardSearchViewController.m in Sources */,
+				C1FCFACC1860871500759793 /* SMBoardSearchViewController.m in Sources */,
 				C17F4B83178C0A21002F4934 /* SMImageUploadListViewController.m in Sources */,
 				C17F4B89178C11CA002F4934 /* SMUpload.m in Sources */,
 				C17F4B8A178C11CA002F4934 /* SMUploadItem.m in Sources */,

@@ -13,6 +13,7 @@
 #import "SMWritePostViewController.h"
 #import "SMUserViewController.h"
 #import "SMBoardViewTypeSelectorView.h"
+#import "SMBoardSearchViewController.h"
 
 @interface SMBoardViewController ()<UITableViewDelegate, UITableViewDataSource, XPullRefreshTableViewDelegate, SMWebLoaderOperationDelegate, SMBoardCellDelegate, SMBoardViewTypeSelectorViewDelegate>
 @property (weak, nonatomic) IBOutlet XPullRefreshTableView *tableView;
@@ -362,7 +363,8 @@
 
 - (void)boardViewTypeSelectorOnSearchButtonClick:(SMBoardViewTypeSelectorView *)v
 {
-    
+    SMBoardSearchViewController *svc = [[SMBoardSearchViewController alloc] initWithStyle:UITableViewStylePlain];
+    [self.navigationController pushViewController:svc animated:YES];
 }
 
 @end

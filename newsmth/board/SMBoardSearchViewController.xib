@@ -7,27 +7,213 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SMBoardSearchViewController">
             <connections>
-                <outlet property="view" destination="1" id="3"/>
+                <outlet property="cellForAuthor" destination="o1z-fW-DAx" id="ddI-Mk-mif"/>
+                <outlet property="cellForBoardName" destination="VDW-hR-uk2" id="WaS-uM-kNn"/>
+                <outlet property="cellForDate" destination="BuN-qG-IRi" id="lmT-CO-hFh"/>
+                <outlet property="cellForHasAttach" destination="pUf-B2-dpW" id="IOR-Rp-fMb"/>
+                <outlet property="cellForHasReply" destination="yyB-Be-SgQ" id="eTo-dw-Aj3"/>
+                <outlet property="cellForPostTitle" destination="JBO-AU-Wz1" id="FUA-jB-4tV"/>
+                <outlet property="cellForPostTitleEx" destination="WsK-a5-tEO" id="i2r-9e-kru"/>
+                <outlet property="switchForHasAttach" destination="otd-dh-vWp" id="xjZ-yV-RXS"/>
+                <outlet property="switchForHasReply" destination="Rfc-MP-yCP" id="ERC-ze-u3o"/>
+                <outlet property="textFieldForBoardName" destination="Woz-MJ-fow" id="5ff-tC-C8u"/>
+                <outlet property="textFieldForDate" destination="d8Y-DA-MKQ" id="mT3-D7-sbb"/>
+                <outlet property="textFieldForPostTitle1" destination="x7j-a0-O6M" id="Hfn-at-25i"/>
+                <outlet property="textFieldForPostTitle2" destination="jFl-cq-adf" id="A4m-St-ohG"/>
+                <outlet property="textFieldForPostTitleEx" destination="vXE-CV-NN8" id="Qua-7f-zeP"/>
+                <outlet property="textForAuthor" destination="7Fv-Mw-jij" id="CfW-Tj-MIz"/>
+                <outlet property="view" destination="4" id="5"/>
+                <outletCollection property="textFields" destination="d8Y-DA-MKQ" id="Baf-yl-nPM"/>
+                <outletCollection property="textFields" destination="Woz-MJ-fow" id="qu6-LB-rAL"/>
+                <outletCollection property="textFields" destination="x7j-a0-O6M" id="Sg0-Ku-WJC"/>
+                <outletCollection property="textFields" destination="jFl-cq-adf" id="tC9-rt-W7X"/>
+                <outletCollection property="textFields" destination="vXE-CV-NN8" id="bHJ-1w-7Cv"/>
+                <outletCollection property="textFields" destination="7Fv-Mw-jij" id="PW3-9j-XN5"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="1">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+        <tableView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" bouncesZoom="NO" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="4">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <subviews>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LEu-89-Js4">
-                    <rect key="frame" x="0.0" y="240" width="320" height="240"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" red="0.56078431370000004" green="0.74509803919999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-            </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
-            <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
-        </view>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+            <inset key="contentInset" minX="0.0" minY="64" maxX="0.0" maxY="0.0"/>
+            <inset key="scrollIndicatorInsets" minX="0.0" minY="64" maxX="0.0" maxY="0.0"/>
+            <connections>
+                <outlet property="dataSource" destination="-1" id="6"/>
+                <outlet property="delegate" destination="-1" id="7"/>
+            </connections>
+        </tableView>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="O1w-y5-aGn" style="IBUITableViewCellStyleDefault" id="VDW-hR-uk2" userLabel="版面名称">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VDW-hR-uk2" id="GbW-pq-MaZ">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="版面名称" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="O1w-y5-aGn">
+                        <rect key="frame" x="15" y="0.0" width="290" height="43"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" background="bg_input_field.png" id="Woz-MJ-fow">
+                        <rect key="frame" x="100" y="7" width="205" height="30"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits" keyboardType="alphabet" returnKeyType="next"/>
+                    </textField>
+                </subviews>
+            </tableViewCellContentView>
+        </tableViewCell>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="1XI-Df-Bz6" rowHeight="90" style="IBUITableViewCellStyleDefault" id="JBO-AU-Wz1" userLabel="标题含有">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="90"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JBO-AU-Wz1" id="lJn-1B-jSG">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="89"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1XI-Df-Bz6">
+                        <rect key="frame" x="15" y="0.0" width="290" height="89"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <string key="text">标题含有
+
+　　AND</string>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" background="bg_input_field.png" id="x7j-a0-O6M">
+                        <rect key="frame" x="100" y="10" width="205" height="30"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                    </textField>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" background="bg_input_field.png" id="jFl-cq-adf">
+                        <rect key="frame" x="100" y="50" width="205" height="30"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                    </textField>
+                </subviews>
+            </tableViewCellContentView>
+        </tableViewCell>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="pWy-4V-LPT" style="IBUITableViewCellStyleDefault" id="WsK-a5-tEO" userLabel="标题不含">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WsK-a5-tEO" id="5rG-aW-4kt">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="标题不含" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pWy-4V-LPT">
+                        <rect key="frame" x="15" y="0.0" width="290" height="43"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" background="bg_input_field.png" id="vXE-CV-NN8">
+                        <rect key="frame" x="100" y="7" width="205" height="30"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                    </textField>
+                </subviews>
+            </tableViewCellContentView>
+        </tableViewCell>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="fUt-FD-ijF" style="IBUITableViewCellStyleDefault" id="o1z-fW-DAx" userLabel="作者帐号">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="o1z-fW-DAx" id="CMo-bK-YKU">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="作者帐号" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fUt-FD-ijF">
+                        <rect key="frame" x="15" y="0.0" width="290" height="43"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" background="bg_input_field.png" id="7Fv-Mw-jij">
+                        <rect key="frame" x="100" y="7" width="205" height="30"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits" keyboardType="alphabet" returnKeyType="next"/>
+                    </textField>
+                </subviews>
+            </tableViewCellContentView>
+        </tableViewCell>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="uYT-Y6-fwG" style="IBUITableViewCellStyleDefault" id="BuN-qG-IRi" userLabel="时间范围">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BuN-qG-IRi" id="NiH-wH-n3o">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="时间范围" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="uYT-Y6-fwG">
+                        <rect key="frame" x="15" y="0.0" width="290" height="43"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="多少日内" minimumFontSize="17" background="bg_input_field.png" id="d8Y-DA-MKQ">
+                        <rect key="frame" x="100" y="7" width="205" height="30"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="search"/>
+                    </textField>
+                </subviews>
+            </tableViewCellContentView>
+        </tableViewCell>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="ZMn-J3-Kug" style="IBUITableViewCellStyleDefault" id="pUf-B2-dpW" userLabel="带附件">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pUf-B2-dpW" id="Kne-xU-3VR">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="带附件" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZMn-J3-Kug">
+                        <rect key="frame" x="15" y="0.0" width="290" height="43"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="otd-dh-vWp">
+                        <rect key="frame" x="254" y="6" width="51" height="31"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                    </switch>
+                </subviews>
+            </tableViewCellContentView>
+        </tableViewCell>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="0xt-uC-6aj" style="IBUITableViewCellStyleDefault" id="yyB-Be-SgQ" userLabel="不含跟贴">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yyB-Be-SgQ" id="dqh-NU-qa1">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="不含跟贴" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0xt-uC-6aj">
+                        <rect key="frame" x="15" y="0.0" width="290" height="43"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="Rfc-MP-yCP">
+                        <rect key="frame" x="254" y="6" width="51" height="31"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                    </switch>
+                </subviews>
+            </tableViewCellContentView>
+        </tableViewCell>
     </objects>
+    <resources>
+        <image name="bg_input_field.png" width="30" height="30"/>
+    </resources>
 </document>
