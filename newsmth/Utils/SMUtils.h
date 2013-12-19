@@ -35,7 +35,7 @@
 + (BOOL)fileExistsInDocumentFolder:(NSString *)path;
 
 + (void)setIOS7ButtonStyle:(UIButton *)button;
-
++ (void)setTextFieldStyle:(UITextField *)textField;
 @end
 
 @interface NSString (SMUtils)

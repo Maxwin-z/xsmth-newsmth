@@ -151,6 +151,19 @@
     [button setImage:image forState:UIControlStateNormal];
 }
 
++ (void)setTextFieldStyle:(UITextField *)textField
+{
+    UIView *lv = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 5, 1)];
+    textField.leftView = lv;
+    textField.leftViewMode = UITextFieldViewModeAlways;
+    
+    UIView *rv = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 5, 1)];
+    textField.rightView = rv;
+    textField.rightViewMode = UITextFieldViewModeAlways;
+    
+    textField.background = [SMUtils stretchedImage:[UIImage imageNamed:@"bg_input_field"]];
+}
+
 @end
 
 

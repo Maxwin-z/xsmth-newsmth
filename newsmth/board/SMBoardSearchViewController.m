@@ -55,8 +55,14 @@ typedef enum {
 {
     self = [super initWithStyle:style];
     if (self) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onThemeChangedNotification:) name:NOTIFYCATION_THEME_CHANGED object:nil];
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewDidLoad
@@ -79,16 +85,32 @@ typedef enum {
     
     [_textFields enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         UITextField *textField = obj;
-        textField.background = [SMUtils stretchedImage:textField.background];
-        
+        [SMUtils setTextFieldStyle:textField];
         textField.delegate = self;
     }];
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"搜索" style:UIBarButtonItemStylePlain target:self action:@selector(doSearch)];
+    
+    [self setupTheme];
 }
 
+- (void)onThemeChangedNotification:(NSNotification *)n
+{
+    [self setupTheme];
+}
+
+- (void)setupTheme
+{
+    self.view.backgroundColor = [SMTheme colorForBackground];
+    [self.tableView reloadData];
+    
+    [_textFields enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        UITextField *textField = obj;
+        textField.keyboardAppearance = [SMConfig enableDayMode] ? UIKeyboardAppearanceLight : UIKeyboardAppearanceDark;
+    }];
+}
 
 - (void)doSearch
 {
@@ -156,6 +178,8 @@ typedef enum {
 {
     UITableViewCell *cell = [self cellForType:[_cells[indexPath.row] integerValue]];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.backgroundColor = [SMTheme colorForBackground];
+    cell.textLabel.textColor = [SMTheme colorForPrimary];
     return cell;
 }
 
