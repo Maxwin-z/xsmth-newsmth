@@ -201,7 +201,7 @@
         }
     }
 
-    if ([SMUtils systemVersion] > 7) {
+    if ([SMUtils systemVersion] >= 7) {
         // status bar
         if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
             [self setNeedsStatusBarAppearanceUpdate];

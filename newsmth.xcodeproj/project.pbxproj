@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3968608618631B040012F81D /* icon_board_view_type@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3968608518631B040012F81D /* icon_board_view_type@2x.png */; };
 		39C260051860A0E400AEFE0E /* SMBoardSearchResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 39C260031860A0E400AEFE0E /* SMBoardSearchResultViewController.m */; };
 		39C260061860A0E400AEFE0E /* SMBoardSearchResultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 39C260041860A0E400AEFE0E /* SMBoardSearchResultViewController.xib */; };
 		39C260081860A8DF00AEFE0E /* bbsbfind.js in Resources */ = {isa = PBXBuildFile; fileRef = 39C260071860A8DF00AEFE0E /* bbsbfind.js */; };
@@ -248,6 +249,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3968608518631B040012F81D /* icon_board_view_type@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_board_view_type@2x.png"; sourceTree = "<group>"; };
 		39C260021860A0E400AEFE0E /* SMBoardSearchResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMBoardSearchResultViewController.h; sourceTree = "<group>"; };
 		39C260031860A0E400AEFE0E /* SMBoardSearchResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMBoardSearchResultViewController.m; sourceTree = "<group>"; };
 		39C260041860A0E400AEFE0E /* SMBoardSearchResultViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMBoardSearchResultViewController.xib; sourceTree = "<group>"; };
@@ -784,6 +786,7 @@
 		C19FF0B01769A71B00EB6F7E /* images */ = {
 			isa = PBXGroup;
 			children = (
+				3968608518631B040012F81D /* icon_board_view_type@2x.png */,
 				C1FCFABE1860782600759793 /* icon_search@2x.png */,
 				C1FCFABF1860782600759793 /* icon_favor_on@2x.png */,
 				C1FCFAC01860782600759793 /* icon_favor_off@2x.png */,
@@ -1404,6 +1407,7 @@
 				C19FF0AF1769A4F000EB6F7E /* login.js in Resources */,
 				C1153398175779EF0026A0D5 /* bbstcon.js in Resources */,
 				C10D160E1755FBFE002D6FAD /* mainpage.js in Resources */,
+				3968608618631B040012F81D /* icon_board_view_type@2x.png in Resources */,
 				C12027B61754E08A00EB9E9E /* bbscon.js in Resources */,
 				C1BFB8E7174F6A620092FD2E /* InfoPlist.strings in Resources */,
 				C1BFB8EF174F6A620092FD2E /* Default.png in Resources */,

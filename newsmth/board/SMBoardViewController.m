@@ -118,7 +118,7 @@
         button.titleLabel.minimumFontSize = 12.0f;
     }
 
-    [button setImage:[UIImage imageNamed:@"icon_top"] forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:@"icon_board_view_type"] forState:UIControlStateNormal];
     [button sizeToFit];
 
     self.navigationItem.titleView = button;
@@ -375,6 +375,7 @@
 
 - (void)boardViewTypeSelectorOnSearchButtonClick:(SMBoardViewTypeSelectorView *)v
 {
+    [self hideViewTypeSelector];
     SMBoardSearchViewController *svc = [[SMBoardSearchViewController alloc] initWithStyle:UITableViewStylePlain];
     svc.board = _board;
     [self.navigationController pushViewController:svc animated:YES];
