@@ -72,9 +72,10 @@
     [_request startSynchronous];
 
     // 15s自动超时
-    [self performSelector:@selector(setOperationTimeout) withObject:nil afterDelay:15];
+//    [self performSelector:@selector(setOperationTimeout) withObject:nil afterDelay:15];
     
-    while (!_isDone && !self.isCancelled) {
+    NSTimeInterval startTime = [NSDate timeIntervalSinceReferenceDate];
+    while (!_isDone && !self.isCancelled && [NSDate timeIntervalSinceReferenceDate] - startTime < 15) {
         @autoreleasepool {
             CFRunLoopRunInMode(kCFRunLoopDefaultMode, 1.0e10, true);
         }
