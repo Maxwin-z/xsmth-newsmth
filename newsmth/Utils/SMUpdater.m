@@ -40,8 +40,9 @@
 
 - (void)handleNewVersion
 {
-    if (currentVersion != newVersion.version) {
-        // TODO show new app version update info
+    if (newVersion.version) {
+        NSString *newVersionUrl = [NSString stringWithFormat:API_PREFIX @"latestversion"];
+        SMHttpRequest *req = [[SMHttpRequest alloc] initWithURL:newVersionUrl];
     }
     if (currentParser != newVersion.parser) {
         // download parses
@@ -93,6 +94,8 @@
             }
         }
     }];
+    
+    [[NSUserDefaults standardUserDefaults] setInteger:newVersion.parser forKey:USERDEFAULTS_UPDATE_PARSER];
 }
 
 - (void)saveJS:(NSString *)js toFile:(NSString *)filename
