@@ -44,6 +44,7 @@
     
     [SMUtils setIOS7ButtonStyle:_buttonForFavor];
     [SMUtils setIOS7ButtonStyle:_buttonForSearch];
+    [self setupTheme];
 }
 
 - (void)setViewType:(SMBoardViewType)viewType
