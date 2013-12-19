@@ -24,4 +24,6 @@ typedef enum {
 @property (assign, nonatomic) SMBoardViewType viewType;
 @property (assign, nonatomic) BOOL isFavor;
 @property (weak, nonatomic) id<SMBoardViewTypeSelectorViewDelegate> delegate;
+
+- (void)setupTheme;
 @end

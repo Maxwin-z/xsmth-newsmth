@@ -52,6 +52,12 @@
     [self.tableViewForViewType reloadData];
 }
 
+- (void)setupTheme
+{
+    self.rootView.backgroundColor = [SMTheme colorForBackground];
+    [self.tableViewForViewType reloadData];
+}
+
 #pragma mark - UITableView
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -72,6 +78,8 @@
     }
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
     cell.textLabel.text = text;
+    cell.textLabel.textColor = [SMTheme colorForPrimary];
+    cell.backgroundColor = [SMTheme colorForBackground];
     cell.accessoryType = viewType == _viewType ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
     return cell;
 }

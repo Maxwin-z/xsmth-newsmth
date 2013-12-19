@@ -68,6 +68,7 @@
 {
     [super setupTheme];
     [_buttonForTitleView setTitleColor:[SMTheme colorForPrimary] forState:UIControlStateNormal];
+    [_viewTypeSelector setupTheme];
 }
 
 - (void)makeupViewTypeSelector
