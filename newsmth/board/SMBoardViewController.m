@@ -358,7 +358,9 @@
 #pragma mark - SMBoardViewTypeSelectorViewDelegate
 - (void)boardViewTypeSelectorOnFavorButtonClick:(SMBoardViewTypeSelectorView *)v
 {
-    
+    SMWebLoaderOperation *favorOp = [SMWebLoaderOperation new];
+    NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbsfav.php?bname=%@&select=0", _board.name];
+    [favorOp loadUrl:url withParser:nil];
 }
 
 - (void)boardViewTypeSelectorOnSearchButtonClick:(SMBoardViewTypeSelectorView *)v
