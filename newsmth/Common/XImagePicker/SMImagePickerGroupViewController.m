@@ -38,7 +38,8 @@
             [_tableView reloadData];
         }
     } failureBlock:^(NSError *error) {
-        [self toast:[NSString stringWithFormat:@"%@", error]];
+        [self toast:[NSString stringWithFormat:@"%@", error.userInfo]];
+        [[[UIAlertView alloc] initWithTitle:@"提示" message:@"xsmth访问相册，请到系统“设置 - 隐私 - 照片”中设置。" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil] show];
     }];
     
     [_tableView reloadData];

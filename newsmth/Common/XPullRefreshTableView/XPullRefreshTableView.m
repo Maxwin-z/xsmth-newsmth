@@ -91,6 +91,12 @@
     if ([_activityIndicatorForRefresh respondsToSelector:@selector(setTintColor:)]) {
         _activityIndicatorForRefresh.tintColor = [SMTheme colorForTintColor];
     }
+    if ([_imageViewForArrow.image respondsToSelector:@selector(imageWithRenderingMode:)]) {
+        _imageViewForArrow.image = [_imageViewForArrow.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    }
+    if ([_imageViewForArrow respondsToSelector:@selector(setTintColor:)]) {
+        [_imageViewForArrow setTintColor:[SMTheme colorForTintColor]];
+    }
 }
 
 - (void)setDelegate:(id<UITableViewDelegate>)delegate
