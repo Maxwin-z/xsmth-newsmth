@@ -42,6 +42,7 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UISwitch *switchForHasReply;
 
 @property (strong, nonatomic) IBOutletCollection(UITextField) NSArray *textFields;
+@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labels;
 
 
 @property (strong, nonatomic) NSArray *cells;
@@ -87,11 +88,20 @@ typedef enum {
         textField.delegate = self;
     }];
     
-    self.automaticallyAdjustsScrollViewInsets = NO;
+    if ([self respondsToSelector:@selector(setAutomaticallyAdjustsScrollViewInsets:)]) {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
+    self.wantsFullScreenLayout = YES;
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"搜索" style:UIBarButtonItemStylePlain target:self action:@selector(doSearch)];
     
     [self setupTheme];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.tableView.contentInset = self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(SM_TOP_INSET, 0, 0, 0);
 }
 
 - (void)onThemeChangedNotification:(NSNotification *)n
@@ -108,12 +118,18 @@ typedef enum {
         UITextField *textField = obj;
         textField.keyboardAppearance = [SMConfig enableDayMode] ? UIKeyboardAppearanceLight : UIKeyboardAppearanceDark;
     }];
+    
+    [_labels enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        UILabel *lbl = obj;
+        lbl.textColor = [SMTheme colorForPrimary];
+    }];
 }
 
 - (NSString *)encodeGBKUrl:(NSString *)text
 {
     NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding (kCFStringEncodingGB_18030_2000);
-    return [text stringByAddingPercentEscapesUsingEncoding:enc];
+    NSString *res = [text stringByAddingPercentEscapesUsingEncoding:enc];
+    return res == nil ? @"" : res;
 }
 
 - (void)doSearch
@@ -192,6 +208,9 @@ typedef enum {
     if (textField == _textFieldForBoardName) {
         [_textFieldForPostTitle1 becomeFirstResponder];
     }
+    if (textField == _textFieldForDate) {
+        [_textFieldForPostTitle1 becomeFirstResponder];
+    }
     if (textField == _textFieldForPostTitle1) {
         [_textFieldForPostTitle2 becomeFirstResponder];
     }
@@ -202,9 +221,6 @@ typedef enum {
         [_textForAuthor becomeFirstResponder];
     }
     if (textField == _textForAuthor) {
-        [_textFieldForDate becomeFirstResponder];
-    }
-    if (textField == _textFieldForDate) {
         [self doSearch];
     }
     

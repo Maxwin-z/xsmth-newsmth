@@ -97,10 +97,10 @@
 
     NSMutableString *result = [[NSMutableString alloc] init];
     for (size_t i = 0; i != data.length; ++i) {
-        char ch1[1], ch2[2];
+        unsigned char ch1[1], ch2[2];
         [data getBytes:ch1 range:NSMakeRange(i, 1)];
         if ((int)ch1[0] < 0x7f) {
-            [result appendString:[[NSString alloc] initWithBytes:ch1 length:1 encoding:NSUTF8StringEncoding]];
+            [result appendString:[[NSString alloc] initWithBytes:ch1 length:1 encoding:NSASCIIStringEncoding]];
         } else if (i + 1 < data.length) {
             [data getBytes:ch2 range:NSMakeRange(i, 2)];
             @try {
