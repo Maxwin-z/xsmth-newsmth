@@ -71,11 +71,21 @@
     XLog_d(@"url[%@] start", _url);
     [_request startSynchronous];
 
+    // 15s自动超时
+    [self performSelector:@selector(setOperationTimeout) withObject:nil afterDelay:15];
+    
     while (!_isDone && !self.isCancelled) {
         @autoreleasepool {
             CFRunLoopRunInMode(kCFRunLoopDefaultMode, 1.0e10, true);
         }
 	}
+}
+
+- (void)setOperationTimeout
+{
+    _isDone = YES;
+    SMMessage *error = [[SMMessage alloc] initWithCode:SMNetworkErrorCodeRequestFail message:@"网络请求超时"];
+    [_delegate webLoaderOperationFail:self error:error];
 }
 
 #pragma mark - ASIHTTPRequestDelegate
@@ -106,6 +116,7 @@
 - (void)requestFailed:(ASIHTTPRequest *)request
 {
     XLog_d(@"url[%@] fail [%@]", _url, request.error);
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(setOperationTimeout) object:nil];
     
     SMMessage *error = [[SMMessage alloc] initWithCode:SMNetworkErrorCodeRequestFail message:@"网络请求超时"];
     [_delegate webLoaderOperationFail:self error:error];
@@ -115,6 +126,8 @@
 #pragma mark - SMWebParserDelegate
 - (void)webParser:(SMWebParser *)webParser result:(NSDictionary *)json
 {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(setOperationTimeout) object:nil];
+
     _webParser = nil;
     if (self.isCancelled) {
     XLog_e(@"req cancel [%@]", _url);
@@ -150,6 +163,8 @@
 
 - (void)dealloc
 {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(setOperationTimeout) object:nil];
+
 //    XLog_d(@"url[%@] dealloc", _url);
     [_request clearDelegatesAndCancel];
     _request = nil;
