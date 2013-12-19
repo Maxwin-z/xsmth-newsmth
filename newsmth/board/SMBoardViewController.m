@@ -359,6 +359,15 @@
 #pragma mark - SMBoardViewTypeSelectorViewDelegate
 - (void)boardViewTypeSelectorOnFavorButtonClick:(SMBoardViewTypeSelectorView *)v
 {
+    if ([SMAccountManager instance].isLogin) {
+        [self doAddFavor];
+    } else {
+        [self performSelectorAfterLogin:@selector(doAddFavor)];
+    }
+}
+
+- (void)doAddFavor
+{
     SMWebLoaderOperation *favorOp = [SMWebLoaderOperation new];
     NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbsfav.php?bname=%@&select=0", _board.name];
     [favorOp loadUrl:url withParser:nil];
