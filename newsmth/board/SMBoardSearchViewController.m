@@ -34,13 +34,11 @@ typedef enum {
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForAuthor;
 @property (weak, nonatomic) IBOutlet UITextField *textForAuthor;
 
-@property (strong, nonatomic) IBOutlet UITableViewCell *cellForDate;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldForDate;
 
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForHasAttach;
 @property (weak, nonatomic) IBOutlet UISwitch *switchForHasAttach;
 
-@property (strong, nonatomic) IBOutlet UITableViewCell *cellForHasReply;
 @property (weak, nonatomic) IBOutlet UISwitch *switchForHasReply;
 
 @property (strong, nonatomic) IBOutletCollection(UITextField) NSArray *textFields;
@@ -74,13 +72,13 @@ typedef enum {
     _textFieldForBoardName.text = _board.name;
     
     _cells = @[
+               @(CellTypeHasAttach),
                @(CellTypeBoardName),
                @(CellTypePostTitle),
                @(CellTypePostTitleEx),
                @(CellTypeAuthor),
-               @(CellTypeDate),
-               @(CellTypeHasAttach),
-               @(CellTypeHasReply)
+//               @(CellTypeDate),
+//               @(CellTypeHasReply)
                ];
     
     [_textFields enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -128,7 +126,7 @@ typedef enum {
                      [self encodeGBKUrl:_textForAuthor.text],
                      [self encodeGBKUrl:_textFieldForDate.text],
                      _switchForHasAttach.on ? @"on" : @"",
-                     _switchForHasReply.on ? @"on" : @""
+                     _switchForHasReply.on ? @"" : @"on"    // 参数是不含
                      ];
     SMBoardSearchResultViewController *rvc = [SMBoardSearchResultViewController new];
     rvc.url = url;
@@ -165,14 +163,8 @@ typedef enum {
         case CellTypeAuthor:
             cell = _cellForAuthor;
             break;
-        case CellTypeDate:
-            cell = _cellForDate;
-            break;
         case CellTypeHasAttach:
             cell = _cellForHasAttach;
-            break;
-        case CellTypeHasReply:
-            cell = _cellForHasReply;
             break;
         default:
             break;
