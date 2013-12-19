@@ -44,11 +44,18 @@
     
     [SMUtils setIOS7ButtonStyle:_buttonForFavor];
     [SMUtils setIOS7ButtonStyle:_buttonForSearch];
+    [self setupTheme];
 }
 
 - (void)setViewType:(SMBoardViewType)viewType
 {
     _viewType = viewType;
+    [self.tableViewForViewType reloadData];
+}
+
+- (void)setupTheme
+{
+    self.rootView.backgroundColor = [SMTheme colorForBackground];
     [self.tableViewForViewType reloadData];
 }
 
@@ -72,6 +79,8 @@
     }
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
     cell.textLabel.text = text;
+    cell.textLabel.textColor = [SMTheme colorForPrimary];
+    cell.backgroundColor = [SMTheme colorForBackground];
     cell.accessoryType = viewType == _viewType ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
     return cell;
 }

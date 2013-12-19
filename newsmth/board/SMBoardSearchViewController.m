@@ -112,15 +112,21 @@ typedef enum {
     }];
 }
 
+- (NSString *)encodeGBKUrl:(NSString *)text
+{
+    NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding (kCFStringEncodingGB_18030_2000);
+    return [text stringByAddingPercentEscapesUsingEncoding:enc];
+}
+
 - (void)doSearch
 {
     NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbsbfind.php?q=1&board=%@&title=%@&title2=%@&title3=%@&userid=%@&dt=%@&ag=%@&og=%@",
-                     [SMUtils encodeurl:_textFieldForBoardName.text],
-                     [SMUtils encodeurl:_textFieldForPostTitle1.text],
-                     [SMUtils encodeurl:_textFieldForPostTitle2.text],
-                     [SMUtils encodeurl:_textFieldForPostTitleEx.text],
-                     [SMUtils encodeurl:_textForAuthor.text],
-                     [SMUtils encodeurl:_textFieldForDate.text],
+                     [self encodeGBKUrl:_textFieldForBoardName.text],
+                     [self encodeGBKUrl:_textFieldForPostTitle1.text],
+                     [self encodeGBKUrl:_textFieldForPostTitle2.text],
+                     [self encodeGBKUrl:_textFieldForPostTitleEx.text],
+                     [self encodeGBKUrl:_textForAuthor.text],
+                     [self encodeGBKUrl:_textFieldForDate.text],
                      _switchForHasAttach.on ? @"on" : @"",
                      _switchForHasReply.on ? @"on" : @""
                      ];

@@ -203,14 +203,15 @@
         [res addObject:[NSString stringWithFormat:@"%d条@", newNotice.at - oldNotice.at]];
         badge += newNotice.at - oldNotice.at;
     }
-    if (res.count > 0) {
-        NSString *message = [NSString stringWithFormat:@"%@ 新的消息：%@", opt == _loginOp ? @"登录" : @"", [res componentsJoinedByString:@", "]];
-        [UIApplication sharedApplication].applicationIconBadgeNumber = badge;
-        [self showNotification:message];
-    }
     
     if (newNotice.mail > lastFetchNotice.mail || newNotice.at > lastFetchNotice.at || newNotice.reply > lastFetchNotice.reply) {
         [SMConfig resetFetchTime];
+
+        if (res.count > 0) {
+            NSString *message = [NSString stringWithFormat:@"%@ 新的消息：%@", opt == _loginOp ? @"登录" : @"", [res componentsJoinedByString:@", "]];
+            [UIApplication sharedApplication].applicationIconBadgeNumber = badge;
+            [self showNotification:message];
+        }
 //        [self showNotification:@"notice change, reset fetch time"];
     }
 
