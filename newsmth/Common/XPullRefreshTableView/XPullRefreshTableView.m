@@ -35,6 +35,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelForPullHint;
 @property (weak, nonatomic) IBOutlet UIButton *buttonForRetry;
 @property (weak, nonatomic) IBOutlet XTimeLabel *labelForLoadMoreHint;
+@property (weak, nonatomic) IBOutlet UILabel *labelForLoadingMoreLoading;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorForLoadMore;
 
 @end
 
@@ -84,8 +86,8 @@
 
 - (void)setupTheme
 {
-    _labelForLoadMoreHint.textColor = _labelForPullHint.textColor = _labelForRefreshDate.textColor = _labelForRefreshHint.textColor = [SMTheme colorForSecondary];
-    _activityIndicatorForRefresh.activityIndicatorViewStyle = [SMConfig enableDayMode] ? UIActivityIndicatorViewStyleGray : UIActivityIndicatorViewStyleWhite;
+    _labelForLoadMoreHint.textColor = _labelForPullHint.textColor = _labelForRefreshDate.textColor = _labelForRefreshHint.textColor = _labelForLoadingMoreLoading.textColor = [SMTheme colorForSecondary];
+    _activityIndicatorForRefresh.activityIndicatorViewStyle = _activityIndicatorForLoadMore.activityIndicatorViewStyle = [SMConfig enableDayMode] ? UIActivityIndicatorViewStyleGray : UIActivityIndicatorViewStyleWhite;
     if ([_activityIndicatorForRefresh respondsToSelector:@selector(setTintColor:)]) {
         _activityIndicatorForRefresh.tintColor = [SMTheme colorForTintColor];
     }

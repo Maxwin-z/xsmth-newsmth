@@ -7,8 +7,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="XPullRefreshTableView">
             <connections>
+                <outlet property="activityIndicatorForLoadMore" destination="4" id="uwv-LL-oxA"/>
                 <outlet property="buttonForRetry" destination="8" id="12"/>
                 <outlet property="labelForLoadMoreHint" destination="8fz-MQ-4wX" id="V6o-5o-isC"/>
+                <outlet property="labelForLoadingMoreLoading" destination="7" id="FOU-aw-dT9"/>
                 <outlet property="labelForPullHint" destination="LbA-dG-2gF" id="dOa-43-VdT"/>
                 <outlet property="viewForLoadMoreFail" destination="3" id="10"/>
                 <outlet property="viewForLoadMoreNormal" destination="3Ag-vW-wOV" id="sP0-77-hrz"/>
