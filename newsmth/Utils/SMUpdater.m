@@ -14,13 +14,14 @@
 #define USERDEFAULTS_UPDATE_VERSION   @"updater_version"
 #define USERDEFAULTS_UPDATE_PARSER   @"updater_parser"
 
-@interface SMUpdater ()<ASIHTTPRequestDelegate>
+@interface SMUpdater ()<ASIHTTPRequestDelegate, UIAlertViewDelegate>
 
 @end
 
 @implementation SMUpdater
 {
     ASIHTTPRequest *updateReq;
+    ASIHTTPRequest *newVersionReq;
     NSInteger currentVersion;
     NSInteger currentParser;
     SMVersion *newVersion;
@@ -42,7 +43,9 @@
 {
     if (newVersion.version) {
         NSString *newVersionUrl = [NSString stringWithFormat:API_PREFIX @"latestversion"];
-        SMHttpRequest *req = [[SMHttpRequest alloc] initWithURL:newVersionUrl];
+        newVersionReq = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:newVersionUrl]];
+        newVersionReq.delegate = self;
+        [newVersionReq startAsynchronous];
     }
     if (currentParser != newVersion.parser) {
         // download parses
@@ -107,16 +110,31 @@
 #pragma mark - ASIHTTPRequestDelegate
 - (void)requestFinished:(ASIHTTPRequest *)request
 {
-    NSDictionary *json = [SMUtils string2json:request.responseString];
-    newVersion = [[SMVersion alloc] initWithJSON:json];
-    if (newVersion.version != 0 || newVersion.parser != 0) {
-        [self handleNewVersion];
+    NSString *responseString = [[NSString alloc] initWithData:request.responseData encoding:NSUTF8StringEncoding];
+    if (request == updateReq) {
+        NSDictionary *json = [SMUtils string2json:responseString];
+        newVersion = [[SMVersion alloc] initWithJSON:json];
+        if (newVersion.version != 0 || newVersion.parser != 0) {
+            [self handleNewVersion];
+        }
     }
+    if (request == newVersionReq) {
+        [[[UIAlertView alloc] initWithTitle:@"新版本" message:responseString delegate:self cancelButtonTitle:@"稍后提醒" otherButtonTitles:@"现在升级", nil] show];
+    }
+    
 }
 - (void)requestFailed:(ASIHTTPRequest *)request
 {
     NSError *error = [request error];
     XLog_e(@"%@", error);
+}
+
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex != alertView.cancelButtonIndex) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/us/app/xsmth-shui-mu-she-qu/id669036871?ls=1&mt=8"]];
+    }
 }
 
 @end

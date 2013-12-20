@@ -114,7 +114,7 @@ function parse_m(html) {
         // http://m.newsmth.net/article/AdvancedEdu/31066?s=31071
         var as = div.querySelectorAll('#m_main .sec.nav a');
         var a = as[0].innerHTML == '展开' ? as[0] : as[1];
-        var matchs = a.href.match(/\/(\w+)\/(\d+)\?s=(\d+)/);
+        var matchs = a.href.match(/\/([\w\.]+)\/(\d+)\?s=(\d+)/);
         data.board.name = matchs[1];
         data.gid = matchs[2];
         data.pid = matchs[3];

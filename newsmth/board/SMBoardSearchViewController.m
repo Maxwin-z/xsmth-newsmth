@@ -68,6 +68,8 @@ typedef enum {
 {
     [super viewDidLoad];
     
+    [[NSBundle mainBundle] loadNibNamed:@"SMBoardSearchViewController" owner:self options:nil];
+    
     self.title = @"版面搜索";
     
     _textFieldForBoardName.text = _board.name;
