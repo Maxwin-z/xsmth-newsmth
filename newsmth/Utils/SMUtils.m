@@ -85,6 +85,7 @@
                                                     withAction:action
                                                      withLabel:label
                                                      withValue:nil];
+    XLog_d(@"track category:[%@], action[%@], label[%@]", category, action, label);
 }
 
 + (BOOL)writeData:(NSData *)data toDocumentFolder:(NSString *)path

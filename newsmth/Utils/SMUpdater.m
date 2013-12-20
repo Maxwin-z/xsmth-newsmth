@@ -134,6 +134,9 @@
 {
     if (buttonIndex != alertView.cancelButtonIndex) {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/us/app/xsmth-shui-mu-she-qu/id669036871?ls=1&mt=8"]];
+        [SMUtils trackEventWithCategory:@"app" action:@"do_update" label:nil];
+    } else {
+        [SMUtils trackEventWithCategory:@"app" action:@"cancel_update" label:nil];
     }
 }
 

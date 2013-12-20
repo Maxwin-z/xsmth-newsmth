@@ -91,9 +91,12 @@
 
 - (void)onDeviceShake:(NSNotification *)n
 {
-    XLog_d(@"shaked: %@", n.userInfo);
+//    XLog_d(@"shaked: %@", n.userInfo);
     [[NSUserDefaults standardUserDefaults] setBool:![SMConfig enableDayMode] forKey:USERDEFAULTS_CONFIG_ENABLE_DAY_MODE];
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFYCATION_THEME_CHANGED object:nil];
+    
+    [SMUtils trackEventWithCategory:@"setting" action:@"enableDayMode" label:[SMConfig enableDayMode] ? @"on" : @"off"];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -211,6 +214,7 @@
             NSString *message = [NSString stringWithFormat:@"%@ 新的消息：%@", opt == _loginOp ? @"登录" : @"", [res componentsJoinedByString:@", "]];
             [UIApplication sharedApplication].applicationIconBadgeNumber = badge;
             [self showNotification:message];
+            [SMUtils trackEventWithCategory:@"user" action:@"localnotify" label:nil];
         }
 //        [self showNotification:@"notice change, reset fetch time"];
     }

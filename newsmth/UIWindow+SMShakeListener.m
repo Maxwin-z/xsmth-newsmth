@@ -12,6 +12,7 @@
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
     if (event.type == UIEventTypeMotion && event.subtype == UIEventSubtypeMotionShake) {
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFYCATION_SHAKE object:self];
+        [SMUtils trackEventWithCategory:@"setting" action:@"shake" label:nil];
     }
 }
 @end

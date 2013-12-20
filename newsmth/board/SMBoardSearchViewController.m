@@ -150,6 +150,8 @@ typedef enum {
     rvc.url = url;
     rvc.board = _board;
     [self.navigationController pushViewController:rvc animated:YES];
+    
+    [SMUtils trackEventWithCategory:@"board" action:@"do_search" label:_board.name];
 }
 
 #pragma mark - Table view data source

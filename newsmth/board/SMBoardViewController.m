@@ -371,6 +371,8 @@
     SMWebLoaderOperation *favorOp = [SMWebLoaderOperation new];
     NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbsfav.php?bname=%@&select=0", _board.name];
     [favorOp loadUrl:url withParser:nil];
+    
+    [SMUtils trackEventWithCategory:@"board" action:@"favor" label:_board.name];
 }
 
 - (void)boardViewTypeSelectorOnSearchButtonClick:(SMBoardViewTypeSelectorView *)v
@@ -379,6 +381,8 @@
     SMBoardSearchViewController *svc = [[SMBoardSearchViewController alloc] initWithStyle:UITableViewStylePlain];
     svc.board = _board;
     [self.navigationController pushViewController:svc animated:YES];
+
+    [SMUtils trackEventWithCategory:@"board" action:@"will_search" label:_board.name];
 }
 
 @end
