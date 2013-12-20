@@ -33,7 +33,7 @@
 
 + (BOOL)enableUserClick
 {
-    return [SMConfig configForKey:USERDEFAULTS_CONFIG_USER_CLICKABLE defaults:YES];
+    return [SMConfig configForKey:USERDEFAULTS_CONFIG_USER_CLICKABLE defaults:NO];
 }
 
 + (BOOL)enableShowReplyAuthor
