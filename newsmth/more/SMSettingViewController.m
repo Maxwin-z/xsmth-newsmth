@@ -194,6 +194,7 @@ static SectionData sections[] = {
     _labelForAppVersion.textColor = [SMTheme colorForPrimary];
     _labelForPostFont.textColor = [SMTheme colorForPrimary];
     _labelForListFont.textColor = [SMTheme colorForPrimary];
+    [_switchForEnableDayMode setOn:[SMConfig enableDayMode] animated:YES];
     [self.tableView reloadData];
 }
 
