@@ -92,7 +92,7 @@
       </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
-      buildConfiguration = "Debug">
+      buildConfiguration = "Distribution">
    </AnalyzeAction>
    <ArchiveAction
       buildConfiguration = "Distribution"
