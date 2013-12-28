@@ -167,6 +167,7 @@
 {
     _showTop = NO;
     [_tableView beginRefreshing];
+    [self.tableView scrollRectToVisible:CGRectMake(0, -CGFLOAT_MAX, 1, 1) animated:YES];
     [self hideViewTypeSelector];
 }
 
