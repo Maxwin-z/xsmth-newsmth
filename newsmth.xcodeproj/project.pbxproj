@@ -76,6 +76,7 @@
 		C14B230A17FBB0E500CF081A /* SMSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C14B230817FBB0E500CF081A /* SMSettingViewController.xib */; };
 		C15188CF17A7B2A900E8344D /* SMNoticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C15188CD17A7B2A900E8344D /* SMNoticeViewController.m */; };
 		C15188D017A7B2A900E8344D /* SMNoticeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C15188CE17A7B2A900E8344D /* SMNoticeViewController.xib */; };
+		C154CC5B1873C1E800C32F0D /* UIView+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = C154CC5A1873C1E800C32F0D /* UIView+Utils.m */; };
 		C1643A7917E9A54C00107559 /* icon_120@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1643A7817E9A54C00107559 /* icon_120@2x.png */; };
 		C16714391766CFED00F56535 /* XPullRefreshTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = C16714381766CFED00F56535 /* XPullRefreshTableView.m */; };
 		C167143B1766D01700F56535 /* XPullRefreshTableViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = C167143A1766D01700F56535 /* XPullRefreshTableViewHeader.xib */; };
@@ -355,6 +356,8 @@
 		C15188CC17A7B2A900E8344D /* SMNoticeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMNoticeViewController.h; sourceTree = "<group>"; };
 		C15188CD17A7B2A900E8344D /* SMNoticeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMNoticeViewController.m; sourceTree = "<group>"; };
 		C15188CE17A7B2A900E8344D /* SMNoticeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMNoticeViewController.xib; sourceTree = "<group>"; };
+		C154CC591873C1E800C32F0D /* UIView+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Utils.h"; sourceTree = "<group>"; };
+		C154CC5A1873C1E800C32F0D /* UIView+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Utils.m"; sourceTree = "<group>"; };
 		C1643A7817E9A54C00107559 /* icon_120@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_120@2x.png"; sourceTree = "<group>"; };
 		C16714371766CFED00F56535 /* XPullRefreshTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPullRefreshTableView.h; sourceTree = "<group>"; };
 		C16714381766CFED00F56535 /* XPullRefreshTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPullRefreshTableView.m; sourceTree = "<group>"; };
@@ -752,6 +755,8 @@
 				C1011D95177946D500E0485D /* SMUtils.m */,
 				C1CE10BA1812293900B04E15 /* SMUpdater.h */,
 				C1CE10BB1812293900B04E15 /* SMUpdater.m */,
+				C154CC591873C1E800C32F0D /* UIView+Utils.h */,
+				C154CC5A1873C1E800C32F0D /* UIView+Utils.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1585,6 +1590,7 @@
 				C1E7A19A1809A7F1002CAEEC /* SMFontSelectorViewController.m in Sources */,
 				C1C4C8881781BACC0092E77C /* SMBoardListItem.m in Sources */,
 				C1C4C8941781C4A60092E77C /* SMSectionViewController.m in Sources */,
+				C154CC5B1873C1E800C32F0D /* UIView+Utils.m in Sources */,
 				C100985017828305001608EE /* SMPostFailCell.m in Sources */,
 				C10080D31785984700487A45 /* SMImagePickerViewController.m in Sources */,
 				C10080F217859DE700487A45 /* SMImagePickerGroupViewController.m in Sources */,

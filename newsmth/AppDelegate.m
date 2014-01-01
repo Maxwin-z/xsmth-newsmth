@@ -109,10 +109,12 @@
 
     _mainViewController = [[SMMainViewController alloc] init];
     
-    if (NO && [SMUtils isPad]) {
+    if ([SMUtils isPad]) {
         _ipadSplitViewController = [SMIPadSplitViewController new];
         UIViewController *detailVc = [UIViewController new];
-        _ipadSplitViewController.viewControllers = @[_mainViewController, detailVc];
+        _ipadSplitViewController.masterViewController = _mainViewController;
+        _ipadSplitViewController.detailViewController = detailVc;
+//        _ipadSplitViewController.viewControllers = @[_mainViewController, detailVc];
         self.window.rootViewController = _ipadSplitViewController;
     } else {
         self.window.rootViewController = _mainViewController;

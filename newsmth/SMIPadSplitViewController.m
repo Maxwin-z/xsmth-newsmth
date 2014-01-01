@@ -7,32 +7,60 @@
 //
 
 #import "SMIPadSplitViewController.h"
+#import "UIView+Utils.h"
 
 @interface SMIPadSplitViewController ()
-
+@property (strong, nonatomic) UIView *masterViewContainer;
+@property (strong, nonatomic) UIView *detailViewContainer;
 @end
 
 @implementation SMIPadSplitViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)init
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
+    self = [super init];
+    self.masterViewContainer = [UIView new];
+    self.detailViewContainer = [UIView new];
     return self;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    
+    CGFloat width = self.view.frame.size.width * 320 / 1024;
+    
+    CGRect masterFrame = self.view.frame;
+    masterFrame.size.width = width;
+    self.masterViewContainer.frame = masterFrame;
+    [self.view addSubview:self.masterViewContainer];
+    
+    CGRect detailFrame = self.view.frame;
+    detailFrame.origin.x = width;
+    detailFrame.size.width -= width;
+    self.detailViewContainer.frame = detailFrame;
+    [self.view addSubview:self.detailViewContainer];
+    
+    self.masterViewContainer.autoresizingMask = UIViewAutoresizingFlexibleRightMargin |UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.detailViewContainer.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 }
 
-- (void)didReceiveMemoryWarning
+- (void)setMasterViewController:(UIViewController *)masterViewController
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    _masterViewController = masterViewController;
+    [self.masterViewContainer removeAllSubviews];
+    [self.masterViewContainer addSubview:self.masterViewController.view];
+    self.masterViewController.view.frame = self.masterViewContainer.bounds;
+    self.masterViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+}
+
+- (void)setDetailViewContainer:(UIView *)detailViewContainer
+{
+    _detailViewContainer = detailViewContainer;
+    [self.detailViewContainer removeAllSubviews];
+    [self.detailViewContainer addSubview:self.detailViewController.view];
+    self.detailViewController.view.frame = self.detailViewContainer.bounds;
+    self.detailViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 }
 
 @end

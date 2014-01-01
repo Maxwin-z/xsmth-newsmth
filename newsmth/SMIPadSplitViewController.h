@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SMIPadSplitViewController : UISplitViewController
-
+@interface SMIPadSplitViewController : UIViewController
+@property (strong, nonatomic) UIViewController *masterViewController;
+@property (strong, nonatomic) UIViewController *detailViewController;
 @end
