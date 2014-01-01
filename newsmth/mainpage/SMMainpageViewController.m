@@ -107,6 +107,13 @@ static SMMainpageViewController *_instance;
     _op.delegate = self;
     [_op loadUrl:@"http://www.newsmth.net/mainpage.html" withParser:@"mainpage"];
 }
+
+- (void)onDeviceOrientationNotification:(NSNotification *)n
+{
+    [super onDeviceOrientationNotification:n];
+    [self.tableView reloadData];
+}
+
 #pragma mark - XPullRefreshTableViewDelegate
 - (void)tableViewDoRefresh:(XPullRefreshTableView *)tableView
 {
@@ -135,7 +142,7 @@ static SMMainpageViewController *_instance;
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SMPost *post = [self postAtIndexPath:indexPath];
-    return [SMMainpageCell cellHeight:post];
+    return [SMMainpageCell cellHeight:post withWidth:self.tableView.bounds.size.width];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section

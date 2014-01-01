@@ -89,7 +89,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [SMMainpageCell cellHeight:_posts[indexPath.row]];
+    return [SMMainpageCell cellHeight:_posts[indexPath.row] withWidth:self.tableView.bounds.size.width];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
