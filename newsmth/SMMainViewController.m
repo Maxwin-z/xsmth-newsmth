@@ -64,6 +64,7 @@ static SMMainViewController *_instance;
     self.view.backgroundColor = [UIColor clearColor];
     _leftViewController = [[SMLeftViewController alloc] init];
     _leftViewController.view.frame = self.view.bounds;
+    _leftViewController.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     _leftViewController.view.hidden = YES;
     [self.view addSubview:_leftViewController.view];
         
