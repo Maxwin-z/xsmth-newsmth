@@ -25,6 +25,10 @@
     return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
 }
 
++ (BOOL)isPad
+{
+    return (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad);
+}
 
 + (NSString *)formatDate:(NSDate *)date
 {

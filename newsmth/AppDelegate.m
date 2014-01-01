@@ -15,12 +15,14 @@
 #import "SMMainpageViewController.h"
 #import "SMUtils.h"
 #import "SMUpdater.h"
+#import "SMIPadSplitViewController.h"
 
 @interface AppDelegate ()<SMWebLoaderOperationDelegate>
 @property (strong, nonatomic) UINavigationController *nvc;
 @property (strong, nonatomic) SMMainpageViewController *mainpageViewController;
 @property (strong, nonatomic) ViewController *viewController;
 @property (strong, nonatomic) SMMainViewController *mainViewController;
+@property (strong, nonatomic) SMIPadSplitViewController *ipadSplitViewController;
 
 @property (strong, nonatomic) SMWebLoaderOperation *keepLoginOp;
 @property (strong, nonatomic) SMWebLoaderOperation *loginOp;
@@ -106,7 +108,15 @@
 //    [self setupTheme];
 
     _mainViewController = [[SMMainViewController alloc] init];
-    self.window.rootViewController = _mainViewController;
+    
+    if (NO && [SMUtils isPad]) {
+        _ipadSplitViewController = [SMIPadSplitViewController new];
+        UIViewController *detailVc = [UIViewController new];
+        _ipadSplitViewController.viewControllers = @[_mainViewController, detailVc];
+        self.window.rootViewController = _ipadSplitViewController;
+    } else {
+        self.window.rootViewController = _mainViewController;
+    }
     
     [self.window makeKeyAndVisible];
     

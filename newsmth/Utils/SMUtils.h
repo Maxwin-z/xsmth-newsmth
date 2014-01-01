@@ -14,6 +14,8 @@
 + (NSString *)systemVersionString;
 + (NSString *)appVersionString;
 
++ (BOOL)isPad;
+
 // unique format for sm
 + (NSString *)formatDate:(NSDate *)date;
 

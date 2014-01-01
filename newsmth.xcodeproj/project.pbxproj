@@ -195,6 +195,8 @@
 		C1D190D017F7F3E00056F3FE /* XScrollIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = C1D190CE17F7F3E00056F3FE /* XScrollIndicator.m */; };
 		C1D190DA17F9244D0056F3FE /* SMPageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1D190D917F9244D0056F3FE /* SMPageCell.xib */; };
 		C1D190DE17F94CA40056F3FE /* bg_scrollindicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1D190DD17F94CA40056F3FE /* bg_scrollindicator@2x.png */; };
+		C1E1CAFB1870268000324EAF /* SMIPadSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E1CAF91870268000324EAF /* SMIPadSplitViewController.m */; };
+		C1E1CAFC1870268000324EAF /* SMIPadSplitViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1E1CAFA1870268000324EAF /* SMIPadSplitViewController.xib */; };
 		C1E3345D185F24D70047582E /* common_divider@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1E3345C185F24D70047582E /* common_divider@2x.png */; };
 		C1E3A22A1780600900994CE6 /* SMUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E3A2281780600900994CE6 /* SMUserViewController.m */; };
 		C1E3A22B1780600900994CE6 /* SMUserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1E3A2291780600900994CE6 /* SMUserViewController.xib */; };
@@ -547,6 +549,9 @@
 		C1D190CF17F7F3E00056F3FE /* XScrollIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XScrollIndicator.h; sourceTree = "<group>"; };
 		C1D190D917F9244D0056F3FE /* SMPageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMPageCell.xib; sourceTree = "<group>"; };
 		C1D190DD17F94CA40056F3FE /* bg_scrollindicator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_scrollindicator@2x.png"; sourceTree = "<group>"; };
+		C1E1CAF81870268000324EAF /* SMIPadSplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMIPadSplitViewController.h; sourceTree = "<group>"; };
+		C1E1CAF91870268000324EAF /* SMIPadSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMIPadSplitViewController.m; sourceTree = "<group>"; };
+		C1E1CAFA1870268000324EAF /* SMIPadSplitViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMIPadSplitViewController.xib; sourceTree = "<group>"; };
 		C1E2AB9A177DB051007AE5AC /* SMData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMData.h; sourceTree = "<group>"; };
 		C1E3345C185F24D70047582E /* common_divider@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "common_divider@2x.png"; sourceTree = "<group>"; };
 		C1E3A2271780600900994CE6 /* SMUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMUserViewController.h; sourceTree = "<group>"; };
@@ -1021,6 +1026,9 @@
 				C1FD13BA17815BD1006A6061 /* SMViewControllerNeedLogin.xib */,
 				C1FEC601185DFF2E007E1C24 /* UIWindow+SMShakeListener.h */,
 				C1FEC602185DFF2E007E1C24 /* UIWindow+SMShakeListener.m */,
+				C1E1CAF81870268000324EAF /* SMIPadSplitViewController.h */,
+				C1E1CAF91870268000324EAF /* SMIPadSplitViewController.m */,
+				C1E1CAFA1870268000324EAF /* SMIPadSplitViewController.xib */,
 			);
 			path = newsmth;
 			sourceTree = "<group>";
@@ -1437,6 +1445,7 @@
 				C1FD13BB17815BD1006A6061 /* SMViewControllerNeedLogin.xib in Resources */,
 				C147EC5217EB368C00530E86 /* unread@2x.png in Resources */,
 				C1FD13CF178182E3006A6061 /* button_blue_default@2x.png in Resources */,
+				C1E1CAFC1870268000324EAF /* SMIPadSplitViewController.xib in Resources */,
 				C1FD13D0178182E3006A6061 /* button_blue_pressed@2x.png in Resources */,
 				C1FD13D1178182E3006A6061 /* button_gray_default@2x.png in Resources */,
 				C1888D0E1807F2C300024B47 /* icon_top@2x.png in Resources */,
@@ -1522,6 +1531,7 @@
 				C1BFB9C8174F6F5C0092FD2E /* ASIHTTPRequest.m in Sources */,
 				C1BFB9C9174F6F5C0092FD2E /* ASIInputStream.m in Sources */,
 				C1BFB9CA174F6F5C0092FD2E /* ASINetworkQueue.m in Sources */,
+				C1E1CAFB1870268000324EAF /* SMIPadSplitViewController.m in Sources */,
 				C1BFB9EA174F6F5C0092FD2E /* Reachability.m in Sources */,
 				C124CAF3185D962300B9CEA3 /* SMBoardViewTypeSelectorView.m in Sources */,
 				C14505E51750787C00DC5431 /* SMAccountManager.m in Sources */,
@@ -1708,7 +1718,7 @@
 		C102B8C11782D2E0000E2EEB /* Distribution */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1725,7 +1735,7 @@
 					"$(SDKROOT)/user/include",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "AC236F2A-4EEA-45BE-BCA3-8A3B1EBB81B1";
+				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "AC236F2A-4EEA-45BE-BCA3-8A3B1EBB81B1";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;

@@ -77,6 +77,8 @@ static SMMainViewController *_instance;
     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onViewPanGesture:)];
     panGesture.delegate = self;
     [_centerViewController.view addGestureRecognizer:panGesture];
+    
+    self.view.clipsToBounds = YES;
 }
 
 - (void)makeupMenuBarButtonItem
