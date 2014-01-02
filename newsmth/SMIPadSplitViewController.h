@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface SMIPadSplitViewController : UIViewController
+
++ (SMIPadSplitViewController *)instance;
+
 @property (strong, nonatomic) UIViewController *masterViewController;
 @property (strong, nonatomic) UIViewController *detailViewController;
 @end

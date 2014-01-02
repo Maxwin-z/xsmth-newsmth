@@ -172,7 +172,12 @@ static SMMainpageViewController *_instance;
     SMPostViewController *vc = [[SMPostViewController alloc] init];
     vc.board = post.board;
     vc.gid = post.gid;
-    [self.navigationController pushViewController:vc animated:YES];
+    
+    if ([SMUtils isPad]) {
+        [SMIPadSplitViewController instance].detailViewController = vc;
+    } else {
+        [self.navigationController pushViewController:vc animated:YES];
+    }
     
     [SMUtils trackEventWithCategory:@"mainpage" action:@"row_click" label:
      [NSString stringWithFormat:@"%d-%d", indexPath.section, indexPath.row]

@@ -9,18 +9,31 @@
 #import "SMIPadSplitViewController.h"
 #import "UIView+Utils.h"
 
+static SMIPadSplitViewController *_instance;
+
 @interface SMIPadSplitViewController ()
 @property (strong, nonatomic) UIView *masterViewContainer;
 @property (strong, nonatomic) UIView *detailViewContainer;
+@property (strong, nonatomic) P2PNavigationController *detailNavigationController;
 @end
 
 @implementation SMIPadSplitViewController
 
++ (SMIPadSplitViewController *)instance
+{
+    if (_instance == nil) {
+        _instance = [SMIPadSplitViewController new];
+    }
+    return _instance;
+}
+
 - (id)init
 {
-    self = [super init];
-    self.masterViewContainer = [UIView new];
-    self.detailViewContainer = [UIView new];
+    if (_instance == nil) {
+        _instance = self = [super init];
+        self.masterViewContainer = [UIView new];
+        self.detailViewContainer = [UIView new];
+    }
     return self;
 }
 
@@ -54,13 +67,14 @@
     self.masterViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 }
 
-- (void)setDetailViewContainer:(UIView *)detailViewContainer
+- (void)setDetailViewController:(UIViewController *)detailViewController
 {
-    _detailViewContainer = detailViewContainer;
+    _detailViewController = detailViewController;
     [self.detailViewContainer removeAllSubviews];
-    [self.detailViewContainer addSubview:self.detailViewController.view];
-    self.detailViewController.view.frame = self.detailViewContainer.bounds;
-    self.detailViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.detailNavigationController = [[P2PNavigationController alloc] initWithRootViewController:_detailViewController];
+    [self.detailViewContainer addSubview:self.detailNavigationController.view];
+    self.detailNavigationController.view.frame = self.detailViewContainer.bounds;
+    self.detailNavigationController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 }
 
 @end

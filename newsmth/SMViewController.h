@@ -10,6 +10,7 @@
 #import <UIKit/UIKit.h>
 #import "SMWebLoaderOperation.h"
 #import "SMAccountManager.h"
+#import "SMIPadSplitViewController.h"
 
 #define TOAST_DURTAION  1.0f
 
