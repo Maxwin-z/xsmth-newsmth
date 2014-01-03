@@ -80,9 +80,12 @@
     SMPostViewController *vc = [[SMPostViewController alloc] init];
     vc.postUrl = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/single/%d/0", _board.name, post.gid];
     vc.fromBoard = YES;
-    [self.navigationController pushViewController:vc animated:YES];
     
-//    [SMUtils trackEventWithCategory:@"board" action:@"view_post" label:_board.name];
+    if ([SMUtils isPad]) {
+        [SMIPadSplitViewController instance].detailViewController = vc;
+    } else {
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 #pragma mark - XPullRefreshTableView
