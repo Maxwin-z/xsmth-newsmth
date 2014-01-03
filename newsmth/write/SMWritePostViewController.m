@@ -199,9 +199,11 @@
     NSDictionary* info = [n userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
 
+    CGFloat keyboardHeight = [SMUtils isPortrait] ? kbSize.height : kbSize.width;
+    
     CGRect frame = self.view.bounds;
     frame.origin.y = _viewForContainer.frame.origin.y;
-    frame.size.height -= (kbSize.height + SM_TOP_INSET);
+    frame.size.height -= (keyboardHeight + SM_TOP_INSET);
     _viewForContainer.frame = frame;
 }
 
