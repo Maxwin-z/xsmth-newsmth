@@ -15,6 +15,7 @@
 + (NSString *)appVersionString;
 
 + (BOOL)isPad;
++ (BOOL)isPortrait;
 
 // unique format for sm
 + (NSString *)formatDate:(NSDate *)date;

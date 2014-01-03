@@ -30,6 +30,11 @@
     return (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad);
 }
 
++ (BOOL)isPortrait
+{
+    return UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation);
+}
+
 + (NSString *)formatDate:(NSDate *)date
 {
     int secPerDay = 24 * 3600;

@@ -179,7 +179,7 @@
 {
     NSDictionary* info = [n userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
-    _keyboardHeight = kbSize.height;
+    _keyboardHeight = [SMUtils isPortrait] ? kbSize.height : kbSize.width;
 }
 
 - (void)onKeyboardDidHide:(NSNotification *)n
