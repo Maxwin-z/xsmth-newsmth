@@ -153,10 +153,15 @@
 
 - (void)performSelectorAfterLogin:(SEL)aSelector
 {
-    SMLoginViewController *loginVc = [[SMLoginViewController alloc] init];
-    [loginVc setAfterLoginTarget:self selector:aSelector];
-    P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:loginVc];
-    [self presentModalViewController:nvc animated:YES];
+    if ([SMAccountManager instance].isLogin) {
+        [self performSelector:aSelector withObject:nil afterDelay:0];
+    } else {
+        SMLoginViewController *loginVc = [[SMLoginViewController alloc] init];
+        [loginVc setAfterLoginTarget:self selector:aSelector];
+        P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:loginVc];
+        nvc.modalPresentationStyle = UIModalPresentationFormSheet;
+        [self presentModalViewController:nvc animated:YES];
+    }
 }
 
 - (IBAction)onLoginButtonClick:(id)sender
