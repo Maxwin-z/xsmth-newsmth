@@ -171,6 +171,12 @@
     [super viewDidUnload];
 }
 
+- (void)onDeviceOrientationNotification:(NSNotification *)n
+{
+    [self.postHeightMap removeAllObjects];
+    [self.tableView reloadData];
+}
+
 - (void)loadData:(BOOL)more
 {
     if (_isSinglePost) {    // at me.
@@ -778,12 +784,14 @@
             _gid = _singlePost.gid;
             _start = _singlePost.pid;
             _isSinglePost = NO;
+            [self.postHeightMap removeAllObjects];
             [_tableView beginRefreshing];
             [SMUtils trackEventWithCategory:@"postgroup" action:@"expand" label:@"here"];
         } else if ([title isEqualToString:STRING_EXPAND_ALL]) {
             _gid = _singlePost.gid;
             _start = _singlePost.gid;
             _isSinglePost = NO;
+            [self.postHeightMap removeAllObjects];
             [_tableView beginRefreshing];
             [SMUtils trackEventWithCategory:@"postgroup" action:@"expand" label:@"all"];
         } else {
