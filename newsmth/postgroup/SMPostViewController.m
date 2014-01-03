@@ -18,6 +18,8 @@
 #import "SMBoardViewController.h"
 #import "XScrollIndicator.h"
 #import "SMPageCell.h"
+#import "SMIPadSplitViewController.h"
+#import "SMMainViewController.h"
 
 #define STRING_EXPAND_HERE  @"从此处展开"
 #define STRING_EXPAND_ALL  @"同主题展开"
@@ -797,7 +799,12 @@
         } else {
             SMBoardViewController *vc = [[SMBoardViewController alloc] init];
             vc.board = _board;
-            [self.navigationController pushViewController:vc animated:YES];
+            
+            if ([SMUtils isPad]) {
+                [[SMMainViewController instance] setRootViewController:vc];
+            } else {
+                [self.navigationController pushViewController:vc animated:YES];
+            }
             
             [SMUtils trackEventWithCategory:@"postgroup" action:@"enter_board" label:_board.name];
         }
