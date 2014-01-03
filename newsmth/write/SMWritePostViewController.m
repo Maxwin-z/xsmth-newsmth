@@ -283,6 +283,7 @@
     } else {
         _imagePicker = [[SMImagePickerViewController alloc] init];
         _imagePicker.delegate = self;
+        _imagePicker.modalPresentationStyle = UIModalPresentationFormSheet;
         [self presentModalViewController:_imagePicker animated:YES];
     }
 }
