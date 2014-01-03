@@ -12,6 +12,7 @@
 @interface SMPostGroupAttachCell : UITableViewCell
 @property (strong, nonatomic) NSString *url;
 
-+ (CGFloat)cellHeight:(NSString *)url;
++ (CGFloat)cellHeight:(NSString *)url withWidth:(CGFloat)width;
+
 @property (weak, nonatomic) IBOutlet XImageView* imageViewForAttach;
 @end

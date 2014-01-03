@@ -348,7 +348,7 @@
             return 60.0f;
         }
         // attachs
-        return [SMPostGroupAttachCell cellHeight:[self getAttachUrl:[self attachAtIndexPath:indexPath]]];
+        return [SMPostGroupAttachCell cellHeight:[self getAttachUrl:[self attachAtIndexPath:indexPath]] withWidth:self.tableView.frame.size.width];
     }
 }
 
