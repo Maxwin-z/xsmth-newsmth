@@ -52,7 +52,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [SMBoardCell cellHeight:_posts[indexPath.row]];
+    return [SMBoardCell cellHeight:_posts[indexPath.row] withWidth:self.tableView.frame.size.width];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

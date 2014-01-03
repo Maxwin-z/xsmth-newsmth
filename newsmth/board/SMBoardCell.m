@@ -23,11 +23,16 @@ static SMBoardCell *_instance;
 
 @implementation SMBoardCell
 
-+ (CGFloat)cellHeight:(SMPost *)post
++ (CGFloat)cellHeight:(SMPost *)post withWidth:(CGFloat)width
 {
     if (_instance == nil) {
         _instance = [[SMBoardCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
     }
+    
+    CGRect frame = _instance.frame;
+    frame.size.width = width;
+    _instance.frame = frame;
+    [_instance layoutIfNeeded];
     
     XLog_d(@"%@", NSStringFromCGRect(_instance.viewForCell.frame));
     

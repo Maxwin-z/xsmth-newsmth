@@ -71,6 +71,12 @@
     [_viewTypeSelector setupTheme];
 }
 
+- (void)onDeviceOrientationNotification:(NSNotification *)n
+{
+    [super onDeviceOrientationNotification:n];
+    [self.tableView reloadData];
+}
+
 - (void)makeupViewTypeSelector
 {
     _viewTypeSelector = [SMBoardViewTypeSelectorView new];
@@ -264,7 +270,7 @@
         return 10;
     }
     
-    return [SMBoardCell cellHeight:_posts[indexPath.row]];
+    return [SMBoardCell cellHeight:_posts[indexPath.row] withWidth:self.tableView.frame.size.width];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
