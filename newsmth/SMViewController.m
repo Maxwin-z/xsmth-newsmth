@@ -89,9 +89,25 @@
         [[NSBundle mainBundle] loadNibNamed:@"SMViewControllerPopover" owner:self options:nil];
         _imageViewForPopoverBg.image = [_imageViewForPopoverBg.image stretchableImageWithLeftCapWidth:20 topCapHeight:20];
     }
+
+    // fixme
+    CGFloat angle = 0;
     CGRect frame = window.bounds;
-    frame.size.height -= _keyboardHeight;
+
+    UIDeviceOrientation o = [UIDevice currentDevice].orientation;
+    if (o == UIDeviceOrientationLandscapeLeft) {
+        angle = M_PI_2;
+        frame.origin.x = _keyboardHeight;
+        frame.size.width -= _keyboardHeight;
+    }
+    if (o == UIDeviceOrientationLandscapeRight){
+        angle = -M_PI_2;
+        frame.size.width -= _keyboardHeight;
+    }
+
+    _viewForPopover.transform = CGAffineTransformMakeRotation(angle);
     _viewForPopover.frame = frame;
+
     [window addSubview:_viewForPopover];
     
     _labelForPoperoverMessage.text = message;
@@ -113,8 +129,21 @@
     
     _labelForLoadingMessage.text = message;
     
+    CGFloat angle = 0;
     CGRect frame = window.bounds;
-    frame.size.height -= _keyboardHeight;
+    
+    UIDeviceOrientation o = [UIDevice currentDevice].orientation;
+    if (o == UIDeviceOrientationLandscapeLeft) {
+        angle = M_PI_2;
+        frame.origin.x = _keyboardHeight;
+        frame.size.width -= _keyboardHeight;
+    }
+    if (o == UIDeviceOrientationLandscapeRight){
+        angle = -M_PI_2;
+        frame.size.width -= _keyboardHeight;
+    }
+
+    _viewForLoadingPopover.transform = CGAffineTransformMakeRotation(angle);
     _viewForLoadingPopover.frame = frame;
     [window addSubview:_viewForLoadingPopover];
 
