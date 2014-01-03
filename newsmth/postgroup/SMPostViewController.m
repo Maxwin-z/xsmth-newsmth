@@ -106,15 +106,15 @@
     
 
     CGRect frame = self.view.bounds;
+    frame.origin.x = frame.size.width - 28;
     frame.origin.y = SM_TOP_INSET + 20.0f;;
     frame.size.height -= frame.origin.y + 40.0f;
-    frame.origin.x = 292.0f;
     frame.size.width -= frame.origin.x;
     
     _scrollIndicator = [[XScrollIndicator alloc] initWithFrame:frame];
     [self.view addSubview:_scrollIndicator];
     _scrollIndicator.hidden = YES;
-    _scrollIndicator.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    _scrollIndicator.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin;
     [_scrollIndicator addTarget:self action:@selector(onScrollIndicatorValueChanged) forControlEvents:UIControlEventValueChanged];
     [_scrollIndicator addTarget:self action:@selector(onScrollIndicatorTouchEnd) forControlEvents:UIControlEventTouchCancel];
 }
