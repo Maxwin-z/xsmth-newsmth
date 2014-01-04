@@ -57,6 +57,7 @@
 		C124CAEE185D8BC500B9CEA3 /* SMTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = C124CAED185D8BC500B9CEA3 /* SMTheme.m */; };
 		C124CAF0185D951700B9CEA3 /* SMBoardViewTypeSelectorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C124CAEF185D951700B9CEA3 /* SMBoardViewTypeSelectorView.xib */; };
 		C124CAF3185D962300B9CEA3 /* SMBoardViewTypeSelectorView.m in Sources */ = {isa = PBXBuildFile; fileRef = C124CAF2185D962300B9CEA3 /* SMBoardViewTypeSelectorView.m */; };
+		C1327EDC187850DF00B1862A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1327EDB187850DF00B1862A /* StoreKit.framework */; };
 		C13D4122176DCD5100BD03A4 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C13D4121176DCD5100BD03A4 /* icon@2x.png */; };
 		C13D4124176DD5EC00BD03A4 /* placeholder@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C13D4123176DD5EC00BD03A4 /* placeholder@2x.jpg */; };
 		C14505E51750787C00DC5431 /* SMAccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C14505E41750787C00DC5431 /* SMAccountManager.m */; };
@@ -328,6 +329,7 @@
 		C124CAEF185D951700B9CEA3 /* SMBoardViewTypeSelectorView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMBoardViewTypeSelectorView.xib; sourceTree = "<group>"; };
 		C124CAF1185D962300B9CEA3 /* SMBoardViewTypeSelectorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMBoardViewTypeSelectorView.h; sourceTree = "<group>"; };
 		C124CAF2185D962300B9CEA3 /* SMBoardViewTypeSelectorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMBoardViewTypeSelectorView.m; sourceTree = "<group>"; };
+		C1327EDB187850DF00B1862A /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		C13D4121176DCD5100BD03A4 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 		C13D4123176DD5EC00BD03A4 /* placeholder@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "placeholder@2x.jpg"; sourceTree = "<group>"; };
 		C144B68E1768C62500DA2958 /* login.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = login.js; sourceTree = "<group>"; };
@@ -615,6 +617,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1327EDC187850DF00B1862A /* StoreKit.framework in Frameworks */,
 				C1C07A78179686BD00906ED7 /* MessageUI.framework in Frameworks */,
 				C1C07A7C179686F600906ED7 /* Twitter.framework in Frameworks */,
 				C1C07A7A179686E300906ED7 /* Social.framework in Frameworks */,
@@ -966,6 +969,7 @@
 		C1BFB8DB174F6A620092FD2E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C1327EDB187850DF00B1862A /* StoreKit.framework */,
 				C1CE10C3181278FD00B04E15 /* libcommonCrypto.dylib */,
 				C1BFB91D174F6F390092FD2E /* libz.dylib */,
 				C10080D5178598D900487A45 /* AssetsLibrary.framework */,
