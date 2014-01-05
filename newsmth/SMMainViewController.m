@@ -16,7 +16,8 @@
 
 #import "XImageViewCache.h"
 
-#define LEFT_SIZE   270.0f
+//#define LEFT_SIZE   270.0f
+#define RIGHTBAR_WIDTH 50.0f
 #define ANIMATION_DURATION  0.5f
 
 typedef enum {
@@ -138,9 +139,10 @@ static SMMainViewController *_instance;
     _leftViewController.view.hidden = NO;
     _leftViewController.view.userInteractionEnabled = NO;
 
-    CGFloat endX = visiable ? LEFT_SIZE : 0;
+    CGFloat leftWidth = self.view.bounds.size.width - RIGHTBAR_WIDTH;
+    CGFloat endX = visiable ? leftWidth : 0;
     CGFloat length = _centerViewController.view.frame.origin.x - endX;
-    CGFloat duration = ANIMATION_DURATION * fabsf(length) / LEFT_SIZE;
+    CGFloat duration = ANIMATION_DURATION * fabsf(length) / leftWidth;
     [UIView animateWithDuration:duration animations:^{
         CGRect frame = _centerViewController.view.frame;
         frame.origin.x = endX;
@@ -153,7 +155,7 @@ static SMMainViewController *_instance;
     if (visiable) {
         if (_viewForCenterMasker == nil) {
             CGRect frame = self.view.bounds;
-            frame.origin.x = LEFT_SIZE;
+            frame.origin.x = leftWidth;
             _viewForCenterMasker = [[UIView alloc] initWithFrame:frame];
             [self.view addSubview:_viewForCenterMasker];
 
