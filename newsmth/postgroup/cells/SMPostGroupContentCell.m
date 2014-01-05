@@ -91,8 +91,8 @@ NSString *tpl =
     
 "a.origin_link {\
     display:block; line-height: 25px; font-size: 14px;\
-    width: 80%; height: 25px; margin: auto; text-align:center;\
-    background: #f0f2f3; border: 1px solid {tintColor}; \
+    width: 80%; margin: auto; text-align:center;\
+    border: 1px solid {tintColor}; \
     border-radius: 5px 5px 5px 5px;\
 }";
     
@@ -140,8 +140,14 @@ NSString *tpl =
 {
     XLog_d(@"%@", [self generateCSS]);
     _post = post;
-    UIFont *font = [SMConfig postFont];
-    NSString *body = [NSString stringWithFormat:@"<html><style type=\"text/css\">%@</style><body>%@</body></html>", [self generateCSS], [self formatContent:post.content]];
+    NSString *content = post.content;
+    if (content.length > 1000) {
+        content = [content substringToIndex:1000];
+        NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/single/%d/0",
+               post.board.name, post.pid];
+        content = [NSString stringWithFormat:@"%@ <a class=\"origin_link\" href=\"%@\">原文过长<br />点击查看全部</a>", content, url];
+    }
+    NSString *body = [NSString stringWithFormat:@"<html><style type=\"text/css\">%@</style><body>%@</body></html>", [self generateCSS], [self formatContent:content]];
     [_webViewForContent loadHTMLString:body baseURL:nil];
     
     self.backgroundColor = [SMTheme colorForBackground];
