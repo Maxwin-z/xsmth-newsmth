@@ -143,7 +143,11 @@
         item.unread = NO;
         SMMailInfoViewController *mailInfoVc = [[SMMailInfoViewController alloc] init];
         mailInfoVc.mail = item;
-        [[SMNoticeViewController instance].navigationController pushViewController:mailInfoVc animated:YES];
+        if ([SMUtils isPad]) {
+            [SMIPadSplitViewController instance].detailViewController = mailInfoVc;
+        } else {
+            [[SMNoticeViewController instance].navigationController pushViewController:mailInfoVc animated:YES];
+        }
     }
 }
 
@@ -206,7 +210,11 @@
 {
     SMUserViewController *vc = [[SMUserViewController alloc] init];
     vc.username = username;
-    [[SMNoticeViewController instance].navigationController pushViewController:vc animated:YES];
+    if ([SMUtils isPad]) {
+        [SMIPadSplitViewController instance].detailViewController = vc;
+    } else {
+        [[SMNoticeViewController instance].navigationController pushViewController:vc animated:YES];
+    }
 }
 
 @end

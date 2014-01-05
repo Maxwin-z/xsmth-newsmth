@@ -7,6 +7,7 @@
 //
 
 #import "SMViewController.h"
+#import "SMIPadSplitViewController.h"
 
 @interface SMNoticeViewController : SMViewController
 + (SMNoticeViewController *)instance;
