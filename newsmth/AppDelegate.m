@@ -16,6 +16,7 @@
 #import "SMUtils.h"
 #import "SMUpdater.h"
 #import "SMIPadSplitViewController.h"
+#import "SMIpadEmptyViewController.h"
 
 @interface AppDelegate ()<SMWebLoaderOperationDelegate>
 @property (strong, nonatomic) UINavigationController *nvc;
@@ -111,10 +112,9 @@
     
     if ([SMUtils isPad]) {
         _ipadSplitViewController = [SMIPadSplitViewController new];
-        UIViewController *detailVc = [UIViewController new];
+        SMIpadEmptyViewController *detailVc = [SMIpadEmptyViewController new];
         _ipadSplitViewController.masterViewController = _mainViewController;
         _ipadSplitViewController.detailViewController = detailVc;
-//        _ipadSplitViewController.viewControllers = @[_mainViewController, detailVc];
         self.window.rootViewController = _ipadSplitViewController;
     } else {
         self.window.rootViewController = _mainViewController;
