@@ -73,7 +73,7 @@
     mailComposeViewController.mail = mail;
     
     P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:mailComposeViewController];
-    [self.navigationController presentModalViewController:nvc animated:YES];
+    [self presentModalViewController:nvc animated:YES];
 }
 
 - (void)accountChanged

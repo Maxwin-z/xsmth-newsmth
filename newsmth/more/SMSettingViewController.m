@@ -13,6 +13,7 @@
 #import "PBWebViewController.h"
 #import "SMDonateViewController.h"
 #import <MessageUI/MessageUI.h>
+#import "SMIPadSplitViewController.h"
 
 #define MAX_CELL_COUNT  5
 
@@ -396,7 +397,7 @@ static SectionData sections[] = {
         vc.selectedFont = cellType == CellTypePostFont ? [SMConfig postFont] : [SMConfig listFont];
         P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:vc];
         nvc.modalPresentationStyle = UIModalPresentationFormSheet;
-        [self.navigationController presentModalViewController:nvc animated:YES];
+        [self presentModalViewController:nvc animated:YES];
         
         action = cellType == CellTypePostFont ? @"changePostFont" : @"changeListFont";
     }
@@ -458,7 +459,8 @@ static SectionData sections[] = {
         mail.mailComposeDelegate = self;
         [mail setToRecipients:@[@"zwd2005@gmail.com"]];
         [mail setSubject:[NSString stringWithFormat:@"[xsmth v%@]意见与反馈", [SMUtils appVersionString]]];
-        [self.navigationController presentModalViewController:mail animated:YES];
+        mail.modalPresentationStyle = UIModalPresentationPageSheet;
+        [self presentModalViewController:mail animated:YES];
     }
     if (buttonIndex == 1) { // 站内信
         [self doSendMail];
@@ -481,7 +483,12 @@ static SectionData sections[] = {
     mailComposeViewController.mail = mail;
     
     P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:mailComposeViewController];
-    [self.navigationController presentModalViewController:nvc animated:YES];
+
+    if ([SMUtils isPad]) {
+        [[SMIPadSplitViewController instance] presentModalViewController:nvc animated:YES];
+    } else {
+        [self presentModalViewController:nvc animated:YES];
+    }
     
     [SMUtils trackEventWithCategory:@"setting" action:@"feedback" label:@"sm_mail"];
 }
