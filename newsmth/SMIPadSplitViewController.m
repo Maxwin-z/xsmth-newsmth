@@ -58,6 +58,13 @@ static SMIPadSplitViewController *_instance;
     self.detailViewContainer.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    // fix me, ios5,6 首次加载时，detail位置不对
+    self.detailViewController = self.detailViewController;
+}
+
 - (void)setMasterViewController:(UIViewController *)masterViewController
 {
     _masterViewController = masterViewController;
