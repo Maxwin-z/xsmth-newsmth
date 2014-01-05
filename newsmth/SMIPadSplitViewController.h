@@ -6,6 +6,8 @@
 //  Copyright (c) 2013年 nju. All rights reserved.
 //
 
+#import "SMViewController.h"
+
 @interface SMIPadSplitViewController : UIViewController
 
 + (SMIPadSplitViewController *)instance;

@@ -14,6 +14,8 @@
 #import "SMUserViewController.h"
 #import "SMBoardViewTypeSelectorView.h"
 #import "SMBoardSearchViewController.h"
+#import "SMIPadSplitViewController.h"
+
 
 @interface SMBoardViewController ()<UITableViewDelegate, UITableViewDataSource, XPullRefreshTableViewDelegate, SMWebLoaderOperationDelegate, SMBoardCellDelegate, SMBoardViewTypeSelectorViewDelegate>
 @property (weak, nonatomic) IBOutlet XPullRefreshTableView *tableView;

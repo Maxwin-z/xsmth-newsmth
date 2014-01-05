@@ -73,7 +73,15 @@ static SMIPadSplitViewController *_instance;
     [self.detailViewContainer removeAllSubviews];
     self.detailNavigationController = [[P2PNavigationController alloc] initWithRootViewController:_detailViewController];
     [self.detailViewContainer addSubview:self.detailNavigationController.view];
-    self.detailNavigationController.view.frame = self.detailViewContainer.bounds;
+    CGRect frame = self.detailViewContainer.bounds;
+    // fixme. for ios5,6
+    if ([SMUtils systemVersion] < 7) {
+        CGFloat statusBarHeight = 20;
+        frame.origin.y = -statusBarHeight;
+        frame.size.height += statusBarHeight;
+    }
+    self.detailNavigationController.view.frame = frame;
+    
     self.detailNavigationController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 }
 

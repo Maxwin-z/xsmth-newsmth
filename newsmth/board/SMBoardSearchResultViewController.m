@@ -10,6 +10,7 @@
 #import "XPullRefreshTableView.h"
 #import "SMBoardCell.h"
 #import "SMPostViewController.h"
+#import "SMIPadSplitViewController.h"
 
 @interface SMBoardSearchResultViewController ()<SMWebLoaderOperationDelegate, XPullRefreshTableViewDelegate, UITableViewDataSource, UITableViewDelegate>
 @property (strong, nonatomic) SMWebLoaderOperation *op;

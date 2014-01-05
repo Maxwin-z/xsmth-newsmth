@@ -14,6 +14,7 @@
 #import "SMSection.h"
 #import "SMPost.h"
 #import "SMBoardSearchDelegateImpl.h"
+#import "SMIPadSplitViewController.h"
 
 static SMMainpageViewController *_instance;
 
