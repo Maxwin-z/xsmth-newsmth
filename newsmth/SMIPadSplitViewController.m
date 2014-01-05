@@ -77,4 +77,9 @@ static SMIPadSplitViewController *_instance;
     self.detailNavigationController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 }
 
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+    return toInterfaceOrientation != UIInterfaceOrientationPortraitUpsideDown;
+}
+
 @end
