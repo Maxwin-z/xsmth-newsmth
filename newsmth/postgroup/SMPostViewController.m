@@ -403,7 +403,7 @@
         if (indexPath.row == 0) {   // header
             return [self cellForTitle:item];
         } else if (indexPath.row == 1) {    // content
-            if (!postItem.op.isFinished) {
+            if (!postItem.op.isDone) {
                 return [self cellForLoading:postItem];
             } else if (postItem.op.data == nil) {
                 return [self cellForFail:postItem];

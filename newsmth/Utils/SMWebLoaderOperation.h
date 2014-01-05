@@ -22,6 +22,7 @@
 @property (strong, nonatomic, readonly) NSString *url;
 @property (strong, nonatomic, readonly) id data;
 @property (assign, nonatomic) BOOL highPriority;
+@property (assign, nonatomic, readonly) BOOL isDone;
 
 - (void)loadUrl:(NSString *)url withParser:(NSString *)parser;
 - (void)loadRequest:(ASIHTTPRequest *)request withParser:(NSString *)parser;

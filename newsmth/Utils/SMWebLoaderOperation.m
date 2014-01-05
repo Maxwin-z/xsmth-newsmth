@@ -17,7 +17,6 @@
 @property (strong, nonatomic) ASIHTTPRequest *request;
 @property (strong, nonatomic) SMWebParser *webParser;
 
-@property (assign, nonatomic) BOOL isDone;
 @end
 
 @implementation SMWebLoaderOperation
