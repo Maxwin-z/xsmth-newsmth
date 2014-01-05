@@ -62,7 +62,60 @@ static SMPostGroupContentCell *_instance;
     int g = (int)(255.0 * gf);
     int b = (int)(255.0 * bf);
     
-    return [NSString stringWithFormat:@"%02x%02x%02x",r,g,b];
+    return [NSString stringWithFormat:@"#%02x%02x%02x",r,g,b];
+}
+
+- (NSString *)generateCSS
+{
+NSString *tpl =
+@"body {\
+    margin:0;\
+    padding: 10px;\
+    font-size:{fontSize}px;\
+    font-family: \"{fontFamily}\";\
+    line-height:{lineHeight}px;\
+    background-color:{backgroundColor};\
+    color:{textColor};\
+}"
+    
+"a, a:visited {\
+    text-decoration:none;\
+    color:{tintColor};\
+    display: inline-block;\
+    border-bottom: 1px dashed {tintColor}\
+}"
+    
+".q {\
+    color:{quoteColor};\
+}"
+    
+"a.origin_link {\
+    display:block; line-height: 25px; font-size: 14px;\
+    width: 80%; height: 25px; margin: auto; text-align:center;\
+    background: #f0f2f3; border: 1px solid {tintColor}; \
+    border-radius: 5px 5px 5px 5px;\
+}";
+    
+    UIFont *font = [SMConfig postFont];
+
+    NSString *fontSize = [NSString stringWithFormat:@"%d", (int)font.pointSize];
+    NSString *fontFamily = font.fontName;
+    NSString *lineHeight = [NSString stringWithFormat:@"%d", (int)(font.lineHeight * 1.2)];
+    NSString *backgroundColor = [self color2hex:[SMTheme colorForBackground]];
+    NSString *textColor = [self color2hex:[SMTheme colorForPrimary]];
+    NSString *tintColor = [self color2hex:[SMTheme colorForTintColor]];
+    NSString *quoteColor = [self color2hex:[SMTheme colorForQuote]];
+    
+    NSString *css = tpl;
+    css = [css stringByReplacingOccurrencesOfString:@"{fontSize}" withString:fontSize];
+    css = [css stringByReplacingOccurrencesOfString:@"{fontFamily}" withString:fontFamily];
+    css = [css stringByReplacingOccurrencesOfString:@"{lineHeight}" withString:lineHeight];
+    css = [css stringByReplacingOccurrencesOfString:@"{backgroundColor}" withString:backgroundColor];
+    css = [css stringByReplacingOccurrencesOfString:@"{textColor}" withString:textColor];
+    css = [css stringByReplacingOccurrencesOfString:@"{tintColor}" withString:tintColor];
+    css = [css stringByReplacingOccurrencesOfString:@"{quoteColor}" withString:quoteColor];
+    
+    return css;
 }
 
 - (NSString *)formatContent:(NSString *)content
@@ -85,9 +138,10 @@ static SMPostGroupContentCell *_instance;
 
 - (void)setPost:(SMPost *)post
 {
+    XLog_d(@"%@", [self generateCSS]);
     _post = post;
     UIFont *font = [SMConfig postFont];
-    NSString *body = [NSString stringWithFormat:@"<html><body style='margin:0; padding: 10px; font-size: %dpx;font-family: %@;line-height:%dpx;background-color:%@'>%@</body></html>", (int)font.pointSize, font.fontName, (int)(font.lineHeight * 1.2), [self color2hex:[SMTheme colorForBackground]], [self formatContent:post.content]];
+    NSString *body = [NSString stringWithFormat:@"<html><style type=\"text/css\">%@</style><body>%@</body></html>", [self generateCSS], [self formatContent:post.content]];
     [_webViewForContent loadHTMLString:body baseURL:nil];
     
     self.backgroundColor = [SMTheme colorForBackground];
