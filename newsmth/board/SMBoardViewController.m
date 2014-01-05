@@ -242,7 +242,11 @@
     writeViewController.post = newPost;
     writeViewController.title = [NSString stringWithFormat:@"发表-%@", _board.cnName];
     P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:writeViewController];
-    [self.navigationController presentModalViewController:nvc animated:YES];
+    if ([SMUtils isPad]) {
+        [[SMIPadSplitViewController instance] presentModalViewController:nvc animated:YES];
+    } else {
+        [self presentModalViewController:nvc animated:YES];
+    }
     
     [SMUtils trackEventWithCategory:@"board" action:@"write" label:_board.name];
 }
