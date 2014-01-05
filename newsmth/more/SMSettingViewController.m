@@ -395,6 +395,7 @@ static SectionData sections[] = {
         };
         vc.selectedFont = cellType == CellTypePostFont ? [SMConfig postFont] : [SMConfig listFont];
         P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:vc];
+        nvc.modalPresentationStyle = UIModalPresentationFormSheet;
         [self.navigationController presentModalViewController:nvc animated:YES];
         
         action = cellType == CellTypePostFont ? @"changePostFont" : @"changeListFont";
