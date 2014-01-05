@@ -33,9 +33,7 @@ static SMBoardCell *_instance;
     frame.size.width = width;
     _instance.frame = frame;
     [_instance layoutIfNeeded];
-    
-    XLog_d(@"%@", NSStringFromCGRect(_instance.viewForCell.frame));
-    
+        
     CGFloat heightExpectTitle = _instance.viewForCell.frame.size.height - _instance.labelForTitle.frame.size.height;
     NSString *title = [NSString stringWithFormat:@"%@(%d)", post.title, post.replyCount];
     CGFloat titleHeight = [title smSizeWithFont:[SMConfig listFont] constrainedToSize:CGSizeMake(_instance.labelForTitle.frame.size.width, CGFLOAT_MAX) lineBreakMode:_instance.labelForTitle.lineBreakMode].height;

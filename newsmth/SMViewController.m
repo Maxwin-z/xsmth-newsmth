@@ -226,7 +226,12 @@
 - (void)onDeviceOrientationNotification:(NSNotification *)n
 {
     UIDeviceOrientation o = [UIDevice currentDevice].orientation;
-    if (o != UIDeviceOrientationUnknown && o != UIDeviceOrientationPortraitUpsideDown && o != self.currentOrientation) {
+//    XLog_d(@"%@ - %@", @(self.currentOrientation), @(o));
+    if (o != UIDeviceOrientationUnknown
+        && o != UIDeviceOrientationPortraitUpsideDown
+        && o != UIDeviceOrientationFaceUp
+        && o != UIDeviceOrientationFaceDown
+        && o != self.currentOrientation) {
         self.currentOrientation = o;
         [self onDeviceRotate];
     }
