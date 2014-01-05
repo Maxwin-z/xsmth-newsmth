@@ -11,6 +11,7 @@
 #import "SMFontSelectorViewController.h"
 #import "XImageViewCache.h"
 #import "PBWebViewController.h"
+#import "SMDonateViewController.h"
 #import <MessageUI/MessageUI.h>
 
 #define MAX_CELL_COUNT  5
@@ -34,7 +35,8 @@ typedef enum {
     CellTypeRate,
     CellTypeClearCache,
     
-    CellTypeThxPsyYiYi
+    CellTypeThxPsyYiYi,
+    CellTypeDonate
     
 }CellType;
 
@@ -95,8 +97,8 @@ static SectionData sections[] = {
         SectionTypeThanks,
         "感谢",
         NULL,
-        1,
-        {CellTypeThxPsyYiYi}
+        2,
+        {CellTypeThxPsyYiYi, CellTypeDonate}
     }
 };
 
@@ -120,6 +122,7 @@ static SectionData sections[] = {
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForThxPsyYiYi;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForBackgroundFetchHelp;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForEnableDayMode;
+@property (strong, nonatomic) IBOutlet UITableViewCell *cellForDonate;
 
 @property (weak, nonatomic) IBOutlet UILabel *labelForAppVersion;
 @property (weak, nonatomic) IBOutlet UISwitch *switchForHideTop;
@@ -310,6 +313,8 @@ static SectionData sections[] = {
             
         case CellTypeThxPsyYiYi:
             return _cellForThxPsyYiYi;
+        case CellTypeDonate:
+            return _cellForDonate;
         default:
             return [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
     }
@@ -410,6 +415,12 @@ static SectionData sections[] = {
         vc.URL = [NSURL URLWithString:@"http://maxwin.me/xsmth/PsyYiYi.html"];
         [self.navigationController pushViewController:vc animated:YES];
         action = @"PsyYiYi";
+    }
+    
+    if (cellType == CellTypeDonate) {
+        SMDonateViewController *vc = [SMDonateViewController new];
+        [self.navigationController pushViewController:vc animated:YES];
+        action = @"donate";
     }
 
     if (cellType == CellTypeBackgroundFetchHelp) {
