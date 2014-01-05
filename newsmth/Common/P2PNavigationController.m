@@ -151,7 +151,7 @@
 {
     if (_panGesture == gestureRecognizer) {
         CGPoint pan = [gestureRecognizer translationInView:self.view];
-        BOOL begin = fabsf(pan.x) > fabsf(pan.y) && (self.viewControllers.count > 1);
+        BOOL begin = pan.x > 0 && fabsf(pan.x) > fabsf(pan.y) && (self.viewControllers.count > 1);
         
         P2PViewController *topVc = [self.viewControllers lastObject];
         if ([topVc respondsToSelector:@selector(navigationUnsupportPanToPop)]) {

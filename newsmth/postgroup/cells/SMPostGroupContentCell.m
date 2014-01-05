@@ -49,8 +49,17 @@ static SMPostGroupContentCell *_instance;
         [self.contentView addSubview:_viewForCell];
         
         _webViewForContent.scrollView.scrollEnabled = NO;
+        
+        UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(onSwipeGesture)];
+        swipeGesture.direction = UISwipeGestureRecognizerDirectionLeft;
+        [self addGestureRecognizer:swipeGesture];
     }
     return self;
+}
+
+- (void)onSwipeGesture
+{
+    XLog_d(@"gesture - -");
 }
 
 - (NSString *)color2hex:(UIColor *)color
