@@ -108,9 +108,9 @@ static SMMainpageViewController *_instance;
     [_op loadUrl:@"http://www.newsmth.net/mainpage.html" withParser:@"mainpage"];
 }
 
-- (void)onDeviceOrientationNotification:(NSNotification *)n
+- (void)onDeviceRotate
 {
-    [super onDeviceOrientationNotification:n];
+    [super onDeviceRotate];
     [self.tableView reloadData];
 }
 

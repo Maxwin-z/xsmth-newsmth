@@ -55,6 +55,8 @@
 {
     [super viewDidLoad];
     self.trackedViewName = NSStringFromClass([self class]);
+    
+    self.currentOrientation = [UIDevice currentDevice].orientation;
 
     [self setupTheme];
 //    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background"]];
@@ -222,6 +224,15 @@
 }
 
 - (void)onDeviceOrientationNotification:(NSNotification *)n
+{
+    UIDeviceOrientation o = [UIDevice currentDevice].orientation;
+    if (o != UIDeviceOrientationUnknown && o != UIDeviceOrientationPortraitUpsideDown && o != self.currentOrientation) {
+        self.currentOrientation = o;
+        [self onDeviceRotate];
+    }
+}
+
+- (void)onDeviceRotate
 {
     
 }

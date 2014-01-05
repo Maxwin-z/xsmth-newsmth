@@ -173,8 +173,9 @@
     [super viewDidUnload];
 }
 
-- (void)onDeviceOrientationNotification:(NSNotification *)n
+- (void)onDeviceRotate
 {
+    [super onDeviceRotate];
     [self.postHeightMap removeAllObjects];
     [self.tableView reloadData];
 }

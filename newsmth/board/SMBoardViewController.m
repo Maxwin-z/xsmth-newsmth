@@ -71,9 +71,9 @@
     [_viewTypeSelector setupTheme];
 }
 
-- (void)onDeviceOrientationNotification:(NSNotification *)n
+- (void)onDeviceRotate
 {
-    [super onDeviceOrientationNotification:n];
+    [super onDeviceRotate];
     [self.tableView reloadData];
 }
 
