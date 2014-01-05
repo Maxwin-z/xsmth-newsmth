@@ -9,7 +9,7 @@
 #import "SMDonateViewController.h"
 #import <StoreKit/StoreKit.h>
 
-@interface SMDonateViewController ()<SKProductsRequestDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface SMDonateViewController ()<SKProductsRequestDelegate, UITableViewDataSource, UITableViewDelegate, SKPaymentTransactionObserver>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (strong, nonatomic) NSArray *productIDs;
@@ -22,7 +22,15 @@
 {
     [super viewDidLoad];
     self.title = @"捐助";
+    
+    [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+
     [self loadProductIDs];
+}
+
+- (void)dealloc
+{
+    [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
 }
 
 - (void)loadProductIDs
@@ -81,9 +89,76 @@
     }
     
     SKProduct *product = self.products[indexPath.row];
+    
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    [numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
+    [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+    [numberFormatter setLocale:product.priceLocale];
+    NSString *formattedPrice = [numberFormatter stringFromNumber:product.price];
+    
     cell.textLabel.text = product.localizedTitle;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"￥%@", product.price];
+    cell.detailTextLabel.text = formattedPrice;
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    SKProduct *product = self.products[indexPath.row];
+    SKMutablePayment *payment = [SKMutablePayment paymentWithProduct:product];
+    payment.quantity = 1;
+    payment.applicationUsername = @"tester";
+    [[SKPaymentQueue defaultQueue] addPayment:payment];
+ 
+        XLog_d(@"%@", @([SKPaymentQueue canMakePayments]));
+    
+    XLog_d(@"%@", payment.applicationUsername);
+}
+
+#pragma mark - SKPaymentTransactionObserver
+- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions
+{
+    for (SKPaymentTransaction *transaction in transactions) {
+        switch (transaction.transactionState) {
+                // Call the appropriate custom method.
+            case SKPaymentTransactionStatePurchased:
+                [self completeTransaction:transaction];
+                break;
+            case SKPaymentTransactionStateFailed:
+                [self failedTransaction:transaction];
+                break;
+            case SKPaymentTransactionStateRestored:
+                [self restoreTransaction:transaction];
+            default:
+                break;
+        }
+        @try {
+            [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+        } @catch (NSException *exception) {
+            XLog_d(@"%@", exception);
+        } @finally {
+        }
+    }
+}
+
+- (void)completeTransaction:(SKPaymentTransaction *)transaction
+{
+    [self toast:@"购买成功"];
+    XLog_d(@"%@", transaction);
+    XLog_d(@"购买成功 %@", transaction.payment.productIdentifier);
+}
+
+- (void)failedTransaction:(SKPaymentTransaction *)transaction
+{
+    [self toast:@"购买失败"];
+    XLog_d(@"%@", transaction);
+    XLog_d(@"购买失败 %@", transaction.payment.productIdentifier);
+}
+
+- (void)restoreTransaction:(SKPaymentTransaction *)transaction
+{
+    [self toast:@"先前已支付"];
+    XLog_d(@"%@", transaction);
+    XLog_d(@"先前已支付 %@", transaction.payment.productIdentifier);
 }
 
 @end
