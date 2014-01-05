@@ -1752,7 +1752,6 @@
 					"$(inherited)",
 					"$(SRCROOT)/newsmth/Frameworks/GoogleAnalytics",
 					"$(SDKROOT)/usr/lib/system",
-					"$(SDKROOT)/user/include",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1856,7 +1855,6 @@
 					"$(inherited)",
 					"$(SRCROOT)/newsmth/Frameworks/GoogleAnalytics",
 					"$(SDKROOT)/usr/lib/system",
-					"$(SDKROOT)/user/include",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1883,7 +1881,6 @@
 					"$(inherited)",
 					"$(SRCROOT)/newsmth/Frameworks/GoogleAnalytics",
 					"$(SDKROOT)/usr/lib/system",
-					"$(SDKROOT)/user/include",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
