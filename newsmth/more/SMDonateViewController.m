@@ -9,11 +9,14 @@
 #import "SMDonateViewController.h"
 #import <StoreKit/StoreKit.h>
 
-@interface SMDonateViewController ()<SKProductsRequestDelegate, UITableViewDataSource, UITableViewDelegate, SKPaymentTransactionObserver>
+@interface SMDonateViewController ()<SKProductsRequestDelegate, UITableViewDataSource, UITableViewDelegate, SKPaymentTransactionObserver, ASIHTTPRequestDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
+@property (strong, nonatomic) ASIHTTPRequest *donateConfigRequest;
 @property (strong, nonatomic) NSArray *productIDs;
 @property (strong, nonatomic) NSArray *products;
+
+@property (strong, nonatomic) NSArray *otherChannels;
 @end
 
 @implementation SMDonateViewController
@@ -35,8 +38,12 @@
 
 - (void)loadProductIDs
 {
-    [self showLoading:@"正在加载..."];
-    self.productIDs = @[@"one_donate"];
+    [self showLoading:@"正在加载"];
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:@"http://maxwin.me/xsmth/service/donate.json"]];
+    request.delegate = self;
+    self.donateConfigRequest = request;
+
+    [request startAsynchronous];
 }
 
 - (void)setProductIDs:(NSArray *)productIDs
@@ -73,32 +80,103 @@
     XLog_d(@"%@", error);
 }
 
+- (void)loadDefaultProducts
+{
+    self.productIDs = @[
+                        @"me.maxwin.xsmth.donate1",
+                        @"me.maxwin.xsmth.donate2",
+                        @"me.maxwin.xsmth.donate4",
+                        @"me.maxwin.xsmth.donate8"
+                        ];
+}
+
+#pragma mark - ASIHttpRequestDelegate
+- (void)requestFinished:(ASIHTTPRequest *)request
+{
+    NSString *responseString = [[NSString alloc] initWithData:request.responseData encoding:NSUTF8StringEncoding];
+    NSDictionary *config = [SMUtils string2json:responseString];
+    if (config && config[@"items"]) {
+        self.productIDs = config[@"items"];
+        self.otherChannels = config[@"others"];
+        [self.tableView reloadData];
+    } else {
+        [self loadDefaultProducts];
+        
+    }
+}
+
+- (void)requestFailed:(ASIHTTPRequest *)request
+{
+    [self hideLoading];
+    [self loadDefaultProducts];
+}
+
 #pragma mark - UITableView
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1 + (self.otherChannels.count > 0 ? 1 : 0);
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.products.count;
+    if (section == 0) {
+        return self.products.count;
+    }
+    if (section == 1) {
+        return self.otherChannels.count;
+    }
+    return 0;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if (section == 0) {
+        return @"应用内购买";
+    }
+    if (section == 1) {
+        return @"其他渠道";
+    }
+    return nil;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *cellID = @"cellid";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellID];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    if (indexPath.section == 0) {
+        static NSString *cellIDForProduct = @"product_cellid";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIDForProduct];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIDForProduct];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }
+        
+        SKProduct *product = self.products[indexPath.row];
+        
+        NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+        [numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
+        [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+        [numberFormatter setLocale:product.priceLocale];
+        NSString *formattedPrice = [numberFormatter stringFromNumber:product.price];
+        
+        cell.textLabel.text = product.localizedTitle;
+        cell.detailTextLabel.text = formattedPrice;
+        return cell;
     }
     
-    SKProduct *product = self.products[indexPath.row];
+    if (indexPath.section == 1) {
+        static NSString *cellIDForOthers = @"cellIDForOthers";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIDForOthers];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIDForOthers];
+            cell.textLabel.adjustsFontSizeToFitWidth = YES;
+            cell.textLabel.minimumFontSize = 8;
+        }
+        
+        cell.textLabel.text = self.otherChannels[indexPath.row];
+        return cell;
+    }
     
-    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-    [numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
-    [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
-    [numberFormatter setLocale:product.priceLocale];
-    NSString *formattedPrice = [numberFormatter stringFromNumber:product.price];
-    
-    cell.textLabel.text = product.localizedTitle;
-    cell.detailTextLabel.text = formattedPrice;
-    return cell;
+    return [UITableViewCell new];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
