@@ -27,6 +27,7 @@
 
 - (void)loadProductIDs
 {
+    [self showLoading:@"正在加载..."];
     self.productIDs = @[@"one_donate"];
 }
 
@@ -36,6 +37,7 @@
     if (productIDs.count > 0) {
         [self loadProducts];
     } else {
+        [self hideLoading];
         [self toast:@"暂无捐助选项"];
     }
 }
@@ -51,12 +53,14 @@
 - (void)productsRequest:(SKProductsRequest *)request
      didReceiveResponse:(SKProductsResponse *)response
 {
+    [self hideLoading];
     self.products = response.products;
     [self.tableView reloadData];
 }
 
 - (void)request:(SKRequest *)request didFailWithError:(NSError *)error
 {
+    [self hideLoading];
     [self toast:[NSString stringWithFormat:@"获取捐助选项失败，稍后重试"]];
     XLog_d(@"%@", error);
 }
