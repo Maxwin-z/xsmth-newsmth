@@ -178,7 +178,18 @@ NSString *tpl =
     
     self.backgroundColor = [SMTheme colorForBackground];
     _labelForContent.textColor = [SMTheme colorForPrimary];
-    
+
+    [@[_buttonForReply, _buttonForForward] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        UIButton *btn = obj;
+        [btn setTitleColor:[SMTheme colorForTintColor] forState:UIControlStateNormal];
+        
+        UIImage *image = [btn imageForState:UIControlStateNormal];
+        if ([image respondsToSelector:@selector(imageWithRenderingMode:)]) {
+            image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        }
+        [btn setImage:image forState:UIControlStateNormal];
+        [btn setBackgroundImage:nil forState:UIControlStateNormal];
+    }];
 }
 
 #pragma mark - UIWebViewDelegate
