@@ -419,12 +419,7 @@
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
-    [self.tableView.visibleCells enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        if ([obj isKindOfClass:[SMPostGroupContentCell class]]) {
-            SMPostGroupContentCell *cell = obj;
-            [cell hideActionView];
-        }
-    }];
+    [self hidePostCellActions];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -775,6 +770,16 @@
 - (void)postGroupContentCellOnForward:(SMPostGroupContentCell *)cell
 {
     [self toast:@"forward"];
+}
+
+- (void)hidePostCellActions
+{
+    [self.tableView.visibleCells enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if ([obj isKindOfClass:[SMPostGroupContentCell class]]) {
+            SMPostGroupContentCell *cell = obj;
+            [cell hideActionView];
+        }
+    }];
 }
 
 #pragma mark - SMPostFailCellDelegate

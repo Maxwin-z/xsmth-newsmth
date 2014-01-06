@@ -64,6 +64,14 @@
     return [image stretchableImageWithLeftCapWidth:(image.size.width + 1) / 2 topCapHeight:(image.size.height + 1) / 2];
 }
 
++ (UIColor *)reverseColor:(UIColor *)color
+{
+    CGFloat rf, gf, bf, af;
+    [color getRed:&rf green:&gf blue: &bf alpha: &af];
+    
+    return [UIColor colorWithRed:1 - rf green:1 - gf blue:1 - bf alpha:af];
+}
+
 + (NSString *)formatSize:(unsigned long long)size
 {
     if (size < 1000) {

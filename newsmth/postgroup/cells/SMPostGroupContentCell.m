@@ -10,7 +10,7 @@
 
 static SMPostGroupContentCell *_instance;
 
-@interface SMPostGroupContentCell ()<UIWebViewDelegate>
+@interface SMPostGroupContentCell ()<UIWebViewDelegate, UIGestureRecognizerDelegate>
 @property (strong, nonatomic) IBOutlet UIView *viewForCell;
 @property (strong, nonatomic) IBOutlet UILabel *labelForContent;    // unused
 @property (weak, nonatomic) IBOutlet UIWebView *webViewForContent;
@@ -62,7 +62,6 @@ static SMPostGroupContentCell *_instance;
 
 - (void)onSwipeGesture:(UISwipeGestureRecognizer *)gesture
 {
-    XLog_d(@"gesture - -");
     CGPoint point = [gesture locationOfTouch:0 inView:self];
     XLog_d(@"%@", NSStringFromCGPoint(point));
     
@@ -189,6 +188,8 @@ NSString *tpl =
         }
         [btn setImage:image forState:UIControlStateNormal];
         [btn setBackgroundImage:nil forState:UIControlStateNormal];
+        
+        self.viewForActions.backgroundColor = [SMUtils reverseColor:[SMTheme colorForBackground]];
     }];
 }
 
