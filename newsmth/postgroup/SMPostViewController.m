@@ -866,7 +866,14 @@
         NSString *text = [alertView textFieldAtIndex:0].text;
         if (text.length != 0) {
             _forwardOp = [[SMWebLoaderOperation alloc] init];
-            ASIHtt
+//            NSString *postBody = [NSString stringWithFormat:@"id=%@&title=%@&content=%@&backup=1", receiver, title, content];
+//            
+//            SMHttpRequest *request = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:formUrl]];
+//            [request setRequestMethod:@"POST"];
+//            [request addRequestHeader:@"Content-type" value:@"application/x-www-form-urlencoded"];
+//            [request setPostBody:[[postBody dataUsingEncoding:NSUTF8StringEncoding] mutableCopy]];
+//            _sendOp = [[SMWebLoaderOperation alloc] init];
+//            _sendOp.delegate = self;
         }
     }
 }
