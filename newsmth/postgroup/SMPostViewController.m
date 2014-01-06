@@ -25,7 +25,7 @@
 #define STRING_EXPAND_ALL  @"同主题展开"
 
 
-@interface SMPostViewController ()<UITableViewDataSource, UITableViewDelegate, SMWebLoaderOperationDelegate, XPullRefreshTableViewDelegate, XImageViewDelegate, SMPostGroupHeaderCellDelegate, SMPostGroupContentCellDelegate, SMPostFailCellDelegate, SMPageCellDelegate, UIActionSheetDelegate>
+@interface SMPostViewController ()<UITableViewDataSource, UITableViewDelegate, SMWebLoaderOperationDelegate, XPullRefreshTableViewDelegate, XImageViewDelegate, SMPostGroupHeaderCellDelegate, SMPostGroupContentCellDelegate, SMPostFailCellDelegate, SMPageCellDelegate, UIActionSheetDelegate, UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet XPullRefreshTableView *tableView;
 @property (strong, nonatomic) IBOutlet UIView *tableViewHeader;
@@ -62,6 +62,9 @@
 @property (strong, nonatomic) SMPost *replyPost;    // 准备回复的主题
 @property (strong, nonatomic) NSString *postTitle;
 
+
+// 转寄
+@property (strong, nonatomic) SMWebLoaderOperation *forwardOp;
 @end
 
 @implementation SMPostViewController
@@ -769,7 +772,19 @@
 
 - (void)postGroupContentCellOnForward:(SMPostGroupContentCell *)cell
 {
-    [self toast:@"forward"];
+    _replyPost = cell.post;
+    [self performSelectorAfterLogin:@selector(forwardAfterLogin)];
+}
+
+- (void)forwardAfterLogin
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"转寄"
+                                                        message:@"请输入转寄到的id或email"
+                                                       delegate:self
+                                              cancelButtonTitle:@"取消"
+                                              otherButtonTitles:@"转寄", nil];
+    alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [alertView show];
 }
 
 - (void)hidePostCellActions
@@ -840,6 +855,18 @@
             }
             
             [SMUtils trackEventWithCategory:@"postgroup" action:@"enter_board" label:_board.name];
+        }
+    }
+}
+
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex != alertView.cancelButtonIndex) {
+        NSString *text = [alertView textFieldAtIndex:0].text;
+        if (text.length != 0) {
+            _forwardOp = [[SMWebLoaderOperation alloc] init];
+            ASIHtt
         }
     }
 }
