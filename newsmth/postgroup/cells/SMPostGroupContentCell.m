@@ -14,6 +14,9 @@ static SMPostGroupContentCell *_instance;
 @property (strong, nonatomic) IBOutlet UIView *viewForCell;
 @property (strong, nonatomic) IBOutlet UILabel *labelForContent;    // unused
 @property (weak, nonatomic) IBOutlet UIWebView *webViewForContent;
+@property (weak, nonatomic) IBOutlet UIView *viewForActions;
+@property (weak, nonatomic) IBOutlet UIButton *buttonForReply;
+@property (weak, nonatomic) IBOutlet UIButton *buttonForForward;
 @end
 
 @implementation SMPostGroupContentCell
@@ -50,16 +53,28 @@ static SMPostGroupContentCell *_instance;
         
         _webViewForContent.scrollView.scrollEnabled = NO;
         
-        UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(onSwipeGesture)];
+        UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(onSwipeGesture:)];
         swipeGesture.direction = UISwipeGestureRecognizerDirectionLeft;
         [self addGestureRecognizer:swipeGesture];
     }
     return self;
 }
 
-- (void)onSwipeGesture
+- (void)onSwipeGesture:(UISwipeGestureRecognizer *)gesture
 {
     XLog_d(@"gesture - -");
+    CGPoint point = [gesture locationOfTouch:0 inView:self];
+    XLog_d(@"%@", NSStringFromCGPoint(point));
+    
+    CGRect frame = self.viewForActions.frame;
+    frame.origin.y = MAX(0, point.y - frame.size.height / 2);
+    self.viewForActions.frame = frame;
+    self.viewForActions.hidden = NO;
+}
+
+- (void)hideActionView
+{
+    self.viewForActions.hidden = YES;
 }
 
 - (NSString *)color2hex:(UIColor *)color
@@ -147,7 +162,7 @@ NSString *tpl =
 
 - (void)setPost:(SMPost *)post
 {
-    XLog_d(@"%@", [self generateCSS]);
+//    XLog_d(@"%@", [self generateCSS]);
     _post = post;
     NSString *content = post.content;
     NSInteger maxLength = 1000;
@@ -163,6 +178,7 @@ NSString *tpl =
     
     self.backgroundColor = [SMTheme colorForBackground];
     _labelForContent.textColor = [SMTheme colorForPrimary];
+    
 }
 
 #pragma mark - UIWebViewDelegate
@@ -182,6 +198,17 @@ NSString *tpl =
         [_delegate postGroupContentCell:self shouldLoadUrl:request.URL];
     }
     return NO;
+}
+
+#pragma mark - Events
+- (IBAction)onReplyButtonClick:(id)sender
+{
+    [_delegate postGroupContentCellOnReply:self];
+}
+
+- (IBAction)onForwardButtonClick:(id)sender
+{
+    [_delegate postGroupContentCellOnForward:self];
 }
 
 

@@ -417,6 +417,16 @@
     }
 }
 
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [self.tableView.visibleCells enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if ([obj isKindOfClass:[SMPostGroupContentCell class]]) {
+            SMPostGroupContentCell *cell = obj;
+            [cell hideActionView];
+        }
+    }];
+}
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if (self.scrollIndicator.titles.count > 1) {
@@ -708,6 +718,19 @@
 
 - (void)postGroupHeaderCellOnReply:(SMPost *)post
 {
+    [self doReplyPost:post];
+    [SMUtils trackEventWithCategory:@"postgroup" action:@"reply" label:_board.name];
+}
+
+- (void)postGroupHeaderCellOnUsernameClick:(NSString *)username
+{
+    SMUserViewController *vc = [[SMUserViewController alloc] init];
+    vc.username = username;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)doReplyPost:(SMPost *)post
+{
     if (![SMAccountManager instance].isLogin) {
         _replyPost = post;
         [self performSelectorAfterLogin:@selector(postAfterLogin)];
@@ -723,17 +746,7 @@
     } else {
         [self presentModalViewController:nvc animated:YES];
     }
-    
-    [SMUtils trackEventWithCategory:@"postgroup" action:@"reply" label:_board.name];
 }
-
-- (void)postGroupHeaderCellOnUsernameClick:(NSString *)username
-{
-    SMUserViewController *vc = [[SMUserViewController alloc] init];
-    vc.username = username;
-    [self.navigationController pushViewController:vc animated:YES];
-}
-
 
 #pragma mark - SMPostGroupContentCellDelegate
 - (void)postGroupContentCell:(SMPostGroupContentCell *)cell heightChanged:(CGFloat)height
@@ -752,6 +765,16 @@
     PBWebViewController *webView = [[PBWebViewController alloc] init];
     webView.URL = url;
     [self.navigationController pushViewController:webView animated:YES];
+}
+
+- (void)postGroupContentCellOnReply:(SMPostGroupContentCell *)cell
+{
+    [self doReplyPost:cell.post];
+}
+
+- (void)postGroupContentCellOnForward:(SMPostGroupContentCell *)cell
+{
+    [self toast:@"forward"];
 }
 
 #pragma mark - SMPostFailCellDelegate
@@ -815,7 +838,6 @@
         }
     }
 }
-
 
 @end
 

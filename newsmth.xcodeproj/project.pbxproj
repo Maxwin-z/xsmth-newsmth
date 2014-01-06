@@ -61,6 +61,9 @@
 		C1300A521879596F006ACA5C /* icon_144@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1300A501879596F006ACA5C /* icon_144@2x.png */; };
 		C1300A5618795C23006ACA5C /* SMIpadEmptyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1300A5518795C23006ACA5C /* SMIpadEmptyViewController.m */; };
 		C1300A5818795C61006ACA5C /* icon_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1300A5718795C61006ACA5C /* icon_bg@2x.png */; };
+		C1300A6C187ACB9E006ACA5C /* icon_write@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1300A69187ACB9E006ACA5C /* icon_write@2x.png */; };
+		C1300A6D187ACB9E006ACA5C /* icon_more@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1300A6A187ACB9E006ACA5C /* icon_more@2x.png */; };
+		C1300A6E187ACB9E006ACA5C /* icon_forward@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1300A6B187ACB9E006ACA5C /* icon_forward@2x.png */; };
 		C1327EDC187850DF00B1862A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1327EDB187850DF00B1862A /* StoreKit.framework */; };
 		C1327EE01878549700B1862A /* SMDonateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1327EDE1878549700B1862A /* SMDonateViewController.m */; };
 		C1327EE11878549700B1862A /* SMDonateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1327EDF1878549700B1862A /* SMDonateViewController.xib */; };
@@ -340,6 +343,9 @@
 		C1300A5418795C23006ACA5C /* SMIpadEmptyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMIpadEmptyViewController.h; sourceTree = "<group>"; };
 		C1300A5518795C23006ACA5C /* SMIpadEmptyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMIpadEmptyViewController.m; sourceTree = "<group>"; };
 		C1300A5718795C61006ACA5C /* icon_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_bg@2x.png"; sourceTree = SOURCE_ROOT; };
+		C1300A69187ACB9E006ACA5C /* icon_write@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_write@2x.png"; sourceTree = "<group>"; };
+		C1300A6A187ACB9E006ACA5C /* icon_more@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_more@2x.png"; sourceTree = "<group>"; };
+		C1300A6B187ACB9E006ACA5C /* icon_forward@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_forward@2x.png"; sourceTree = "<group>"; };
 		C1327EDB187850DF00B1862A /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		C1327EDD1878549700B1862A /* SMDonateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMDonateViewController.h; sourceTree = "<group>"; };
 		C1327EDE1878549700B1862A /* SMDonateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMDonateViewController.m; sourceTree = "<group>"; };
@@ -819,6 +825,9 @@
 		C19FF0B01769A71B00EB6F7E /* images */ = {
 			isa = PBXGroup;
 			children = (
+				C1300A69187ACB9E006ACA5C /* icon_write@2x.png */,
+				C1300A6A187ACB9E006ACA5C /* icon_more@2x.png */,
+				C1300A6B187ACB9E006ACA5C /* icon_forward@2x.png */,
 				C1300A5718795C61006ACA5C /* icon_bg@2x.png */,
 				3968608518631B040012F81D /* icon_board_view_type@2x.png */,
 				C1FCFABE1860782600759793 /* icon_search@2x.png */,
@@ -1448,6 +1457,7 @@
 				3968608618631B040012F81D /* icon_board_view_type@2x.png in Resources */,
 				C12027B61754E08A00EB9E9E /* bbscon.js in Resources */,
 				C1BFB8E7174F6A620092FD2E /* InfoPlist.strings in Resources */,
+				C1300A6E187ACB9E006ACA5C /* icon_forward@2x.png in Resources */,
 				C1BFB8EF174F6A620092FD2E /* Default.png in Resources */,
 				C10F2F8117E5845200F83206 /* SMMailCell.xib in Resources */,
 				C1BFB8F1174F6A620092FD2E /* Default@2x.png in Resources */,
@@ -1474,6 +1484,7 @@
 				C19FF0C81769D0E600EB6F7E /* SMBoardCell.xib in Resources */,
 				C1300A5818795C61006ACA5C /* icon_bg@2x.png in Resources */,
 				C13D4122176DCD5100BD03A4 /* icon@2x.png in Resources */,
+				C1300A6C187ACB9E006ACA5C /* icon_write@2x.png in Resources */,
 				C13D4124176DD5EC00BD03A4 /* placeholder@2x.jpg in Resources */,
 				C1B581F4177723F500441299 /* SMWritePostViewController.xib in Resources */,
 				C1E7A19F180A7D9A002CAEEC /* icon_80@2x.png in Resources */,
@@ -1521,6 +1532,7 @@
 				C1C07A5B1796857900906ED7 /* OWActivityViewController.bundle in Resources */,
 				C122B41B17992A56000AC67E /* bg_text_hint@2x.png in Resources */,
 				C1FF62B2179E6DF4001F7A15 /* SMPostViewController.xib in Resources */,
+				C1300A6D187ACB9E006ACA5C /* icon_more@2x.png in Resources */,
 				C1C18D9C17A533F3008C598C /* SMMailViewController.xib in Resources */,
 				C1C18DA017A53448008C598C /* tabbar_at@2x.png in Resources */,
 				C1C18DA117A53448008C598C /* tabbar_reply@2x.png in Resources */,

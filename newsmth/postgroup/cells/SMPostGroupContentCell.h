@@ -13,6 +13,10 @@
 
 @protocol SMPostGroupContentCellDelegate <NSObject>
 - (void)postGroupContentCell:(SMPostGroupContentCell *)cell heightChanged:(CGFloat)height;
+
+- (void)postGroupContentCellOnReply:(SMPostGroupContentCell *)cell;
+- (void)postGroupContentCellOnForward:(SMPostGroupContentCell *)cell;
+
 @optional
 - (void)postGroupContentCell:(SMPostGroupContentCell *)cell shouldLoadUrl:(NSURL *)url;
 @end
@@ -20,4 +24,6 @@
 @interface SMPostGroupContentCell : UITableViewCell
 @property (strong, nonatomic) SMPost* post;
 @property (weak, nonatomic) id<SMPostGroupContentCellDelegate> delegate;
+
+- (void)hideActionView;
 @end
