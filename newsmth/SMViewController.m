@@ -210,7 +210,11 @@
 {
     NSDictionary* info = [n userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
-    _keyboardHeight = [SMUtils isPortrait] ? kbSize.height : kbSize.width;
+    if ([SMUtils isPad]) {
+        _keyboardHeight = [SMUtils isPortrait] ? kbSize.height : kbSize.width;
+    } else {
+        _keyboardHeight = kbSize.height;
+    }
 }
 
 - (void)onKeyboardDidHide:(NSNotification *)n
@@ -227,7 +231,8 @@
 {
     UIDeviceOrientation o = [UIDevice currentDevice].orientation;
 //    XLog_d(@"%@ - %@", @(self.currentOrientation), @(o));
-    if (o != UIDeviceOrientationUnknown
+    if ([SMUtils isPad]
+        && o != UIDeviceOrientationUnknown
         && o != UIDeviceOrientationPortraitUpsideDown
         && o != UIDeviceOrientationFaceUp
         && o != UIDeviceOrientationFaceDown
