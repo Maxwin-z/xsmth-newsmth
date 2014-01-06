@@ -100,7 +100,7 @@ NSString *tpl =
     
 "a.origin_link {\
     display:block; line-height: 25px; font-size: 14px;\
-    width: 80%; margin: auto; text-align:center;\
+    width: 80%; margin: 10px auto; text-align:center;\
     border: 1px solid {tintColor}; \
     border-radius: 5px 5px 5px 5px;\
 }";
@@ -150,11 +150,13 @@ NSString *tpl =
     XLog_d(@"%@", [self generateCSS]);
     _post = post;
     NSString *content = post.content;
-    if (content.length > 1000) {
-        content = [content substringToIndex:1000];
+    NSInteger maxLength = 1000;
+    if (content.length > maxLength) {
+        NSString *radio = [NSString stringWithFormat:@"%d%%", (int)(maxLength * 100.0f / content.length)];
+        content = [content substringToIndex:maxLength];
         NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/single/%d/0",
                post.board.name, post.pid];
-        content = [NSString stringWithFormat:@"%@ <a class=\"origin_link\" href=\"%@\">原文过长<br />点击查看全部</a>", content, url];
+        content = [NSString stringWithFormat:@"%@ <a class=\"origin_link\" href=\"%@\">原文过长，已加载%@<br />点击查看全部</a>", content, url, radio];
     }
     NSString *body = [NSString stringWithFormat:@"<html><style type=\"text/css\">%@</style><body>%@</body></html>", [self generateCSS], [self formatContent:content]];
     [_webViewForContent loadHTMLString:body baseURL:nil];

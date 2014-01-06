@@ -52,7 +52,7 @@ function attWriter(bid, id, ftype, num, cacheable){}
 function prints(content) {
     var nickRegex = /^发信人: (.+)\((.*)\), /;
     var dateRegex = /^发信人: .+\(.*\), 信区: .+\n标  题: .*\n发信站:.+\([A-Z][a-z]{2} +([A-Z][a-z]{2} +\d+ +\d{1,2}:\d{1,2}:\d{1,2} +\d{4})\)/;
-    var contentRegex = /^发信人: .+\(.*\), 信区: .+\n标  题: .*\n发信站: .+站内\n{1,2}((.|\s)*)$/;
+    var contentRegex = /^发信人: .+\(.*\), 信区: .+\n标  题: .*\n发信站: .+(?:站内|转信)\n{1,2}((.|\s)*)$/;
 
     var matchs = null;
 
