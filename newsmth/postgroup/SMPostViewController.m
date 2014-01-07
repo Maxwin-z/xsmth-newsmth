@@ -779,6 +779,7 @@
 - (void)postGroupContentCellOnReply:(SMPostGroupContentCell *)cell
 {
     [self doReplyPost:cell.post];
+    [self hidePostCellActions];
 }
 
 - (void)postGroupContentCellOnForward:(SMPostGroupContentCell *)cell
@@ -795,7 +796,9 @@
                                               cancelButtonTitle:@"取消"
                                               otherButtonTitles:@"转寄", nil];
     alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [alertView textFieldAtIndex:0].text = [SMAccountManager instance].name;
     [alertView show];
+    [self hidePostCellActions];
 }
 
 - (void)hidePostCellActions

@@ -119,6 +119,15 @@ static SMMainViewController *_instance;
 - (void)onLeftBarButtonClick
 {
     [self setLeftVisiable:YES];
+    
+    NSUbiquitousKeyValueStore *storage = [NSUbiquitousKeyValueStore defaultStore];
+    NSString *date = [NSString stringWithFormat:@"%@", [NSDate date]];
+    NSString *s = [storage objectForKey:@"icloud_date"];
+    XLog_d(@"load: %@", s);
+    
+    [storage setObject:date forKey:@"icloud_date"];
+    XLog_d(@"saved %@", date);
+
 }
 
 - (void)setRootViewController:(UIViewController *)viewController
