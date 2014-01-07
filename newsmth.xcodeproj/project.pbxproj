@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		392417D8187C6A7100558725 /* icon_72.png in Resources */ = {isa = PBXBuildFile; fileRef = 392417D5187C6A7100558725 /* icon_72.png */; };
+		392417D9187C6A7100558725 /* icon_76.png in Resources */ = {isa = PBXBuildFile; fileRef = 392417D6187C6A7100558725 /* icon_76.png */; };
+		392417DA187C6A7100558725 /* icon_114@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 392417D7187C6A7100558725 /* icon_114@2x.png */; };
 		3968608618631B040012F81D /* icon_board_view_type@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3968608518631B040012F81D /* icon_board_view_type@2x.png */; };
 		39C260051860A0E400AEFE0E /* SMBoardSearchResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 39C260031860A0E400AEFE0E /* SMBoardSearchResultViewController.m */; };
 		39C260061860A0E400AEFE0E /* SMBoardSearchResultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 39C260041860A0E400AEFE0E /* SMBoardSearchResultViewController.xib */; };
@@ -256,6 +259,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		392417D5187C6A7100558725 /* icon_72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_72.png; sourceTree = "<group>"; };
+		392417D6187C6A7100558725 /* icon_76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_76.png; sourceTree = "<group>"; };
+		392417D7187C6A7100558725 /* icon_114@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_114@2x.png"; sourceTree = "<group>"; };
 		3968608518631B040012F81D /* icon_board_view_type@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_board_view_type@2x.png"; sourceTree = "<group>"; };
 		39C260021860A0E400AEFE0E /* SMBoardSearchResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMBoardSearchResultViewController.h; sourceTree = "<group>"; };
 		39C260031860A0E400AEFE0E /* SMBoardSearchResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMBoardSearchResultViewController.m; sourceTree = "<group>"; };
@@ -976,6 +982,9 @@
 		C1BFB8D0174F6A620092FD2E = {
 			isa = PBXGroup;
 			children = (
+				392417D5187C6A7100558725 /* icon_72.png */,
+				392417D6187C6A7100558725 /* icon_76.png */,
+				392417D7187C6A7100558725 /* icon_114@2x.png */,
 				C1643A7817E9A54C00107559 /* icon_120@2x.png */,
 				C1300A501879596F006ACA5C /* icon_144@2x.png */,
 				C1300A4F1879596F006ACA5C /* icon_152@2x.png */,
@@ -1450,6 +1459,7 @@
 				C1BFB8E7174F6A620092FD2E /* InfoPlist.strings in Resources */,
 				C1300A6E187ACB9E006ACA5C /* icon_forward@2x.png in Resources */,
 				C1BFB8EF174F6A620092FD2E /* Default.png in Resources */,
+				392417D9187C6A7100558725 /* icon_76.png in Resources */,
 				C10F2F8117E5845200F83206 /* SMMailCell.xib in Resources */,
 				C1BFB8F1174F6A620092FD2E /* Default@2x.png in Resources */,
 				C1BFB8F3174F6A620092FD2E /* Default-568h@2x.png in Resources */,
@@ -1490,11 +1500,13 @@
 				C1FD13D0178182E3006A6061 /* button_blue_pressed@2x.png in Resources */,
 				C1FD13D1178182E3006A6061 /* button_gray_default@2x.png in Resources */,
 				C1888D0E1807F2C300024B47 /* icon_top@2x.png in Resources */,
+				392417D8187C6A7100558725 /* icon_72.png in Resources */,
 				C1FD13D2178182E3006A6061 /* button_gray_pressed@2x.png in Resources */,
 				C1FD13D3178182E3006A6061 /* button_red_default@2x.png in Resources */,
 				C1FCFAC11860782600759793 /* icon_search@2x.png in Resources */,
 				C1643A7917E9A54C00107559 /* icon_120@2x.png in Resources */,
 				C1300A511879596F006ACA5C /* icon_152@2x.png in Resources */,
+				392417DA187C6A7100558725 /* icon_114@2x.png in Resources */,
 				C1FD13D4178182E3006A6061 /* button_red_pressed@2x.png in Resources */,
 				C1FD13DD1781B26F006A6061 /* left_shadow@2x.png in Resources */,
 				C1C4C8821781B4FF0092E77C /* SMBaseBorardListViewController.xib in Resources */,
