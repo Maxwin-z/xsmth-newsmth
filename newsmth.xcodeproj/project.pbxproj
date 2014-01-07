@@ -63,6 +63,7 @@
 		C1300A6C187ACB9E006ACA5C /* icon_write@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1300A69187ACB9E006ACA5C /* icon_write@2x.png */; };
 		C1300A6D187ACB9E006ACA5C /* icon_more@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1300A6A187ACB9E006ACA5C /* icon_more@2x.png */; };
 		C1300A6E187ACB9E006ACA5C /* icon_forward@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1300A6B187ACB9E006ACA5C /* icon_forward@2x.png */; };
+		C1300A73187C0A50006ACA5C /* bbsfwd.js in Resources */ = {isa = PBXBuildFile; fileRef = C1300A71187C0A30006ACA5C /* bbsfwd.js */; };
 		C1327EDC187850DF00B1862A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1327EDB187850DF00B1862A /* StoreKit.framework */; };
 		C1327EE01878549700B1862A /* SMDonateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1327EDE1878549700B1862A /* SMDonateViewController.m */; };
 		C1327EE11878549700B1862A /* SMDonateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1327EDF1878549700B1862A /* SMDonateViewController.xib */; };
@@ -341,6 +342,7 @@
 		C1300A69187ACB9E006ACA5C /* icon_write@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_write@2x.png"; sourceTree = "<group>"; };
 		C1300A6A187ACB9E006ACA5C /* icon_more@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_more@2x.png"; sourceTree = "<group>"; };
 		C1300A6B187ACB9E006ACA5C /* icon_forward@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_forward@2x.png"; sourceTree = "<group>"; };
+		C1300A71187C0A30006ACA5C /* bbsfwd.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = bbsfwd.js; sourceTree = "<group>"; };
 		C1327EDB187850DF00B1862A /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		C1327EDD1878549700B1862A /* SMDonateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMDonateViewController.h; sourceTree = "<group>"; };
 		C1327EDE1878549700B1862A /* SMDonateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMDonateViewController.m; sourceTree = "<group>"; };
@@ -731,6 +733,7 @@
 		C121F2991750EE790081FD87 /* jsParser */ = {
 			isa = PBXGroup;
 			children = (
+				C1300A71187C0A30006ACA5C /* bbsfwd.js */,
 				39C260071860A8DF00AEFE0E /* bbsbfind.js */,
 				C1E7A1A6180AA8C7002CAEEC /* util_notice.js */,
 				C14B22FB17FAD3E100CF081A /* mailsend.js */,
@@ -1420,6 +1423,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1300A73187C0A50006ACA5C /* bbsfwd.js in Resources */,
 				39C260081860A8DF00AEFE0E /* bbsbfind.js in Resources */,
 				C1E7A1A7180AA8C7002CAEEC /* util_notice.js in Resources */,
 				C1E7A1A3180A91EB002CAEEC /* bg_barbuttonitem@2x.png in Resources */,

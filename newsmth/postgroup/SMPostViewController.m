@@ -624,6 +624,12 @@
         self.prepareItems = @[item];
         
         _singlePost = post;
+    } else if (opt == _forwardOp) {
+        SMWriteResult *res = _forwardOp.data;
+        if (res.success) {
+            [self toast:@"转寄成功"];
+        }
+        XLog_d(@"%@", res);
     } else {
         if ([opt.data isKindOfClass:[SMPost class]]) {
             SMPost *post = opt.data;
@@ -648,6 +654,10 @@
         [_tableView setLoadMoreHide];
     }
     
+    if (opt == _forwardOp) {
+        [self toast:error.message];
+    }
+    
     if (opt == _singlePostOp) {
         _isLoading = NO;
         [self.tableView endRefreshing:NO];
@@ -655,6 +665,7 @@
     } else if (!_scrollIndicator.isDragging) {
         [_tableView reloadData];
     }
+    
 }
 
 #pragma mark - XPullRefreshTableViewDelegate
@@ -866,14 +877,17 @@
         NSString *text = [alertView textFieldAtIndex:0].text;
         if (text.length != 0) {
             _forwardOp = [[SMWebLoaderOperation alloc] init];
-//            NSString *postBody = [NSString stringWithFormat:@"id=%@&title=%@&content=%@&backup=1", receiver, title, content];
-//            
-//            SMHttpRequest *request = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:formUrl]];
-//            [request setRequestMethod:@"POST"];
-//            [request addRequestHeader:@"Content-type" value:@"application/x-www-form-urlencoded"];
-//            [request setPostBody:[[postBody dataUsingEncoding:NSUTF8StringEncoding] mutableCopy]];
-//            _sendOp = [[SMWebLoaderOperation alloc] init];
-//            _sendOp.delegate = self;
+
+            NSString *formUrl = @"http://www.newsmth.net/bbsfwd.php?do";
+            SMHttpRequest *request = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:formUrl]];
+            
+            NSString *postBody = [NSString stringWithFormat:@"board=%@&id=%d&target=%@&noansi=1", self.board.name, _replyPost.pid, [SMUtils encodeurl:text]];
+            [request setRequestMethod:@"POST"];
+            [request addRequestHeader:@"Content-type" value:@"application/x-www-form-urlencoded"];
+            [request setPostBody:[[postBody dataUsingEncoding:NSUTF8StringEncoding] mutableCopy]];
+            
+            _forwardOp.delegate = self;
+            [_forwardOp loadRequest:request withParser:@"bbsfwd"];
         }
     }
 }
