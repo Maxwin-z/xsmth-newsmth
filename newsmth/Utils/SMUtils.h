@@ -25,6 +25,8 @@
 // stretch image at center
 + (UIImage *)stretchedImage:(UIImage *)image;
 
++ (UIColor *)reverseColor:(UIColor *)color;
+
 + (NSString *)formatSize:(unsigned long long)size;
 
 + (id)string2json:(NSString *)str;

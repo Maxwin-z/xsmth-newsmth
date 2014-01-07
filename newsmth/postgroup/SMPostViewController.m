@@ -25,7 +25,7 @@
 #define STRING_EXPAND_ALL  @"同主题展开"
 
 
-@interface SMPostViewController ()<UITableViewDataSource, UITableViewDelegate, SMWebLoaderOperationDelegate, XPullRefreshTableViewDelegate, XImageViewDelegate, SMPostGroupHeaderCellDelegate, SMPostGroupContentCellDelegate, SMPostFailCellDelegate, SMPageCellDelegate, UIActionSheetDelegate>
+@interface SMPostViewController ()<UITableViewDataSource, UITableViewDelegate, SMWebLoaderOperationDelegate, XPullRefreshTableViewDelegate, XImageViewDelegate, SMPostGroupHeaderCellDelegate, SMPostGroupContentCellDelegate, SMPostFailCellDelegate, SMPageCellDelegate, UIActionSheetDelegate, UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet XPullRefreshTableView *tableView;
 @property (strong, nonatomic) IBOutlet UIView *tableViewHeader;
@@ -62,6 +62,9 @@
 @property (strong, nonatomic) SMPost *replyPost;    // 准备回复的主题
 @property (strong, nonatomic) NSString *postTitle;
 
+
+// 转寄
+@property (strong, nonatomic) SMWebLoaderOperation *forwardOp;
 @end
 
 @implementation SMPostViewController
@@ -419,12 +422,7 @@
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
-    [self.tableView.visibleCells enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        if ([obj isKindOfClass:[SMPostGroupContentCell class]]) {
-            SMPostGroupContentCell *cell = obj;
-            [cell hideActionView];
-        }
-    }];
+    [self hidePostCellActions];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -774,7 +772,29 @@
 
 - (void)postGroupContentCellOnForward:(SMPostGroupContentCell *)cell
 {
-    [self toast:@"forward"];
+    _replyPost = cell.post;
+    [self performSelectorAfterLogin:@selector(forwardAfterLogin)];
+}
+
+- (void)forwardAfterLogin
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"转寄"
+                                                        message:@"请输入转寄到的id或email"
+                                                       delegate:self
+                                              cancelButtonTitle:@"取消"
+                                              otherButtonTitles:@"转寄", nil];
+    alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [alertView show];
+}
+
+- (void)hidePostCellActions
+{
+    [self.tableView.visibleCells enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if ([obj isKindOfClass:[SMPostGroupContentCell class]]) {
+            SMPostGroupContentCell *cell = obj;
+            [cell hideActionView];
+        }
+    }];
 }
 
 #pragma mark - SMPostFailCellDelegate
@@ -835,6 +855,25 @@
             }
             
             [SMUtils trackEventWithCategory:@"postgroup" action:@"enter_board" label:_board.name];
+        }
+    }
+}
+
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex != alertView.cancelButtonIndex) {
+        NSString *text = [alertView textFieldAtIndex:0].text;
+        if (text.length != 0) {
+            _forwardOp = [[SMWebLoaderOperation alloc] init];
+//            NSString *postBody = [NSString stringWithFormat:@"id=%@&title=%@&content=%@&backup=1", receiver, title, content];
+//            
+//            SMHttpRequest *request = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:formUrl]];
+//            [request setRequestMethod:@"POST"];
+//            [request addRequestHeader:@"Content-type" value:@"application/x-www-form-urlencoded"];
+//            [request setPostBody:[[postBody dataUsingEncoding:NSUTF8StringEncoding] mutableCopy]];
+//            _sendOp = [[SMWebLoaderOperation alloc] init];
+//            _sendOp.delegate = self;
         }
     }
 }
