@@ -32,7 +32,11 @@
 
 + (BOOL)isPortrait
 {
-    return UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation);
+    UIDeviceOrientation o = [UIDevice currentDevice].orientation;
+    if (o == UIDeviceOrientationUnknown) {
+        o = (UIDeviceOrientation) [[UIApplication sharedApplication] statusBarOrientation];
+    }
+    return UIDeviceOrientationIsPortrait(o);
 }
 
 + (NSString *)formatDate:(NSDate *)date

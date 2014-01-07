@@ -97,6 +97,10 @@
     CGRect frame = window.bounds;
 
     UIDeviceOrientation o = [UIDevice currentDevice].orientation;
+    if (o == UIDeviceOrientationUnknown) {
+        o = (UIDeviceOrientation) [[UIApplication sharedApplication] statusBarOrientation];
+    }
+
     if (o == UIDeviceOrientationLandscapeLeft) {
         angle = M_PI_2;
         frame.origin.x = _keyboardHeight;
@@ -135,6 +139,10 @@
     CGRect frame = window.bounds;
     
     UIDeviceOrientation o = [UIDevice currentDevice].orientation;
+    if (o == UIDeviceOrientationUnknown) {
+        o = (UIDeviceOrientation) [[UIApplication sharedApplication] statusBarOrientation];
+    }
+    
     if (o == UIDeviceOrientationLandscapeLeft) {
         angle = M_PI_2;
         frame.origin.x = _keyboardHeight;
