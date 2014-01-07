@@ -272,7 +272,9 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SMPost *post = _posts[indexPath.row];
-    if (post.isTop && [SMConfig disableShowTopPost] && !_showTop) {
+    if (post.isTop && [SMConfig disableShowTopPost]) {
+        return 0;
+    } else if (post.isTop && !_showTop) {
         return 10;
     }
     
@@ -302,7 +304,7 @@
     SMPost *post = _posts[indexPath.row];
     
     // 点击置顶帖，展开显示
-    if (post.isTop && [SMConfig disableShowTopPost] && !_showTop) {
+    if (post.isTop && ![SMConfig disableShowTopPost] && !_showTop) {
         _showTop = YES;
         [self.tableView reloadData];
         [SMUtils trackEventWithCategory:@"board" action:@"expand_top" label:_board.name];
