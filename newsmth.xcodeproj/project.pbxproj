@@ -67,6 +67,9 @@
 		C1300A6D187ACB9E006ACA5C /* icon_more@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1300A6A187ACB9E006ACA5C /* icon_more@2x.png */; };
 		C1300A6E187ACB9E006ACA5C /* icon_forward@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1300A6B187ACB9E006ACA5C /* icon_forward@2x.png */; };
 		C1300A73187C0A50006ACA5C /* bbsfwd.js in Resources */ = {isa = PBXBuildFile; fileRef = C1300A71187C0A30006ACA5C /* bbsfwd.js */; };
+		C1300A77187D3776006ACA5C /* icon_100@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1300A74187D3776006ACA5C /* icon_100@2x.png */; };
+		C1300A78187D3776006ACA5C /* icon_80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1300A75187D3776006ACA5C /* icon_80@2x.png */; };
+		C1300A79187D3776006ACA5C /* icon_58@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1300A76187D3776006ACA5C /* icon_58@2x.png */; };
 		C1327EDC187850DF00B1862A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1327EDB187850DF00B1862A /* StoreKit.framework */; };
 		C1327EE01878549700B1862A /* SMDonateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1327EDE1878549700B1862A /* SMDonateViewController.m */; };
 		C1327EE11878549700B1862A /* SMDonateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1327EDF1878549700B1862A /* SMDonateViewController.xib */; };
@@ -349,6 +352,9 @@
 		C1300A6A187ACB9E006ACA5C /* icon_more@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_more@2x.png"; sourceTree = "<group>"; };
 		C1300A6B187ACB9E006ACA5C /* icon_forward@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_forward@2x.png"; sourceTree = "<group>"; };
 		C1300A71187C0A30006ACA5C /* bbsfwd.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = bbsfwd.js; sourceTree = "<group>"; };
+		C1300A74187D3776006ACA5C /* icon_100@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_100@2x.png"; sourceTree = "<group>"; };
+		C1300A75187D3776006ACA5C /* icon_80@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_80@2x.png"; sourceTree = "<group>"; };
+		C1300A76187D3776006ACA5C /* icon_58@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_58@2x.png"; sourceTree = "<group>"; };
 		C1327EDB187850DF00B1862A /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		C1327EDD1878549700B1862A /* SMDonateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMDonateViewController.h; sourceTree = "<group>"; };
 		C1327EDE1878549700B1862A /* SMDonateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMDonateViewController.m; sourceTree = "<group>"; };
@@ -982,6 +988,9 @@
 		C1BFB8D0174F6A620092FD2E = {
 			isa = PBXGroup;
 			children = (
+				C1300A74187D3776006ACA5C /* icon_100@2x.png */,
+				C1300A75187D3776006ACA5C /* icon_80@2x.png */,
+				C1300A76187D3776006ACA5C /* icon_58@2x.png */,
 				392417D5187C6A7100558725 /* icon_72.png */,
 				392417D6187C6A7100558725 /* icon_76.png */,
 				392417D7187C6A7100558725 /* icon_114@2x.png */,
@@ -1473,6 +1482,7 @@
 				C1E7A1A5180A98DD002CAEEC /* badge_notice@2x.png in Resources */,
 				C1FCFAC21860782600759793 /* icon_favor_on@2x.png in Resources */,
 				C185CD3C1766286100BD3714 /* SMPostGroupContentCell.xib in Resources */,
+				C1300A78187D3776006ACA5C /* icon_80@2x.png in Resources */,
 				C185CD4117662BBF00BD3714 /* SMPostGroupAttachCell.xib in Resources */,
 				C167143B1766D01700F56535 /* XPullRefreshTableViewHeader.xib in Resources */,
 				C167143D1766D02100F56535 /* XPullRefreshTableViewFooter.xib in Resources */,
@@ -1488,6 +1498,7 @@
 				C13D4124176DD5EC00BD03A4 /* placeholder@2x.jpg in Resources */,
 				C1B581F4177723F500441299 /* SMWritePostViewController.xib in Resources */,
 				C1902DC0177E672E00967211 /* button_reply@2x.png in Resources */,
+				C1300A79187D3776006ACA5C /* icon_58@2x.png in Resources */,
 				C1E3A22B1780600900994CE6 /* SMUserViewController.xib in Resources */,
 				C14B22F517FABDD100CF081A /* bg_navigationbar@2x.png in Resources */,
 				C1FD13B717814E06006A6061 /* bg_photo_border@2x.png in Resources */,
@@ -1524,6 +1535,7 @@
 				C1D190DA17F9244D0056F3FE /* SMPageCell.xib in Resources */,
 				C1E7A1971809900F002CAEEC /* boards.json in Resources */,
 				C1A50E2D1786C5BA00D43439 /* SMImagePickerAssetsCell.xib in Resources */,
+				C1300A77187D3776006ACA5C /* icon_100@2x.png in Resources */,
 				C1A50E331786E5BA00D43439 /* button_upload@2x.png in Resources */,
 				C124CAF0185D951700B9CEA3 /* SMBoardViewTypeSelectorView.xib in Resources */,
 				C17F4B84178C0A21002F4934 /* SMImageUploadListViewController.xib in Resources */,
