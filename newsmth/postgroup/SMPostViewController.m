@@ -780,12 +780,16 @@
 {
     [self doReplyPost:cell.post];
     [self hidePostCellActions];
+    
+    [SMUtils trackEventWithCategory:@"postgroup" action:@"reply_swipe" label:_board.name];
 }
 
 - (void)postGroupContentCellOnForward:(SMPostGroupContentCell *)cell
 {
     _replyPost = cell.post;
     [self performSelectorAfterLogin:@selector(forwardAfterLogin)];
+    
+    [SMUtils trackEventWithCategory:@"postgroup" action:@"forward_swipe" label:_board.name];
 }
 
 - (void)forwardAfterLogin
