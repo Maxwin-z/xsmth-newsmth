@@ -8,8 +8,12 @@
 
 #import "SMDonateViewController.h"
 #import <StoreKit/StoreKit.h>
+#import <MessageUI/MessageUI.h>
+#import "SMMailComposeViewController.h"
+#import "SMIPadSplitViewController.h"
 
-@interface SMDonateViewController ()<SKProductsRequestDelegate, UITableViewDataSource, UITableViewDelegate, SKPaymentTransactionObserver, ASIHTTPRequestDelegate>
+
+@interface SMDonateViewController ()<SKProductsRequestDelegate, UITableViewDataSource, UITableViewDelegate, SKPaymentTransactionObserver, ASIHTTPRequestDelegate, UIAlertViewDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (strong, nonatomic) ASIHTTPRequest *donateConfigRequest;
@@ -17,6 +21,8 @@
 @property (strong, nonatomic) NSArray *products;
 
 @property (strong, nonatomic) NSArray *otherChannels;
+
+@property (strong, nonatomic) NSString *lastDonateProductID;
 @end
 
 @implementation SMDonateViewController
@@ -220,14 +226,18 @@
 
 - (void)completeTransaction:(SKPaymentTransaction *)transaction
 {
-    [self toast:@"购买成功"];
+    [self toast:@"支付成功"];
     XLog_d(@"%@", transaction);
     XLog_d(@"购买成功 %@", transaction.payment.productIdentifier);
+    
+    self.lastDonateProductID = transaction.payment.productIdentifier;
+    
+    [[[UIAlertView alloc] initWithTitle:@"告诉Maxwin" message:@"感谢你的支持，发个邮件告诉Maxwin吧。" delegate:self cancelButtonTitle:@"深藏功与名" otherButtonTitles:@"发邮件", nil] show];
 }
 
 - (void)failedTransaction:(SKPaymentTransaction *)transaction
 {
-    [self toast:@"购买失败"];
+    [self toast:@"支付取消"];
     XLog_d(@"%@", transaction);
     XLog_d(@"购买失败 %@", transaction.payment.productIdentifier);
 }
@@ -238,5 +248,77 @@
     XLog_d(@"%@", transaction);
     XLog_d(@"先前已支付 %@", transaction.payment.productIdentifier);
 }
+
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex != alertView.cancelButtonIndex) {
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"邮件", @"站内信", nil];
+        [actionSheet showInView:self.view];
+    }
+}
+
+
+#pragma mark - UIActionSheetDelegate
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) { // mail
+        if (![MFMailComposeViewController canSendMail]) {
+            [[[UIAlertView alloc] initWithTitle:@"提示" message:@"当前设备未设置邮件帐号。请至“系统设置”-“邮件”设置邮件账户" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil] show];
+            return ;
+        }
+        MFMailComposeViewController *mail = [[MFMailComposeViewController alloc] init];
+        mail.mailComposeDelegate = self;
+        [mail setToRecipients:@[@"zwd2005@gmail.com"]];
+        [mail setSubject:[NSString stringWithFormat:@"[xsmth v%@]Donate", [SMUtils appVersionString]]];
+        [mail setMessageBody:[NSString stringWithFormat:@"我捐助了一份 %@", self.lastDonateProductID] isHTML:NO];
+        mail.modalPresentationStyle = UIModalPresentationPageSheet;
+        [self presentModalViewController:mail animated:YES];
+    }
+    if (buttonIndex == 1) { // 站内信
+        [self doSendMail];
+    }
+    if (buttonIndex == actionSheet.cancelButtonIndex) {
+        [SMUtils trackEventWithCategory:@"setting" action:@"feedback" label:@"cancel"];
+    }
+}
+
+- (void)doSendMail
+{
+    if (![SMAccountManager instance].isLogin) {
+        [self performSelectorAfterLogin:@selector(doSendMail)];
+        return ;
+    }
+    SMMailComposeViewController *mailComposeViewController = [[SMMailComposeViewController alloc] init];
+    SMMailItem *mail = [[SMMailItem alloc] init];
+    mail.author = @"Maxwin";
+    mail.title = [NSString stringWithFormat:@"[xsmth v%@]Donate", [SMUtils appVersionString]];
+    mail.message = [NSString stringWithFormat:@"我捐助了一份 %@", self.lastDonateProductID];
+    mailComposeViewController.mail = mail;
+    
+    P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:mailComposeViewController];
+    
+    if ([SMUtils isPad]) {
+        [[SMIPadSplitViewController instance] presentModalViewController:nvc animated:YES];
+    } else {
+        [self presentModalViewController:nvc animated:YES];
+    }
+    
+    [SMUtils trackEventWithCategory:@"setting" action:@"feedback" label:@"sm_mail"];
+}
+
+#pragma mark MFMailComposeViewControllerDelegate
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+    // do nothing
+    if (error != nil) {
+        [self toast:[NSString stringWithFormat:@"%@", error.userInfo]];
+    } else {
+        [SMUtils trackEventWithCategory:@"setting" action:@"feedback" label:@"mail"];
+    }
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+
 
 @end

@@ -8,4 +8,5 @@
 @property (assign, nonatomic) long long date;
 @property (strong, nonatomic) NSString* url;
 @property (strong, nonatomic) NSString* content;
+@property (strong, nonatomic) NSString* message;
 @end
