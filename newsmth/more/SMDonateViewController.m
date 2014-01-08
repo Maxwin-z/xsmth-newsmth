@@ -187,15 +187,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     SKProduct *product = self.products[indexPath.row];
     SKMutablePayment *payment = [SKMutablePayment paymentWithProduct:product];
     payment.quantity = 1;
-    payment.applicationUsername = @"tester";
     [[SKPaymentQueue defaultQueue] addPayment:payment];
- 
-        XLog_d(@"%@", @([SKPaymentQueue canMakePayments]));
-    
-    XLog_d(@"%@", payment.applicationUsername);
 }
 
 #pragma mark - SKPaymentTransactionObserver
@@ -232,7 +228,9 @@
     
     self.lastDonateProductID = transaction.payment.productIdentifier;
     
-    [[[UIAlertView alloc] initWithTitle:@"告诉Maxwin" message:@"感谢你的支持，发个邮件告诉Maxwin吧。" delegate:self cancelButtonTitle:@"深藏功与名" otherButtonTitles:@"发邮件", nil] show];
+    [[[UIAlertView alloc] initWithTitle:nil message:@"感谢你的支持，发个邮件告诉Maxwin吧。" delegate:self cancelButtonTitle:@"深藏功与名" otherButtonTitles:@"发邮件", nil] show];
+    
+    [SMUtils trackEventWithCategory:@"donate" action:[NSString stringWithFormat:@"success %@", transaction.payment.productIdentifier] label:[SMAccountManager instance].name];
 }
 
 - (void)failedTransaction:(SKPaymentTransaction *)transaction
@@ -240,6 +238,8 @@
     [self toast:@"支付取消"];
     XLog_d(@"%@", transaction);
     XLog_d(@"购买失败 %@", transaction.payment.productIdentifier);
+
+    [SMUtils trackEventWithCategory:@"donate" action:[NSString stringWithFormat:@"cancel %@", transaction.payment.productIdentifier] label:[SMAccountManager instance].name];
 }
 
 - (void)restoreTransaction:(SKPaymentTransaction *)transaction
