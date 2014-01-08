@@ -70,6 +70,7 @@
 		C1300A77187D3776006ACA5C /* icon_100@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1300A74187D3776006ACA5C /* icon_100@2x.png */; };
 		C1300A78187D3776006ACA5C /* icon_80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1300A75187D3776006ACA5C /* icon_80@2x.png */; };
 		C1300A79187D3776006ACA5C /* icon_58@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1300A76187D3776006ACA5C /* icon_58@2x.png */; };
+		C1300A7D187D5FAD006ACA5C /* icon_57.png in Resources */ = {isa = PBXBuildFile; fileRef = C1300A7C187D5FAD006ACA5C /* icon_57.png */; };
 		C1327EDC187850DF00B1862A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1327EDB187850DF00B1862A /* StoreKit.framework */; };
 		C1327EE01878549700B1862A /* SMDonateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1327EDE1878549700B1862A /* SMDonateViewController.m */; };
 		C1327EE11878549700B1862A /* SMDonateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1327EDF1878549700B1862A /* SMDonateViewController.xib */; };
@@ -355,6 +356,7 @@
 		C1300A74187D3776006ACA5C /* icon_100@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_100@2x.png"; sourceTree = "<group>"; };
 		C1300A75187D3776006ACA5C /* icon_80@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_80@2x.png"; sourceTree = "<group>"; };
 		C1300A76187D3776006ACA5C /* icon_58@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_58@2x.png"; sourceTree = "<group>"; };
+		C1300A7C187D5FAD006ACA5C /* icon_57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_57.png; sourceTree = "<group>"; };
 		C1327EDB187850DF00B1862A /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		C1327EDD1878549700B1862A /* SMDonateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMDonateViewController.h; sourceTree = "<group>"; };
 		C1327EDE1878549700B1862A /* SMDonateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMDonateViewController.m; sourceTree = "<group>"; };
@@ -988,6 +990,7 @@
 		C1BFB8D0174F6A620092FD2E = {
 			isa = PBXGroup;
 			children = (
+				C1300A7C187D5FAD006ACA5C /* icon_57.png */,
 				C1300A74187D3776006ACA5C /* icon_100@2x.png */,
 				C1300A75187D3776006ACA5C /* icon_80@2x.png */,
 				C1300A76187D3776006ACA5C /* icon_58@2x.png */,
@@ -1507,6 +1510,7 @@
 				C1FD13BB17815BD1006A6061 /* SMViewControllerNeedLogin.xib in Resources */,
 				C147EC5217EB368C00530E86 /* unread@2x.png in Resources */,
 				C1FD13CF178182E3006A6061 /* button_blue_default@2x.png in Resources */,
+				C1300A7D187D5FAD006ACA5C /* icon_57.png in Resources */,
 				C1E1CAFC1870268000324EAF /* SMIPadSplitViewController.xib in Resources */,
 				C1FD13D0178182E3006A6061 /* button_blue_pressed@2x.png in Resources */,
 				C1FD13D1178182E3006A6061 /* button_gray_default@2x.png in Resources */,
