@@ -15,6 +15,8 @@
 
 @interface SMDonateViewController ()<SKProductsRequestDelegate, UITableViewDataSource, UITableViewDelegate, SKPaymentTransactionObserver, ASIHTTPRequestDelegate, UIAlertViewDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) IBOutlet UIView *viewForTableViewHeader;
+@property (weak, nonatomic) IBOutlet UILabel *labelForDonateHint;
 
 @property (strong, nonatomic) ASIHTTPRequest *donateConfigRequest;
 @property (strong, nonatomic) NSArray *productIDs;
@@ -32,9 +34,18 @@
     [super viewDidLoad];
     self.title = @"捐助";
     
+    self.tableView.tableHeaderView = self.viewForTableViewHeader;
+    
     [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
 
     [self loadProductIDs];
+}
+
+- (void)setupTheme
+{
+    [super setupTheme];
+    [self.tableView reloadData];
+    self.labelForDonateHint.textColor = [SMTheme colorForPrimary];
 }
 
 - (void)dealloc
@@ -154,6 +165,8 @@
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIDForProduct];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            
+            cell.backgroundColor = [SMTheme colorForBackground];
         }
         
         SKProduct *product = self.products[indexPath.row];
