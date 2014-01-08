@@ -126,7 +126,8 @@
     
     NSString *latestVersion = [[NSUserDefaults standardUserDefaults] stringForKey:USERDEFAULTS_STAT_VERSION];
     if (![[SMUtils appVersionString] isEqualToString:latestVersion]) {
-        [SMUtils trackEventWithCategory:@"user" action:@"unique" label:[SMUtils appVersionString]];
+        NSString *label = [NSString stringWithFormat:@"%@%@", [SMUtils isPad] ? @"ipad_" : @"", [SMUtils appVersionString]];
+        [SMUtils trackEventWithCategory:@"user" action:@"unique" label:label];
         [[NSUserDefaults standardUserDefaults] setObject:[SMUtils appVersionString] forKey:USERDEFAULTS_STAT_VERSION];
     }
     
