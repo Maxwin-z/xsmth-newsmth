@@ -166,8 +166,11 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIDForProduct];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             
-            cell.backgroundColor = [SMTheme colorForBackground];
         }
+
+        cell.backgroundColor = [SMTheme colorForBackground];
+        cell.textLabel.textColor = [SMTheme colorForPrimary];
+        cell.detailTextLabel.textColor = [SMTheme colorForSecondary];
         
         SKProduct *product = self.products[indexPath.row];
         

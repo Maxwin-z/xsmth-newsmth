@@ -37,6 +37,7 @@ typedef enum {
     CellTypeClearCache,
     
     CellTypeThxPsyYiYi,
+    CellTypeAbout,
     CellTypeDonate
     
 }CellType;
@@ -98,8 +99,8 @@ static SectionData sections[] = {
         SectionTypeThanks,
         "感谢",
         NULL,
-        2,
-        {CellTypeThxPsyYiYi, CellTypeDonate}
+        3,
+        {CellTypeThxPsyYiYi, CellTypeAbout, CellTypeDonate}
     }
 };
 
@@ -123,6 +124,7 @@ static SectionData sections[] = {
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForThxPsyYiYi;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForBackgroundFetchHelp;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForEnableDayMode;
+@property (strong, nonatomic) IBOutlet UITableViewCell *cellForAbout;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForDonate;
 
 @property (weak, nonatomic) IBOutlet UILabel *labelForAppVersion;
@@ -314,6 +316,8 @@ static SectionData sections[] = {
             
         case CellTypeThxPsyYiYi:
             return _cellForThxPsyYiYi;
+        case CellTypeAbout:
+            return _cellForAbout;
         case CellTypeDonate:
             return _cellForDonate;
         default:
@@ -423,6 +427,13 @@ static SectionData sections[] = {
         SMDonateViewController *vc = [SMDonateViewController new];
         [self.navigationController pushViewController:vc animated:YES];
         action = @"donate";
+    }
+    
+    if (cellType == CellTypeAbout) {
+        PBWebViewController *vc = [[PBWebViewController alloc] init];
+        vc.URL = [NSURL URLWithString:@"http://maxwin.me/xsmth/about.html"];
+        [self.navigationController pushViewController:vc animated:YES];
+        action = @"about";
     }
 
     if (cellType == CellTypeBackgroundFetchHelp) {
