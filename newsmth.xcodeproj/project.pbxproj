@@ -53,6 +53,7 @@
 		C1158168176851B6008A421A /* SMFavorListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1158166176851B5008A421A /* SMFavorListViewController.m */; };
 		C115816D17685606008A421A /* SMLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C115816B17685606008A421A /* SMLoginViewController.m */; };
 		C115816E17685606008A421A /* SMLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C115816C17685606008A421A /* SMLoginViewController.xib */; };
+		C1178C0D187D605F00A80B91 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1178C0C187D605F00A80B91 /* icon@2x.png */; };
 		C12027B61754E08A00EB9E9E /* bbscon.js in Resources */ = {isa = PBXBuildFile; fileRef = C121F29A1750EE790081FD87 /* bbscon.js */; };
 		C121F29E175106A00081FD87 /* SMWebParser.m in Sources */ = {isa = PBXBuildFile; fileRef = C121F29D175106A00081FD87 /* SMWebParser.m */; };
 		C122B41B17992A56000AC67E /* bg_text_hint@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C122B41A17992A56000AC67E /* bg_text_hint@2x.png */; };
@@ -334,6 +335,7 @@
 		C115816A17685606008A421A /* SMLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMLoginViewController.h; sourceTree = "<group>"; };
 		C115816B17685606008A421A /* SMLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMLoginViewController.m; sourceTree = "<group>"; };
 		C115816C17685606008A421A /* SMLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMLoginViewController.xib; sourceTree = "<group>"; };
+		C1178C0C187D605F00A80B91 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 		C121F29A1750EE790081FD87 /* bbscon.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = bbscon.js; sourceTree = "<group>"; };
 		C121F29C175106A00081FD87 /* SMWebParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMWebParser.h; sourceTree = "<group>"; };
 		C121F29D175106A00081FD87 /* SMWebParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMWebParser.m; sourceTree = "<group>"; };
@@ -990,6 +992,7 @@
 		C1BFB8D0174F6A620092FD2E = {
 			isa = PBXGroup;
 			children = (
+				C1178C0C187D605F00A80B91 /* icon@2x.png */,
 				C1300A7C187D5FAD006ACA5C /* icon_57.png */,
 				C1300A74187D3776006ACA5C /* icon_100@2x.png */,
 				C1300A75187D3776006ACA5C /* icon_80@2x.png */,
@@ -1476,6 +1479,7 @@
 				C1BFB8F1174F6A620092FD2E /* Default@2x.png in Resources */,
 				C1BFB8F3174F6A620092FD2E /* Default-568h@2x.png in Resources */,
 				C1BFB8F9174F6A620092FD2E /* ViewController.xib in Resources */,
+				C1178C0D187D605F00A80B91 /* icon@2x.png in Resources */,
 				C1AE9140175A24AF0084C618 /* SMErrorView.xib in Resources */,
 				C1E6289D1764BAD4007ACF2A /* types.schema in Resources */,
 				C14B22FA17FAC65700CF081A /* SMMailComposeViewController.xib in Resources */,
