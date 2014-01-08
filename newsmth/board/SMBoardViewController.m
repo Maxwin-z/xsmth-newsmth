@@ -88,6 +88,7 @@
     frame.origin.y = - frame.size.height;
     _viewTypeSelector.frame = frame;
     [self.view addSubview:_viewTypeSelector];
+    _viewTypeSelector.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     
     // load saved view type
     SMBoardViewType viewType = SMBoardViewTypeTztSortByReply;
