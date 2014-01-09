@@ -51,6 +51,7 @@
 - (void)dealloc
 {
     [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
+    [self.donateConfigRequest clearDelegatesAndCancel];
 }
 
 - (void)loadProductIDs
@@ -61,6 +62,12 @@
     self.donateConfigRequest = request;
 
     [request startAsynchronous];
+}
+
+- (void)cancelLoading
+{
+    [super cancelLoading];
+    [self.donateConfigRequest clearDelegatesAndCancel];
 }
 
 - (void)setProductIDs:(NSArray *)productIDs
