@@ -101,8 +101,8 @@ static SectionData sections[] = {
         SectionTypeThanks,
         "感谢",
         NULL,
-        3,
-        {CellTypeThxPsyYiYi, CellTypeAbout, CellTypeDonate}
+        2,
+        {CellTypeThxPsyYiYi, CellTypeAbout /*, CellTypeDonate */}
     }
 };
 
