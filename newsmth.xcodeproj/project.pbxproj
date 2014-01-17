@@ -225,7 +225,6 @@
 		C1E628AA1764C594007ACF2A /* SMMainPage.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E628A51764C594007ACF2A /* SMMainPage.m */; };
 		C1E628AB1764C594007ACF2A /* SMPostGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E628A71764C594007ACF2A /* SMPostGroup.m */; };
 		C1E628AC1764C594007ACF2A /* SMSection.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E628A91764C594007ACF2A /* SMSection.m */; };
-		C1E7A18618098AAB002CAEEC /* AMBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E7A17118098AAA002CAEEC /* AMBlurView.m */; };
 		C1E7A1971809900F002CAEEC /* boards.json in Resources */ = {isa = PBXBuildFile; fileRef = C1E7A1961809900F002CAEEC /* boards.json */; };
 		C1E7A19A1809A7F1002CAEEC /* SMFontSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E7A1991809A7F1002CAEEC /* SMFontSelectorViewController.m */; };
 		C1E7A1A3180A91EB002CAEEC /* bg_barbuttonitem@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1E7A1A2180A91EB002CAEEC /* bg_barbuttonitem@2x.png */; };
@@ -610,8 +609,6 @@
 		C1E628A71764C594007ACF2A /* SMPostGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMPostGroup.m; sourceTree = "<group>"; };
 		C1E628A81764C594007ACF2A /* SMSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMSection.h; sourceTree = "<group>"; };
 		C1E628A91764C594007ACF2A /* SMSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMSection.m; sourceTree = "<group>"; };
-		C1E7A17018098AAA002CAEEC /* AMBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBlurView.h; sourceTree = "<group>"; };
-		C1E7A17118098AAA002CAEEC /* AMBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBlurView.m; sourceTree = "<group>"; };
 		C1E7A1961809900F002CAEEC /* boards.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = boards.json; sourceTree = "<group>"; };
 		C1E7A1981809A7F1002CAEEC /* SMFontSelectorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMFontSelectorViewController.h; sourceTree = "<group>"; };
 		C1E7A1991809A7F1002CAEEC /* SMFontSelectorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMFontSelectorViewController.m; sourceTree = "<group>"; };
@@ -970,7 +967,6 @@
 		C1BA923917954EC300F76ACF /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
-				C1E7A16A18098AAA002CAEEC /* iOS-blur */,
 				C1C07A141796857900906ED7 /* OWActivityViewController */,
 				C1BA927B17954EC300F76ACF /* PBWebViewController */,
 			);
@@ -1341,31 +1337,6 @@
 			path = Data;
 			sourceTree = "<group>";
 		};
-		C1E7A16A18098AAA002CAEEC /* iOS-blur */ = {
-			isa = PBXGroup;
-			children = (
-				C1E7A16C18098AAA002CAEEC /* blur */,
-			);
-			path = "iOS-blur";
-			sourceTree = "<group>";
-		};
-		C1E7A16C18098AAA002CAEEC /* blur */ = {
-			isa = PBXGroup;
-			children = (
-				C1E7A16D18098AAA002CAEEC /* blur */,
-			);
-			path = blur;
-			sourceTree = "<group>";
-		};
-		C1E7A16D18098AAA002CAEEC /* blur */ = {
-			isa = PBXGroup;
-			children = (
-				C1E7A17018098AAA002CAEEC /* AMBlurView.h */,
-				C1E7A17118098AAA002CAEEC /* AMBlurView.m */,
-			);
-			path = blur;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1693,7 +1664,6 @@
 				C1F4C5AC1806D4BD00E8A52D /* SMConfig.m in Sources */,
 				C1C07A5E1796857900906ED7 /* OWFacebookActivity.m in Sources */,
 				C1C07A5F1796857900906ED7 /* OWMailActivity.m in Sources */,
-				C1E7A18618098AAB002CAEEC /* AMBlurView.m in Sources */,
 				C1CE10BC1812293900B04E15 /* SMUpdater.m in Sources */,
 				C1C07A601796857900906ED7 /* OWMapsActivity.m in Sources */,
 				C1C07A611796857900906ED7 /* OWMessageActivity.m in Sources */,
