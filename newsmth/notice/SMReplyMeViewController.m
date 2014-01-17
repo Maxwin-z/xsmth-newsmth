@@ -67,7 +67,7 @@
         ++_page;
     }
     
-    NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/nForum/refer/%@?ajax&p=%d", _refer, _page];
+    NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/nForum/refer/%@?ajax&p=%@", _refer, @(_page)];
     
     [_op cancel];
     _op = [[SMWebLoaderOperation alloc] init];

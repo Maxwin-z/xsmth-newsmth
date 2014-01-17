@@ -54,7 +54,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.trackedViewName = NSStringFromClass([self class]);
+    self.screenName = NSStringFromClass([self class]);
     
     self.currentOrientation = [UIDevice currentDevice].orientation;
 

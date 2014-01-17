@@ -163,7 +163,7 @@ typedef enum {
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [self cellForType:[_cells[indexPath.row] integerValue]];
+    UITableViewCell *cell = [self cellForType:[_cells[indexPath.row] intValue]];
     return cell.frame.size.height;
 }
 
@@ -194,7 +194,7 @@ typedef enum {
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [self cellForType:[_cells[indexPath.row] integerValue]];
+    UITableViewCell *cell = [self cellForType:[_cells[indexPath.row] intValue]];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.backgroundColor = [SMTheme colorForBackground];
     cell.textLabel.textColor = [SMTheme colorForPrimary];

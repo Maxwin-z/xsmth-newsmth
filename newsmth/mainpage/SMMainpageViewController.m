@@ -181,7 +181,7 @@ static SMMainpageViewController *_instance;
     }
     
     [SMUtils trackEventWithCategory:@"mainpage" action:@"row_click" label:
-     [NSString stringWithFormat:@"%d-%d", indexPath.section, indexPath.row]
+     [NSString stringWithFormat:@"%@-%@", @(indexPath.section), @(indexPath.row)]
      ];
 }
 

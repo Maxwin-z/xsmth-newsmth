@@ -8,6 +8,7 @@
 
 #import "SMUtils.h"
 #import "GAI.h"
+#import "GAIDictionaryBuilder.h"
 
 @implementation SMUtils
 
@@ -102,10 +103,17 @@
                         action:(NSString *)action
                          label:(NSString *)label
 {
-    [[GAI sharedInstance].defaultTracker sendEventWithCategory:category
-                                                    withAction:action
-                                                     withLabel:label
-                                                     withValue:nil];
+    NSMutableDictionary *event =
+    [[GAIDictionaryBuilder createEventWithCategory:@"UI"
+                                            action:@"buttonPress"
+                                             label:@"dispatch"
+                                             value:nil] build];
+    [[GAI sharedInstance].defaultTracker send:event];
+
+//    [[GAI sharedInstance].defaultTracker sendEventWithCategory:category
+//                                                    withAction:action
+//                                                     withLabel:label
+//                                                     withValue:nil];
     XLog_d(@"track category:[%@], action[%@], label[%@]", category, action, label);
 }
 

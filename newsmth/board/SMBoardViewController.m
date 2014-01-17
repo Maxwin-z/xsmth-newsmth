@@ -95,7 +95,7 @@
     NSString *defKey = [NSString stringWithFormat:@"user_def_view_type_%@", _board.name];
     id obj = [[NSUserDefaults standardUserDefaults] objectForKey:defKey];
     if (obj) {
-        viewType = [obj integerValue];
+        viewType = [obj intValue];
     }
 
     _isViewTypeSelectorVisiable = NO;

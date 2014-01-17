@@ -104,7 +104,7 @@
     _posts = board.posts;
     [_tableView reloadData];
     
-    self.title = [NSString stringWithFormat:@"共%d条结果", _posts.count];
+    self.title = [NSString stringWithFormat:@"共%@条结果", @(_posts.count)];
 //    XLog_d(@"%@", board);
 }
 

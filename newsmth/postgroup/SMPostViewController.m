@@ -219,7 +219,7 @@
 
     [_currentPageItem.op cancel];
     [_pageOp cancel];
-    NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbstcon.php?board=%@&gid=%d&start=%d&pno=%d", _board.name, _gid, _currentPageItem.start, _currentPageItem.pno];
+    NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbstcon.php?board=%@&gid=%@&start=%@&pno=%@", _board.name, @(_gid), @(_currentPageItem.start), @(_currentPageItem.pno)];
     _pageOp = [[SMWebLoaderOperation alloc] init];
     _pageOp.highPriority = YES;
     _pageOp.delegate = self;
@@ -259,7 +259,7 @@
     } else {
         [self.tableView reloadData];
     }
-    NSString *label = [NSString stringWithFormat:@"%d/%d", _scrollIndicator.selectedIndex, _scrollIndicator.titles.count];
+    NSString *label = [NSString stringWithFormat:@"%@/%@", @(_scrollIndicator.selectedIndex), @(_scrollIndicator.titles.count)];
     [SMUtils trackEventWithCategory:@"postgroup" action:@"scrollindicator" label:label];
     XLog_d(@"%@", label);
 }
@@ -325,7 +325,7 @@
     } else {
         SMPostItem *postItem = item;
         // 1. header    2. content  3... attach
-        int row = 2 + postItem.post.attaches.count;
+        size_t row = 2 + postItem.post.attaches.count;
         return row;
     }
 }
@@ -569,7 +569,7 @@
                 }
             }
             
-            NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbscon.php?bid=%d&id=%d", _bid, post.pid];
+            NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbscon.php?bid=%@&id=%@", @(_bid), @(post.pid)];
             if (![SMConfig enableShowQMD]) {
                 url = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/single/%d/0",
                              _board.name, post.pid];
@@ -589,7 +589,7 @@
         }];
         
         if (_currentPageItem.pno == 1 && postGroup.tpage > 1) {  // 首次加载，构建新的数组postItems
-            int countPerPage = postGroup.posts.count;
+            NSUInteger countPerPage = postGroup.posts.count;
             for (int i = 2; i <= postGroup.tpage; ++i) {
                 SMPostPageItem *pageItem = [[SMPostPageItem alloc] init];
                 pageItem.gid = _currentPageItem.gid;
@@ -680,7 +680,7 @@
 {
     // get last page item
     SMPostPageItem *pageItem = nil;
-    for (int i = _items.count - 1; i >= 0; --i) {
+    for (int i = (int)_items.count - 1; i >= 0; --i) {
         id item = _items[i];
         if ([item isKindOfClass:[SMPostPageItem class]]) {
             pageItem = item;

@@ -245,7 +245,7 @@
         if (uploadResult.items.count > 0) {
             _lastUploads = uploadResult.items;
             _buttonForUploadHint.hidden = NO;
-            NSString *hint = [NSString stringWithFormat:@" 上次已上传%d个文件，点击管理 ", uploadResult.items.count];
+            NSString *hint = [NSString stringWithFormat:@" 上次已上传%@个文件，点击管理 ", @(uploadResult.items.count)];
             [_buttonForUploadHint setTitle:hint forState:UIControlStateNormal];
             [_buttonForUploadHint setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
             [_buttonForUploadHint sizeToFit];
@@ -309,7 +309,7 @@
 - (void)imageUploaderOnProgressChange:(SMImageUploader *)uploader withProgress:(CGFloat)progress
 {
     if (uploader.uploadQueue.count > 0) {   // 压缩过程中，uploadQueue.count为0，暂不显示
-        NSString *hint = [NSString stringWithFormat:@" 已上传第%d张%.2f%%，共%d) ", uploader.currentIndex + 1, progress * 100, uploader.uploadQueue.count];
+        NSString *hint = [NSString stringWithFormat:@" 已上传第%@张%.2f%%，共%@) ", @(uploader.currentIndex + 1), progress * 100, @(uploader.uploadQueue.count)];
         [self updateUploadHint:hint];
     } else {
         [self updateUploadHint:@"正在压缩图片..."];

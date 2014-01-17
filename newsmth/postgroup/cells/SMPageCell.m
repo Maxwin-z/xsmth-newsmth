@@ -32,7 +32,7 @@
 - (void)setPageItem:(SMPostPageItem *)pageItem
 {
     _pageItem = pageItem;
-    _labelForPage.text = [NSString stringWithFormat:@"%d", pageItem.pageIndex];
+    _labelForPage.text = [NSString stringWithFormat:@"%@", @(pageItem.pageIndex)];
     
     _activityIndicator.hidden = _buttonForRetry.hidden = YES;
     

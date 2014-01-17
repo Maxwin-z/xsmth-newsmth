@@ -29,9 +29,7 @@
 		C1011D8E17787DA400E0485D /* SMWriteResult.m in Sources */ = {isa = PBXBuildFile; fileRef = C1011D8D17787DA400E0485D /* SMWriteResult.m */; };
 		C1011D9017787E7E00E0485D /* bbssnd.js in Resources */ = {isa = PBXBuildFile; fileRef = C1011D8F17787E7E00E0485D /* bbssnd.js */; };
 		C1011D96177946D500E0485D /* SMUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C1011D95177946D500E0485D /* SMUtils.m */; };
-		C1011DA01779654900E0485D /* libGoogleAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C1011D9E1779654900E0485D /* libGoogleAnalytics.a */; };
 		C1011DA31779657000E0485D /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1011DA21779657000E0485D /* CoreData.framework */; };
-		C1011DA517796A5400E0485D /* libGoogleAnalytics_debug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C1011DA417796A5400E0485D /* libGoogleAnalytics_debug.a */; };
 		C1011DAC1779946600E0485D /* UIButton+Custom.m in Sources */ = {isa = PBXBuildFile; fileRef = C1011DAB1779946600E0485D /* UIButton+Custom.m */; };
 		C10D16081755E7A0002D6FAD /* SMWebLoaderOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C10D16071755E7A0002D6FAD /* SMWebLoaderOperation.m */; };
 		C10D160B1755EFEE002D6FAD /* SMWebLoaderOperationQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = C10D160A1755EFEE002D6FAD /* SMWebLoaderOperationQueue.m */; };
@@ -93,6 +91,8 @@
 		C14B230A17FBB0E500CF081A /* SMSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C14B230817FBB0E500CF081A /* SMSettingViewController.xib */; };
 		C15188CF17A7B2A900E8344D /* SMNoticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C15188CD17A7B2A900E8344D /* SMNoticeViewController.m */; };
 		C15188D017A7B2A900E8344D /* SMNoticeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C15188CE17A7B2A900E8344D /* SMNoticeViewController.xib */; };
+		C15489C01888CA580046190C /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C15489BF1888CA580046190C /* libGoogleAnalyticsServices.a */; };
+		C15489C21888CDF60046190C /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C15489C11888CDF60046190C /* AdSupport.framework */; };
 		C154CC5B1873C1E800C32F0D /* UIView+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = C154CC5A1873C1E800C32F0D /* UIView+Utils.m */; };
 		C1643A7917E9A54C00107559 /* icon_120@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1643A7817E9A54C00107559 /* icon_120@2x.png */; };
 		C16714391766CFED00F56535 /* XPullRefreshTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = C16714381766CFED00F56535 /* XPullRefreshTableView.m */; };
@@ -298,9 +298,7 @@
 		C1011D9B1779654900E0485D /* GAITracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITracker.h; sourceTree = "<group>"; };
 		C1011D9C1779654900E0485D /* GAITransaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITransaction.h; sourceTree = "<group>"; };
 		C1011D9D1779654900E0485D /* GAITransactionItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITransactionItem.h; sourceTree = "<group>"; };
-		C1011D9E1779654900E0485D /* libGoogleAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalytics.a; sourceTree = "<group>"; };
 		C1011DA21779657000E0485D /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		C1011DA417796A5400E0485D /* libGoogleAnalytics_debug.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalytics_debug.a; sourceTree = "<group>"; };
 		C1011DAA1779946600E0485D /* UIButton+Custom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Custom.h"; sourceTree = "<group>"; };
 		C1011DAB1779946600E0485D /* UIButton+Custom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Custom.m"; sourceTree = "<group>"; };
 		C10D16051755D552002D6FAD /* SMDefination.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMDefination.h; sourceTree = "<group>"; };
@@ -390,6 +388,11 @@
 		C15188CC17A7B2A900E8344D /* SMNoticeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMNoticeViewController.h; sourceTree = "<group>"; };
 		C15188CD17A7B2A900E8344D /* SMNoticeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMNoticeViewController.m; sourceTree = "<group>"; };
 		C15188CE17A7B2A900E8344D /* SMNoticeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMNoticeViewController.xib; sourceTree = "<group>"; };
+		C15489BC1888CA580046190C /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIDictionaryBuilder.h; sourceTree = "<group>"; };
+		C15489BD1888CA580046190C /* GAIFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIFields.h; sourceTree = "<group>"; };
+		C15489BE1888CA580046190C /* GAILogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAILogger.h; sourceTree = "<group>"; };
+		C15489BF1888CA580046190C /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
+		C15489C11888CDF60046190C /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		C154CC591873C1E800C32F0D /* UIView+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Utils.h"; sourceTree = "<group>"; };
 		C154CC5A1873C1E800C32F0D /* UIView+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Utils.m"; sourceTree = "<group>"; };
 		C1643A7817E9A54C00107559 /* icon_120@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_120@2x.png"; sourceTree = "<group>"; };
@@ -647,6 +650,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C15489C21888CDF60046190C /* AdSupport.framework in Frameworks */,
 				C1327EDC187850DF00B1862A /* StoreKit.framework in Frameworks */,
 				C1C07A78179686BD00906ED7 /* MessageUI.framework in Frameworks */,
 				C1C07A7C179686F600906ED7 /* Twitter.framework in Frameworks */,
@@ -655,14 +659,13 @@
 				C1011DA31779657000E0485D /* CoreData.framework in Frameworks */,
 				C10D16BB1756276D002D6FAD /* QuartzCore.framework in Frameworks */,
 				C1BFB91E174F6F390092FD2E /* libz.dylib in Frameworks */,
+				C15489C01888CA580046190C /* libGoogleAnalyticsServices.a in Frameworks */,
 				C1BFB8E1174F6A620092FD2E /* CoreGraphics.framework in Frameworks */,
 				C1BFB91C174F6F2A0092FD2E /* MobileCoreServices.framework in Frameworks */,
 				C1BFB91A174F6F260092FD2E /* SystemConfiguration.framework in Frameworks */,
 				C1BFB918174F6F200092FD2E /* CFNetwork.framework in Frameworks */,
 				C1BFB8DD174F6A620092FD2E /* UIKit.framework in Frameworks */,
 				C1BFB8DF174F6A620092FD2E /* Foundation.framework in Frameworks */,
-				C1011DA01779654900E0485D /* libGoogleAnalytics.a in Frameworks */,
-				C1011DA517796A5400E0485D /* libGoogleAnalytics_debug.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -700,13 +703,15 @@
 		C1011D981779654900E0485D /* GoogleAnalytics */ = {
 			isa = PBXGroup;
 			children = (
+				C15489BC1888CA580046190C /* GAIDictionaryBuilder.h */,
+				C15489BD1888CA580046190C /* GAIFields.h */,
+				C15489BE1888CA580046190C /* GAILogger.h */,
+				C15489BF1888CA580046190C /* libGoogleAnalyticsServices.a */,
 				C1011D991779654900E0485D /* GAI.h */,
 				C1011D9A1779654900E0485D /* GAITrackedViewController.h */,
 				C1011D9B1779654900E0485D /* GAITracker.h */,
 				C1011D9C1779654900E0485D /* GAITransaction.h */,
 				C1011D9D1779654900E0485D /* GAITransactionItem.h */,
-				C1011D9E1779654900E0485D /* libGoogleAnalytics.a */,
-				C1011DA417796A5400E0485D /* libGoogleAnalytics_debug.a */,
 			);
 			path = GoogleAnalytics;
 			sourceTree = "<group>";
@@ -1022,6 +1027,7 @@
 		C1BFB8DB174F6A620092FD2E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C15489C11888CDF60046190C /* AdSupport.framework */,
 				C1327EDB187850DF00B1862A /* StoreKit.framework */,
 				C1CE10C3181278FD00B04E15 /* libcommonCrypto.dylib */,
 				C1BFB91D174F6F390092FD2E /* libz.dylib */,
@@ -1770,6 +1776,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -1785,7 +1792,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
@@ -1810,6 +1817,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/newsmth/Frameworks/GoogleAnalytics",
 					"$(SDKROOT)/usr/lib/system",
+					/Users/Maxwin/workspace/iOS/newsmth/newsmth/Frameworks/GoogleAnalytics,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1840,6 +1848,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -1862,7 +1871,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
@@ -1873,6 +1882,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -1888,7 +1898,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
@@ -1913,10 +1923,11 @@
 					"$(inherited)",
 					"$(SRCROOT)/newsmth/Frameworks/GoogleAnalytics",
 					"$(SDKROOT)/usr/lib/system",
+					/Users/Maxwin/workspace/iOS/newsmth/newsmth/Frameworks/GoogleAnalytics,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "79741681-93F0-41C3-A5F4-864559192B01";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A1BA4194-11E4-4E6C-9B66-8E90B202E8BB";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1939,6 +1950,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/newsmth/Frameworks/GoogleAnalytics",
 					"$(SDKROOT)/usr/lib/system",
+					/Users/Maxwin/workspace/iOS/newsmth/newsmth/Frameworks/GoogleAnalytics,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
