@@ -9,5 +9,5 @@
 #import "SMViewController.h"
 
 @interface SMEULAViewController : SMViewController
-
+@property (assign, nonatomic) BOOL hideAgreeButton;
 @end

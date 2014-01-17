@@ -30,7 +30,9 @@
     NSString *url = @"http://maxwin.me/xsmth/eula.html";
     [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"同意" style:UIBarButtonItemStylePlain target:self action:@selector(onRightBarButtonItemClick)];
+    if (!self.hideAgreeButton) {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"同意" style:UIBarButtonItemStylePlain target:self action:@selector(onRightBarButtonItemClick)];
+    }
 }
 
 - (void)onRightBarButtonItemClick

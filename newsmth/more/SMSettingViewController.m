@@ -14,6 +14,7 @@
 #import "SMDonateViewController.h"
 #import <MessageUI/MessageUI.h>
 #import "SMIPadSplitViewController.h"
+#import "SMEULAViewController.h"
 
 #define MAX_CELL_COUNT  5
 
@@ -32,6 +33,7 @@ typedef enum {
     CellTypeListFont,
     CellTypePostFont,
     
+    CellTypeEULA,
     CellTypeFeedback,
     CellTypeRate,
     CellTypeClearCache,
@@ -92,8 +94,8 @@ static SectionData sections[] = {
         SectionTypeMore,
         "其他",
         NULL,
-        3,
-        {CellTypeFeedback, CellTypeRate, CellTypeClearCache}
+        4,
+        {CellTypeEULA, CellTypeFeedback, CellTypeRate, CellTypeClearCache}
     },
     {
         SectionTypeThanks,
@@ -126,6 +128,7 @@ static SectionData sections[] = {
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForEnableDayMode;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForAbout;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForDonate;
+@property (strong, nonatomic) IBOutlet UITableViewCell *cellForEULA;
 
 @property (weak, nonatomic) IBOutlet UILabel *labelForAppVersion;
 @property (weak, nonatomic) IBOutlet UISwitch *switchForHideTop;
@@ -307,6 +310,8 @@ static SectionData sections[] = {
         case CellTypePostFont:
             return _cellForPostFont;
             
+        case CellTypeEULA:
+            return _cellForEULA;
         case CellTypeFeedback:
             return _cellForFeedback;
         case CellTypeRate:
@@ -404,6 +409,12 @@ static SectionData sections[] = {
         [self presentModalViewController:nvc animated:YES];
         
         action = cellType == CellTypePostFont ? @"changePostFont" : @"changeListFont";
+    }
+    
+    if (cellType == CellTypeEULA) {
+        SMEULAViewController *vc = [SMEULAViewController new];
+        vc.hideAgreeButton = YES;
+        [self.navigationController pushViewController:vc animated:YES];
     }
     
     if (cellType == CellTypeFeedback) {
