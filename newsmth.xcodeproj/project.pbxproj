@@ -93,6 +93,7 @@
 		C15188D017A7B2A900E8344D /* SMNoticeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C15188CE17A7B2A900E8344D /* SMNoticeViewController.xib */; };
 		C15489C01888CA580046190C /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C15489BF1888CA580046190C /* libGoogleAnalyticsServices.a */; };
 		C15489C21888CDF60046190C /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C15489C11888CDF60046190C /* AdSupport.framework */; };
+		C15489C51888F9E10046190C /* SMEULAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C15489C41888F9E10046190C /* SMEULAViewController.m */; };
 		C154CC5B1873C1E800C32F0D /* UIView+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = C154CC5A1873C1E800C32F0D /* UIView+Utils.m */; };
 		C1643A7917E9A54C00107559 /* icon_120@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1643A7817E9A54C00107559 /* icon_120@2x.png */; };
 		C16714391766CFED00F56535 /* XPullRefreshTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = C16714381766CFED00F56535 /* XPullRefreshTableView.m */; };
@@ -392,6 +393,8 @@
 		C15489BE1888CA580046190C /* GAILogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAILogger.h; sourceTree = "<group>"; };
 		C15489BF1888CA580046190C /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
 		C15489C11888CDF60046190C /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		C15489C31888F9E10046190C /* SMEULAViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMEULAViewController.h; sourceTree = "<group>"; };
+		C15489C41888F9E10046190C /* SMEULAViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMEULAViewController.m; sourceTree = "<group>"; };
 		C154CC591873C1E800C32F0D /* UIView+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Utils.h"; sourceTree = "<group>"; };
 		C154CC5A1873C1E800C32F0D /* UIView+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Utils.m"; sourceTree = "<group>"; };
 		C1643A7817E9A54C00107559 /* icon_120@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_120@2x.png"; sourceTree = "<group>"; };
@@ -819,6 +822,8 @@
 				C1327EDD1878549700B1862A /* SMDonateViewController.h */,
 				C1327EDE1878549700B1862A /* SMDonateViewController.m */,
 				C1327EDF1878549700B1862A /* SMDonateViewController.xib */,
+				C15489C31888F9E10046190C /* SMEULAViewController.h */,
+				C15489C41888F9E10046190C /* SMEULAViewController.m */,
 			);
 			path = more;
 			sourceTree = "<group>";
@@ -1576,6 +1581,7 @@
 				C1BFB8F6174F6A620092FD2E /* ViewController.m in Sources */,
 				C1BFB9C3174F6F5C0092FD2E /* ASIAuthenticationDialog.m in Sources */,
 				C1BFB9C4174F6F5C0092FD2E /* ASIDataCompressor.m in Sources */,
+				C15489C51888F9E10046190C /* SMEULAViewController.m in Sources */,
 				C14B22F117FAB00700CF081A /* XTimeLabel.m in Sources */,
 				C1BFB9C5174F6F5C0092FD2E /* ASIDataDecompressor.m in Sources */,
 				C1BFB9C6174F6F5C0092FD2E /* ASIDownloadCache.m in Sources */,

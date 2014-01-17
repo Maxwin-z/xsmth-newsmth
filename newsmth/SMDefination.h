@@ -48,6 +48,8 @@ typedef enum {
 
 #define USERDEFAULTS_BOARD_HISTORY @"board_history"
 
+#define USERDEFAULTS_EULA_ACCEPTED   @"pref_eula_accepted"
+
 #define USERDEFAULTS_LIST_FONT_FAMILY  @"list_font_family"
 #define USERDEFAULTS_LIST_FONT_SIZE  @"list_font_size"
 #define USERDEFAULTS_POST_FONT_FAMILY  @"post_font_family"

@@ -13,6 +13,8 @@
 
 #import "SMImagePickerViewController.h"
 #import "SMPostViewController.h"
+#import "SMEULAViewController.h"
+#import "SMIPadSplitViewController.h"
 
 #import "XImageViewCache.h"
 
@@ -83,6 +85,12 @@ static SMMainViewController *_instance;
     self.view.clipsToBounds = YES;
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self showEndUserLicenseAgreements];
+}
+
 - (void)makeupMenuBarButtonItem
 {
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
@@ -119,6 +127,20 @@ static SMMainViewController *_instance;
 - (void)onLeftBarButtonClick
 {
     [self setLeftVisiable:YES];
+}
+
+- (void)showEndUserLicenseAgreements
+{
+    if (![[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_EULA_ACCEPTED]) {
+        SMEULAViewController *vc = [SMEULAViewController new];
+        P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:vc];
+        
+        if ([SMUtils isPad]) {
+            [[SMIPadSplitViewController instance] presentModalViewController:nvc animated:YES];
+        } else {
+            [self presentViewController:nvc animated:YES completion:NULL];
+        }
+    }
 }
 
 - (void)setRootViewController:(UIViewController *)viewController
