@@ -129,6 +129,21 @@
         NSString *label = [NSString stringWithFormat:@"%@%@", [SMUtils isPad] ? @"ipad_" : @"", [SMUtils appVersionString]];
         [SMUtils trackEventWithCategory:@"user" action:@"unique" label:label];
         [[NSUserDefaults standardUserDefaults] setObject:[SMUtils appVersionString] forKey:USERDEFAULTS_STAT_VERSION];
+
+        // 清除历史patch js
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        if (paths.count > 0) {
+            NSString *doc = [paths objectAtIndex:0];
+            NSString *filepath = [NSString stringWithFormat:@"%@/parser", doc];
+            NSError *error;
+            BOOL removeSuccess = [[NSFileManager defaultManager] removeItemAtPath:filepath error:&error];
+            if (removeSuccess) {
+                XLog_d(@"remove [%@] success", filepath);
+            } else {
+                XLog_d(@"remove [%@] error:[%@]", filepath, error);
+            }
+        }
+
     }
     
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
