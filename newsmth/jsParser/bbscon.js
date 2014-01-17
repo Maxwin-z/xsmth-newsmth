@@ -135,7 +135,7 @@ function parse_m(html) {
         // content
         data.content = div.querySelector('#m_main .list.sec li .sp').innerHTML
             .replace(/<br\s*\/?>/ig, '\n')
-            .replace(/<a.*?<\/a>/ig, '');
+            .replace(/<a.*?><img .*?<\/a>/ig, '');
 
         // attaches
         var imgs = div.querySelectorAll('#m_main .list.sec li .sp img');
@@ -180,5 +180,7 @@ function decode(html) {
             .replace(/&nbsp;/ig, ' ')
             .replace(/&amp;/ig, '&');
 }
+
+/* 24303017fea26d887d663e1d261d97f5 */
 
 
