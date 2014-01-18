@@ -14,6 +14,7 @@
 #import "SMSection.h"
 #import "SMPost.h"
 #import "SMBoardSearchDelegateImpl.h"
+#import "SMIPadSplitViewController.h"
 
 static SMMainpageViewController *_instance;
 
@@ -107,6 +108,13 @@ static SMMainpageViewController *_instance;
     _op.delegate = self;
     [_op loadUrl:@"http://www.newsmth.net/mainpage.html" withParser:@"mainpage"];
 }
+
+- (void)onDeviceRotate
+{
+    [super onDeviceRotate];
+    [self.tableView reloadData];
+}
+
 #pragma mark - XPullRefreshTableViewDelegate
 - (void)tableViewDoRefresh:(XPullRefreshTableView *)tableView
 {
@@ -135,7 +143,7 @@ static SMMainpageViewController *_instance;
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SMPost *post = [self postAtIndexPath:indexPath];
-    return [SMMainpageCell cellHeight:post];
+    return [SMMainpageCell cellHeight:post withWidth:self.tableView.bounds.size.width];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -165,10 +173,15 @@ static SMMainpageViewController *_instance;
     SMPostViewController *vc = [[SMPostViewController alloc] init];
     vc.board = post.board;
     vc.gid = post.gid;
-    [self.navigationController pushViewController:vc animated:YES];
+    
+    if ([SMUtils isPad]) {
+        [SMIPadSplitViewController instance].detailViewController = vc;
+    } else {
+        [self.navigationController pushViewController:vc animated:YES];
+    }
     
     [SMUtils trackEventWithCategory:@"mainpage" action:@"row_click" label:
-     [NSString stringWithFormat:@"%d-%d", indexPath.section, indexPath.row]
+     [NSString stringWithFormat:@"%@-%@", @(indexPath.section), @(indexPath.row)]
      ];
 }
 

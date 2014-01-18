@@ -13,10 +13,13 @@
 
 #import "SMImagePickerViewController.h"
 #import "SMPostViewController.h"
+#import "SMEULAViewController.h"
+#import "SMIPadSplitViewController.h"
 
 #import "XImageViewCache.h"
 
-#define LEFT_SIZE   270.0f
+//#define LEFT_SIZE   270.0f
+#define RIGHTBAR_WIDTH 50.0f
 #define ANIMATION_DURATION  0.5f
 
 typedef enum {
@@ -64,6 +67,7 @@ static SMMainViewController *_instance;
     self.view.backgroundColor = [UIColor clearColor];
     _leftViewController = [[SMLeftViewController alloc] init];
     _leftViewController.view.frame = self.view.bounds;
+    _leftViewController.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     _leftViewController.view.hidden = YES;
     [self.view addSubview:_leftViewController.view];
         
@@ -77,6 +81,14 @@ static SMMainViewController *_instance;
     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onViewPanGesture:)];
     panGesture.delegate = self;
     [_centerViewController.view addGestureRecognizer:panGesture];
+    
+    self.view.clipsToBounds = YES;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self showEndUserLicenseAgreements];
 }
 
 - (void)makeupMenuBarButtonItem
@@ -117,6 +129,20 @@ static SMMainViewController *_instance;
     [self setLeftVisiable:YES];
 }
 
+- (void)showEndUserLicenseAgreements
+{
+    if (![[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_EULA_ACCEPTED]) {
+        SMEULAViewController *vc = [SMEULAViewController new];
+        P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:vc];
+        
+        if ([SMUtils isPad]) {
+            [[SMIPadSplitViewController instance] presentModalViewController:nvc animated:YES];
+        } else {
+            [self presentViewController:nvc animated:YES completion:NULL];
+        }
+    }
+}
+
 - (void)setRootViewController:(UIViewController *)viewController
 {
     [_centerViewController popToRootViewControllerAnimated:NO];
@@ -135,9 +161,10 @@ static SMMainViewController *_instance;
     _leftViewController.view.hidden = NO;
     _leftViewController.view.userInteractionEnabled = NO;
 
-    CGFloat endX = visiable ? LEFT_SIZE : 0;
+    CGFloat leftWidth = self.view.bounds.size.width - RIGHTBAR_WIDTH;
+    CGFloat endX = visiable ? leftWidth : 0;
     CGFloat length = _centerViewController.view.frame.origin.x - endX;
-    CGFloat duration = ANIMATION_DURATION * fabsf(length) / LEFT_SIZE;
+    CGFloat duration = ANIMATION_DURATION * fabsf(length) / leftWidth;
     [UIView animateWithDuration:duration animations:^{
         CGRect frame = _centerViewController.view.frame;
         frame.origin.x = endX;
@@ -150,7 +177,7 @@ static SMMainViewController *_instance;
     if (visiable) {
         if (_viewForCenterMasker == nil) {
             CGRect frame = self.view.bounds;
-            frame.origin.x = LEFT_SIZE;
+            frame.origin.x = leftWidth;
             _viewForCenterMasker = [[UIView alloc] initWithFrame:frame];
             [self.view addSubview:_viewForCenterMasker];
 

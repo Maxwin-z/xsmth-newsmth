@@ -48,12 +48,15 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onKeyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onKeyboardDidHide:) name:UIKeyboardDidHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onThemeChangedNotification:) name:NOTIFYCATION_THEME_CHANGED object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onDeviceOrientationNotification:) name:UIDeviceOrientationDidChangeNotification object:nil];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.trackedViewName = NSStringFromClass([self class]);
+    self.screenName = NSStringFromClass([self class]);
+    
+    self.currentOrientation = [UIDevice currentDevice].orientation;
 
     [self setupTheme];
 //    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background"]];
@@ -88,9 +91,29 @@
         [[NSBundle mainBundle] loadNibNamed:@"SMViewControllerPopover" owner:self options:nil];
         _imageViewForPopoverBg.image = [_imageViewForPopoverBg.image stretchableImageWithLeftCapWidth:20 topCapHeight:20];
     }
+
+    // fixme
+    CGFloat angle = 0;
     CGRect frame = window.bounds;
-    frame.size.height -= _keyboardHeight;
+
+    UIDeviceOrientation o = [UIDevice currentDevice].orientation;
+    if (o == UIDeviceOrientationUnknown) {
+        o = (UIDeviceOrientation) [[UIApplication sharedApplication] statusBarOrientation];
+    }
+
+    if (o == UIDeviceOrientationLandscapeLeft) {
+        angle = M_PI_2;
+        frame.origin.x = _keyboardHeight;
+        frame.size.width -= _keyboardHeight;
+    }
+    if (o == UIDeviceOrientationLandscapeRight){
+        angle = -M_PI_2;
+        frame.size.width -= _keyboardHeight;
+    }
+
+    _viewForPopover.transform = CGAffineTransformMakeRotation(angle);
     _viewForPopover.frame = frame;
+
     [window addSubview:_viewForPopover];
     
     _labelForPoperoverMessage.text = message;
@@ -112,8 +135,25 @@
     
     _labelForLoadingMessage.text = message;
     
+    CGFloat angle = 0;
     CGRect frame = window.bounds;
-    frame.size.height -= _keyboardHeight;
+    
+    UIDeviceOrientation o = [UIDevice currentDevice].orientation;
+    if (o == UIDeviceOrientationUnknown) {
+        o = (UIDeviceOrientation) [[UIApplication sharedApplication] statusBarOrientation];
+    }
+    
+    if (o == UIDeviceOrientationLandscapeLeft) {
+        angle = M_PI_2;
+        frame.origin.x = _keyboardHeight;
+        frame.size.width -= _keyboardHeight;
+    }
+    if (o == UIDeviceOrientationLandscapeRight){
+        angle = -M_PI_2;
+        frame.size.width -= _keyboardHeight;
+    }
+
+    _viewForLoadingPopover.transform = CGAffineTransformMakeRotation(angle);
     _viewForLoadingPopover.frame = frame;
     [window addSubview:_viewForLoadingPopover];
 
@@ -152,10 +192,15 @@
 
 - (void)performSelectorAfterLogin:(SEL)aSelector
 {
-    SMLoginViewController *loginVc = [[SMLoginViewController alloc] init];
-    [loginVc setAfterLoginTarget:self selector:aSelector];
-    P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:loginVc];
-    [self presentModalViewController:nvc animated:YES];
+    if ([SMAccountManager instance].isLogin) {
+        [self performSelector:aSelector withObject:nil afterDelay:0];
+    } else {
+        SMLoginViewController *loginVc = [[SMLoginViewController alloc] init];
+        [loginVc setAfterLoginTarget:self selector:aSelector];
+        P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:loginVc];
+        nvc.modalPresentationStyle = UIModalPresentationFormSheet;
+        [self presentModalViewController:nvc animated:YES];
+    }
 }
 
 - (IBAction)onLoginButtonClick:(id)sender
@@ -173,7 +218,11 @@
 {
     NSDictionary* info = [n userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
-    _keyboardHeight = kbSize.height;
+    if ([SMUtils isPad]) {
+        _keyboardHeight = [SMUtils isPortrait] ? kbSize.height : kbSize.width;
+    } else {
+        _keyboardHeight = kbSize.height;
+    }
 }
 
 - (void)onKeyboardDidHide:(NSNotification *)n
@@ -184,6 +233,26 @@
 - (void)onThemeChangedNotification:(NSNotification *)n
 {
     [self setupTheme];
+}
+
+- (void)onDeviceOrientationNotification:(NSNotification *)n
+{
+    UIDeviceOrientation o = [UIDevice currentDevice].orientation;
+//    XLog_d(@"%@ - %@", @(self.currentOrientation), @(o));
+    if ([SMUtils isPad]
+        && o != UIDeviceOrientationUnknown
+        && o != UIDeviceOrientationPortraitUpsideDown
+        && o != UIDeviceOrientationFaceUp
+        && o != UIDeviceOrientationFaceDown
+        && o != self.currentOrientation) {
+        self.currentOrientation = o;
+        [self onDeviceRotate];
+    }
+}
+
+- (void)onDeviceRotate
+{
+    
 }
 
 - (void)setupTheme
@@ -225,6 +294,11 @@
            UITextAttributeTextShadowColor: [UIColor clearColor]
            }];
     }
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+    return toInterfaceOrientation != UIInterfaceOrientationPortraitUpsideDown;
 }
 
 @end

@@ -67,7 +67,7 @@
         ++_page;
     }
     
-    NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/nForum/refer/%@?ajax&p=%d", _refer, _page];
+    NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/nForum/refer/%@?ajax&p=%@", _refer, @(_page)];
     
     [_op cancel];
     _op = [[SMWebLoaderOperation alloc] init];
@@ -89,7 +89,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [SMMainpageCell cellHeight:_posts[indexPath.row]];
+    return [SMMainpageCell cellHeight:_posts[indexPath.row] withWidth:self.tableView.bounds.size.width];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -109,13 +109,19 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [_tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (![SMUtils isPad]) { // ipad master view. 保持选中态
+        [_tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
 
     SMPost *post = _posts[indexPath.row];
     NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/refer/%@/read?index=%d", _refer, post.gid];
     SMPostViewController *vc = [[SMPostViewController alloc] init];
     vc.postUrl = url;
-    [[SMNoticeViewController instance].navigationController pushViewController:vc animated:YES];\
+    if ([SMUtils isPad]) {
+        [SMIPadSplitViewController instance].detailViewController = vc;
+    } else {
+        [[SMNoticeViewController instance].navigationController pushViewController:vc animated:YES];
+    }
     
     if (post.isTop) {
         post.isTop = NO;

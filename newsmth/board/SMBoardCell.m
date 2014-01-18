@@ -23,11 +23,17 @@ static SMBoardCell *_instance;
 
 @implementation SMBoardCell
 
-+ (CGFloat)cellHeight:(SMPost *)post
++ (CGFloat)cellHeight:(SMPost *)post withWidth:(CGFloat)width
 {
     if (_instance == nil) {
         _instance = [[SMBoardCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
     }
+    
+    CGRect frame = _instance.frame;
+    frame.size.width = width;
+    _instance.frame = frame;
+    [_instance layoutIfNeeded];
+        
     CGFloat heightExpectTitle = _instance.viewForCell.frame.size.height - _instance.labelForTitle.frame.size.height;
     NSString *title = [NSString stringWithFormat:@"%@(%d)", post.title, post.replyCount];
     CGFloat titleHeight = [title smSizeWithFont:[SMConfig listFont] constrainedToSize:CGSizeMake(_instance.labelForTitle.frame.size.width, CGFLOAT_MAX) lineBreakMode:_instance.labelForTitle.lineBreakMode].height;

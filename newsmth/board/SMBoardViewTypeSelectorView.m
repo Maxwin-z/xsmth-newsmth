@@ -68,7 +68,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SMBoardViewType viewType = [_cells[indexPath.row] integerValue];
+    SMBoardViewType viewType = [_cells[indexPath.row] intValue];
     NSString *text;
     if (viewType == SMBoardViewTypeTztSortByReply) {
         text = @"同主题，回复时间";
@@ -87,7 +87,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SMBoardViewType viewType = [_cells[indexPath.row] integerValue];
+    SMBoardViewType viewType = [_cells[indexPath.row] intValue];
     self.viewType = viewType;
     [self sendActionsForControlEvents:UIControlEventValueChanged];
 }

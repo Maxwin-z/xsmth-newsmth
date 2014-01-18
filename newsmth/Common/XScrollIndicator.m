@@ -71,8 +71,8 @@
     
     CGFloat delta = highlightHeight - itemHeight;
     
-    int count = _titles.count;
-    int maxAvailCount = (totalHeight - highlightHeight) / itemHeight;
+    NSInteger count = _titles.count;
+    NSInteger maxAvailCount = (totalHeight - highlightHeight) / itemHeight;
     if (_selectedIndex == 0 || _selectedIndex == count - 1) {
         ++maxAvailCount;
     }
@@ -169,7 +169,7 @@
         --step;
     }
     NSMutableArray *res = [[NSMutableArray alloc] init];
-    for (int i = start + step; i < end && count-- > 0; i += step) {
+    for (NSInteger i = start + step; i < end && count-- > 0; i += step) {
         [res addObject:@(i)];
     }
     return res;

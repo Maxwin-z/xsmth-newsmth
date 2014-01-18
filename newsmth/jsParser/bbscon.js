@@ -52,7 +52,7 @@ function attWriter(bid, id, ftype, num, cacheable){}
 function prints(content) {
     var nickRegex = /^发信人: (.+)\((.*)\), /;
     var dateRegex = /^发信人: .+\(.*\), 信区: .+\n标  题: .*\n发信站:.+\([A-Z][a-z]{2} +([A-Z][a-z]{2} +\d+ +\d{1,2}:\d{1,2}:\d{1,2} +\d{4})\)/;
-    var contentRegex = /^发信人: .+\(.*\), 信区: .+\n标  题: .*\n发信站: .+站内\n{1,2}((.|\s)*)$/;
+    var contentRegex = /^发信人: .+\(.*\), 信区: .+\n标  题: .*\n发信站: .+(?:站内|转信)\n{1,2}((.|\s)*)$/;
 
     var matchs = null;
 
@@ -135,7 +135,7 @@ function parse_m(html) {
         // content
         data.content = div.querySelector('#m_main .list.sec li .sp').innerHTML
             .replace(/<br\s*\/?>/ig, '\n')
-            .replace(/<a.*?<\/a>/ig, '');
+            .replace(/<a.*?><img .*?<\/a>/ig, '');
 
         // attaches
         var imgs = div.querySelectorAll('#m_main .list.sec li .sp img');
@@ -180,5 +180,7 @@ function decode(html) {
             .replace(/&nbsp;/ig, ' ')
             .replace(/&amp;/ig, '&');
 }
+
+/* 24303017fea26d887d663e1d261d97f5 */
 
 

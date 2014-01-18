@@ -10,7 +10,7 @@
 #import "SMPost.h"
 
 @interface SMMainpageCell : UITableViewCell
-+ (CGFloat)cellHeight:(SMPost *)post;
++ (CGFloat)cellHeight:(SMPost *)post withWidth:(CGFloat)width;
 
 @property (strong, nonatomic) SMPost *post;
 @end

@@ -23,4 +23,6 @@
 #import "SMConfig.h"
 #import "SMTheme.h"
 
+#import "UIView+Utils.h"
+
 #endif

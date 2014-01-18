@@ -8,6 +8,7 @@
 
 #import "SMUtils.h"
 #import "GAI.h"
+#import "GAIDictionaryBuilder.h"
 
 @implementation SMUtils
 
@@ -25,6 +26,19 @@
     return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
 }
 
++ (BOOL)isPad
+{
+    return (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad);
+}
+
++ (BOOL)isPortrait
+{
+    UIDeviceOrientation o = [UIDevice currentDevice].orientation;
+    if (o == UIDeviceOrientationUnknown) {
+        o = (UIDeviceOrientation) [[UIApplication sharedApplication] statusBarOrientation];
+    }
+    return UIDeviceOrientationIsPortrait(o);
+}
 
 + (NSString *)formatDate:(NSDate *)date
 {
@@ -55,6 +69,14 @@
     return [image stretchableImageWithLeftCapWidth:(image.size.width + 1) / 2 topCapHeight:(image.size.height + 1) / 2];
 }
 
++ (UIColor *)reverseColor:(UIColor *)color
+{
+    CGFloat rf, gf, bf, af;
+    [color getRed:&rf green:&gf blue: &bf alpha: &af];
+    
+    return [UIColor colorWithRed:1 - rf green:1 - gf blue:1 - bf alpha:af];
+}
+
 + (NSString *)formatSize:(unsigned long long)size
 {
     if (size < 1000) {
@@ -81,10 +103,17 @@
                         action:(NSString *)action
                          label:(NSString *)label
 {
-    [[GAI sharedInstance].defaultTracker sendEventWithCategory:category
-                                                    withAction:action
-                                                     withLabel:label
-                                                     withValue:nil];
+    NSMutableDictionary *event =
+    [[GAIDictionaryBuilder createEventWithCategory:@"UI"
+                                            action:@"buttonPress"
+                                             label:@"dispatch"
+                                             value:nil] build];
+    [[GAI sharedInstance].defaultTracker send:event];
+
+//    [[GAI sharedInstance].defaultTracker sendEventWithCategory:category
+//                                                    withAction:action
+//                                                     withLabel:label
+//                                                     withValue:nil];
     XLog_d(@"track category:[%@], action[%@], label[%@]", category, action, label);
 }
 

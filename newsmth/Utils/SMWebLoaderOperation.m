@@ -17,7 +17,6 @@
 @property (strong, nonatomic) ASIHTTPRequest *request;
 @property (strong, nonatomic) SMWebParser *webParser;
 
-@property (assign, nonatomic) BOOL isDone;
 @end
 
 @implementation SMWebLoaderOperation
@@ -80,6 +79,8 @@
             CFRunLoopRunInMode(kCFRunLoopDefaultMode, 1.0e10, true);
         }
 	}
+    XLog_d(@"url[%@] exit", _url);
+
 }
 
 - (void)setOperationTimeout
@@ -150,16 +151,17 @@
 {
     XLog_d(@"url[%@] fail [%@]", _url, request.error);
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(setOperationTimeout) object:nil];
+    _isDone = YES;
     
     SMMessage *error = [[SMMessage alloc] initWithCode:SMNetworkErrorCodeRequestFail message:@"网络请求超时"];
     [_delegate webLoaderOperationFail:self error:error];
-    _isDone = YES;
 }
 
 #pragma mark - SMWebParserDelegate
 - (void)webParser:(SMWebParser *)webParser result:(NSDictionary *)json
 {
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(setOperationTimeout) object:nil];
+    _isDone = YES;
 
     _webParser = nil;
     if (self.isCancelled) {
@@ -182,7 +184,6 @@
         SMMessage *error = [[SMMessage alloc] initWithCode:code message:[json objectForKey:@"message"]];
         [_delegate webLoaderOperationFail:self error:error];
     }
-    _isDone = YES;
 }
 
 #pragma mark - debug
