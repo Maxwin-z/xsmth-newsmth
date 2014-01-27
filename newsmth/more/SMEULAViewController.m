@@ -18,7 +18,7 @@
 {
     [super viewDidLoad];
     
-    self.title = @"最终用户许可协议";
+    self.title = @"用户协议";
     
     UIWebView *webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
     webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
