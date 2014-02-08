@@ -15,12 +15,15 @@
 #import "SMMainpageViewController.h"
 #import "SMUtils.h"
 #import "SMUpdater.h"
+#import "SMIPadSplitViewController.h"
+#import "SMIpadEmptyViewController.h"
 
 @interface AppDelegate ()<SMWebLoaderOperationDelegate>
 @property (strong, nonatomic) UINavigationController *nvc;
 @property (strong, nonatomic) SMMainpageViewController *mainpageViewController;
 @property (strong, nonatomic) ViewController *viewController;
 @property (strong, nonatomic) SMMainViewController *mainViewController;
+@property (strong, nonatomic) SMIPadSplitViewController *ipadSplitViewController;
 
 @property (strong, nonatomic) SMWebLoaderOperation *keepLoginOp;
 @property (strong, nonatomic) SMWebLoaderOperation *loginOp;
@@ -63,7 +66,7 @@
     // Optional: set Google Analytics dispatch interval to e.g. 20 seconds.
     [GAI sharedInstance].dispatchInterval = 20;
     // Optional: set debug to YES for extra debugging information.
-    [GAI sharedInstance].debug = NO;
+//    [GAI sharedInstance].debug = NO;
     // Create tracker instance.
     [[GAI sharedInstance] trackerWithTrackingId:@"UA-41978299-1"];
 }
@@ -106,7 +109,16 @@
 //    [self setupTheme];
 
     _mainViewController = [[SMMainViewController alloc] init];
-    self.window.rootViewController = _mainViewController;
+    
+    if ([SMUtils isPad]) {
+        _ipadSplitViewController = [SMIPadSplitViewController new];
+        SMIpadEmptyViewController *detailVc = [SMIpadEmptyViewController new];
+        _ipadSplitViewController.masterViewController = _mainViewController;
+        _ipadSplitViewController.detailViewController = detailVc;
+        self.window.rootViewController = _ipadSplitViewController;
+    } else {
+        self.window.rootViewController = _mainViewController;
+    }
     
     [self.window makeKeyAndVisible];
     
@@ -114,8 +126,24 @@
     
     NSString *latestVersion = [[NSUserDefaults standardUserDefaults] stringForKey:USERDEFAULTS_STAT_VERSION];
     if (![[SMUtils appVersionString] isEqualToString:latestVersion]) {
-        [SMUtils trackEventWithCategory:@"user" action:@"unique" label:[SMUtils appVersionString]];
+        NSString *label = [NSString stringWithFormat:@"%@%@", [SMUtils isPad] ? @"ipad_" : @"", [SMUtils appVersionString]];
+        [SMUtils trackEventWithCategory:@"user" action:@"unique" label:label];
         [[NSUserDefaults standardUserDefaults] setObject:[SMUtils appVersionString] forKey:USERDEFAULTS_STAT_VERSION];
+
+        // 清除历史patch js
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        if (paths.count > 0) {
+            NSString *doc = [paths objectAtIndex:0];
+            NSString *filepath = [NSString stringWithFormat:@"%@/parser", doc];
+            NSError *error;
+            BOOL removeSuccess = [[NSFileManager defaultManager] removeItemAtPath:filepath error:&error];
+            if (removeSuccess) {
+                XLog_d(@"remove [%@] success", filepath);
+            } else {
+                XLog_d(@"remove [%@] error:[%@]", filepath, error);
+            }
+        }
+
     }
     
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;

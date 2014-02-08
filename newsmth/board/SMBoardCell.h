@@ -18,5 +18,5 @@
 @property (strong, nonatomic) SMPost *post;
 @property (weak, nonatomic) id<SMBoardCellDelegate> delegate;
 
-+ (CGFloat)cellHeight:(SMPost *)post;
++ (CGFloat)cellHeight:(SMPost *)post withWidth:(CGFloat)width;
 @end

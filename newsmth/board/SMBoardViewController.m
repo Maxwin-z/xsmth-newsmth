@@ -14,6 +14,8 @@
 #import "SMUserViewController.h"
 #import "SMBoardViewTypeSelectorView.h"
 #import "SMBoardSearchViewController.h"
+#import "SMIPadSplitViewController.h"
+
 
 @interface SMBoardViewController ()<UITableViewDelegate, UITableViewDataSource, XPullRefreshTableViewDelegate, SMWebLoaderOperationDelegate, SMBoardCellDelegate, SMBoardViewTypeSelectorViewDelegate>
 @property (weak, nonatomic) IBOutlet XPullRefreshTableView *tableView;
@@ -71,6 +73,12 @@
     [_viewTypeSelector setupTheme];
 }
 
+- (void)onDeviceRotate
+{
+    [super onDeviceRotate];
+    [self.tableView reloadData];
+}
+
 - (void)makeupViewTypeSelector
 {
     _viewTypeSelector = [SMBoardViewTypeSelectorView new];
@@ -80,13 +88,14 @@
     frame.origin.y = - frame.size.height;
     _viewTypeSelector.frame = frame;
     [self.view addSubview:_viewTypeSelector];
+    _viewTypeSelector.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     
     // load saved view type
     SMBoardViewType viewType = SMBoardViewTypeTztSortByReply;
     NSString *defKey = [NSString stringWithFormat:@"user_def_view_type_%@", _board.name];
     id obj = [[NSUserDefaults standardUserDefaults] objectForKey:defKey];
     if (obj) {
-        viewType = [obj integerValue];
+        viewType = [obj intValue];
     }
 
     _isViewTypeSelectorVisiable = NO;
@@ -167,6 +176,7 @@
 {
     _showTop = NO;
     [_tableView beginRefreshing];
+    [self.tableView scrollRectToVisible:CGRectMake(0, -CGFLOAT_MAX, 1, 1) animated:YES];
     [self hideViewTypeSelector];
 }
 
@@ -233,7 +243,11 @@
     writeViewController.post = newPost;
     writeViewController.title = [NSString stringWithFormat:@"发表-%@", _board.cnName];
     P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:writeViewController];
-    [self.navigationController presentModalViewController:nvc animated:YES];
+    if ([SMUtils isPad]) {
+        [[SMIPadSplitViewController instance] presentModalViewController:nvc animated:YES];
+    } else {
+        [self presentModalViewController:nvc animated:YES];
+    }
     
     [SMUtils trackEventWithCategory:@"board" action:@"write" label:_board.name];
 }
@@ -259,11 +273,13 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SMPost *post = _posts[indexPath.row];
-    if (post.isTop && [SMConfig disableShowTopPost] && !_showTop) {
+    if (post.isTop && [SMConfig disableShowTopPost]) {
+        return 0;
+    } else if (post.isTop && !_showTop) {
         return 10;
     }
     
-    return [SMBoardCell cellHeight:_posts[indexPath.row]];
+    return [SMBoardCell cellHeight:_posts[indexPath.row] withWidth:self.tableView.frame.size.width];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -289,7 +305,7 @@
     SMPost *post = _posts[indexPath.row];
     
     // 点击置顶帖，展开显示
-    if (post.isTop && [SMConfig disableShowTopPost] && !_showTop) {
+    if (post.isTop && ![SMConfig disableShowTopPost] && !_showTop) {
         _showTop = YES;
         [self.tableView reloadData];
         [SMUtils trackEventWithCategory:@"board" action:@"expand_top" label:_board.name];
@@ -305,7 +321,12 @@
         vc.postUrl = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/single/%d/0", _board.name, post.gid];
     }
     vc.fromBoard = YES;
-    [self.navigationController pushViewController:vc animated:YES];
+    
+    if ([SMUtils isPad]) {
+        [SMIPadSplitViewController instance].detailViewController = vc;
+    } else {
+        [self.navigationController pushViewController:vc animated:YES];
+    }
     
     [SMUtils trackEventWithCategory:@"board" action:@"view_post" label:_board.name];
 }

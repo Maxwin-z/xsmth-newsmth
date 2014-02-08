@@ -76,6 +76,7 @@
     [[NSBundle mainBundle] loadNibNamed:@"XPullRefreshTableViewHeader" owner:self options:nil];
     [[NSBundle mainBundle] loadNibNamed:@"XPullRefreshTableViewFooter" owner:self options:nil];
     _viewForRefreshHeader.frame = CGRectMake(0.0f, 0.0f - self.bounds.size.height, self.bounds.size.width, self.bounds.size.height);
+    _viewForRefreshHeader.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [_buttonForRetry setButtonSMType:SMButtonTypeGray];
     [self addSubview:_viewForRefreshHeader];
 
@@ -212,6 +213,7 @@
         }
         
         _viewForLoadPull.frame = frame;
+        _viewForLoadPull.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [self addSubview:_viewForLoadPull];
     }
 }

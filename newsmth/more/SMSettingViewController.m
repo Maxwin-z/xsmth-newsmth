@@ -11,7 +11,10 @@
 #import "SMFontSelectorViewController.h"
 #import "XImageViewCache.h"
 #import "PBWebViewController.h"
+#import "SMDonateViewController.h"
 #import <MessageUI/MessageUI.h>
+#import "SMIPadSplitViewController.h"
+#import "SMEULAViewController.h"
 
 #define MAX_CELL_COUNT  5
 
@@ -30,11 +33,14 @@ typedef enum {
     CellTypeListFont,
     CellTypePostFont,
     
+    CellTypeEULA,
     CellTypeFeedback,
     CellTypeRate,
     CellTypeClearCache,
     
-    CellTypeThxPsyYiYi
+    CellTypeThxPsyYiYi,
+    CellTypeAbout,
+    CellTypeDonate
     
 }CellType;
 
@@ -88,15 +94,15 @@ static SectionData sections[] = {
         SectionTypeMore,
         "其他",
         NULL,
-        3,
-        {CellTypeFeedback, CellTypeRate, CellTypeClearCache}
+        4,
+        {CellTypeEULA, CellTypeFeedback, CellTypeRate, CellTypeClearCache}
     },
     {
         SectionTypeThanks,
         "感谢",
         NULL,
-        1,
-        {CellTypeThxPsyYiYi}
+        2,
+        {CellTypeThxPsyYiYi, CellTypeAbout /*, CellTypeDonate */}
     }
 };
 
@@ -120,6 +126,9 @@ static SectionData sections[] = {
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForThxPsyYiYi;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForBackgroundFetchHelp;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForEnableDayMode;
+@property (strong, nonatomic) IBOutlet UITableViewCell *cellForAbout;
+@property (strong, nonatomic) IBOutlet UITableViewCell *cellForDonate;
+@property (strong, nonatomic) IBOutlet UITableViewCell *cellForEULA;
 
 @property (weak, nonatomic) IBOutlet UILabel *labelForAppVersion;
 @property (weak, nonatomic) IBOutlet UISwitch *switchForHideTop;
@@ -301,6 +310,8 @@ static SectionData sections[] = {
         case CellTypePostFont:
             return _cellForPostFont;
             
+        case CellTypeEULA:
+            return _cellForEULA;
         case CellTypeFeedback:
             return _cellForFeedback;
         case CellTypeRate:
@@ -310,6 +321,10 @@ static SectionData sections[] = {
             
         case CellTypeThxPsyYiYi:
             return _cellForThxPsyYiYi;
+        case CellTypeAbout:
+            return _cellForAbout;
+        case CellTypeDonate:
+            return _cellForDonate;
         default:
             return [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
     }
@@ -390,9 +405,16 @@ static SectionData sections[] = {
         };
         vc.selectedFont = cellType == CellTypePostFont ? [SMConfig postFont] : [SMConfig listFont];
         P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:vc];
-        [self.navigationController presentModalViewController:nvc animated:YES];
+        nvc.modalPresentationStyle = UIModalPresentationFormSheet;
+        [self presentModalViewController:nvc animated:YES];
         
         action = cellType == CellTypePostFont ? @"changePostFont" : @"changeListFont";
+    }
+    
+    if (cellType == CellTypeEULA) {
+        SMEULAViewController *vc = [SMEULAViewController new];
+        vc.hideAgreeButton = YES;
+        [self.navigationController pushViewController:vc animated:YES];
     }
     
     if (cellType == CellTypeFeedback) {
@@ -410,6 +432,19 @@ static SectionData sections[] = {
         vc.URL = [NSURL URLWithString:@"http://maxwin.me/xsmth/PsyYiYi.html"];
         [self.navigationController pushViewController:vc animated:YES];
         action = @"PsyYiYi";
+    }
+    
+    if (cellType == CellTypeDonate) {
+        SMDonateViewController *vc = [SMDonateViewController new];
+        [self.navigationController pushViewController:vc animated:YES];
+        action = @"donate";
+    }
+    
+    if (cellType == CellTypeAbout) {
+        PBWebViewController *vc = [[PBWebViewController alloc] init];
+        vc.URL = [NSURL URLWithString:@"http://maxwin.me/xsmth/about.html"];
+        [self.navigationController pushViewController:vc animated:YES];
+        action = @"about";
     }
 
     if (cellType == CellTypeBackgroundFetchHelp) {
@@ -446,7 +481,8 @@ static SectionData sections[] = {
         mail.mailComposeDelegate = self;
         [mail setToRecipients:@[@"zwd2005@gmail.com"]];
         [mail setSubject:[NSString stringWithFormat:@"[xsmth v%@]意见与反馈", [SMUtils appVersionString]]];
-        [self.navigationController presentModalViewController:mail animated:YES];
+        mail.modalPresentationStyle = UIModalPresentationPageSheet;
+        [self presentModalViewController:mail animated:YES];
     }
     if (buttonIndex == 1) { // 站内信
         [self doSendMail];
@@ -469,7 +505,12 @@ static SectionData sections[] = {
     mailComposeViewController.mail = mail;
     
     P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:mailComposeViewController];
-    [self.navigationController presentModalViewController:nvc animated:YES];
+
+    if ([SMUtils isPad]) {
+        [[SMIPadSplitViewController instance] presentModalViewController:nvc animated:YES];
+    } else {
+        [self presentModalViewController:nvc animated:YES];
+    }
     
     [SMUtils trackEventWithCategory:@"setting" action:@"feedback" label:@"sm_mail"];
 }

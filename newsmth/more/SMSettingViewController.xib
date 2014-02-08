@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
-        <deployment defaultVersion="1280" identifier="iOS"/>
+        <deployment defaultVersion="1296" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SMSettingViewController">
             <connections>
                 <outlet property="activityIndicatorForClearCache" destination="1x1-P4-3gu" id="DD8-vs-rzd"/>
+                <outlet property="cellForAbout" destination="XJI-ER-H5Y" id="0Gu-QP-4JN"/>
                 <outlet property="cellForBackgroundFetch" destination="vib-hD-Pay" id="bcI-aI-9M3"/>
                 <outlet property="cellForBackgroundFetchHelp" destination="OQB-wt-k5t" id="GUe-Ti-AOD"/>
                 <outlet property="cellForBackgroundFetchSmartMode" destination="rti-ur-mwa" id="DQ6-fY-s2a"/>
                 <outlet property="cellForClearCache" destination="7vN-lA-cao" id="1h7-47-rO7"/>
+                <outlet property="cellForDonate" destination="TQy-bd-Bhf" id="ReX-wG-0V9"/>
+                <outlet property="cellForEULA" destination="fZC-E2-g3R" id="5LG-Z1-90N"/>
                 <outlet property="cellForEnableDayMode" destination="jkD-ZZ-Qdy" id="YTo-2J-lKk"/>
                 <outlet property="cellForFeedback" destination="9VP-6J-eot" id="Crj-c0-U0j"/>
                 <outlet property="cellForHideTop" destination="VWe-NO-y7A" id="QRu-jU-ziT"/>
@@ -312,6 +315,23 @@
                 </subviews>
             </tableViewCellContentView>
         </tableViewCell>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="5WY-T7-CkY" style="IBUITableViewCellStyleDefault" id="fZC-E2-g3R" userLabel="最终用户许可协议">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fZC-E2-g3R" id="aVy-y1-NNc">
+                <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="用户协议" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5WY-T7-CkY">
+                        <rect key="frame" x="15" y="0.0" width="270" height="43"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </tableViewCellContentView>
+        </tableViewCell>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="Hzz-JU-3Ri" style="IBUITableViewCellStyleDefault" id="QvN-rk-4dd" userLabel="喜欢，去评分">
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -413,6 +433,40 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="PsyYiYi@newsmth 提供App icon" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jNG-A6-2gz">
+                        <rect key="frame" x="15" y="0.0" width="270" height="43"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </tableViewCellContentView>
+        </tableViewCell>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="hFj-fZ-32u" style="IBUITableViewCellStyleDefault" id="XJI-ER-H5Y" userLabel="关于">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XJI-ER-H5Y" id="37X-OT-NDF">
+                <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="关于xsmth" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hFj-fZ-32u">
+                        <rect key="frame" x="15" y="0.0" width="270" height="43"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </tableViewCellContentView>
+        </tableViewCell>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="Qs7-eJ-OR2" style="IBUITableViewCellStyleDefault" id="TQy-bd-Bhf" userLabel="捐助">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TQy-bd-Bhf" id="L7X-ZP-6EM">
+                <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="捐助" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Qs7-eJ-OR2">
                         <rect key="frame" x="15" y="0.0" width="270" height="43"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <fontDescription key="fontDescription" type="system" pointSize="18"/>

@@ -21,9 +21,15 @@ static SMMainpageCell *_instance;
     return _instance;
 }
 
-+ (CGFloat)cellHeight:(SMPost *)post
++ (CGFloat)cellHeight:(SMPost *)post withWidth:(CGFloat)width
 {
     SMMainpageCell *cell = [self instance];
+    CGRect frame = cell.frame;
+    frame.size.width = width;
+    cell.frame = frame;
+    
+    [cell layoutIfNeeded];
+    
     CGFloat heightExpectTitle = cell.viewForCell.frame.size.height - cell.labelForTitle.frame.size.height;
     CGFloat titleHeight = [post.title smSizeWithFont:[SMConfig listFont] constrainedToSize:CGSizeMake(cell.labelForTitle.frame.size.width, CGFLOAT_MAX) lineBreakMode:cell.labelForTitle.lineBreakMode].height;
     

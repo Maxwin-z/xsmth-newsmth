@@ -17,7 +17,7 @@
 #define SMRGB(r, g, b)  [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:1.0f]
 #define SMRGBA(r, g, b, a)  [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:(a)]
 #define SM_TINTCOLOR    SMRGB(0, 124, 247)
-#define i2s(val)    [NSString stringWithFormat:@"%d", val]
+#define i2s(val)    [NSString stringWithFormat:@"%@", @(val)]
 
 #define SuppressPerformSelectorLeakWarning(Stuff) \
 do { \
@@ -47,6 +47,8 @@ typedef enum {
 #define USERDEFAULTS_BACKGROUND_FETCH_INDEX @"backgroundfetchindex" // 斐波那契数列下标
 
 #define USERDEFAULTS_BOARD_HISTORY @"board_history"
+
+#define USERDEFAULTS_EULA_ACCEPTED   @"pref_eula_accepted"
 
 #define USERDEFAULTS_LIST_FONT_FAMILY  @"list_font_family"
 #define USERDEFAULTS_LIST_FONT_SIZE  @"list_font_size"

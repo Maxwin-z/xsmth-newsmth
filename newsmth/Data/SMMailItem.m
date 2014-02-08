@@ -27,6 +27,11 @@
 	if (content != [NSNull null]) {
 		_content = content;
 	}
+
+	id message = [dict objectForKey:@"message"];
+	if (message != [NSNull null]) {
+		_message = message;
+	}
 }
 
 - (id)encode
@@ -50,6 +55,10 @@
 
 	if (_content != nil) {
 		[dict setObject:_content forKey:@"content"];
+	}
+
+	if (_message != nil) {
+		[dict setObject:_message forKey:@"message"];
 	}
 	return dict;
 }

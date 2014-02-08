@@ -76,7 +76,7 @@
     ALAssetsGroup *group = _groups[indexPath.row];
     
     cell.imageView.image = [UIImage imageWithCGImage:group.posterImage];
-    cell.textLabel.text = [NSString stringWithFormat:@"%@ (%d)", [group valueForProperty:ALAssetsGroupPropertyName], [group numberOfAssets]];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ (%@)", [group valueForProperty:ALAssetsGroupPropertyName], @([group numberOfAssets])];
     return cell;
 }
 

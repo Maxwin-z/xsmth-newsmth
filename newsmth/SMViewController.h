@@ -16,6 +16,7 @@
 @interface SMViewController : P2PViewController
 
 @property (assign, nonatomic) CGFloat keyboardHeight;
+@property (assign, nonatomic) UIDeviceOrientation currentOrientation;
 
 - (void)toast:(NSString *)message;
 
@@ -32,5 +33,6 @@
 
 - (void)onThemeChangedNotification:(NSNotification *)n;
 - (void)setupTheme;
+- (void)onDeviceRotate;
 
 @end

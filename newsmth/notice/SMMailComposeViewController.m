@@ -58,7 +58,8 @@
     _textFieldForTitle.text = _mail.title;
     _textFieldForReciver.text = _mail.author;
     
-    NSMutableString *quoteString = [[NSMutableString alloc] initWithString:@"\n\n"];
+    NSMutableString *quoteString = [[NSMutableString alloc] initWithFormat:@"%@\n\n", _mail.message == nil ? @"" : _mail.message];
+    
     if (_mail.content.length > 0) {
         [quoteString appendFormat:@"【 在 %@ 的邮件中提到: 】", _mail.author];
         
@@ -159,9 +160,11 @@
     NSDictionary* info = [n userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
     
+    CGFloat keyboardHeight = [SMUtils isPortrait] || ![SMUtils isPad] ? kbSize.height : kbSize.width;
+
     CGRect frame = self.view.bounds;
     frame.origin.y = _viewForContainer.frame.origin.y;
-    frame.size.height -= (kbSize.height + SM_TOP_INSET);
+    frame.size.height -= (keyboardHeight + SM_TOP_INSET);
     _viewForContainer.frame = frame;
 }
 

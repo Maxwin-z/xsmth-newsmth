@@ -21,7 +21,7 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"code[%d], message[%@]", _code, _message];
+    return [NSString stringWithFormat:@"code[%@], message[%@]", @(_code), _message];
 }
 
 @end

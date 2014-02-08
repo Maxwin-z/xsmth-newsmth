@@ -60,7 +60,7 @@
         mailType = @"deleted";
     }
     
-    NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/mail/%@?p=%d", mailType, _page];
+    NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/mail/%@?p=%@", mailType, @(_page)];
     
     [_mailOp cancel];
     _mailOp = [[SMWebLoaderOperation alloc] init];
@@ -136,14 +136,20 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [_tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (![SMUtils isPad]) {
+        [_tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
 
     if (_mails.count > indexPath.row) {
         SMMailItem *item = _mails[indexPath.row];
         item.unread = NO;
         SMMailInfoViewController *mailInfoVc = [[SMMailInfoViewController alloc] init];
         mailInfoVc.mail = item;
-        [[SMNoticeViewController instance].navigationController pushViewController:mailInfoVc animated:YES];
+        if ([SMUtils isPad]) {
+            [SMIPadSplitViewController instance].detailViewController = mailInfoVc;
+        } else {
+            [[SMNoticeViewController instance].navigationController pushViewController:mailInfoVc animated:YES];
+        }
     }
 }
 
@@ -206,7 +212,11 @@
 {
     SMUserViewController *vc = [[SMUserViewController alloc] init];
     vc.username = username;
-    [[SMNoticeViewController instance].navigationController pushViewController:vc animated:YES];
+    if ([SMUtils isPad]) {
+        [SMIPadSplitViewController instance].detailViewController = vc;
+    } else {
+        [[SMNoticeViewController instance].navigationController pushViewController:vc animated:YES];
+    }
 }
 
 @end

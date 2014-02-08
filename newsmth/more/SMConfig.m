@@ -69,7 +69,7 @@
         boards = [[NSMutableArray alloc] init];
     }
     [boards insertObject:dict atIndex:0];
-    for (int i = boards.count - 1; i > 0; --i) {
+    for (int i = (int)boards.count - 1; i > 0; --i) {
         NSDictionary *b = boards[i];
         if (i > 10 || [b[@"name"] isEqualToString:board.name]) {    // 最多保存10个最近浏览版面
             [boards removeObjectAtIndex:i];
@@ -83,7 +83,7 @@
     NSString *listFontFamily = [[NSUserDefaults standardUserDefaults] stringForKey:USERDEFAULTS_LIST_FONT_FAMILY];
     NSInteger listFontSize = [[NSUserDefaults standardUserDefaults] integerForKey:USERDEFAULTS_LIST_FONT_SIZE];
     if (listFontFamily == nil) {
-        listFontFamily = @"Helvetica";
+        listFontFamily = @"ArialRoundedMTBold";
     }
     if (listFontSize == 0) {
         listFontSize = 15;

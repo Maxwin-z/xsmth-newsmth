@@ -109,6 +109,7 @@ SMMailItem {
 	long date	
 	string url
     string content
+    string message
 }
 
 SMMailList {

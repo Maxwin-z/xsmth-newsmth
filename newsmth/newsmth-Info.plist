@@ -14,6 +14,27 @@
 		<dict>
 			<key>CFBundleIconFiles</key>
 			<array>
+				<string>icon_57</string>
+				<string>icon_114</string>
+				<string>icon_80</string>
+				<string>icon_58</string>
+				<string>icon</string>
+				<string>icon_120</string>
+				<string>icon@2x.png</string>
+			</array>
+		</dict>
+	</dict>
+	<key>CFBundleIcons~ipad</key>
+	<dict>
+		<key>CFBundlePrimaryIcon</key>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>icon_100</string>
+				<string>icon_76</string>
+				<string>icon_72</string>
+				<string>icon_144</string>
+				<string>icon_152</string>
 				<string>icon_80</string>
 				<string>icon_58</string>
 				<string>icon</string>
@@ -31,7 +52,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.4</string>
+	<string>2.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -50,7 +71,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1.4</string>
+	<string>2.0</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIBackgroundModes</key>
@@ -64,6 +85,12 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>

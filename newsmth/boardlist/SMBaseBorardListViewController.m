@@ -55,6 +55,7 @@
     [_listOp cancel];
     _listOp = [[SMWebLoaderOperation alloc] init];
     _listOp.delegate = self;
+    _listOp.highPriority = YES;
     [_listOp loadUrl:_url withParser:@"boardlist,util_notice"];
 }
 

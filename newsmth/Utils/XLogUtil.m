@@ -44,7 +44,7 @@ void _XLog_print(NSString *tag, NSString *colorStr, const char *fileName, const 
 
 BOOL _XLog_isEnable()
 {
-    return YES;
+    return NO;
     if (isXLogEnable == -1) {   // init
         char *xlogEnv = getenv("XLOG_FLAG");
         if (xlogEnv && !strcmp(xlogEnv, "YES")) {
@@ -62,7 +62,7 @@ BOOL _XLog_isEnable()
 
 void _XLog_getFileName(const char *path, char *name)
 {
-    int l = strlen(path);
+    int l = (int)strlen(path);
     while (--l >= 0 && path[l] != '/') {}
     strcpy(name, path + (l >= 0 ? l + 1 : 0));
 }

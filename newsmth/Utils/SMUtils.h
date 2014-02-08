@@ -14,6 +14,9 @@
 + (NSString *)systemVersionString;
 + (NSString *)appVersionString;
 
++ (BOOL)isPad;
++ (BOOL)isPortrait;
+
 // unique format for sm
 + (NSString *)formatDate:(NSDate *)date;
 
@@ -21,6 +24,8 @@
 
 // stretch image at center
 + (UIImage *)stretchedImage:(UIImage *)image;
+
++ (UIColor *)reverseColor:(UIColor *)color;
 
 + (NSString *)formatSize:(unsigned long long)size;
 

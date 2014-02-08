@@ -57,7 +57,7 @@
         [formatter setDateFormat:@"yyyy/MM/dd HH:mm:ss"];
         dateStr = [formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:post.date / 1000l]];
     }
-    _labelForDate.text = [NSString stringWithFormat:@"#%d  %@", item.index + 1, dateStr];
+    _labelForDate.text = [NSString stringWithFormat:@"#%@  %@", @(item.index + 1), dateStr];
 
     UIFont *font = [SMConfig postFont];
     _buttonForAuthor.titleLabel.font = font;

@@ -42,7 +42,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    int totalRow = [self tableView:_tableView numberOfRowsInSection:0] - 1;
+    NSInteger totalRow = [self tableView:_tableView numberOfRowsInSection:0] - 1;
     [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:totalRow inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
 }
 

@@ -18,12 +18,14 @@
 #import "SMBoardViewController.h"
 #import "XScrollIndicator.h"
 #import "SMPageCell.h"
+#import "SMIPadSplitViewController.h"
+#import "SMMainViewController.h"
 
 #define STRING_EXPAND_HERE  @"从此处展开"
 #define STRING_EXPAND_ALL  @"同主题展开"
 
 
-@interface SMPostViewController ()<UITableViewDataSource, UITableViewDelegate, SMWebLoaderOperationDelegate, XPullRefreshTableViewDelegate, XImageViewDelegate, SMPostGroupHeaderCellDelegate, SMPostGroupContentCellDelegate, SMPostFailCellDelegate, SMPageCellDelegate, UIActionSheetDelegate>
+@interface SMPostViewController ()<UITableViewDataSource, UITableViewDelegate, SMWebLoaderOperationDelegate, XPullRefreshTableViewDelegate, XImageViewDelegate, SMPostGroupHeaderCellDelegate, SMPostGroupContentCellDelegate, SMPostFailCellDelegate, SMPageCellDelegate, UIActionSheetDelegate, UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet XPullRefreshTableView *tableView;
 @property (strong, nonatomic) IBOutlet UIView *tableViewHeader;
@@ -60,6 +62,9 @@
 @property (strong, nonatomic) SMPost *replyPost;    // 准备回复的主题
 @property (strong, nonatomic) NSString *postTitle;
 
+
+// 转寄
+@property (strong, nonatomic) SMWebLoaderOperation *forwardOp;
 @end
 
 @implementation SMPostViewController
@@ -106,15 +111,15 @@
     
 
     CGRect frame = self.view.bounds;
+    frame.origin.x = frame.size.width - 28;
     frame.origin.y = SM_TOP_INSET + 20.0f;;
     frame.size.height -= frame.origin.y + 40.0f;
-    frame.origin.x = 292.0f;
     frame.size.width -= frame.origin.x;
     
     _scrollIndicator = [[XScrollIndicator alloc] initWithFrame:frame];
     [self.view addSubview:_scrollIndicator];
     _scrollIndicator.hidden = YES;
-    _scrollIndicator.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    _scrollIndicator.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin;
     [_scrollIndicator addTarget:self action:@selector(onScrollIndicatorValueChanged) forControlEvents:UIControlEventValueChanged];
     [_scrollIndicator addTarget:self action:@selector(onScrollIndicatorTouchEnd) forControlEvents:UIControlEventTouchCancel];
 }
@@ -171,6 +176,13 @@
     [super viewDidUnload];
 }
 
+- (void)onDeviceRotate
+{
+    [super onDeviceRotate];
+    [self.postHeightMap removeAllObjects];
+    [self.tableView reloadData];
+}
+
 - (void)loadData:(BOOL)more
 {
     if (_isSinglePost) {    // at me.
@@ -207,7 +219,7 @@
 
     [_currentPageItem.op cancel];
     [_pageOp cancel];
-    NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbstcon.php?board=%@&gid=%d&start=%d&pno=%d", _board.name, _gid, _currentPageItem.start, _currentPageItem.pno];
+    NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbstcon.php?board=%@&gid=%@&start=%@&pno=%@", _board.name, @(_gid), @(_currentPageItem.start), @(_currentPageItem.pno)];
     _pageOp = [[SMWebLoaderOperation alloc] init];
     _pageOp.highPriority = YES;
     _pageOp.delegate = self;
@@ -247,7 +259,7 @@
     } else {
         [self.tableView reloadData];
     }
-    NSString *label = [NSString stringWithFormat:@"%d/%d", _scrollIndicator.selectedIndex, _scrollIndicator.titles.count];
+    NSString *label = [NSString stringWithFormat:@"%@/%@", @(_scrollIndicator.selectedIndex), @(_scrollIndicator.titles.count)];
     [SMUtils trackEventWithCategory:@"postgroup" action:@"scrollindicator" label:label];
     XLog_d(@"%@", label);
 }
@@ -313,7 +325,7 @@
     } else {
         SMPostItem *postItem = item;
         // 1. header    2. content  3... attach
-        int row = 2 + postItem.post.attaches.count;
+        size_t row = 2 + postItem.post.attaches.count;
         return row;
     }
 }
@@ -342,7 +354,7 @@
             return 60.0f;
         }
         // attachs
-        return [SMPostGroupAttachCell cellHeight:[self getAttachUrl:[self attachAtIndexPath:indexPath]]];
+        return [SMPostGroupAttachCell cellHeight:[self getAttachUrl:[self attachAtIndexPath:indexPath]] withWidth:self.tableView.frame.size.width];
     }
 }
 
@@ -394,7 +406,7 @@
         if (indexPath.row == 0) {   // header
             return [self cellForTitle:item];
         } else if (indexPath.row == 1) {    // content
-            if (!postItem.op.isFinished) {
+            if (!postItem.op.isDone) {
                 return [self cellForLoading:postItem];
             } else if (postItem.op.data == nil) {
                 return [self cellForFail:postItem];
@@ -406,6 +418,11 @@
             return [self cellForAttach:[self attachAtIndexPath:indexPath]];
         }
     }
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [self hidePostCellActions];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -552,7 +569,7 @@
                 }
             }
             
-            NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbscon.php?bid=%d&id=%d", _bid, post.pid];
+            NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbscon.php?bid=%@&id=%@", @(_bid), @(post.pid)];
             if (![SMConfig enableShowQMD]) {
                 url = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/single/%d/0",
                              _board.name, post.pid];
@@ -572,7 +589,7 @@
         }];
         
         if (_currentPageItem.pno == 1 && postGroup.tpage > 1) {  // 首次加载，构建新的数组postItems
-            int countPerPage = postGroup.posts.count;
+            NSUInteger countPerPage = postGroup.posts.count;
             for (int i = 2; i <= postGroup.tpage; ++i) {
                 SMPostPageItem *pageItem = [[SMPostPageItem alloc] init];
                 pageItem.gid = _currentPageItem.gid;
@@ -607,6 +624,12 @@
         self.prepareItems = @[item];
         
         _singlePost = post;
+    } else if (opt == _forwardOp) {
+        SMWriteResult *res = _forwardOp.data;
+        if (res.success) {
+            [self toast:@"转寄成功"];
+        }
+        XLog_d(@"%@", res);
     } else {
         if ([opt.data isKindOfClass:[SMPost class]]) {
             SMPost *post = opt.data;
@@ -631,6 +654,10 @@
         [_tableView setLoadMoreHide];
     }
     
+    if (opt == _forwardOp) {
+        [self toast:error.message];
+    }
+    
     if (opt == _singlePostOp) {
         _isLoading = NO;
         [self.tableView endRefreshing:NO];
@@ -638,6 +665,7 @@
     } else if (!_scrollIndicator.isDragging) {
         [_tableView reloadData];
     }
+    
 }
 
 #pragma mark - XPullRefreshTableViewDelegate
@@ -652,7 +680,7 @@
 {
     // get last page item
     SMPostPageItem *pageItem = nil;
-    for (int i = _items.count - 1; i >= 0; --i) {
+    for (int i = (int)_items.count - 1; i >= 0; --i) {
         id item = _items[i];
         if ([item isKindOfClass:[SMPostPageItem class]]) {
             pageItem = item;
@@ -699,18 +727,7 @@
 
 - (void)postGroupHeaderCellOnReply:(SMPost *)post
 {
-    if (![SMAccountManager instance].isLogin) {
-        _replyPost = post;
-        [self performSelectorAfterLogin:@selector(postAfterLogin)];
-        return ;
-    }
-    SMWritePostViewController *writeViewController = [[SMWritePostViewController alloc] init];
-    writeViewController.post = post;
-    writeViewController.postTitle = _postTitle;
-    writeViewController.title = [NSString stringWithFormat:@"回复-%@", _postTitle];
-    P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:writeViewController];
-    [self.navigationController presentModalViewController:nvc animated:YES];
-    
+    [self doReplyPost:post];
     [SMUtils trackEventWithCategory:@"postgroup" action:@"reply" label:_board.name];
 }
 
@@ -721,6 +738,24 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+- (void)doReplyPost:(SMPost *)post
+{
+    if (![SMAccountManager instance].isLogin) {
+        _replyPost = post;
+        [self performSelectorAfterLogin:@selector(postAfterLogin)];
+        return ;
+    }
+    SMWritePostViewController *writeViewController = [[SMWritePostViewController alloc] init];
+    writeViewController.post = post;
+    writeViewController.postTitle = _postTitle;
+    writeViewController.title = [NSString stringWithFormat:@"回复-%@", _postTitle];
+    P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:writeViewController];
+    if ([SMUtils isPad]) {
+        [[SMIPadSplitViewController instance] presentModalViewController:nvc animated:YES];
+    } else {
+        [self presentModalViewController:nvc animated:YES];
+    }
+}
 
 #pragma mark - SMPostGroupContentCellDelegate
 - (void)postGroupContentCell:(SMPostGroupContentCell *)cell heightChanged:(CGFloat)height
@@ -739,6 +774,45 @@
     PBWebViewController *webView = [[PBWebViewController alloc] init];
     webView.URL = url;
     [self.navigationController pushViewController:webView animated:YES];
+}
+
+- (void)postGroupContentCellOnReply:(SMPostGroupContentCell *)cell
+{
+    [self doReplyPost:cell.post];
+    [self hidePostCellActions];
+    
+    [SMUtils trackEventWithCategory:@"postgroup" action:@"reply_swipe" label:_board.name];
+}
+
+- (void)postGroupContentCellOnForward:(SMPostGroupContentCell *)cell
+{
+    _replyPost = cell.post;
+    [self performSelectorAfterLogin:@selector(forwardAfterLogin)];
+    
+    [SMUtils trackEventWithCategory:@"postgroup" action:@"forward_swipe" label:_board.name];
+}
+
+- (void)forwardAfterLogin
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"转寄"
+                                                        message:@"请输入转寄到的id或email"
+                                                       delegate:self
+                                              cancelButtonTitle:@"取消"
+                                              otherButtonTitles:@"转寄", nil];
+    alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [alertView textFieldAtIndex:0].text = [SMAccountManager instance].name;
+    [alertView show];
+    [self hidePostCellActions];
+}
+
+- (void)hidePostCellActions
+{
+    [self.tableView.visibleCells enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if ([obj isKindOfClass:[SMPostGroupContentCell class]]) {
+            SMPostGroupContentCell *cell = obj;
+            [cell hideActionView];
+        }
+    }];
 }
 
 #pragma mark - SMPostFailCellDelegate
@@ -778,24 +852,52 @@
             _gid = _singlePost.gid;
             _start = _singlePost.pid;
             _isSinglePost = NO;
+            [self.postHeightMap removeAllObjects];
             [_tableView beginRefreshing];
             [SMUtils trackEventWithCategory:@"postgroup" action:@"expand" label:@"here"];
         } else if ([title isEqualToString:STRING_EXPAND_ALL]) {
             _gid = _singlePost.gid;
             _start = _singlePost.gid;
             _isSinglePost = NO;
+            [self.postHeightMap removeAllObjects];
             [_tableView beginRefreshing];
             [SMUtils trackEventWithCategory:@"postgroup" action:@"expand" label:@"all"];
         } else {
             SMBoardViewController *vc = [[SMBoardViewController alloc] init];
             vc.board = _board;
-            [self.navigationController pushViewController:vc animated:YES];
+            
+            if ([SMUtils isPad]) {
+                [[SMMainViewController instance] setRootViewController:vc];
+            } else {
+                [self.navigationController pushViewController:vc animated:YES];
+            }
             
             [SMUtils trackEventWithCategory:@"postgroup" action:@"enter_board" label:_board.name];
         }
     }
 }
 
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex != alertView.cancelButtonIndex) {
+        NSString *text = [alertView textFieldAtIndex:0].text;
+        if (text.length != 0) {
+            _forwardOp = [[SMWebLoaderOperation alloc] init];
+
+            NSString *formUrl = @"http://www.newsmth.net/bbsfwd.php?do";
+            SMHttpRequest *request = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:formUrl]];
+            
+            NSString *postBody = [NSString stringWithFormat:@"board=%@&id=%d&target=%@&noansi=1", self.board.name, _replyPost.pid, [SMUtils encodeurl:text]];
+            [request setRequestMethod:@"POST"];
+            [request addRequestHeader:@"Content-type" value:@"application/x-www-form-urlencoded"];
+            [request setPostBody:[[postBody dataUsingEncoding:NSUTF8StringEncoding] mutableCopy]];
+            
+            _forwardOp.delegate = self;
+            [_forwardOp loadRequest:request withParser:@"bbsfwd"];
+        }
+    }
+}
 
 @end
 

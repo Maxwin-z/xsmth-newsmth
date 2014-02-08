@@ -10,6 +10,7 @@
 #import "XPullRefreshTableView.h"
 #import "SMBoardCell.h"
 #import "SMPostViewController.h"
+#import "SMIPadSplitViewController.h"
 
 @interface SMBoardSearchResultViewController ()<SMWebLoaderOperationDelegate, XPullRefreshTableViewDelegate, UITableViewDataSource, UITableViewDelegate>
 @property (strong, nonatomic) SMWebLoaderOperation *op;
@@ -52,7 +53,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [SMBoardCell cellHeight:_posts[indexPath.row]];
+    return [SMBoardCell cellHeight:_posts[indexPath.row] withWidth:self.tableView.frame.size.width];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -80,9 +81,12 @@
     SMPostViewController *vc = [[SMPostViewController alloc] init];
     vc.postUrl = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/single/%d/0", _board.name, post.gid];
     vc.fromBoard = YES;
-    [self.navigationController pushViewController:vc animated:YES];
     
-//    [SMUtils trackEventWithCategory:@"board" action:@"view_post" label:_board.name];
+    if ([SMUtils isPad]) {
+        [SMIPadSplitViewController instance].detailViewController = vc;
+    } else {
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 #pragma mark - XPullRefreshTableView
@@ -100,7 +104,7 @@
     _posts = board.posts;
     [_tableView reloadData];
     
-    self.title = [NSString stringWithFormat:@"共%d条结果", _posts.count];
+    self.title = [NSString stringWithFormat:@"共%@条结果", @(_posts.count)];
 //    XLog_d(@"%@", board);
 }
 
