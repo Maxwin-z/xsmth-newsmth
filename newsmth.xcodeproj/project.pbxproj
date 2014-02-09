@@ -55,6 +55,8 @@
 		C12027B61754E08A00EB9E9E /* bbscon.js in Resources */ = {isa = PBXBuildFile; fileRef = C121F29A1750EE790081FD87 /* bbscon.js */; };
 		C121F29E175106A00081FD87 /* SMWebParser.m in Sources */ = {isa = PBXBuildFile; fileRef = C121F29D175106A00081FD87 /* SMWebParser.m */; };
 		C122B41B17992A56000AC67E /* bg_text_hint@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C122B41A17992A56000AC67E /* bg_text_hint@2x.png */; };
+		C1249B1B18A7A776005B6F69 /* SMAdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1249B1918A7A776005B6F69 /* SMAdViewController.m */; };
+		C1249B1C18A7A776005B6F69 /* SMAdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1249B1A18A7A776005B6F69 /* SMAdViewController.xib */; };
 		C124CAEE185D8BC500B9CEA3 /* SMTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = C124CAED185D8BC500B9CEA3 /* SMTheme.m */; };
 		C124CAF0185D951700B9CEA3 /* SMBoardViewTypeSelectorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C124CAEF185D951700B9CEA3 /* SMBoardViewTypeSelectorView.xib */; };
 		C124CAF3185D962300B9CEA3 /* SMBoardViewTypeSelectorView.m in Sources */ = {isa = PBXBuildFile; fileRef = C124CAF2185D962300B9CEA3 /* SMBoardViewTypeSelectorView.m */; };
@@ -339,6 +341,9 @@
 		C121F29D175106A00081FD87 /* SMWebParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMWebParser.m; sourceTree = "<group>"; };
 		C121F29F175108010081FD87 /* utils.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = utils.js; sourceTree = "<group>"; };
 		C122B41A17992A56000AC67E /* bg_text_hint@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_text_hint@2x.png"; sourceTree = "<group>"; };
+		C1249B1818A7A776005B6F69 /* SMAdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMAdViewController.h; sourceTree = "<group>"; };
+		C1249B1918A7A776005B6F69 /* SMAdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMAdViewController.m; sourceTree = "<group>"; };
+		C1249B1A18A7A776005B6F69 /* SMAdViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMAdViewController.xib; sourceTree = "<group>"; };
 		C124CAEC185D8BC500B9CEA3 /* SMTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMTheme.h; sourceTree = "<group>"; };
 		C124CAED185D8BC500B9CEA3 /* SMTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMTheme.m; sourceTree = "<group>"; };
 		C124CAEF185D951700B9CEA3 /* SMBoardViewTypeSelectorView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMBoardViewTypeSelectorView.xib; sourceTree = "<group>"; };
@@ -824,6 +829,9 @@
 				C1327EDF1878549700B1862A /* SMDonateViewController.xib */,
 				C15489C31888F9E10046190C /* SMEULAViewController.h */,
 				C15489C41888F9E10046190C /* SMEULAViewController.m */,
+				C1249B1818A7A776005B6F69 /* SMAdViewController.h */,
+				C1249B1918A7A776005B6F69 /* SMAdViewController.m */,
+				C1249B1A18A7A776005B6F69 /* SMAdViewController.xib */,
 			);
 			path = more;
 			sourceTree = "<group>";
@@ -1538,6 +1546,7 @@
 				C1C18D9C17A533F3008C598C /* SMMailViewController.xib in Resources */,
 				C1C18DA017A53448008C598C /* tabbar_at@2x.png in Resources */,
 				C1C18DA117A53448008C598C /* tabbar_reply@2x.png in Resources */,
+				C1249B1C18A7A776005B6F69 /* SMAdViewController.xib in Resources */,
 				C1C18DA217A53448008C598C /* tabbar_mail@2x.png in Resources */,
 				C1C18DA717A534D1008C598C /* SMAtMeViewController.xib in Resources */,
 				C1C18DAC17A534FE008C598C /* SMReplyMeViewController.xib in Resources */,
@@ -1584,6 +1593,7 @@
 				C15489C51888F9E10046190C /* SMEULAViewController.m in Sources */,
 				C14B22F117FAB00700CF081A /* XTimeLabel.m in Sources */,
 				C1BFB9C5174F6F5C0092FD2E /* ASIDataDecompressor.m in Sources */,
+				C1249B1B18A7A776005B6F69 /* SMAdViewController.m in Sources */,
 				C1BFB9C6174F6F5C0092FD2E /* ASIDownloadCache.m in Sources */,
 				C1BFB9C7174F6F5C0092FD2E /* ASIFormDataRequest.m in Sources */,
 				C1BFB9C8174F6F5C0092FD2E /* ASIHTTPRequest.m in Sources */,

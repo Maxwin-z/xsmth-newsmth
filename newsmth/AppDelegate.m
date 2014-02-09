@@ -17,6 +17,7 @@
 #import "SMUpdater.h"
 #import "SMIPadSplitViewController.h"
 #import "SMIpadEmptyViewController.h"
+#import "SMAdViewController.h"
 
 @interface AppDelegate ()<SMWebLoaderOperationDelegate>
 @property (strong, nonatomic) UINavigationController *nvc;
@@ -24,6 +25,7 @@
 @property (strong, nonatomic) ViewController *viewController;
 @property (strong, nonatomic) SMMainViewController *mainViewController;
 @property (strong, nonatomic) SMIPadSplitViewController *ipadSplitViewController;
+@property (strong, nonatomic) SMAdViewController *adViewController;
 
 @property (strong, nonatomic) SMWebLoaderOperation *keepLoginOp;
 @property (strong, nonatomic) SMWebLoaderOperation *loginOp;
@@ -164,8 +166,30 @@
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
 }
 
+- (void)applicationDidEnterBackground:(UIApplication *)application
+{
+}
+
+- (void)applicationWillResignActive:(UIApplication *)application
+{
+    if (self.adViewController == nil) {
+        self.adViewController = [SMAdViewController new];
+    }
+    self.adViewController.view.frame = self.window.bounds;
+    self.adViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [self.window addSubview:self.adViewController.view];    
+}
+
+- (void)applicationWillEnterForeground:(UIApplication *)application
+{
+    [self.adViewController.view removeFromSuperview];
+}
+
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
+    [self.window addSubview:self.adViewController.view];
+
+    self.adViewController.labelForTime.text = [[NSDate date] description];
 //    [self showNotification:@"start bg fetch"];
     if ([SMAccountManager instance].isLogin) {
         XLog_d(@"load notice");
