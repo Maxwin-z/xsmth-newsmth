@@ -33,6 +33,9 @@
 @property (strong, nonatomic) UIView *viewForMasker;
 @property (assign, nonatomic) BOOL isViewTypeSelectorVisiable;
 
+
+// v2.1 修复翻页帖子重复的问题
+@property (strong, nonatomic) NSMutableDictionary *postsMap;
 @end
 
 @implementation SMBoardViewController
