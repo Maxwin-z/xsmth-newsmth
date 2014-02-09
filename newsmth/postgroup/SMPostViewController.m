@@ -521,7 +521,8 @@
 
 - (NSString *)getAttachUrl:(SMAttach *)attach
 {
-    return [NSString stringWithFormat:@"http://att.newsmth.net/nForum/att/%@/%d/%d/large", attach.boardName, attach.pid, attach.pos];
+    NSString *type = @"large";
+    return [NSString stringWithFormat:@"http://att.newsmth.net/nForum/att/%@/%d/%d/%@", attach.boardName, attach.pid, attach.pos, type];
 }
 
 - (NSString *)getAttachOriginalUrl:(SMAttach *)attach
