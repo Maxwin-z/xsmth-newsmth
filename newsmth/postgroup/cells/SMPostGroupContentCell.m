@@ -163,12 +163,19 @@ NSString *tpl =
 {
     NSString *content = self.post.content;
     NSInteger maxLength = 1000;
-    if (clip && content.length > maxLength) {
+    if (content.length > maxLength) {
         NSString *radio = [NSString stringWithFormat:@"%d%%", (int)(maxLength * 100.0f / content.length)];
-        content = [content substringToIndex:maxLength];
-        NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/single/%d/0",
-                         self.post.board.name, self.post.pid];
-        content = [NSString stringWithFormat:@"%@ <a class=\"origin_link\" href=\"xsmth://fullpost?url=%@\">原文过长，已加载%@<br />点击查看全部</a>", content, url, radio];
+
+        NSString *head = [content substringToIndex:maxLength];
+        NSString *tail = [content substringFromIndex:maxLength];
+
+        if (clip) {
+            NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/single/%d/0",
+                             self.post.board.name, self.post.pid];
+            content = [NSString stringWithFormat:@"%@ <a class=\"origin_link\" href=\"xsmth://fullpost?url=%@\">原文过长，已加载%@<br />点击查看全部</a>", head, url, radio];
+        } else {
+            content = [NSString stringWithFormat:@"%@<a name=\"tail\"></a>%@", head, tail];
+        }
     }
     NSString *body = [NSString stringWithFormat:@"<html><style type=\"text/css\">%@</style><body>%@</body></html>", [self generateCSS], [self formatContent:content]];
     return body;

@@ -925,7 +925,10 @@
     self.webViewForFullPost.alpha = 0;
     [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
         self.webViewForFullPost.alpha = 1;
-    } completion:NULL];
+    } completion:^(BOOL finished) {
+        NSString *js = @"window.location.href='#tail'";
+        [self.webViewForFullPost stringByEvaluatingJavaScriptFromString:js];
+    }];
 }
 
 - (IBAction)closeFullPost
