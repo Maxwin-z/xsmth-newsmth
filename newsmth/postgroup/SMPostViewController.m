@@ -769,6 +769,11 @@
     }
 }
 
+- (void)postGroupContentCell:(SMPostGroupContentCell *)cell fullHtml:(NSString *)html
+{
+    XLog_d(@"%@", html);
+}
+
 - (void)postGroupContentCell:(SMPostGroupContentCell *)cell shouldLoadUrl:(NSURL *)url
 {
     PBWebViewController *webView = [[PBWebViewController alloc] init];
