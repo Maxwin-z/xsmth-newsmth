@@ -17,6 +17,8 @@
 - (void)postGroupContentCellOnReply:(SMPostGroupContentCell *)cell;
 - (void)postGroupContentCellOnForward:(SMPostGroupContentCell *)cell;
 
+- (void)postGroupContentCell:(SMPostGroupContentCell *)cell fullHtml:(NSString *)html;
+
 @optional
 - (void)postGroupContentCell:(SMPostGroupContentCell *)cell shouldLoadUrl:(NSURL *)url;
 @end

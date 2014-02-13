@@ -65,6 +65,10 @@
 
 // 转寄
 @property (strong, nonatomic) SMWebLoaderOperation *forwardOp;
+
+// v2.1 full post viewer
+@property (strong, nonatomic) IBOutlet UIView *viewForFullPostContainer;
+@property (weak, nonatomic) IBOutlet UIWebView *webViewForFullPost;
 @end
 
 @implementation SMPostViewController
@@ -122,6 +126,9 @@
     _scrollIndicator.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin;
     [_scrollIndicator addTarget:self action:@selector(onScrollIndicatorValueChanged) forControlEvents:UIControlEventValueChanged];
     [_scrollIndicator addTarget:self action:@selector(onScrollIndicatorTouchEnd) forControlEvents:UIControlEventTouchCancel];
+    
+    // v2.1
+//    self.webViewForFullPost.scrollView.contentInset = self.webViewForFullPost.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(SM_TOP_INSET, 0, 0, 0);
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -146,6 +153,7 @@
 {
     [super setupTheme];
     _labelForTitle.textColor = [SMTheme colorForPrimary];
+    _viewForFullPostContainer.backgroundColor = [SMTheme colorForBackground];
 }
 
 - (void)onRightBarButtonClick
@@ -770,6 +778,11 @@
     }
 }
 
+- (void)postGroupContentCell:(SMPostGroupContentCell *)cell fullHtml:(NSString *)html
+{
+    [self showFullPostWithHtml:html];
+}
+
 - (void)postGroupContentCell:(SMPostGroupContentCell *)cell shouldLoadUrl:(NSURL *)url
 {
     PBWebViewController *webView = [[PBWebViewController alloc] init];
@@ -898,6 +911,31 @@
             [_forwardOp loadRequest:request withParser:@"bbsfwd"];
         }
     }
+}
+
+#pragma mark - Full post viewer
+- (void)showFullPostWithHtml:(NSString *)html
+{
+    [self.webViewForFullPost loadHTMLString:html baseURL:nil];
+
+    UIView *window = [UIApplication sharedApplication].keyWindow;
+    self.viewForFullPostContainer.frame = window.bounds;
+    [window addSubview:self.viewForFullPostContainer];
+
+    self.viewForFullPostContainer.hidden = NO;
+    self.webViewForFullPost.alpha = 0;
+    [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        self.webViewForFullPost.alpha = 1;
+    } completion:^(BOOL finished) {
+        NSString *js = @"window.location.href='#tail'";
+        [self.webViewForFullPost stringByEvaluatingJavaScriptFromString:js];
+    }];
+}
+
+- (IBAction)closeFullPost
+{
+    self.viewForFullPostContainer.hidden = YES;
+    [self.viewForFullPostContainer removeFromSuperview];
 }
 
 @end
