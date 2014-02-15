@@ -13,6 +13,11 @@
 
 @implementation SMAdViewController
 
++ (BOOL)hasAd
+{
+    return YES;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

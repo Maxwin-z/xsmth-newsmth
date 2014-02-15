@@ -10,4 +10,6 @@
 
 @interface SMAdViewController : SMViewController
 @property (weak, nonatomic) IBOutlet UILabel *labelForTime;
+
++ (BOOL)hasAd;
 @end
