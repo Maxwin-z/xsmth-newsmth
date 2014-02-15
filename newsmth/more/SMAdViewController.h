@@ -12,4 +12,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelForTime;
 
 + (BOOL)hasAd;
++ (void)downloadAd:(NSString *)adid;
 @end

@@ -162,6 +162,9 @@
 
     [self showAdView];
     
+    // debug
+    [SMAdViewController downloadAd:@"testad"];
+    
     return YES;
 }
 

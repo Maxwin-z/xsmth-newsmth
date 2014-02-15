@@ -8,11 +8,14 @@
 
 #import "SMUpdater.h"
 #import "ASIHTTPRequest.h"
+#import "SSZipArchive.h"
+#import "SMAdViewController.h"
 
 #define API_PREFIX @"http://maxwin.me/xsmth/service/"
 
 #define USERDEFAULTS_UPDATE_VERSION   @"updater_version"
 #define USERDEFAULTS_UPDATE_PARSER   @"updater_parser"
+#define USERDEFAULTS_UPDATE_ADID    @"updater_adid"
 
 @interface SMUpdater ()<ASIHTTPRequestDelegate, UIAlertViewDelegate>
 
@@ -24,6 +27,7 @@
     ASIHTTPRequest *newVersionReq;
     NSInteger currentVersion;
     NSInteger currentParser;
+    NSString *currentAdid;
     SMVersion *newVersion;
 }
 
@@ -31,6 +35,7 @@
 {
     currentVersion = [[NSUserDefaults standardUserDefaults] integerForKey:USERDEFAULTS_UPDATE_VERSION];
     currentParser = [[NSUserDefaults standardUserDefaults] integerForKey:USERDEFAULTS_UPDATE_PARSER];
+    currentAdid = [[NSUserDefaults standardUserDefaults] stringForKey:USERDEFAULTS_UPDATE_ADID];
     
     // load [version].json
     NSString *versionUrl = [NSString stringWithFormat:API_PREFIX @"v%@.json", [SMUtils appVersionString]];
@@ -52,6 +57,11 @@
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
             [self downloadParsers];
         });
+    }
+
+    if ([currentAdid isEqualToString:newVersion.adid]) {
+        // download ad files
+        
     }
 }
 
@@ -114,7 +124,7 @@
     if (request == updateReq) {
         NSDictionary *json = [SMUtils string2json:responseString];
         newVersion = [[SMVersion alloc] initWithJSON:json];
-        if (newVersion.version != 0 || newVersion.parser != 0) {
+        if (newVersion.version != 0 || newVersion.parser != 0 || newVersion.adid.length > 0) {
             [self handleNewVersion];
         }
     }
@@ -138,6 +148,12 @@
     } else {
         [SMUtils trackEventWithCategory:@"app" action:@"cancel_update" label:nil];
     }
+}
+
+#pragma mark - download ad files
+- (void)downloadAdFilesWithAdid:(NSString *)adid
+{
+    
 }
 
 @end

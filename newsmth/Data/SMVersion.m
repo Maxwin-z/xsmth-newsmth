@@ -7,6 +7,11 @@
 	_version = [[dict objectForKey:@"version"] intValue];
 
 	_parser = [[dict objectForKey:@"parser"] intValue];
+
+	id adid = [dict objectForKey:@"adid"];
+	if (adid != [NSNull null]) {
+		_adid = adid;
+	}
 }
 
 - (id)encode
@@ -15,6 +20,10 @@
 	[dict setObject:@(_version) forKey:@"version"];
 
 	[dict setObject:@(_parser) forKey:@"parser"];
+
+	if (_adid != nil) {
+		[dict setObject:_adid forKey:@"adid"];
+	}
 	return dict;
 }
 @end

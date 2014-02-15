@@ -75,6 +75,11 @@
 		C1327EDC187850DF00B1862A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1327EDB187850DF00B1862A /* StoreKit.framework */; };
 		C1327EE01878549700B1862A /* SMDonateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1327EDE1878549700B1862A /* SMDonateViewController.m */; };
 		C1327EE11878549700B1862A /* SMDonateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1327EDF1878549700B1862A /* SMDonateViewController.xib */; };
+		C13CB57A18AF62B4003F7407 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = C13CB56018AF62B4003F7407 /* ioapi.c */; };
+		C13CB57B18AF62B4003F7407 /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = C13CB56218AF62B4003F7407 /* mztools.c */; };
+		C13CB57C18AF62B4003F7407 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = C13CB56418AF62B4003F7407 /* unzip.c */; };
+		C13CB57D18AF62B4003F7407 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = C13CB56618AF62B4003F7407 /* zip.c */; };
+		C13CB57F18AF62B4003F7407 /* SSZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = C13CB56A18AF62B4003F7407 /* SSZipArchive.m */; };
 		C13D4124176DD5EC00BD03A4 /* placeholder@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C13D4123176DD5EC00BD03A4 /* placeholder@2x.jpg */; };
 		C14505E51750787C00DC5431 /* SMAccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C14505E41750787C00DC5431 /* SMAccountManager.m */; };
 		C14505E817507A9800DC5431 /* SMHttpRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C14505E717507A9800DC5431 /* SMHttpRequest.m */; };
@@ -366,6 +371,17 @@
 		C1327EDD1878549700B1862A /* SMDonateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMDonateViewController.h; sourceTree = "<group>"; };
 		C1327EDE1878549700B1862A /* SMDonateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMDonateViewController.m; sourceTree = "<group>"; };
 		C1327EDF1878549700B1862A /* SMDonateViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMDonateViewController.xib; sourceTree = "<group>"; };
+		C13CB55F18AF62B4003F7407 /* crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypt.h; sourceTree = "<group>"; };
+		C13CB56018AF62B4003F7407 /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ioapi.c; sourceTree = "<group>"; };
+		C13CB56118AF62B4003F7407 /* ioapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ioapi.h; sourceTree = "<group>"; };
+		C13CB56218AF62B4003F7407 /* mztools.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mztools.c; sourceTree = "<group>"; };
+		C13CB56318AF62B4003F7407 /* mztools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mztools.h; sourceTree = "<group>"; };
+		C13CB56418AF62B4003F7407 /* unzip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unzip.c; sourceTree = "<group>"; };
+		C13CB56518AF62B4003F7407 /* unzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unzip.h; sourceTree = "<group>"; };
+		C13CB56618AF62B4003F7407 /* zip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zip.c; sourceTree = "<group>"; };
+		C13CB56718AF62B4003F7407 /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zip.h; sourceTree = "<group>"; };
+		C13CB56918AF62B4003F7407 /* SSZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSZipArchive.h; sourceTree = "<group>"; };
+		C13CB56A18AF62B4003F7407 /* SSZipArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSZipArchive.m; sourceTree = "<group>"; };
 		C13D4123176DD5EC00BD03A4 /* placeholder@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "placeholder@2x.jpg"; sourceTree = "<group>"; };
 		C144B68E1768C62500DA2958 /* login.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = login.js; sourceTree = "<group>"; };
 		C14505E31750787C00DC5431 /* SMAccountManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMAccountManager.h; sourceTree = "<group>"; };
@@ -791,6 +807,32 @@
 			path = ipad;
 			sourceTree = "<group>";
 		};
+		C13CB55A18AF62B4003F7407 /* SSZipArchive */ = {
+			isa = PBXGroup;
+			children = (
+				C13CB55E18AF62B4003F7407 /* minizip */,
+				C13CB56918AF62B4003F7407 /* SSZipArchive.h */,
+				C13CB56A18AF62B4003F7407 /* SSZipArchive.m */,
+			);
+			path = SSZipArchive;
+			sourceTree = "<group>";
+		};
+		C13CB55E18AF62B4003F7407 /* minizip */ = {
+			isa = PBXGroup;
+			children = (
+				C13CB55F18AF62B4003F7407 /* crypt.h */,
+				C13CB56018AF62B4003F7407 /* ioapi.c */,
+				C13CB56118AF62B4003F7407 /* ioapi.h */,
+				C13CB56218AF62B4003F7407 /* mztools.c */,
+				C13CB56318AF62B4003F7407 /* mztools.h */,
+				C13CB56418AF62B4003F7407 /* unzip.c */,
+				C13CB56518AF62B4003F7407 /* unzip.h */,
+				C13CB56618AF62B4003F7407 /* zip.c */,
+				C13CB56718AF62B4003F7407 /* zip.h */,
+			);
+			path = minizip;
+			sourceTree = "<group>";
+		};
 		C14505EA17507DD400DC5431 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -980,6 +1022,7 @@
 		C1BA923917954EC300F76ACF /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				C13CB55A18AF62B4003F7407 /* SSZipArchive */,
 				C1C07A141796857900906ED7 /* OWActivityViewController */,
 				C1BA927B17954EC300F76ACF /* PBWebViewController */,
 			);
@@ -1597,11 +1640,13 @@
 				C1BFB9C6174F6F5C0092FD2E /* ASIDownloadCache.m in Sources */,
 				C1BFB9C7174F6F5C0092FD2E /* ASIFormDataRequest.m in Sources */,
 				C1BFB9C8174F6F5C0092FD2E /* ASIHTTPRequest.m in Sources */,
+				C13CB57C18AF62B4003F7407 /* unzip.c in Sources */,
 				C1BFB9C9174F6F5C0092FD2E /* ASIInputStream.m in Sources */,
 				C1BFB9CA174F6F5C0092FD2E /* ASINetworkQueue.m in Sources */,
 				C1E1CAFB1870268000324EAF /* SMIPadSplitViewController.m in Sources */,
 				C1BFB9EA174F6F5C0092FD2E /* Reachability.m in Sources */,
 				C124CAF3185D962300B9CEA3 /* SMBoardViewTypeSelectorView.m in Sources */,
+				C13CB57D18AF62B4003F7407 /* zip.c in Sources */,
 				C14505E51750787C00DC5431 /* SMAccountManager.m in Sources */,
 				C1300A5618795C23006ACA5C /* SMIpadEmptyViewController.m in Sources */,
 				C14505E817507A9800DC5431 /* SMHttpRequest.m in Sources */,
@@ -1640,6 +1685,7 @@
 				C19FF0C21769CEC700EB6F7E /* SMBoardViewController.m in Sources */,
 				C19FF0C61769D0DC00EB6F7E /* SMBoardCell.m in Sources */,
 				C1B581F3177723F500441299 /* SMWritePostViewController.m in Sources */,
+				C13CB57B18AF62B4003F7407 /* mztools.c in Sources */,
 				C1CC1B40177857FB00FC63A8 /* P2PNavigationController.m in Sources */,
 				C1CC1B41177857FB00FC63A8 /* P2PViewController.m in Sources */,
 				C1011D8E17787DA400E0485D /* SMWriteResult.m in Sources */,
@@ -1674,7 +1720,9 @@
 				C1C07A581796857900906ED7 /* OWActivity.m in Sources */,
 				C14B230417FB189B00CF081A /* SMPageCell.m in Sources */,
 				C1C07A591796857900906ED7 /* OWActivityDelegateObject.m in Sources */,
+				C13CB57F18AF62B4003F7407 /* SSZipArchive.m in Sources */,
 				C1C07A5A1796857900906ED7 /* OWActivityView.m in Sources */,
+				C13CB57A18AF62B4003F7407 /* ioapi.c in Sources */,
 				C1C07A5C1796857900906ED7 /* OWActivityViewController.m in Sources */,
 				C1C07A5D1796857900906ED7 /* OWCopyActivity.m in Sources */,
 				C1F4C5AC1806D4BD00E8A52D /* SMConfig.m in Sources */,

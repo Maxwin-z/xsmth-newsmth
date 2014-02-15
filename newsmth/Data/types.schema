@@ -123,6 +123,7 @@ SMMailList {
 SMVersion {
     int version
     int parser
+    string adid
 }
 
 SMParserItem {
