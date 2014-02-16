@@ -931,13 +931,16 @@
     self.viewForFullPostContainer.frame = window.bounds;
     [window addSubview:self.viewForFullPostContainer];
 
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        NSString *js = @"window.location.href='#tail'";
+        [self.webViewForFullPost stringByEvaluatingJavaScriptFromString:js];
+    });
+    
     self.viewForFullPostContainer.hidden = NO;
     self.webViewForFullPost.alpha = 0;
     [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
         self.webViewForFullPost.alpha = 1;
     } completion:^(BOOL finished) {
-        NSString *js = @"window.location.href='#tail'";
-        [self.webViewForFullPost stringByEvaluatingJavaScriptFromString:js];
     }];
 }
 
