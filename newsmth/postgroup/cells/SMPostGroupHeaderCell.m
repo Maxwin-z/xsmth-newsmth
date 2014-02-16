@@ -22,6 +22,7 @@ const CGFloat ADVIEW_HEIGHT = 50.0f;
 
 @property (strong, nonatomic) UIView *viewForAdContainer;
 @property (strong, nonatomic) GADBannerView *gAdView;
+@property (strong, nonatomic) ADBannerView *iAdView;
 @end
 
 @implementation SMPostGroupHeaderCell
@@ -60,12 +61,6 @@ const CGFloat ADVIEW_HEIGHT = 50.0f;
         self.viewForAdContainer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.contentView.frame.size.width, ADVIEW_HEIGHT)];
         self.viewForAdContainer.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [self.contentView addSubview:self.viewForAdContainer];
-        
-        GADBannerView *adBanner = [[GADBannerView alloc] initWithFrame:self.viewForAdContainer.bounds];
-        adBanner.adUnitID = @"a1530065d538e8a";
-        [self.viewForAdContainer removeAllSubviews];
-        [self.viewForAdContainer addSubview:adBanner];
-        self.gAdView = adBanner;
     }
     return self;
 }
@@ -127,11 +122,15 @@ const CGFloat ADVIEW_HEIGHT = 50.0f;
 
     //
     if (item.hasAd) {
-        self.viewForAdContainer.hidden = NO;
-        if (!self.gAdView.rootViewController) {
+        if (!self.gAdView) {
+            self.gAdView = [[GADBannerView alloc] initWithFrame:self.viewForAdContainer.bounds];
+            self.gAdView.adUnitID = @"a1530065d538e8a";
+            [self.viewForAdContainer removeAllSubviews];
+            [self.viewForAdContainer addSubview:self.gAdView];
             self.gAdView.rootViewController = self.viewController;
             [self.gAdView loadRequest:[GADRequest request]];
         }
+        self.viewForAdContainer.hidden = NO;
     } else {
         self.viewForAdContainer.hidden = YES;
     }
