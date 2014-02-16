@@ -303,7 +303,25 @@
     if (self.adViewController == nil) {
         self.adViewController = [SMAdViewController new];
     }
-    self.adViewController.view.frame = self.window.bounds;
+    
+    CGFloat angle = 0;
+    CGRect frame = self.window.bounds;
+    
+    UIDeviceOrientation o = [UIDevice currentDevice].orientation;
+    if (o == UIDeviceOrientationUnknown) {
+        o = (UIDeviceOrientation) [[UIApplication sharedApplication] statusBarOrientation];
+    }
+    
+    if (o == UIDeviceOrientationLandscapeLeft) {
+        angle = M_PI_2;
+    }
+    if (o == UIDeviceOrientationLandscapeRight){
+        angle = -M_PI_2;
+    }
+    
+    self.adViewController.view.transform = CGAffineTransformMakeRotation(angle);
+    self.adViewController.view.frame = frame;
+
     self.adViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.window addSubview:self.adViewController.view];
 }

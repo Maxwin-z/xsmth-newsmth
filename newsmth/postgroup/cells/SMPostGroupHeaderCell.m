@@ -132,8 +132,8 @@ const CGFloat ADVIEW_HEIGHT = 50.0f;
     if (item.showGAd || item.showIAd) {
         if (item.showGAd && !self.gAdView) {
             self.gAdView = [[GADBannerView alloc] initWithFrame:self.viewForAdContainer.bounds];
+            self.gAdView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
             self.gAdView.adUnitID = @"a1530065d538e8a";
-            [self.viewForAdContainer removeAllSubviews];
             [self.viewForAdContainer addSubview:self.gAdView];
             self.gAdView.rootViewController = self.viewController;
             [self.gAdView loadRequest:[GADRequest request]];
@@ -141,6 +141,7 @@ const CGFloat ADVIEW_HEIGHT = 50.0f;
         if (item.showIAd && !self.iAdView) {
             self.iAdView = [[ADBannerView alloc] initWithAdType:ADAdTypeBanner];
             self.iAdView.frame = self.viewForAdContainer.bounds;
+            self.iAdView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
             self.iAdView.delegate = self;
             [self.viewForAdContainer addSubview:self.iAdView];
         }
