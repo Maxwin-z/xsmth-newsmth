@@ -8,6 +8,7 @@
 
 #import "SMAdViewController.h"
 #import "SSZipArchive.h"
+#import "GADBannerView.h"
 
 @interface SMAdViewController () <UIWebViewDelegate>
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
@@ -15,6 +16,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelForMail;
 @property (weak, nonatomic) IBOutlet UILabel *labelForReply;
 @property (weak, nonatomic) IBOutlet UILabel *labelForAt;
+
+@property (strong, nonatomic) GADBannerView *bannerView;
 @end
 
 @implementation SMAdViewController
@@ -85,6 +88,13 @@
         [self.webView loadHTMLString:html baseURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]]];
     }
     [self onNoticeNotification];
+    
+    // debug
+    self.bannerView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeBanner];
+    self.bannerView.adUnitID = @"a1530065d538e8a";
+    self.bannerView.rootViewController = self;
+    [self.view addSubview:self.bannerView];
+    [self.bannerView loadRequest:[GADRequest request]];
 }
 
 - (void)onNoticeNotification
