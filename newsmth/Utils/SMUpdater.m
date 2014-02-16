@@ -15,7 +15,6 @@
 
 #define USERDEFAULTS_UPDATE_VERSION   @"updater_version"
 #define USERDEFAULTS_UPDATE_PARSER   @"updater_parser"
-#define USERDEFAULTS_UPDATE_ADID    @"updater_adid"
 
 @interface SMUpdater ()<ASIHTTPRequestDelegate, UIAlertViewDelegate>
 
@@ -59,9 +58,9 @@
         });
     }
 
-    if ([currentAdid isEqualToString:newVersion.adid]) {
+    if (![currentAdid isEqualToString:newVersion.adid]) {
         // download ad files
-        
+        [SMAdViewController downloadAd:newVersion.adid];
     }
 }
 

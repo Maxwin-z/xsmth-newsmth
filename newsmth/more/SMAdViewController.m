@@ -9,14 +9,24 @@
 #import "SMAdViewController.h"
 #import "SSZipArchive.h"
 
-@interface SMAdViewController ()
+@interface SMAdViewController () <UIWebViewDelegate>
+@property (weak, nonatomic) IBOutlet UIWebView *webView;
 @end
 
 @implementation SMAdViewController
 
 + (BOOL)hasAd
 {
-    return YES;
+    NSString *adid = [[NSUserDefaults standardUserDefaults] stringForKey:USERDEFAULTS_UPDATE_ADID];
+    return [[self class] isAdExists:adid];
+}
+
++ (BOOL)isAdExists:(NSString *)adid
+{
+    if (adid == nil) return NO;
+    NSString *adDir = [[self class] getAdFilePath:adid];
+    NSString *filepath = [NSString stringWithFormat:@"%@/index.html", adDir];
+    return [[NSFileManager defaultManager] fileExistsAtPath:filepath];
 }
 
 + (NSString *)getAdFilePath:(NSString *)adid
@@ -33,22 +43,20 @@
 
 + (void)downloadAd:(NSString *)adid
 {
-    NSString *adDir = [[self class] getAdFilePath:adid];
-    NSString *filepath = [NSString stringWithFormat:@"%@/index.html", adDir];
-    
-    if ([[NSFileManager defaultManager] fileExistsAtPath:filepath]) {
-        return ;    // already exists
+    if ([[self class] isAdExists:adid]) {
+        return ;
     }
-    
     // download
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        NSString *adFileUrl = @"http://192.168.3.160/xsmth/ad.zip";
-        NSString *localZip = [NSString stringWithFormat:@"%@.zip", [[self class] getAdFilePath:@""]];
+        NSString *adFileUrl = [NSString stringWithFormat:@"http://maxwin.me/xsmth/service/%@.zip", adid];
+        NSString *localZip = [NSString stringWithFormat:@"%@/tmpad.zip", [[self class] getAdFilePath:@""]];
         NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:adFileUrl]];
         
         [data writeToFile:localZip atomically:NO];
         
         [SSZipArchive unzipFileAtPath:localZip toDestination:[[self class] getAdFilePath:adid]];
+        
+        [[NSUserDefaults standardUserDefaults] setObject:adid forKey:USERDEFAULTS_UPDATE_ADID];
     });
 }
 
@@ -56,6 +64,14 @@
 {
     [super viewDidLoad];
     [self updateTimeLabel];
+    
+    NSString *adid = [[NSUserDefaults standardUserDefaults] stringForKey:USERDEFAULTS_UPDATE_ADID];
+
+    if ([[self class] isAdExists:adid]) {
+        NSString *adfile = [NSString stringWithFormat:@"%@/index.html", [[self class] getAdFilePath:adid]];
+        NSString *html = [[NSString alloc] initWithData:[NSData dataWithContentsOfFile:adfile] encoding:NSUTF8StringEncoding];
+        [self.webView loadHTMLString:html baseURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]]];
+    }
 }
 
 - (void)updateTimeLabel
@@ -67,6 +83,13 @@
 - (void)dealloc
 {
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
+}
+
+#pragma mark - UIWebViewDelegate
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    XLog_d(@"load: %@", request.URL.absoluteString);
+    return YES;
 }
 
 @end
