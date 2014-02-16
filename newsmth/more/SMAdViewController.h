@@ -9,8 +9,6 @@
 #import "SMViewController.h"
 
 @interface SMAdViewController : SMViewController
-@property (weak, nonatomic) IBOutlet UILabel *labelForTime;
-
 + (BOOL)hasAd;
 + (void)downloadAd:(NSString *)adid;
 @end

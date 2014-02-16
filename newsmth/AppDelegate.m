@@ -190,8 +190,6 @@
 {
     [self showAdView];
     
-    self.adViewController.labelForTime.text = [[NSDate date] description];
-//    [self showNotification:@"start bg fetch"];
     if ([SMAccountManager instance].isLogin) {
         XLog_d(@"load notice");
         [_keepLoginOp cancel];

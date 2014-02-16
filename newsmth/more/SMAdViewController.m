@@ -11,6 +11,10 @@
 
 @interface SMAdViewController () <UIWebViewDelegate>
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
+@property (weak, nonatomic) IBOutlet UIView *viewForNotice;
+@property (weak, nonatomic) IBOutlet UILabel *labelForMail;
+@property (weak, nonatomic) IBOutlet UILabel *labelForReply;
+@property (weak, nonatomic) IBOutlet UILabel *labelForAt;
 @end
 
 @implementation SMAdViewController
@@ -60,10 +64,18 @@
     });
 }
 
+- (id)init
+{
+    self = [super initWithNibName:@"SMAdViewController" bundle:nil];
+    if (self) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onNoticeNotification) name:NOTIFICATION_NOTICE object:nil];
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self updateTimeLabel];
     
     NSString *adid = [[NSUserDefaults standardUserDefaults] stringForKey:USERDEFAULTS_UPDATE_ADID];
 
@@ -72,17 +84,27 @@
         NSString *html = [[NSString alloc] initWithData:[NSData dataWithContentsOfFile:adfile] encoding:NSUTF8StringEncoding];
         [self.webView loadHTMLString:html baseURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]]];
     }
+    [self onNoticeNotification];
 }
 
-- (void)updateTimeLabel
+- (void)onNoticeNotification
 {
-    self.labelForTime.text = [NSString stringWithFormat:@"%@", [NSDate date]];
-    [self performSelector:@selector(updateTimeLabel) withObject:nil afterDelay:1];
+    SMNotice *notice = [SMAccountManager instance].notice;
+    if ([SMAccountManager instance].isLogin &&
+        (notice.mail > 0 || notice.reply > 0 || notice.at > 0)) {
+        self.viewForNotice.hidden = NO;
+        self.labelForMail.text = notice.mail > 0 ? @"信" : @"";
+        self.labelForReply.text = notice.reply > 0 ? i2s(notice.reply) : @"";
+        self.labelForAt.text = notice.at > 0 ? i2s(notice.at) : @"";
+    } else {
+        self.viewForNotice.hidden = YES;
+    }
 }
 
 - (void)dealloc
 {
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - UIWebViewDelegate
