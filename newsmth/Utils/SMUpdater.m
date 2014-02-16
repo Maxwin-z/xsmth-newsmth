@@ -8,6 +8,8 @@
 
 #import "SMUpdater.h"
 #import "ASIHTTPRequest.h"
+#import "SSZipArchive.h"
+#import "SMAdViewController.h"
 
 #define API_PREFIX @"http://maxwin.me/xsmth/service/"
 
@@ -24,6 +26,7 @@
     ASIHTTPRequest *newVersionReq;
     NSInteger currentVersion;
     NSInteger currentParser;
+    NSString *currentAdid;
     SMVersion *newVersion;
 }
 
@@ -31,6 +34,7 @@
 {
     currentVersion = [[NSUserDefaults standardUserDefaults] integerForKey:USERDEFAULTS_UPDATE_VERSION];
     currentParser = [[NSUserDefaults standardUserDefaults] integerForKey:USERDEFAULTS_UPDATE_PARSER];
+    currentAdid = [[NSUserDefaults standardUserDefaults] stringForKey:USERDEFAULTS_UPDATE_ADID];
     
     // load [version].json
     NSString *versionUrl = [NSString stringWithFormat:API_PREFIX @"v%@.json", [SMUtils appVersionString]];
@@ -53,6 +57,11 @@
             [self downloadParsers];
         });
     }
+
+    [SMAdViewController downloadAd:newVersion.adid];
+    [[NSUserDefaults standardUserDefaults] setObject:newVersion.adid forKey:USERDEFAULTS_UPDATE_ADID];
+    [[NSUserDefaults standardUserDefaults] setInteger:newVersion.gadradio forKey:USERDEFAULTS_UPDATE_GADRADIO];
+    [[NSUserDefaults standardUserDefaults] setInteger:newVersion.iadradio forKey:USERDEFAULTS_UPDATE_IADRADIO];
 }
 
 - (void)downloadParsers
@@ -114,7 +123,7 @@
     if (request == updateReq) {
         NSDictionary *json = [SMUtils string2json:responseString];
         newVersion = [[SMVersion alloc] initWithJSON:json];
-        if (newVersion.version != 0 || newVersion.parser != 0) {
+        if (json) {
             [self handleNewVersion];
         }
     }

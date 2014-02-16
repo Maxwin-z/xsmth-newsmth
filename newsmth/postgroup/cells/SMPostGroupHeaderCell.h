@@ -18,6 +18,7 @@
 @interface SMPostGroupHeaderCell : UITableViewCell
 @property (strong, nonatomic) SMPostItem *item;
 @property (weak, nonatomic) id<SMPostGroupHeaderCellDelegate> delegate;
+@property (weak, nonatomic) UIViewController *viewController;
 
-+ (CGFloat)cellHeight;
++ (CGFloat)cellHeight:(SMPostItem *)item;
 @end

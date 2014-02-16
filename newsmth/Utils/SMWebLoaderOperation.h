@@ -26,4 +26,8 @@
 
 - (void)loadUrl:(NSString *)url withParser:(NSString *)parser;
 - (void)loadRequest:(ASIHTTPRequest *)request withParser:(NSString *)parser;
+
+// todo, find why?
++ (void)cancelAllOperations;
+
 @end

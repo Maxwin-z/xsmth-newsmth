@@ -11,9 +11,11 @@
 @interface SMMainViewController : SMViewController
 
 @property (strong, nonatomic) UIImage *topImage;
+@property (strong, nonatomic) P2PNavigationController *centerViewController;
 
 +(SMMainViewController *)instance;
 - (void)setRootViewController:(UIViewController *)viewController;
 - (void)setLeftVisiable:(BOOL)visiable;
 - (void)setBadgeVisiable:(BOOL)visiable;
+
 @end

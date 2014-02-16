@@ -17,6 +17,7 @@
 #import "SMIPadSplitViewController.h"
 
 #import "XImageViewCache.h"
+#import "SMCryptoUtil.h"
 
 //#define LEFT_SIZE   270.0f
 #define RIGHTBAR_WIDTH 50.0f
@@ -31,7 +32,6 @@ static SMMainViewController *_instance;
 
 @interface SMMainViewController ()<UIGestureRecognizerDelegate>
 @property (strong, nonatomic) SMLeftViewController *leftViewController;
-@property (strong, nonatomic) P2PNavigationController *centerViewController;
 @property (assign, nonatomic) BOOL isDragging;
 @property (strong, nonatomic) UIView *viewForCenterMasker;
 @property (assign, nonatomic) CGFloat leftPanX;
@@ -127,6 +127,28 @@ static SMMainViewController *_instance;
 - (void)onLeftBarButtonClick
 {
     [self setLeftVisiable:YES];
+    // debug
+    [self test];
+}
+
+- (void)test
+{
+    NSDictionary *json = @{@"code": @"100",
+                           @"user": @"max",
+                           @"product": @"me.maxwin.xsmth.donate1",
+                           @"message": @"Hello!",
+                           @"addtime": i2s((int)([NSDate timeIntervalSinceReferenceDate]))
+                           };
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:json options:0 error:nil];
+    NSString *text = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    
+    NSData *data = [SMCryptoUtil AES128Encrypt:text];
+    
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:@"http://localhost:8081"]];
+    [request setRequestMethod:@"POST"];
+    [request setPostBody:[data mutableCopy]];
+    [request startSynchronous];
+    XLog_d(@"%@", request.responseString);
 }
 
 - (void)showEndUserLicenseAgreements

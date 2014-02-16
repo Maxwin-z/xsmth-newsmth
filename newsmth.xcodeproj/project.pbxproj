@@ -10,6 +10,7 @@
 		392417D8187C6A7100558725 /* icon_72.png in Resources */ = {isa = PBXBuildFile; fileRef = 392417D5187C6A7100558725 /* icon_72.png */; };
 		392417D9187C6A7100558725 /* icon_76.png in Resources */ = {isa = PBXBuildFile; fileRef = 392417D6187C6A7100558725 /* icon_76.png */; };
 		392417DA187C6A7100558725 /* icon_114@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 392417D7187C6A7100558725 /* icon_114@2x.png */; };
+		3950181F188BA49B00EDD265 /* SMCryptoUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 3950181E188BA49B00EDD265 /* SMCryptoUtil.m */; };
 		3968608618631B040012F81D /* icon_board_view_type@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3968608518631B040012F81D /* icon_board_view_type@2x.png */; };
 		39C260051860A0E400AEFE0E /* SMBoardSearchResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 39C260031860A0E400AEFE0E /* SMBoardSearchResultViewController.m */; };
 		39C260061860A0E400AEFE0E /* SMBoardSearchResultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 39C260041860A0E400AEFE0E /* SMBoardSearchResultViewController.xib */; };
@@ -55,6 +56,8 @@
 		C12027B61754E08A00EB9E9E /* bbscon.js in Resources */ = {isa = PBXBuildFile; fileRef = C121F29A1750EE790081FD87 /* bbscon.js */; };
 		C121F29E175106A00081FD87 /* SMWebParser.m in Sources */ = {isa = PBXBuildFile; fileRef = C121F29D175106A00081FD87 /* SMWebParser.m */; };
 		C122B41B17992A56000AC67E /* bg_text_hint@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C122B41A17992A56000AC67E /* bg_text_hint@2x.png */; };
+		C1249B1B18A7A776005B6F69 /* SMAdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1249B1918A7A776005B6F69 /* SMAdViewController.m */; };
+		C1249B1C18A7A776005B6F69 /* SMAdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1249B1A18A7A776005B6F69 /* SMAdViewController.xib */; };
 		C124CAEE185D8BC500B9CEA3 /* SMTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = C124CAED185D8BC500B9CEA3 /* SMTheme.m */; };
 		C124CAF0185D951700B9CEA3 /* SMBoardViewTypeSelectorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C124CAEF185D951700B9CEA3 /* SMBoardViewTypeSelectorView.xib */; };
 		C124CAF3185D962300B9CEA3 /* SMBoardViewTypeSelectorView.m in Sources */ = {isa = PBXBuildFile; fileRef = C124CAF2185D962300B9CEA3 /* SMBoardViewTypeSelectorView.m */; };
@@ -73,6 +76,18 @@
 		C1327EDC187850DF00B1862A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1327EDB187850DF00B1862A /* StoreKit.framework */; };
 		C1327EE01878549700B1862A /* SMDonateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1327EDE1878549700B1862A /* SMDonateViewController.m */; };
 		C1327EE11878549700B1862A /* SMDonateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1327EDF1878549700B1862A /* SMDonateViewController.xib */; };
+		C13CB57A18AF62B4003F7407 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = C13CB56018AF62B4003F7407 /* ioapi.c */; };
+		C13CB57B18AF62B4003F7407 /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = C13CB56218AF62B4003F7407 /* mztools.c */; };
+		C13CB57C18AF62B4003F7407 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = C13CB56418AF62B4003F7407 /* unzip.c */; };
+		C13CB57D18AF62B4003F7407 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = C13CB56618AF62B4003F7407 /* zip.c */; };
+		C13CB57F18AF62B4003F7407 /* SSZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = C13CB56A18AF62B4003F7407 /* SSZipArchive.m */; };
+		C13CB6B818B0A060003F7407 /* libGoogleAdMobAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C13CB66918B0A060003F7407 /* libGoogleAdMobAds.a */; };
+		C13CB6B918B0A060003F7407 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = C13CB66A18B0A060003F7407 /* README.txt */; };
+		C13CB6C118B0A07F003F7407 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C13CB6C018B0A07F003F7407 /* AudioToolbox.framework */; };
+		C13CB6C318B0A089003F7407 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C13CB6C218B0A089003F7407 /* AVFoundation.framework */; };
+		C13CB6C518B0A09A003F7407 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C13CB6C418B0A09A003F7407 /* CoreTelephony.framework */; };
+		C13CB6C718B0AA48003F7407 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C13CB6C618B0AA48003F7407 /* iAd.framework */; };
+		C13CB6C918B0FE17003F7407 /* icon_search_64@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C13CB6C818B0FE17003F7407 /* icon_search_64@2x.png */; };
 		C13D4124176DD5EC00BD03A4 /* placeholder@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C13D4123176DD5EC00BD03A4 /* placeholder@2x.jpg */; };
 		C14505E51750787C00DC5431 /* SMAccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C14505E41750787C00DC5431 /* SMAccountManager.m */; };
 		C14505E817507A9800DC5431 /* SMHttpRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C14505E717507A9800DC5431 /* SMHttpRequest.m */; };
@@ -267,6 +282,8 @@
 		392417D5187C6A7100558725 /* icon_72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_72.png; sourceTree = "<group>"; };
 		392417D6187C6A7100558725 /* icon_76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_76.png; sourceTree = "<group>"; };
 		392417D7187C6A7100558725 /* icon_114@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_114@2x.png"; sourceTree = "<group>"; };
+		3950181D188BA49B00EDD265 /* SMCryptoUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMCryptoUtil.h; sourceTree = "<group>"; };
+		3950181E188BA49B00EDD265 /* SMCryptoUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMCryptoUtil.m; sourceTree = "<group>"; };
 		3968608518631B040012F81D /* icon_board_view_type@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_board_view_type@2x.png"; sourceTree = "<group>"; };
 		39C260021860A0E400AEFE0E /* SMBoardSearchResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMBoardSearchResultViewController.h; sourceTree = "<group>"; };
 		39C260031860A0E400AEFE0E /* SMBoardSearchResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMBoardSearchResultViewController.m; sourceTree = "<group>"; };
@@ -339,6 +356,9 @@
 		C121F29D175106A00081FD87 /* SMWebParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMWebParser.m; sourceTree = "<group>"; };
 		C121F29F175108010081FD87 /* utils.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = utils.js; sourceTree = "<group>"; };
 		C122B41A17992A56000AC67E /* bg_text_hint@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_text_hint@2x.png"; sourceTree = "<group>"; };
+		C1249B1818A7A776005B6F69 /* SMAdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMAdViewController.h; sourceTree = "<group>"; };
+		C1249B1918A7A776005B6F69 /* SMAdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMAdViewController.m; sourceTree = "<group>"; };
+		C1249B1A18A7A776005B6F69 /* SMAdViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMAdViewController.xib; sourceTree = "<group>"; };
 		C124CAEC185D8BC500B9CEA3 /* SMTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMTheme.h; sourceTree = "<group>"; };
 		C124CAED185D8BC500B9CEA3 /* SMTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMTheme.m; sourceTree = "<group>"; };
 		C124CAEF185D951700B9CEA3 /* SMBoardViewTypeSelectorView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMBoardViewTypeSelectorView.xib; sourceTree = "<group>"; };
@@ -361,6 +381,33 @@
 		C1327EDD1878549700B1862A /* SMDonateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMDonateViewController.h; sourceTree = "<group>"; };
 		C1327EDE1878549700B1862A /* SMDonateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMDonateViewController.m; sourceTree = "<group>"; };
 		C1327EDF1878549700B1862A /* SMDonateViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMDonateViewController.xib; sourceTree = "<group>"; };
+		C13CB55F18AF62B4003F7407 /* crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypt.h; sourceTree = "<group>"; };
+		C13CB56018AF62B4003F7407 /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ioapi.c; sourceTree = "<group>"; };
+		C13CB56118AF62B4003F7407 /* ioapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ioapi.h; sourceTree = "<group>"; };
+		C13CB56218AF62B4003F7407 /* mztools.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mztools.c; sourceTree = "<group>"; };
+		C13CB56318AF62B4003F7407 /* mztools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mztools.h; sourceTree = "<group>"; };
+		C13CB56418AF62B4003F7407 /* unzip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unzip.c; sourceTree = "<group>"; };
+		C13CB56518AF62B4003F7407 /* unzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unzip.h; sourceTree = "<group>"; };
+		C13CB56618AF62B4003F7407 /* zip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zip.c; sourceTree = "<group>"; };
+		C13CB56718AF62B4003F7407 /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zip.h; sourceTree = "<group>"; };
+		C13CB56918AF62B4003F7407 /* SSZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSZipArchive.h; sourceTree = "<group>"; };
+		C13CB56A18AF62B4003F7407 /* SSZipArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSZipArchive.m; sourceTree = "<group>"; };
+		C13CB66018B0A060003F7407 /* GADAdMobExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAdMobExtras.h; sourceTree = "<group>"; };
+		C13CB66118B0A060003F7407 /* GADAdNetworkExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAdNetworkExtras.h; sourceTree = "<group>"; };
+		C13CB66218B0A060003F7407 /* GADAdSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAdSize.h; sourceTree = "<group>"; };
+		C13CB66318B0A060003F7407 /* GADBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADBannerView.h; sourceTree = "<group>"; };
+		C13CB66418B0A060003F7407 /* GADBannerViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADBannerViewDelegate.h; sourceTree = "<group>"; };
+		C13CB66518B0A060003F7407 /* GADInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADInterstitial.h; sourceTree = "<group>"; };
+		C13CB66618B0A060003F7407 /* GADInterstitialDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADInterstitialDelegate.h; sourceTree = "<group>"; };
+		C13CB66718B0A060003F7407 /* GADRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADRequest.h; sourceTree = "<group>"; };
+		C13CB66818B0A060003F7407 /* GADRequestError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADRequestError.h; sourceTree = "<group>"; };
+		C13CB66918B0A060003F7407 /* libGoogleAdMobAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAdMobAds.a; sourceTree = "<group>"; };
+		C13CB66A18B0A060003F7407 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		C13CB6C018B0A07F003F7407 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		C13CB6C218B0A089003F7407 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		C13CB6C418B0A09A003F7407 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		C13CB6C618B0AA48003F7407 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
+		C13CB6C818B0FE17003F7407 /* icon_search_64@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_search_64@2x.png"; sourceTree = "<group>"; };
 		C13D4123176DD5EC00BD03A4 /* placeholder@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "placeholder@2x.jpg"; sourceTree = "<group>"; };
 		C144B68E1768C62500DA2958 /* login.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = login.js; sourceTree = "<group>"; };
 		C14505E31750787C00DC5431 /* SMAccountManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMAccountManager.h; sourceTree = "<group>"; };
@@ -650,6 +697,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C13CB6C718B0AA48003F7407 /* iAd.framework in Frameworks */,
+				C13CB6C518B0A09A003F7407 /* CoreTelephony.framework in Frameworks */,
+				C1BFB8E1174F6A620092FD2E /* CoreGraphics.framework in Frameworks */,
+				C13CB6C318B0A089003F7407 /* AVFoundation.framework in Frameworks */,
+				C13CB6C118B0A07F003F7407 /* AudioToolbox.framework in Frameworks */,
 				C15489C21888CDF60046190C /* AdSupport.framework in Frameworks */,
 				C1327EDC187850DF00B1862A /* StoreKit.framework in Frameworks */,
 				C1C07A78179686BD00906ED7 /* MessageUI.framework in Frameworks */,
@@ -660,7 +712,7 @@
 				C10D16BB1756276D002D6FAD /* QuartzCore.framework in Frameworks */,
 				C1BFB91E174F6F390092FD2E /* libz.dylib in Frameworks */,
 				C15489C01888CA580046190C /* libGoogleAnalyticsServices.a in Frameworks */,
-				C1BFB8E1174F6A620092FD2E /* CoreGraphics.framework in Frameworks */,
+				C13CB6B818B0A060003F7407 /* libGoogleAdMobAds.a in Frameworks */,
 				C1BFB91C174F6F2A0092FD2E /* MobileCoreServices.framework in Frameworks */,
 				C1BFB91A174F6F260092FD2E /* SystemConfiguration.framework in Frameworks */,
 				C1BFB918174F6F200092FD2E /* CFNetwork.framework in Frameworks */,
@@ -786,9 +838,55 @@
 			path = ipad;
 			sourceTree = "<group>";
 		};
+		C13CB55A18AF62B4003F7407 /* SSZipArchive */ = {
+			isa = PBXGroup;
+			children = (
+				C13CB55E18AF62B4003F7407 /* minizip */,
+				C13CB56918AF62B4003F7407 /* SSZipArchive.h */,
+				C13CB56A18AF62B4003F7407 /* SSZipArchive.m */,
+			);
+			path = SSZipArchive;
+			sourceTree = "<group>";
+		};
+		C13CB55E18AF62B4003F7407 /* minizip */ = {
+			isa = PBXGroup;
+			children = (
+				C13CB55F18AF62B4003F7407 /* crypt.h */,
+				C13CB56018AF62B4003F7407 /* ioapi.c */,
+				C13CB56118AF62B4003F7407 /* ioapi.h */,
+				C13CB56218AF62B4003F7407 /* mztools.c */,
+				C13CB56318AF62B4003F7407 /* mztools.h */,
+				C13CB56418AF62B4003F7407 /* unzip.c */,
+				C13CB56518AF62B4003F7407 /* unzip.h */,
+				C13CB56618AF62B4003F7407 /* zip.c */,
+				C13CB56718AF62B4003F7407 /* zip.h */,
+			);
+			path = minizip;
+			sourceTree = "<group>";
+		};
+		C13CB5D418B0A05F003F7407 /* GoogleAdMobAdsSdkiOS-6.8.0 */ = {
+			isa = PBXGroup;
+			children = (
+				C13CB66018B0A060003F7407 /* GADAdMobExtras.h */,
+				C13CB66118B0A060003F7407 /* GADAdNetworkExtras.h */,
+				C13CB66218B0A060003F7407 /* GADAdSize.h */,
+				C13CB66318B0A060003F7407 /* GADBannerView.h */,
+				C13CB66418B0A060003F7407 /* GADBannerViewDelegate.h */,
+				C13CB66518B0A060003F7407 /* GADInterstitial.h */,
+				C13CB66618B0A060003F7407 /* GADInterstitialDelegate.h */,
+				C13CB66718B0A060003F7407 /* GADRequest.h */,
+				C13CB66818B0A060003F7407 /* GADRequestError.h */,
+				C13CB66918B0A060003F7407 /* libGoogleAdMobAds.a */,
+				C13CB66A18B0A060003F7407 /* README.txt */,
+			);
+			path = "GoogleAdMobAdsSdkiOS-6.8.0";
+			sourceTree = "<group>";
+		};
 		C14505EA17507DD400DC5431 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				3950181D188BA49B00EDD265 /* SMCryptoUtil.h */,
+				3950181E188BA49B00EDD265 /* SMCryptoUtil.m */,
 				C14505EB17507DD400DC5431 /* XLogUtil.h */,
 				C14505EC17507DD400DC5431 /* XLogUtil.m */,
 				C14505E617507A9800DC5431 /* SMHttpRequest.h */,
@@ -824,6 +922,9 @@
 				C1327EDF1878549700B1862A /* SMDonateViewController.xib */,
 				C15489C31888F9E10046190C /* SMEULAViewController.h */,
 				C15489C41888F9E10046190C /* SMEULAViewController.m */,
+				C1249B1818A7A776005B6F69 /* SMAdViewController.h */,
+				C1249B1918A7A776005B6F69 /* SMAdViewController.m */,
+				C1249B1A18A7A776005B6F69 /* SMAdViewController.xib */,
 			);
 			path = more;
 			sourceTree = "<group>";
@@ -843,6 +944,7 @@
 		C19FF0B01769A71B00EB6F7E /* images */ = {
 			isa = PBXGroup;
 			children = (
+				C13CB6C818B0FE17003F7407 /* icon_search_64@2x.png */,
 				C1300A69187ACB9E006ACA5C /* icon_write@2x.png */,
 				C1300A6A187ACB9E006ACA5C /* icon_more@2x.png */,
 				C1300A6B187ACB9E006ACA5C /* icon_forward@2x.png */,
@@ -972,6 +1074,7 @@
 		C1BA923917954EC300F76ACF /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				C13CB55A18AF62B4003F7407 /* SSZipArchive */,
 				C1C07A141796857900906ED7 /* OWActivityViewController */,
 				C1BA927B17954EC300F76ACF /* PBWebViewController */,
 			);
@@ -1028,6 +1131,10 @@
 		C1BFB8DB174F6A620092FD2E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C13CB6C618B0AA48003F7407 /* iAd.framework */,
+				C13CB6C418B0A09A003F7407 /* CoreTelephony.framework */,
+				C13CB6C218B0A089003F7407 /* AVFoundation.framework */,
+				C13CB6C018B0A07F003F7407 /* AudioToolbox.framework */,
 				C15489C11888CDF60046190C /* AdSupport.framework */,
 				C1327EDB187850DF00B1862A /* StoreKit.framework */,
 				C1CE10C3181278FD00B04E15 /* libcommonCrypto.dylib */,
@@ -1139,6 +1246,7 @@
 		C1BFB91F174F6F5B0092FD2E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C13CB5D418B0A05F003F7407 /* GoogleAdMobAdsSdkiOS-6.8.0 */,
 				C1011D981779654900E0485D /* GoogleAnalytics */,
 				C1BFB920174F6F5B0092FD2E /* asi-http-request */,
 			);
@@ -1387,7 +1495,7 @@
 		C1BFB8D1174F6A620092FD2E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = nju;
 				TargetAttributes = {
 					C1BFB8D8174F6A620092FD2E = {
@@ -1498,6 +1606,7 @@
 				C1FD13CF178182E3006A6061 /* button_blue_default@2x.png in Resources */,
 				C1300A7D187D5FAD006ACA5C /* icon_57.png in Resources */,
 				C1E1CAFC1870268000324EAF /* SMIPadSplitViewController.xib in Resources */,
+				C13CB6C918B0FE17003F7407 /* icon_search_64@2x.png in Resources */,
 				C1FD13D0178182E3006A6061 /* button_blue_pressed@2x.png in Resources */,
 				C1FD13D1178182E3006A6061 /* button_gray_default@2x.png in Resources */,
 				C1888D0E1807F2C300024B47 /* icon_top@2x.png in Resources */,
@@ -1514,6 +1623,7 @@
 				C100985217828310001608EE /* SMPostFailCell.xib in Resources */,
 				C10098581782A136001608EE /* popup_bkg_left@2x.png in Resources */,
 				C10098591782A136001608EE /* popup_btn_close_pressed@2x.png in Resources */,
+				C13CB6B918B0A060003F7407 /* README.txt in Resources */,
 				39C260061860A0E400AEFE0E /* SMBoardSearchResultViewController.xib in Resources */,
 				C100985A1782A136001608EE /* popup_btn_close_rest@2x.png in Resources */,
 				C100985C1782AF99001608EE /* bg_input_field@2x.png in Resources */,
@@ -1538,6 +1648,7 @@
 				C1C18D9C17A533F3008C598C /* SMMailViewController.xib in Resources */,
 				C1C18DA017A53448008C598C /* tabbar_at@2x.png in Resources */,
 				C1C18DA117A53448008C598C /* tabbar_reply@2x.png in Resources */,
+				C1249B1C18A7A776005B6F69 /* SMAdViewController.xib in Resources */,
 				C1C18DA217A53448008C598C /* tabbar_mail@2x.png in Resources */,
 				C1C18DA717A534D1008C598C /* SMAtMeViewController.xib in Resources */,
 				C1C18DAC17A534FE008C598C /* SMReplyMeViewController.xib in Resources */,
@@ -1584,14 +1695,17 @@
 				C15489C51888F9E10046190C /* SMEULAViewController.m in Sources */,
 				C14B22F117FAB00700CF081A /* XTimeLabel.m in Sources */,
 				C1BFB9C5174F6F5C0092FD2E /* ASIDataDecompressor.m in Sources */,
+				C1249B1B18A7A776005B6F69 /* SMAdViewController.m in Sources */,
 				C1BFB9C6174F6F5C0092FD2E /* ASIDownloadCache.m in Sources */,
 				C1BFB9C7174F6F5C0092FD2E /* ASIFormDataRequest.m in Sources */,
 				C1BFB9C8174F6F5C0092FD2E /* ASIHTTPRequest.m in Sources */,
+				C13CB57C18AF62B4003F7407 /* unzip.c in Sources */,
 				C1BFB9C9174F6F5C0092FD2E /* ASIInputStream.m in Sources */,
 				C1BFB9CA174F6F5C0092FD2E /* ASINetworkQueue.m in Sources */,
 				C1E1CAFB1870268000324EAF /* SMIPadSplitViewController.m in Sources */,
 				C1BFB9EA174F6F5C0092FD2E /* Reachability.m in Sources */,
 				C124CAF3185D962300B9CEA3 /* SMBoardViewTypeSelectorView.m in Sources */,
+				C13CB57D18AF62B4003F7407 /* zip.c in Sources */,
 				C14505E51750787C00DC5431 /* SMAccountManager.m in Sources */,
 				C1300A5618795C23006ACA5C /* SMIpadEmptyViewController.m in Sources */,
 				C14505E817507A9800DC5431 /* SMHttpRequest.m in Sources */,
@@ -1630,6 +1744,7 @@
 				C19FF0C21769CEC700EB6F7E /* SMBoardViewController.m in Sources */,
 				C19FF0C61769D0DC00EB6F7E /* SMBoardCell.m in Sources */,
 				C1B581F3177723F500441299 /* SMWritePostViewController.m in Sources */,
+				C13CB57B18AF62B4003F7407 /* mztools.c in Sources */,
 				C1CC1B40177857FB00FC63A8 /* P2PNavigationController.m in Sources */,
 				C1CC1B41177857FB00FC63A8 /* P2PViewController.m in Sources */,
 				C1011D8E17787DA400E0485D /* SMWriteResult.m in Sources */,
@@ -1664,7 +1779,9 @@
 				C1C07A581796857900906ED7 /* OWActivity.m in Sources */,
 				C14B230417FB189B00CF081A /* SMPageCell.m in Sources */,
 				C1C07A591796857900906ED7 /* OWActivityDelegateObject.m in Sources */,
+				C13CB57F18AF62B4003F7407 /* SSZipArchive.m in Sources */,
 				C1C07A5A1796857900906ED7 /* OWActivityView.m in Sources */,
+				C13CB57A18AF62B4003F7407 /* ioapi.c in Sources */,
 				C1C07A5C1796857900906ED7 /* OWActivityViewController.m in Sources */,
 				C1C07A5D1796857900906ED7 /* OWCopyActivity.m in Sources */,
 				C1F4C5AC1806D4BD00E8A52D /* SMConfig.m in Sources */,
@@ -1673,6 +1790,7 @@
 				C1CE10BC1812293900B04E15 /* SMUpdater.m in Sources */,
 				C1C07A601796857900906ED7 /* OWMapsActivity.m in Sources */,
 				C1C07A611796857900906ED7 /* OWMessageActivity.m in Sources */,
+				3950181F188BA49B00EDD265 /* SMCryptoUtil.m in Sources */,
 				C1C07A621796857900906ED7 /* OWPrintActivity.m in Sources */,
 				C1C07A631796857900906ED7 /* OWSafariActivity.m in Sources */,
 				C1CE10C218122D8500B04E15 /* SMVersion.m in Sources */,
@@ -1752,7 +1870,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -1794,7 +1911,10 @@
 					"$(SRCROOT)/newsmth/Frameworks/GoogleAnalytics",
 					"$(SDKROOT)/usr/lib/system",
 					/Users/Maxwin/workspace/iOS/newsmth/newsmth/Frameworks/GoogleAnalytics,
+					"/Users/Maxwin/workspace/iOS/newsmth/newsmth/Frameworks/GoogleAdMobAdsSdkiOS-6.8.0/Add-ons/GoogleAnalyticsServicesiOS_3.03",
+					"/Users/Maxwin/workspace/iOS/newsmth/newsmth/Frameworks/GoogleAdMobAdsSdkiOS-6.8.0",
 				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "14D71F69-7CE1-4219-9B46-2011BF5687E8";
@@ -1824,7 +1944,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -1858,7 +1977,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -1900,7 +2018,10 @@
 					"$(SRCROOT)/newsmth/Frameworks/GoogleAnalytics",
 					"$(SDKROOT)/usr/lib/system",
 					/Users/Maxwin/workspace/iOS/newsmth/newsmth/Frameworks/GoogleAnalytics,
+					"/Users/Maxwin/workspace/iOS/newsmth/newsmth/Frameworks/GoogleAdMobAdsSdkiOS-6.8.0/Add-ons/GoogleAnalyticsServicesiOS_3.03",
+					"/Users/Maxwin/workspace/iOS/newsmth/newsmth/Frameworks/GoogleAdMobAdsSdkiOS-6.8.0",
 				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
@@ -1927,7 +2048,10 @@
 					"$(SRCROOT)/newsmth/Frameworks/GoogleAnalytics",
 					"$(SDKROOT)/usr/lib/system",
 					/Users/Maxwin/workspace/iOS/newsmth/newsmth/Frameworks/GoogleAnalytics,
+					"/Users/Maxwin/workspace/iOS/newsmth/newsmth/Frameworks/GoogleAdMobAdsSdkiOS-6.8.0/Add-ons/GoogleAnalyticsServicesiOS_3.03",
+					"/Users/Maxwin/workspace/iOS/newsmth/newsmth/Frameworks/GoogleAdMobAdsSdkiOS-6.8.0",
 				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";

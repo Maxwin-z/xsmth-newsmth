@@ -414,7 +414,11 @@ static SectionData sections[] = {
     if (cellType == CellTypeEULA) {
         SMEULAViewController *vc = [SMEULAViewController new];
         vc.hideAgreeButton = YES;
-        [self.navigationController pushViewController:vc animated:YES];
+        if ([SMUtils isPad]) {
+            [SMIPadSplitViewController instance].detailViewController = vc;
+        } else {
+            [self.navigationController pushViewController:vc animated:YES];
+        }
     }
     
     if (cellType == CellTypeFeedback) {
@@ -430,7 +434,13 @@ static SectionData sections[] = {
     if (cellType == CellTypeThxPsyYiYi) {
         PBWebViewController *vc = [[PBWebViewController alloc] init];
         vc.URL = [NSURL URLWithString:@"http://maxwin.me/xsmth/PsyYiYi.html"];
-        [self.navigationController pushViewController:vc animated:YES];
+        
+        if ([SMUtils isPad]) {
+            [SMIPadSplitViewController instance].detailViewController = vc;
+        } else {
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+
         action = @"PsyYiYi";
     }
     
@@ -443,14 +453,22 @@ static SectionData sections[] = {
     if (cellType == CellTypeAbout) {
         PBWebViewController *vc = [[PBWebViewController alloc] init];
         vc.URL = [NSURL URLWithString:@"http://maxwin.me/xsmth/about.html"];
-        [self.navigationController pushViewController:vc animated:YES];
+        if ([SMUtils isPad]) {
+            [SMIPadSplitViewController instance].detailViewController = vc;
+        } else {
+            [self.navigationController pushViewController:vc animated:YES];
+        }
         action = @"about";
     }
 
     if (cellType == CellTypeBackgroundFetchHelp) {
         PBWebViewController *vc = [[PBWebViewController alloc] init];
         vc.URL = [NSURL URLWithString:@"http://maxwin.me/xsmth/background_fetch_help.html"];
-        [self.navigationController pushViewController:vc animated:YES];
+        if ([SMUtils isPad]) {
+            [SMIPadSplitViewController instance].detailViewController = vc;
+        } else {
+            [self.navigationController pushViewController:vc animated:YES];
+        }
         action = @"fetchHelp";
     }
 

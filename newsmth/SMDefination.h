@@ -63,4 +63,9 @@ typedef enum {
 #define USERDEFAULTS_CONFIG_SHOW_REPLY_AUTHOR    @"cfg_showreplyauthor"
 #define USERDEFAULTS_CONFIG_IOS7_SWIPE_BACK    @"cfg_ios7swipeback"
 #define USERDEFAULTS_CONFIG_ENABLE_DAY_MODE @"cfg_enabledaymode"
+
+#define USERDEFAULTS_UPDATE_ADID    @"updater_adid"
+#define USERDEFAULTS_UPDATE_GADRADIO @"updater_gadradio"
+#define USERDEFAULTS_UPDATE_IADRADIO @"updater_iadradio"
+
 #endif

@@ -13,15 +13,22 @@
 @interface SMPostGroupAttachCell ()
 @property (strong, nonatomic) IBOutlet UIView *viewForCell;
 @property (strong, nonatomic) IBOutlet UIImageView *bgForPhotoFrame;
+
+@property (strong, nonatomic) IBOutlet UIView *viewForContainer;
 @end
 
 @implementation SMPostGroupAttachCell
 
 + (CGFloat)cellHeight:(NSString *)url withWidth:(CGFloat)width
 {
+    CGFloat padding = 20.0f;
     UIImage *image = [[XImageViewCache sharedInstance] getImage:url];
     if (image) {
-        return image.size.height * (width - 20) / image.size.width + 20.0f;
+        if (image.size.width > width - padding) {   // need scale
+            return image.size.height * (width - padding) / image.size.width + padding;
+        } else {
+            return image.size.height + padding;
+        }
     }
     return 187.5f;
 }
@@ -51,6 +58,21 @@
     _url = url;
     _imageViewForAttach.url = url;
     self.backgroundColor = [SMTheme colorForBackground];
+
+    // v2.1 fix small image
+    CGFloat padding = 20;
+    CGRect frame = _viewForContainer.frame;
+    frame.size.width = self.contentView.frame.size.width - padding;
+    
+    UIImage *image = [[XImageViewCache sharedInstance] getImage:url];
+    if (image) {
+        CGFloat width = self.contentView.frame.size.width;
+        if (image.size.width < width - padding) {   // just hide frame. todo
+            frame.size.width = image.size.width;
+        }
+    }
+    
+    _viewForContainer.frame = frame;
 }
 
 @end

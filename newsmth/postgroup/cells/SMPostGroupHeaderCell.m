@@ -8,18 +8,46 @@
 
 #import "SMPostGroupHeaderCell.h"
 #import "UIButton+Custom.h"
+#import "GADBannerView.h"
+#import <iAd/iAd.h>
 
-@interface SMPostGroupHeaderCell ()
+const CGFloat ADVIEW_HEIGHT = 50.0f;
+
+@interface SMPostGroupHeaderCell ()<ADBannerViewDelegate, GADBannerViewDelegate>
 @property (strong, nonatomic) IBOutlet UIView *viewForCell;
 @property (weak, nonatomic) IBOutlet UIButton *buttonForAuthor;
 @property (weak, nonatomic) IBOutlet UILabel *labelForIndex;
 @property (weak, nonatomic) IBOutlet UILabel *labelForDate;
 @property (weak, nonatomic) IBOutlet UIButton *buttonForReply;
+
+@property (strong, nonatomic) UIView *viewForAdContainer;
+@property (strong, nonatomic) GADBannerView *gAdView;
+@property (strong, nonatomic) ADBannerView *iAdView;
+@property (assign, nonatomic) BOOL isAdLoaded;
 @end
 
 @implementation SMPostGroupHeaderCell
 
-+ (CGFloat)cellHeight
++ (CGFloat)cellHeight:(SMPostItem *)item
+{
+    NSInteger gAdRadio = [[NSUserDefaults standardUserDefaults] integerForKey:USERDEFAULTS_UPDATE_GADRADIO];
+    NSInteger iAdRadio = [[NSUserDefaults standardUserDefaults] integerForKey:USERDEFAULTS_UPDATE_IADRADIO];
+    
+    if (item.index % 10 == 0 && !item.isAdGenerated) {
+        item.isAdGenerated = YES;
+        NSInteger rand = arc4random() % 100;
+        if (rand < gAdRadio) {
+            item.showGAd = YES;
+        } else if (rand < gAdRadio + iAdRadio) {
+            item.showIAd = YES;
+        }
+//        XLog_d(@"%@, %@, %@",@(rand), @(item.showGAd), @(item.showIAd));
+    }
+    
+    return [self heightForTitle] + (item.showIAd || item.showGAd ? ADVIEW_HEIGHT : 0);
+}
+
++ (CGFloat)heightForTitle
 {
     CGFloat fontHeight = [SMConfig postFont].lineHeight;
     return fontHeight * 2 + 10.0f;
@@ -30,9 +58,17 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         [[NSBundle mainBundle] loadNibNamed:@"SMPostGroupHeaderCell" owner:self options:nil];
-        _viewForCell.frame = self.contentView.bounds;
+//        _viewForCell.frame = self.contentView.bounds;
+        
+        CGRect frame = _viewForCell.frame;
+        frame.size.height = [[self class] heightForTitle];
+        frame.origin.y = self.contentView.frame.size.height - frame.size.height;
+        _viewForCell.frame = frame;
         [self.contentView addSubview:_viewForCell];
         
+        self.viewForAdContainer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.contentView.frame.size.width, ADVIEW_HEIGHT)];
+        self.viewForAdContainer.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        [self.contentView addSubview:self.viewForAdContainer];
     }
     return self;
 }
@@ -92,6 +128,30 @@
     [_buttonForReply setImage:image forState:UIControlStateNormal];
     [_buttonForReply setBackgroundImage:nil forState:UIControlStateNormal];
 
+    //
+    if (item.showGAd || item.showIAd) {
+        if (item.showGAd && !self.gAdView) {
+            self.gAdView = [[GADBannerView alloc] initWithFrame:self.viewForAdContainer.bounds];
+            self.gAdView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+            self.gAdView.adUnitID = @"a1530065d538e8a";
+            [self.viewForAdContainer addSubview:self.gAdView];
+            self.gAdView.rootViewController = self.viewController;
+            [self.gAdView loadRequest:[GADRequest request]];
+        }
+        if (item.showIAd && !self.iAdView) {
+            self.iAdView = [[ADBannerView alloc] initWithAdType:ADAdTypeBanner];
+            self.iAdView.frame = self.viewForAdContainer.bounds;
+            self.iAdView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+            self.iAdView.delegate = self;
+            [self.viewForAdContainer addSubview:self.iAdView];
+        }
+        self.viewForAdContainer.hidden = NO;
+        if (self.isAdLoaded) {
+            [self trackAd];
+        }
+    } else {
+        self.viewForAdContainer.hidden = YES;
+    }
 }
 
 - (IBAction)onReplyButtonClick:(id)sender
@@ -103,6 +163,46 @@
 {
     if ([_delegate respondsToSelector:@selector(postGroupHeaderCellOnUsernameClick:)]) {
         [_delegate postGroupHeaderCellOnUsernameClick:_item.post.author];
+    }
+}
+
+#pragma mark - ADBannerViewDelegate, GADBannerViewDelegate
+- (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave
+{
+    [SMUtils trackEventWithCategory:@"ad" action:@"apple_show" label:nil];
+    return YES;
+}
+
+- (void)adViewWillPresentScreen:(GADBannerView *)adView
+{
+    [SMUtils trackEventWithCategory:@"ad" action:@"admob_show" label:nil];
+}
+
+- (void)bannerViewDidLoadAd:(ADBannerView *)banner
+{
+    self.isAdLoaded = YES;
+}
+
+- (void)adViewDidReceiveAd:(GADBannerView *)view
+{
+    self.isAdLoaded = YES;
+}
+
+- (void)setIsAdLoaded:(BOOL)isAdLoaded
+{
+    if (_isAdLoaded == NO) {    // 初次加载, 补计一次
+        [self trackAd];
+    }
+    _isAdLoaded = isAdLoaded;
+}
+
+- (void)trackAd
+{
+    if (self.item.showGAd) {
+        [SMUtils trackEventWithCategory:@"ad" action:@"admob" label:nil];
+    }
+    if (self.item.showIAd) {
+        [SMUtils trackEventWithCategory:@"ad" action:@"apple" label:nil];
     }
 }
 

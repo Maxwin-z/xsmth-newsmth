@@ -17,6 +17,7 @@
 #import "SMUpdater.h"
 #import "SMIPadSplitViewController.h"
 #import "SMIpadEmptyViewController.h"
+#import "SMAdViewController.h"
 
 @interface AppDelegate ()<SMWebLoaderOperationDelegate>
 @property (strong, nonatomic) UINavigationController *nvc;
@@ -24,6 +25,7 @@
 @property (strong, nonatomic) ViewController *viewController;
 @property (strong, nonatomic) SMMainViewController *mainViewController;
 @property (strong, nonatomic) SMIPadSplitViewController *ipadSplitViewController;
+@property (strong, nonatomic) SMAdViewController *adViewController;
 
 @property (strong, nonatomic) SMWebLoaderOperation *keepLoginOp;
 @property (strong, nonatomic) SMWebLoaderOperation *loginOp;
@@ -31,6 +33,8 @@
 @property (strong, nonatomic) void (^completionHandler)(UIBackgroundFetchResult);
 
 @property (strong, nonatomic) SMUpdater *updater;
+
+@property (assign, nonatomic) BOOL isNewLaunching;
 @end
 
 @implementation AppDelegate
@@ -107,7 +111,8 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
 //    [self setupTheme];
-
+    self.isNewLaunching = YES;
+    
     _mainViewController = [[SMMainViewController alloc] init];
     
     if ([SMUtils isPad]) {
@@ -155,6 +160,8 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onDeviceShake:) name:NOTIFYCATION_SHAKE object:nil];
 
+    [self showAdView];
+    
     return YES;
 }
 
@@ -162,11 +169,27 @@
 -(void)applicationDidBecomeActive:(UIApplication *)application
 {
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    if (self.isNewLaunching) {
+        [self hideAdViewDelay];
+    } else {
+        [self hideAdView];
+    }
+    self.isNewLaunching = NO;
+}
+
+- (void)applicationDidEnterBackground:(UIApplication *)application
+{
+}
+
+- (void)applicationWillResignActive:(UIApplication *)application
+{
+    [self showAdView];
 }
 
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
-//    [self showNotification:@"start bg fetch"];
+    [self showAdView];
+    
     if ([SMAccountManager instance].isLogin) {
         XLog_d(@"load notice");
         [_keepLoginOp cancel];
@@ -270,6 +293,47 @@
     [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:mins * 60];
 //    NSString *msg = [NSString stringWithFormat:@"fetch after %dmin", mins];
 //    [self showNotification:msg];
+}
+
+#pragma mark - Ad
+- (void)showAdView
+{
+//    if (![SMAdViewController hasAd]) return ;
+    
+    if (self.adViewController == nil) {
+        self.adViewController = [SMAdViewController new];
+    }
+    
+    CGFloat angle = 0;
+    CGRect frame = self.window.bounds;
+    
+    UIDeviceOrientation o = [UIDevice currentDevice].orientation;
+    if (o == UIDeviceOrientationUnknown) {
+        o = (UIDeviceOrientation) [[UIApplication sharedApplication] statusBarOrientation];
+    }
+    
+    if (o == UIDeviceOrientationLandscapeLeft) {
+        angle = M_PI_2;
+    }
+    if (o == UIDeviceOrientationLandscapeRight){
+        angle = -M_PI_2;
+    }
+    
+    self.adViewController.view.transform = CGAffineTransformMakeRotation(angle);
+    self.adViewController.view.frame = frame;
+
+    self.adViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [self.window addSubview:self.adViewController.view];
+}
+
+- (void)hideAdView
+{
+    [self.adViewController.view removeFromSuperview];
+}
+
+- (void)hideAdViewDelay
+{
+    [self performSelector:@selector(hideAdView) withObject:nil afterDelay:2];
 }
 
 @end

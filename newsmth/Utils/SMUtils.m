@@ -104,17 +104,13 @@
                          label:(NSString *)label
 {
     NSMutableDictionary *event =
-    [[GAIDictionaryBuilder createEventWithCategory:@"UI"
-                                            action:@"buttonPress"
-                                             label:@"dispatch"
+    [[GAIDictionaryBuilder createEventWithCategory:category
+                                            action:action
+                                             label:label
                                              value:nil] build];
-    [[GAI sharedInstance].defaultTracker send:event];
 
-//    [[GAI sharedInstance].defaultTracker sendEventWithCategory:category
-//                                                    withAction:action
-//                                                     withLabel:label
-//                                                     withValue:nil];
-    XLog_d(@"track category:[%@], action[%@], label[%@]", category, action, label);
+    [[GAI sharedInstance].defaultTracker send:event];
+    XLog_d(@"track category:" _XLOG_COLOR_RED @"[%@], action[%@], label[%@]" _XLOG_COLOR_RESET, category, action, label);
 }
 
 + (BOOL)writeData:(NSData *)data toDocumentFolder:(NSString *)path

@@ -7,7 +7,7 @@ http.createServer(function(req, res) {
 	headers.path = req.url;
 	console.log('proxy start: ', new Date(), req.url);
 	// console.log(headers);
-	var delay = 3;
+	var delay = 5;
 	var proxyReq = http.request(headers, function(proxyRes) {
 		// var responseText = '';
 		// console.log(proxyRes.headers);

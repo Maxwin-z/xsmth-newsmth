@@ -110,6 +110,9 @@
         angle = -M_PI_2;
         frame.size.width -= _keyboardHeight;
     }
+    if (o == UIDeviceOrientationPortrait) {
+        frame.size.height -= _keyboardHeight;
+    }
 
     _viewForPopover.transform = CGAffineTransformMakeRotation(angle);
     _viewForPopover.frame = frame;
@@ -152,7 +155,10 @@
         angle = -M_PI_2;
         frame.size.width -= _keyboardHeight;
     }
-
+    if (o == UIDeviceOrientationPortrait) {
+        frame.size.height -= _keyboardHeight;
+    }
+    
     _viewForLoadingPopover.transform = CGAffineTransformMakeRotation(angle);
     _viewForLoadingPopover.frame = frame;
     [window addSubview:_viewForLoadingPopover];

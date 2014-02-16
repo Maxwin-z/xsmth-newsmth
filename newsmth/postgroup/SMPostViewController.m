@@ -20,6 +20,7 @@
 #import "SMPageCell.h"
 #import "SMIPadSplitViewController.h"
 #import "SMMainViewController.h"
+#import "SMBoardSearchViewController.h"
 
 #define STRING_EXPAND_HERE  @"从此处展开"
 #define STRING_EXPAND_ALL  @"同主题展开"
@@ -65,6 +66,10 @@
 
 // 转寄
 @property (strong, nonatomic) SMWebLoaderOperation *forwardOp;
+
+// v2.1 full post viewer
+@property (strong, nonatomic) IBOutlet UIView *viewForFullPostContainer;
+@property (weak, nonatomic) IBOutlet UIWebView *webViewForFullPost;
 @end
 
 @implementation SMPostViewController
@@ -122,6 +127,9 @@
     _scrollIndicator.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin;
     [_scrollIndicator addTarget:self action:@selector(onScrollIndicatorValueChanged) forControlEvents:UIControlEventValueChanged];
     [_scrollIndicator addTarget:self action:@selector(onScrollIndicatorTouchEnd) forControlEvents:UIControlEventTouchCancel];
+    
+    // v2.1
+//    self.webViewForFullPost.scrollView.contentInset = self.webViewForFullPost.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(SM_TOP_INSET, 0, 0, 0);
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -146,6 +154,7 @@
 {
     [super setupTheme];
     _labelForTitle.textColor = [SMTheme colorForPrimary];
+    _viewForFullPostContainer.backgroundColor = [SMTheme colorForBackground];
 }
 
 - (void)onRightBarButtonClick
@@ -196,6 +205,7 @@
         SMPostPageItem *pageItem = [[SMPostPageItem alloc] init];
         pageItem.gid = _gid;
         if (_start == 0) {
+            [SMWebLoaderOperation cancelAllOperations];
             pageItem.start = _gid;
         } else {
             pageItem.start = _start;
@@ -343,7 +353,7 @@
     } else {
         SMPostItem *postItem = item;
         if (indexPath.row == 0) {   // header
-            return [SMPostGroupHeaderCell cellHeight];
+            return [SMPostGroupHeaderCell cellHeight:item];
         }
         if (indexPath.row == 1) {
             id v = [_postHeightMap objectForKey:@(postItem.post.pid)];
@@ -388,7 +398,14 @@
         cell.pageItem = item;
         
         if (!pageItem.isPageLoaded && !pageItem.isLoadFail && !pageItem.isLoading && !self.scrollIndicator.isDragging) {
-            [self loadPageData:pageItem];
+            // v2.1 防止分页抖动。仅显示cell top 1/3的地方，才加载数据
+            CGRect currentCellFrame = [tableView rectForRowAtIndexPath:indexPath];
+            CGFloat offsetY = tableView.contentOffset.y;
+//            XLog_d(@"++++%@ %@, %@, %@", @(pageItem.pno), NSStringFromCGRect(currentCellFrame), @(offsetY), @(offsetY - currentCellFrame.origin.y));
+            // todo rewrite
+            if (offsetY - currentCellFrame.origin.y < 400) {
+                [self loadPageData:pageItem];
+            }
         }
         
         if (!self.scrollIndicator.isDragging) {
@@ -461,6 +478,7 @@
         cell = [[SMPostGroupHeaderCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.delegate = self;
+        cell.viewController = self;
     }
     cell.item = item;
     return cell;
@@ -521,7 +539,8 @@
 
 - (NSString *)getAttachUrl:(SMAttach *)attach
 {
-    return [NSString stringWithFormat:@"http://att.newsmth.net/nForum/att/%@/%d/%d/large", attach.boardName, attach.pid, attach.pos];
+    NSString *type = @"large";
+    return [NSString stringWithFormat:@"http://att.newsmth.net/nForum/att/%@/%d/%d/%@", attach.boardName, attach.pid, attach.pos, type];
 }
 
 - (NSString *)getAttachOriginalUrl:(SMAttach *)attach
@@ -611,11 +630,11 @@
     } else if (opt == _singlePostOp) {
         [_tableView endRefreshing:YES];
         SMPost *post = opt.data;
-        XLog_d(@"%@", post);
+//        XLog_d(@"%@", post);
         SMPostItem *item = [[SMPostItem alloc] init];
         item.op = opt;
         item.post = post;
-        item.index = 1;
+        item.index = 0;
         
         _postTitle = post.title;
         [self makeupTableViewHeader:_postTitle];
@@ -769,6 +788,11 @@
     }
 }
 
+- (void)postGroupContentCell:(SMPostGroupContentCell *)cell fullHtml:(NSString *)html
+{
+    [self showFullPostWithHtml:html];
+}
+
 - (void)postGroupContentCell:(SMPostGroupContentCell *)cell shouldLoadUrl:(NSURL *)url
 {
     PBWebViewController *webView = [[PBWebViewController alloc] init];
@@ -803,6 +827,25 @@
     [alertView textFieldAtIndex:0].text = [SMAccountManager instance].name;
     [alertView show];
     [self hidePostCellActions];
+}
+
+- (void)postGroupContentCellOnSearch:(SMPostGroupContentCell *)cell
+{
+    SMBoardSearchViewController *svc = [[SMBoardSearchViewController alloc] initWithStyle:UITableViewStylePlain];
+    svc.board = _board;
+    svc.postAuthor = cell.post.author;
+    svc.postTitle = self.postTitle;
+    
+    [self hidePostCellActions];
+
+    if ([SMUtils isPad]) {
+        [[(SMMainViewController *)([SMIPadSplitViewController instance].masterViewController) centerViewController] pushViewController:svc animated:YES];
+    } else {
+        [self.navigationController pushViewController:svc animated:YES];
+    }
+
+    [SMUtils trackEventWithCategory:@"postgroup" action:@"search_swipe" label:_board.name];
+    
 }
 
 - (void)hidePostCellActions
@@ -897,6 +940,51 @@
             [_forwardOp loadRequest:request withParser:@"bbsfwd"];
         }
     }
+}
+
+#pragma mark - Full post viewer
+- (void)showFullPostWithHtml:(NSString *)html
+{
+    [self.webViewForFullPost loadHTMLString:html baseURL:nil];
+
+    UIView *window = [UIApplication sharedApplication].keyWindow;
+    
+    CGFloat angle = 0;
+    CGRect frame = window.bounds;
+    
+    UIDeviceOrientation o = [UIDevice currentDevice].orientation;
+    if (o == UIDeviceOrientationUnknown) {
+        o = (UIDeviceOrientation) [[UIApplication sharedApplication] statusBarOrientation];
+    }
+    
+    if (o == UIDeviceOrientationLandscapeLeft) {
+        angle = M_PI_2;
+    }
+    if (o == UIDeviceOrientationLandscapeRight){
+        angle = -M_PI_2;
+    }
+    
+    self.viewForFullPostContainer.transform = CGAffineTransformMakeRotation(angle);
+    self.viewForFullPostContainer.frame = frame;
+    [window addSubview:self.viewForFullPostContainer];
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        NSString *js = @"window.location.href='#tail'";
+        [self.webViewForFullPost stringByEvaluatingJavaScriptFromString:js];
+    });
+    
+    self.viewForFullPostContainer.hidden = NO;
+    self.webViewForFullPost.alpha = 0;
+    [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        self.webViewForFullPost.alpha = 1;
+    } completion:^(BOOL finished) {
+    }];
+}
+
+- (IBAction)closeFullPost
+{
+    self.viewForFullPostContainer.hidden = YES;
+    [self.viewForFullPostContainer removeFromSuperview];
 }
 
 @end

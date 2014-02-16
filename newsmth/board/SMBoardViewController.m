@@ -33,6 +33,9 @@
 @property (strong, nonatomic) UIView *viewForMasker;
 @property (assign, nonatomic) BOOL isViewTypeSelectorVisiable;
 
+
+// v2.1 修复翻页帖子重复的问题
+@property (strong, nonatomic) NSMutableDictionary *postsMap;
 @end
 
 @implementation SMBoardViewController
@@ -338,6 +341,10 @@
     NSMutableArray *tmp;
     if (_page == 1) {
         tmp = [[NSMutableArray alloc] init];
+
+        // clear post map
+        [_postsMap removeAllObjects];
+        _postsMap = [[NSMutableDictionary alloc] init];
     } else {
         tmp = [_posts mutableCopy];
     }
@@ -348,10 +355,11 @@
     }
     [board.posts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         SMPost *post = obj;
-//        if (post.isTop && [SMConfig disableShowTopPost]) {
-//            return ;
-//        }
-        [tmp addObject:post];
+        NSString *key = [NSString stringWithFormat:@"%d", post.gid];
+        if (![_postsMap objectForKey:key]) {    // not exists, add
+            [tmp addObject:post];
+            [_postsMap setObject:post forKey:key];
+        }
     }];
 
     _currentPage = board.currentPage;

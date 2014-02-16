@@ -14,3 +14,6 @@
 [submodule "newsmth/ThirdParty/iOS-blur"]
 	path = newsmth/ThirdParty/iOS-blur
 	url = git@github.com:JagCesar/iOS-blur.git
+[submodule "newsmth/ThirdParty/SSZipArchive"]
+	path = newsmth/ThirdParty/SSZipArchive
+	url = git@github.com:Maxwin-z/ssziparchive.git

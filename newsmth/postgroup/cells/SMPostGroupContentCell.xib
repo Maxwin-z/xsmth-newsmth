@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
-        <deployment defaultVersion="1280" identifier="iOS"/>
+        <deployment defaultVersion="1296" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <objects>
@@ -9,6 +9,7 @@
             <connections>
                 <outlet property="buttonForForward" destination="8Cq-Ud-DDx" id="05F-lE-QQJ"/>
                 <outlet property="buttonForReply" destination="r98-7d-2JY" id="xUG-vi-1w8"/>
+                <outlet property="buttonForSearch" destination="Zzw-sF-7lZ" id="tbe-4L-Fgo"/>
                 <outlet property="viewForActions" destination="sgG-Iq-V7p" id="nj3-Xn-3ZS"/>
                 <outlet property="viewForCell" destination="1" id="6"/>
                 <outlet property="webViewForContent" destination="8" id="9"/>
@@ -37,7 +38,7 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="r98-7d-2JY">
-                                    <rect key="frame" x="77" y="8" width="60" height="32"/>
+                                    <rect key="frame" x="20" y="8" width="60" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <state key="normal" title="回复" image="icon_write.png">
@@ -49,7 +50,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="8Cq-Ud-DDx">
-                                    <rect key="frame" x="183" y="8" width="60" height="32"/>
+                                    <rect key="frame" x="130" y="8" width="60" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <state key="normal" title="转寄" image="icon_forward.png">
@@ -58,6 +59,18 @@
                                     </state>
                                     <connections>
                                         <action selector="onForwardButtonClick:" destination="-1" eventType="touchUpInside" id="oHs-Hu-LWE"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Zzw-sF-7lZ" userLabel="Button - 搜索">
+                                    <rect key="frame" x="240" y="8" width="60" height="32"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <state key="normal" title="搜索" image="icon_search_64.png">
+                                        <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="onSearchButtonClick:" destination="-1" eventType="touchUpInside" id="rr3-oJ-P8j"/>
                                     </connections>
                                 </button>
                             </subviews>
@@ -74,6 +87,7 @@
     </objects>
     <resources>
         <image name="icon_forward.png" width="32" height="32"/>
+        <image name="icon_search_64.png" width="32" height="32"/>
         <image name="icon_write.png" width="32" height="32"/>
     </resources>
 </document>

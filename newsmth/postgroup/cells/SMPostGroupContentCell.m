@@ -17,6 +17,7 @@ static SMPostGroupContentCell *_instance;
 @property (weak, nonatomic) IBOutlet UIView *viewForActions;
 @property (weak, nonatomic) IBOutlet UIButton *buttonForReply;
 @property (weak, nonatomic) IBOutlet UIButton *buttonForForward;
+@property (weak, nonatomic) IBOutlet UIButton *buttonForSearch;
 @end
 
 @implementation SMPostGroupContentCell
@@ -159,26 +160,39 @@ NSString *tpl =
     return html;
 }
 
+- (NSString *)generateHtml:(BOOL)clip
+{
+    NSString *content = self.post.content;
+    NSInteger maxLength = 1000;
+    if (content.length > maxLength) {
+        NSString *radio = [NSString stringWithFormat:@"%d%%", (int)(maxLength * 100.0f / content.length)];
+
+        NSString *head = [content substringToIndex:maxLength];
+        NSString *tail = [content substringFromIndex:maxLength];
+
+        if (clip) {
+            NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/single/%d/0",
+                             self.post.board.name, self.post.pid];
+            content = [NSString stringWithFormat:@"%@ <a class=\"origin_link\" href=\"xsmth://fullpost?url=%@\">原文过长，已加载%@<br />点击查看全部</a>", head, url, radio];
+        } else {
+            content = [NSString stringWithFormat:@"%@<a name=\"tail\"></a>%@", head, tail];
+        }
+    }
+    NSString *body = [NSString stringWithFormat:@"<html><style type=\"text/css\">%@</style><body>%@</body></html>", [self generateCSS], [self formatContent:content]];
+    return body;
+}
+
 - (void)setPost:(SMPost *)post
 {
 //    XLog_d(@"%@", [self generateCSS]);
     _post = post;
-    NSString *content = post.content;
-    NSInteger maxLength = 1000;
-    if (content.length > maxLength) {
-        NSString *radio = [NSString stringWithFormat:@"%d%%", (int)(maxLength * 100.0f / content.length)];
-        content = [content substringToIndex:maxLength];
-        NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/single/%d/0",
-               post.board.name, post.pid];
-        content = [NSString stringWithFormat:@"%@ <a class=\"origin_link\" href=\"%@\">原文过长，已加载%@<br />点击查看全部</a>", content, url, radio];
-    }
-    NSString *body = [NSString stringWithFormat:@"<html><style type=\"text/css\">%@</style><body>%@</body></html>", [self generateCSS], [self formatContent:content]];
+    NSString *body = [self generateHtml:YES];
     [_webViewForContent loadHTMLString:body baseURL:nil];
     
     self.backgroundColor = [SMTheme colorForBackground];
     _labelForContent.textColor = [SMTheme colorForPrimary];
 
-    [@[_buttonForReply, _buttonForForward] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    [@[_buttonForReply, _buttonForForward, _buttonForSearch] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         UIButton *btn = obj;
         [btn setTitleColor:[SMTheme colorForTintColor] forState:UIControlStateNormal];
         
@@ -206,6 +220,12 @@ NSString *tpl =
         return YES;
     }
     XLog_d(@"%@", request.URL.absoluteString);
+    
+    if ([request.URL.absoluteString hasPrefix:@"xsmth://fullpost"]) {
+        [_delegate postGroupContentCell:self fullHtml:[self generateHtml:NO]];
+        return NO;
+    }
+    
     if ([_delegate respondsToSelector:@selector(postGroupContentCell:shouldLoadUrl:)]) {
         [_delegate postGroupContentCell:self shouldLoadUrl:request.URL];
     }
@@ -221,6 +241,11 @@ NSString *tpl =
 - (IBAction)onForwardButtonClick:(id)sender
 {
     [_delegate postGroupContentCellOnForward:self];
+}
+
+- (IBAction)onSearchButtonClick:(id)sender
+{
+    [_delegate postGroupContentCellOnSearch:self];
 }
 
 

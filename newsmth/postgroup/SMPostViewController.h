@@ -14,6 +14,9 @@
 @property (strong, nonatomic) SMPost *post;
 @property (strong, nonatomic) SMWebLoaderOperation *op;
 @property (assign, nonatomic) BOOL loadFail;
+@property (assign, nonatomic) BOOL isAdGenerated;
+@property (assign, nonatomic) BOOL showGAd;
+@property (assign, nonatomic) BOOL showIAd;
 @end
 
 // 分页信息

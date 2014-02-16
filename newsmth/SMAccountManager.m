@@ -67,6 +67,7 @@ static SMAccountManager *_instance;
 
             if ([name isEqualToString:@"guest"] || isExpired) {    // login status
                 name = nil;
+                self.notice = nil;
             }
             
             // notify account changed.

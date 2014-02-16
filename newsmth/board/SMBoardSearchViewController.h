@@ -11,4 +11,6 @@
 @interface SMBoardSearchViewController : UITableViewController
 @property (strong, nonatomic) SMBoard *board;
 @property (strong, nonatomic) UIImage *captureImage;
+@property (strong, nonatomic) NSString *postAuthor;
+@property (strong, nonatomic) NSString *postTitle;
 @end
