@@ -634,7 +634,7 @@
         SMPostItem *item = [[SMPostItem alloc] init];
         item.op = opt;
         item.post = post;
-        item.index = 1;
+        item.index = 0;
         
         _postTitle = post.title;
         [self makeupTableViewHeader:_postTitle];
@@ -836,13 +836,16 @@
     svc.postAuthor = cell.post.author;
     svc.postTitle = self.postTitle;
     
+    [self hidePostCellActions];
+
     if ([SMUtils isPad]) {
         [[(SMMainViewController *)([SMIPadSplitViewController instance].masterViewController) centerViewController] pushViewController:svc animated:YES];
     } else {
         [self.navigationController pushViewController:svc animated:YES];
     }
-    
+
     [SMUtils trackEventWithCategory:@"postgroup" action:@"search_swipe" label:_board.name];
+    
 }
 
 - (void)hidePostCellActions
