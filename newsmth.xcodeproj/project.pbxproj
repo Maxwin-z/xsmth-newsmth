@@ -87,6 +87,7 @@
 		C13CB6C318B0A089003F7407 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C13CB6C218B0A089003F7407 /* AVFoundation.framework */; };
 		C13CB6C518B0A09A003F7407 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C13CB6C418B0A09A003F7407 /* CoreTelephony.framework */; };
 		C13CB6C718B0AA48003F7407 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C13CB6C618B0AA48003F7407 /* iAd.framework */; };
+		C13CB6C918B0FE17003F7407 /* icon_search_64@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C13CB6C818B0FE17003F7407 /* icon_search_64@2x.png */; };
 		C13D4124176DD5EC00BD03A4 /* placeholder@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C13D4123176DD5EC00BD03A4 /* placeholder@2x.jpg */; };
 		C14505E51750787C00DC5431 /* SMAccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C14505E41750787C00DC5431 /* SMAccountManager.m */; };
 		C14505E817507A9800DC5431 /* SMHttpRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C14505E717507A9800DC5431 /* SMHttpRequest.m */; };
@@ -406,6 +407,7 @@
 		C13CB6C218B0A089003F7407 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		C13CB6C418B0A09A003F7407 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		C13CB6C618B0AA48003F7407 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
+		C13CB6C818B0FE17003F7407 /* icon_search_64@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_search_64@2x.png"; sourceTree = "<group>"; };
 		C13D4123176DD5EC00BD03A4 /* placeholder@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "placeholder@2x.jpg"; sourceTree = "<group>"; };
 		C144B68E1768C62500DA2958 /* login.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = login.js; sourceTree = "<group>"; };
 		C14505E31750787C00DC5431 /* SMAccountManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMAccountManager.h; sourceTree = "<group>"; };
@@ -942,6 +944,7 @@
 		C19FF0B01769A71B00EB6F7E /* images */ = {
 			isa = PBXGroup;
 			children = (
+				C13CB6C818B0FE17003F7407 /* icon_search_64@2x.png */,
 				C1300A69187ACB9E006ACA5C /* icon_write@2x.png */,
 				C1300A6A187ACB9E006ACA5C /* icon_more@2x.png */,
 				C1300A6B187ACB9E006ACA5C /* icon_forward@2x.png */,
@@ -1603,6 +1606,7 @@
 				C1FD13CF178182E3006A6061 /* button_blue_default@2x.png in Resources */,
 				C1300A7D187D5FAD006ACA5C /* icon_57.png in Resources */,
 				C1E1CAFC1870268000324EAF /* SMIPadSplitViewController.xib in Resources */,
+				C13CB6C918B0FE17003F7407 /* icon_search_64@2x.png in Resources */,
 				C1FD13D0178182E3006A6061 /* button_blue_pressed@2x.png in Resources */,
 				C1FD13D1178182E3006A6061 /* button_gray_default@2x.png in Resources */,
 				C1888D0E1807F2C300024B47 /* icon_top@2x.png in Resources */,

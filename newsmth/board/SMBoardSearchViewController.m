@@ -98,6 +98,10 @@ typedef enum {
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"搜索" style:UIBarButtonItemStylePlain target:self action:@selector(doSearch)];
     
     [self setupTheme];
+    
+    // v2.1
+    self.textForAuthor.text = self.postAuthor;
+    self.textFieldForPostTitle1.text = self.postTitle;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -129,6 +133,7 @@ typedef enum {
 
 - (NSString *)encodeGBKUrl:(NSString *)text
 {
+    text = [text stringByReplacingOccurrencesOfString:@" " withString:@""];
     NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding (kCFStringEncodingGB_18030_2000);
     NSString *res = [text stringByAddingPercentEscapesUsingEncoding:enc];
     return res == nil ? @"" : res;

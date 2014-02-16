@@ -32,7 +32,6 @@ static SMMainViewController *_instance;
 
 @interface SMMainViewController ()<UIGestureRecognizerDelegate>
 @property (strong, nonatomic) SMLeftViewController *leftViewController;
-@property (strong, nonatomic) P2PNavigationController *centerViewController;
 @property (assign, nonatomic) BOOL isDragging;
 @property (strong, nonatomic) UIView *viewForCenterMasker;
 @property (assign, nonatomic) CGFloat leftPanX;

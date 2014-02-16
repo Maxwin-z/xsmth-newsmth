@@ -20,6 +20,7 @@
 #import "SMPageCell.h"
 #import "SMIPadSplitViewController.h"
 #import "SMMainViewController.h"
+#import "SMBoardSearchViewController.h"
 
 #define STRING_EXPAND_HERE  @"从此处展开"
 #define STRING_EXPAND_ALL  @"同主题展开"
@@ -826,6 +827,22 @@
     [alertView textFieldAtIndex:0].text = [SMAccountManager instance].name;
     [alertView show];
     [self hidePostCellActions];
+}
+
+- (void)postGroupContentCellOnSearch:(SMPostGroupContentCell *)cell
+{
+    SMBoardSearchViewController *svc = [[SMBoardSearchViewController alloc] initWithStyle:UITableViewStylePlain];
+    svc.board = _board;
+    svc.postAuthor = cell.post.author;
+    svc.postTitle = self.postTitle;
+    
+    if ([SMUtils isPad]) {
+        [[(SMMainViewController *)([SMIPadSplitViewController instance].masterViewController) centerViewController] pushViewController:svc animated:YES];
+    } else {
+        [self.navigationController pushViewController:svc animated:YES];
+    }
+    
+    [SMUtils trackEventWithCategory:@"postgroup" action:@"search_swipe" label:_board.name];
 }
 
 - (void)hidePostCellActions
