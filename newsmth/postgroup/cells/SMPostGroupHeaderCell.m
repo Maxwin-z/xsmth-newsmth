@@ -23,26 +23,34 @@ const CGFloat ADVIEW_HEIGHT = 50.0f;
 @property (strong, nonatomic) UIView *viewForAdContainer;
 @property (strong, nonatomic) GADBannerView *gAdView;
 @property (strong, nonatomic) ADBannerView *iAdView;
+@property (assign, nonatomic) BOOL isAdLoaded;
 @end
 
 @implementation SMPostGroupHeaderCell
 
 + (CGFloat)cellHeight:(SMPostItem *)item
 {
-    BOOL showAd = [[self class] shouldShowAd:item];
-    item.hasAd = showAd;
-    return [self heightForTitle] + (showAd ? ADVIEW_HEIGHT : 0);
+    NSInteger gAdRadio = 25;
+    NSInteger iAdRadio = 25;
+    
+    if (item.index % 10 == 0 && !item.isAdGenerated) {
+        item.isAdGenerated = YES;
+        NSInteger rand = arc4random() % 100;
+        if (rand < gAdRadio) {
+            item.showGAd = YES;
+        } else if (rand < gAdRadio + iAdRadio) {
+            item.showIAd = YES;
+        }
+        XLog_d(@"%@, %@, %@",@(rand), @(item.showGAd), @(item.showIAd));
+    }
+    
+    return [self heightForTitle] + (item.showIAd || item.showGAd ? ADVIEW_HEIGHT : 0);
 }
 
 + (CGFloat)heightForTitle
 {
     CGFloat fontHeight = [SMConfig postFont].lineHeight;
     return fontHeight * 2 + 10.0f;
-}
-
-+ (BOOL)shouldShowAd:(SMPostItem *)item
-{
-    return item.index % 10 == 0;
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -121,8 +129,8 @@ const CGFloat ADVIEW_HEIGHT = 50.0f;
     [_buttonForReply setBackgroundImage:nil forState:UIControlStateNormal];
 
     //
-    if (item.hasAd) {
-        if (!self.gAdView) {
+    if (item.showGAd || item.showIAd) {
+        if (item.showGAd && !self.gAdView) {
             self.gAdView = [[GADBannerView alloc] initWithFrame:self.viewForAdContainer.bounds];
             self.gAdView.adUnitID = @"a1530065d538e8a";
             [self.viewForAdContainer removeAllSubviews];
@@ -130,7 +138,16 @@ const CGFloat ADVIEW_HEIGHT = 50.0f;
             self.gAdView.rootViewController = self.viewController;
             [self.gAdView loadRequest:[GADRequest request]];
         }
+        if (item.showIAd && !self.iAdView) {
+            self.iAdView = [[ADBannerView alloc] initWithAdType:ADAdTypeBanner];
+            self.iAdView.frame = self.viewForAdContainer.bounds;
+            self.iAdView.delegate = self;
+            [self.viewForAdContainer addSubview:self.iAdView];
+        }
         self.viewForAdContainer.hidden = NO;
+        if (self.isAdLoaded) {
+            [self trackAd];
+        }
     } else {
         self.viewForAdContainer.hidden = YES;
     }
@@ -145,6 +162,46 @@ const CGFloat ADVIEW_HEIGHT = 50.0f;
 {
     if ([_delegate respondsToSelector:@selector(postGroupHeaderCellOnUsernameClick:)]) {
         [_delegate postGroupHeaderCellOnUsernameClick:_item.post.author];
+    }
+}
+
+#pragma mark - ADBannerViewDelegate, GADBannerViewDelegate
+- (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave
+{
+    [SMUtils trackEventWithCategory:@"ad" action:@"apple_show" label:nil];
+    return YES;
+}
+
+- (void)adViewWillPresentScreen:(GADBannerView *)adView
+{
+    [SMUtils trackEventWithCategory:@"ad" action:@"admob_show" label:nil];
+}
+
+- (void)bannerViewDidLoadAd:(ADBannerView *)banner
+{
+    self.isAdLoaded = YES;
+}
+
+- (void)adViewDidReceiveAd:(GADBannerView *)view
+{
+    self.isAdLoaded = YES;
+}
+
+- (void)setIsAdLoaded:(BOOL)isAdLoaded
+{
+    if (_isAdLoaded == NO) {    // 初次加载, 补计一次
+        [self trackAd];
+    }
+    _isAdLoaded = isAdLoaded;
+}
+
+- (void)trackAd
+{
+    if (self.item.showGAd) {
+        [SMUtils trackEventWithCategory:@"ad" action:@"admob" label:nil];
+    }
+    if (self.item.showIAd) {
+        [SMUtils trackEventWithCategory:@"ad" action:@"apple" label:nil];
     }
 }
 
