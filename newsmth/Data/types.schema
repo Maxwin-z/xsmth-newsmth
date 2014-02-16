@@ -124,6 +124,8 @@ SMVersion {
     int version
     int parser
     string adid
+    int gadradio
+    int iadradio
 }
 
 SMParserItem {

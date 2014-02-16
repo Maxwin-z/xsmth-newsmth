@@ -30,8 +30,8 @@ const CGFloat ADVIEW_HEIGHT = 50.0f;
 
 + (CGFloat)cellHeight:(SMPostItem *)item
 {
-    NSInteger gAdRadio = 25;
-    NSInteger iAdRadio = 25;
+    NSInteger gAdRadio = [[NSUserDefaults standardUserDefaults] integerForKey:USERDEFAULTS_UPDATE_GADRADIO];
+    NSInteger iAdRadio = [[NSUserDefaults standardUserDefaults] integerForKey:USERDEFAULTS_UPDATE_IADRADIO];
     
     if (item.index % 10 == 0 && !item.isAdGenerated) {
         item.isAdGenerated = YES;
@@ -41,7 +41,7 @@ const CGFloat ADVIEW_HEIGHT = 50.0f;
         } else if (rand < gAdRadio + iAdRadio) {
             item.showIAd = YES;
         }
-        XLog_d(@"%@, %@, %@",@(rand), @(item.showGAd), @(item.showIAd));
+//        XLog_d(@"%@, %@, %@",@(rand), @(item.showGAd), @(item.showIAd));
     }
     
     return [self heightForTitle] + (item.showIAd || item.showGAd ? ADVIEW_HEIGHT : 0);

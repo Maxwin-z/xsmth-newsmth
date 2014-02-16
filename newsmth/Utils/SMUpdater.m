@@ -123,6 +123,10 @@
     if (request == updateReq) {
         NSDictionary *json = [SMUtils string2json:responseString];
         newVersion = [[SMVersion alloc] initWithJSON:json];
+        if (json) {
+            [[NSUserDefaults standardUserDefaults] setInteger:newVersion.gadradio forKey:USERDEFAULTS_UPDATE_GADRADIO];
+            [[NSUserDefaults standardUserDefaults] setInteger:newVersion.iadradio forKey:USERDEFAULTS_UPDATE_IADRADIO];
+        }
         if (newVersion.version != 0 || newVersion.parser != 0 || newVersion.adid.length > 0) {
             [self handleNewVersion];
         }
