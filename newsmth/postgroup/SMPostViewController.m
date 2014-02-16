@@ -928,7 +928,24 @@
     [self.webViewForFullPost loadHTMLString:html baseURL:nil];
 
     UIView *window = [UIApplication sharedApplication].keyWindow;
-    self.viewForFullPostContainer.frame = window.bounds;
+    
+    CGFloat angle = 0;
+    CGRect frame = window.bounds;
+    
+    UIDeviceOrientation o = [UIDevice currentDevice].orientation;
+    if (o == UIDeviceOrientationUnknown) {
+        o = (UIDeviceOrientation) [[UIApplication sharedApplication] statusBarOrientation];
+    }
+    
+    if (o == UIDeviceOrientationLandscapeLeft) {
+        angle = M_PI_2;
+    }
+    if (o == UIDeviceOrientationLandscapeRight){
+        angle = -M_PI_2;
+    }
+    
+    self.viewForFullPostContainer.transform = CGAffineTransformMakeRotation(angle);
+    self.viewForFullPostContainer.frame = frame;
     [window addSubview:self.viewForFullPostContainer];
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
