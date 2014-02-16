@@ -35,6 +35,11 @@
     [self enqueue];
 }
 
++ (void)cancelAllOperations
+{
+    [[SMWebLoaderOperationQueue sharedInstance] cancelAllOperations];
+}
+
 - (void)enqueue
 {
     if (_highPriority) {

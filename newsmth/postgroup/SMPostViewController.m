@@ -204,6 +204,7 @@
         SMPostPageItem *pageItem = [[SMPostPageItem alloc] init];
         pageItem.gid = _gid;
         if (_start == 0) {
+            [SMWebLoaderOperation cancelAllOperations];
             pageItem.start = _gid;
         } else {
             pageItem.start = _start;
