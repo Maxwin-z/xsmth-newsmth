@@ -298,7 +298,7 @@
 #pragma mark - Ad
 - (void)showAdView
 {
-    if (![SMAdViewController hasAd]) return ;
+//    if (![SMAdViewController hasAd]) return ;
     
     if (self.adViewController == nil) {
         self.adViewController = [SMAdViewController new];

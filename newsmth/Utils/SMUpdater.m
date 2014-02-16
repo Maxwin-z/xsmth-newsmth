@@ -58,10 +58,10 @@
         });
     }
 
-    if (![currentAdid isEqualToString:newVersion.adid]) {
-        // download ad files
-        [SMAdViewController downloadAd:newVersion.adid];
-    }
+    [SMAdViewController downloadAd:newVersion.adid];
+    [[NSUserDefaults standardUserDefaults] setObject:newVersion.adid forKey:USERDEFAULTS_UPDATE_ADID];
+    [[NSUserDefaults standardUserDefaults] setInteger:newVersion.gadradio forKey:USERDEFAULTS_UPDATE_GADRADIO];
+    [[NSUserDefaults standardUserDefaults] setInteger:newVersion.iadradio forKey:USERDEFAULTS_UPDATE_IADRADIO];
 }
 
 - (void)downloadParsers
@@ -124,10 +124,6 @@
         NSDictionary *json = [SMUtils string2json:responseString];
         newVersion = [[SMVersion alloc] initWithJSON:json];
         if (json) {
-            [[NSUserDefaults standardUserDefaults] setInteger:newVersion.gadradio forKey:USERDEFAULTS_UPDATE_GADRADIO];
-            [[NSUserDefaults standardUserDefaults] setInteger:newVersion.iadradio forKey:USERDEFAULTS_UPDATE_IADRADIO];
-        }
-        if (newVersion.version != 0 || newVersion.parser != 0 || newVersion.adid.length > 0) {
             [self handleNewVersion];
         }
     }
@@ -151,12 +147,6 @@
     } else {
         [SMUtils trackEventWithCategory:@"app" action:@"cancel_update" label:nil];
     }
-}
-
-#pragma mark - download ad files
-- (void)downloadAdFilesWithAdid:(NSString *)adid
-{
-    
 }
 
 @end

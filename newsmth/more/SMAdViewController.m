@@ -8,17 +8,13 @@
 
 #import "SMAdViewController.h"
 #import "SSZipArchive.h"
-#import "GADBannerView.h"
-#import <iAd/iAd.h>
 
-@interface SMAdViewController () <UIWebViewDelegate, ADBannerViewDelegate>
+@interface SMAdViewController () <UIWebViewDelegate>
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (weak, nonatomic) IBOutlet UIView *viewForNotice;
 @property (weak, nonatomic) IBOutlet UILabel *labelForMail;
 @property (weak, nonatomic) IBOutlet UILabel *labelForReply;
 @property (weak, nonatomic) IBOutlet UILabel *labelForAt;
-
-@property (strong, nonatomic) GADBannerView *bannerView;
 @end
 
 @implementation SMAdViewController
@@ -64,7 +60,7 @@
         
         [SSZipArchive unzipFileAtPath:localZip toDestination:[[self class] getAdFilePath:adid]];
         
-        [[NSUserDefaults standardUserDefaults] setObject:adid forKey:USERDEFAULTS_UPDATE_ADID];
+        [[NSFileManager defaultManager] removeItemAtPath:localZip error:NULL];
     });
 }
 
@@ -87,22 +83,12 @@
         NSString *adfile = [NSString stringWithFormat:@"%@/index.html", [[self class] getAdFilePath:adid]];
         NSString *html = [[NSString alloc] initWithData:[NSData dataWithContentsOfFile:adfile] encoding:NSUTF8StringEncoding];
         [self.webView loadHTMLString:html baseURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]]];
+        self.view.backgroundColor = [SMTheme colorForBackground];
+    } else {
+        self.webView.hidden = YES;
+        self.view.backgroundColor = [UIColor clearColor];
     }
     [self onNoticeNotification];
-    
-    // debug
-    self.bannerView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeBanner];
-    self.bannerView.adUnitID = @"a1530065d538e8a";
-    self.bannerView.rootViewController = self;
-    [self.view addSubview:self.bannerView];
-    [self.bannerView loadRequest:[GADRequest request]];
-    
-    ADBannerView *b = [[ADBannerView alloc] initWithAdType:ADAdTypeBanner];
-    CGRect frame = b.frame;
-    frame.origin = CGPointMake(0, 200);
-    b.frame = frame;
-    b.delegate = self;
-    [self.view addSubview:b];
 }
 
 - (void)onNoticeNotification
@@ -132,13 +118,4 @@
     return YES;
 }
 
-#pragma mark - ADBannerViewDelegate
-- (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave
-{
-    return YES;
-}
-- (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error
-{
-    XLog_d(@"didFailToReceiveAdWithError: %@", error);
-}
 @end
