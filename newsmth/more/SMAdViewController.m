@@ -9,8 +9,9 @@
 #import "SMAdViewController.h"
 #import "SSZipArchive.h"
 #import "GADBannerView.h"
+#import <iAd/iAd.h>
 
-@interface SMAdViewController () <UIWebViewDelegate>
+@interface SMAdViewController () <UIWebViewDelegate, ADBannerViewDelegate>
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (weak, nonatomic) IBOutlet UIView *viewForNotice;
 @property (weak, nonatomic) IBOutlet UILabel *labelForMail;
@@ -95,6 +96,13 @@
     self.bannerView.rootViewController = self;
     [self.view addSubview:self.bannerView];
     [self.bannerView loadRequest:[GADRequest request]];
+    
+    ADBannerView *b = [[ADBannerView alloc] initWithAdType:ADAdTypeBanner];
+    CGRect frame = b.frame;
+    frame.origin = CGPointMake(0, 200);
+    b.frame = frame;
+    b.delegate = self;
+    [self.view addSubview:b];
 }
 
 - (void)onNoticeNotification
@@ -124,4 +132,13 @@
     return YES;
 }
 
+#pragma mark - ADBannerViewDelegate
+- (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave
+{
+    return YES;
+}
+- (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error
+{
+    XLog_d(@"didFailToReceiveAdWithError: %@", error);
+}
 @end
