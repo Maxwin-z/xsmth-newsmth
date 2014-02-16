@@ -10,6 +10,7 @@
 		392417D8187C6A7100558725 /* icon_72.png in Resources */ = {isa = PBXBuildFile; fileRef = 392417D5187C6A7100558725 /* icon_72.png */; };
 		392417D9187C6A7100558725 /* icon_76.png in Resources */ = {isa = PBXBuildFile; fileRef = 392417D6187C6A7100558725 /* icon_76.png */; };
 		392417DA187C6A7100558725 /* icon_114@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 392417D7187C6A7100558725 /* icon_114@2x.png */; };
+		3950181F188BA49B00EDD265 /* SMCryptoUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 3950181E188BA49B00EDD265 /* SMCryptoUtil.m */; };
 		3968608618631B040012F81D /* icon_board_view_type@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3968608518631B040012F81D /* icon_board_view_type@2x.png */; };
 		39C260051860A0E400AEFE0E /* SMBoardSearchResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 39C260031860A0E400AEFE0E /* SMBoardSearchResultViewController.m */; };
 		39C260061860A0E400AEFE0E /* SMBoardSearchResultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 39C260041860A0E400AEFE0E /* SMBoardSearchResultViewController.xib */; };
@@ -279,6 +280,8 @@
 		392417D5187C6A7100558725 /* icon_72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_72.png; sourceTree = "<group>"; };
 		392417D6187C6A7100558725 /* icon_76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_76.png; sourceTree = "<group>"; };
 		392417D7187C6A7100558725 /* icon_114@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_114@2x.png"; sourceTree = "<group>"; };
+		3950181D188BA49B00EDD265 /* SMCryptoUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMCryptoUtil.h; sourceTree = "<group>"; };
+		3950181E188BA49B00EDD265 /* SMCryptoUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMCryptoUtil.m; sourceTree = "<group>"; };
 		3968608518631B040012F81D /* icon_board_view_type@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_board_view_type@2x.png"; sourceTree = "<group>"; };
 		39C260021860A0E400AEFE0E /* SMBoardSearchResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMBoardSearchResultViewController.h; sourceTree = "<group>"; };
 		39C260031860A0E400AEFE0E /* SMBoardSearchResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMBoardSearchResultViewController.m; sourceTree = "<group>"; };
@@ -877,6 +880,8 @@
 		C14505EA17507DD400DC5431 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				3950181D188BA49B00EDD265 /* SMCryptoUtil.h */,
+				3950181E188BA49B00EDD265 /* SMCryptoUtil.m */,
 				C14505EB17507DD400DC5431 /* XLogUtil.h */,
 				C14505EC17507DD400DC5431 /* XLogUtil.m */,
 				C14505E617507A9800DC5431 /* SMHttpRequest.h */,
@@ -1777,6 +1782,7 @@
 				C1CE10BC1812293900B04E15 /* SMUpdater.m in Sources */,
 				C1C07A601796857900906ED7 /* OWMapsActivity.m in Sources */,
 				C1C07A611796857900906ED7 /* OWMessageActivity.m in Sources */,
+				3950181F188BA49B00EDD265 /* SMCryptoUtil.m in Sources */,
 				C1C07A621796857900906ED7 /* OWPrintActivity.m in Sources */,
 				C1C07A631796857900906ED7 /* OWSafariActivity.m in Sources */,
 				C1CE10C218122D8500B04E15 /* SMVersion.m in Sources */,
