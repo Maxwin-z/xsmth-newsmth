@@ -351,7 +351,7 @@
     } else {
         SMPostItem *postItem = item;
         if (indexPath.row == 0) {   // header
-            return [SMPostGroupHeaderCell cellHeight];
+            return [SMPostGroupHeaderCell cellHeight:item];
         }
         if (indexPath.row == 1) {
             id v = [_postHeightMap objectForKey:@(postItem.post.pid)];
@@ -476,6 +476,7 @@
         cell = [[SMPostGroupHeaderCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.delegate = self;
+        cell.viewController = self;
     }
     cell.item = item;
     return cell;
