@@ -84,6 +84,8 @@
         NSString *html = [[NSString alloc] initWithData:[NSData dataWithContentsOfFile:adfile] encoding:NSUTF8StringEncoding];
         [self.webView loadHTMLString:html baseURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]]];
         self.view.backgroundColor = [SMTheme colorForBackground];
+        
+        [SMUtils trackEventWithCategory:@"ad" action:@"full" label:adid];
     } else {
         self.webView.hidden = YES;
         self.view.backgroundColor = [UIColor clearColor];

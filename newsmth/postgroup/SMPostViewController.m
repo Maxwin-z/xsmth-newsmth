@@ -630,7 +630,7 @@
     } else if (opt == _singlePostOp) {
         [_tableView endRefreshing:YES];
         SMPost *post = opt.data;
-        XLog_d(@"%@", post);
+//        XLog_d(@"%@", post);
         SMPostItem *item = [[SMPostItem alloc] init];
         item.op = opt;
         item.post = post;
