@@ -396,7 +396,14 @@
         cell.pageItem = item;
         
         if (!pageItem.isPageLoaded && !pageItem.isLoadFail && !pageItem.isLoading && !self.scrollIndicator.isDragging) {
-            [self loadPageData:pageItem];
+            // v2.1 防止分页抖动。仅显示cell top 1/3的地方，才加载数据
+            CGRect currentCellFrame = [tableView rectForRowAtIndexPath:indexPath];
+            CGFloat offsetY = tableView.contentOffset.y;
+//            XLog_d(@"++++%@ %@, %@, %@", @(pageItem.pno), NSStringFromCGRect(currentCellFrame), @(offsetY), @(offsetY - currentCellFrame.origin.y));
+            // todo rewrite
+            if (offsetY - currentCellFrame.origin.y < 400) {
+                [self loadPageData:pageItem];
+            }
         }
         
         if (!self.scrollIndicator.isDragging) {

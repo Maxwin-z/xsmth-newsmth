@@ -310,7 +310,7 @@
 
 - (void)hideAdView
 {
-//    [self.adViewController.view removeFromSuperview];
+    [self.adViewController.view removeFromSuperview];
 }
 
 - (void)hideAdViewDelay
