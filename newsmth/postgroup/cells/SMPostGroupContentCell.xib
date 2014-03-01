@@ -8,6 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SMPostGroupContentCell">
             <connections>
                 <outlet property="buttonForForward" destination="8Cq-Ud-DDx" id="05F-lE-QQJ"/>
+                <outlet property="buttonForMore" destination="GAv-xm-ata" id="d3F-mO-ZR6"/>
                 <outlet property="buttonForReply" destination="r98-7d-2JY" id="xUG-vi-1w8"/>
                 <outlet property="buttonForSearch" destination="Zzw-sF-7lZ" id="tbe-4L-Fgo"/>
                 <outlet property="viewForActions" destination="sgG-Iq-V7p" id="nj3-Xn-3ZS"/>

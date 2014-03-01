@@ -21,6 +21,7 @@
 #import "SMIPadSplitViewController.h"
 #import "SMMainViewController.h"
 #import "SMBoardSearchViewController.h"
+#import "SMMailComposeViewController.h"
 
 #define STRING_EXPAND_HERE  @"从此处展开"
 #define STRING_EXPAND_ALL  @"同主题展开"
@@ -851,7 +852,30 @@
 
 - (void)postGroupContentCellOnMoreAction:(SMPostGroupContentCell *)cell
 {
-    
+    NSString *titleForShare = @"分享";
+    NSString *titleForMail = @"发信";
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:titleForShare, titleForMail, nil];
+    @weakify(self);
+    [actionSheet.rac_buttonClickedSignal subscribeNext:^(NSNumber *buttonIndex) {
+        NSString *title = [actionSheet buttonTitleAtIndex:[buttonIndex integerValue]];
+        if ([title isEqualToString:titleForShare]) {    // share
+            
+        } else if ([title isEqualToString:titleForMail]) {  // mail
+            SMMailComposeViewController *vc = [[SMMailComposeViewController alloc] init];
+            SMMailItem *mail = [SMMailItem new];
+            mail.title = cell.post.title;
+            mail.content = cell.post.content;
+            mail.author = cell.post.author;
+            vc.mail = mail;
+            
+            P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:vc];
+
+            [self presentModalViewController:nvc animated:YES];
+        }
+        @strongify(self);
+        [self hidePostCellActions];
+    }];
+    [actionSheet showInView:self.view];
 }
 
 - (void)hidePostCellActions
