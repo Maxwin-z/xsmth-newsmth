@@ -759,6 +759,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1C07A7A179686E300906ED7 /* Social.framework in Frameworks */,
 				C176AC0918C1EE9900B024C7 /* libReactiveCocoa-iOS.a in Frameworks */,
 				C13CB6C718B0AA48003F7407 /* iAd.framework in Frameworks */,
 				C13CB6C518B0A09A003F7407 /* CoreTelephony.framework in Frameworks */,
@@ -770,7 +771,6 @@
 				C1327EDC187850DF00B1862A /* StoreKit.framework in Frameworks */,
 				C1C07A78179686BD00906ED7 /* MessageUI.framework in Frameworks */,
 				C1C07A7C179686F600906ED7 /* Twitter.framework in Frameworks */,
-				C1C07A7A179686E300906ED7 /* Social.framework in Frameworks */,
 				C10080D6178598D900487A45 /* AssetsLibrary.framework in Frameworks */,
 				C1011DA31779657000E0485D /* CoreData.framework in Frameworks */,
 				C10D16BB1756276D002D6FAD /* QuartzCore.framework in Frameworks */,

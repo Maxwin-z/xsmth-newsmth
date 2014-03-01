@@ -23,6 +23,7 @@
 #import "SMBoardSearchViewController.h"
 #import "SMMailComposeViewController.h"
 #import "WXApi.h"
+#import <Social/Social.h>
 
 #define STRING_EXPAND_HERE  @"从此处展开"
 #define STRING_EXPAND_ALL  @"同主题展开"
@@ -862,23 +863,51 @@
         if ([title isEqualToString:titleForShare]) {    // share
             NSString *titleForWXSession = @"微信好友";
             NSString *titleForWXTimeline = @"朋友圈";
+            NSString *titleForTencentWeibo = @"腾讯微博";
             NSString *titleForWeibo = @"微博";
-            UIActionSheet *shareActionSheet = [[UIActionSheet alloc] initWithTitle:@"分享到" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"微信好友", @"朋友圈", nil];
+            NSString *titleForTwitter = @"twitter";
+            UIActionSheet *shareActionSheet = [[UIActionSheet alloc] initWithTitle:@"分享到" delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:titleForWXSession, titleForWXTimeline, nil];
+            
+            // 内置分享
+            if (NSClassFromString(@"SLComposeViewController") != nil) {
+                if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTencentWeibo]) {
+                    [shareActionSheet addButtonWithTitle:titleForTencentWeibo];
+                }
+                if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeSinaWeibo]) {
+                    [shareActionSheet addButtonWithTitle:titleForWeibo];
+                }
+                if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
+                    [shareActionSheet addButtonWithTitle:titleForTwitter];
+                }
+            }
+            
+            shareActionSheet.cancelButtonIndex = [shareActionSheet addButtonWithTitle:@"取消"];
+            
             [shareActionSheet.rac_buttonClickedSignal subscribeNext:^(NSNumber *buttonIndex) {
                 NSString *title = [shareActionSheet buttonTitleAtIndex:[buttonIndex integerValue]];
+                
                 SMPost *post = cell.post;
+                NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/single/%d/0",
+                                 _board.name, post.pid];
+
                 if ([title isEqualToString:titleForWXSession] || [title isEqualToString:titleForWXTimeline]) {
                     SendMessageToWXReq *req = [SendMessageToWXReq new];
-                    NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/single/%d/0",
-                           _board.name, post.pid];
 
                     req.text = [NSString stringWithFormat:@"%@ (原文: %@)", post.content, url];
                     req.bText = YES;
                     req.scene = [title isEqualToString:titleForWXTimeline] ? WXSceneTimeline : WXSceneSession;
                     [WXApi sendReq:req];
                 }
-                if ([title isEqualToString:titleForWeibo]) {
-                    [self toast:@"todo"];
+                if ([title isEqualToString:titleForWeibo]
+                    || [title isEqualToString:titleForTencentWeibo]
+                    || [title isEqualToString:titleForTwitter]) {
+                    NSString *serviceType = [title isEqualToString:titleForWeibo] ? SLServiceTypeSinaWeibo : [title isEqualToString:titleForTencentWeibo] ? SLServiceTypeTencentWeibo : SLServiceTypeTwitter;
+                    SLComposeViewController *vc = [SLComposeViewController composeViewControllerForServiceType:serviceType];
+                    NSInteger twitterWeiboSize = 140;
+                    [vc setInitialText:[post.content substringToIndex:MIN(post.content.length, twitterWeiboSize)]];
+                    [vc addURL:[NSURL URLWithString:url]];
+                    
+                    [self presentModalViewController:vc animated:YES];
                 }
             }];
             [shareActionSheet showInView:self.view];
