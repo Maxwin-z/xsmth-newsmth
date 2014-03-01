@@ -59,7 +59,7 @@
 	<array>
 		<dict>
 			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
+			<string>Viewer</string>
 			<key>CFBundleURLIconFile</key>
 			<string>icon_120@2x</string>
 			<key>CFBundleURLName</key>
@@ -67,6 +67,18 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>xsmth</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>CFBundleURLIconFile</key>
+			<string>icon_120@2x</string>
+			<key>CFBundleURLName</key>
+			<string>weixin</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>wx52cf1b1257d16b1d</string>
 			</array>
 		</dict>
 	</array>

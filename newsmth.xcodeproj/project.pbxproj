@@ -118,6 +118,7 @@
 		C16C1098179A1CA200A14727 /* SMNotice.m in Sources */ = {isa = PBXBuildFile; fileRef = C16C1097179A1CA200A14727 /* SMNotice.m */; };
 		C16C109A179A238F00A14727 /* notice.js in Resources */ = {isa = PBXBuildFile; fileRef = C16C1099179A238F00A14727 /* notice.js */; };
 		C176AC0918C1EE9900B024C7 /* libReactiveCocoa-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C176ABFC18C1ED1D00B024C7 /* libReactiveCocoa-iOS.a */; };
+		C176AC1118C202FA00B024C7 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C176AC0E18C202FA00B024C7 /* libWeChatSDK.a */; };
 		C17F4B83178C0A21002F4934 /* SMImageUploadListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C17F4B81178C0A21002F4934 /* SMImageUploadListViewController.m */; };
 		C17F4B84178C0A21002F4934 /* SMImageUploadListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C17F4B82178C0A21002F4934 /* SMImageUploadListViewController.xib */; };
 		C17F4B89178C11CA002F4934 /* SMUpload.m in Sources */ = {isa = PBXBuildFile; fileRef = C17F4B86178C11CA002F4934 /* SMUpload.m */; };
@@ -512,6 +513,9 @@
 		C16C1097179A1CA200A14727 /* SMNotice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMNotice.m; sourceTree = "<group>"; };
 		C16C1099179A238F00A14727 /* notice.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = notice.js; sourceTree = "<group>"; };
 		C176ABED18C1ED1D00B024C7 /* ReactiveCocoa.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactiveCocoa.xcodeproj; path = ReactiveCocoa/ReactiveCocoaFramework/ReactiveCocoa.xcodeproj; sourceTree = "<group>"; };
+		C176AC0E18C202FA00B024C7 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		C176AC0F18C202FA00B024C7 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
+		C176AC1018C202FA00B024C7 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		C17F4B80178C0A21002F4934 /* SMImageUploadListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMImageUploadListViewController.h; sourceTree = "<group>"; };
 		C17F4B81178C0A21002F4934 /* SMImageUploadListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMImageUploadListViewController.m; sourceTree = "<group>"; };
 		C17F4B82178C0A21002F4934 /* SMImageUploadListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMImageUploadListViewController.xib; sourceTree = "<group>"; };
@@ -761,6 +765,7 @@
 				C1BFB8E1174F6A620092FD2E /* CoreGraphics.framework in Frameworks */,
 				C13CB6C318B0A089003F7407 /* AVFoundation.framework in Frameworks */,
 				C13CB6C118B0A07F003F7407 /* AudioToolbox.framework in Frameworks */,
+				C176AC1118C202FA00B024C7 /* libWeChatSDK.a in Frameworks */,
 				C15489C21888CDF60046190C /* AdSupport.framework in Frameworks */,
 				C1327EDC187850DF00B1862A /* StoreKit.framework in Frameworks */,
 				C1C07A78179686BD00906ED7 /* MessageUI.framework in Frameworks */,
@@ -1012,6 +1017,16 @@
 				C176AC0618C1ED1D00B024C7 /* libReactiveCocoa-Mac.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		C176AC0D18C202FA00B024C7 /* WeChatSDK */ = {
+			isa = PBXGroup;
+			children = (
+				C176AC0E18C202FA00B024C7 /* libWeChatSDK.a */,
+				C176AC0F18C202FA00B024C7 /* WXApi.h */,
+				C176AC1018C202FA00B024C7 /* WXApiObject.h */,
+			);
+			path = WeChatSDK;
 			sourceTree = "<group>";
 		};
 		C19FF0B01769A71B00EB6F7E /* images */ = {
@@ -1320,6 +1335,7 @@
 		C1BFB91F174F6F5B0092FD2E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C176AC0D18C202FA00B024C7 /* WeChatSDK */,
 				C13CB5D418B0A05F003F7407 /* GoogleAdMobAdsSdkiOS-6.8.0 */,
 				C1011D981779654900E0485D /* GoogleAnalytics */,
 				C1BFB920174F6F5B0092FD2E /* asi-http-request */,
@@ -2057,6 +2073,7 @@
 					/Users/Maxwin/workspace/iOS/newsmth/newsmth/Frameworks/GoogleAnalytics,
 					"/Users/Maxwin/workspace/iOS/newsmth/newsmth/Frameworks/GoogleAdMobAdsSdkiOS-6.8.0/Add-ons/GoogleAnalyticsServicesiOS_3.03",
 					"/Users/Maxwin/workspace/iOS/newsmth/newsmth/Frameworks/GoogleAdMobAdsSdkiOS-6.8.0",
+					/Users/Maxwin/workspace/iOS/newsmth/newsmth/Frameworks/WeChatSDK,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2170,6 +2187,7 @@
 					/Users/Maxwin/workspace/iOS/newsmth/newsmth/Frameworks/GoogleAnalytics,
 					"/Users/Maxwin/workspace/iOS/newsmth/newsmth/Frameworks/GoogleAdMobAdsSdkiOS-6.8.0/Add-ons/GoogleAnalyticsServicesiOS_3.03",
 					"/Users/Maxwin/workspace/iOS/newsmth/newsmth/Frameworks/GoogleAdMobAdsSdkiOS-6.8.0",
+					/Users/Maxwin/workspace/iOS/newsmth/newsmth/Frameworks/WeChatSDK,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2206,6 +2224,7 @@
 					/Users/Maxwin/workspace/iOS/newsmth/newsmth/Frameworks/GoogleAnalytics,
 					"/Users/Maxwin/workspace/iOS/newsmth/newsmth/Frameworks/GoogleAdMobAdsSdkiOS-6.8.0/Add-ons/GoogleAnalyticsServicesiOS_3.03",
 					"/Users/Maxwin/workspace/iOS/newsmth/newsmth/Frameworks/GoogleAdMobAdsSdkiOS-6.8.0",
+					/Users/Maxwin/workspace/iOS/newsmth/newsmth/Frameworks/WeChatSDK,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";

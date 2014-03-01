@@ -18,6 +18,7 @@
 #import "SMIPadSplitViewController.h"
 #import "SMIpadEmptyViewController.h"
 #import "SMAdViewController.h"
+#import "WXApi.h"
 
 @interface AppDelegate ()<SMWebLoaderOperationDelegate>
 @property (strong, nonatomic) UINavigationController *nvc;
@@ -162,6 +163,9 @@
 
     [self showAdView];
     
+    // weixin
+    [WXApi registerApp:@"wx52cf1b1257d16b1d" withDescription:@"demo 2.0"];
+
     return YES;
 }
 

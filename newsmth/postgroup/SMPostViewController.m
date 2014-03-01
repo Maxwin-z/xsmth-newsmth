@@ -22,6 +22,7 @@
 #import "SMMainViewController.h"
 #import "SMBoardSearchViewController.h"
 #import "SMMailComposeViewController.h"
+#import "WXApi.h"
 
 #define STRING_EXPAND_HERE  @"从此处展开"
 #define STRING_EXPAND_ALL  @"同主题展开"
@@ -859,7 +860,28 @@
     [actionSheet.rac_buttonClickedSignal subscribeNext:^(NSNumber *buttonIndex) {
         NSString *title = [actionSheet buttonTitleAtIndex:[buttonIndex integerValue]];
         if ([title isEqualToString:titleForShare]) {    // share
-            
+            NSString *titleForWXSession = @"微信好友";
+            NSString *titleForWXTimeline = @"朋友圈";
+            NSString *titleForWeibo = @"微博";
+            UIActionSheet *shareActionSheet = [[UIActionSheet alloc] initWithTitle:@"分享到" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"微信好友", @"朋友圈", nil];
+            [shareActionSheet.rac_buttonClickedSignal subscribeNext:^(NSNumber *buttonIndex) {
+                NSString *title = [shareActionSheet buttonTitleAtIndex:[buttonIndex integerValue]];
+                SMPost *post = cell.post;
+                if ([title isEqualToString:titleForWXSession] || [title isEqualToString:titleForWXTimeline]) {
+                    SendMessageToWXReq *req = [SendMessageToWXReq new];
+                    NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/single/%d/0",
+                           _board.name, post.pid];
+
+                    req.text = [NSString stringWithFormat:@"%@ (原文: %@)", post.content, url];
+                    req.bText = YES;
+                    req.scene = [title isEqualToString:titleForWXTimeline] ? WXSceneTimeline : WXSceneSession;
+                    [WXApi sendReq:req];
+                }
+                if ([title isEqualToString:titleForWeibo]) {
+                    [self toast:@"todo"];
+                }
+            }];
+            [shareActionSheet showInView:self.view];
         } else if ([title isEqualToString:titleForMail]) {  // mail
             SMMailComposeViewController *vc = [[SMMailComposeViewController alloc] init];
             SMMailItem *mail = [SMMailItem new];
