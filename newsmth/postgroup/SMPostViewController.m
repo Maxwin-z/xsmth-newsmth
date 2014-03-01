@@ -429,7 +429,7 @@
                 return [self cellForFail:postItem];
             } else {
                 postItem.post = postItem.op.data;
-                return [self cellForContent:postItem];
+                return [self cellForContent:postItem atIndexPath:indexPath];
             }
         } else {
             return [self cellForAttach:[self attachAtIndexPath:indexPath]];
@@ -512,9 +512,10 @@
     return cell;
 }
 
-- (UITableViewCell *)cellForContent:(SMPostItem *)item
+- (UITableViewCell *)cellForContent:(SMPostItem *)item atIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *cellid = @"content_cell";
+    NSString *cellid = [NSString stringWithFormat:@"content_cell_%@", @(indexPath.section % 3)];
+//    NSString *cellid = @"content_cell";
     SMPostGroupContentCell *cell = (SMPostGroupContentCell *)[self.tableView dequeueReusableCellWithIdentifier:cellid];
     if (cell == nil) {
         cell = [[SMPostGroupContentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
