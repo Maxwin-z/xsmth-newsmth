@@ -50,7 +50,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="8Cq-Ud-DDx">
-                                    <rect key="frame" x="130" y="8" width="60" height="32"/>
+                                    <rect key="frame" x="94" y="8" width="60" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <state key="normal" title="转寄" image="icon_forward.png">
@@ -62,7 +62,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Zzw-sF-7lZ" userLabel="Button - 搜索">
-                                    <rect key="frame" x="240" y="8" width="60" height="32"/>
+                                    <rect key="frame" x="169" y="8" width="60" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <state key="normal" title="搜索" image="icon_search_64.png">
@@ -71,6 +71,18 @@
                                     </state>
                                     <connections>
                                         <action selector="onSearchButtonClick:" destination="-1" eventType="touchUpInside" id="rr3-oJ-P8j"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="GAv-xm-ata">
+                                    <rect key="frame" x="240" y="8" width="60" height="32"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <state key="normal" title="更多" image="icon_more.png">
+                                        <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="onMoreButtonClick:" destination="-1" eventType="touchUpInside" id="j05-13-vhx"/>
                                     </connections>
                                 </button>
                             </subviews>
@@ -87,6 +99,7 @@
     </objects>
     <resources>
         <image name="icon_forward.png" width="32" height="32"/>
+        <image name="icon_more.png" width="32" height="32"/>
         <image name="icon_search_64.png" width="32" height="32"/>
         <image name="icon_write.png" width="32" height="32"/>
     </resources>

@@ -849,6 +849,11 @@
     
 }
 
+- (void)postGroupContentCellOnMoreAction:(SMPostGroupContentCell *)cell
+{
+    
+}
+
 - (void)hidePostCellActions
 {
     [self.tableView.visibleCells enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {

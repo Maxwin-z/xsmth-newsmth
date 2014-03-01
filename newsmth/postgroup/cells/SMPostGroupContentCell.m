@@ -18,6 +18,7 @@ static SMPostGroupContentCell *_instance;
 @property (weak, nonatomic) IBOutlet UIButton *buttonForReply;
 @property (weak, nonatomic) IBOutlet UIButton *buttonForForward;
 @property (weak, nonatomic) IBOutlet UIButton *buttonForSearch;
+@property (weak, nonatomic) IBOutlet UIButton *buttonForMore;
 @end
 
 @implementation SMPostGroupContentCell
@@ -192,7 +193,7 @@ NSString *tpl =
     self.backgroundColor = [SMTheme colorForBackground];
     _labelForContent.textColor = [SMTheme colorForPrimary];
 
-    [@[_buttonForReply, _buttonForForward, _buttonForSearch] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    [@[_buttonForReply, _buttonForForward, _buttonForSearch, _buttonForMore] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         UIButton *btn = obj;
         [btn setTitleColor:[SMTheme colorForTintColor] forState:UIControlStateNormal];
         
@@ -248,5 +249,9 @@ NSString *tpl =
     [_delegate postGroupContentCellOnSearch:self];
 }
 
+- (IBAction)onMoreButtonClick:(id)sender
+{
+    [_delegate postGroupContentCellOnMoreAction:self];
+}
 
 @end

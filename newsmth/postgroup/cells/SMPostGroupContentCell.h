@@ -17,6 +17,7 @@
 - (void)postGroupContentCellOnReply:(SMPostGroupContentCell *)cell;
 - (void)postGroupContentCellOnForward:(SMPostGroupContentCell *)cell;
 - (void)postGroupContentCellOnSearch:(SMPostGroupContentCell *)cell;
+- (void)postGroupContentCellOnMoreAction:(SMPostGroupContentCell *)cell;
 
 - (void)postGroupContentCell:(SMPostGroupContentCell *)cell fullHtml:(NSString *)html;
 
