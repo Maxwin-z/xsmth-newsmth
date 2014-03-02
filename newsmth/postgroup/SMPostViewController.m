@@ -137,6 +137,7 @@
     
     // v2.1
 //    self.webViewForFullPost.scrollView.contentInset = self.webViewForFullPost.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(SM_TOP_INSET, 0, 0, 0);
+    self.webViewForFullPost.scrollView.scrollsToTop = NO;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -1116,6 +1117,7 @@
     [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
         self.webViewForFullPost.alpha = 1;
     } completion:^(BOOL finished) {
+        [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
     }];
 }
 
@@ -1123,6 +1125,7 @@
 {
     self.viewForFullPostContainer.hidden = YES;
     [self.viewForFullPostContainer removeFromSuperview];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
 }
 
 @end
