@@ -16,8 +16,8 @@
 
 + (UIActivityCategory)activityCategory
 {
-//    return UIActivityCategoryShare;
-    return UIActivityCategoryAction;
+    return UIActivityCategoryShare;
+//    return UIActivityCategoryAction;
 }
 
 - (id)init

@@ -27,6 +27,7 @@
 #import "SMPostActivityItemProvider.h"
 #import "SMWeiXinSessionActivity.h"
 #import "SMWeiXinTimelineActivity.h"
+#import "SMMailToActivity.h"
 
 #define STRING_EXPAND_HERE  @"从此处展开"
 #define STRING_EXPAND_ALL  @"同主题展开"
@@ -857,6 +858,8 @@
 
 - (void)postGroupContentCellOnMoreAction:(SMPostGroupContentCell *)cell
 {
+    [self hidePostCellActions];
+
     if (NSClassFromString(@"UIActivityViewController") != nil) {
         SMPost *post = cell.post;
         post.board = self.board;
@@ -867,15 +870,23 @@
         SMPostActivityItemProvider *provider = [[SMPostActivityItemProvider alloc] initWithPlaceholderItem:post];
         SMWeiXinSessionActivity *wxSessionActivity = [[SMWeiXinSessionActivity alloc] init];
         SMWeiXinTimelineActivity *wxTimelineActivity = [[SMWeiXinTimelineActivity alloc] init];
-        
-        UIActivityViewController *avc = [[UIActivityViewController alloc] initWithActivityItems:@[provider, [NSURL URLWithString:url]] applicationActivities:@[wxSessionActivity, wxTimelineActivity]];
+        SMMailToActivity *mailtoActivity = [SMMailToActivity new];
+
+        UIActivityViewController *avc = [[UIActivityViewController alloc] initWithActivityItems:@[provider, [NSURL URLWithString:url]] applicationActivities:@[wxSessionActivity, wxTimelineActivity, mailtoActivity]];
         if (&UIActivityTypeAirDrop != NULL) {
             avc.excludedActivityTypes = @[UIActivityTypeAirDrop];
         }
+        @weakify(self);
         avc.completionHandler = ^(NSString *activityType, BOOL completed) {
+            @strongify(self);
             if ([activityType isEqualToString:UIActivityTypeCopyToPasteboard]) {
                 [self toast:@"已Copy链接到剪切板"];
             }
+            if ([activityType isEqualToString:SMActivityTypeMailToAuthor]) {
+                [self mailtoWithPost:post];
+            }
+            
+            [SMUtils trackEventWithCategory:@"postgroup" action:@"more_action" label:activityType];
         };
         
         [self.view.window.rootViewController presentViewController:avc animated:YES completion:nil];
@@ -942,16 +953,7 @@
             }];
             [shareActionSheet showInView:self.view];
         } else if ([title isEqualToString:titleForMail]) {  // mail
-            SMMailComposeViewController *vc = [[SMMailComposeViewController alloc] init];
-            SMMailItem *mail = [SMMailItem new];
-            mail.title = cell.post.title;
-            mail.content = cell.post.content;
-            mail.author = cell.post.author;
-            vc.mail = mail;
-            
-            P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:vc];
-
-            [self presentModalViewController:nvc animated:YES];
+            [self mailtoWithPost:cell.post];
         }
         @strongify(self);
         [self hidePostCellActions];
@@ -967,6 +969,19 @@
             [cell hideActionView];
         }
     }];
+}
+
+- (void)mailtoWithPost:(SMPost *)post
+{
+    SMMailComposeViewController *vc = [[SMMailComposeViewController alloc] init];
+    SMMailItem *mail = [SMMailItem new];
+    mail.title = post.title;
+    mail.content = post.content;
+    mail.author = post.author;
+    vc.mail = mail;
+    
+    P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:vc];
+    [self presentModalViewController:nvc animated:YES];
 }
 
 #pragma mark - SMPostFailCellDelegate

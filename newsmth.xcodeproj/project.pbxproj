@@ -38,6 +38,7 @@
 		C10D16111756059B002D6FAD /* SMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C10D16101756059B002D6FAD /* SMViewController.m */; };
 		C10D16BB1756276D002D6FAD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C10D16BA1756276C002D6FAD /* QuartzCore.framework */; };
 		C10D16BE1756EF21002D6FAD /* SMMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = C10D16BD1756EF21002D6FAD /* SMMessage.m */; };
+		C10DC6D518C3011800FF95E8 /* SMMailToActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = C10DC6D418C3011800FF95E8 /* SMMailToActivity.m */; };
 		C10F2F7717E5621800F83206 /* SMMailItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C10F2F7417E5621800F83206 /* SMMailItem.m */; };
 		C10F2F7817E5621800F83206 /* SMMailList.m in Sources */ = {isa = PBXBuildFile; fileRef = C10F2F7617E5621800F83206 /* SMMailList.m */; };
 		C10F2F7B17E5808D00F83206 /* mail.js in Resources */ = {isa = PBXBuildFile; fileRef = C10F2F7917E5805A00F83206 /* mail.js */; };
@@ -392,6 +393,8 @@
 		C10D16BA1756276C002D6FAD /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		C10D16BC1756EF20002D6FAD /* SMMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SMMessage.h; path = ../Utils/SMMessage.h; sourceTree = "<group>"; };
 		C10D16BD1756EF21002D6FAD /* SMMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SMMessage.m; path = ../Utils/SMMessage.m; sourceTree = "<group>"; };
+		C10DC6D318C3011800FF95E8 /* SMMailToActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMMailToActivity.h; sourceTree = "<group>"; };
+		C10DC6D418C3011800FF95E8 /* SMMailToActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMMailToActivity.m; sourceTree = "<group>"; };
 		C10F2F7317E5621800F83206 /* SMMailItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMMailItem.h; sourceTree = "<group>"; };
 		C10F2F7417E5621800F83206 /* SMMailItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMMailItem.m; sourceTree = "<group>"; };
 		C10F2F7517E5621800F83206 /* SMMailList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMMailList.h; sourceTree = "<group>"; };
@@ -1565,6 +1568,8 @@
 				C1F4671F18C2EDFA006BCE7A /* SMWeiXinSessionActivity.m */,
 				C1F4672518C2F5ED006BCE7A /* SMWeiXinTimelineActivity.h */,
 				C1F4672618C2F5ED006BCE7A /* SMWeiXinTimelineActivity.m */,
+				C10DC6D318C3011800FF95E8 /* SMMailToActivity.h */,
+				C10DC6D418C3011800FF95E8 /* SMMailToActivity.m */,
 			);
 			path = activity;
 			sourceTree = "<group>";
@@ -1978,6 +1983,7 @@
 				C1C07A631796857900906ED7 /* OWSafariActivity.m in Sources */,
 				C1CE10C218122D8500B04E15 /* SMVersion.m in Sources */,
 				C1C07A641796857900906ED7 /* OWSaveToCameraRollActivity.m in Sources */,
+				C10DC6D518C3011800FF95E8 /* SMMailToActivity.m in Sources */,
 				C1C07A651796857900906ED7 /* OWSinaWeiboActivity.m in Sources */,
 				C1C07A661796857900906ED7 /* OWTwitterActivity.m in Sources */,
 				C16C1098179A1CA200A14727 /* SMNotice.m in Sources */,
