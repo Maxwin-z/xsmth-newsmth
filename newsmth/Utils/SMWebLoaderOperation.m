@@ -76,13 +76,13 @@
     [_request startSynchronous];
 
     // 15s自动超时
-    NSTimeInterval startTime = [NSDate timeIntervalSinceReferenceDate];
-    while (!_isDone && !self.isCancelled && [NSDate timeIntervalSinceReferenceDate] - startTime < 11) {
-        @autoreleasepool {
-            CFRunLoopRunInMode(kCFRunLoopDefaultMode, 1e-6, true);
-        }
-	}
-    XLog_d(@"url[%@] exit", _url);
+//    NSTimeInterval startTime = [NSDate timeIntervalSinceReferenceDate];
+//    while (!_isDone && !self.isCancelled && [NSDate timeIntervalSinceReferenceDate] - startTime < 11) {
+//        @autoreleasepool {
+//            CFRunLoopRunInMode(kCFRunLoopDefaultMode, 1e-6, true);
+//        }
+//	}
+//    XLog_d(@"url[%@] exit", _url);
 
 }
 
