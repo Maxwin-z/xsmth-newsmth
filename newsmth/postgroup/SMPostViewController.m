@@ -877,16 +877,23 @@
             avc.excludedActivityTypes = @[UIActivityTypeAirDrop];
         }
         @weakify(self);
+        @weakify(avc);
         avc.completionHandler = ^(NSString *activityType, BOOL completed) {
             @strongify(self);
+            @strongify(avc);
             if ([activityType isEqualToString:UIActivityTypeCopyToPasteboard]) {
                 [self toast:@"已Copy链接到剪切板"];
             }
             if ([activityType isEqualToString:SMActivityTypeMailToAuthor]) {
-                [self mailtoWithPost:post];
+                if ([SMUtils systemVersion] < 7) {  // fixme: ios6 animation cause crash
+                    [self performSelector:@selector(mailtoWithPost:) withObject:post afterDelay:1];
+                } else {
+                    [self mailtoWithPost:post];
+                }
             }
             
             [SMUtils trackEventWithCategory:@"postgroup" action:@"more_action" label:activityType];
+            avc.completionHandler = nil;
         };
         
         [self.view.window.rootViewController presentViewController:avc animated:YES completion:nil];
@@ -973,6 +980,11 @@
 
 - (void)mailtoWithPost:(SMPost *)post
 {
+    if (![SMAccountManager instance].isLogin) {
+        [self performSelectorAfterLogin:NULL];  // todo
+        return ;
+    }
+    
     SMMailComposeViewController *vc = [[SMMailComposeViewController alloc] init];
     SMMailItem *mail = [SMMailItem new];
     mail.title = post.title;
@@ -981,7 +993,7 @@
     vc.mail = mail;
     
     P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:vc];
-    [self presentModalViewController:nvc animated:YES];
+    [self.view.window.rootViewController presentModalViewController:nvc animated:YES];
 }
 
 #pragma mark - SMPostFailCellDelegate
