@@ -21,10 +21,12 @@
     NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/single/%d/0",
                      post.board.name, post.pid];
 
-    if ([activityType isEqualToString:UIActivityTypePostToWeibo]) {
-        NSString *content = [post.content substringToIndex:MIN(post.content.length, 140)];
-        NSURL *uri = [NSURL URLWithString:url];
-        return @[content, uri];
+    if ([activityType isEqualToString:UIActivityTypePostToWeibo]
+        || [activityType isEqualToString:UIActivityTypePostToTencentWeibo]
+        || [activityType isEqualToString:UIActivityTypePostToTwitter]) {
+        NSInteger kTwitterLength = 140;
+        NSString *content = [post.content substringToIndex:MIN(post.content.length, kTwitterLength)];
+        return content;
     }
     
     if ([activityType isEqualToString:UIActivityTypeCopyToPasteboard]) {

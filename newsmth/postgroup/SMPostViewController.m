@@ -861,18 +861,24 @@
         SMPost *post = cell.post;
         post.board = self.board;
         
+        NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/single/%d/0",
+                         post.board.name, post.pid];
+
         SMPostActivityItemProvider *provider = [[SMPostActivityItemProvider alloc] initWithPlaceholderItem:post];
         SMWeiXinSessionActivity *wxSessionActivity = [[SMWeiXinSessionActivity alloc] init];
         SMWeiXinTimelineActivity *wxTimelineActivity = [[SMWeiXinTimelineActivity alloc] init];
         
-        UIActivityViewController *avc = [[UIActivityViewController alloc] initWithActivityItems:@[provider] applicationActivities:@[wxSessionActivity, wxTimelineActivity]];
+        UIActivityViewController *avc = [[UIActivityViewController alloc] initWithActivityItems:@[provider, [NSURL URLWithString:url]] applicationActivities:@[wxSessionActivity, wxTimelineActivity]];
         avc.excludedActivityTypes = @[UIActivityTypeAirDrop];
         avc.completionHandler = ^(NSString *activityType, BOOL completed) {
             if ([activityType isEqualToString:UIActivityTypeCopyToPasteboard]) {
                 [self toast:@"已Copy链接到剪切板"];
             }
         };
-        [self.navigationController presentModalViewController:avc animated:YES];
+        
+        [self.view.window.rootViewController presentViewController:avc animated:YES completion:nil];
+
+//        [self.navigationController presentModalViewController:avc animated:YES];
         return;
     }
     
