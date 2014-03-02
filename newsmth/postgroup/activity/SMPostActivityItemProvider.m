@@ -20,9 +20,9 @@
     
     NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/single/%d/0",
                      post.board.name, post.pid];
-
+    
     if ([activityType isEqualToString:UIActivityTypePostToWeibo]
-        || [activityType isEqualToString:UIActivityTypePostToTencentWeibo]
+        || (&UIActivityTypePostToTencentWeibo != NULL && [activityType isEqualToString:UIActivityTypePostToTencentWeibo])
         || [activityType isEqualToString:UIActivityTypePostToTwitter]) {
         NSInteger kTwitterLength = 140;
         NSString *content = [post.content substringToIndex:MIN(post.content.length, kTwitterLength)];

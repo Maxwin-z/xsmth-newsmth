@@ -44,7 +44,7 @@
 
 - (BOOL)canPerformWithActivityItems:(NSArray *)activityItems
 {
-    return YES;
+    return [WXApi isWXAppInstalled];
 }
 
 - (void)prepareWithActivityItems:(NSArray *)activityItems

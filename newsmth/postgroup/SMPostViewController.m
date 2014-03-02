@@ -869,7 +869,9 @@
         SMWeiXinTimelineActivity *wxTimelineActivity = [[SMWeiXinTimelineActivity alloc] init];
         
         UIActivityViewController *avc = [[UIActivityViewController alloc] initWithActivityItems:@[provider, [NSURL URLWithString:url]] applicationActivities:@[wxSessionActivity, wxTimelineActivity]];
-        avc.excludedActivityTypes = @[UIActivityTypeAirDrop];
+        if (&UIActivityTypeAirDrop != NULL) {
+            avc.excludedActivityTypes = @[UIActivityTypeAirDrop];
+        }
         avc.completionHandler = ^(NSString *activityType, BOOL completed) {
             if ([activityType isEqualToString:UIActivityTypeCopyToPasteboard]) {
                 [self toast:@"已Copy链接到剪切板"];
