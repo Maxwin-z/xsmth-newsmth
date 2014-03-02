@@ -248,6 +248,11 @@
 		C1E7A1A3180A91EB002CAEEC /* bg_barbuttonitem@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1E7A1A2180A91EB002CAEEC /* bg_barbuttonitem@2x.png */; };
 		C1E7A1A5180A98DD002CAEEC /* badge_notice@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1E7A1A4180A98DD002CAEEC /* badge_notice@2x.png */; };
 		C1E7A1A7180AA8C7002CAEEC /* util_notice.js in Resources */ = {isa = PBXBuildFile; fileRef = C1E7A1A6180AA8C7002CAEEC /* util_notice.js */; };
+		C1F4671D18C2E766006BCE7A /* SMPostActivityItemProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F4671C18C2E766006BCE7A /* SMPostActivityItemProvider.m */; };
+		C1F4672018C2EDFA006BCE7A /* SMWeiXinSessionActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F4671F18C2EDFA006BCE7A /* SMWeiXinSessionActivity.m */; };
+		C1F4672318C2EFAB006BCE7A /* common_share_icon_weixin_friends@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1F4672118C2EFAB006BCE7A /* common_share_icon_weixin_friends@2x.png */; };
+		C1F4672418C2EFAB006BCE7A /* common_share_icon_weixin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1F4672218C2EFAB006BCE7A /* common_share_icon_weixin@2x.png */; };
+		C1F4672718C2F5ED006BCE7A /* SMWeiXinTimelineActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F4672618C2F5ED006BCE7A /* SMWeiXinTimelineActivity.m */; };
 		C1F4C5AC1806D4BD00E8A52D /* SMConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F4C5AB1806D4BD00E8A52D /* SMConfig.m */; };
 		C1FCFAC11860782600759793 /* icon_search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1FCFABE1860782600759793 /* icon_search@2x.png */; };
 		C1FCFAC21860782600759793 /* icon_favor_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1FCFABF1860782600759793 /* icon_favor_on@2x.png */; };
@@ -727,6 +732,14 @@
 		C1E7A1A2180A91EB002CAEEC /* bg_barbuttonitem@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_barbuttonitem@2x.png"; sourceTree = "<group>"; };
 		C1E7A1A4180A98DD002CAEEC /* badge_notice@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "badge_notice@2x.png"; sourceTree = "<group>"; };
 		C1E7A1A6180AA8C7002CAEEC /* util_notice.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = util_notice.js; sourceTree = "<group>"; };
+		C1F4671B18C2E766006BCE7A /* SMPostActivityItemProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMPostActivityItemProvider.h; sourceTree = "<group>"; };
+		C1F4671C18C2E766006BCE7A /* SMPostActivityItemProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMPostActivityItemProvider.m; sourceTree = "<group>"; };
+		C1F4671E18C2EDFA006BCE7A /* SMWeiXinSessionActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMWeiXinSessionActivity.h; sourceTree = "<group>"; };
+		C1F4671F18C2EDFA006BCE7A /* SMWeiXinSessionActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMWeiXinSessionActivity.m; sourceTree = "<group>"; };
+		C1F4672118C2EFAB006BCE7A /* common_share_icon_weixin_friends@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "common_share_icon_weixin_friends@2x.png"; sourceTree = "<group>"; };
+		C1F4672218C2EFAB006BCE7A /* common_share_icon_weixin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "common_share_icon_weixin@2x.png"; sourceTree = "<group>"; };
+		C1F4672518C2F5ED006BCE7A /* SMWeiXinTimelineActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMWeiXinTimelineActivity.h; sourceTree = "<group>"; };
+		C1F4672618C2F5ED006BCE7A /* SMWeiXinTimelineActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMWeiXinTimelineActivity.m; sourceTree = "<group>"; };
 		C1F4C5AA1806D4BD00E8A52D /* SMConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMConfig.h; sourceTree = "<group>"; };
 		C1F4C5AB1806D4BD00E8A52D /* SMConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMConfig.m; sourceTree = "<group>"; };
 		C1FCFABE1860782600759793 /* icon_search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_search@2x.png"; sourceTree = "<group>"; };
@@ -1032,6 +1045,8 @@
 		C19FF0B01769A71B00EB6F7E /* images */ = {
 			isa = PBXGroup;
 			children = (
+				C1F4672118C2EFAB006BCE7A /* common_share_icon_weixin_friends@2x.png */,
+				C1F4672218C2EFAB006BCE7A /* common_share_icon_weixin@2x.png */,
 				C13CB6C818B0FE17003F7407 /* icon_search_64@2x.png */,
 				C1300A69187ACB9E006ACA5C /* icon_write@2x.png */,
 				C1300A6A187ACB9E006ACA5C /* icon_more@2x.png */,
@@ -1099,6 +1114,7 @@
 		C1ABAB041766107A007DE168 /* postgroup */ = {
 			isa = PBXGroup;
 			children = (
+				C1F4671118C2E732006BCE7A /* activity */,
 				C1ABAB15176610D9007DE168 /* cells */,
 				C1FF62AE179E6DF4001F7A15 /* SMPostViewController.h */,
 				C1FF62AF179E6DF4001F7A15 /* SMPostViewController.m */,
@@ -1540,6 +1556,19 @@
 			path = Data;
 			sourceTree = "<group>";
 		};
+		C1F4671118C2E732006BCE7A /* activity */ = {
+			isa = PBXGroup;
+			children = (
+				C1F4671B18C2E766006BCE7A /* SMPostActivityItemProvider.h */,
+				C1F4671C18C2E766006BCE7A /* SMPostActivityItemProvider.m */,
+				C1F4671E18C2EDFA006BCE7A /* SMWeiXinSessionActivity.h */,
+				C1F4671F18C2EDFA006BCE7A /* SMWeiXinSessionActivity.m */,
+				C1F4672518C2F5ED006BCE7A /* SMWeiXinTimelineActivity.h */,
+				C1F4672618C2F5ED006BCE7A /* SMWeiXinTimelineActivity.m */,
+			);
+			path = activity;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1739,6 +1768,7 @@
 				C14B230117FB0E9500CF081A /* icon_menu@2x.png in Resources */,
 				C19FF0C31769CEC700EB6F7E /* SMBoardViewController.xib in Resources */,
 				C19FF0C81769D0E600EB6F7E /* SMBoardCell.xib in Resources */,
+				C1F4672318C2EFAB006BCE7A /* common_share_icon_weixin_friends@2x.png in Resources */,
 				C1300A5818795C61006ACA5C /* icon_bg@2x.png in Resources */,
 				C1300A6C187ACB9E006ACA5C /* icon_write@2x.png in Resources */,
 				C13D4124176DD5EC00BD03A4 /* placeholder@2x.jpg in Resources */,
@@ -1749,6 +1779,7 @@
 				C14B22F517FABDD100CF081A /* bg_navigationbar@2x.png in Resources */,
 				C1FD13B717814E06006A6061 /* bg_photo_border@2x.png in Resources */,
 				C1327EE11878549700B1862A /* SMDonateViewController.xib in Resources */,
+				C1F4672418C2EFAB006BCE7A /* common_share_icon_weixin@2x.png in Resources */,
 				C1FCFAC31860782600759793 /* icon_favor_off@2x.png in Resources */,
 				C1FD13BB17815BD1006A6061 /* SMViewControllerNeedLogin.xib in Resources */,
 				C147EC5217EB368C00530E86 /* unread@2x.png in Resources */,
@@ -1886,6 +1917,7 @@
 				C1671441176766FD00F56535 /* SMMainViewController.m in Sources */,
 				C11581631768285C008A421A /* SMLeftViewController.m in Sources */,
 				C1158168176851B6008A421A /* SMFavorListViewController.m in Sources */,
+				C1F4671D18C2E766006BCE7A /* SMPostActivityItemProvider.m in Sources */,
 				C115816D17685606008A421A /* SMLoginViewController.m in Sources */,
 				C14B230917FBB0E500CF081A /* SMSettingViewController.m in Sources */,
 				C19FF0BA1769CA1000EB6F7E /* SMBoard.m in Sources */,
@@ -1920,6 +1952,7 @@
 				C124CAEE185D8BC500B9CEA3 /* SMTheme.m in Sources */,
 				C1A182D5178ABB290080EEDB /* SMResult.m in Sources */,
 				C1FCFACC1860871500759793 /* SMBoardSearchViewController.m in Sources */,
+				C1F4672718C2F5ED006BCE7A /* SMWeiXinTimelineActivity.m in Sources */,
 				C17F4B83178C0A21002F4934 /* SMImageUploadListViewController.m in Sources */,
 				C17F4B89178C11CA002F4934 /* SMUpload.m in Sources */,
 				C17F4B8A178C11CA002F4934 /* SMUploadItem.m in Sources */,
@@ -1936,6 +1969,7 @@
 				C1F4C5AC1806D4BD00E8A52D /* SMConfig.m in Sources */,
 				C1C07A5E1796857900906ED7 /* OWFacebookActivity.m in Sources */,
 				C1C07A5F1796857900906ED7 /* OWMailActivity.m in Sources */,
+				C1F4672018C2EDFA006BCE7A /* SMWeiXinSessionActivity.m in Sources */,
 				C1CE10BC1812293900B04E15 /* SMUpdater.m in Sources */,
 				C1C07A601796857900906ED7 /* OWMapsActivity.m in Sources */,
 				C1C07A611796857900906ED7 /* OWMessageActivity.m in Sources */,

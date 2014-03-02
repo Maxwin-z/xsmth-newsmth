@@ -24,6 +24,9 @@
 #import "SMMailComposeViewController.h"
 #import "WXApi.h"
 #import <Social/Social.h>
+#import "SMPostActivityItemProvider.h"
+#import "SMWeiXinSessionActivity.h"
+#import "SMWeiXinTimelineActivity.h"
 
 #define STRING_EXPAND_HERE  @"从此处展开"
 #define STRING_EXPAND_ALL  @"同主题展开"
@@ -854,6 +857,25 @@
 
 - (void)postGroupContentCellOnMoreAction:(SMPostGroupContentCell *)cell
 {
+    if (NSClassFromString(@"UIActivityViewController") != nil) {
+        SMPost *post = cell.post;
+        post.board = self.board;
+        
+        SMPostActivityItemProvider *provider = [[SMPostActivityItemProvider alloc] initWithPlaceholderItem:post];
+        SMWeiXinSessionActivity *wxSessionActivity = [[SMWeiXinSessionActivity alloc] init];
+        SMWeiXinTimelineActivity *wxTimelineActivity = [[SMWeiXinTimelineActivity alloc] init];
+        
+        UIActivityViewController *avc = [[UIActivityViewController alloc] initWithActivityItems:@[provider] applicationActivities:@[wxSessionActivity, wxTimelineActivity]];
+        avc.excludedActivityTypes = @[UIActivityTypeAirDrop];
+        avc.completionHandler = ^(NSString *activityType, BOOL completed) {
+            if ([activityType isEqualToString:UIActivityTypeCopyToPasteboard]) {
+                [self toast:@"已Copy链接到剪切板"];
+            }
+        };
+        [self.navigationController presentModalViewController:avc animated:YES];
+        return;
+    }
+    
     NSString *titleForShare = @"分享";
     NSString *titleForMail = @"发信";
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:titleForShare, titleForMail, nil];
