@@ -2110,10 +2110,10 @@
 					"$(inherited)",
 					"$(SRCROOT)/newsmth/Frameworks/GoogleAnalytics",
 					"$(SDKROOT)/usr/lib/system",
-					/Users/Maxwin/workspace/iOS/newsmth/newsmth/Frameworks/GoogleAnalytics,
-					"/Users/Maxwin/workspace/iOS/newsmth/newsmth/Frameworks/GoogleAdMobAdsSdkiOS-6.8.0/Add-ons/GoogleAnalyticsServicesiOS_3.03",
-					"/Users/Maxwin/workspace/iOS/newsmth/newsmth/Frameworks/GoogleAdMobAdsSdkiOS-6.8.0",
-					/Users/Maxwin/workspace/iOS/newsmth/newsmth/Frameworks/WeChatSDK,
+					"$(SRCROOT)/newsmth/Frameworks/GoogleAnalytics",
+					"$(SRCROOT)/newsmth/Frameworks/GoogleAdMobAdsSdkiOS-6.8.0/Add-ons/GoogleAnalyticsServicesiOS_3.03",
+					"$(SRCROOT)/newsmth/Frameworks/GoogleAdMobAdsSdkiOS-6.8.0",
+					"$(SRCROOT)/newsmth/Frameworks/WeChatSDK",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2224,10 +2224,10 @@
 					"$(inherited)",
 					"$(SRCROOT)/newsmth/Frameworks/GoogleAnalytics",
 					"$(SDKROOT)/usr/lib/system",
-					/Users/Maxwin/workspace/iOS/newsmth/newsmth/Frameworks/GoogleAnalytics,
-					"/Users/Maxwin/workspace/iOS/newsmth/newsmth/Frameworks/GoogleAdMobAdsSdkiOS-6.8.0/Add-ons/GoogleAnalyticsServicesiOS_3.03",
-					"/Users/Maxwin/workspace/iOS/newsmth/newsmth/Frameworks/GoogleAdMobAdsSdkiOS-6.8.0",
-					/Users/Maxwin/workspace/iOS/newsmth/newsmth/Frameworks/WeChatSDK,
+					"$(SRCROOT)/newsmth/Frameworks/GoogleAnalytics",
+					"$(SRCROOT)/newsmth/Frameworks/GoogleAdMobAdsSdkiOS-6.8.0/Add-ons/GoogleAnalyticsServicesiOS_3.03",
+					"$(SRCROOT)/newsmth/Frameworks/GoogleAdMobAdsSdkiOS-6.8.0",
+					"$(SRCROOT)/newsmth/Frameworks/WeChatSDK",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2261,10 +2261,10 @@
 					"$(inherited)",
 					"$(SRCROOT)/newsmth/Frameworks/GoogleAnalytics",
 					"$(SDKROOT)/usr/lib/system",
-					/Users/Maxwin/workspace/iOS/newsmth/newsmth/Frameworks/GoogleAnalytics,
-					"/Users/Maxwin/workspace/iOS/newsmth/newsmth/Frameworks/GoogleAdMobAdsSdkiOS-6.8.0/Add-ons/GoogleAnalyticsServicesiOS_3.03",
-					"/Users/Maxwin/workspace/iOS/newsmth/newsmth/Frameworks/GoogleAdMobAdsSdkiOS-6.8.0",
-					/Users/Maxwin/workspace/iOS/newsmth/newsmth/Frameworks/WeChatSDK,
+					"$(SRCROOT)/newsmth/Frameworks/GoogleAnalytics",
+					"$(SRCROOT)/newsmth/Frameworks/GoogleAdMobAdsSdkiOS-6.8.0/Add-ons/GoogleAnalyticsServicesiOS_3.03",
+					"$(SRCROOT)/newsmth/Frameworks/GoogleAdMobAdsSdkiOS-6.8.0",
+					"$(SRCROOT)/newsmth/Frameworks/WeChatSDK",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
