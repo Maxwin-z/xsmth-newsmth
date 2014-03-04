@@ -133,7 +133,7 @@ typedef enum {
 
 - (NSString *)encodeGBKUrl:(NSString *)text
 {
-    text = [text stringByReplacingOccurrencesOfString:@" " withString:@""];
+    text = [text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding (kCFStringEncodingGB_18030_2000);
     NSString *res = [text stringByAddingPercentEscapesUsingEncoding:enc];
     return res == nil ? @"" : res;
