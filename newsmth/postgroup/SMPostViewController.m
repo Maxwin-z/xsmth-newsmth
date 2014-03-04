@@ -875,7 +875,9 @@
 
         UIActivityViewController *avc = [[UIActivityViewController alloc] initWithActivityItems:@[provider, [NSURL URLWithString:url]] applicationActivities:@[wxSessionActivity, wxTimelineActivity, mailtoActivity]];
         if (&UIActivityTypeAirDrop != NULL) {
-            avc.excludedActivityTypes = @[UIActivityTypeAirDrop];
+            avc.excludedActivityTypes = @[UIActivityTypeAirDrop, UIActivityTypeMessage];
+        } else {
+            avc.excludedActivityTypes = @[UIActivityTypeMessage];
         }
         @weakify(self);
         @weakify(avc);
