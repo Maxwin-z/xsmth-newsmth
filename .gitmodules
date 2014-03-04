@@ -17,3 +17,7 @@
 [submodule "newsmth/ThirdParty/SSZipArchive"]
 	path = newsmth/ThirdParty/SSZipArchive
 	url = git@github.com:Maxwin-z/ssziparchive.git
+[submodule "newsmth/ThirdParty/ReactiveCocoa"]
+	path = newsmth/ThirdParty/ReactiveCocoa
+	url = git@github.com:Maxwin-z/ReactiveCocoa.git
+
