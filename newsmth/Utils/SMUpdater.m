@@ -60,8 +60,8 @@
 
     [SMAdViewController downloadAd:newVersion.adid];
     [[NSUserDefaults standardUserDefaults] setObject:newVersion.adid forKey:USERDEFAULTS_UPDATE_ADID];
-    [[NSUserDefaults standardUserDefaults] setInteger:newVersion.gadradio forKey:USERDEFAULTS_UPDATE_GADRADIO];
-    [[NSUserDefaults standardUserDefaults] setInteger:newVersion.iadradio forKey:USERDEFAULTS_UPDATE_IADRADIO];
+    [[NSUserDefaults standardUserDefaults] setInteger:newVersion.gadratio forKey:USERDEFAULTS_UPDATE_GADRATIO];
+    [[NSUserDefaults standardUserDefaults] setInteger:newVersion.iadratio forKey:USERDEFAULTS_UPDATE_IADRATIO];
 }
 
 - (void)downloadParsers

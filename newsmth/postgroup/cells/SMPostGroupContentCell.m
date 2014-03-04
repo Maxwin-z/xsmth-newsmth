@@ -166,7 +166,7 @@ NSString *tpl =
     NSString *content = self.post.content;
     NSInteger maxLength = 1000;
     if (content.length > maxLength) {
-        NSString *radio = [NSString stringWithFormat:@"%d%%", (int)(maxLength * 100.0f / content.length)];
+        NSString *ratio = [NSString stringWithFormat:@"%d%%", (int)(maxLength * 100.0f / content.length)];
 
         NSString *head = [content substringToIndex:maxLength];
         NSString *tail = [content substringFromIndex:maxLength];
@@ -174,7 +174,7 @@ NSString *tpl =
         if (clip) {
             NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/single/%d/0",
                              self.post.board.name, self.post.pid];
-            content = [NSString stringWithFormat:@"%@ <a class=\"origin_link\" href=\"xsmth://fullpost?url=%@\">原文过长，已加载%@<br />点击查看全部</a>", head, url, radio];
+            content = [NSString stringWithFormat:@"%@ <a class=\"origin_link\" href=\"xsmth://fullpost?url=%@\">原文过长，已加载%@<br />点击查看全部</a>", head, url, ratio];
         } else {
             content = [NSString stringWithFormat:@"%@<a name=\"tail\"></a>%@", head, tail];
         }

@@ -124,8 +124,8 @@ SMVersion {
     int version
     int parser
     string adid
-    int gadradio
-    int iadradio
+    int gadratio
+    int iadratio
 }
 
 SMParserItem {

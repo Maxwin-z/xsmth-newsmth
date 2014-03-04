@@ -13,9 +13,9 @@
 		_adid = adid;
 	}
 
-	_gadradio = [[dict objectForKey:@"gadradio"] intValue];
+	_gadratio = [[dict objectForKey:@"gadratio"] intValue];
 
-	_iadradio = [[dict objectForKey:@"iadradio"] intValue];
+	_iadratio = [[dict objectForKey:@"iadratio"] intValue];
 }
 
 - (id)encode
@@ -29,9 +29,9 @@
 		[dict setObject:_adid forKey:@"adid"];
 	}
 
-	[dict setObject:@(_gadradio) forKey:@"gadradio"];
+	[dict setObject:@(_gadratio) forKey:@"gadratio"];
 
-	[dict setObject:@(_iadradio) forKey:@"iadradio"];
+	[dict setObject:@(_iadratio) forKey:@"iadratio"];
 	return dict;
 }
 @end

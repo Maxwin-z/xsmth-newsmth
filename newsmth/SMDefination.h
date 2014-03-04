@@ -65,7 +65,7 @@ typedef enum {
 #define USERDEFAULTS_CONFIG_ENABLE_DAY_MODE @"cfg_enabledaymode"
 
 #define USERDEFAULTS_UPDATE_ADID    @"updater_adid"
-#define USERDEFAULTS_UPDATE_GADRADIO @"updater_gadradio"
-#define USERDEFAULTS_UPDATE_IADRADIO @"updater_iadradio"
+#define USERDEFAULTS_UPDATE_GADRATIO @"updater_gadratio"
+#define USERDEFAULTS_UPDATE_IADRATIO @"updater_iadratio"
 
 #endif
