@@ -2094,7 +2094,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/newsmth/Frameworks\"",
+					"\"$(SRCROOT)/newsmth/Frameworks\"/**",
 					"\"$(SRCROOT)/newsmth/ThirdParty\"/**",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2108,12 +2108,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/newsmth/Frameworks/GoogleAnalytics",
+					"$(SRCROOT)/newsmth/Frameworks/**",
 					"$(SDKROOT)/usr/lib/system",
-					"$(SRCROOT)/newsmth/Frameworks/GoogleAnalytics",
-					"$(SRCROOT)/newsmth/Frameworks/GoogleAdMobAdsSdkiOS-6.8.0/Add-ons/GoogleAnalyticsServicesiOS_3.03",
-					"$(SRCROOT)/newsmth/Frameworks/GoogleAdMobAdsSdkiOS-6.8.0",
-					"$(SRCROOT)/newsmth/Frameworks/WeChatSDK",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2208,7 +2204,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/newsmth/Frameworks\"",
+					"\"$(SRCROOT)/newsmth/Frameworks\"/**",
 					"\"$(SRCROOT)/newsmth/ThirdParty\"/**",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2222,12 +2218,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/newsmth/Frameworks/GoogleAnalytics",
+					"$(SRCROOT)/newsmth/Frameworks/**",
 					"$(SDKROOT)/usr/lib/system",
-					"$(SRCROOT)/newsmth/Frameworks/GoogleAnalytics",
-					"$(SRCROOT)/newsmth/Frameworks/GoogleAdMobAdsSdkiOS-6.8.0/Add-ons/GoogleAnalyticsServicesiOS_3.03",
-					"$(SRCROOT)/newsmth/Frameworks/GoogleAdMobAdsSdkiOS-6.8.0",
-					"$(SRCROOT)/newsmth/Frameworks/WeChatSDK",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2245,7 +2237,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/newsmth/Frameworks\"",
+					"\"$(SRCROOT)/newsmth/Frameworks\"/**",
 					"\"$(SRCROOT)/newsmth/ThirdParty\"/**",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2259,12 +2251,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/newsmth/Frameworks/GoogleAnalytics",
+					"$(SRCROOT)/newsmth/Frameworks/**",
 					"$(SDKROOT)/usr/lib/system",
-					"$(SRCROOT)/newsmth/Frameworks/GoogleAnalytics",
-					"$(SRCROOT)/newsmth/Frameworks/GoogleAdMobAdsSdkiOS-6.8.0/Add-ons/GoogleAnalyticsServicesiOS_3.03",
-					"$(SRCROOT)/newsmth/Frameworks/GoogleAdMobAdsSdkiOS-6.8.0",
-					"$(SRCROOT)/newsmth/Frameworks/WeChatSDK",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
