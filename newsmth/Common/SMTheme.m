@@ -15,7 +15,7 @@
 // color
 + (UIColor *)colorForPrimary
 {
-    return [SMConfig enableDayMode] ? SMRGB(0x32, 0x32, 0x32) : SMRGB(0xcd, 0xcd, 0xcd);
+    return [SMConfig enableDayMode] ? SMRGB(0x32, 0x32, 0x32) : SMRGB(0xad, 0xad, 0xae);
 }
 + (UIColor *)colorForSecondary
 {
@@ -24,12 +24,12 @@
 
 + (UIColor *)colorForQuote
 {
-    return [SMConfig enableDayMode] ? SMRGB(0x87, 0x87, 0x87) : SMRGB(0x78, 0x78, 0x78);
+    return [SMConfig enableDayMode] ? SMRGB(0x87, 0x87, 0x87) : SMRGB(0x58, 0x58, 0x59);
 }
 
 + (UIColor *)colorForBarTintColor
 {
-    return [SMConfig enableDayMode] ? SMRGB(0xff, 0xff, 0xff) : SMRGB(0, 0, 0);
+    return [SMConfig enableDayMode] ? SMRGB(0xff, 0xff, 0xff) : SMRGB(0x26, 0x26, 0x27);
 }
 
 + (UIColor *)colorForTintColor
@@ -40,7 +40,7 @@
 
 + (UIColor *)colorForBackground
 {
-    return [SMConfig enableDayMode] ? SMRGB(0xfc, 0xfc, 0xfc) : SMRGB(0xf, 0xf, 0xf);
+    return [SMConfig enableDayMode] ? SMRGB(0xfc, 0xfc, 0xfc) : SMRGB(0x28, 0x28, 0x29);
 }
 
 @end
