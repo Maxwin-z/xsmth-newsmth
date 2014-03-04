@@ -37,7 +37,7 @@
 - (void)setup
 {
     [super setDelegate:self];
-    [super setTimeOutSeconds:60.0];
+    [super setTimeOutSeconds:20.0];
 //    self.requestCookies = [[SMAccountManager instance].cookies mutableCopy];
 //    XLog_d(@"%@", self.requestCookies);
 }
