@@ -87,6 +87,7 @@ typedef enum {
     [_textFields enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         UITextField *textField = obj;
         [SMUtils setTextFieldStyle:textField];
+        textField.clearButtonMode = UITextFieldViewModeWhileEditing;
         textField.delegate = self;
     }];
     
