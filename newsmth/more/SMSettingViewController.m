@@ -68,7 +68,7 @@ typedef struct {
 static SectionData sections[] = {
     {
         SectionTypeIAP,
-        NULL,
+        "支持开发者",
         NULL,
         3,
         {CellTypeDonate, CellTypeDisableTail, CellTypeDisableAd}
@@ -205,6 +205,8 @@ static SectionData sections[] = {
     
     if (![SMConfig isPro]) {
         _switchForDisableTail.enabled = _switchForDisableAd.enabled = NO;
+    } else {
+        _cellForDonate.textLabel.text = @"已升级为Pro版";
     }
     
     __block unsigned long long cacheSize = 0;

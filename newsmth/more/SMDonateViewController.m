@@ -32,7 +32,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"捐助";
+    self.title = @"支持";
     
     self.tableView.tableHeaderView = self.viewForTableViewHeader;
     
