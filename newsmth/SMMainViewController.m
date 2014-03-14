@@ -128,7 +128,7 @@ static SMMainViewController *_instance;
 {
     [self setLeftVisiable:YES];
     // debug
-    [self test];
+//    [self test];
 }
 
 - (void)test
