@@ -207,7 +207,8 @@ static SMMainpageViewController *_instance;
 {
     [_tableView endRefreshing:NO];
     [self toast:error.message];
-    if (++self.failTimes == 2) {
+    if (++self.failTimes > 1) {
+        self.failTimes = 0;
         [SMDiagnoseViewController diagnose:[self dataUrl] rootViewController:self];
     }
 }

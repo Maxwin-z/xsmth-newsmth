@@ -9,11 +9,14 @@
 #import "SMBaseBorardListViewController.h"
 #import "XPullRefreshTableView.h"
 #import "SMBoardViewController.h"
+#import "SMDiagnoseViewController.h"
 
 @interface SMBaseBorardListViewController ()<SMWebLoaderOperationDelegate, UITableViewDataSource, UITableViewDelegate, XPullRefreshTableViewDelegate>
 @property (strong, nonatomic) SMWebLoaderOperation *listOp;
 
 @property (strong, nonatomic) NSArray *items;
+
+@property (assign, nonatomic) NSInteger failTimes;
 @end
 
 @implementation SMBaseBorardListViewController
@@ -138,12 +141,17 @@
 //        XLog_d(@"%@", boardList.notice);
         [SMAccountManager instance].notice = boardList.notice;
     }
+    self.failTimes = 0;
 }
 
 - (void)webLoaderOperationFail:(SMWebLoaderOperation *)opt error:(SMMessage *)error
 {
     [self.tableView endRefreshing:NO];
     [self toast:error.message];
+    if (++self.failTimes > 1) {
+        self.failTimes = 0;
+        [SMDiagnoseViewController diagnose:self.url rootViewController:self];
+    }
 }
 
 @end
