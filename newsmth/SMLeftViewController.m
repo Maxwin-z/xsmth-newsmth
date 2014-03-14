@@ -22,7 +22,8 @@ typedef NS_ENUM(NSInteger, CellType) {
     CellTypeUser,
     CellTypeFavor,
     CellTypeSections,
-    CellTypeNotice
+    CellTypeNotice,
+    CellTypeSetting
 };
 
 @interface SMLeftViewController ()<UITableViewDataSource, UITableViewDelegate, SMWebLoaderOperationDelegate>
@@ -118,10 +119,9 @@ typedef NS_ENUM(NSInteger, CellType) {
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     NSMutableArray *cellTypes = [[NSMutableArray alloc] init];
-    if ([SMAccountManager instance].isLogin) {
-        [cellTypes addObject:@(CellTypeNotice)];
-    }
-    [cellTypes addObject:@(CellTypeUser)];
+    [cellTypes addObject:@(CellTypeSetting)];
+    [cellTypes addObject:@(CellTypeNotice)];
+//    [cellTypes addObject:@(CellTypeUser)];
     [cellTypes addObject:@(CellTypeSections)];
     [cellTypes addObject:@(CellTypeFavor)];
     [cellTypes addObject:@(CellTypeTop)];
@@ -132,7 +132,7 @@ typedef NS_ENUM(NSInteger, CellType) {
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell_id"];
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
     cell.backgroundColor = [SMTheme colorForBackground];
     cell.textLabel.textColor = [SMTheme colorForPrimary];
     
@@ -170,6 +170,8 @@ typedef NS_ENUM(NSInteger, CellType) {
         text = user == nil ? @"guest" : user;
     } else if (cellType == CellTypeSections) {
         text = @"分区";
+    } else if (cellType == CellTypeSetting) {
+        text = @"设置";
     }
     
     cell.textLabel.text = text;
@@ -202,6 +204,9 @@ typedef NS_ENUM(NSInteger, CellType) {
         tvc.url = @"http://m.newsmth.net/section";
         vc = tvc;
         evt = @"section";
+    } else if (cellType == CellTypeSetting) {
+        vc = [[SMSettingViewController alloc] init];
+        evt = @"setting";
     }
     
     [[SMMainViewController instance] setRootViewController:vc];
