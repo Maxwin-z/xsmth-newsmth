@@ -17,10 +17,18 @@
 
 + (void)diagnose:(NSString *)url rootViewController:(UIViewController *)vc
 {
-    SMDiagnoseViewController *dvc = [[SMDiagnoseViewController alloc] initWithNibName:@"SMDiagnoseViewController" bundle:nil];
-    dvc.url = url;
-    P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:dvc];
-    [vc presentModalViewController:nvc animated:YES];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"似乎有些问题" message:@"xsmth以抓取水木网页的方式工作，当前页面似乎不太正常，是否打开诊断页面确认下？" delegate:self cancelButtonTitle:@"不用了" otherButtonTitles:@"确认下", nil];
+    @weakify(alertView);
+    [alertView.rac_buttonClickedSignal subscribeNext:^(NSNumber *buttonIndex) {
+        @strongify(alertView);
+        if (buttonIndex.integerValue != alertView.cancelButtonIndex) {
+            SMDiagnoseViewController *dvc = [[SMDiagnoseViewController alloc] initWithNibName:@"SMDiagnoseViewController" bundle:nil];
+            dvc.url = url;
+            P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:dvc];
+            [vc presentModalViewController:nvc animated:YES];
+        }
+    }];
+    [alertView show];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
