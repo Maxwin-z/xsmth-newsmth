@@ -35,7 +35,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.webView.scrollView.contentInset = self.webView.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(70, 0, 44, 0);
+    self.title = @"功能诊断";
+    self.webView.scrollView.contentInset = self.webView.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(100, 0, 44, 0);
     
     [self loadUrl];
 }
@@ -49,6 +50,7 @@
 - (void)loadUrl
 {
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.url]]];
+    self.textField.text = self.url;
 }
 
 - (IBAction)onLeftBarButtonClick:(id)sender

@@ -15,6 +15,7 @@
 #import "SMPost.h"
 #import "SMBoardSearchDelegateImpl.h"
 #import "SMIPadSplitViewController.h"
+#import "SMDiagnoseViewController.h"
 
 static SMMainpageViewController *_instance;
 
@@ -107,6 +108,8 @@ static SMMainpageViewController *_instance;
     _op = [[SMWebLoaderOperation alloc] init];
     _op.delegate = self;
     [_op loadUrl:@"http://www.newsmth.net/mainpage.html" withParser:@"mainpage"];
+    
+    [SMDiagnoseViewController diagnose:@"http://www.newsmth.net/mainpage.html" rootViewController:self];
 }
 
 - (void)onDeviceRotate
