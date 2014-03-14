@@ -256,6 +256,8 @@
 		C1F4672718C2F5ED006BCE7A /* SMWeiXinTimelineActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F4672618C2F5ED006BCE7A /* SMWeiXinTimelineActivity.m */; };
 		C1F4C5AC1806D4BD00E8A52D /* SMConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F4C5AB1806D4BD00E8A52D /* SMConfig.m */; };
 		C1F8D80D18D308360076A790 /* icon_user@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1F8D80C18D308360076A790 /* icon_user@2x.png */; };
+		C1F8D81118D3313D0076A790 /* SMDiagnoseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F8D80F18D3313D0076A790 /* SMDiagnoseViewController.m */; };
+		C1F8D81218D3313D0076A790 /* SMDiagnoseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1F8D81018D3313D0076A790 /* SMDiagnoseViewController.xib */; };
 		C1FCFAC11860782600759793 /* icon_search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1FCFABE1860782600759793 /* icon_search@2x.png */; };
 		C1FCFAC21860782600759793 /* icon_favor_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1FCFABF1860782600759793 /* icon_favor_on@2x.png */; };
 		C1FCFAC31860782600759793 /* icon_favor_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1FCFAC01860782600759793 /* icon_favor_off@2x.png */; };
@@ -747,6 +749,9 @@
 		C1F4C5AA1806D4BD00E8A52D /* SMConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMConfig.h; sourceTree = "<group>"; };
 		C1F4C5AB1806D4BD00E8A52D /* SMConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMConfig.m; sourceTree = "<group>"; };
 		C1F8D80C18D308360076A790 /* icon_user@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_user@2x.png"; sourceTree = "<group>"; };
+		C1F8D80E18D3313D0076A790 /* SMDiagnoseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMDiagnoseViewController.h; sourceTree = "<group>"; };
+		C1F8D80F18D3313D0076A790 /* SMDiagnoseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMDiagnoseViewController.m; sourceTree = "<group>"; };
+		C1F8D81018D3313D0076A790 /* SMDiagnoseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMDiagnoseViewController.xib; sourceTree = "<group>"; };
 		C1FCFABE1860782600759793 /* icon_search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_search@2x.png"; sourceTree = "<group>"; };
 		C1FCFABF1860782600759793 /* icon_favor_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_favor_on@2x.png"; sourceTree = "<group>"; };
 		C1FCFAC01860782600759793 /* icon_favor_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_favor_off@2x.png"; sourceTree = "<group>"; };
@@ -1021,6 +1026,9 @@
 				C1249B1818A7A776005B6F69 /* SMAdViewController.h */,
 				C1249B1918A7A776005B6F69 /* SMAdViewController.m */,
 				C1249B1A18A7A776005B6F69 /* SMAdViewController.xib */,
+				C1F8D80E18D3313D0076A790 /* SMDiagnoseViewController.h */,
+				C1F8D80F18D3313D0076A790 /* SMDiagnoseViewController.m */,
+				C1F8D81018D3313D0076A790 /* SMDiagnoseViewController.xib */,
 			);
 			path = more;
 			sourceTree = "<group>";
@@ -1841,6 +1849,7 @@
 				C1C18DA217A53448008C598C /* tabbar_mail@2x.png in Resources */,
 				C1C18DA717A534D1008C598C /* SMAtMeViewController.xib in Resources */,
 				C1C18DAC17A534FE008C598C /* SMReplyMeViewController.xib in Resources */,
+				C1F8D81218D3313D0076A790 /* SMDiagnoseViewController.xib in Resources */,
 				C15188D017A7B2A900E8344D /* SMNoticeViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1968,6 +1977,7 @@
 				C10F2F7817E5621800F83206 /* SMMailList.m in Sources */,
 				C1BA92C917954EC300F76ACF /* PBWebViewController.m in Sources */,
 				C1C07A581796857900906ED7 /* OWActivity.m in Sources */,
+				C1F8D81118D3313D0076A790 /* SMDiagnoseViewController.m in Sources */,
 				C14B230417FB189B00CF081A /* SMPageCell.m in Sources */,
 				C1C07A591796857900906ED7 /* OWActivityDelegateObject.m in Sources */,
 				C13CB57F18AF62B4003F7407 /* SSZipArchive.m in Sources */,
