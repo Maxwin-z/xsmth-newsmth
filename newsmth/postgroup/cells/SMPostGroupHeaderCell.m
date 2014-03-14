@@ -44,6 +44,10 @@ const CGFloat ADVIEW_HEIGHT = 50.0f;
 //        XLog_d(@"%@, %@, %@",@(rand), @(item.showGAd), @(item.showIAd));
     }
     
+    if ([SMConfig disableAd]) {
+        item.showIAd = item.showGAd = NO;
+    }
+    
     return [self heightForTitle] + (item.showIAd || item.showGAd ? ADVIEW_HEIGHT : 0);
 }
 
