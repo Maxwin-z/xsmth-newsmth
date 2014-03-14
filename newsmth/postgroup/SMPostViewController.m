@@ -28,6 +28,7 @@
 #import "SMWeiXinSessionActivity.h"
 #import "SMWeiXinTimelineActivity.h"
 #import "SMMailToActivity.h"
+#import "SMDiagnoseViewController.h"
 
 #define STRING_EXPAND_HERE  @"从此处展开"
 #define STRING_EXPAND_ALL  @"同主题展开"
@@ -77,6 +78,8 @@
 // v2.1 full post viewer
 @property (strong, nonatomic) IBOutlet UIView *viewForFullPostContainer;
 @property (weak, nonatomic) IBOutlet UIWebView *webViewForFullPost;
+
+@property (assign, nonatomic) NSInteger failTimes;
 @end
 
 @implementation SMPostViewController
@@ -671,6 +674,7 @@
         }
     }
 
+    self.failTimes = 0;
 }
 
 - (void)webLoaderOperationFail:(SMWebLoaderOperation *)opt error:(SMMessage *)error
@@ -694,6 +698,10 @@
         [_tableView reloadData];
     }
     
+    if (++self.failTimes > 1 && (opt == _pageOp || opt == _singlePostOp)) {
+        self.failTimes = 0;
+        [SMDiagnoseViewController diagnose:opt.url rootViewController:self];
+    }
 }
 
 #pragma mark - XPullRefreshTableViewDelegate
