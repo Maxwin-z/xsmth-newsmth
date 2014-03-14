@@ -71,6 +71,7 @@ typedef NS_ENUM(NSInteger, CellType) {
         image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     }
     [_buttonForSetting setImage:image forState:UIControlStateNormal];
+    
 }
 
 - (void)setupTheme
@@ -83,6 +84,12 @@ typedef NS_ENUM(NSInteger, CellType) {
 
 - (void)onAccountNotification
 {
+    if ([SMAccountManager instance].isLogin) {
+        XLog_d(@"%@", [SMAccountManager instance].name);
+        [self.buttonForSetting setTitle:[SMAccountManager instance].name forState:UIControlStateNormal];
+    } else {
+        [self.buttonForSetting setTitle:@"登录" forState:UIControlStateNormal];
+    }
     [self.tableView reloadData];
 }
 
@@ -98,10 +105,10 @@ typedef NS_ENUM(NSInteger, CellType) {
 
 - (IBAction)onMoreButtonClick:(id)sender
 {
-    SMSettingViewController *vc = [[SMSettingViewController alloc] init];
+    SMUserViewController *vc = [[SMUserViewController alloc] init];
     [[SMMainViewController instance] setRootViewController:vc];
     [[SMMainViewController instance] setLeftVisiable:NO];
-    [SMUtils trackEventWithCategory:@"left" action:@"setting" label:nil];
+    [SMUtils trackEventWithCategory:@"left" action:@"user" label:nil];
 }
 
 - (void)loadNotice

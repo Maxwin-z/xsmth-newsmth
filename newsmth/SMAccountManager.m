@@ -41,7 +41,9 @@ static SMAccountManager *_instance;
         [[NSUserDefaults standardUserDefaults] setObject:[_notice encode] forKey:USERDEFAULTS_NOTICE];
         [[NSUserDefaults standardUserDefaults] setObject:[_notice encode] forKey:USERDEFAULTS_NOTICE_FETCH];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_NOTICE object:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_NOTICE object:nil];
+    });
 }
 
 - (void)loadCookie
@@ -78,8 +80,9 @@ static SMAccountManager *_instance;
                     [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
                     XLog_v(@"enable bg fetch");
                 }
-                
-                [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ACCOUT object:nil];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ACCOUT object:nil];
+                });
             }
         }
     }
