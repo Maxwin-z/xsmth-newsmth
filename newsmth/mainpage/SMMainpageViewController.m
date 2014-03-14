@@ -26,7 +26,10 @@ static SMMainpageViewController *_instance;
 
 @property (strong, nonatomic) NSArray *sections;
 
-@property SMBoardSearchDelegateImpl *boardSearchDelegateImpl;
+@property (strong, nonatomic) SMBoardSearchDelegateImpl *boardSearchDelegateImpl;
+
+@property (assign, nonatomic) NSInteger failTimes;
+
 @end
 
 @implementation SMMainpageViewController
@@ -103,13 +106,16 @@ static SMMainpageViewController *_instance;
     [_op cancel];
 }
 
+- (NSString *)dataUrl
+{
+    return @"http://www.newsmth.net/mainpage.html";
+}
+
 - (void)loadData:(BOOL)more
 {
     _op = [[SMWebLoaderOperation alloc] init];
     _op.delegate = self;
-    [_op loadUrl:@"http://www.newsmth.net/mainpage.html" withParser:@"mainpage"];
-    
-    [SMDiagnoseViewController diagnose:@"http://www.newsmth.net/mainpage.html" rootViewController:self];
+    [_op loadUrl:[self dataUrl] withParser:@"mainpage"];
 }
 
 - (void)onDeviceRotate
@@ -194,12 +200,16 @@ static SMMainpageViewController *_instance;
     [_tableView endRefreshing:YES];
     SMMainPage *data = opt.data;
     self.sections = data.sections;
+    self.failTimes = 0;
 }
 
 - (void)webLoaderOperationFail:(SMWebLoaderOperation *)opt error:(SMMessage *)error
 {
     [_tableView endRefreshing:NO];
     [self toast:error.message];
+    if (++self.failTimes == 2) {
+        [SMDiagnoseViewController diagnose:[self dataUrl] rootViewController:self];
+    }
 }
 
 @end
