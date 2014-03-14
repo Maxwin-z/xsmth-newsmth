@@ -107,10 +107,7 @@
 - (void)loadDefaultProducts
 {
     self.productIDs = @[
-                        @"me.maxwin.xsmth.donate1",
-                        @"me.maxwin.xsmth.donate2",
-                        @"me.maxwin.xsmth.donate4",
-                        @"me.maxwin.xsmth.donate8"
+                        @"me.maxwin.xsmth.pro",
                         ];
 }
 
