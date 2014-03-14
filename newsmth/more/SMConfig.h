@@ -18,6 +18,9 @@
 + (BOOL)enableIOS7SwipeBack;
 + (BOOL)enableShowQMD;
 + (BOOL)enableDayMode;
++ (BOOL)disableTail;
++ (BOOL)disableAd;
++ (BOOL)isPro;
 
 + (void)addBoardToHistory:(SMBoard *)board;
 + (NSArray *)historyBoards;

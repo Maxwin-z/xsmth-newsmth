@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1296" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SMSettingViewController">
@@ -13,6 +13,8 @@
                 <outlet property="cellForBackgroundFetchHelp" destination="OQB-wt-k5t" id="GUe-Ti-AOD"/>
                 <outlet property="cellForBackgroundFetchSmartMode" destination="rti-ur-mwa" id="DQ6-fY-s2a"/>
                 <outlet property="cellForClearCache" destination="7vN-lA-cao" id="1h7-47-rO7"/>
+                <outlet property="cellForDisableAd" destination="rcA-G1-r9n" id="oan-40-41A"/>
+                <outlet property="cellForDisableTail" destination="aEV-LE-Va4" id="gSh-ti-1qH"/>
                 <outlet property="cellForDonate" destination="TQy-bd-Bhf" id="ReX-wG-0V9"/>
                 <outlet property="cellForEULA" destination="fZC-E2-g3R" id="5LG-Z1-90N"/>
                 <outlet property="cellForEnableDayMode" destination="jkD-ZZ-Qdy" id="YTo-2J-lKk"/>
@@ -33,6 +35,8 @@
                 <outlet property="sliderForPostFont" destination="vIx-9p-iMN" id="4Iw-X9-uPW"/>
                 <outlet property="switchForBackgroundFetch" destination="6w0-LD-wEj" id="nPt-XF-iId"/>
                 <outlet property="switchForBackgroundFetchSmartMode" destination="vFj-It-7xA" id="tl5-PK-FuI"/>
+                <outlet property="switchForDisableAd" destination="w5Q-N0-fjT" id="15o-uS-FQv"/>
+                <outlet property="switchForDisableTail" destination="WwA-Yq-aMh" id="SB9-Rs-RfJ"/>
                 <outlet property="switchForEnableDayMode" destination="tbk-9K-fZg" id="GfV-9v-Lyt"/>
                 <outlet property="switchForHideTop" destination="UlZ-KK-UsR" id="jrw-iE-qde"/>
                 <outlet property="switchForShowQMD" destination="otX-D1-B7P" id="Npl-o9-crf"/>
@@ -466,13 +470,61 @@
                 <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="捐助" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Qs7-eJ-OR2">
+                    <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="升级为Pro版" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Qs7-eJ-OR2">
                         <rect key="frame" x="15" y="0.0" width="270" height="43"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                </subviews>
+            </tableViewCellContentView>
+        </tableViewCell>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" textLabel="RKG-Re-KF4" style="IBUITableViewCellStyleDefault" id="aEV-LE-Va4" userLabel="显示发文尾巴">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aEV-LE-Va4" id="1nM-rG-nhe">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="取消发文尾巴(发自 xsmth)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RKG-Re-KF4">
+                        <rect key="frame" x="15" y="0.0" width="290" height="43"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="WwA-Yq-aMh">
+                        <rect key="frame" x="259" y="6" width="51" height="31"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                        <connections>
+                            <action selector="onSwitchValueChanged:" destination="-1" eventType="valueChanged" id="P1t-xb-Bnr"/>
+                        </connections>
+                    </switch>
+                </subviews>
+            </tableViewCellContentView>
+        </tableViewCell>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" textLabel="4aT-mQ-ntS" style="IBUITableViewCellStyleDefault" id="rcA-G1-r9n" userLabel="移除广告">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rcA-G1-r9n" id="ENv-re-L7m">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="移除广告" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4aT-mQ-ntS">
+                        <rect key="frame" x="15" y="0.0" width="290" height="43"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="w5Q-N0-fjT">
+                        <rect key="frame" x="259" y="6" width="51" height="31"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                        <connections>
+                            <action selector="onSwitchValueChanged:" destination="-1" eventType="valueChanged" id="BeU-ZA-erR"/>
+                        </connections>
+                    </switch>
                 </subviews>
             </tableViewCellContentView>
         </tableViewCell>

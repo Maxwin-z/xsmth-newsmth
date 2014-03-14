@@ -248,6 +248,8 @@
     
     self.lastDonateProductID = transaction.payment.productIdentifier;
     
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:USERDEFAULTS_PRO];
+    
     [[[UIAlertView alloc] initWithTitle:nil message:@"感谢你的支持，发个邮件告诉Maxwin吧。" delegate:self cancelButtonTitle:@"深藏功与名" otherButtonTitles:@"发邮件", nil] show];
     
     [SMUtils trackEventWithCategory:@"donate" action:[NSString stringWithFormat:@"success %@", transaction.payment.productIdentifier] label:[SMAccountManager instance].name];

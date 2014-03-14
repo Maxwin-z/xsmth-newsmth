@@ -19,6 +19,9 @@
 #define MAX_CELL_COUNT  5
 
 typedef enum {
+    CellTypeDisableTail,
+    CellTypeDisableAd,
+    
     CellTypeHideTop,
     CellTypeUserClickable,
     CellTypeShowReplyAuthor,
@@ -45,6 +48,7 @@ typedef enum {
 }CellType;
 
 typedef enum {
+    SectionTypeIAP,
     SectionTypeBoard,
     SectionTypeBackgroundFetch,
     SectionTypeInteract,
@@ -62,6 +66,13 @@ typedef struct {
 }SectionData;
 
 static SectionData sections[] = {
+    {
+        SectionTypeIAP,
+        NULL,
+        NULL,
+        3,
+        {CellTypeDonate, CellTypeDisableTail, CellTypeDisableAd}
+    },
     {
         SectionTypeBackgroundFetch,
         "后台获取最新邮件、回复、AT",
@@ -129,6 +140,8 @@ static SectionData sections[] = {
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForAbout;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForDonate;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForEULA;
+@property (strong, nonatomic) IBOutlet UITableViewCell *cellForDisableTail;
+@property (strong, nonatomic) IBOutlet UITableViewCell *cellForDisableAd;
 
 @property (weak, nonatomic) IBOutlet UILabel *labelForAppVersion;
 @property (weak, nonatomic) IBOutlet UISwitch *switchForHideTop;
@@ -139,6 +152,8 @@ static SectionData sections[] = {
 @property (weak, nonatomic) IBOutlet UISwitch *switchForBackgroundFetchSmartMode;
 @property (weak, nonatomic) IBOutlet UISwitch *switchForSwipeBack;
 @property (weak, nonatomic) IBOutlet UISwitch *switchForEnableDayMode;
+@property (weak, nonatomic) IBOutlet UISwitch *switchForDisableTail;
+@property (weak, nonatomic) IBOutlet UISwitch *switchForDisableAd;
 
 @property (weak, nonatomic) IBOutlet UILabel *labelForPostFont;
 @property (weak, nonatomic) IBOutlet UISlider *sliderForPostFont;
@@ -177,6 +192,8 @@ static SectionData sections[] = {
     _switchForBackgroundFetchSmartMode.on = [SMConfig enableBackgroundFetchSmartMode];
     _switchForShowQMD.on = [SMConfig enableShowQMD];
     _switchForEnableDayMode.on = [SMConfig enableDayMode];
+    _switchForDisableTail.on = [SMConfig disableTail];
+    _switchForDisableAd.on = [SMConfig disableAd];
     
     _sliderForListFont.value = [SMConfig listFont].pointSize;
     _sliderForPostFont.value = [SMConfig postFont].pointSize;
@@ -184,6 +201,10 @@ static SectionData sections[] = {
     if ([SMUtils systemVersion] < 7) {
         _switchForBackgroundFetch.on = _switchForSwipeBack.on = _switchForBackgroundFetchSmartMode.on = NO;
         _switchForBackgroundFetch.enabled = _switchForSwipeBack.enabled = _switchForBackgroundFetchSmartMode.enabled = NO;
+    }
+    
+    if (![SMConfig isPro]) {
+        _switchForDisableTail.enabled = _switchForDisableAd.enabled = NO;
     }
     
     __block unsigned long long cacheSize = 0;
@@ -257,6 +278,16 @@ static SectionData sections[] = {
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFYCATION_THEME_CHANGED object:nil];
     }
     
+    if (sender == _switchForDisableTail) {
+        [def setBool:sender.on forKey:USERDEFAULTS_CONFIG_ENABLE_DISABLE_TAIL];
+        action = @"proDisableTail";
+    }
+    
+    if (sender == _switchForDisableAd) {
+        [def setBool:sender.on forKey:USERDEFAULTS_CONFIG_ENABLE_DISABLE_AD];
+        action = @"proDisableAd";
+    }
+
     [SMUtils trackEventWithCategory:@"setting" action:action label:sender.on ? @"on" : @"off"];
 }
 
@@ -281,6 +312,11 @@ static SectionData sections[] = {
 - (UITableViewCell *)cellForType:(CellType)type;
 {
     switch (type) {
+        case CellTypeDisableTail:
+            return _cellForDisableTail;
+        case CellTypeDisableAd:
+            return _cellForDisableAd;
+            
         case CellTypeHideTop:
             return _cellForHideTop;
             

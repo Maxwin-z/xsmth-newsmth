@@ -56,6 +56,21 @@
     return [SMConfig configForKey:USERDEFAULTS_CONFIG_ENABLE_DAY_MODE defaults:YES];
 }
 
++ (BOOL)disableTail
+{
+    return [SMConfig isPro] && [SMConfig configForKey:USERDEFAULTS_CONFIG_ENABLE_DISABLE_TAIL defaults:NO];
+}
+
++ (BOOL)disableAd
+{
+    return [SMConfig isPro] && [SMConfig configForKey:USERDEFAULTS_CONFIG_ENABLE_DISABLE_AD defaults:NO];
+}
+
++ (BOOL)isPro
+{
+    return [SMConfig configForKey:USERDEFAULTS_PRO defaults:NO];
+}
+
 + (NSArray *)historyBoards
 {
     return [[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_BOARD_HISTORY];
