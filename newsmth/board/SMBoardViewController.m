@@ -15,6 +15,7 @@
 #import "SMBoardViewTypeSelectorView.h"
 #import "SMBoardSearchViewController.h"
 #import "SMIPadSplitViewController.h"
+#import "SMDiagnoseViewController.h"
 
 
 @interface SMBoardViewController ()<UITableViewDelegate, UITableViewDataSource, XPullRefreshTableViewDelegate, SMWebLoaderOperationDelegate, SMBoardCellDelegate, SMBoardViewTypeSelectorViewDelegate>
@@ -36,6 +37,8 @@
 
 // v2.1 修复翻页帖子重复的问题
 @property (strong, nonatomic) NSMutableDictionary *postsMap;
+
+@property (assign, nonatomic) NSInteger failTimes;
 @end
 
 @implementation SMBoardViewController
@@ -365,6 +368,7 @@
     _currentPage = board.currentPage;
     
     self.posts = tmp;
+    self.failTimes = 0;
 }
 
 - (void)webLoaderOperationFail:(SMWebLoaderOperation *)opt error:(SMMessage *)error
@@ -374,6 +378,11 @@
         [_tableView endRefreshing:NO];
     } else {
         [self.tableView setLoadMoreFail];
+    }
+    
+    if (++self.failTimes > 1) {
+        self.failTimes = 0;
+        [SMDiagnoseViewController diagnose:opt.url rootViewController:self];
     }
 }
 
