@@ -95,7 +95,7 @@
         [quoteString insertString:str atIndex:0];
     }
     
-    if ([quoteString rangeOfString:@"xsmth"].length == 0) {
+    if ([quoteString rangeOfString:@"xsmth"].length == 0 && ![SMConfig disableTail]) {
         [quoteString appendString:@"\n--\n发自xsmth (iOS版)"];
     }
     _textViewForText.text = quoteString;
