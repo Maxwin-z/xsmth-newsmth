@@ -139,7 +139,7 @@ typedef NS_ENUM(NSInteger, CellType) {
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
     cell.backgroundColor = [SMTheme colorForBackground];
     cell.textLabel.textColor = [SMTheme colorForPrimary];
     
@@ -149,7 +149,7 @@ typedef NS_ENUM(NSInteger, CellType) {
     seperator.image = [[UIImage imageNamed:@"common_divider"] stretchableImageWithLeftCapWidth:1 topCapHeight:1];
     seperator.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
     [cell.contentView addSubview:seperator];
-    
+    cell.detailTextLabel.text = @"";
     CellType cellType = [_cellTypes[indexPath.row] intValue];
     
     NSString *text;
@@ -179,6 +179,9 @@ typedef NS_ENUM(NSInteger, CellType) {
         text = @"分区";
     } else if (cellType == CellTypeSetting) {
         text = @"设置";
+        if (![[NSUserDefaults standardUserDefaults] boolForKey:USERDEFAULTS_PRO]) {
+            cell.detailTextLabel.text = @"升级到Pro版        :)";
+        }
     }
     
     cell.textLabel.text = text;
