@@ -13,6 +13,7 @@
 #import "SMNoticeViewController.h"
 #import "SMMailComposeViewController.h"
 #import "SMUserViewController.h"
+#import "SMDiagnoseViewController.h"
 
 @interface SMMailViewController ()<SMWebLoaderOperationDelegate, XPullRefreshTableViewDelegate, UITableViewDataSource, UITableViewDelegate, SMMailCellDelegate>
 @property (assign, nonatomic) NSInteger page;
@@ -23,6 +24,8 @@
 @property (strong, nonatomic) IBOutlet UIView *viewForTableHeader;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 @property (strong, nonatomic) NSArray *mails;
+
+@property (assign, nonatomic) NSInteger failTimes;
 @end
 
 @implementation SMMailViewController
@@ -182,6 +185,8 @@
 //        XLog_d(@"%@", mailList.notice);
         [SMAccountManager instance].notice = mailList.notice;
     }
+    
+    self.failTimes = 0;
 }
 
 - (void)webLoaderOperationFail:(SMWebLoaderOperation *)opt error:(SMMessage *)error
@@ -191,6 +196,11 @@
         [_tableView endRefreshing:NO];
     } else {
         [_tableView setLoadMoreFail];
+    }
+    
+    if (++self.failTimes > 1) {
+        self.failTimes = 0;
+        [SMDiagnoseViewController diagnose:opt.url rootViewController:[SMNoticeViewController instance]];
     }
 }
 

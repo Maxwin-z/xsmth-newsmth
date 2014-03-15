@@ -11,6 +11,7 @@
 #import "SMMainpageCell.h"
 #import "SMPostViewController.h"
 #import "SMNoticeViewController.h"
+#import "SMDiagnoseViewController.h"
 
 @interface SMReferMeCell : SMMainpageCell
 @end
@@ -31,6 +32,8 @@
 @property (strong, nonatomic) NSArray *posts;
 @property (strong, nonatomic) SMWebLoaderOperation *op;
 @property (weak, nonatomic) IBOutlet XPullRefreshTableView *tableView;
+
+@property (assign, nonatomic) NSInteger failTimes;
 @end
 
 @implementation SMReplyMeViewController
@@ -169,6 +172,7 @@
         [_tableView setLoadMoreHide];
     }
     
+    self.failTimes = 0;
 }
 
 - (void)webLoaderOperationFail:(SMWebLoaderOperation *)opt error:(SMMessage *)error
@@ -178,6 +182,11 @@
         [_tableView endRefreshing:NO];
     } else {
         [_tableView setLoadMoreFail];
+    }
+    
+    if (++self.failTimes > 1) {
+        self.failTimes = 0;
+        [SMDiagnoseViewController diagnose:opt.url rootViewController:[SMNoticeViewController instance]];
     }
 }
 
