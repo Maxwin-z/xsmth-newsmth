@@ -8,6 +8,7 @@
 
 #import "SMLoginViewController.h"
 #import "UIButton+Custom.h"
+#import "SMDiagnoseViewController.h"
 
 @interface SMLoginViewController ()<SMWebLoaderOperationDelegate>
 
@@ -24,6 +25,8 @@
 
 @property (strong, nonatomic) id afterLoginTarget;
 @property (assign, nonatomic) SEL afterLoginSelector;
+
+@property (assign, nonatomic) NSInteger failTimes;
 @end
 
 @implementation SMLoginViewController
@@ -129,12 +132,19 @@
         }];
         
     }
+    
+    self.failTimes = 0;
 }
 
 - (void)webLoaderOperationFail:(SMWebLoaderOperation *)opt error:(SMMessage *)error
 {
     [self hideLoading];
     [self toast:error.message];
+    
+    if (++self.failTimes > 1) {
+        self.failTimes = 0;
+        [SMDiagnoseViewController diagnose:@"http://m.newsmth.net" rootViewController:self];
+    }
 }
 
 #pragma mark - keyboard
