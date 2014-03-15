@@ -176,7 +176,7 @@ static SectionData sections[] = {
 {
     [super viewDidLoad];
     
-    self.title = @"更多";
+    self.title = @"设置";
     
     _tableView.backgroundColor = [UIColor clearColor];
     _tableView.backgroundView = nil;
