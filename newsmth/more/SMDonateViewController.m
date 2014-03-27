@@ -292,7 +292,8 @@ typedef enum {
     self.lastDonateProductID = transaction.payment.productIdentifier;
     
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:USERDEFAULTS_PRO];
-    
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFYCATION_IAP_PRO object:nil];
+
     [[[UIAlertView alloc] initWithTitle:nil message:@"感谢你的支持，发个邮件告诉Maxwin吧。" delegate:self cancelButtonTitle:@"深藏功与名" otherButtonTitles:@"发邮件", nil] show];
     
     [SMUtils trackEventWithCategory:@"donate" action:[NSString stringWithFormat:@"success %@", transaction.payment.productIdentifier] label:[SMAccountManager instance].name];
@@ -309,9 +310,13 @@ typedef enum {
 
 - (void)restoreTransaction:(SKPaymentTransaction *)transaction
 {
-    [self toast:@"先前已支付"];
-    XLog_d(@"%@", transaction);
-    XLog_d(@"先前已支付 %@", transaction.payment.productIdentifier);
+    [self toast:@"恢复成功"];
+    if ([transaction.payment.productIdentifier isEqualToString:@"me.maxwin.xsmth.pro"]) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:USERDEFAULTS_PRO];
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFYCATION_IAP_PRO object:nil];
+    }
+//    XLog_d(@"%@", transaction);
+//    XLog_d(@"先前已支付 %@", transaction.payment.productIdentifier);
 }
 
 #pragma mark - UIAlertViewDelegate

@@ -44,6 +44,8 @@ typedef NS_ENUM(NSInteger, CellType) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onAccountNotification) name:NOTIFICATION_ACCOUT object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onNoticeNofitication) name:NOTIFICATION_NOTICE object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onBecomeActivity) name:UIApplicationDidBecomeActiveNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onUpdateProNotification) name:NOTIFYCATION_IAP_PRO object:nil];
+
     }
     return self;
 }
@@ -90,6 +92,11 @@ typedef NS_ENUM(NSInteger, CellType) {
     } else {
         [self.buttonForSetting setTitle:@"登录" forState:UIControlStateNormal];
     }
+    [self.tableView reloadData];
+}
+
+- (void)onUpdateProNotification
+{
     [self.tableView reloadData];
 }
 

@@ -218,6 +218,8 @@ static SectionData sections[] = {
             [self.tableView reloadData];
         });
     });
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onUpdateProNotification) name:NOTIFYCATION_IAP_PRO object:nil];
 }
 
 - (void)setupTheme
@@ -235,6 +237,11 @@ static SectionData sections[] = {
     [super viewWillAppear:animated];
     [_tableView beginUpdates];
     [_tableView endUpdates];
+}
+
+- (void)onUpdateProNotification
+{
+    [self.tableView reloadData];
 }
 
 - (IBAction)onSwitchValueChanged:(UISwitch *)sender

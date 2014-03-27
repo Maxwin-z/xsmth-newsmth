@@ -35,6 +35,7 @@ typedef enum {
 
 #define NOTIFYCATION_THEME_CHANGED  @"notify_theme_changed"
 #define NOTIFYCATION_SHAKE  @"notify_shake"
+#define NOTIFYCATION_IAP_PRO @"iap_update_pro_success"
 
 #define USERDEFAULTS_STAT_VERSION   @"statversion"  // 每个版本统计一次ga，唯一用户
 
