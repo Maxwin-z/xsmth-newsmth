@@ -12,6 +12,11 @@
 #import "SMMailComposeViewController.h"
 #import "SMIPadSplitViewController.h"
 
+typedef enum {
+    SectionTypeRestore,
+    SectionTypeIAP,
+    SectionTypeOther
+}SectionType;
 
 @interface SMDonateViewController ()<SKProductsRequestDelegate, UITableViewDataSource, UITableViewDelegate, SKPaymentTransactionObserver, ASIHTTPRequestDelegate, UIAlertViewDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -25,6 +30,8 @@
 @property (strong, nonatomic) NSArray *otherChannels;
 
 @property (strong, nonatomic) NSString *lastDonateProductID;
+
+@property (strong, nonatomic) NSArray *sections;
 @end
 
 @implementation SMDonateViewController
@@ -136,15 +143,24 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1 + (self.otherChannels.count > 0 ? 1 : 0);
+    if (self.otherChannels.count > 0) {
+        self.sections = @[@(SectionTypeRestore), @(SectionTypeIAP), @(SectionTypeOther)];
+    } else {
+        self.sections = @[@(SectionTypeRestore), @(SectionTypeIAP)];
+    }
+    return self.sections.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 0) {
+    SectionType sectionType = [self.sections[section] integerValue];
+    if (sectionType == SectionTypeRestore) {
+        return 1;
+    }
+    if (sectionType == SectionTypeIAP) {
         return self.products.count;
     }
-    if (section == 1) {
+    if (sectionType == SectionTypeOther) {
         return self.otherChannels.count;
     }
     return 0;
@@ -152,18 +168,35 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    if (section == 0) {
+    SectionType sectionType = [self.sections[section] integerValue];
+    if (sectionType == SectionTypeIAP) {
         return @"应用内购买";
     }
-    if (section == 1) {
+    if (sectionType == SectionTypeOther) {
         return @"其他渠道";
     }
     return nil;
 }
 
+- (void)customizeCellStyle:(UITableViewCell *)cell
+{
+    cell.backgroundColor = [SMTheme colorForBackground];
+    cell.textLabel.textColor = [SMTheme colorForPrimary];
+    cell.detailTextLabel.textColor = [SMTheme colorForSecondary];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0) {
+    SectionType sectionType = [self.sections[indexPath.section] integerValue];
+
+    if (sectionType == SectionTypeRestore) {
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+        cell.textLabel.text = @"恢复购买";
+        [self customizeCellStyle:cell];
+        return cell;
+    }
+    
+    if (sectionType == SectionTypeIAP) {
         static NSString *cellIDForProduct = @"product_cellid";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIDForProduct];
         if (cell == nil) {
@@ -172,9 +205,7 @@
             
         }
 
-        cell.backgroundColor = [SMTheme colorForBackground];
-        cell.textLabel.textColor = [SMTheme colorForPrimary];
-        cell.detailTextLabel.textColor = [SMTheme colorForSecondary];
+        [self customizeCellStyle:cell];
         
         SKProduct *product = self.products[indexPath.row];
         
@@ -189,7 +220,7 @@
         return cell;
     }
     
-    if (indexPath.section == 1) {
+    if (sectionType == SectionTypeOther) {
         static NSString *cellIDForOthers = @"cellIDForOthers";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIDForOthers];
         if (cell == nil) {
@@ -199,6 +230,9 @@
         }
         
         cell.textLabel.text = self.otherChannels[indexPath.row];
+        
+        [self customizeCellStyle:cell];
+
         return cell;
     }
     
@@ -208,10 +242,19 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    SKProduct *product = self.products[indexPath.row];
-    SKMutablePayment *payment = [SKMutablePayment paymentWithProduct:product];
-    payment.quantity = 1;
-    [[SKPaymentQueue defaultQueue] addPayment:payment];
+
+    SectionType sectionType = [self.sections[indexPath.section] integerValue];
+
+    if (sectionType == SectionTypeRestore) {
+        [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
+    }
+    
+    if (sectionType == SectionTypeIAP) {
+        SKProduct *product = self.products[indexPath.row];
+        SKMutablePayment *payment = [SKMutablePayment paymentWithProduct:product];
+        payment.quantity = 1;
+        [[SKPaymentQueue defaultQueue] addPayment:payment];
+    }
 }
 
 #pragma mark - SKPaymentTransactionObserver
