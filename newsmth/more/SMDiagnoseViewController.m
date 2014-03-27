@@ -80,6 +80,8 @@
     if (url.length > 0) {
         self.url = url;
     }
+    [self.textField resignFirstResponder];
+    
     return YES;
 }
 
