@@ -50,7 +50,19 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"%@", [self encode]];
+    NSDictionary *dict = [self encode];
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict
+                                                       options:NSJSONWritingPrettyPrinted
+                                                         error:&error];
+    NSString *jsonString = nil;
+    if (! jsonData) {
+        NSLog(@"Got an error: %@", error);
+    } else {
+        jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    }
+    return jsonString;
 }
+
 
 @end

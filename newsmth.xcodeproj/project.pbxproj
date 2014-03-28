@@ -262,6 +262,8 @@
 		C1F8107418E5B734001B3759 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F8105418E5B734001B3759 /* FMDatabaseQueue.m */; };
 		C1F8107518E5B734001B3759 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F8105718E5B734001B3759 /* FMResultSet.m */; };
 		C1F8109218E5B786001B3759 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F8109118E5B786001B3759 /* libsqlite3.dylib */; };
+		C1F8109618E5BA3B001B3759 /* SMPostWebLoaderOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F8109518E5BA3B001B3759 /* SMPostWebLoaderOperation.m */; };
+		C1F8109918E5BAA0001B3759 /* SMDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F8109718E5BAA0001B3759 /* SMDBManager.m */; };
 		C1F8D80D18D308360076A790 /* icon_user@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1F8D80C18D308360076A790 /* icon_user@2x.png */; };
 		C1F8D81118D3313D0076A790 /* SMDiagnoseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F8D80F18D3313D0076A790 /* SMDiagnoseViewController.m */; };
 		C1F8D81218D3313D0076A790 /* SMDiagnoseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1F8D81018D3313D0076A790 /* SMDiagnoseViewController.xib */; };
@@ -769,6 +771,10 @@
 		C1F8105618E5B734001B3759 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
 		C1F8105718E5B734001B3759 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
 		C1F8109118E5B786001B3759 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		C1F8109418E5BA3B001B3759 /* SMPostWebLoaderOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMPostWebLoaderOperation.h; sourceTree = "<group>"; };
+		C1F8109518E5BA3B001B3759 /* SMPostWebLoaderOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMPostWebLoaderOperation.m; sourceTree = "<group>"; };
+		C1F8109718E5BAA0001B3759 /* SMDBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMDBManager.m; sourceTree = "<group>"; };
+		C1F8109818E5BAA0001B3759 /* SMDBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMDBManager.h; sourceTree = "<group>"; };
 		C1F8D80C18D308360076A790 /* icon_user@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_user@2x.png"; sourceTree = "<group>"; };
 		C1F8D80E18D3313D0076A790 /* SMDiagnoseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMDiagnoseViewController.h; sourceTree = "<group>"; };
 		C1F8D80F18D3313D0076A790 /* SMDiagnoseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMDiagnoseViewController.m; sourceTree = "<group>"; };
@@ -1008,6 +1014,8 @@
 		C14505EA17507DD400DC5431 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				C1F8109818E5BAA0001B3759 /* SMDBManager.h */,
+				C1F8109718E5BAA0001B3759 /* SMDBManager.m */,
 				3950181D188BA49B00EDD265 /* SMCryptoUtil.h */,
 				3950181E188BA49B00EDD265 /* SMCryptoUtil.m */,
 				C14505EB17507DD400DC5431 /* XLogUtil.h */,
@@ -1150,6 +1158,7 @@
 		C1ABAB041766107A007DE168 /* postgroup */ = {
 			isa = PBXGroup;
 			children = (
+				C1F8109318E5BA11001B3759 /* postloader */,
 				C1F4671118C2E732006BCE7A /* activity */,
 				C1ABAB15176610D9007DE168 /* cells */,
 				C1FF62AE179E6DF4001F7A15 /* SMPostViewController.h */,
@@ -1653,6 +1662,15 @@
 			path = fmdb;
 			sourceTree = "<group>";
 		};
+		C1F8109318E5BA11001B3759 /* postloader */ = {
+			isa = PBXGroup;
+			children = (
+				C1F8109418E5BA3B001B3759 /* SMPostWebLoaderOperation.h */,
+				C1F8109518E5BA3B001B3759 /* SMPostWebLoaderOperation.m */,
+			);
+			path = postloader;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2023,6 +2041,8 @@
 				C1E3A22A1780600900994CE6 /* SMUserViewController.m in Sources */,
 				C1F8107318E5B734001B3759 /* FMDatabasePool.m in Sources */,
 				C14B22F917FAC65700CF081A /* SMMailComposeViewController.m in Sources */,
+				C1F8109618E5BA3B001B3759 /* SMPostWebLoaderOperation.m in Sources */,
+				C1F8109918E5BAA0001B3759 /* SMDBManager.m in Sources */,
 				C1FD13C217817AAA006A6061 /* SMUser.m in Sources */,
 				39C260051860A0E400AEFE0E /* SMBoardSearchResultViewController.m in Sources */,
 				C1C4C8811781B4FF0092E77C /* SMBaseBorardListViewController.m in Sources */,

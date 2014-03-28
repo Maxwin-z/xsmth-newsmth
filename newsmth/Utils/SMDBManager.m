@@ -8,12 +8,13 @@
 
 #import "SMDBManager.h"
 #import "FMDatabase.h"
+#import "FMDatabaseQueue.h"
 
 #define DB_VERSION 1
 #define USER_DEFAULT_DB_VERSION @"db_version"
 
 @interface SMDBManager ()
-@property (strong, nonatomic) FMDatabase *db;
+@property (strong, nonatomic) FMDatabaseQueue *dbQueue;
 @end
 
 @implementation SMDBManager
@@ -33,8 +34,7 @@
     if (self = [super init]) {
         NSString *docsPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject;
         NSString *dbPath = [docsPath stringByAppendingPathComponent:@"xsmth.db"];
-        self.db = [FMDatabase databaseWithPath:dbPath];
-        [self.db open];
+        self.dbQueue = [FMDatabaseQueue databaseQueueWithPath:dbPath];
         
         [self setup];
     }
@@ -55,29 +55,43 @@
 
 - (void)queryV0
 {
-    [self.db executeUpdate:@"CREATE TABLE IF NOT EXISTS posts (pid INT, gid INT, data TEXT, PRIMARY KEY (pid))"];
+    [self.dbQueue inDatabase:^(FMDatabase *db) {
+        [db executeUpdate:@"CREATE TABLE IF NOT EXISTS posts (pid INT, gid INT, data TEXT, PRIMARY KEY (pid))"];
+    }];
 }
 
 - (void)dealloc
 {
 //    [self.db beginTransaction];
-    [self.db close];
+    [self.dbQueue close];
 }
 
 #pragma mark - posts
 - (void)insertPost:(SMPost *)post
 {
 //    [self.db beginTransaction];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        [self.db executeUpdate:@"INSERT INTO posts (pid, gid, data) VALUES (?, ?, ?)", @(post.pid), @(post.gid), post.description];
-    });
-//    [self.db commit];
+    [self.dbQueue inDatabase:^(FMDatabase *db) {
+        [db executeUpdate:@"REPLACE INTO posts (pid, gid, data) VALUES (?, ?, ?)", @(post.pid), @(post.gid), post.description];
+    }];
 }
 
 - (void)queryPost:(int)pid completed:(void (^)(SMPost *))completed
 {
-    completed(nil);
-
+    [self.dbQueue inDatabase:^(FMDatabase *db) {
+        FMResultSet *set = [db executeQuery:@"SELECT * from posts WHERE pid=?", @(pid)];
+        SMPost *post = nil;
+        if (set.next) {
+            NSString *data = [set stringForColumn:@"data"];
+            NSDictionary *json = [SMUtils string2json:data];
+            if (json) {
+                post = [[SMPost alloc] initWithJSON:json];
+            }
+        }
+        [set close];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completed(post);
+        });
+    }];
     /*
      @weakify(self);
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{

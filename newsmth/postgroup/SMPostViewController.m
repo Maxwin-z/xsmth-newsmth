@@ -29,6 +29,7 @@
 #import "SMWeiXinTimelineActivity.h"
 #import "SMMailToActivity.h"
 #import "SMDiagnoseViewController.h"
+#import "SMPostWebLoaderOperation.h"
 
 #define STRING_EXPAND_HERE  @"从此处展开"
 #define STRING_EXPAND_ALL  @"同主题展开"
@@ -41,7 +42,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelForTitle;
 @property (strong, nonatomic) XScrollIndicator *scrollIndicator;
 
-@property (strong, nonatomic) SMWebLoaderOperation *singlePostOp;   // Re, At, Search...
+@property (strong, nonatomic) SMPostWebLoaderOperation *singlePostOp;   // Re, At, Search...
 @property (strong, nonatomic) SMPost *singlePost;
 
 @property (strong, nonatomic) SMWebLoaderOperation *pageOp; // 分页加载数据用op
@@ -209,7 +210,7 @@
 //        _pno = _tpage = 1;
         _currentPageItem.pno = _currentPageItem.tpage = 1;
         [_singlePostOp cancel];
-        _singlePostOp = [[SMWebLoaderOperation alloc] init];
+        _singlePostOp = [[SMPostWebLoaderOperation alloc] init];
         _singlePostOp.delegate = self;
         [_singlePostOp loadUrl:_postUrl withParser:@"bbscon,util_notice"];
     } else {
@@ -606,9 +607,13 @@
                              _board.name, post.pid];
             }
 
-            SMWebLoaderOperation *op = [[SMWebLoaderOperation alloc] init];
+           // SMWebLoaderOperation *op = [[SMWebLoaderOperation alloc] init];
+            SMPostWebLoaderOperation *op = [SMPostWebLoaderOperation new];
+            post.board = self.board;
+            post.board.bid = self.bid;
             op.delegate = self;
-            [op loadUrl:url withParser:@"bbscon,util_notice"];
+            [op loadPost:post fromMobile:![SMConfig enableShowQMD]];
+            // [op loadUrl:url withParser:@"bbscon,util_notice"];
             
             SMPostItem *item = [[SMPostItem alloc] init];
             item.op = op;

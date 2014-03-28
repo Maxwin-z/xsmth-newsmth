@@ -18,6 +18,10 @@
 @end
 
 @interface SMWebLoaderOperation : NSOperation
+{
+    id _data;
+    BOOL _isDone;
+}
 @property (weak, nonatomic) id<SMWebLoaderOperationDelegate> delegate;
 @property (strong, nonatomic, readonly) NSString *url;
 @property (strong, nonatomic, readonly) id data;
@@ -29,5 +33,8 @@
 
 // todo, find why?
 + (void)cancelAllOperations;
+
+// for subclass
+- (void)enqueue;
 
 @end
