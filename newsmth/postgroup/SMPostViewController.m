@@ -42,7 +42,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelForTitle;
 @property (strong, nonatomic) XScrollIndicator *scrollIndicator;
 
-@property (strong, nonatomic) SMPostWebLoaderOperation *singlePostOp;   // Re, At, Search...
+@property (strong, nonatomic) SMWebLoaderOperation *singlePostOp;   // Re, At, Search...
 @property (strong, nonatomic) SMPost *singlePost;
 
 @property (strong, nonatomic) SMWebLoaderOperation *pageOp; // 分页加载数据用op
@@ -210,7 +210,7 @@
 //        _pno = _tpage = 1;
         _currentPageItem.pno = _currentPageItem.tpage = 1;
         [_singlePostOp cancel];
-        _singlePostOp = [[SMPostWebLoaderOperation alloc] init];
+        _singlePostOp = [[SMWebLoaderOperation alloc] init];
         _singlePostOp.delegate = self;
         [_singlePostOp loadUrl:_postUrl withParser:@"bbscon,util_notice"];
     } else {
