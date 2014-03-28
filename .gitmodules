@@ -21,3 +21,6 @@
 	path = newsmth/ThirdParty/ReactiveCocoa
 	url = git@github.com:Maxwin-z/ReactiveCocoa.git
 
+[submodule "newsmth/ThirdParty/fmdb"]
+	path = newsmth/ThirdParty/fmdb
+	url = git@github.com:ccgus/fmdb.git

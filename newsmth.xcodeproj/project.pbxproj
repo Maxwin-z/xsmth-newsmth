@@ -255,6 +255,13 @@
 		C1F4672418C2EFAB006BCE7A /* common_share_icon_weixin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1F4672218C2EFAB006BCE7A /* common_share_icon_weixin@2x.png */; };
 		C1F4672718C2F5ED006BCE7A /* SMWeiXinTimelineActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F4672618C2F5ED006BCE7A /* SMWeiXinTimelineActivity.m */; };
 		C1F4C5AC1806D4BD00E8A52D /* SMConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F4C5AB1806D4BD00E8A52D /* SMConfig.m */; };
+		C1F8107018E5B734001B3759 /* FMDatabase+InMemoryOnDiskIO.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F8104B18E5B734001B3759 /* FMDatabase+InMemoryOnDiskIO.m */; };
+		C1F8107118E5B734001B3759 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F8104E18E5B734001B3759 /* FMDatabase.m */; };
+		C1F8107218E5B734001B3759 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F8105018E5B734001B3759 /* FMDatabaseAdditions.m */; };
+		C1F8107318E5B734001B3759 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F8105218E5B734001B3759 /* FMDatabasePool.m */; };
+		C1F8107418E5B734001B3759 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F8105418E5B734001B3759 /* FMDatabaseQueue.m */; };
+		C1F8107518E5B734001B3759 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F8105718E5B734001B3759 /* FMResultSet.m */; };
+		C1F8109218E5B786001B3759 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F8109118E5B786001B3759 /* libsqlite3.dylib */; };
 		C1F8D80D18D308360076A790 /* icon_user@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1F8D80C18D308360076A790 /* icon_user@2x.png */; };
 		C1F8D81118D3313D0076A790 /* SMDiagnoseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F8D80F18D3313D0076A790 /* SMDiagnoseViewController.m */; };
 		C1F8D81218D3313D0076A790 /* SMDiagnoseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1F8D81018D3313D0076A790 /* SMDiagnoseViewController.xib */; };
@@ -748,6 +755,20 @@
 		C1F4672618C2F5ED006BCE7A /* SMWeiXinTimelineActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMWeiXinTimelineActivity.m; sourceTree = "<group>"; };
 		C1F4C5AA1806D4BD00E8A52D /* SMConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMConfig.h; sourceTree = "<group>"; };
 		C1F4C5AB1806D4BD00E8A52D /* SMConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMConfig.m; sourceTree = "<group>"; };
+		C1F8104A18E5B734001B3759 /* FMDatabase+InMemoryOnDiskIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FMDatabase+InMemoryOnDiskIO.h"; sourceTree = "<group>"; };
+		C1F8104B18E5B734001B3759 /* FMDatabase+InMemoryOnDiskIO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FMDatabase+InMemoryOnDiskIO.m"; sourceTree = "<group>"; };
+		C1F8104D18E5B734001B3759 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
+		C1F8104E18E5B734001B3759 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
+		C1F8104F18E5B734001B3759 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		C1F8105018E5B734001B3759 /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		C1F8105118E5B734001B3759 /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
+		C1F8105218E5B734001B3759 /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
+		C1F8105318E5B734001B3759 /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
+		C1F8105418E5B734001B3759 /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
+		C1F8105518E5B734001B3759 /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
+		C1F8105618E5B734001B3759 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
+		C1F8105718E5B734001B3759 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
+		C1F8109118E5B786001B3759 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		C1F8D80C18D308360076A790 /* icon_user@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_user@2x.png"; sourceTree = "<group>"; };
 		C1F8D80E18D3313D0076A790 /* SMDiagnoseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMDiagnoseViewController.h; sourceTree = "<group>"; };
 		C1F8D80F18D3313D0076A790 /* SMDiagnoseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMDiagnoseViewController.m; sourceTree = "<group>"; };
@@ -782,6 +803,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1F8109218E5B786001B3759 /* libsqlite3.dylib in Frameworks */,
 				C10DC6F918C359BF00FF95E8 /* libReactiveCocoa-iOS.a in Frameworks */,
 				C1C07A7A179686E300906ED7 /* Social.framework in Frameworks */,
 				C13CB6C718B0AA48003F7407 /* iAd.framework in Frameworks */,
@@ -1192,6 +1214,7 @@
 		C1BA923917954EC300F76ACF /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				C1F8103C18E5B734001B3759 /* fmdb */,
 				C10DC6DF18C359A300FF95E8 /* ReactiveCocoa.xcodeproj */,
 				C13CB55A18AF62B4003F7407 /* SSZipArchive */,
 				C1C07A141796857900906ED7 /* OWActivityViewController */,
@@ -1250,6 +1273,7 @@
 		C1BFB8DB174F6A620092FD2E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C1F8109118E5B786001B3759 /* libsqlite3.dylib */,
 				C13CB6C618B0AA48003F7407 /* iAd.framework */,
 				C13CB6C418B0A09A003F7407 /* CoreTelephony.framework */,
 				C13CB6C218B0A089003F7407 /* AVFoundation.framework */,
@@ -1585,6 +1609,50 @@
 			path = activity;
 			sourceTree = "<group>";
 		};
+		C1F8103C18E5B734001B3759 /* fmdb */ = {
+			isa = PBXGroup;
+			children = (
+				C1F8104818E5B734001B3759 /* src */,
+			);
+			path = fmdb;
+			sourceTree = "<group>";
+		};
+		C1F8104818E5B734001B3759 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				C1F8104918E5B734001B3759 /* extra */,
+				C1F8104C18E5B734001B3759 /* fmdb */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		C1F8104918E5B734001B3759 /* extra */ = {
+			isa = PBXGroup;
+			children = (
+				C1F8104A18E5B734001B3759 /* FMDatabase+InMemoryOnDiskIO.h */,
+				C1F8104B18E5B734001B3759 /* FMDatabase+InMemoryOnDiskIO.m */,
+			);
+			path = extra;
+			sourceTree = "<group>";
+		};
+		C1F8104C18E5B734001B3759 /* fmdb */ = {
+			isa = PBXGroup;
+			children = (
+				C1F8104D18E5B734001B3759 /* FMDatabase.h */,
+				C1F8104E18E5B734001B3759 /* FMDatabase.m */,
+				C1F8104F18E5B734001B3759 /* FMDatabaseAdditions.h */,
+				C1F8105018E5B734001B3759 /* FMDatabaseAdditions.m */,
+				C1F8105118E5B734001B3759 /* FMDatabasePool.h */,
+				C1F8105218E5B734001B3759 /* FMDatabasePool.m */,
+				C1F8105318E5B734001B3759 /* FMDatabaseQueue.h */,
+				C1F8105418E5B734001B3759 /* FMDatabaseQueue.m */,
+				C1F8105518E5B734001B3759 /* FMDB.h */,
+				C1F8105618E5B734001B3759 /* FMResultSet.h */,
+				C1F8105718E5B734001B3759 /* FMResultSet.m */,
+			);
+			path = fmdb;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1914,6 +1982,7 @@
 				C10D16111756059B002D6FAD /* SMViewController.m in Sources */,
 				C10F2F8517E595A100F83206 /* SMMailInfoViewController.m in Sources */,
 				C10D16BE1756EF21002D6FAD /* SMMessage.m in Sources */,
+				C1F8107218E5B734001B3759 /* FMDatabaseAdditions.m in Sources */,
 				C191281D17586DDF005AC60F /* XImageView.m in Sources */,
 				C191283D17588501005AC60F /* XImageViewCache.m in Sources */,
 				C1E6289B1764BAD4007ACF2A /* SMAttach.m in Sources */,
@@ -1936,6 +2005,7 @@
 				C11581631768285C008A421A /* SMLeftViewController.m in Sources */,
 				C1158168176851B6008A421A /* SMFavorListViewController.m in Sources */,
 				C1F4671D18C2E766006BCE7A /* SMPostActivityItemProvider.m in Sources */,
+				C1F8107118E5B734001B3759 /* FMDatabase.m in Sources */,
 				C115816D17685606008A421A /* SMLoginViewController.m in Sources */,
 				C14B230917FBB0E500CF081A /* SMSettingViewController.m in Sources */,
 				C19FF0BA1769CA1000EB6F7E /* SMBoard.m in Sources */,
@@ -1943,6 +2013,7 @@
 				C19FF0C21769CEC700EB6F7E /* SMBoardViewController.m in Sources */,
 				C19FF0C61769D0DC00EB6F7E /* SMBoardCell.m in Sources */,
 				C1B581F3177723F500441299 /* SMWritePostViewController.m in Sources */,
+				C1F8107418E5B734001B3759 /* FMDatabaseQueue.m in Sources */,
 				C13CB57B18AF62B4003F7407 /* mztools.c in Sources */,
 				C1CC1B40177857FB00FC63A8 /* P2PNavigationController.m in Sources */,
 				C1CC1B41177857FB00FC63A8 /* P2PViewController.m in Sources */,
@@ -1950,12 +2021,14 @@
 				C1011D96177946D500E0485D /* SMUtils.m in Sources */,
 				C1011DAC1779946600E0485D /* UIButton+Custom.m in Sources */,
 				C1E3A22A1780600900994CE6 /* SMUserViewController.m in Sources */,
+				C1F8107318E5B734001B3759 /* FMDatabasePool.m in Sources */,
 				C14B22F917FAC65700CF081A /* SMMailComposeViewController.m in Sources */,
 				C1FD13C217817AAA006A6061 /* SMUser.m in Sources */,
 				39C260051860A0E400AEFE0E /* SMBoardSearchResultViewController.m in Sources */,
 				C1C4C8811781B4FF0092E77C /* SMBaseBorardListViewController.m in Sources */,
 				C1CE10C018122D7B00B04E15 /* SMParserItem.m in Sources */,
 				C1C4C8851781B6C00092E77C /* SMBoardList.m in Sources */,
+				C1F8107018E5B734001B3759 /* FMDatabase+InMemoryOnDiskIO.m in Sources */,
 				C1E7A19A1809A7F1002CAEEC /* SMFontSelectorViewController.m in Sources */,
 				C1C4C8881781BACC0092E77C /* SMBoardListItem.m in Sources */,
 				C1C4C8941781C4A60092E77C /* SMSectionViewController.m in Sources */,
@@ -1982,6 +2055,7 @@
 				C1C07A591796857900906ED7 /* OWActivityDelegateObject.m in Sources */,
 				C13CB57F18AF62B4003F7407 /* SSZipArchive.m in Sources */,
 				C1C07A5A1796857900906ED7 /* OWActivityView.m in Sources */,
+				C1F8107518E5B734001B3759 /* FMResultSet.m in Sources */,
 				C13CB57A18AF62B4003F7407 /* ioapi.c in Sources */,
 				C1C07A5C1796857900906ED7 /* OWActivityViewController.m in Sources */,
 				C1C07A5D1796857900906ED7 /* OWCopyActivity.m in Sources */,
