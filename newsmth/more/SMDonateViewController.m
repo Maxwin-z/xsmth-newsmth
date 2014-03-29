@@ -153,7 +153,7 @@ typedef enum {
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    SectionType sectionType = [self.sections[section] integerValue];
+    SectionType sectionType = [self.sections[section] intValue];
     if (sectionType == SectionTypeRestore) {
         return 1;
     }
@@ -168,7 +168,7 @@ typedef enum {
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    SectionType sectionType = [self.sections[section] integerValue];
+    SectionType sectionType = [self.sections[section] intValue];
     if (sectionType == SectionTypeIAP) {
         return @"应用内购买";
     }
@@ -187,7 +187,7 @@ typedef enum {
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SectionType sectionType = [self.sections[indexPath.section] integerValue];
+    SectionType sectionType = [self.sections[indexPath.section] intValue];
 
     if (sectionType == SectionTypeRestore) {
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
@@ -243,7 +243,7 @@ typedef enum {
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
-    SectionType sectionType = [self.sections[indexPath.section] integerValue];
+    SectionType sectionType = [self.sections[indexPath.section] intValue];
 
     if (sectionType == SectionTypeRestore) {
         [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];

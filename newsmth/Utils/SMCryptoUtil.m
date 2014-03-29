@@ -28,8 +28,8 @@
     NSData* data = [text dataUsingEncoding:NSUTF8StringEncoding];
     NSUInteger dataLength = [data length];
     
-    int diff = kCCKeySizeAES128 - (dataLength % kCCKeySizeAES128);
-    int newSize = 0;
+    NSInteger diff = kCCKeySizeAES128 - (dataLength % kCCKeySizeAES128);
+    NSInteger newSize = 0;
     
     if(diff > 0)
     {

@@ -50,7 +50,7 @@
 @property (strong, nonatomic) NSArray *items;   // items列表
 @property (strong, nonatomic) NSArray *prepareItems;    // 滚动时，临时存储数据
 
-@property (assign, nonatomic) NSInteger bid;    // board id
+@property (assign, nonatomic) int bid;    // board id
 //@property (assign, nonatomic) NSInteger tpage;  // total page
 //@property (assign, nonatomic) NSInteger pno;    // current page
 @property (assign, nonatomic) BOOL isSinglePost;
