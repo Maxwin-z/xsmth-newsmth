@@ -19,9 +19,9 @@ static SMBoardCell *_instance;
 @property (weak, nonatomic) IBOutlet UILabel *labelForReplyTime;
 @property (weak, nonatomic) IBOutlet UIButton *buttonForReplyAuthor;
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewForTop;
+
 // v2.4 unread hint
-@property (weak, nonatomic) IBOutlet UIView *viewForUnreadHint;
-@property (weak, nonatomic) IBOutlet UIView *viewForReadHint;
+@property (weak, nonatomic) IBOutlet UIImageView *imageViewForUnreadHint;
 @end
 
 @implementation SMBoardCell
@@ -117,18 +117,19 @@ static SMBoardCell *_instance;
      }];
     
     // v2.4 show unread hint
-    CGRect unReadHintFrame = self.viewForUnreadHint.frame;
-    CGRect readHintFrame = self.viewForReadHint.frame;
-    
+    NSString *unreadHintImage;
     if (self.post.readCount == -1) {
-        readHintFrame.size.height = 0;
+        unreadHintImage = @"unread";
     } else if (self.post.replyCount == self.post.readCount) {
         // all read
-        readHintFrame.size = unReadHintFrame.size;
+        unreadHintImage = @"unread_none";
     } else {
-        readHintFrame.size.height = unReadHintFrame.size.height / 2;
+        unreadHintImage = @"unread_half";
     }
-    self.viewForReadHint.frame = readHintFrame;
+    if (self.post.isTop) { // 置底贴不显示
+        unreadHintImage = nil;
+    }
+    self.imageViewForUnreadHint.image = [UIImage imageNamed:unreadHintImage];
 }
 
 - (IBAction)onUsernameClick:(UIButton *)button

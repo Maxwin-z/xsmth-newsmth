@@ -264,6 +264,8 @@
 		C1F8109218E5B786001B3759 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F8109118E5B786001B3759 /* libsqlite3.dylib */; };
 		C1F8109618E5BA3B001B3759 /* SMPostWebLoaderOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F8109518E5BA3B001B3759 /* SMPostWebLoaderOperation.m */; };
 		C1F8109918E5BAA0001B3759 /* SMDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F8109718E5BAA0001B3759 /* SMDBManager.m */; };
+		C1F8109B18E70105001B3759 /* unread_half@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1F8109A18E70105001B3759 /* unread_half@2x.png */; };
+		C1F8109D18E70263001B3759 /* unread_none@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1F8109C18E70263001B3759 /* unread_none@2x.png */; };
 		C1F8D80D18D308360076A790 /* icon_user@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1F8D80C18D308360076A790 /* icon_user@2x.png */; };
 		C1F8D81118D3313D0076A790 /* SMDiagnoseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F8D80F18D3313D0076A790 /* SMDiagnoseViewController.m */; };
 		C1F8D81218D3313D0076A790 /* SMDiagnoseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1F8D81018D3313D0076A790 /* SMDiagnoseViewController.xib */; };
@@ -775,6 +777,8 @@
 		C1F8109518E5BA3B001B3759 /* SMPostWebLoaderOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMPostWebLoaderOperation.m; sourceTree = "<group>"; };
 		C1F8109718E5BAA0001B3759 /* SMDBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMDBManager.m; sourceTree = "<group>"; };
 		C1F8109818E5BAA0001B3759 /* SMDBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMDBManager.h; sourceTree = "<group>"; };
+		C1F8109A18E70105001B3759 /* unread_half@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unread_half@2x.png"; sourceTree = "<group>"; };
+		C1F8109C18E70263001B3759 /* unread_none@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unread_none@2x.png"; sourceTree = "<group>"; };
 		C1F8D80C18D308360076A790 /* icon_user@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_user@2x.png"; sourceTree = "<group>"; };
 		C1F8D80E18D3313D0076A790 /* SMDiagnoseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMDiagnoseViewController.h; sourceTree = "<group>"; };
 		C1F8D80F18D3313D0076A790 /* SMDiagnoseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMDiagnoseViewController.m; sourceTree = "<group>"; };
@@ -1088,6 +1092,7 @@
 		C19FF0B01769A71B00EB6F7E /* images */ = {
 			isa = PBXGroup;
 			children = (
+				C1F8109C18E70263001B3759 /* unread_none@2x.png */,
 				C1F4672118C2EFAB006BCE7A /* common_share_icon_weixin_friends@2x.png */,
 				C1F8D80C18D308360076A790 /* icon_user@2x.png */,
 				C1F4672218C2EFAB006BCE7A /* common_share_icon_weixin@2x.png */,
@@ -1109,6 +1114,7 @@
 				C14B22F417FABDD100CF081A /* bg_navigationbar@2x.png */,
 				C1D190DD17F94CA40056F3FE /* bg_scrollindicator@2x.png */,
 				C147EC5117EB368C00530E86 /* unread@2x.png */,
+				C1F8109A18E70105001B3759 /* unread_half@2x.png */,
 				C1C18D9D17A53448008C598C /* tabbar_at@2x.png */,
 				C1C18D9E17A53448008C598C /* tabbar_reply@2x.png */,
 				C1C18D9F17A53448008C598C /* tabbar_mail@2x.png */,
@@ -1822,6 +1828,7 @@
 				C1E7A1A7180AA8C7002CAEEC /* util_notice.js in Resources */,
 				C1E7A1A3180A91EB002CAEEC /* bg_barbuttonitem@2x.png in Resources */,
 				C14B22FD17FAD3FB00CF081A /* mailsend.js in Resources */,
+				C1F8109D18E70263001B3759 /* unread_none@2x.png in Resources */,
 				C14B230A17FBB0E500CF081A /* SMSettingViewController.xib in Resources */,
 				C1D190DE17F94CA40056F3FE /* bg_scrollindicator@2x.png in Resources */,
 				C1FCFACD1860871500759793 /* SMBoardSearchViewController.xib in Resources */,
@@ -1902,6 +1909,7 @@
 				392417DA187C6A7100558725 /* icon_114@2x.png in Resources */,
 				C1FD13D4178182E3006A6061 /* button_red_pressed@2x.png in Resources */,
 				C1FD13DD1781B26F006A6061 /* left_shadow@2x.png in Resources */,
+				C1F8109B18E70105001B3759 /* unread_half@2x.png in Resources */,
 				C1C4C8821781B4FF0092E77C /* SMBaseBorardListViewController.xib in Resources */,
 				C100985217828310001608EE /* SMPostFailCell.xib in Resources */,
 				C10098581782A136001608EE /* popup_bkg_left@2x.png in Resources */,
