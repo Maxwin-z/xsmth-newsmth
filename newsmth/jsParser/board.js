@@ -121,6 +121,7 @@ function parseTztPost(li) {	// Tzt -> 同主题...
 	return {
 		__type: 'SMPost',
 		gid: gid,
+        pid: gid,
 		title: title,
 		author: author,
 		date: date,

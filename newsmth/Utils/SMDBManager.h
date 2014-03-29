@@ -12,6 +12,10 @@
 + (instancetype)instance;
 
 - (void)insertPost:(SMPost *)post;
-- (void)queryPost:(int)pid completed:(void (^)(SMPost *))completed;
+- (void)queryPost:(int)pid completed:(void (^)(SMPost *post))completed;
+
+// unread count
+- (void)insertPostReadCount:(SMPost *)post type:(NSInteger)type;
+- (void)queryReadCount:(NSArray *)posts type:(NSInteger)type completed:(void (^)(NSArray *resultPosts))completed;
 
 @end

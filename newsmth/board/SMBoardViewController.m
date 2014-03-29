@@ -16,7 +16,7 @@
 #import "SMBoardSearchViewController.h"
 #import "SMIPadSplitViewController.h"
 #import "SMDiagnoseViewController.h"
-
+#import "SMDBManager.h"
 
 @interface SMBoardViewController ()<UITableViewDelegate, UITableViewDataSource, XPullRefreshTableViewDelegate, SMWebLoaderOperationDelegate, SMBoardCellDelegate, SMBoardViewTypeSelectorViewDelegate>
 @property (weak, nonatomic) IBOutlet XPullRefreshTableView *tableView;
@@ -335,6 +335,14 @@
     }
     
     [SMUtils trackEventWithCategory:@"board" action:@"view_post" label:_board.name];
+    
+    
+    // v2.4 mark post read
+    if (self.viewTypeSelector.viewType == SMBoardViewTypeTztSortByReply) {
+        post.readCount = post.replyCount;
+        post.pid = post.gid;
+        [[SMDBManager instance] insertPostReadCount:post type:SMBoardViewTypeTztSortByReply];
+    }
 }
 
 #pragma mark - SMWebLoaderOperationDelegate
@@ -356,12 +364,16 @@
     if (board.hasNotice) {
         [SMAccountManager instance].notice = board.notice;
     }
+    
+    NSMutableArray *postsForReadCount = [[NSMutableArray alloc] init];
     [board.posts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         SMPost *post = obj;
+        post.readCount = -1;    // -1 means not read at all. for new post.replyCount == 0
         NSString *key = [NSString stringWithFormat:@"%d", post.gid];
         if (![_postsMap objectForKey:key]) {    // not exists, add
             [tmp addObject:post];
             [_postsMap setObject:post forKey:key];
+            [postsForReadCount addObject:post];
         }
     }];
 
@@ -369,6 +381,10 @@
     
     self.posts = tmp;
     self.failTimes = 0;
+    
+    [[SMDBManager instance] queryReadCount:postsForReadCount type:SMBoardViewTypeTztSortByReply completed:^(NSArray *resultPosts) {
+        [self.tableView reloadData];
+    }];
 }
 
 - (void)webLoaderOperationFail:(SMWebLoaderOperation *)opt error:(SMMessage *)error

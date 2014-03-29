@@ -57,6 +57,7 @@
 {
     [self.dbQueue inDatabase:^(FMDatabase *db) {
         [db executeUpdate:@"CREATE TABLE IF NOT EXISTS posts (pid INT, gid INT, data TEXT, PRIMARY KEY (pid))"];
+        [db executeUpdate:@"CREATE TABLE IF NOT EXISTS post_read_flag (pid INT, readcount INT, type INT, PRIMARY KEY (pid, type))"];
     }];
 }
 
@@ -92,27 +93,41 @@
             completed(post);
         });
     }];
-    /*
-     @weakify(self);
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        @strongify(self);
-        [self.db beginTransaction];
-        FMResultSet *set = [self.db executeQuery:@"SELECT * from posts WHERE pid=?", @(pid)];
-        SMPost *post = nil;
-        if (set.next) {
-            NSString *data = [set stringForColumn:@"data"];
-            NSDictionary *json = [SMUtils string2json:data];
-            if (json) {
-                post = [[SMPost alloc] initWithJSON:json];
-            }
-        }
-        [self.db commit];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            completed(post);
-        });
-    });
-     */
 }
+
+- (void)insertPostReadCount:(SMPost *)post type:(NSInteger)type
+{
+    [self.dbQueue inDatabase:^(FMDatabase *db) {
+        [db executeUpdate:@"REPLACE INTO post_read_flag (pid, readcount, type) VALUES (?, ?, ?)", @(post.pid), @(post.readCount), @(type)];
+    }];
+}
+
+- (void)queryReadCount:(NSArray *)posts type:(NSInteger)type completed:(void (^)(NSArray *resultPosts))completed
+{
+    [self.dbQueue inDatabase:^(FMDatabase *db) {
+        NSMutableDictionary *postsMap = [[NSMutableDictionary alloc] init];
+        NSMutableArray *pids = [[NSMutableArray alloc] initWithCapacity:posts.count];
+        [posts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            SMPost *post = obj;
+            [pids addObject:[NSString stringWithFormat:@"%d", post.pid]];
+            [postsMap setObject:post forKey:@(post.pid)];
+        }];
+        NSString *pidsString = [pids componentsJoinedByString:@","];
+        NSString *query = [NSString stringWithFormat:@"SELECT * from post_read_flag WHERE type=? and pid in (%@)", pidsString];
+        FMResultSet *set = [db executeQuery:query, @(type)];
+        while (set.next) {
+            int pid = [set intForColumn:@"pid"];
+            int readCount = [set intForColumn:@"readcount"];
+            SMPost *post = postsMap[@(pid)];
+            post.readCount = readCount;
+        }
+        [set close];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completed(posts);
+        });
+    }];
+}
+
 
 
 @end

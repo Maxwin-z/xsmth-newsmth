@@ -120,11 +120,11 @@ static SMBoardCell *_instance;
     CGRect unReadHintFrame = self.viewForUnreadHint.frame;
     CGRect readHintFrame = self.viewForReadHint.frame;
     
-    if (self.post.replyCount == self.post.readCount) {
+    if (self.post.readCount == -1) {
+        readHintFrame.size.height = 0;
+    } else if (self.post.replyCount == self.post.readCount) {
         // all read
         readHintFrame.size = unReadHintFrame.size;
-    } else if (self.post.readCount == 0) {
-        readHintFrame.size.height = 0;
     } else {
         readHintFrame.size.height = unReadHintFrame.size.height / 2;
     }
