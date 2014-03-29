@@ -13,6 +13,7 @@
 
 - (void)insertPost:(SMPost *)post;
 - (void)queryPost:(int)pid completed:(void (^)(SMPost *post))completed;
+- (void)deletePostsWith:(int)gid;
 
 // unread count
 - (void)insertPostReadCount:(SMPost *)post type:(NSInteger)type;

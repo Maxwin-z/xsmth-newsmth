@@ -30,6 +30,7 @@
 #import "SMMailToActivity.h"
 #import "SMDiagnoseViewController.h"
 #import "SMPostWebLoaderOperation.h"
+#import "SMDBManager.h"
 
 #define STRING_EXPAND_HERE  @"从此处展开"
 #define STRING_EXPAND_ALL  @"同主题展开"
@@ -81,6 +82,9 @@
 @property (weak, nonatomic) IBOutlet UIWebView *webViewForFullPost;
 
 @property (assign, nonatomic) NSInteger failTimes;
+
+// v2.4 用户主动刷新，清除缓存主题
+@property (assign, nonatomic) BOOL isAutoLoad;
 @end
 
 @implementation SMPostViewController
@@ -118,6 +122,7 @@
 {
     [super viewDidLoad];
 
+    self.isAutoLoad = YES;
     self.tableView.xdelegate = self;
     
     if (_board == nil && _postUrl != nil) {
@@ -712,9 +717,17 @@
 #pragma mark - XPullRefreshTableViewDelegate
 - (void)tableViewDoRefresh:(XPullRefreshTableView *)tableView
 {
+    if (!self.isAutoLoad) {
+        if (!self.isSinglePost && self.gid > 0) {
+            [[SMDBManager instance] deletePostsWith:self.gid];
+        }
+        [SMUtils trackEventWithCategory:@"postgroup" action:@"refresh" label:_board.name];
+    }
+    // 第一次自动刷新后，设置为NO
+    self.isAutoLoad = NO;
+
     _totalPage = 0;
     [self loadData:NO];
-    [SMUtils trackEventWithCategory:@"postgroup" action:@"refresh" label:_board.name];
 }
 
 - (void)tableViewDoLoadMore:(XPullRefreshTableView *)tableView

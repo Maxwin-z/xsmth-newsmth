@@ -95,6 +95,14 @@
     }];
 }
 
+- (void)deletePostsWith:(int)gid
+{
+    [self.dbQueue inDatabase:^(FMDatabase *db) {
+        [db executeUpdate:@"DELETE FROM posts WHERE gid=?", @(gid)];
+    }];
+}
+
+#pragma mark - post read count
 - (void)insertPostReadCount:(SMPost *)post type:(NSInteger)type
 {
     [self.dbQueue inDatabase:^(FMDatabase *db) {
