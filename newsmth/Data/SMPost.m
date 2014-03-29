@@ -53,6 +53,8 @@
 	_hasNotice = [[dict objectForKey:@"hasNotice"] boolValue];
 
 	_notice = [[SMNotice alloc] initWithJSON:[dict objectForKey:@"notice"]];
+
+	_readCount = [[dict objectForKey:@"readCount"] intValue];
 }
 
 - (id)encode
@@ -105,6 +107,8 @@
 	if (_notice != nil) {
 		[dict setObject:[_notice encode] forKey:@"notice"];
 	}
+
+	[dict setObject:@(_readCount) forKey:@"readCount"];
 	return dict;
 }
 @end

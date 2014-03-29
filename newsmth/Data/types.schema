@@ -29,6 +29,7 @@ SMPost {
 	SMAttach[] attaches
 	bool hasNotice
 	SMNotice notice
+    int readCount
 }
 
 SMPostGroup {
