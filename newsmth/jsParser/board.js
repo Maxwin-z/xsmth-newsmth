@@ -42,6 +42,7 @@ function parse_www(html) {
 	docWriter.prototype = {
 		o: function (id, gid, author, flag, time, title, size, imported, is_tex) {
 			posts.push({
+                pid: id,
 				gid: gid,
 				title: title,
 				author: author,
@@ -147,6 +148,7 @@ function parseNormalPost(li) {
 
 	return {
 		__type: 'SMPost',
+        pid: gid,
 		gid: gid,
 		title: title,
 		author: author,

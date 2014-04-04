@@ -338,11 +338,9 @@
     
     
     // v2.4 mark post read
-    if (self.viewTypeSelector.viewType == SMBoardViewTypeTztSortByReply) {
-        post.readCount = post.replyCount;
-        post.pid = post.gid;
-        [[SMDBManager instance] insertPostReadCount:post type:SMBoardViewTypeTztSortByReply];
-    }
+    post.readCount = post.replyCount;
+    post.pid = post.gid;
+    [[SMDBManager instance] insertPostReadCount:post type:self.viewTypeSelector.viewType];
 }
 
 #pragma mark - SMWebLoaderOperationDelegate
@@ -382,7 +380,7 @@
     self.posts = tmp;
     self.failTimes = 0;
     
-    [[SMDBManager instance] queryReadCount:postsForReadCount type:SMBoardViewTypeTztSortByReply completed:^(NSArray *resultPosts) {
+    [[SMDBManager instance] queryReadCount:postsForReadCount type:self.viewTypeSelector.viewType completed:^(NSArray *resultPosts) {
         [self.tableView reloadData];
     }];
 }

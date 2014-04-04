@@ -70,7 +70,6 @@
 
 - (void)dealloc
 {
-    XLog_v(@"post webloader dealloc");
 }
 
 
