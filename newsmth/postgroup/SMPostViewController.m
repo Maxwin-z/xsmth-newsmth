@@ -31,6 +31,7 @@
 #import "SMDiagnoseViewController.h"
 #import "SMPostWebLoaderOperation.h"
 #import "SMDBManager.h"
+#import "SMBoardViewTypeSelectorView.h"
 
 #define STRING_EXPAND_HERE  @"从此处展开"
 #define STRING_EXPAND_ALL  @"同主题展开"
@@ -446,6 +447,9 @@
                 return [self cellForFail:postItem];
             } else {
                 postItem.post = postItem.op.data;
+                
+                // v2.4 mark post as read
+                [[SMDBManager instance] insertPostReadCount:postItem.post type:SMBoardViewTypeNormal];
                 return [self cellForContent:postItem atIndexPath:indexPath];
             }
         } else {
