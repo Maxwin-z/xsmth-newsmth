@@ -10,7 +10,7 @@
 #import "FMDatabase.h"
 #import "FMDatabaseQueue.h"
 
-#define DB_VERSION 1
+#define DB_VERSION 2
 #define USER_DEFAULT_DB_VERSION @"db_version"
 
 @interface SMDBManager ()
@@ -43,14 +43,23 @@
 
 - (void)setup
 {
-    NSInteger oldVersion = 0; //[[NSUserDefaults standardUserDefaults] integerForKey:USER_DEFAULT_DB_VERSION];
+    NSInteger oldVersion = [[NSUserDefaults standardUserDefaults] integerForKey:USER_DEFAULT_DB_VERSION];
     switch (oldVersion) {
         case 0:
             [self queryV0];
+        case 1:
+            [self queryV1];
         default:
             break;
     }
     [[NSUserDefaults standardUserDefaults] setInteger:DB_VERSION forKey:USER_DEFAULT_DB_VERSION];
+    
+    // clean old post read count
+    [self.dbQueue inDatabase:^(FMDatabase *db) {
+        int now = (int)[[NSDate date] timeIntervalSince1970];
+        int saveTime = 50 * 24 * 3600;  // save post read flag for 50 days
+        [db executeUpdate:@"DELETE FROM post_read_flag WHERE readtime < ?", @(now - saveTime)];
+    }];
 }
 
 - (void)queryV0
@@ -58,6 +67,13 @@
     [self.dbQueue inDatabase:^(FMDatabase *db) {
         [db executeUpdate:@"CREATE TABLE IF NOT EXISTS posts (pid INT, gid INT, data TEXT, PRIMARY KEY (pid))"];
         [db executeUpdate:@"CREATE TABLE IF NOT EXISTS post_read_flag (pid INT, readcount INT, type INT, PRIMARY KEY (pid, type))"];
+    }];
+}
+
+- (void)queryV1
+{
+    [self.dbQueue inDatabase:^(FMDatabase *db) {
+        [db executeUpdate:@"ALTER TABLE post_read_flag ADD COLUMN readtime INT"];
     }];
 }
 
@@ -106,7 +122,8 @@
 - (void)insertPostReadCount:(SMPost *)post type:(NSInteger)type
 {
     [self.dbQueue inDatabase:^(FMDatabase *db) {
-        [db executeUpdate:@"REPLACE INTO post_read_flag (pid, readcount, type) VALUES (?, ?, ?)", @(post.pid), @(post.readCount), @(type)];
+        NSTimeInterval timestamp = [[NSDate date] timeIntervalSince1970];
+        [db executeUpdate:@"REPLACE INTO post_read_flag (pid, readcount, type, readtime) VALUES (?, ?, ?, ?)", @(post.pid), @(post.readCount), @(type), @((int)timestamp)];
     }];
 }
 
