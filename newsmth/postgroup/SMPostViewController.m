@@ -377,7 +377,7 @@
             if (postItem.op.data) {
                 postItem.post = postItem.op.data;
             }
-            if (YES && postItem.post.content) {  // label
+            if ([SMConfig enableOptimizePostContent] && postItem.post.content) {  // label
                 return [SMPostGroupContentCell cellHeight:postItem.post];
             } else {    // webview
                 id v = [_postHeightMap objectForKey:@(postItem.post.pid)];
@@ -549,7 +549,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.delegate = self;
     }
-    [cell setPost:item.post withOptimize:YES];
+    [cell setPost:item.post withOptimize:[SMConfig enableOptimizePostContent]];
 //    cell.post = item.post;
     return cell;
 }
