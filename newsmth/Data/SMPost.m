@@ -55,6 +55,11 @@
 	_notice = [[SMNotice alloc] initWithJSON:[dict objectForKey:@"notice"]];
 
 	_readCount = [[dict objectForKey:@"readCount"] intValue];
+
+	id links = [dict objectForKey:@"links"];
+	if ([links isKindOfClass:[NSArray class]]) {
+		_links = links;
+	}
 }
 
 - (id)encode
@@ -109,6 +114,10 @@
 	}
 
 	[dict setObject:@(_readCount) forKey:@"readCount"];
+
+	if (_links != nil) {
+		[dict setObject:_links forKey:@"links"];
+	}
 	return dict;
 }
 @end

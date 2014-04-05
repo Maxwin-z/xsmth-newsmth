@@ -550,7 +550,7 @@
         cell.delegate = self;
     }
     [cell setPost:item.post withOptimize:[SMConfig enableOptimizePostContent]];
-//    cell.post = item.post;
+//    cell.post = item.post;    
     return cell;
 }
 

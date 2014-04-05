@@ -30,6 +30,7 @@ SMPost {
 	bool hasNotice
 	SMNotice notice
     int readCount
+    string[] links
 }
 
 SMPostGroup {

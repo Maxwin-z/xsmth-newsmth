@@ -93,6 +93,7 @@ function parse_www(html) {
     var script = html.match(/<!--((.|\s)*?)\/\/-->/)[0];
     eval(script);
     var rsp = {code: 0, data: data, message:''};
+    extractLinks(data);
     console.log(rsp);
     window.location.href = 'newsmth://' + encodeURIComponent(JSON.stringify(rsp));
 }
@@ -153,9 +154,20 @@ function parse_m(html) {
     } catch(ignore) {
         data.title = ignore.message;
     }
+    extractLinks(data);
     console.log(rsp);
     window.location.href = 'newsmth://' + encodeURIComponent(JSON.stringify(rsp));
 
+}
+
+function extractLinks(post) {
+    // v2.4 optimize for old device, show links in tableview
+    // parse links
+    var links = [];
+    post.content.replace(/https?:\/\/[!-~]+/g, function($1) {
+        links.push($1);
+    });
+    post.links = links;
 }
 
 function $parse(html) {
