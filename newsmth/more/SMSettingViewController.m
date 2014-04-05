@@ -16,7 +16,7 @@
 #import "SMIPadSplitViewController.h"
 #import "SMEULAViewController.h"
 
-#define MAX_CELL_COUNT  5
+#define MAX_CELL_COUNT  6
 
 typedef enum {
     CellTypeDisableTail,
@@ -28,6 +28,7 @@ typedef enum {
     CellTypeEnableQMD,
     CellTypeSwipeBack,
     CellTypeEnableDayMode,
+    CellTypeOptimizePostContent,
     
     CellTypeBackgroundFetch,
     CellTypeBackgroundFetchSmartMode,
@@ -84,8 +85,8 @@ static SectionData sections[] = {
         SectionTypeBoard,
         "浏览",
         NULL,
-        5,
-        {CellTypeEnableDayMode, CellTypeHideTop, CellTypeEnableQMD, CellTypeUserClickable, CellTypeShowReplyAuthor}
+        6,
+        {CellTypeEnableDayMode, CellTypeHideTop, CellTypeEnableQMD, CellTypeUserClickable, CellTypeShowReplyAuthor, CellTypeOptimizePostContent}
     },
     {
         SectionTypeInteract,
@@ -126,6 +127,7 @@ static SectionData sections[] = {
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForUserClickable;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForShowReplyAuthor;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForShowQMD;
+@property (strong, nonatomic) IBOutlet UITableViewCell *cellForOptimizePostContent;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForBackgroundFetch;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForBackgroundFetchSmartMode;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForFeedback;
@@ -148,6 +150,7 @@ static SectionData sections[] = {
 @property (weak, nonatomic) IBOutlet UISwitch *switchForUserClickable;
 @property (weak, nonatomic) IBOutlet UISwitch *switchForShowReplyAuthor;
 @property (weak, nonatomic) IBOutlet UISwitch *switchForShowQMD;
+@property (weak, nonatomic) IBOutlet UISwitch *switchForOptimizePostContent;
 @property (weak, nonatomic) IBOutlet UISwitch *switchForBackgroundFetch;
 @property (weak, nonatomic) IBOutlet UISwitch *switchForBackgroundFetchSmartMode;
 @property (weak, nonatomic) IBOutlet UISwitch *switchForSwipeBack;
@@ -187,6 +190,7 @@ static SectionData sections[] = {
     _switchForHideTop.on = [SMConfig disableShowTopPost];
     _switchForUserClickable.on = [SMConfig enableUserClick];
     _switchForShowReplyAuthor.on = [SMConfig enableShowReplyAuthor];
+    _switchForOptimizePostContent.on = [SMConfig enableOptimizePostContent];
     _switchForSwipeBack.on = [SMConfig enableIOS7SwipeBack];
     _switchForBackgroundFetch.on = [SMConfig enableBackgroundFetch];
     _switchForBackgroundFetchSmartMode.on = [SMConfig enableBackgroundFetchSmartMode];
@@ -264,6 +268,10 @@ static SectionData sections[] = {
         [def setBool:sender.on forKey:USERDEFAULTS_CONFIG_SHOW_REPLY_AUTHOR];
         action = @"showReplyAuthor";
     }
+    if (sender == _switchForOptimizePostContent) {
+        [def setBool:sender.on forKey:USERDEFAULTS_CONFIG_OPTIMIZE_POST_CONTENT];
+        action = @"optimizePostContent";
+    }
     if (sender == _switchForSwipeBack) {
         [def setBool:sender.on forKey:USERDEFAULTS_CONFIG_IOS7_SWIPE_BACK];
         action = @"swipeBack";
@@ -333,6 +341,8 @@ static SectionData sections[] = {
             return _cellForUserClickable;
         case CellTypeShowReplyAuthor:
             return _cellForShowReplyAuthor;
+        case CellTypeOptimizePostContent:
+            return _cellForOptimizePostContent;
             
         case CellTypeEnableQMD:
             return _cellForShowQMD;

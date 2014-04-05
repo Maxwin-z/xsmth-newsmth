@@ -60,6 +60,7 @@ typedef enum {
 #define USERDEFAULTS_CONFIG_BACKGROUND_FETCH_SMART_MODE    @"cfg_backgroundfetchsmartmode"
 #define USERDEFAULTS_CONFIG_HIDE_TOP_POST    @"cfg_hidetoppost"
 #define USERDEFAULTS_CONFIG_SHOW_QMD    @"cfg_showqmd"
+#define USERDEFAULTS_CONFIG_OPTIMIZE_POST_CONTENT   @"cfg_optimize_post_content"
 #define USERDEFAULTS_CONFIG_USER_CLICKABLE    @"cfg_userclickable"
 #define USERDEFAULTS_CONFIG_SHOW_REPLY_AUTHOR    @"cfg_showreplyauthor"
 #define USERDEFAULTS_CONFIG_IOS7_SWIPE_BACK    @"cfg_ios7swipeback"

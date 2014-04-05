@@ -51,6 +51,11 @@
     return [SMConfig configForKey:USERDEFAULTS_CONFIG_SHOW_QMD defaults:YES];
 }
 
++ (BOOL)enableOptimizePostContent
+{
+    return [SMConfig configForKey:USERDEFAULTS_CONFIG_OPTIMIZE_POST_CONTENT defaults:YES];
+}
+
 + (BOOL)enableDayMode
 {
     return [SMConfig configForKey:USERDEFAULTS_CONFIG_ENABLE_DAY_MODE defaults:YES];

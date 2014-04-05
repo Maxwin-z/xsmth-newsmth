@@ -15,6 +15,7 @@
 + (BOOL)disableShowTopPost;
 + (BOOL)enableUserClick;
 + (BOOL)enableShowReplyAuthor;
++ (BOOL)enableOptimizePostContent;
 + (BOOL)enableIOS7SwipeBack;
 + (BOOL)enableShowQMD;
 + (BOOL)enableDayMode;
