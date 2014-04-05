@@ -7,6 +7,7 @@
 //
 
 #import "SMConfig.h"
+#import "UIDeviceHardware.h"
 
 @implementation SMConfig
 
@@ -53,7 +54,22 @@
 
 + (BOOL)enableOptimizePostContent
 {
-    return [SMConfig configForKey:USERDEFAULTS_CONFIG_OPTIMIZE_POST_CONTENT defaults:YES];
+    NSString *platform = [UIDeviceHardware platform];
+    BOOL optimize = NO;
+    // < iphone 5
+    if ([platform hasPrefix:@"iPhone"] && [platform compare:@"iPhone5"] == NSOrderedAscending) {
+        optimize = YES;
+    }
+    // < ipod 5
+    if (!optimize && [platform hasPrefix:@"iPod"] && [platform compare:@"iPod5"] == NSOrderedAscending) {
+        optimize = YES;
+    }
+    // ipad 1 & ipad2
+    if (!optimize && [platform hasPrefix:@"iPad"] && [platform compare:@"iPad2,5"] == NSOrderedAscending) {
+        optimize = YES;
+    }
+    
+    return [SMConfig configForKey:USERDEFAULTS_CONFIG_OPTIMIZE_POST_CONTENT defaults:optimize];
 }
 
 + (BOOL)enableDayMode

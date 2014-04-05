@@ -32,6 +32,7 @@
 		C1011D96177946D500E0485D /* SMUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C1011D95177946D500E0485D /* SMUtils.m */; };
 		C1011DA31779657000E0485D /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1011DA21779657000E0485D /* CoreData.framework */; };
 		C1011DAC1779946600E0485D /* UIButton+Custom.m in Sources */ = {isa = PBXBuildFile; fileRef = C1011DAB1779946600E0485D /* UIButton+Custom.m */; };
+		C10C499F18F04F3400DF946E /* UIDeviceHardware.m in Sources */ = {isa = PBXBuildFile; fileRef = C10C499E18F04F3400DF946E /* UIDeviceHardware.m */; };
 		C10D16081755E7A0002D6FAD /* SMWebLoaderOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C10D16071755E7A0002D6FAD /* SMWebLoaderOperation.m */; };
 		C10D160B1755EFEE002D6FAD /* SMWebLoaderOperationQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = C10D160A1755EFEE002D6FAD /* SMWebLoaderOperationQueue.m */; };
 		C10D160E1755FBFE002D6FAD /* mainpage.js in Resources */ = {isa = PBXBuildFile; fileRef = C10D160C1755FBF5002D6FAD /* mainpage.js */; };
@@ -396,6 +397,8 @@
 		C1011DA21779657000E0485D /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		C1011DAA1779946600E0485D /* UIButton+Custom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Custom.h"; sourceTree = "<group>"; };
 		C1011DAB1779946600E0485D /* UIButton+Custom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Custom.m"; sourceTree = "<group>"; };
+		C10C499D18F04F3400DF946E /* UIDeviceHardware.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIDeviceHardware.h; sourceTree = "<group>"; };
+		C10C499E18F04F3400DF946E /* UIDeviceHardware.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIDeviceHardware.m; sourceTree = "<group>"; };
 		C10D16051755D552002D6FAD /* SMDefination.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMDefination.h; sourceTree = "<group>"; };
 		C10D16061755E7A0002D6FAD /* SMWebLoaderOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMWebLoaderOperation.h; sourceTree = "<group>"; };
 		C10D16071755E7A0002D6FAD /* SMWebLoaderOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMWebLoaderOperation.m; sourceTree = "<group>"; };
@@ -1038,6 +1041,8 @@
 				C1CE10BB1812293900B04E15 /* SMUpdater.m */,
 				C154CC591873C1E800C32F0D /* UIView+Utils.h */,
 				C154CC5A1873C1E800C32F0D /* UIView+Utils.m */,
+				C10C499D18F04F3400DF946E /* UIDeviceHardware.h */,
+				C10C499E18F04F3400DF946E /* UIDeviceHardware.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -2002,6 +2007,7 @@
 				C14505E51750787C00DC5431 /* SMAccountManager.m in Sources */,
 				C1300A5618795C23006ACA5C /* SMIpadEmptyViewController.m in Sources */,
 				C14505E817507A9800DC5431 /* SMHttpRequest.m in Sources */,
+				C10C499F18F04F3400DF946E /* UIDeviceHardware.m in Sources */,
 				C14505ED17507DD400DC5431 /* XLogUtil.m in Sources */,
 				C121F29E175106A00081FD87 /* SMWebParser.m in Sources */,
 				C10D16081755E7A0002D6FAD /* SMWebLoaderOperation.m in Sources */,
