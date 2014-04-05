@@ -378,7 +378,7 @@
                 postItem.post = postItem.op.data;
             }
             if ([SMConfig enableOptimizePostContent] && postItem.post.content) {  // label
-                return [SMPostGroupContentCell cellHeight:postItem.post];
+                return [SMPostGroupContentCell cellHeight:postItem.post withWidth:self.tableView.frame.size.width];
             } else {    // webview
                 id v = [_postHeightMap objectForKey:@(postItem.post.pid)];
                 if (v != nil) {

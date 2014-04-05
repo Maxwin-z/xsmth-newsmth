@@ -29,7 +29,7 @@
 @property (weak, nonatomic) id<SMPostGroupContentCellDelegate> delegate;
 @property (strong, nonatomic, readonly) SMPost *post;
 
-+ (CGFloat)cellHeight:(SMPost *)post;
++ (CGFloat)cellHeight:(SMPost *)post withWidth:(CGFloat)width;
 
 - (void)setPost:(SMPost *)post withOptimize:(BOOL)optimizeForIP4;
 
