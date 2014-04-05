@@ -28,6 +28,7 @@
 #import "SMWeiXinSessionActivity.h"
 #import "SMWeiXinTimelineActivity.h"
 #import "SMMailToActivity.h"
+#import "SMViewLinkActivity.h"
 #import "SMDiagnoseViewController.h"
 #import "SMPostWebLoaderOperation.h"
 #import "SMDBManager.h"
@@ -550,7 +551,7 @@
         cell.delegate = self;
     }
     [cell setPost:item.post withOptimize:[SMConfig enableOptimizePostContent]];
-//    cell.post = item.post;    
+//    cell.post = item.post;
     return cell;
 }
 
@@ -909,8 +910,9 @@
         SMWeiXinSessionActivity *wxSessionActivity = [[SMWeiXinSessionActivity alloc] init];
         SMWeiXinTimelineActivity *wxTimelineActivity = [[SMWeiXinTimelineActivity alloc] init];
         SMMailToActivity *mailtoActivity = [SMMailToActivity new];
+        SMViewLinkActivity *viewLinkActivity = [SMViewLinkActivity new];
 
-        UIActivityViewController *avc = [[UIActivityViewController alloc] initWithActivityItems:@[provider, [NSURL URLWithString:url]] applicationActivities:@[wxSessionActivity, wxTimelineActivity, mailtoActivity]];
+        UIActivityViewController *avc = [[UIActivityViewController alloc] initWithActivityItems:@[provider, [NSURL URLWithString:url]] applicationActivities:@[wxSessionActivity, wxTimelineActivity, mailtoActivity, viewLinkActivity]];
         if (&UIActivityTypeAirDrop != NULL) {
             avc.excludedActivityTypes = @[UIActivityTypeAirDrop, UIActivityTypeMessage];
         } else {

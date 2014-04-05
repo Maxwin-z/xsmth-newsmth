@@ -33,6 +33,8 @@
 		C1011DA31779657000E0485D /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1011DA21779657000E0485D /* CoreData.framework */; };
 		C1011DAC1779946600E0485D /* UIButton+Custom.m in Sources */ = {isa = PBXBuildFile; fileRef = C1011DAB1779946600E0485D /* UIButton+Custom.m */; };
 		C10C499F18F04F3400DF946E /* UIDeviceHardware.m in Sources */ = {isa = PBXBuildFile; fileRef = C10C499E18F04F3400DF946E /* UIDeviceHardware.m */; };
+		C10C49A218F05CED00DF946E /* SMViewLinkActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = C10C49A118F05CED00DF946E /* SMViewLinkActivity.m */; };
+		C10C49A418F05D9300DF946E /* icon_link@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C10C49A318F05D9300DF946E /* icon_link@2x.png */; };
 		C10D16081755E7A0002D6FAD /* SMWebLoaderOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C10D16071755E7A0002D6FAD /* SMWebLoaderOperation.m */; };
 		C10D160B1755EFEE002D6FAD /* SMWebLoaderOperationQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = C10D160A1755EFEE002D6FAD /* SMWebLoaderOperationQueue.m */; };
 		C10D160E1755FBFE002D6FAD /* mainpage.js in Resources */ = {isa = PBXBuildFile; fileRef = C10D160C1755FBF5002D6FAD /* mainpage.js */; };
@@ -399,6 +401,9 @@
 		C1011DAB1779946600E0485D /* UIButton+Custom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Custom.m"; sourceTree = "<group>"; };
 		C10C499D18F04F3400DF946E /* UIDeviceHardware.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIDeviceHardware.h; sourceTree = "<group>"; };
 		C10C499E18F04F3400DF946E /* UIDeviceHardware.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIDeviceHardware.m; sourceTree = "<group>"; };
+		C10C49A018F05CED00DF946E /* SMViewLinkActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMViewLinkActivity.h; sourceTree = "<group>"; };
+		C10C49A118F05CED00DF946E /* SMViewLinkActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMViewLinkActivity.m; sourceTree = "<group>"; };
+		C10C49A318F05D9300DF946E /* icon_link@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_link@2x.png"; sourceTree = "<group>"; };
 		C10D16051755D552002D6FAD /* SMDefination.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMDefination.h; sourceTree = "<group>"; };
 		C10D16061755E7A0002D6FAD /* SMWebLoaderOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMWebLoaderOperation.h; sourceTree = "<group>"; };
 		C10D16071755E7A0002D6FAD /* SMWebLoaderOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMWebLoaderOperation.m; sourceTree = "<group>"; };
@@ -1097,6 +1102,7 @@
 		C19FF0B01769A71B00EB6F7E /* images */ = {
 			isa = PBXGroup;
 			children = (
+				C10C49A318F05D9300DF946E /* icon_link@2x.png */,
 				C1F8109C18E70263001B3759 /* unread_none@2x.png */,
 				C1F4672118C2EFAB006BCE7A /* common_share_icon_weixin_friends@2x.png */,
 				C1F8D80C18D308360076A790 /* icon_user@2x.png */,
@@ -1625,6 +1631,8 @@
 				C1F4672618C2F5ED006BCE7A /* SMWeiXinTimelineActivity.m */,
 				C10DC6D318C3011800FF95E8 /* SMMailToActivity.h */,
 				C10DC6D418C3011800FF95E8 /* SMMailToActivity.m */,
+				C10C49A018F05CED00DF946E /* SMViewLinkActivity.h */,
+				C10C49A118F05CED00DF946E /* SMViewLinkActivity.m */,
 			);
 			path = activity;
 			sourceTree = "<group>";
@@ -1857,6 +1865,7 @@
 				C12027B61754E08A00EB9E9E /* bbscon.js in Resources */,
 				C1BFB8E7174F6A620092FD2E /* InfoPlist.strings in Resources */,
 				C1300A6E187ACB9E006ACA5C /* icon_forward@2x.png in Resources */,
+				C10C49A418F05D9300DF946E /* icon_link@2x.png in Resources */,
 				C1BFB8EF174F6A620092FD2E /* Default.png in Resources */,
 				392417D9187C6A7100558725 /* icon_76.png in Resources */,
 				C10F2F8117E5845200F83206 /* SMMailCell.xib in Resources */,
@@ -2066,6 +2075,7 @@
 				C1F8107018E5B734001B3759 /* FMDatabase+InMemoryOnDiskIO.m in Sources */,
 				C1E7A19A1809A7F1002CAEEC /* SMFontSelectorViewController.m in Sources */,
 				C1C4C8881781BACC0092E77C /* SMBoardListItem.m in Sources */,
+				C10C49A218F05CED00DF946E /* SMViewLinkActivity.m in Sources */,
 				C1C4C8941781C4A60092E77C /* SMSectionViewController.m in Sources */,
 				C154CC5B1873C1E800C32F0D /* UIView+Utils.m in Sources */,
 				C100985017828305001608EE /* SMPostFailCell.m in Sources */,
