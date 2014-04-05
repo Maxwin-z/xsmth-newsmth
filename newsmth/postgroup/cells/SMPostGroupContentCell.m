@@ -12,8 +12,8 @@ static SMPostGroupContentCell *_instance;
 
 @interface SMPostGroupContentCell ()<UIWebViewDelegate, UIGestureRecognizerDelegate>
 @property (strong, nonatomic) IBOutlet UIView *viewForCell;
-@property (strong, nonatomic) IBOutlet UILabel *labelForContent;    // unused
-@property (weak, nonatomic) IBOutlet UIWebView *webViewForContent;
+@property (strong, nonatomic) IBOutlet UILabel *labelForContent;
+@property (strong, nonatomic) IBOutlet UIWebView *webViewForContent;
 @property (weak, nonatomic) IBOutlet UIView *viewForActions;
 @property (weak, nonatomic) IBOutlet UIButton *buttonForReply;
 @property (weak, nonatomic) IBOutlet UIButton *buttonForForward;
@@ -35,6 +35,7 @@ static SMPostGroupContentCell *_instance;
 {
     SMPostGroupContentCell *cell = [self instance];
     CGFloat heightExceptContent = cell.viewForCell.frame.size.height - cell.labelForContent.frame.size.height;
+    cell.labelForContent.font = [SMConfig postFont];
     CGFloat contentHeight = [post.content smSizeWithFont:cell.labelForContent.font constrainedToSize:CGSizeMake(cell.labelForContent.frame.size.width, CGFLOAT_MAX) lineBreakMode:cell.labelForContent.lineBreakMode].height;
     return heightExceptContent + contentHeight;
 }
@@ -183,16 +184,23 @@ NSString *tpl =
     return body;
 }
 
-- (void)setPost:(SMPost *)post
+- (void)setPost:(SMPost *)post withOptimize:(BOOL)optimizeForIP4
 {
-//    XLog_d(@"%@", [self generateCSS]);
     _post = post;
-    NSString *body = [self generateHtml:YES];
-    [_webViewForContent loadHTMLString:body baseURL:nil];
     
     self.backgroundColor = [SMTheme colorForBackground];
-    _labelForContent.textColor = [SMTheme colorForPrimary];
 
+    if (optimizeForIP4) {
+        self.labelForContent.text = _post.content;
+        self.labelForContent.textColor = [SMTheme colorForPrimary];
+        self.labelForContent.font = [SMConfig postFont];
+        [self.webViewForContent removeFromSuperview];
+    } else {
+        NSString *body = [self generateHtml:YES];
+        [_webViewForContent loadHTMLString:body baseURL:nil];
+        [self.labelForContent removeFromSuperview];
+    }
+    
     [@[_buttonForReply, _buttonForForward, _buttonForSearch, _buttonForMore] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         UIButton *btn = obj;
         [btn setTitleColor:[SMTheme colorForTintColor] forState:UIControlStateNormal];

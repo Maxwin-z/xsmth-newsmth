@@ -26,8 +26,12 @@
 @end
 
 @interface SMPostGroupContentCell : UITableViewCell
-@property (strong, nonatomic) SMPost* post;
 @property (weak, nonatomic) id<SMPostGroupContentCellDelegate> delegate;
+@property (strong, nonatomic, readonly) SMPost *post;
+
++ (CGFloat)cellHeight:(SMPost *)post;
+
+- (void)setPost:(SMPost *)post withOptimize:(BOOL)optimizeForIP4;
 
 - (void)hideActionView;
 @end

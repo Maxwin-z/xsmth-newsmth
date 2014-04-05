@@ -373,13 +373,19 @@
         if (indexPath.row == 0) {   // header
             return [SMPostGroupHeaderCell cellHeight:item];
         }
-        if (indexPath.row == 1) {
-            id v = [_postHeightMap objectForKey:@(postItem.post.pid)];
-            if (v != nil) {
-                //            XLog_d(@"has height: %f", [v floatValue]);
-                return [v floatValue];
+        if (indexPath.row == 1) {   // content
+            if (postItem.op.data) {
+                postItem.post = postItem.op.data;
             }
-            return 60.0f;
+            if (YES && postItem.post.content) {  // label
+                return [SMPostGroupContentCell cellHeight:postItem.post];
+            } else {    // webview
+                id v = [_postHeightMap objectForKey:@(postItem.post.pid)];
+                if (v != nil) {
+                    return [v floatValue];
+                }
+                return 60.0f;
+            }
         }
         // attachs
         return [SMPostGroupAttachCell cellHeight:[self getAttachUrl:[self attachAtIndexPath:indexPath]] withWidth:self.tableView.frame.size.width];
@@ -543,7 +549,8 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.delegate = self;
     }
-    cell.post = item.post;
+    [cell setPost:item.post withOptimize:YES];
+//    cell.post = item.post;
     return cell;
 }
 
