@@ -228,7 +228,13 @@ typedef NS_ENUM(NSInteger, CellType) {
         vc = [SMMainpageViewController instance];
         evt = @"home";
     }else if (cellType == CellTypeNotice) {
-        vc = [SMNoticeViewController instance];
+        if ([SMConfig is2]) {
+            PBWebViewController *web = [PBWebViewController new];
+            web.URL = [NSURL URLWithString:@"http://www.2.newsmth.net/bbsmail.php"];
+            vc = web;
+        } else {
+            vc = [SMNoticeViewController instance];
+        }
         evt = @"notice";
     } else if (cellType == CellTypeFavor) {
         vc = [SMFavorListViewController instance];
