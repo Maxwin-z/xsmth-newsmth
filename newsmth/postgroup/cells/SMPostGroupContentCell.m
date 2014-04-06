@@ -38,6 +38,8 @@ static SMPostGroupContentCell *_instance;
     frame.size.width = width;
     cell.frame = frame;
     
+    [cell layoutIfNeeded];
+    
     CGFloat heightExceptContent = cell.viewForCell.frame.size.height - cell.labelForContent.frame.size.height;
     cell.labelForContent.font = [SMConfig postFont];
     CGFloat contentHeight = [post.content smSizeWithFont:cell.labelForContent.font constrainedToSize:CGSizeMake(cell.labelForContent.frame.size.width, CGFLOAT_MAX) lineBreakMode:cell.labelForContent.lineBreakMode].height;

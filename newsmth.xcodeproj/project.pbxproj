@@ -35,6 +35,7 @@
 		C10C499F18F04F3400DF946E /* UIDeviceHardware.m in Sources */ = {isa = PBXBuildFile; fileRef = C10C499E18F04F3400DF946E /* UIDeviceHardware.m */; };
 		C10C49A218F05CED00DF946E /* SMViewLinkActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = C10C49A118F05CED00DF946E /* SMViewLinkActivity.m */; };
 		C10C49A418F05D9300DF946E /* icon_link@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C10C49A318F05D9300DF946E /* icon_link@2x.png */; };
+		C10C49A718F0FCB100DF946E /* SMPostLinksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C10C49A618F0FCB100DF946E /* SMPostLinksViewController.m */; };
 		C10D16081755E7A0002D6FAD /* SMWebLoaderOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C10D16071755E7A0002D6FAD /* SMWebLoaderOperation.m */; };
 		C10D160B1755EFEE002D6FAD /* SMWebLoaderOperationQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = C10D160A1755EFEE002D6FAD /* SMWebLoaderOperationQueue.m */; };
 		C10D160E1755FBFE002D6FAD /* mainpage.js in Resources */ = {isa = PBXBuildFile; fileRef = C10D160C1755FBF5002D6FAD /* mainpage.js */; };
@@ -404,6 +405,8 @@
 		C10C49A018F05CED00DF946E /* SMViewLinkActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMViewLinkActivity.h; sourceTree = "<group>"; };
 		C10C49A118F05CED00DF946E /* SMViewLinkActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMViewLinkActivity.m; sourceTree = "<group>"; };
 		C10C49A318F05D9300DF946E /* icon_link@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_link@2x.png"; sourceTree = "<group>"; };
+		C10C49A518F0FCB100DF946E /* SMPostLinksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMPostLinksViewController.h; sourceTree = "<group>"; };
+		C10C49A618F0FCB100DF946E /* SMPostLinksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMPostLinksViewController.m; sourceTree = "<group>"; };
 		C10D16051755D552002D6FAD /* SMDefination.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMDefination.h; sourceTree = "<group>"; };
 		C10D16061755E7A0002D6FAD /* SMWebLoaderOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMWebLoaderOperation.h; sourceTree = "<group>"; };
 		C10D16071755E7A0002D6FAD /* SMWebLoaderOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMWebLoaderOperation.m; sourceTree = "<group>"; };
@@ -1181,6 +1184,8 @@
 				C1FF62AE179E6DF4001F7A15 /* SMPostViewController.h */,
 				C1FF62AF179E6DF4001F7A15 /* SMPostViewController.m */,
 				C1FF62B0179E6DF4001F7A15 /* SMPostViewController.xib */,
+				C10C49A518F0FCB100DF946E /* SMPostLinksViewController.h */,
+				C10C49A618F0FCB100DF946E /* SMPostLinksViewController.m */,
 			);
 			path = postgroup;
 			sourceTree = "<group>";
@@ -2084,6 +2089,7 @@
 				C10F2F7F17E5844300F83206 /* SMMailCell.m in Sources */,
 				C10080F71785A4D700487A45 /* SMImagePickerAssetsViewController.m in Sources */,
 				C1A50E301786C69800D43439 /* SMImagePickerAssetsCell.m in Sources */,
+				C10C49A718F0FCB100DF946E /* SMPostLinksViewController.m in Sources */,
 				C1A182D2178AB1260080EEDB /* SMImageUploader.m in Sources */,
 				C124CAEE185D8BC500B9CEA3 /* SMTheme.m in Sources */,
 				C1A182D5178ABB290080EEDB /* SMResult.m in Sources */,

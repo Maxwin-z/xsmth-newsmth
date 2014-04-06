@@ -33,6 +33,7 @@
 #import "SMPostWebLoaderOperation.h"
 #import "SMDBManager.h"
 #import "SMBoardViewTypeSelectorView.h"
+#import "SMPostLinksViewController.h"
 
 #define STRING_EXPAND_HERE  @"从此处展开"
 #define STRING_EXPAND_ALL  @"同主题展开"
@@ -932,6 +933,11 @@
                 } else {
                     [self mailtoWithPost:post];
                 }
+            }
+            if ([activityType isEqualToString:SMActivityViewLinkActivity]) {
+                SMPostLinksViewController *vc = [SMPostLinksViewController new];
+                vc.post = post;
+                [self.navigationController pushViewController:vc animated:YES];
             }
             
             [SMUtils trackEventWithCategory:@"postgroup" action:@"more_action" label:activityType];
