@@ -38,7 +38,9 @@ function conWriter(ftype, board, bid, id, gid, reid, favtxt, num, istex, title) 
         bid: bid,
         name: board
     };
-    data.title = decode(title);
+    if (title) {
+        data.title = decode(title);
+    }
 }
 
 conWriter.prototype.h = emptyFn;

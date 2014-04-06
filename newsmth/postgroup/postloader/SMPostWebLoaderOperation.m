@@ -30,7 +30,7 @@
 {
     SMPost *post = self.post;
     [[SMDBManager instance] queryPost:post.pid completed:^(SMPost *post_) {
-        if (post_) {
+        if (post_ && ![SMConfig is2]) {
             self->_data = post_;
             self->_isDone = YES;
             [self.originDelegate webLoaderOperationFinished:self];
@@ -41,6 +41,10 @@
                        post.board.name, post.pid];
             }
            
+            if ([SMConfig is2]) {
+                url = [NSString stringWithFormat:@"http://www.2.newsmth.net/bbscon.php?bid=%@&id=%@", @(post.board.bid), @(post.pid)];
+            }
+            
             self.loadOp = [SMWebLoaderOperation new];
             self.loadOp.delegate = self;
             [self.loadOp loadUrl:url withParser:@"bbscon,util_notice"];

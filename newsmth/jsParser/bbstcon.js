@@ -31,7 +31,9 @@ function $parse(html) {
 function tconWriter(board, bid, gid, start, tpage, pno, serial, prevgid, nextgid,title) {
 	data.bid = bid;
 	data.tpage = tpage;
-	data.title = decode(title);
+    if (title) {
+        data.title = decode(title);
+    }
 }
 
 tconWriter.prototype.o = function(arr) {
@@ -60,6 +62,11 @@ function parse_www(html) {
 		}
 	} else {
     	eval(script[0]);
+        if (data.title.length == 0) {  // www.2.
+            html.replace(/<h1\s+class="ttit">(?:同主题阅读：\s*)(.+)<\/h1>/i, function ($0, $1) {
+                data.title = decode($1 || '');
+            });
+        }
     	rsp.data = data;
     }
 

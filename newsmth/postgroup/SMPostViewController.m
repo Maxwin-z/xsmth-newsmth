@@ -249,7 +249,13 @@
 
     [_currentPageItem.op cancel];
     [_pageOp cancel];
+    
     NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbstcon.php?board=%@&gid=%@&start=%@&pno=%@", _board.name, @(_gid), @(_currentPageItem.start), @(_currentPageItem.pno)];
+    
+    if ([SMConfig is2]) {
+        url = [NSString stringWithFormat:@"http://www.2.newsmth.net/bbstcon.php?board=%@&gid=%@&start=%@&pno=%@", _board.name, @(_gid), @(_currentPageItem.start), @(_currentPageItem.pno)];
+    }
+    
     _pageOp = [[SMWebLoaderOperation alloc] init];
     _pageOp.highPriority = YES;
     _pageOp.delegate = self;
@@ -623,6 +629,10 @@
             if (![SMConfig enableShowQMD]) {
                 url = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/single/%d/0",
                              _board.name, post.pid];
+            }
+            
+            if ([SMConfig is2]) {
+                url = [NSString stringWithFormat:@"http://www.2.newsmth.net/bbscon.php?bid=%@&id=%@", @(_bid), @(post.pid)];
             }
 
            // SMWebLoaderOperation *op = [[SMWebLoaderOperation alloc] init];
@@ -1056,6 +1066,10 @@
     SMPost *post = item.post;
     NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/single/%d/0", _board.name, post.pid];
 
+    if ([SMConfig is2]) {
+        url = [NSString stringWithFormat:@"http://www.2.newsmth.net/bbscon.php?bid=%@&id=%@", @(_bid), @(post.pid)];
+    }
+    
     [item.op cancel];
 
     SMWebLoaderOperation *op = [[SMWebLoaderOperation alloc] init];
