@@ -913,7 +913,12 @@
         SMMailToActivity *mailtoActivity = [SMMailToActivity new];
         SMViewLinkActivity *viewLinkActivity = [SMViewLinkActivity new];
 
-        UIActivityViewController *avc = [[UIActivityViewController alloc] initWithActivityItems:@[provider, [NSURL URLWithString:url]] applicationActivities:@[wxSessionActivity, wxTimelineActivity, mailtoActivity, viewLinkActivity]];
+        NSMutableArray *activites = [[NSMutableArray alloc] initWithArray:@[wxSessionActivity, wxTimelineActivity, mailtoActivity]];
+        if (post.links.count > 0) {
+            [activites addObject:viewLinkActivity];
+        }
+        
+        UIActivityViewController *avc = [[UIActivityViewController alloc] initWithActivityItems:@[provider, [NSURL URLWithString:url]] applicationActivities:activites];
         if (&UIActivityTypeAirDrop != NULL) {
             avc.excludedActivityTypes = @[UIActivityTypeAirDrop, UIActivityTypeMessage];
         } else {
