@@ -59,7 +59,11 @@
     _listOp = [[SMWebLoaderOperation alloc] init];
     _listOp.delegate = self;
     _listOp.highPriority = YES;
-    [_listOp loadUrl:_url withParser:@"boardlist,util_notice"];
+    if ([SMConfig is2]) {
+        [_listOp loadUrl:_url withParser:@"boardlist.2"];
+    } else {
+        [_listOp loadUrl:_url withParser:@"boardlist,util_notice"];
+    }
 }
 
 - (void)setItems:(NSArray *)items

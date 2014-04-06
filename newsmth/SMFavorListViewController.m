@@ -48,6 +48,9 @@ static SMFavorListViewController *_instance;
     if (self.url == nil) {
         self.url = @"http://m.newsmth.net/favor";
     }
+    if ([SMConfig is2]) {
+        self.url = @"http://www.2.newsmth.net/bbsfav.php?select=0";
+    }
     [self accountChanged];
 }
 

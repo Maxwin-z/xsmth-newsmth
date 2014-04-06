@@ -218,7 +218,11 @@ typedef NS_ENUM(NSInteger, CellType) {
         evt = @"user";
     } else if (cellType == CellTypeSections) {
         SMSectionViewController *tvc = [SMSectionViewController instance];
-        tvc.url = @"http://m.newsmth.net/section";
+        if ([SMConfig is2]) {
+            tvc.url = @"http://www.2.newsmth.net/bbsfav.php?select=0&x";
+        } else {
+            tvc.url = @"http://m.newsmth.net/section";
+        }
         vc = tvc;
         evt = @"section";
     } else if (cellType == CellTypeSetting) {
