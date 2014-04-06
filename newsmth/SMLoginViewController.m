@@ -92,7 +92,7 @@
     NSString *username = [SMUtils encodeurl:_textFieldForUsername.text];
     NSString *password = [SMUtils encodeurl:_textFieldForPassword.text];
     
-    NSString *postBody = [NSString stringWithFormat:@"id=%@&passwd=%@&save=on", username, password];
+    NSString *postBody = [NSString stringWithFormat:@"id=%@&passwd=%@&save=on&kick_multi=1", username, password];
     [request setRequestMethod:@"POST"];
     [request addRequestHeader:@"Content-type" value:@"application/x-www-form-urlencoded"];
     [request setPostBody:[[postBody dataUsingEncoding:NSUTF8StringEncoding] mutableCopy]];

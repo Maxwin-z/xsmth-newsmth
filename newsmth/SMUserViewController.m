@@ -92,6 +92,9 @@
         self.title = username;
         
         NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbsqry.php?userid=%@", username];
+        if ([SMConfig is2]) {
+            url = [NSString stringWithFormat:@"http://www.2.newsmth.net/bbsqry.php?userid=%@", username];
+        }
         [_userInfoOp loadUrl:url withParser:@"bbsqry"];
     }
     
@@ -112,7 +115,11 @@
 {
     [_logoutOp cancel];
     _logoutOp = [[SMWebLoaderOperation alloc] init];
-    [_logoutOp loadUrl:@"http://m.newsmth.net/user/logout" withParser:nil];
+    if ([SMConfig is2]) {
+        [_logoutOp loadUrl:@"http://www.2.newsmth.net/bbslogout.php" withParser:nil];
+    } else {
+        [_logoutOp loadUrl:@"http://m.newsmth.net/user/logout" withParser:nil];
+    }
     
     // disable 
     if ([SMUtils systemVersion] >= 7) {

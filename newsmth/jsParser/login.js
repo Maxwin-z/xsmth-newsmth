@@ -1,8 +1,11 @@
 function $parse(html) {
 	var rsp = {code: 0, data: null, message: null};
 
-    if (html.indexOf('水木二站') != -1 && html.indexOf('的收藏夹</title>') != -1) {
-        
+    if (html.indexOf('www2-main.js') != -1 && html.indexOf('<title>欢迎光临</title>') != -1) {
+       // success 
+    } else if (html.indexOf('window.alert("') != -1) {
+        rsp.code = -1;
+        rsp.message = html.match(/window.alert\("(.+)"\)/)[1];
     } else {
     	var matches = html.match(/<div class="sp hl f">(.*?)<\/div>/);
         if (!matches || matches[1] != '登陆成功') {
