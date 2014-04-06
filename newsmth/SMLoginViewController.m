@@ -84,7 +84,11 @@
 
 - (IBAction)onLoginButtonClick:(id)sender
 {
-    SMHttpRequest *request = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:@"http://m.newsmth.net/user/login"]];
+    NSString *url = @"http://m.newsmth.net/user/login";
+    if ([SMConfig is2]) {
+        url = @"http://www.2.newsmth.net/bbslogin.php";
+    }
+    SMHttpRequest *request = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:url]];
     NSString *username = [SMUtils encodeurl:_textFieldForUsername.text];
     NSString *password = [SMUtils encodeurl:_textFieldForPassword.text];
     
