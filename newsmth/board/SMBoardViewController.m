@@ -52,7 +52,9 @@
 {
     [super viewDidLoad];
 //    self.title = _board.cnName;
-    [self makeupViewTypeSelector];
+    if (![SMConfig is2]) {
+        [self makeupViewTypeSelector];
+    }
     [self makeupTitleView];
     
     _tableView.xdelegate = self;
@@ -222,6 +224,13 @@
         url = [NSString stringWithFormat:@"http://m.newsmth.net/board/%@/0?p=%d", _board.name, _page];
     } else {
         url = [NSString stringWithFormat:@"http://www.newsmth.net/bbsdoc.php?board=%@&ftype=6", _board.name];
+        if (more) {
+            url = [NSString stringWithFormat:@"%@&page=%d", url, _currentPage - 1];
+        }
+    }
+    
+    if ([SMConfig is2]) {
+        url = [NSString stringWithFormat:@"http://www.2.newsmth.net/bbsdoc.php?board=%@&ftype=6", _board.name];
         if (more) {
             url = [NSString stringWithFormat:@"%@&page=%d", url, _currentPage - 1];
         }
