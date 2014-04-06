@@ -58,6 +58,7 @@ static SMFavorListViewController *_instance;
 {
     [super onSwitchSite];
     self.url = [SMConfig is2] ? @"http://www.2.newsmth.net/bbsfav.php?select=0" : @"http://m.newsmth.net/favor";
+    [self loadData];
 }
 
 - (void)accountChanged

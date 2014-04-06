@@ -32,5 +32,17 @@ static SMSectionViewController *_instance;
     [self.tableView beginRefreshing];
 }
 
+- (void)onSwitchSite
+{
+    [super onSwitchSite];
+    if ([SMConfig is2]) {
+        self.url = @"http://www.2.newsmth.net/bbsfav.php?select=0&x";
+    } else {
+        self.url = @"http://m.newsmth.net/section";
+    }
+
+    [self loadData];
+}
+
 
 @end
