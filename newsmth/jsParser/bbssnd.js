@@ -20,6 +20,13 @@ function $parse(html) {
 		}
 	}
 
+    if (html.indexOf('www2-main.js') != -1) {
+        if (html.indexOf('发文成功！') != -1) {
+            data.success = true;
+            rsp.code = 0;
+        }
+    }
+
 	console.log(rsp);
 	window.location.href = 'newsmth://' + encodeURIComponent(JSON.stringify(rsp));
 }

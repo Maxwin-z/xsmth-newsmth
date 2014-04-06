@@ -31,6 +31,8 @@
 
 + (id)string2json:(NSString *)str;
 
++ (NSString *)encodeGBKUrl:(NSString *)text;
+
 + (void)trackEventWithCategory:(NSString *)category
                         action:(NSString *)action
                          label:(NSString *)label;

@@ -99,6 +99,14 @@
     return json;
 }
 
++ (NSString *)encodeGBKUrl:(NSString *)text
+{
+    NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding (kCFStringEncodingGB_18030_2000);
+    NSString *res = [text stringByAddingPercentEscapesUsingEncoding:enc];
+    return res == nil ? @"" : res;
+}
+
+
 + (void)trackEventWithCategory:(NSString *)category
                         action:(NSString *)action
                          label:(NSString *)label

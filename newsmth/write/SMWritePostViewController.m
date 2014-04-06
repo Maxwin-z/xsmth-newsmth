@@ -170,6 +170,12 @@
     } else {
         formUrl = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/post/%d", _post.board.name, _post.pid];
     }
+    
+    if ([SMConfig is2]) {
+        formUrl = [NSString stringWithFormat:@"http://www.2.newsmth.net/bbssnd.php?board=%@&reid=%d", _post.board.name, _post.pid];
+        postBody = [NSString stringWithFormat:@"title=%@&signature=0&text=%@&anony=1", [SMUtils encodeGBKUrl:title], [SMUtils encodeGBKUrl:text]];
+    }
+    
     SMHttpRequest *request = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:formUrl]];
     [request setRequestMethod:@"POST"];
     [request addRequestHeader:@"Content-type" value:@"application/x-www-form-urlencoded"];
