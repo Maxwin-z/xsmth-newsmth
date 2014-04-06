@@ -72,6 +72,12 @@ static SMMainpageViewController *_instance;
     [self.searchDisplayController.searchResultsTableView reloadData];
 }
 
+- (void)onSwitchSite
+{
+    [super onSwitchSite];
+    self.navigationItem.rightBarButtonItem = [SMConfig is2] ? nil : [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(onRightBarButtonItemClick)];
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
