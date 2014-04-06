@@ -49,6 +49,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onKeyboardDidHide:) name:UIKeyboardDidHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onThemeChangedNotification:) name:NOTIFYCATION_THEME_CHANGED object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onDeviceOrientationNotification:) name:UIDeviceOrientationDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onSwitchSite) name:NOTIFYCATION_SWITCH_SITE object:nil];
 }
 
 - (void)viewDidLoad
@@ -239,6 +240,13 @@
 - (void)onThemeChangedNotification:(NSNotification *)n
 {
     [self setupTheme];
+}
+
+- (void)onSwitchSite
+{
+    if ([self respondsToSelector:@selector(loadData:)]) {
+        [self performSelector:@selector(loadData:) withObject:nil];
+    }
 }
 
 - (void)onDeviceOrientationNotification:(NSNotification *)n

@@ -54,6 +54,12 @@ static SMFavorListViewController *_instance;
     [self accountChanged];
 }
 
+- (void)onSwitchSite
+{
+    [super onSwitchSite];
+    self.url = [SMConfig is2] ? @"http://www.2.newsmth.net/bbsfav.php?select=0" : @"http://m.newsmth.net/favor";
+}
+
 - (void)accountChanged
 {
     if ([SMAccountManager instance].isLogin) {

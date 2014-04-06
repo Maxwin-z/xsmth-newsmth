@@ -10,6 +10,7 @@
 #import "SMData.h"
 
 @interface SMConfig : NSObject
++ (void)setSite2:(BOOL)is2;
 + (BOOL)is2;
 + (BOOL)enableBackgroundFetch;
 + (BOOL)enableBackgroundFetchSmartMode;

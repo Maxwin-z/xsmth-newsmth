@@ -9,11 +9,19 @@
 #import "SMConfig.h"
 #import "UIDeviceHardware.h"
 
+static BOOL isSite2;
+
 @implementation SMConfig
+
++ (void)setSite2:(BOOL)is2
+{
+    isSite2 = is2;
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFYCATION_SWITCH_SITE object:nil];
+}
 
 + (BOOL)is2
 {
-    return YES;
+    return isSite2;
 }
 
 + (BOOL)configForKey:(NSString *)key defaults:(BOOL)defaults

@@ -30,6 +30,7 @@ typedef NS_ENUM(NSInteger, CellType) {
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIView *viewForSetting;
 @property (weak, nonatomic) IBOutlet UIButton *buttonForSetting;
+@property (weak, nonatomic) IBOutlet UIButton *buttonForSwitchSite;
 @property (strong, nonatomic) NSArray *cellTypes;
 
 @property (strong, nonatomic) SMWebLoaderOperation *keepLoginOp;
@@ -68,11 +69,14 @@ typedef NS_ENUM(NSInteger, CellType) {
     _viewForSetting.frame = frame;
     [self.view addSubview:_viewForSetting];
 
-    UIImage *image = [_buttonForSetting imageForState:UIControlStateNormal];
-    if ([image respondsToSelector:@selector(imageWithRenderingMode:)]) {
-        image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    }
-    [_buttonForSetting setImage:image forState:UIControlStateNormal];
+    [@[_buttonForSetting, _buttonForSwitchSite] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        UIButton *btn = obj;
+        UIImage *image = [btn imageForState:UIControlStateNormal];
+        if ([image respondsToSelector:@selector(imageWithRenderingMode:)]) {
+            image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        }
+        [btn setImage:image forState:UIControlStateNormal];
+    }];
     
 }
 
@@ -82,6 +86,17 @@ typedef NS_ENUM(NSInteger, CellType) {
     [self.tableView reloadData];
 
     [_buttonForSetting setTitleColor:[SMTheme colorForTintColor] forState:UIControlStateNormal];
+}
+
+- (void)onSwitchSite
+{
+    [super onSwitchSite];
+    UIImage *image = [UIImage imageNamed:[SMConfig is2] ? @"icon_www2" : @"icon_www1"];
+    
+    if ([image respondsToSelector:@selector(imageWithRenderingMode:)]) {
+        image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    }
+    [self.buttonForSwitchSite setImage:image forState:UIControlStateNormal];
 }
 
 - (void)onAccountNotification
@@ -116,6 +131,11 @@ typedef NS_ENUM(NSInteger, CellType) {
     [[SMMainViewController instance] setRootViewController:vc];
     [[SMMainViewController instance] setLeftVisiable:NO];
     [SMUtils trackEventWithCategory:@"left" action:@"user" label:nil];
+}
+
+- (IBAction)onSwitchSiteButtonClick:(id)sender
+{
+    [SMConfig setSite2:![SMConfig is2]];
 }
 
 - (void)loadNotice

@@ -37,6 +37,8 @@
 		C10C49A418F05D9300DF946E /* icon_link@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C10C49A318F05D9300DF946E /* icon_link@2x.png */; };
 		C10C49A718F0FCB100DF946E /* SMPostLinksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C10C49A618F0FCB100DF946E /* SMPostLinksViewController.m */; };
 		C10C49B918F18AEE00DF946E /* boardlist.2.js in Resources */ = {isa = PBXBuildFile; fileRef = C10C49B818F18AEE00DF946E /* boardlist.2.js */; };
+		C10C49BC18F19B7400DF946E /* icon_www2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C10C49BA18F19B7400DF946E /* icon_www2@2x.png */; };
+		C10C49BD18F19B7400DF946E /* icon_www1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C10C49BB18F19B7400DF946E /* icon_www1@2x.png */; };
 		C10D16081755E7A0002D6FAD /* SMWebLoaderOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C10D16071755E7A0002D6FAD /* SMWebLoaderOperation.m */; };
 		C10D160B1755EFEE002D6FAD /* SMWebLoaderOperationQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = C10D160A1755EFEE002D6FAD /* SMWebLoaderOperationQueue.m */; };
 		C10D160E1755FBFE002D6FAD /* mainpage.js in Resources */ = {isa = PBXBuildFile; fileRef = C10D160C1755FBF5002D6FAD /* mainpage.js */; };
@@ -409,6 +411,8 @@
 		C10C49A518F0FCB100DF946E /* SMPostLinksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMPostLinksViewController.h; sourceTree = "<group>"; };
 		C10C49A618F0FCB100DF946E /* SMPostLinksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMPostLinksViewController.m; sourceTree = "<group>"; };
 		C10C49B818F18AEE00DF946E /* boardlist.2.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = boardlist.2.js; sourceTree = "<group>"; };
+		C10C49BA18F19B7400DF946E /* icon_www2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_www2@2x.png"; sourceTree = "<group>"; };
+		C10C49BB18F19B7400DF946E /* icon_www1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_www1@2x.png"; sourceTree = "<group>"; };
 		C10D16051755D552002D6FAD /* SMDefination.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMDefination.h; sourceTree = "<group>"; };
 		C10D16061755E7A0002D6FAD /* SMWebLoaderOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMWebLoaderOperation.h; sourceTree = "<group>"; };
 		C10D16071755E7A0002D6FAD /* SMWebLoaderOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMWebLoaderOperation.m; sourceTree = "<group>"; };
@@ -1115,6 +1119,8 @@
 		C19FF0B01769A71B00EB6F7E /* images */ = {
 			isa = PBXGroup;
 			children = (
+				C10C49BA18F19B7400DF946E /* icon_www2@2x.png */,
+				C10C49BB18F19B7400DF946E /* icon_www1@2x.png */,
 				C10C49A318F05D9300DF946E /* icon_link@2x.png */,
 				C1F8109C18E70263001B3759 /* unread_none@2x.png */,
 				C1F4672118C2EFAB006BCE7A /* common_share_icon_weixin_friends@2x.png */,
@@ -1866,6 +1872,7 @@
 				C147EC4B17EAEEBD00530E86 /* refer_me.js in Resources */,
 				C10F2F8917E59E5A00F83206 /* mailcontent.js in Resources */,
 				C10F2F7B17E5808D00F83206 /* mail.js in Resources */,
+				C10C49BD18F19B7400DF946E /* icon_www1@2x.png in Resources */,
 				C16C109A179A238F00A14727 /* notice.js in Resources */,
 				C1A182D7178ABB330080EEDB /* upload.js in Resources */,
 				C1C4C8901781BD4B0092E77C /* boardlist.js in Resources */,
@@ -1886,6 +1893,7 @@
 				C1BFB8EF174F6A620092FD2E /* Default.png in Resources */,
 				392417D9187C6A7100558725 /* icon_76.png in Resources */,
 				C10F2F8117E5845200F83206 /* SMMailCell.xib in Resources */,
+				C10C49BC18F19B7400DF946E /* icon_www2@2x.png in Resources */,
 				C1BFB8F1174F6A620092FD2E /* Default@2x.png in Resources */,
 				C1BFB8F3174F6A620092FD2E /* Default-568h@2x.png in Resources */,
 				C1BFB8F9174F6A620092FD2E /* ViewController.xib in Resources */,

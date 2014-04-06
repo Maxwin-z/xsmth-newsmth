@@ -33,6 +33,7 @@
 
 - (void)onThemeChangedNotification:(NSNotification *)n;
 - (void)setupTheme;
+- (void)onSwitchSite;
 - (void)onDeviceRotate;
 
 @end
