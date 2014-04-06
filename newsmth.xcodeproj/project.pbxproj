@@ -898,6 +898,13 @@
 			path = GoogleAnalytics;
 			sourceTree = "<group>";
 		};
+		C10C49AE18F1223B00DF946E /* 2 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = 2;
+			sourceTree = "<group>";
+		};
 		C10D161B175617D4002D6FAD /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -1333,6 +1340,7 @@
 		C1BFB8E2174F6A620092FD2E /* newsmth */ = {
 			isa = PBXGroup;
 			children = (
+				C10C49AE18F1223B00DF946E /* 2 */,
 				C1300A5318795BF9006ACA5C /* ipad */,
 				C14B230517FBAFDF00CF081A /* more */,
 				C1C18D9217A52FFA008C598C /* notice */,

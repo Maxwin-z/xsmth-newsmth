@@ -108,6 +108,9 @@ static SMMainpageViewController *_instance;
 
 - (NSString *)dataUrl
 {
+    if ([SMConfig is2]) {
+        return @"http://www.2.newsmth.net/mainpage.php";
+    }
     return @"http://www.newsmth.net/mainpage.html";
 }
 

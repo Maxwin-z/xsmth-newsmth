@@ -10,6 +10,7 @@
 #import "SMData.h"
 
 @interface SMConfig : NSObject
++ (BOOL)is2;
 + (BOOL)enableBackgroundFetch;
 + (BOOL)enableBackgroundFetchSmartMode;
 + (BOOL)disableShowTopPost;

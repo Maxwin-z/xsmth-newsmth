@@ -11,6 +11,11 @@
 
 @implementation SMConfig
 
++ (BOOL)is2
+{
+    return YES;
+}
+
 + (BOOL)configForKey:(NSString *)key defaults:(BOOL)defaults
 {
     id obj = [[NSUserDefaults standardUserDefaults] objectForKey:key];
