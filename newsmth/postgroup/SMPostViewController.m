@@ -576,12 +576,20 @@
 
 - (NSString *)getAttachUrl:(SMAttach *)attach
 {
+    if ([SMConfig is2]) {
+        return [NSString stringWithFormat:@"http://www.2.newsmth.net/att.php?s.%d.%d.%d.jpg", _bid, attach.pid, attach.pos];
+    }
+    
     NSString *type = @"large";
     return [NSString stringWithFormat:@"http://att.newsmth.net/nForum/att/%@/%d/%d/%@", attach.boardName, attach.pid, attach.pos, type];
 }
 
 - (NSString *)getAttachOriginalUrl:(SMAttach *)attach
 {
+    if ([SMConfig is2]) {
+        return [self getAttachUrl:attach];
+    }
+    
     return [NSString stringWithFormat:@"http://att.newsmth.net/nForum/att/%@/%d/%d", attach.boardName, attach.pid, attach.pos];
 }
 
