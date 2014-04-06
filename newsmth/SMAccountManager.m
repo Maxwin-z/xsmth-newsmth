@@ -30,8 +30,14 @@ static SMAccountManager *_instance;
     self = [super init];
     if (self) {
         [self loadCookie];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onSwitchSite) name:NOTIFYCATION_SWITCH_SITE object:nil];
     }
     return self;
+}
+
+- (void)onSwitchSite
+{
+    [self loadCookie];
 }
 
 - (void)setNotice:(SMNotice *)notice
