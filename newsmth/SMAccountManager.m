@@ -48,7 +48,7 @@ static SMAccountManager *_instance;
 
 - (void)loadCookie
 {
-    NSURL *url = [NSURL URLWithString:@"http://m.newsmth.net"];
+    NSURL *url = [NSURL URLWithString:[SMConfig is2] ? @"http://www.2.newsmth.net/bbsfoot.php" : @"http://m.newsmth.net"];
     NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:url];
     if (cookies) {
         [self setCookies:cookies];
@@ -62,7 +62,7 @@ static SMAccountManager *_instance;
     for (int i = 0; i != cookies.count; ++i) {
         NSHTTPCookie *cookie = cookies[i];
         
-        if ([cookie.name isEqualToString:COOKIE_USERID]) {
+        if ([cookie.name isEqualToString:COOKIE_USERID] || [cookie.name isEqualToString:@"UTMPUSERID"]) {
             name = cookie.value;
 
             BOOL isExpired = cookie.expiresDate != nil && cookie.expiresDate.timeIntervalSince1970 < [[NSDate alloc] init].timeIntervalSince1970;
