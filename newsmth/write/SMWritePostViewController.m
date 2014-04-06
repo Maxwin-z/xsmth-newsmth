@@ -173,7 +173,7 @@
     
     if ([SMConfig is2]) {
         formUrl = [NSString stringWithFormat:@"http://www.2.newsmth.net/bbssnd.php?board=%@&reid=%d", _post.board.name, _post.pid];
-        postBody = [NSString stringWithFormat:@"title=%@&signature=0&text=%@&anony=1", [SMUtils encodeGBKUrl:title], [SMUtils encodeGBKUrl:text]];
+        postBody = [NSString stringWithFormat:@"title=%@&signature=0&text=%@&anony=1", [SMUtils encodeGBKUrl:_textFieldForTitle.text], [SMUtils encodeGBKUrl:_textViewForText.text]];
     }
     
     SMHttpRequest *request = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:formUrl]];
