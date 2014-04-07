@@ -82,10 +82,29 @@ typedef NS_ENUM(NSInteger, SMUploadAct) {
         NSDate *now = [NSDate date];
         NSString *filePath = [NSString stringWithFormat:@"%@/xsmth_%d_%@.jpg", docPath, i, [formatter stringFromDate:now]];
         
-        CGImageRef imageRef = asset.defaultRepresentation.fullResolutionImage;
-        UIImage *imageOriginal = [UIImage imageWithCGImage:imageRef
-                                                     scale:1.0f
-                                               orientation:(UIImageOrientation)[asset.defaultRepresentation orientation]];
+        ALAssetRepresentation *assetRepresentation = [asset defaultRepresentation];
+        CGImageRef fullResImage = [assetRepresentation fullResolutionImage];
+        NSString *adjustment = [[assetRepresentation metadata] objectForKey:@"AdjustmentXMP"];
+        if (adjustment) {
+            NSData *xmpData = [adjustment dataUsingEncoding:NSUTF8StringEncoding];
+            CIImage *image = [CIImage imageWithCGImage:fullResImage];
+            
+            NSError *error = nil;
+            NSArray *filterArray = [CIFilter filterArrayFromSerializedXMP:xmpData
+                                                         inputImageExtent:image.extent
+                                                                    error:&error];
+            CIContext *context = [CIContext contextWithOptions:nil];
+            if (filterArray && !error) {
+                for (CIFilter *filter in filterArray) {
+                    [filter setValue:image forKey:kCIInputImageKey];
+                    image = [filter outputImage];
+                }
+                fullResImage = [context createCGImage:image fromRect:[image extent]];
+            }
+        }
+        UIImage *imageOriginal = [UIImage imageWithCGImage:fullResImage
+                                              scale:[assetRepresentation scale]
+                                        orientation:(UIImageOrientation)[assetRepresentation orientation]];
         
         UIImage *imageResized = [self resizeImage:imageOriginal toMaxSize:800.0f];
         

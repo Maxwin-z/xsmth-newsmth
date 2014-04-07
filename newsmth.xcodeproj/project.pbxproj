@@ -36,6 +36,7 @@
 		C10C49A218F05CED00DF946E /* SMViewLinkActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = C10C49A118F05CED00DF946E /* SMViewLinkActivity.m */; };
 		C10C49A418F05D9300DF946E /* icon_link@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C10C49A318F05D9300DF946E /* icon_link@2x.png */; };
 		C10C49A718F0FCB100DF946E /* SMPostLinksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C10C49A618F0FCB100DF946E /* SMPostLinksViewController.m */; };
+		C10C49D118F2C34E00DF946E /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C10C49D018F2C34E00DF946E /* CoreImage.framework */; };
 		C10D16081755E7A0002D6FAD /* SMWebLoaderOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C10D16071755E7A0002D6FAD /* SMWebLoaderOperation.m */; };
 		C10D160B1755EFEE002D6FAD /* SMWebLoaderOperationQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = C10D160A1755EFEE002D6FAD /* SMWebLoaderOperationQueue.m */; };
 		C10D160E1755FBFE002D6FAD /* mainpage.js in Resources */ = {isa = PBXBuildFile; fileRef = C10D160C1755FBF5002D6FAD /* mainpage.js */; };
@@ -407,6 +408,7 @@
 		C10C49A318F05D9300DF946E /* icon_link@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_link@2x.png"; sourceTree = "<group>"; };
 		C10C49A518F0FCB100DF946E /* SMPostLinksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMPostLinksViewController.h; sourceTree = "<group>"; };
 		C10C49A618F0FCB100DF946E /* SMPostLinksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMPostLinksViewController.m; sourceTree = "<group>"; };
+		C10C49D018F2C34E00DF946E /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		C10D16051755D552002D6FAD /* SMDefination.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMDefination.h; sourceTree = "<group>"; };
 		C10D16061755E7A0002D6FAD /* SMWebLoaderOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMWebLoaderOperation.h; sourceTree = "<group>"; };
 		C10D16071755E7A0002D6FAD /* SMWebLoaderOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMWebLoaderOperation.m; sourceTree = "<group>"; };
@@ -824,6 +826,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C10C49D118F2C34E00DF946E /* CoreImage.framework in Frameworks */,
 				C1F8109218E5B786001B3759 /* libsqlite3.dylib in Frameworks */,
 				C10DC6F918C359BF00FF95E8 /* libReactiveCocoa-iOS.a in Frameworks */,
 				C1C07A7A179686E300906ED7 /* Social.framework in Frameworks */,
@@ -1304,6 +1307,7 @@
 		C1BFB8DB174F6A620092FD2E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C10C49D018F2C34E00DF946E /* CoreImage.framework */,
 				C1F8109118E5B786001B3759 /* libsqlite3.dylib */,
 				C13CB6C618B0AA48003F7407 /* iAd.framework */,
 				C13CB6C418B0A09A003F7407 /* CoreTelephony.framework */,
