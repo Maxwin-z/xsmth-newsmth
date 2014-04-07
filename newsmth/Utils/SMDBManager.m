@@ -10,7 +10,7 @@
 #import "FMDatabase.h"
 #import "FMDatabaseQueue.h"
 
-#define DB_VERSION 2
+#define DB_VERSION 1
 #define USER_DEFAULT_DB_VERSION @"db_version"
 
 @interface SMDBManager ()
@@ -47,8 +47,6 @@
     switch (oldVersion) {
         case 0:
             [self queryV0];
-        case 1:
-            [self queryV1];
         default:
             break;
     }
@@ -65,15 +63,8 @@
 - (void)queryV0
 {
     [self.dbQueue inDatabase:^(FMDatabase *db) {
-        [db executeUpdate:@"CREATE TABLE IF NOT EXISTS posts (pid INT, gid INT, data TEXT, PRIMARY KEY (pid))"];
-        [db executeUpdate:@"CREATE TABLE IF NOT EXISTS post_read_flag (pid INT, readcount INT, type INT, PRIMARY KEY (pid, type))"];
-    }];
-}
-
-- (void)queryV1
-{
-    [self.dbQueue inDatabase:^(FMDatabase *db) {
-        [db executeUpdate:@"ALTER TABLE post_read_flag ADD COLUMN readtime INT"];
+        [db executeUpdate:@"CREATE TABLE IF NOT EXISTS posts (pid INT, gid INT, board TEXT, site INT, data TEXT, PRIMARY KEY (pid, board, site))"];
+        [db executeUpdate:@"CREATE TABLE IF NOT EXISTS post_read_flag (pid INT, board TEXT, site INT, readcount INT, type INT, readtime INT, PRIMARY KEY (pid, type, board, site))"];
     }];
 }
 
@@ -88,14 +79,14 @@
 {
 //    [self.db beginTransaction];
     [self.dbQueue inDatabase:^(FMDatabase *db) {
-        [db executeUpdate:@"REPLACE INTO posts (pid, gid, data) VALUES (?, ?, ?)", @(post.pid), @(post.gid), post.description];
+        [db executeUpdate:@"REPLACE INTO posts (pid, gid, board, site, data) VALUES (?, ?, ?, ?, ?)", @(post.pid), @(post.gid), post.description, post.board.name, @(1)];
     }];
 }
 
-- (void)queryPost:(int)pid completed:(void (^)(SMPost *))completed
+- (void)queryPost:(int)pid board:(NSString *)boardName completed:(void (^)(SMPost *post))completed
 {
     [self.dbQueue inDatabase:^(FMDatabase *db) {
-        FMResultSet *set = [db executeQuery:@"SELECT * from posts WHERE pid=?", @(pid)];
+        FMResultSet *set = [db executeQuery:@"SELECT * from posts WHERE pid=? AND board=? AND site=?", @(pid), boardName, @(1)];
         SMPost *post = nil;
         if (set.next) {
             NSString *data = [set stringForColumn:@"data"];
@@ -111,10 +102,10 @@
     }];
 }
 
-- (void)deletePostsWith:(int)gid
+- (void)deletePostsWithGid:(int)gid board:(NSString *)boardName
 {
     [self.dbQueue inDatabase:^(FMDatabase *db) {
-        [db executeUpdate:@"DELETE FROM posts WHERE gid=?", @(gid)];
+        [db executeUpdate:@"DELETE FROM posts WHERE gid=? and board=?", @(gid), boardName];
     }];
 }
 
@@ -123,7 +114,7 @@
 {
     [self.dbQueue inDatabase:^(FMDatabase *db) {
         NSTimeInterval timestamp = [[NSDate date] timeIntervalSince1970];
-        [db executeUpdate:@"REPLACE INTO post_read_flag (pid, readcount, type, readtime) VALUES (?, ?, ?, ?)", @(post.pid), @(post.readCount), @(type), @((int)timestamp)];
+        [db executeUpdate:@"REPLACE INTO post_read_flag (pid, readcount, type, readtime, board, site) VALUES (?, ?, ?, ?, ?, ?)", @(post.pid), @(post.readCount), @(type), @((int)timestamp), post.board.name, @(1)];
     }];
 }
 
@@ -132,14 +123,16 @@
     [self.dbQueue inDatabase:^(FMDatabase *db) {
         NSMutableDictionary *postsMap = [[NSMutableDictionary alloc] init];
         NSMutableArray *pids = [[NSMutableArray alloc] initWithCapacity:posts.count];
+        __block NSString *boardName = @"";
         [posts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             SMPost *post = obj;
             [pids addObject:[NSString stringWithFormat:@"%d", post.pid]];
             [postsMap setObject:post forKey:@(post.pid)];
+            boardName = post.board.name;
         }];
         NSString *pidsString = [pids componentsJoinedByString:@","];
-        NSString *query = [NSString stringWithFormat:@"SELECT * from post_read_flag WHERE type=? and pid in (%@)", pidsString];
-        FMResultSet *set = [db executeQuery:query, @(type)];
+        NSString *query = [NSString stringWithFormat:@"SELECT * from post_read_flag WHERE type=? and pid in (%@) and board=? and site=?", pidsString];
+        FMResultSet *set = [db executeQuery:query, @(type), boardName, @1];
         while (set.next) {
             int pid = [set intForColumn:@"pid"];
             int readCount = [set intForColumn:@"readcount"];

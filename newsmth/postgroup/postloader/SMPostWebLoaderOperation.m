@@ -29,7 +29,7 @@
 - (void)main
 {
     SMPost *post = self.post;
-    [[SMDBManager instance] queryPost:post.pid completed:^(SMPost *post_) {
+    [[SMDBManager instance] queryPost:post.pid board:post.board.name completed:^(SMPost *post_) {
         if (post_) {
             self->_data = post_;
             self->_isDone = YES;

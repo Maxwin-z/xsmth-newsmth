@@ -732,7 +732,7 @@
 {
     if (!self.isAutoLoad) {
         if (!self.isSinglePost && self.gid > 0) {
-            [[SMDBManager instance] deletePostsWith:self.gid];
+            [[SMDBManager instance] deletePostsWithGid:self.gid board:_board.name];
         }
         [SMUtils trackEventWithCategory:@"postgroup" action:@"refresh" label:_board.name];
     }

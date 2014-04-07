@@ -12,8 +12,8 @@
 + (instancetype)instance;
 
 - (void)insertPost:(SMPost *)post;
-- (void)queryPost:(int)pid completed:(void (^)(SMPost *post))completed;
-- (void)deletePostsWith:(int)gid;
+- (void)queryPost:(int)pid board:(NSString *)boardName completed:(void (^)(SMPost *post))completed;
+- (void)deletePostsWithGid:(int)gid board:(NSString *)boardName;
 
 // unread count
 - (void)insertPostReadCount:(SMPost *)post type:(NSInteger)type;
