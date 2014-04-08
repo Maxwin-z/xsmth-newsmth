@@ -340,6 +340,7 @@
     // v2.4 mark post read
     post.readCount = post.replyCount;
     post.pid = post.gid;
+    post.board.name = _board.name;
     [[SMDBManager instance] insertPostReadCount:post type:self.viewTypeSelector.viewType];
 }
 
@@ -367,6 +368,7 @@
     [board.posts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         SMPost *post = obj;
         post.readCount = -1;    // -1 means not read at all. for new post.replyCount == 0
+        post.board.name = _board.name;
         NSString *key = [NSString stringWithFormat:@"%d", post.gid];
         if (![_postsMap objectForKey:key]) {    // not exists, add
             [tmp addObject:post];
