@@ -79,7 +79,7 @@
 {
 //    [self.db beginTransaction];
     [self.dbQueue inDatabase:^(FMDatabase *db) {
-        [db executeUpdate:@"REPLACE INTO posts (pid, gid, board, site, data) VALUES (?, ?, ?, ?, ?)", @(post.pid), @(post.gid), post.description, post.board.name, @(1)];
+        [db executeUpdate:@"REPLACE INTO posts (pid, gid, board, site, data) VALUES (?, ?, ?, ?, ?)", @(post.pid), @(post.gid), post.board.name, @(1), post.description];
     }];
 }
 
