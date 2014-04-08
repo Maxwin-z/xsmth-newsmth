@@ -195,11 +195,49 @@ NSString *tpl =
     _post = post;
     
     self.backgroundColor = [SMTheme colorForBackground];
-
     if (optimizeForIP4) {
-        self.labelForContent.text = _post.content;
-        self.labelForContent.textColor = [SMTheme colorForPrimary];
-        self.labelForContent.font = [SMConfig postFont];
+        // clear labels
+        int contentLabelTag = 2014;
+        for (int i = self.labelForContent.superview.subviews.count - 1; i >= 0; --i) {
+            UIView *v = self.labelForContent.superview.subviews[i];
+            if (v.tag == contentLabelTag) {
+                [v removeFromSuperview];
+            }
+        }
+        
+        // add labels
+        CGFloat x = self.labelForContent.frame.origin.x;
+        CGFloat y = self.labelForContent.frame.origin.y;
+        NSArray *lines = [self.post.content componentsSeparatedByString:@"\n"];
+        for (int i = 0; i != lines.count; ++i) {
+            NSString *line = lines[i];
+            if (line.length == 0) {  // space line
+                line = @" ";
+            }
+            UIColor *color = [SMTheme colorForPrimary];
+            if ([line hasPrefix:@":"]) {
+                color = [SMTheme colorForQuote];
+            }
+            UILabel *label = [[UILabel alloc] init];
+            label.font = [SMConfig postFont];
+            label.text = line;
+            label.textColor = color;
+            label.lineBreakMode = NSLineBreakByWordWrapping;
+            label.numberOfLines = 0;
+            
+            CGSize size = [line smSizeWithFont:label.font constrainedToSize:CGSizeMake(self.labelForContent.frame.size.width, CGFLOAT_MAX) lineBreakMode:label.lineBreakMode];
+            CGRect frame = CGRectMake(x, y, size.width, size.height);
+            label.frame = frame;
+            label.tag = contentLabelTag;
+            [self.labelForContent.superview addSubview:label];
+            
+            y += size.height - 1;
+        }
+        self.labelForContent.hidden = YES;
+        
+//        self.labelForContent.text = _post.content;
+//        self.labelForContent.textColor = [SMTheme colorForPrimary];
+//        self.labelForContent.font = [SMConfig postFont];
         [self.webViewForContent removeFromSuperview];
     } else {
         NSString *body = [self generateHtml:YES];
