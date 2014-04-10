@@ -65,6 +65,7 @@
 
 - (void)webLoaderOperationFail:(SMWebLoaderOperation *)opt error:(SMMessage *)error
 {
+    self->_isDone = YES;
     [self.originDelegate webLoaderOperationFail:self error:error];
 }
 
