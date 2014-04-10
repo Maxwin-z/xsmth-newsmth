@@ -33,7 +33,7 @@ static SMMainpageCell *_instance;
     CGFloat heightExpectTitle = cell.viewForCell.frame.size.height - cell.labelForTitle.frame.size.height;
     CGFloat titleHeight = [post.title smSizeWithFont:[SMConfig listFont] constrainedToSize:CGSizeMake(cell.labelForTitle.frame.size.width, CGFLOAT_MAX) lineBreakMode:cell.labelForTitle.lineBreakMode].height;
     
-    return heightExpectTitle + titleHeight;
+    return heightExpectTitle + titleHeight + 1;
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier

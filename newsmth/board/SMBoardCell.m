@@ -41,7 +41,7 @@ static SMBoardCell *_instance;
     NSString *title = [NSString stringWithFormat:@"%@(%d)", post.title, post.replyCount];
     CGFloat titleHeight = [title smSizeWithFont:[SMConfig listFont] constrainedToSize:CGSizeMake(_instance.labelForTitle.frame.size.width, CGFLOAT_MAX) lineBreakMode:_instance.labelForTitle.lineBreakMode].height;
 
-    return titleHeight + heightExpectTitle;
+    return titleHeight + heightExpectTitle + 1;
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier

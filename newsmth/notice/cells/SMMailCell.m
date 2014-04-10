@@ -24,7 +24,7 @@
 + (CGFloat)cellHeight:(SMMailItem *)item
 {
     CGFloat titleHeight = [item.title smSizeWithFont:[SMConfig listFont] constrainedToSize:CGSizeMake(WIDTH_FOR_TITLE, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping].height;
-    return titleHeight + HEIGHT_EXPECT_TITLE;
+    return titleHeight + HEIGHT_EXPECT_TITLE + 1;
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier

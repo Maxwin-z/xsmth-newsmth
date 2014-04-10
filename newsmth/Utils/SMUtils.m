@@ -207,7 +207,7 @@
                                            options:NSStringDrawingUsesLineFragmentOrigin | 
                          NSStringDrawingTruncatesLastVisibleLine
                                         attributes:attrs context:nil].size;
-        sbSize.height = ceilf(sbSize.height + 1);   // todo 1...
+        sbSize.height = ceilf(sbSize.height);
         sbSize.width = ceilf(sbSize.width);
         return sbSize;
     } else {
