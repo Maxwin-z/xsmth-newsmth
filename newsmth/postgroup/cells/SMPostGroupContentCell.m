@@ -229,7 +229,7 @@ NSString *tpl =
             CGRect frame = CGRectMake(x, y, size.width, size.height);
             label.frame = frame;
             label.tag = contentLabelTag;
-            [self.labelForContent.superview addSubview:label];
+            [self.labelForContent.superview insertSubview:label belowSubview:self.labelForContent];
             
             y += size.height - 1;
         }
