@@ -75,4 +75,6 @@ typedef enum {
 
 #define USERDEFAULTS_PRO    @"ispro"
 
+#define USERDEFAULTS_SWIPE_HINT @"pref_swipe_hint"
+
 #endif

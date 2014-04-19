@@ -808,6 +808,11 @@
 
 - (void)postGroupHeaderCellOnReply:(SMPost *)post
 {
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:USERDEFAULTS_SWIPE_HINT]) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"帖子上左滑← ←有更多选项" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil];
+        [alertView show];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:USERDEFAULTS_SWIPE_HINT];
+    }
     [self doReplyPost:post];
     [SMUtils trackEventWithCategory:@"postgroup" action:@"reply" label:_board.name];
 }
