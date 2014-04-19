@@ -16,7 +16,7 @@ static NSOperationQueue *downloadQueue;
 @interface XImageView ()<ASIHTTPRequestDelegate, ASIProgressDelegate>
 @property (strong, nonatomic) SMHttpRequest *downloadRequest;
 @property (strong, nonatomic) UILabel *labelForProgress;
-@property (assign, nonatomic) BOOL isFailed;
+@property (assign, nonatomic) BOOL isLoaded;
 @property (strong, nonatomic) UITapGestureRecognizer *tapGesture;
 @end
 
@@ -31,6 +31,39 @@ static NSOperationQueue *downloadQueue;
     return downloadQueue;
 }
 
+- (id)init
+{
+    self = [super init];
+    [self setup];
+    return self;
+}
+
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    [self setup];
+    return self;
+}
+
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    [self setup];
+}
+
+- (void)setup
+{
+    self.autoLoad = YES;
+    
+    _labelForProgress = [[UILabel alloc] initWithFrame:self.bounds];
+    _labelForProgress.backgroundColor = [UIColor clearColor];
+    _labelForProgress.textAlignment = UITextAlignmentCenter;
+    _labelForProgress.textColor = [UIColor blackColor];
+    _labelForProgress.font = [UIFont systemFontOfSize:12.0f];
+    _labelForProgress.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [self addSubview:_labelForProgress];
+}
+
 - (void)dealloc
 {
     _labelForProgress = nil;
@@ -39,11 +72,16 @@ static NSOperationQueue *downloadQueue;
 
 - (void)setUrl:(NSString *)url
 {
-    if (!_isFailed && [_url isEqualToString:url]) {
+    if (self.isLoaded && [_url isEqualToString:url]) {
         return;
     }
+    
+    if (![_url isEqualToString:url]) {  // url change
+        self.isLoaded = NO;
+        self.autoLoad = self.autoLoad;  // 重置自动加载选项
+    }
+    
     _url = url;
-    _isFailed = NO;
     
     // show default image;
     if (_defaultImage == nil) {
@@ -54,6 +92,8 @@ static NSOperationQueue *downloadQueue;
 //    self.backgroundColor = [UIColor lightGrayColor];
     
     if ([[XImageViewCache sharedInstance] isInCache:url]) {
+        self.isLoaded = YES;
+        self.labelForProgress.hidden = YES;
         __block NSString *currentUrl = [url copy];
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             UIImage *image = [[XImageViewCache sharedInstance] getImage:currentUrl];
@@ -68,7 +108,7 @@ static NSOperationQueue *downloadQueue;
                 }
             });
         });
-    } else {
+    } else if (self.autoLoad) {
         [_downloadRequest clearDelegatesAndCancel];
         _downloadRequest = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:url]];
         _downloadRequest.delegate = self;
@@ -78,10 +118,30 @@ static NSOperationQueue *downloadQueue;
     }
 }
 
+- (void)setAutoLoad:(BOOL)autoLoad
+{
+    _autoLoad = autoLoad;
+    if (!autoLoad && !self.isLoaded) {
+        self.labelForProgress.hidden = NO;
+        self.labelForProgress.text = @"点击下载图片";
+        [self addStartDownloadTapGesture];
+    }
+}
+
+- (void)addStartDownloadTapGesture
+{
+    self.userInteractionEnabled = YES;
+    if (self.tapGesture == nil) {
+        _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTap)];
+    }
+    [self addGestureRecognizer:_tapGesture];
+}
+
 - (void)onTap
 {
     self.userInteractionEnabled = NO;
     [self removeGestureRecognizer:_tapGesture];
+    self.autoLoad = YES;
     self.url = _url;    // retry
 }
 
@@ -90,6 +150,7 @@ static NSOperationQueue *downloadQueue;
 - (void)requestFinished:(ASIHTTPRequest *)request
 {
     _labelForProgress.hidden = YES;
+    self.isLoaded = YES;
     self.image = [UIImage imageWithData:request.responseData];
     [[XImageViewCache sharedInstance] setImageData:request.responseData forUrl:_url];
     if ([_delegate respondsToSelector:@selector(xImageViewDidLoad:)]) {
@@ -102,10 +163,8 @@ static NSOperationQueue *downloadQueue;
     XLog_e(@"download image fail, %@", _url);
     _labelForProgress.hidden = NO;
     _labelForProgress.text = @"下载失败，点击重试";
-    _isFailed = YES;
-    self.userInteractionEnabled = YES;
-    _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTap)];
-    [self addGestureRecognizer:_tapGesture];
+    self.isLoaded = NO;
+    [self addStartDownloadTapGesture];
 }
 
 #pragma mark - ASIProgressDelegate
@@ -120,15 +179,6 @@ static NSOperationQueue *downloadQueue;
 
 - (void)updateProgress:(CGFloat)progress
 {
-    if (_labelForProgress == nil) {
-        _labelForProgress = [[UILabel alloc] initWithFrame:self.bounds];
-        _labelForProgress.backgroundColor = [UIColor clearColor];
-        _labelForProgress.textAlignment = UITextAlignmentCenter;
-        _labelForProgress.textColor = [UIColor blackColor];
-        _labelForProgress.font = [UIFont systemFontOfSize:12.0f];
-        _labelForProgress.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        [self addSubview:_labelForProgress];
-    }
     _labelForProgress.hidden = NO;
     _labelForProgress.text = [NSString stringWithFormat:@"%d%%", (int)(progress * 100)];
 }

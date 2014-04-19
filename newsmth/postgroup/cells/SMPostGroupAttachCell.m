@@ -56,6 +56,7 @@
 - (void)setUrl:(NSString *)url
 {
     _url = url;
+    _imageViewForAttach.autoLoad = NO;
     _imageViewForAttach.url = url;
     self.backgroundColor = [SMTheme colorForBackground];
 
