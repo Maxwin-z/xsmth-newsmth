@@ -857,9 +857,13 @@
 
 - (void)postGroupContentCell:(SMPostGroupContentCell *)cell shouldLoadUrl:(NSURL *)url
 {
-    PBWebViewController *webView = [[PBWebViewController alloc] init];
-    webView.URL = url;
-    [self.navigationController pushViewController:webView animated:YES];
+    if ([[url.absoluteString lowercaseString] hasSuffix:@".mp4"]) {
+        [[UIApplication sharedApplication] openURL:url];
+    } else {
+        PBWebViewController *webView = [[PBWebViewController alloc] init];
+        webView.URL = url;
+        [self.navigationController pushViewController:webView animated:YES];
+    }
 }
 
 - (void)postGroupContentCellOnReply:(SMPostGroupContentCell *)cell
