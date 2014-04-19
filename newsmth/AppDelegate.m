@@ -119,10 +119,11 @@
         double accelerationThreshold = 0.5;
 //        XLog_d(@"%lf, %lf, %lf", userAcceleration.x, userAcceleration.y, userAcceleration.z);
         if(fabs(userAcceleration.x) > accelerationThreshold
-           || fabs(userAcceleration.y) > accelerationThreshold
-           || fabs(userAcceleration.z)> accelerationThreshold){
+           /*|| fabs(userAcceleration.y) > accelerationThreshold
+           || fabs(userAcceleration.z)> accelerationThreshold */){
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFYCATION_SHAKE object:self];
             [SMUtils trackEventWithCategory:@"setting" action:@"shake" label:nil];
+               XLog_d(@"%lf", userAcceleration.x);
         }
     }];
 }
@@ -149,7 +150,7 @@
     [self.window makeKeyAndVisible];
     
     [self setupGoogleAnalytics];
-    [self setupShakeMotion];
+//    [self setupShakeMotion];
     
     NSString *latestVersion = [[NSUserDefaults standardUserDefaults] stringForKey:USERDEFAULTS_STAT_VERSION];
     if (![[SMUtils appVersionString] isEqualToString:latestVersion]) {
