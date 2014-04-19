@@ -73,8 +73,8 @@ static SectionData sections[] = {
         SectionTypeIAP,
         "支持开发者",
         NULL,
-        3,
-        {CellTypeDonate, CellTypeDisableTail, CellTypeDisableAd}
+        4,
+        {CellTypeDonate, CellTypeDisableTail, CellTypeDisableAd, CellTypeAbout}
     },
     {
         SectionTypeBackgroundFetch,
@@ -126,8 +126,8 @@ static SectionData sections[] = {
         SectionTypeThanks,
         "感谢",
         NULL,
-        2,
-        {CellTypeThxPsyYiYi, CellTypeAbout /*, CellTypeDonate */}
+        1,
+        {CellTypeThxPsyYiYi /*, CellTypeAbout , CellTypeDonate */}
     }
 };
 

@@ -238,8 +238,8 @@
                             <action selector="onSwitchValueChanged:" destination="-1" eventType="valueChanged" id="RNS-Eo-2E1"/>
                         </connections>
                     </switch>
-                    <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="推荐低端设备开启，不能直接访问链接" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="97L-W0-XVc">
-                        <rect key="frame" x="15" y="25" width="204" height="15"/>
+                    <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="建议低端设备开启" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="97L-W0-XVc">
+                        <rect key="frame" x="15" y="25" width="96" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
