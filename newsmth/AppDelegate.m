@@ -19,6 +19,7 @@
 #import "SMIpadEmptyViewController.h"
 #import "SMAdViewController.h"
 #import "WXApi.h"
+#import <CoreMotion/CoreMotion.h>
 
 @interface AppDelegate ()<SMWebLoaderOperationDelegate>
 @property (strong, nonatomic) UINavigationController *nvc;
@@ -36,6 +37,8 @@
 @property (strong, nonatomic) SMUpdater *updater;
 
 @property (assign, nonatomic) BOOL isNewLaunching;
+
+@property (strong, nonatomic) CMMotionManager *motionManager;
 @end
 
 @implementation AppDelegate
@@ -107,6 +110,23 @@
     [SMUtils trackEventWithCategory:@"setting" action:@"enableDayMode" label:[SMConfig enableDayMode] ? @"on" : @"off"];
 }
 
+- (void)setupShakeMotion
+{
+    self.motionManager = [CMMotionManager new];
+    self.motionManager.deviceMotionUpdateInterval = 1;
+    [self.motionManager startDeviceMotionUpdatesToQueue:[NSOperationQueue currentQueue] withHandler:^(CMDeviceMotion *motion, NSError *error) {
+        CMAcceleration userAcceleration = motion.userAcceleration;
+        double accelerationThreshold = 0.5;
+//        XLog_d(@"%lf, %lf, %lf", userAcceleration.x, userAcceleration.y, userAcceleration.z);
+        if(fabs(userAcceleration.x) > accelerationThreshold
+           || fabs(userAcceleration.y) > accelerationThreshold
+           || fabs(userAcceleration.z)> accelerationThreshold){
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFYCATION_SHAKE object:self];
+            [SMUtils trackEventWithCategory:@"setting" action:@"shake" label:nil];
+        }
+    }];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -129,6 +149,7 @@
     [self.window makeKeyAndVisible];
     
     [self setupGoogleAnalytics];
+    [self setupShakeMotion];
     
     NSString *latestVersion = [[NSUserDefaults standardUserDefaults] stringForKey:USERDEFAULTS_STAT_VERSION];
     if (![[SMUtils appVersionString] isEqualToString:latestVersion]) {

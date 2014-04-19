@@ -165,6 +165,7 @@
 		C1B581F4177723F500441299 /* SMWritePostViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1B581F2177723F500441299 /* SMWritePostViewController.xib */; };
 		C1B68848180824160085DC69 /* SMBoardSearchDelegateImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B68847180824160085DC69 /* SMBoardSearchDelegateImpl.m */; };
 		C1BA92C917954EC300F76ACF /* PBWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1BA929817954EC300F76ACF /* PBWebViewController.m */; };
+		C1BBFD97190279EB008460B5 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1BBFD96190279EB008460B5 /* CoreMotion.framework */; };
 		C1BEC9671794243C002A1E1C /* xlistview_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1BEC9661794243C002A1E1C /* xlistview_arrow@2x.png */; };
 		C1BFB8DD174F6A620092FD2E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1BFB8DC174F6A620092FD2E /* UIKit.framework */; };
 		C1BFB8DF174F6A620092FD2E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1BFB8DE174F6A620092FD2E /* Foundation.framework */; };
@@ -290,7 +291,6 @@
 		C1FD13D3178182E3006A6061 /* button_red_default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1FD13CD178182E2006A6061 /* button_red_default@2x.png */; };
 		C1FD13D4178182E3006A6061 /* button_red_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1FD13CE178182E2006A6061 /* button_red_pressed@2x.png */; };
 		C1FD13DD1781B26F006A6061 /* left_shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1FD13DC1781B26F006A6061 /* left_shadow@2x.png */; };
-		C1FEC603185DFF2E007E1C24 /* UIWindow+SMShakeListener.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FEC602185DFF2E007E1C24 /* UIWindow+SMShakeListener.m */; };
 		C1FF62B1179E6DF4001F7A15 /* SMPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FF62AF179E6DF4001F7A15 /* SMPostViewController.m */; };
 		C1FF62B2179E6DF4001F7A15 /* SMPostViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1FF62B0179E6DF4001F7A15 /* SMPostViewController.xib */; };
 /* End PBXBuildFile section */
@@ -610,6 +610,7 @@
 		C1B68847180824160085DC69 /* SMBoardSearchDelegateImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMBoardSearchDelegateImpl.m; sourceTree = "<group>"; };
 		C1BA929717954EC300F76ACF /* PBWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBWebViewController.h; sourceTree = "<group>"; };
 		C1BA929817954EC300F76ACF /* PBWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBWebViewController.m; sourceTree = "<group>"; };
+		C1BBFD96190279EB008460B5 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		C1BEC9661794243C002A1E1C /* xlistview_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "xlistview_arrow@2x.png"; sourceTree = "<group>"; };
 		C1BFB8D9174F6A620092FD2E /* newsmth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = newsmth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1BFB8DC174F6A620092FD2E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -826,6 +827,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1BBFD97190279EB008460B5 /* CoreMotion.framework in Frameworks */,
 				C10C49D118F2C34E00DF946E /* CoreImage.framework in Frameworks */,
 				C1F8109218E5B786001B3759 /* libsqlite3.dylib in Frameworks */,
 				C10DC6F918C359BF00FF95E8 /* libReactiveCocoa-iOS.a in Frameworks */,
@@ -1307,6 +1309,7 @@
 		C1BFB8DB174F6A620092FD2E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C1BBFD96190279EB008460B5 /* CoreMotion.framework */,
 				C10C49D018F2C34E00DF946E /* CoreImage.framework */,
 				C1F8109118E5B786001B3759 /* libsqlite3.dylib */,
 				C13CB6C618B0AA48003F7407 /* iAd.framework */,
@@ -2044,7 +2047,6 @@
 				C1E628AC1764C594007ACF2A /* SMSection.m in Sources */,
 				C1ABAB111766107A007DE168 /* SMMainpageCell.m in Sources */,
 				C1327EE01878549700B1862A /* SMDonateViewController.m in Sources */,
-				C1FEC603185DFF2E007E1C24 /* UIWindow+SMShakeListener.m in Sources */,
 				C10F2F7717E5621800F83206 /* SMMailItem.m in Sources */,
 				C1ABAB131766107A007DE168 /* SMMainpageViewController.m in Sources */,
 				C1B68848180824160085DC69 /* SMBoardSearchDelegateImpl.m in Sources */,
