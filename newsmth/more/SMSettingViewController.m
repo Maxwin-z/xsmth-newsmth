@@ -262,6 +262,12 @@ static SectionData sections[] = {
 
 - (void)onUpdateProNotification
 {
+    if (![SMConfig isPro]) {
+        _switchForDisableTail.enabled = _switchForDisableAd.enabled = NO;
+    } else {
+        _cellForDonate.textLabel.text = @"已升级为Pro版";
+    }
+
     [self.tableView reloadData];
 }
 
