@@ -397,13 +397,27 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row > 1) {    // attach
-        NSString *attachUrl = [self getAttachOriginalUrl:[self attachAtIndexPath:indexPath]];
-        PBWebViewController *webView = [[PBWebViewController alloc] init];
-        webView.URL = [NSURL URLWithString:attachUrl];
-        [self.navigationController pushViewController:webView animated:YES];
+        UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"查看原图", @"保持图片", nil];
+        [sheet.rac_buttonClickedSignal subscribeNext:^(id x) {
+            NSInteger buttonIndex = [x integerValue];
+            if (buttonIndex == sheet.cancelButtonIndex) {
+                return ;
+            }
+            if ([[sheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"查看原图"]) {
+                NSString *attachUrl = [self getAttachOriginalUrl:[self attachAtIndexPath:indexPath]];
+                PBWebViewController *webView = [[PBWebViewController alloc] init];
+                webView.URL = [NSURL URLWithString:attachUrl];
+                [self.navigationController pushViewController:webView animated:YES];
+            } else {
+                SMPostGroupAttachCell *attachCell = (SMPostGroupAttachCell *)[tableView cellForRowAtIndexPath:indexPath];
+                if ([attachCell isKindOfClass:[SMPostGroupAttachCell class]]) {
+                    UIImageWriteToSavedPhotosAlbum(attachCell.imageViewForAttach.image, nil, nil, nil);
+                }
+            }
+        }];
+        [sheet showInView:self.view];
     }
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
