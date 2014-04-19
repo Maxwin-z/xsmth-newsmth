@@ -20,5 +20,8 @@
 @property (strong, nonatomic) NSString *url;
 @property (strong, nonatomic) UIImage *defaultImage;
 //@property (assign, nonatomic)
+/*!
+ * auto load image after set url. defalt is YES.
+ */
 @property (assign, nonatomic) BOOL autoLoad;    // v2.4 允许手动加载图片
 @end

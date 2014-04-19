@@ -9,6 +9,7 @@
 #import "SMPostGroupAttachCell.h"
 #import "XImageViewCache.h"
 #import "XImageView.h"
+#import "Reachability.h"
 
 @interface SMPostGroupAttachCell ()
 @property (strong, nonatomic) IBOutlet UIView *viewForCell;
@@ -56,7 +57,10 @@
 - (void)setUrl:(NSString *)url
 {
     _url = url;
-    _imageViewForAttach.autoLoad = NO;
+    if ([[Reachability reachabilityForInternetConnection] isReachableViaWWAN]) {
+        _imageViewForAttach.autoLoad = [SMConfig enableMobileAutoLoadImage];
+    }
+    
     _imageViewForAttach.url = url;
     self.backgroundColor = [SMTheme colorForBackground];
 
