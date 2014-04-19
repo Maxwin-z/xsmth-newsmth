@@ -231,7 +231,7 @@ NSString *tpl =
             label.tag = contentLabelTag;
             [self.labelForContent.superview insertSubview:label belowSubview:self.labelForContent];
             
-            y += size.height - 1;
+            y += size.height;
         }
         self.labelForContent.hidden = YES;
         
