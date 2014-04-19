@@ -22,6 +22,7 @@
 + (BOOL)disableTail;
 + (BOOL)disableAd;
 + (BOOL)isPro;
++ (BOOL)enableMobileAutoLoadImage;
 
 + (void)addBoardToHistory:(SMBoard *)board;
 + (NSArray *)historyBoards;

@@ -29,6 +29,7 @@ typedef enum {
     CellTypeSwipeBack,
     CellTypeEnableDayMode,
     CellTypeOptimizePostContent,
+    CellTypeEnableMobileAutoLoadImage,
     
     CellTypeBackgroundFetch,
     CellTypeBackgroundFetchSmartMode,
@@ -51,6 +52,7 @@ typedef enum {
 typedef enum {
     SectionTypeIAP,
     SectionTypeBoard,
+    SectionTypePostView,
     SectionTypeBackgroundFetch,
     SectionTypeInteract,
     SectionTypePostFont,
@@ -85,8 +87,19 @@ static SectionData sections[] = {
         SectionTypeBoard,
         "浏览",
         NULL,
-        6,
-        {CellTypeEnableDayMode, CellTypeHideTop, CellTypeEnableQMD, CellTypeUserClickable, CellTypeShowReplyAuthor, CellTypeOptimizePostContent}
+        4,
+        {CellTypeEnableDayMode, CellTypeHideTop, CellTypeUserClickable, CellTypeShowReplyAuthor}
+    },
+    {
+        SectionTypePostView,
+        "帖子",
+        NULL,
+        3,
+        {
+            CellTypeEnableMobileAutoLoadImage,
+            CellTypeOptimizePostContent,
+            CellTypeEnableQMD
+        }
     },
     {
         SectionTypeInteract,
@@ -145,6 +158,8 @@ static SectionData sections[] = {
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForDisableTail;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForDisableAd;
 
+@property (strong, nonatomic) IBOutlet UITableViewCell *cellForEnableMobileAutoLoadImage;
+
 @property (weak, nonatomic) IBOutlet UILabel *labelForAppVersion;
 @property (weak, nonatomic) IBOutlet UISwitch *switchForHideTop;
 @property (weak, nonatomic) IBOutlet UISwitch *switchForUserClickable;
@@ -157,6 +172,7 @@ static SectionData sections[] = {
 @property (weak, nonatomic) IBOutlet UISwitch *switchForEnableDayMode;
 @property (weak, nonatomic) IBOutlet UISwitch *switchForDisableTail;
 @property (weak, nonatomic) IBOutlet UISwitch *switchForDisableAd;
+@property (weak, nonatomic) IBOutlet UISwitch *switchForEnableMobileAutoLoadImage;
 
 @property (weak, nonatomic) IBOutlet UILabel *labelForPostFont;
 @property (weak, nonatomic) IBOutlet UISlider *sliderForPostFont;
@@ -198,6 +214,7 @@ static SectionData sections[] = {
     _switchForEnableDayMode.on = [SMConfig enableDayMode];
     _switchForDisableTail.on = [SMConfig disableTail];
     _switchForDisableAd.on = [SMConfig disableAd];
+    _switchForEnableMobileAutoLoadImage.on = [SMConfig enableMobileAutoLoadImage];
     
     _sliderForListFont.value = [SMConfig listFont].pointSize;
     _sliderForPostFont.value = [SMConfig postFont].pointSize;
@@ -304,6 +321,11 @@ static SectionData sections[] = {
         [def setBool:sender.on forKey:USERDEFAULTS_CONFIG_ENABLE_DISABLE_AD];
         action = @"proDisableAd";
     }
+    
+    if (sender == _switchForEnableMobileAutoLoadImage) {
+        [def setBool:sender.on forKey:USERDEFAULTS_CONFIG_ENABLE_MOBILE_AUTO_LOAD_IMAGE];
+        action = @"enableMobileAutoLoadImage";
+    }
 
     [SMUtils trackEventWithCategory:@"setting" action:action label:sender.on ? @"on" : @"off"];
 }
@@ -343,6 +365,8 @@ static SectionData sections[] = {
             return _cellForShowReplyAuthor;
         case CellTypeOptimizePostContent:
             return _cellForOptimizePostContent;
+        case CellTypeEnableMobileAutoLoadImage:
+            return _cellForEnableMobileAutoLoadImage;
             
         case CellTypeEnableQMD:
             return _cellForShowQMD;

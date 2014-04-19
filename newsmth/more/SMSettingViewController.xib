@@ -18,6 +18,7 @@
                 <outlet property="cellForDonate" destination="TQy-bd-Bhf" id="ReX-wG-0V9"/>
                 <outlet property="cellForEULA" destination="fZC-E2-g3R" id="5LG-Z1-90N"/>
                 <outlet property="cellForEnableDayMode" destination="jkD-ZZ-Qdy" id="YTo-2J-lKk"/>
+                <outlet property="cellForEnableMobileAutoLoadImage" destination="tRg-bS-vzL" id="bUG-GG-bzk"/>
                 <outlet property="cellForFeedback" destination="9VP-6J-eot" id="Crj-c0-U0j"/>
                 <outlet property="cellForHideTop" destination="VWe-NO-y7A" id="QRu-jU-ziT"/>
                 <outlet property="cellForListFont" destination="J5h-jh-sQ0" id="z3V-GV-7KE"/>
@@ -39,7 +40,8 @@
                 <outlet property="switchForDisableAd" destination="w5Q-N0-fjT" id="15o-uS-FQv"/>
                 <outlet property="switchForDisableTail" destination="WwA-Yq-aMh" id="SB9-Rs-RfJ"/>
                 <outlet property="switchForEnableDayMode" destination="tbk-9K-fZg" id="GfV-9v-Lyt"/>
-                <outlet property="switchForHideTop" destination="UlZ-KK-UsR" id="jrw-iE-qde"/>
+                <outlet property="switchForEnableMobileAutoLoadImage" destination="JZl-Gm-oqn" id="x5u-bc-0RJ"/>
+                <outlet property="switchForHideTop" destination="UlZ-KK-UsR" id="nyF-Fb-An8"/>
                 <outlet property="switchForOptimizePostContent" destination="UNK-qa-BeI" id="Bww-tj-InY"/>
                 <outlet property="switchForShowQMD" destination="otX-D1-B7P" id="Npl-o9-crf"/>
                 <outlet property="switchForShowReplyAuthor" destination="5ux-ld-sk8" id="bpH-oF-xjP"/>
@@ -267,6 +269,37 @@
                             <action selector="onSwitchValueChanged:" destination="-1" eventType="valueChanged" id="dX3-c0-hQd"/>
                         </connections>
                     </switch>
+                </subviews>
+            </tableViewCellContentView>
+        </tableViewCell>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" textLabel="zwq-sA-C2j" detailTextLabel="icS-E0-2pY" style="IBUITableViewCellStyleSubtitle" id="tRg-bS-vzL" userLabel="移动网络自动加载图片">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tRg-bS-vzL" id="znC-Iw-XOa">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="移动网络自动加载图片" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="zwq-sA-C2j">
+                        <rect key="frame" x="15" y="3" width="180" height="22"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="JZl-Gm-oqn">
+                        <rect key="frame" x="259" y="6" width="51" height="31"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                        <connections>
+                            <action selector="onSwitchValueChanged:" destination="-1" eventType="valueChanged" id="ken-si-rkZ"/>
+                        </connections>
+                    </switch>
+                    <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="建议流量少的用户关闭" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="icS-E0-2pY">
+                        <rect key="frame" x="15" y="25" width="120" height="15"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
             </tableViewCellContentView>
         </tableViewCell>

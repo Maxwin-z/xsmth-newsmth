@@ -92,6 +92,11 @@
     return [SMConfig configForKey:USERDEFAULTS_PRO defaults:NO];
 }
 
++ (BOOL)enableMobileAutoLoadImage
+{
+    return [SMConfig configForKey:USERDEFAULTS_CONFIG_ENABLE_MOBILE_AUTO_LOAD_IMAGE defaults:YES];
+}
+
 + (NSArray *)historyBoards
 {
     return [[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_BOARD_HISTORY];
