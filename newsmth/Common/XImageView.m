@@ -115,6 +115,16 @@ static NSOperationQueue *downloadQueue;
         _downloadRequest.downloadProgressDelegate = self;
         _labelForProgress.hidden = YES;
         [[[self class] queue] addOperation:_downloadRequest];
+    } else {    // try to get image size by http HEAD
+        SMHttpRequest *headReq = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:url]];
+        headReq.requestMethod = @"HEAD";
+        [headReq setHeadersReceivedBlock:^(NSDictionary *responseHeaders) {
+            long long size = [responseHeaders[@"Content-Length"] longLongValue];
+            if (size > 0) {
+                self.labelForProgress.text = [NSString stringWithFormat:@"点击加载图片 (%@)", [SMUtils formatSize:size]];
+            }
+        }];
+        [headReq startAsynchronous];
     }
 }
 
@@ -123,7 +133,7 @@ static NSOperationQueue *downloadQueue;
     _autoLoad = autoLoad;
     if (!autoLoad && !self.isLoaded) {
         self.labelForProgress.hidden = NO;
-        self.labelForProgress.text = @"点击下载图片";
+        self.labelForProgress.text = @"点击加载图片";
         [self addStartDownloadTapGesture];
     }
 }
