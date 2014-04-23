@@ -21,3 +21,15 @@ Common, Utils, Data, jsParser目录下的代码准训MIT证书，可以使用这
 xsmth中最重要的模块是WebParser这块。WebParser提供了一套js（参考jsParser下的文件）方法来解析抓取到的html，使用js、dom操作，方便的将html转为app需要的json数据。  
 WebParser非常适合在web站点功能完备的情况下使用，无需后台开发就可以提供一套json数据。  
 WebParser用到的js引擎可以动态下载，在web界面变更的情况下，可动态更新解析引擎即可。  
+
+
+# TODO 
+1. SMData, json <-> ObjC 模型替换为 https://github.com/icanzilb/JSONModel, 
+  
+2. SMViewController公共方法抽取成Category，同时应用到UIViewController和UITableViewController
+  
+3. SMWebLoaderOperation 多个异步请求整合成同步，参考dispatch group
+   enter/leave。当前用到的地方必须strong引用operation，否则会被提前释放。
+
+4. refector forever
+
