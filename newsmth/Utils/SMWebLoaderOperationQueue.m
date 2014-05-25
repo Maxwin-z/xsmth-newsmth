@@ -33,7 +33,7 @@ static SMWebLoaderOperationQueue *backupInstance = nil;
 {
     self = [super init];
     if (self) {
-        self.maxConcurrentOperationCount = 3;
+        self.maxConcurrentOperationCount = 2;
     }
     return self;
 }
