@@ -137,6 +137,7 @@ function parse_m(html) {
         data.content = div.querySelector('#m_main .list.sec li .sp').innerHTML
             .replace(/<br\s*\/?>/ig, '\n')
             .replace(/<a.*?><img .*?<\/a>/ig, '');
+        data.content = decode(data.content);
 
         // attaches
         var imgs = div.querySelectorAll('#m_main .list.sec li .sp img');

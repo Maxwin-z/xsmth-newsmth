@@ -163,7 +163,12 @@ NSString *tpl =
         if ([line hasPrefix:@":"]) {
             color = [self color2hex:[SMTheme colorForQuote]];
         }
-        [html appendFormat:@"<div style='color:%@'>%@</div>", color, line];
+        line = [line stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"];
+        line = [line stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"];
+        line = [line stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"];
+        line = [line stringByReplacingOccurrencesOfString:@" " withString:@"&nbsp;"];
+        
+        [html appendFormat:@"<div style='color:%@'>%@<br /></div>", color, line];
     }
     return html;
 }
