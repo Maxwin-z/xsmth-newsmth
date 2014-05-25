@@ -77,6 +77,11 @@
     return [SMConfig configForKey:USERDEFAULTS_CONFIG_ENABLE_DAY_MODE defaults:YES];
 }
 
++ (BOOL)enableShakeSwitchDayMode
+{
+    return [SMConfig configForKey:USERDEFUALTS_CONFIG_ENABLE_SHAKE_SWITCH_DAY_MODE defaults:YES];
+}
+
 + (BOOL)disableTail
 {
     return [SMConfig isPro] && [SMConfig configForKey:USERDEFAULTS_CONFIG_ENABLE_DISABLE_TAIL defaults:NO];

@@ -65,6 +65,7 @@ typedef enum {
 #define USERDEFAULTS_CONFIG_SHOW_REPLY_AUTHOR    @"cfg_showreplyauthor"
 #define USERDEFAULTS_CONFIG_IOS7_SWIPE_BACK    @"cfg_ios7swipeback"
 #define USERDEFAULTS_CONFIG_ENABLE_DAY_MODE @"cfg_enabledaymode"
+#define USERDEFUALTS_CONFIG_ENABLE_SHAKE_SWITCH_DAY_MODE    @"cfg_shakeswitchdaymode"
 #define USERDEFAULTS_CONFIG_ENABLE_DISABLE_TAIL @"cfg_disable_tail"
 #define USERDEFAULTS_CONFIG_ENABLE_DISABLE_AD @"cfg_disable_ad"
 #define USERDEFAULTS_CONFIG_ENABLE_MOBILE_AUTO_LOAD_IMAGE @"cfg_enable_mobile_auto_load_image"

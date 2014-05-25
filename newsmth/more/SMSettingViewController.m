@@ -28,6 +28,7 @@ typedef enum {
     CellTypeEnableQMD,
     CellTypeSwipeBack,
     CellTypeEnableDayMode,
+    CellTypeShakeSwitchDayMode,
     CellTypeOptimizePostContent,
     CellTypeEnableMobileAutoLoadImage,
     
@@ -57,7 +58,8 @@ typedef enum {
     SectionTypeInteract,
     SectionTypePostFont,
     SectionTypeMore,
-    SectionTypeThanks
+    SectionTypeThanks,
+    SectionTypeDayMode
 }SectionType;
 
 typedef struct {
@@ -87,8 +89,8 @@ static SectionData sections[] = {
         SectionTypeBoard,
         "浏览",
         NULL,
-        4,
-        {CellTypeEnableDayMode, CellTypeHideTop, CellTypeUserClickable, CellTypeShowReplyAuthor}
+        3,
+        {CellTypeHideTop, CellTypeUserClickable, CellTypeShowReplyAuthor}
     },
     {
         SectionTypePostView,
@@ -99,6 +101,16 @@ static SectionData sections[] = {
             CellTypeEnableMobileAutoLoadImage,
             CellTypeOptimizePostContent,
             CellTypeEnableQMD
+        }
+    },
+    {
+        SectionTypeDayMode,
+        "日间/夜间模式",
+        NULL,
+        2,
+        {
+            CellTypeShakeSwitchDayMode,
+            CellTypeEnableDayMode
         }
     },
     {
@@ -152,6 +164,7 @@ static SectionData sections[] = {
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForThxPsyYiYi;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForBackgroundFetchHelp;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForEnableDayMode;
+@property (strong, nonatomic) IBOutlet UITableViewCell *cellForShakeSwitchDayMode;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForAbout;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForDonate;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForEULA;
@@ -170,6 +183,7 @@ static SectionData sections[] = {
 @property (weak, nonatomic) IBOutlet UISwitch *switchForBackgroundFetchSmartMode;
 @property (weak, nonatomic) IBOutlet UISwitch *switchForSwipeBack;
 @property (weak, nonatomic) IBOutlet UISwitch *switchForEnableDayMode;
+@property (weak, nonatomic) IBOutlet UISwitch *switchForShakeSwitchDayMode;
 @property (weak, nonatomic) IBOutlet UISwitch *switchForDisableTail;
 @property (weak, nonatomic) IBOutlet UISwitch *switchForDisableAd;
 @property (weak, nonatomic) IBOutlet UISwitch *switchForEnableMobileAutoLoadImage;
@@ -212,6 +226,7 @@ static SectionData sections[] = {
     _switchForBackgroundFetchSmartMode.on = [SMConfig enableBackgroundFetchSmartMode];
     _switchForShowQMD.on = [SMConfig enableShowQMD];
     _switchForEnableDayMode.on = [SMConfig enableDayMode];
+    _switchForShakeSwitchDayMode.on = [SMConfig enableShakeSwitchDayMode];
     _switchForDisableTail.on = [SMConfig disableTail];
     _switchForDisableAd.on = [SMConfig disableAd];
     _switchForEnableMobileAutoLoadImage.on = [SMConfig enableMobileAutoLoadImage];
@@ -316,6 +331,11 @@ static SectionData sections[] = {
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFYCATION_THEME_CHANGED object:nil];
     }
     
+    if (sender == _switchForShakeSwitchDayMode) {
+        [def setBool:sender.on forKey:USERDEFUALTS_CONFIG_ENABLE_SHAKE_SWITCH_DAY_MODE];
+        action = @"enableShakeSwitchDayMode";
+    }
+    
     if (sender == _switchForDisableTail) {
         [def setBool:sender.on forKey:USERDEFAULTS_CONFIG_ENABLE_DISABLE_TAIL];
         action = @"proDisableTail";
@@ -377,6 +397,8 @@ static SectionData sections[] = {
             
         case CellTypeEnableDayMode:
             return _cellForEnableDayMode;
+        case CellTypeShakeSwitchDayMode:
+            return _cellForShakeSwitchDayMode;
             
         case CellTypeSwipeBack:
             return _cellForSwipeBack;

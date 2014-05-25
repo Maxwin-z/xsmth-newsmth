@@ -19,6 +19,7 @@
 + (BOOL)enableIOS7SwipeBack;
 + (BOOL)enableShowQMD;
 + (BOOL)enableDayMode;
++ (BOOL)enableShakeSwitchDayMode;
 + (BOOL)disableTail;
 + (BOOL)disableAd;
 + (BOOL)isPro;

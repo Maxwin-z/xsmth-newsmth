@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1296" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
@@ -25,6 +25,7 @@
                 <outlet property="cellForOptimizePostContent" destination="lm1-5n-PtG" id="IfX-X6-abd"/>
                 <outlet property="cellForPostFont" destination="ni6-wg-VaA" id="JBi-wA-jeK"/>
                 <outlet property="cellForRate" destination="QvN-rk-4dd" id="0I0-2w-rVI"/>
+                <outlet property="cellForShakeSwitchDayMode" destination="nxp-hP-LUe" id="EDT-B6-ESW"/>
                 <outlet property="cellForShowQMD" destination="IEc-6j-UZO" id="IkR-ZY-vGK"/>
                 <outlet property="cellForShowReplyAuthor" destination="uQw-2k-lKd" id="XBa-Rx-a3m"/>
                 <outlet property="cellForSwipeBack" destination="lES-sT-Vuo" id="Mgl-gI-s7S"/>
@@ -43,6 +44,7 @@
                 <outlet property="switchForEnableMobileAutoLoadImage" destination="JZl-Gm-oqn" id="x5u-bc-0RJ"/>
                 <outlet property="switchForHideTop" destination="UlZ-KK-UsR" id="nyF-Fb-An8"/>
                 <outlet property="switchForOptimizePostContent" destination="UNK-qa-BeI" id="Bww-tj-InY"/>
+                <outlet property="switchForShakeSwitchDayMode" destination="dRs-Sn-Aef" id="yK1-9t-Fb8"/>
                 <outlet property="switchForShowQMD" destination="otX-D1-B7P" id="Npl-o9-crf"/>
                 <outlet property="switchForShowReplyAuthor" destination="5ux-ld-sk8" id="bpH-oF-xjP"/>
                 <outlet property="switchForSwipeBack" destination="JgB-K1-49Y" id="F4d-Pp-e1L"/>
@@ -186,7 +188,7 @@
                 </subviews>
             </tableViewCellContentView>
         </tableViewCell>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" textLabel="tK1-FF-ZmQ" detailTextLabel="jjH-Zw-Mgw" style="IBUITableViewCellStyleSubtitle" id="jkD-ZZ-Qdy" userLabel="日间/夜间模式">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" textLabel="tK1-FF-ZmQ" style="IBUITableViewCellStyleDefault" id="jkD-ZZ-Qdy" userLabel="日间/夜间模式">
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jkD-ZZ-Qdy" id="H3i-JU-nAu">
@@ -194,7 +196,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="日间模式" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tK1-FF-ZmQ" userLabel="日间模式">
-                        <rect key="frame" x="15" y="3" width="72" height="22"/>
+                        <rect key="frame" x="15" y="0.0" width="290" height="43"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -207,13 +209,30 @@
                             <action selector="onSwitchValueChanged:" destination="-1" eventType="valueChanged" id="10o-9i-sKf"/>
                         </connections>
                     </switch>
-                    <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="晃动设备快速切换" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jjH-Zw-Mgw">
-                        <rect key="frame" x="15" y="25" width="96" height="15"/>
+                </subviews>
+            </tableViewCellContentView>
+        </tableViewCell>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" textLabel="siU-sw-vzE" style="IBUITableViewCellStyleDefault" id="nxp-hP-LUe" userLabel="日间/夜间模式-自动切换">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nxp-hP-LUe" id="w6r-0t-Bne">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="晃动设备自动切换" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="siU-sw-vzE" userLabel="日间模式">
+                        <rect key="frame" x="15" y="0.0" width="290" height="43"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="dRs-Sn-Aef">
+                        <rect key="frame" x="259" y="6" width="51" height="31"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                        <connections>
+                            <action selector="onSwitchValueChanged:" destination="-1" eventType="valueChanged" id="zSV-uv-Zbl"/>
+                        </connections>
+                    </switch>
                 </subviews>
             </tableViewCellContentView>
         </tableViewCell>
