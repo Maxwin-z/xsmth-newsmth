@@ -10,7 +10,7 @@
 
 @implementation UIWindow (SMShakeListener)
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
-    if (event.type == UIEventTypeMotion && event.subtype == UIEventSubtypeMotionShake) {
+    if (event.type == UIEventTypeMotion && event.subtype == UIEventSubtypeMotionShake && [SMConfig enableShakeSwitchDayMode]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFYCATION_SHAKE object:self];
         [SMUtils trackEventWithCategory:@"setting" action:@"shake" label:nil];
     }
