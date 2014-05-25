@@ -14,12 +14,24 @@
 #define _XLOG_LEVEL_WARN     @"WARN"
 #define _XLOG_LEVEL_ERROR    @"ERROR"
 
+#define _XLOG_THEME_DARK
+
 // colors for log level, change it as your wish
+#ifdef _XLOG_THEME_DEFAULT
 #define _XLOG_COLOR_RED   _XLOG_ESC_CH @"#FF0000"
 #define _XLOG_COLOR_GREEN _XLOG_ESC_CH @"#000099"
 #define _XLOG_COLOR_BROWN  _XLOG_ESC_CH @"#FF9966"
 // hard code, use 00000m for reset flag
 #define _XLOG_COLOR_RESET _XLOG_ESC_CH @"#00000m"
+#endif
+
+#ifdef _XLOG_THEME_DARK
+#define _XLOG_COLOR_RED   _XLOG_ESC_CH @"#FF0000"
+#define _XLOG_COLOR_GREEN _XLOG_ESC_CH @"#F0F0F0"
+#define _XLOG_COLOR_BROWN  _XLOG_ESC_CH @"#FF9966"
+// hard code, use 00000m for reset flag
+#define _XLOG_COLOR_RESET _XLOG_ESC_CH @"#00000m"
+#endif
 
 
 #if defined (__cplusplus)

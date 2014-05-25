@@ -122,7 +122,8 @@ static SMBoardCell *_instance;
         unreadHintImage = @"unread";
     } else if (self.post.replyCount == self.post.readCount) {
         // all read
-        unreadHintImage = @"unread_none";
+    //    unreadHintImage = @"unread_none";
+        unreadHintImage = nil;  // v2.4.1 移除未读提示
     } else {
         unreadHintImage = @"unread_half";
     }
