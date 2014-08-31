@@ -16,6 +16,7 @@
 #import "SMBoardSearchDelegateImpl.h"
 #import "SMIPadSplitViewController.h"
 #import "SMDiagnoseViewController.h"
+#import "SMPostViewControllerV2.h"
 
 static SMMainpageViewController *_instance;
 
@@ -177,7 +178,13 @@ static SMMainpageViewController *_instance;
 {
     SMSection *secdata = _sections[indexPath.section];
     SMPost *post = secdata.posts[indexPath.row];
+ #warning debug new post viewer
+    SMPostViewControllerV2 *vc2 = [SMPostViewControllerV2 new];
+    vc2.post = post;
+    [self.navigationController pushViewController:vc2 animated:YES];
+    return;
     
+   
 //    SMPostGroupViewController *vc = [[SMPostGroupViewController alloc] init];
     SMPostViewController *vc = [[SMPostViewController alloc] init];
     vc.board = post.board;

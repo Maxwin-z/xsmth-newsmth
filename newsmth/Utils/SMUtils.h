@@ -30,6 +30,7 @@
 + (NSString *)formatSize:(unsigned long long)size;
 
 + (id)string2json:(NSString *)str;
++ (NSString *)json2string:(id)json;
 
 + (void)trackEventWithCategory:(NSString *)category
                         action:(NSString *)action

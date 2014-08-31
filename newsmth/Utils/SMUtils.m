@@ -99,6 +99,26 @@
     return json;
 }
 
++ (NSString *)json2string:(id)json
+{
+    @try {
+        NSError *error;
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:json
+                                                           options:NSJSONWritingPrettyPrinted
+                                                             error:&error];
+        if (error) {
+            XLog_e(@"%@", error);
+            return nil;
+        }
+        NSString *str = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        return str;
+    }
+    @catch (NSException *exception) {
+        XLog_e(@"%@", exception);
+        return nil;
+    }
+}
+
 + (void)trackEventWithCategory:(NSString *)category
                         action:(NSString *)action
                          label:(NSString *)label

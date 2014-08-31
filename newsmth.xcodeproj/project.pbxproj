@@ -164,6 +164,7 @@
 		C1B581F3177723F500441299 /* SMWritePostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B581F1177723F500441299 /* SMWritePostViewController.m */; };
 		C1B581F4177723F500441299 /* SMWritePostViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1B581F2177723F500441299 /* SMWritePostViewController.xib */; };
 		C1B68848180824160085DC69 /* SMBoardSearchDelegateImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B68847180824160085DC69 /* SMBoardSearchDelegateImpl.m */; };
+		C1B966FD19B18D2E00ABD136 /* SMPostViewControllerV2.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B966FC19B18D2E00ABD136 /* SMPostViewControllerV2.m */; };
 		C1BA92C917954EC300F76ACF /* PBWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1BA929817954EC300F76ACF /* PBWebViewController.m */; };
 		C1BBFD97190279EB008460B5 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1BBFD96190279EB008460B5 /* CoreMotion.framework */; };
 		C1BBFD9E1902986E008460B5 /* UIWindow+SMShakeListener.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FEC602185DFF2E007E1C24 /* UIWindow+SMShakeListener.m */; };
@@ -609,6 +610,8 @@
 		C1B581F2177723F500441299 /* SMWritePostViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMWritePostViewController.xib; sourceTree = "<group>"; };
 		C1B68846180824160085DC69 /* SMBoardSearchDelegateImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMBoardSearchDelegateImpl.h; sourceTree = "<group>"; };
 		C1B68847180824160085DC69 /* SMBoardSearchDelegateImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMBoardSearchDelegateImpl.m; sourceTree = "<group>"; };
+		C1B966FB19B18D2E00ABD136 /* SMPostViewControllerV2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMPostViewControllerV2.h; sourceTree = "<group>"; };
+		C1B966FC19B18D2E00ABD136 /* SMPostViewControllerV2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMPostViewControllerV2.m; sourceTree = "<group>"; };
 		C1BA929717954EC300F76ACF /* PBWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBWebViewController.h; sourceTree = "<group>"; };
 		C1BA929817954EC300F76ACF /* PBWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBWebViewController.m; sourceTree = "<group>"; };
 		C1BBFD96190279EB008460B5 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
@@ -1248,6 +1251,15 @@
 			path = write;
 			sourceTree = "<group>";
 		};
+		C1B966F419B18CCE00ABD136 /* postgroup2 */ = {
+			isa = PBXGroup;
+			children = (
+				C1B966FB19B18D2E00ABD136 /* SMPostViewControllerV2.h */,
+				C1B966FC19B18D2E00ABD136 /* SMPostViewControllerV2.m */,
+			);
+			path = postgroup2;
+			sourceTree = "<group>";
+		};
 		C1BA923917954EC300F76ACF /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
@@ -1341,6 +1353,7 @@
 		C1BFB8E2174F6A620092FD2E /* newsmth */ = {
 			isa = PBXGroup;
 			children = (
+				C1B966F419B18CCE00ABD136 /* postgroup2 */,
 				C1300A5318795BF9006ACA5C /* ipad */,
 				C14B230517FBAFDF00CF081A /* more */,
 				C1C18D9217A52FFA008C598C /* notice */,
@@ -2011,6 +2024,7 @@
 				C1BFB8ED174F6A620092FD2E /* AppDelegate.m in Sources */,
 				C1BFB8F6174F6A620092FD2E /* ViewController.m in Sources */,
 				C1BFB9C3174F6F5C0092FD2E /* ASIAuthenticationDialog.m in Sources */,
+				C1B966FD19B18D2E00ABD136 /* SMPostViewControllerV2.m in Sources */,
 				C1BFB9C4174F6F5C0092FD2E /* ASIDataCompressor.m in Sources */,
 				C15489C51888F9E10046190C /* SMEULAViewController.m in Sources */,
 				C14B22F117FAB00700CF081A /* XTimeLabel.m in Sources */,
