@@ -12,6 +12,7 @@
  */
 
 #import "SMPostViewControllerV2.h"
+#import "PBWebViewController.h"
 
 @interface SMPostViewControllerV2 () <UIWebViewDelegate, UIScrollViewDelegate>
 @property (strong, nonatomic) UIWebView *webView;
@@ -30,6 +31,7 @@
 {
     self.webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
     self.webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.webView.dataDetectorTypes = UIDataDetectorTypePhoneNumber | UIDataDetectorTypeLink;
     self.webView.scalesPageToFit = YES;
     [self.view addSubview:self.webView];
     
@@ -85,12 +87,31 @@
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
     NSURL *url = request.URL;
+    
+    XLog_d(@"load: %@", url);
+    
     if ([url.host isEqualToString:@"_"]) {
         NSDictionary *query = [self parseQuery:url.query];
         [self handleJSAPI:query];
         return NO;
     }
-    return YES;
+    
+    if ([url.host isEqualToString:@"localhost"] || [url.absoluteString isEqualToString:@"about:blank"]) {
+        return YES;
+    }
+    
+    PBWebViewController *vc = [[PBWebViewController alloc] init];
+    vc.URL = url;
+    [self.navigationController pushViewController:vc animated:YES];
+    return NO;
+    
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"打开", nil];
+    [sheet.rac_buttonClickedSignal subscribeNext:^(id x) {
+        NSInteger buttonIndex = [x integerValue];
+        XLog_d(@"%d", buttonIndex);
+    }];
+    [sheet showInView:self.view];
+    return NO;
 }
 
 #pragma mark - UIScrollViewDelegate
@@ -150,7 +171,7 @@
         @strongify(req);
         @strongify(self);
         NSString *responseString = req.responseString;
-//        XLog_d(@"resp: %@", responseString);
+        XLog_d(@"resp length: %@", @(responseString.length));
         if (responseString == nil) {
 //            XLog_d(@"%@", req.responseData);
             XLog_e(@"get response string error. parse from data");
