@@ -137,6 +137,7 @@
 {
     SMHttpRequest *req;
     NSString *url = parameters[@"url"];
+    XLog_d(@"load url: %@", url);
     req = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:url]];
     
     if ([url hasPrefix:@"http://www.newsmth.net/nForum/"]) {
@@ -149,7 +150,7 @@
         @strongify(req);
         @strongify(self);
         NSString *responseString = req.responseString;
-        XLog_d(@"resp: %@", responseString);
+//        XLog_d(@"resp: %@", responseString);
         if (responseString == nil) {
 //            XLog_d(@"%@", req.responseData);
             XLog_e(@"get response string error. parse from data");
