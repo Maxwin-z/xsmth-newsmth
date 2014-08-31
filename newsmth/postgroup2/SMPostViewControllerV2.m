@@ -134,7 +134,12 @@
         @strongify(self);
         NSString *responseString = req.responseString;
         XLog_d(@"resp: %@", responseString);
-        [self sendMessage2WebViewWithCallbackID:parameters[@"callbackID"] value:@{@"response": responseString}];
+        if (responseString == nil) {
+//            XLog_d(@"%@", req.responseData);
+            XLog_e(@"get response string error. parse from data");
+            responseString = [SMUtils gb2312Data2String:req.responseData];
+        }
+        [self sendMessage2WebViewWithCallbackID:parameters[@"callbackID"] value:@{@"response": responseString ?: @""}];
     }];
     
     [req setFailedBlock:^{

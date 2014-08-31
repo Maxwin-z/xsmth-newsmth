@@ -42,6 +42,7 @@
 
 + (void)setIOS7ButtonStyle:(UIButton *)button;
 + (void)setTextFieldStyle:(UITextField *)textField;
++ (NSString *)gb2312Data2String:(NSData *)data;
 @end
 
 @interface NSString (SMUtils)
