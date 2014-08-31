@@ -13,7 +13,7 @@
 
 #import "SMPostViewControllerV2.h"
 
-@interface SMPostViewControllerV2 () <UIWebViewDelegate>
+@interface SMPostViewControllerV2 () <UIWebViewDelegate, UIScrollViewDelegate>
 @property (strong, nonatomic) UIWebView *webView;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 @end
@@ -33,7 +33,10 @@
     self.webView.scalesPageToFit = YES;
     [self.view addSubview:self.webView];
     
+    self.webView.delegate = self;
+    self.webView.scrollView.delegate = self;
     
+    // remove webview background color
     self.webView.backgroundColor = [UIColor clearColor];
     self.webView.opaque = NO;
     if (![SMUtils systemVersion] < 7) {
@@ -44,21 +47,21 @@
     }
     
     
-    // add refresh control
     UIScrollView *scrollView = self.webView.scrollView;
     UIEdgeInsets insets = scrollView.contentInset;
     insets.top = SM_TOP_INSET;
     scrollView.contentInset = scrollView.scrollIndicatorInsets = insets;
     scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
 
+    // add refresh control
     self.refreshControl = [[UIRefreshControl alloc] init];
     [scrollView addSubview:self.refreshControl];
     [self.refreshControl addTarget:self action:@selector(onRefreshControlValueChanged:) forControlEvents:UIControlEventValueChanged];
     
+    // debug
     NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://localhost/xsmth/"]];
     [self.webView loadRequest:req];
     
-    self.webView.delegate = self;
 }
 
 - (void)onRefreshControlValueChanged:(UIRefreshControl *)refreshControl
@@ -88,6 +91,19 @@
         return NO;
     }
     return YES;
+}
+
+#pragma mark - UIScrollViewDelegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [self sendScrollToBottomEvent:scrollView];
+}
+
+- (void)sendScrollToBottomEvent:(UIScrollView *)scrollView
+{
+    if (scrollView.contentOffset.y + scrollView.frame.size.height == scrollView.contentSize.height) {
+        [self.webView stringByEvaluatingJavaScriptFromString:@"window.SMApp.scrollToBottom()"];
+    }
 }
 
 #pragma mark - Native method for webview
