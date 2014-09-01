@@ -103,6 +103,9 @@ static NSOperationQueue *downloadQueue;
                     if ([_delegate respondsToSelector:@selector(xImageViewDidLoad:)]) {
                         [_delegate xImageViewDidLoad:self];
                     }
+                    if (self.didLoadBlock) {
+                        self.didLoadBlock();
+                    }
                 } else {
                     XLog_d(@"url changed from[%@] to[%@]", currentUrl, _url);
                 }
@@ -120,8 +123,12 @@ static NSOperationQueue *downloadQueue;
         headReq.requestMethod = @"HEAD";
         [headReq setHeadersReceivedBlock:^(NSDictionary *responseHeaders) {
             long long size = [responseHeaders[@"Content-Length"] longLongValue];
+            XLog_d(@"image size: %@, %@", _url, @(size));
             if (size > 0) {
                 self.labelForProgress.text = [NSString stringWithFormat:@"点击加载图片 (%@)", [SMUtils formatSize:size]];
+                if (self.getSizeBlock) {
+                    self.getSizeBlock(size);
+                }
             }
         }];
         [headReq startAsynchronous];
@@ -166,6 +173,9 @@ static NSOperationQueue *downloadQueue;
     if ([_delegate respondsToSelector:@selector(xImageViewDidLoad:)]) {
         [_delegate xImageViewDidLoad:self];
     }
+    if (self.didLoadBlock) {
+        self.didLoadBlock();
+    }
 }
 
 - (void)requestFailed:(ASIHTTPRequest *)request
@@ -175,6 +185,10 @@ static NSOperationQueue *downloadQueue;
     _labelForProgress.text = @"下载失败，点击重试";
     self.isLoaded = NO;
     [self addStartDownloadTapGesture];
+    
+    if (self.didFailBlock) {
+        self.didFailBlock();
+    }
 }
 
 #pragma mark - ASIProgressDelegate
@@ -184,6 +198,9 @@ static NSOperationQueue *downloadQueue;
     if (total > 0) {
         CGFloat progress = (CGFloat)(request.totalBytesRead * 1.0 / total);
         [self updateProgress:progress];
+        if (self.updateProgressBlock) {
+            self.updateProgressBlock(progress);
+        }
     }
 }
 

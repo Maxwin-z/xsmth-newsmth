@@ -60,6 +60,7 @@
     if ([[Reachability reachabilityForInternetConnection] isReachableViaWWAN]) {
         _imageViewForAttach.autoLoad = [SMConfig enableMobileAutoLoadImage];
     }
+    _imageViewForAttach.autoLoad = NO;
     
     _imageViewForAttach.url = url;
     self.backgroundColor = [SMTheme colorForBackground];

@@ -17,6 +17,7 @@
 #import "SMIPadSplitViewController.h"
 #import "SMDiagnoseViewController.h"
 #import "SMDBManager.h"
+#import "SMPostViewControllerV2.h"
 
 @interface SMBoardViewController ()<UITableViewDelegate, UITableViewDataSource, XPullRefreshTableViewDelegate, SMWebLoaderOperationDelegate, SMBoardCellDelegate, SMBoardViewTypeSelectorViewDelegate>
 @property (weak, nonatomic) IBOutlet XPullRefreshTableView *tableView;
@@ -323,6 +324,11 @@
         || _viewTypeSelector.viewType == SMBoardViewTypeTztSortByPost) {
         vc.gid = post.gid;
         vc.board = _board;
+        
+//        SMPostViewControllerV2 *vc2 = [SMPostViewControllerV2 new];
+//        vc2.post = post;
+//        [self.navigationController pushViewController:vc2 animated:YES];
+//        return ;
     } else {
         vc.postUrl = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/single/%d/0", _board.name, post.gid];
     }

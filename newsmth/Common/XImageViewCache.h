@@ -10,6 +10,9 @@
 
 @interface XImageViewCache : NSObject
 + (XImageViewCache *)sharedInstance;
++ (NSString *)escapeUrl:(NSString *)url;
+
+- (NSString *)pathForUrl:(NSString *)url;
 - (BOOL)isInCache:(NSString *)key;
 - (UIImage *)getImage:(NSString *)key;
 - (void)setImage:(UIImage *)image forUrl:(NSString *)key;
@@ -17,4 +20,5 @@
 
 - (unsigned long long)cacheSize;
 - (void)clearCache;
+
 @end

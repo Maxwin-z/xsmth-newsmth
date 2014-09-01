@@ -65,9 +65,19 @@ static XImageViewCache *instance;
 
 - (NSString *)escapeKey:(NSString *)key
 {
+    return [[self class] escapeUrl:key];
+}
+
++ (NSString *)escapeUrl:(NSString *)url
+{
     NSCharacterSet *theCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@"+-*!%$:?/"];
-    key = [[key componentsSeparatedByCharactersInSet:theCharacterSet] componentsJoinedByString:@"_"];
-    return key;
+    url = [[url componentsSeparatedByCharactersInSet:theCharacterSet] componentsJoinedByString:@"_"];
+    return url;
+}
+
+- (NSString *)pathForUrl:(NSString *)url
+{
+    return [_cacheDir stringByAppendingPathComponent:[self escapeKey:url]];
 }
 
 - (void)cleanAllMemoryCache

@@ -13,10 +13,16 @@
 
 #import "SMPostViewControllerV2.h"
 #import "PBWebViewController.h"
+#import "XImageView.h"
+#import "XImageViewCache.h"
+
+#define DEBUG_HOST @"10.128.100.175"
+
 
 @interface SMPostViewControllerV2 () <UIWebViewDelegate, UIScrollViewDelegate>
 @property (strong, nonatomic) UIWebView *webView;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
+@property (strong, nonatomic) NSMutableDictionary *imageLoaders;
 @end
 
 @implementation SMPostViewControllerV2
@@ -24,6 +30,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.imageLoaders = [NSMutableDictionary new];
     [self setupWebView];
 }
 
@@ -61,7 +68,8 @@
     [self.refreshControl addTarget:self action:@selector(onRefreshControlValueChanged:) forControlEvents:UIControlEventValueChanged];
     
     // debug
-    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://localhost/xsmth/"]];
+//    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://localhost/xsmth/"]];
+    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://" DEBUG_HOST @"/xsmth/"]];
     [self.webView loadRequest:req];
     
 }
@@ -83,6 +91,7 @@
     [self.refreshControl endRefreshing];
 }
 
+
 #pragma mark - UIWebViewDelegate
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
@@ -96,7 +105,7 @@
         return NO;
     }
     
-    if ([url.host isEqualToString:@"localhost"] || [url.absoluteString isEqualToString:@"about:blank"]) {
+    if ([url.host isEqualToString:@"localhost"] || [url.host isEqualToString:DEBUG_HOST] || [url.absoluteString isEqualToString:@"about:blank"]) {
         return YES;
     }
     
@@ -144,6 +153,10 @@
     
     if ([method isEqualToString:@"scrollTo"]) {
         [self apiScrollTo:parameters];
+    }
+    
+    if ([method isEqualToString:@"getImageSize"]) {
+        [self apiGetImageSize:parameters];
     }
 }
 
@@ -203,6 +216,27 @@
     pos = MIN(pos, scrollView.contentSize.height - scrollView.frame.size.height + scrollView.contentInset.top);
     pos -= scrollView.contentInset.top;
     [scrollView setContentOffset:CGPointMake(0, pos) animated:YES];
+}
+
+- (void)apiGetImageSize:(NSDictionary *)parameters
+{
+    NSString *imageUrl = parameters[@"url"];
+    XImageView *imageView = [[XImageView alloc] init];
+//    imageView.autoLoad = NO;
+    @weakify(self);
+    imageView.getSizeBlock = ^(long long size) {
+        @strongify(self);
+        XLog_d(@"url:%@, %@", imageUrl, @(size));
+        [self sendMessage2WebViewWithCallbackID:parameters[@"callbackID"] value:@{@"size": @(size)}];
+    };
+    
+    imageView.didLoadBlock = ^() {
+        NSString *path = [[XImageViewCache sharedInstance] pathForUrl:imageUrl];
+        XLog_d(@"url: %@ success, %@", imageUrl, path);
+        [self sendMessage2WebViewWithCallbackID:parameters[@"callbackID"] value:@{@"success": path}];
+    };
+    imageView.url = imageUrl;
+    [self.imageLoaders setObject:imageView forKey:imageUrl];
 }
 
 #pragma mark - method
