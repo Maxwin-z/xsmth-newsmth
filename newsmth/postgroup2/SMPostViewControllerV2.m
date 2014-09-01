@@ -69,8 +69,18 @@
     
     // debug
 //    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://localhost/xsmth/"]];
-    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://" DEBUG_HOST @"/xsmth/"]];
-    [self.webView loadRequest:req];
+    NSURL *url = [NSURL URLWithString:@"http://" DEBUG_HOST @"/xsmth/index.html"];
+    NSString *str = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:NULL];
+
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    if (paths.count == 0) {
+        XLog_e(@"documents folder not exists!!");
+    }
+    NSString *doc = [paths objectAtIndex:0];
+    NSURL *baseURL = [NSURL fileURLWithPath:doc];
+    [self.webView loadHTMLString:str baseURL:baseURL];
+//    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://" DEBUG_HOST @"/xsmth/"]];
+//    [self.webView loadRequest:req];
     
 }
 
@@ -104,6 +114,9 @@
         [self handleJSAPI:query];
         return NO;
     }
+    
+    return YES;
+    
     
     if ([url.host isEqualToString:@"localhost"] || [url.host isEqualToString:DEBUG_HOST] || [url.absoluteString isEqualToString:@"about:blank"]) {
         return YES;
@@ -155,8 +168,8 @@
         [self apiScrollTo:parameters];
     }
     
-    if ([method isEqualToString:@"getImageSize"]) {
-        [self apiGetImageSize:parameters];
+    if ([method isEqualToString:@"getImageInfo"]) {
+        [self apiGetImageInfo:parameters];
     }
 }
 
@@ -164,7 +177,9 @@
 {
     NSString *str = [SMUtils json2string:value];
     NSString *js = [NSString stringWithFormat:@"window.SMApp.callback(%@, %@)", callbackID, str];
-    [self.webView stringByEvaluatingJavaScriptFromString:js];
+    
+    [self.webView performSelector:@selector(stringByEvaluatingJavaScriptFromString:) withObject:js];
+//    [self.webView stringByEvaluatingJavaScriptFromString:js];
 }
 
 - (void)apiAjax:(NSDictionary *)parameters
@@ -218,7 +233,7 @@
     [scrollView setContentOffset:CGPointMake(0, pos) animated:YES];
 }
 
-- (void)apiGetImageSize:(NSDictionary *)parameters
+- (void)apiGetImageInfo:(NSDictionary *)parameters
 {
     NSString *imageUrl = parameters[@"url"];
     XImageView *imageView = [[XImageView alloc] init];
