@@ -188,6 +188,17 @@
     return filepath;
 }
 
++ (NSString *)documentPath
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    if (paths.count == 0) {
+        XLog_e(@"documents folder not exists!!");
+        return nil;
+    }
+
+    return paths.firstObject;
+}
+
 + (void)setIOS7ButtonStyle:(UIButton *)button
 {
     UIImage *image = [button imageForState:UIControlStateNormal];

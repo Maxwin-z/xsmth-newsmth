@@ -116,6 +116,21 @@
     [SMUtils writeData:[js dataUsingEncoding:NSUTF8StringEncoding] toDocumentFolder:path];
 }
 
+- (void)downloadPostPage
+{
+    NSString *url = @"http://10.128.100.175/xsmth/a.zip";
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
+        if (data) {
+            [SMUtils writeData:data toDocumentFolder:@"tmp/post.zip"];
+        }
+        NSString *docPath = [SMUtils documentPath];
+        NSString *filepath = [NSString stringWithFormat:@"%@/tmp/post.zip", docPath];
+        NSString *destPath = [NSString stringWithFormat:@"%@/post/", docPath];
+        [SSZipArchive unzipFileAtPath:filepath toDestination:destPath];
+    });
+}
+
 #pragma mark - ASIHTTPRequestDelegate
 - (void)requestFinished:(ASIHTTPRequest *)request
 {
