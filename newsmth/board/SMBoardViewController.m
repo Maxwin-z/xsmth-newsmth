@@ -325,10 +325,10 @@
         vc.gid = post.gid;
         vc.board = _board;
         
-//        SMPostViewControllerV2 *vc2 = [SMPostViewControllerV2 new];
-//        vc2.post = post;
-//        [self.navigationController pushViewController:vc2 animated:YES];
-//        return ;
+        SMPostViewControllerV2 *vc2 = [SMPostViewControllerV2 new];
+        vc2.post = post;
+        [self.navigationController pushViewController:vc2 animated:YES];
+        return ;
     } else {
         vc.postUrl = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/single/%d/0", _board.name, post.gid];
     }
