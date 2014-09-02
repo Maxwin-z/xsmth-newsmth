@@ -41,6 +41,10 @@
     updateReq = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:versionUrl]];
     updateReq.delegate = self;
     [updateReq startAsynchronous];
+    
+    
+#warning todo
+    [self downloadPostPage];
 }
 
 - (void)handleNewVersion

@@ -72,13 +72,11 @@
     NSURL *url = [NSURL URLWithString:@"http://" DEBUG_HOST @"/xsmth/index.html"];
     NSString *str = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:NULL];
 
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    if (paths.count == 0) {
-        XLog_e(@"documents folder not exists!!");
-    }
-    NSString *doc = [paths objectAtIndex:0];
-    NSURL *baseURL = [NSURL fileURLWithPath:doc];
-    [self.webView loadHTMLString:str baseURL:baseURL];
+    NSString *documentPath = [SMUtils documentPath];
+    NSString *postPagePath = [NSString stringWithFormat:@"%@/post/index.html", documentPath];
+    url = [NSURL fileURLWithPath:postPagePath];
+    
+    [self.webView loadRequest:[NSURLRequest requestWithURL:url]];
 //    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://" DEBUG_HOST @"/xsmth/"]];
 //    [self.webView loadRequest:req];
     
