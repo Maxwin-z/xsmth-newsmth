@@ -69,12 +69,12 @@
     
     // debug
 //    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://localhost/xsmth/"]];
-    NSURL *url = [NSURL URLWithString:@"http://" DEBUG_HOST @"/xsmth/index.html"];
-    NSString *str = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:NULL];
+//    NSURL *url = [NSURL URLWithString:@"http://" DEBUG_HOST @"/xsmth/index.html"];
+//    NSString *str = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:NULL];
 
     NSString *documentPath = [SMUtils documentPath];
     NSString *postPagePath = [NSString stringWithFormat:@"%@/post/index.html", documentPath];
-    url = [NSURL fileURLWithPath:postPagePath];
+    NSURL *url = [NSURL fileURLWithPath:postPagePath];
     
     [self.webView loadRequest:[NSURLRequest requestWithURL:url]];
 //    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://" DEBUG_HOST @"/xsmth/"]];

@@ -54,7 +54,12 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
         NSString *adFileUrl = [NSString stringWithFormat:@"http://maxwin.me/xsmth/service/%@.zip", adid];
         NSString *localZip = [NSString stringWithFormat:@"%@/tmpad.zip", [[self class] getAdFilePath:@""]];
+        
         NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:adFileUrl]];
+        
+        if (data == nil) {
+            return ;
+        }
         
         [data writeToFile:localZip atomically:NO];
         
