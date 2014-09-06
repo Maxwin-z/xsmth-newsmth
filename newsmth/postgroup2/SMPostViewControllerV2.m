@@ -30,6 +30,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.title = self.post.title;
     self.imageLoaders = [NSMutableDictionary new];
     [self setupWebView];
 }
@@ -38,7 +39,7 @@
 {
     self.webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
     self.webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    self.webView.dataDetectorTypes = UIDataDetectorTypePhoneNumber | UIDataDetectorTypeLink;
+    self.webView.dataDetectorTypes = UIDataDetectorTypeLink;
     self.webView.scalesPageToFit = YES;
     [self.view addSubview:self.webView];
     
