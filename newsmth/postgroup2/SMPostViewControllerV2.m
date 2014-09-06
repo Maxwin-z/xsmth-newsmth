@@ -248,6 +248,20 @@
         XLog_d(@"url: %@ success, %@", imageUrl, path);
         [self sendMessage2WebViewWithCallbackID:parameters[@"callbackID"] value:@{@"success": path}];
     };
+    imageView.didFailBlock = ^() {
+        [self sendMessage2WebViewWithCallbackID:parameters[@"callbackID"] value:@{@"fail": @""}];
+    };
+    
+    __block CGFloat latestProgress = 0.0f;
+    imageView.updateProgressBlock = ^(CGFloat progress) {
+        XLog_d(@"progress: %@", @(progress));
+        if (progress - latestProgress > 0.08) {
+            [self sendMessage2WebViewWithCallbackID:parameters[@"callbackID"] value:@{@"progress": @(progress)}];
+            latestProgress = progress;
+            XLog_d(@"update progres %@", @(progress));
+        }
+    };
+    
     imageView.url = imageUrl;
     [self.imageLoaders setObject:imageView forKey:imageUrl];
 }
