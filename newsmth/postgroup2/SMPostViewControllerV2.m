@@ -16,7 +16,8 @@
 #import "XImageView.h"
 #import "XImageViewCache.h"
 
-#define DEBUG_HOST @"10.128.100.175"
+//#define DEBUG_HOST @"10.128.100.175"
+#define DEBUG_HOST @"192.168.3.161"
 
 
 @interface SMPostViewControllerV2 () <UIWebViewDelegate, UIScrollViewDelegate>
@@ -33,6 +34,17 @@
     self.title = self.post.title;
     self.imageLoaders = [NSMutableDictionary new];
     [self setupWebView];
+}
+
+- (void)setupTheme
+{
+    [super setupTheme];
+}
+
+- (void)onThemeChangedNotification:(NSNotification *)n
+{
+    [super onThemeChangedNotification:n];
+    [self sendThemeChangedMessage];
 }
 
 - (void)setupWebView
@@ -77,9 +89,9 @@
     NSString *postPagePath = [NSString stringWithFormat:@"%@/post/index.html", documentPath];
     NSURL *url = [NSURL fileURLWithPath:postPagePath];
     
-    [self.webView loadRequest:[NSURLRequest requestWithURL:url]];
-//    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://" DEBUG_HOST @"/xsmth/"]];
-//    [self.webView loadRequest:req];
+//    [self.webView loadRequest:[NSURLRequest requestWithURL:url]];
+    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://" DEBUG_HOST @"/xsmth/"]];
+    [self.webView loadRequest:req];
     
 }
 
@@ -135,6 +147,11 @@
     return NO;
 }
 
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    [self sendThemeChangedMessage];
+}
+
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
@@ -149,6 +166,13 @@
 }
 
 #pragma mark - Native method for webview
+
+- (void)sendThemeChangedMessage
+{
+    NSString *js = [NSString stringWithFormat:@"window.onThemeChanged(%@)", [SMUtils json2string:[self makeupThemeCSS]]];
+//    [self.webView performSelector:@selector(stringByEvaluatingJavaScriptFromString:) withObject:js afterDelay:0];
+    [self.webView stringByEvaluatingJavaScriptFromString:js];
+}
 
 - (void)handleJSAPI:(NSDictionary *)query
 {
@@ -288,4 +312,39 @@
     
     return dict;
 }
+
+- (NSDictionary *)makeupThemeCSS
+{
+    UIFont *font = [SMConfig postFont];
+    
+    NSString *fontSize = [NSString stringWithFormat:@"%dpx", (int)(font.pointSize * 2)];
+    NSString *fontFamily = font.fontName;
+    NSString *lineHeight = [NSString stringWithFormat:@"%dpx", (int)(font.lineHeight * 1.2 * 2)];
+    NSString *backgroundColor = [self color2hex:[SMTheme colorForBackground]];
+    NSString *textColor = [self color2hex:[SMTheme colorForPrimary]];
+    NSString *tintColor = [self color2hex:[SMTheme colorForTintColor]];
+    NSString *quoteColor = [self color2hex:[SMTheme colorForQuote]];
+    
+    return @{@"fontSize": fontSize,
+             @"fontFamily": fontFamily,
+             @"lineHeight": lineHeight,
+             @"backgroundColor": backgroundColor,
+             @"textColor": textColor,
+             @"tintColor": tintColor,
+             @"quoteColor": quoteColor
+             };
+}
+
+- (NSString *)color2hex:(UIColor *)color
+{
+    CGFloat rf, gf, bf, af;
+    [color getRed:&rf green:&gf blue: &bf alpha: &af];
+    
+    int r = (int)(255.0 * rf);
+    int g = (int)(255.0 * gf);
+    int b = (int)(255.0 * bf);
+    
+    return [NSString stringWithFormat:@"#%02x%02x%02x",r,g,b];
+}
+
 @end
