@@ -24,6 +24,10 @@
 @property (strong, nonatomic) UIWebView *webView;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 @property (strong, nonatomic) NSMutableDictionary *imageLoaders;
+
+@property (strong, nonatomic) NSMutableArray *posts;
+@property (assign, nonatomic) NSInteger currentPage;
+@property (assign, nonatomic) NSInteger totalPage;
 @end
 
 @implementation SMPostViewControllerV2
@@ -31,6 +35,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.posts = [NSMutableArray new];
     self.title = self.post.title;
     self.imageLoaders = [NSMutableDictionary new];
     [self setupWebView];
@@ -89,9 +94,9 @@
     NSString *postPagePath = [NSString stringWithFormat:@"%@/post/index.html", documentPath];
     NSURL *url = [NSURL fileURLWithPath:postPagePath];
     
-//    [self.webView loadRequest:[NSURLRequest requestWithURL:url]];
-    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://" DEBUG_HOST @"/xsmth/"]];
-    [self.webView loadRequest:req];
+    [self.webView loadRequest:[NSURLRequest requestWithURL:url]];
+//    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://" DEBUG_HOST @"/xsmth/"]];
+//    [self.webView loadRequest:req];
     
 }
 
@@ -112,6 +117,12 @@
     [self.refreshControl endRefreshing];
 }
 
+- (void)dealloc
+{
+    XLog_d(@"%@", self.posts);
+    XLog_d(@"%d", self.currentPage);
+    XLog_d(@"%d", self.totalPage);
+}
 
 #pragma mark - UIWebViewDelegate
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
@@ -193,6 +204,10 @@
     
     if ([method isEqualToString:@"getImageInfo"]) {
         [self apiGetImageInfo:parameters];
+    }
+    
+    if ([method isEqualToString:@"savePostsInfo"]) {
+        [self apiSavePostsInfo:parameters];
     }
 }
 
@@ -291,7 +306,32 @@
     [self.imageLoaders setObject:imageView forKey:imageUrl];
 }
 
+- (void)apiSavePostsInfo:(NSDictionary *)parameters
+{
+    NSArray *posts = parameters[@"posts"];
+    [self mergePosts:posts];
+    self.currentPage = [parameters[@"currentPage"] integerValue];
+    self.totalPage = [parameters[@"totalPage"] integerValue];
+}
+
 #pragma mark - method
+- (void)mergePosts:(NSArray *)posts
+{
+    NSInteger lastPid = 0;
+    SMPost *post = self.posts.lastObject;
+    if (post) {
+        lastPid = post.pid;
+    }
+    @weakify(self);
+    [posts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        @strongify(self);
+        SMPost *post = (SMPost *)[SMPost dataWithJSON:obj];
+        if (post.pid > lastPid) {
+            [self.posts addObject:post];
+        }
+    }];
+}
+
 - (NSDictionary *)parseQuery:(NSString *)query
 {
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:0];

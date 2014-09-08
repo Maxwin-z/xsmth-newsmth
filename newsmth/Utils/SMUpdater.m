@@ -122,10 +122,11 @@
 
 - (void)downloadPostPage
 {
-    NSString *url = @"http://192.168.3.161/xsmth/a.zip";
+    NSString *url = @"http://192.168.3.249/xsmth/a.zip";
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
         if (data) {
+            XLog_d(@"download post page success");
             [SMUtils writeData:data toDocumentFolder:@"tmp/post.zip"];
         }
         NSString *docPath = [SMUtils documentPath];

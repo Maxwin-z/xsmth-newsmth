@@ -178,22 +178,17 @@ static SMMainpageViewController *_instance;
 {
     SMSection *secdata = _sections[indexPath.section];
     SMPost *post = secdata.posts[indexPath.row];
- #warning debug new post viewer
     SMPostViewControllerV2 *vc2 = [SMPostViewControllerV2 new];
     vc2.post = post;
-    [self.navigationController pushViewController:vc2 animated:YES];
-    return;
-    
-   
 //    SMPostGroupViewController *vc = [[SMPostGroupViewController alloc] init];
     SMPostViewController *vc = [[SMPostViewController alloc] init];
     vc.board = post.board;
     vc.gid = post.gid;
     
     if ([SMUtils isPad]) {
-        [SMIPadSplitViewController instance].detailViewController = vc;
+        [SMIPadSplitViewController instance].detailViewController = vc2;
     } else {
-        [self.navigationController pushViewController:vc animated:YES];
+        [self.navigationController pushViewController:vc2 animated:YES];
     }
     
     [SMUtils trackEventWithCategory:@"mainpage" action:@"row_click" label:
