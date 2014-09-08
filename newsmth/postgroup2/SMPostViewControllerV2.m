@@ -92,9 +92,18 @@
 
     NSString *documentPath = [SMUtils documentPath];
     NSString *postPagePath = [NSString stringWithFormat:@"%@/post/index.html", documentPath];
-    NSURL *url = [NSURL fileURLWithPath:postPagePath];
+    NSString *html = [NSString stringWithContentsOfURL:[NSURL fileURLWithPath:postPagePath] encoding:NSUTF8StringEncoding error:0];
+
+    html = [html stringByReplacingOccurrencesOfString:@"{__gid__}" withString:[NSString stringWithFormat:@"%d", self.post.gid]];
+    [SMUtils writeData:[html dataUsingEncoding:NSUTF8StringEncoding] toDocumentFolder:@"/post/index2.html"];
+    postPagePath = [NSString stringWithFormat:@"%@/post/index2.html", documentPath];
     
+//    NSString *baseUrl = [NSString stringWithFormat:@"%@/post/", documentPath];
+//    [self.webView loadHTMLString:html baseURL:[NSURL fileURLWithPath:baseUrl]];
+    
+    NSURL *url = [NSURL fileURLWithPath:postPagePath];
     [self.webView loadRequest:[NSURLRequest requestWithURL:url]];
+
 //    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://" DEBUG_HOST @"/xsmth/"]];
 //    [self.webView loadRequest:req];
     
@@ -117,11 +126,29 @@
     [self.refreshControl endRefreshing];
 }
 
+- (void)savePostInfo
+{
+    // write to js file
+    NSMutableDictionary *info = [NSMutableDictionary new];
+    [info setObject:@(self.currentPage) forKey:@"currentPage"];
+    [info setObject:@(self.totalPage) forKey:@"totalPage"];
+    
+    NSMutableArray *posts = [NSMutableArray new];
+    [self.posts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        SMPost *post = obj;
+        [posts addObject:[post encode]];
+    }];
+    [info setObject:posts forKey:@"posts"];
+    
+    NSString *json = [SMUtils json2string:info];
+    NSString *result = [NSString stringWithFormat:@"var info = %@", json];
+    NSString *file = [NSString stringWithFormat:@"/posts/%d.js", self.post.gid];
+    [SMUtils writeData:[result dataUsingEncoding:NSUTF8StringEncoding] toDocumentFolder:file];
+}
+
 - (void)dealloc
 {
-    XLog_d(@"%@", self.posts);
-    XLog_d(@"%d", self.currentPage);
-    XLog_d(@"%d", self.totalPage);
+    [self savePostInfo];
 }
 
 #pragma mark - UIWebViewDelegate
