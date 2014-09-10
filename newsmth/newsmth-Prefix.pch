@@ -13,7 +13,8 @@
     #import <Foundation/Foundation.h>
 
 #import <ReactiveCocoa/ReactiveCocoa.h>
-#import <ReactiveCocoa/EXTScope.h>
+//#import <ReactiveCocoa/EXTScope.h>
+#import "EXTScope.h"
 
 #import "XLogUtil.h"
 #import "SMUtils.h"
