@@ -6,5 +6,5 @@ newsmth.xcodeproj/xcuserdata/
 node_modules/
 .DS_Store
 newsmth/ThirdParty/
-
+Pods/
 

@@ -15,6 +15,7 @@
 		39C260051860A0E400AEFE0E /* SMBoardSearchResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 39C260031860A0E400AEFE0E /* SMBoardSearchResultViewController.m */; };
 		39C260061860A0E400AEFE0E /* SMBoardSearchResultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 39C260041860A0E400AEFE0E /* SMBoardSearchResultViewController.xib */; };
 		39C260081860A8DF00AEFE0E /* bbsbfind.js in Resources */ = {isa = PBXBuildFile; fileRef = 39C260071860A8DF00AEFE0E /* bbsbfind.js */; };
+		7B23FC5D626D423AAE696B26 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BE0AAAEA6A1459991FB8557 /* libPods.a */; };
 		C10080D31785984700487A45 /* SMImagePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C10080D11785984700487A45 /* SMImagePickerViewController.m */; };
 		C10080D41785984700487A45 /* SMImagePickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C10080D21785984700487A45 /* SMImagePickerViewController.xib */; };
 		C10080D6178598D900487A45 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C10080D5178598D900487A45 /* AssetsLibrary.framework */; };
@@ -44,7 +45,6 @@
 		C10D16BB1756276D002D6FAD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C10D16BA1756276C002D6FAD /* QuartzCore.framework */; };
 		C10D16BE1756EF21002D6FAD /* SMMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = C10D16BD1756EF21002D6FAD /* SMMessage.m */; };
 		C10DC6D518C3011800FF95E8 /* SMMailToActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = C10DC6D418C3011800FF95E8 /* SMMailToActivity.m */; };
-		C10DC6F918C359BF00FF95E8 /* libReactiveCocoa-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C10DC6EE18C359A400FF95E8 /* libReactiveCocoa-iOS.a */; };
 		C10F2F7717E5621800F83206 /* SMMailItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C10F2F7417E5621800F83206 /* SMMailItem.m */; };
 		C10F2F7817E5621800F83206 /* SMMailList.m in Sources */ = {isa = PBXBuildFile; fileRef = C10F2F7617E5621800F83206 /* SMMailList.m */; };
 		C10F2F7B17E5808D00F83206 /* mail.js in Resources */ = {isa = PBXBuildFile; fileRef = C10F2F7917E5805A00F83206 /* mail.js */; };
@@ -53,6 +53,10 @@
 		C10F2F8517E595A100F83206 /* SMMailInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C10F2F8317E595A100F83206 /* SMMailInfoViewController.m */; };
 		C10F2F8617E595A100F83206 /* SMMailInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C10F2F8417E595A100F83206 /* SMMailInfoViewController.xib */; };
 		C10F2F8917E59E5A00F83206 /* mailcontent.js in Resources */ = {isa = PBXBuildFile; fileRef = C10F2F8717E59E4800F83206 /* mailcontent.js */; };
+		C111548C19C022570025A1D2 /* EXTConcreteProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = C111548319C022570025A1D2 /* EXTConcreteProtocol.m */; };
+		C111548D19C022570025A1D2 /* EXTRuntimeExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = C111548619C022570025A1D2 /* EXTRuntimeExtensions.m */; };
+		C111548E19C022570025A1D2 /* EXTScope.m in Sources */ = {isa = PBXBuildFile; fileRef = C111548819C022570025A1D2 /* EXTScope.m */; };
+		C111548F19C022570025A1D2 /* EXTSelectorChecking.m in Sources */ = {isa = PBXBuildFile; fileRef = C111548A19C022570025A1D2 /* EXTSelectorChecking.m */; };
 		C1153398175779EF0026A0D5 /* bbstcon.js in Resources */ = {isa = PBXBuildFile; fileRef = C1153397175779DE0026A0D5 /* bbstcon.js */; };
 		C11581621768285C008A421A /* SMLeftViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C115815F1768285C008A421A /* SMLeftViewController.xib */; };
 		C11581631768285C008A421A /* SMLeftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C11581611768285C008A421A /* SMLeftViewController.m */; };
@@ -298,62 +302,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		C10DC6EB18C359A400FF95E8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C10DC6DF18C359A300FF95E8 /* ReactiveCocoa.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 88037F8315056328001A5B19;
-			remoteInfo = ReactiveCocoa;
-		};
-		C10DC6ED18C359A400FF95E8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C10DC6DF18C359A300FF95E8 /* ReactiveCocoa.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 88F440AB153DAC820097B4C3;
-			remoteInfo = "ReactiveCocoa-iOS";
-		};
-		C10DC6EF18C359A400FF95E8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C10DC6DF18C359A300FF95E8 /* ReactiveCocoa.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 88CDF7DC15000FCF00163A9F;
-			remoteInfo = ReactiveCocoaTests;
-		};
-		C10DC6F118C359A400FF95E8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C10DC6DF18C359A300FF95E8 /* ReactiveCocoa.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 5FAF5223174D4C2000CAC810;
-			remoteInfo = "ReactiveCocoaTests-iOS";
-		};
-		C10DC6F318C359A400FF95E8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C10DC6DF18C359A300FF95E8 /* ReactiveCocoa.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 1860F412177C91B500C7B3C9;
-			remoteInfo = "ReactiveCocoa-iOS-UIKitTestHost";
-		};
-		C10DC6F518C359A400FF95E8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C10DC6DF18C359A300FF95E8 /* ReactiveCocoa.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 1860F430177C91B500C7B3C9;
-			remoteInfo = "ReactiveCocoa-iOS-UIKitTestHostTests";
-		};
-		C10DC6F718C359A400FF95E8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C10DC6DF18C359A300FF95E8 /* ReactiveCocoa.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D05AD39417F2D56F0080895B;
-			remoteInfo = "ReactiveCocoa-Mac";
-		};
-		C10DC6FA18C359D000FF95E8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C10DC6DF18C359A300FF95E8 /* ReactiveCocoa.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 88F440AA153DAC820097B4C3;
-			remoteInfo = "ReactiveCocoa-iOS";
-		};
 		C1BFB904174F6A620092FD2E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C1BFB8D1174F6A620092FD2E /* Project object */;
@@ -364,6 +312,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2BE0AAAEA6A1459991FB8557 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		392417D5187C6A7100558725 /* icon_72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_72.png; sourceTree = "<group>"; };
 		392417D6187C6A7100558725 /* icon_76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_76.png; sourceTree = "<group>"; };
 		392417D7187C6A7100558725 /* icon_114@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_114@2x.png"; sourceTree = "<group>"; };
@@ -374,6 +323,7 @@
 		39C260031860A0E400AEFE0E /* SMBoardSearchResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMBoardSearchResultViewController.m; sourceTree = "<group>"; };
 		39C260041860A0E400AEFE0E /* SMBoardSearchResultViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMBoardSearchResultViewController.xib; sourceTree = "<group>"; };
 		39C260071860A8DF00AEFE0E /* bbsbfind.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = bbsbfind.js; sourceTree = "<group>"; };
+		6F3F33DCAAE044B88F5FD5C7 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		C10080D01785984700487A45 /* SMImagePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMImagePickerViewController.h; sourceTree = "<group>"; };
 		C10080D11785984700487A45 /* SMImagePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMImagePickerViewController.m; sourceTree = "<group>"; };
 		C10080D21785984700487A45 /* SMImagePickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMImagePickerViewController.xib; sourceTree = "<group>"; };
@@ -424,7 +374,6 @@
 		C10D16BD1756EF21002D6FAD /* SMMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SMMessage.m; path = ../Utils/SMMessage.m; sourceTree = "<group>"; };
 		C10DC6D318C3011800FF95E8 /* SMMailToActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMMailToActivity.h; sourceTree = "<group>"; };
 		C10DC6D418C3011800FF95E8 /* SMMailToActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMMailToActivity.m; sourceTree = "<group>"; };
-		C10DC6DF18C359A300FF95E8 /* ReactiveCocoa.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactiveCocoa.xcodeproj; path = ReactiveCocoa/ReactiveCocoaFramework/ReactiveCocoa.xcodeproj; sourceTree = "<group>"; };
 		C10F2F7317E5621800F83206 /* SMMailItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMMailItem.h; sourceTree = "<group>"; };
 		C10F2F7417E5621800F83206 /* SMMailItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMMailItem.m; sourceTree = "<group>"; };
 		C10F2F7517E5621800F83206 /* SMMailList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMMailList.h; sourceTree = "<group>"; };
@@ -437,6 +386,16 @@
 		C10F2F8317E595A100F83206 /* SMMailInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMMailInfoViewController.m; sourceTree = "<group>"; };
 		C10F2F8417E595A100F83206 /* SMMailInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMMailInfoViewController.xib; sourceTree = "<group>"; };
 		C10F2F8717E59E4800F83206 /* mailcontent.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = mailcontent.js; sourceTree = "<group>"; };
+		C111548219C022570025A1D2 /* EXTConcreteProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTConcreteProtocol.h; sourceTree = "<group>"; };
+		C111548319C022570025A1D2 /* EXTConcreteProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXTConcreteProtocol.m; sourceTree = "<group>"; };
+		C111548419C022570025A1D2 /* EXTKeyPathCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTKeyPathCoding.h; sourceTree = "<group>"; };
+		C111548519C022570025A1D2 /* EXTRuntimeExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTRuntimeExtensions.h; sourceTree = "<group>"; };
+		C111548619C022570025A1D2 /* EXTRuntimeExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXTRuntimeExtensions.m; sourceTree = "<group>"; };
+		C111548719C022570025A1D2 /* EXTScope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTScope.h; sourceTree = "<group>"; };
+		C111548819C022570025A1D2 /* EXTScope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXTScope.m; sourceTree = "<group>"; };
+		C111548919C022570025A1D2 /* EXTSelectorChecking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTSelectorChecking.h; sourceTree = "<group>"; };
+		C111548A19C022570025A1D2 /* EXTSelectorChecking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXTSelectorChecking.m; sourceTree = "<group>"; };
+		C111548B19C022570025A1D2 /* metamacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = metamacros.h; sourceTree = "<group>"; };
 		C1153397175779DE0026A0D5 /* bbstcon.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = bbstcon.js; sourceTree = "<group>"; };
 		C115815F1768285C008A421A /* SMLeftViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMLeftViewController.xib; sourceTree = "<group>"; };
 		C11581601768285C008A421A /* SMLeftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMLeftViewController.h; sourceTree = "<group>"; };
@@ -834,7 +793,6 @@
 				C1BBFD97190279EB008460B5 /* CoreMotion.framework in Frameworks */,
 				C10C49D118F2C34E00DF946E /* CoreImage.framework in Frameworks */,
 				C1F8109218E5B786001B3759 /* libsqlite3.dylib in Frameworks */,
-				C10DC6F918C359BF00FF95E8 /* libReactiveCocoa-iOS.a in Frameworks */,
 				C1C07A7A179686E300906ED7 /* Social.framework in Frameworks */,
 				C13CB6C718B0AA48003F7407 /* iAd.framework in Frameworks */,
 				C13CB6C518B0A09A003F7407 /* CoreTelephony.framework in Frameworks */,
@@ -857,6 +815,7 @@
 				C1BFB918174F6F200092FD2E /* CFNetwork.framework in Frameworks */,
 				C1BFB8DD174F6A620092FD2E /* UIKit.framework in Frameworks */,
 				C1BFB8DF174F6A620092FD2E /* Foundation.framework in Frameworks */,
+				7B23FC5D626D423AAE696B26 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -932,20 +891,6 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
-		C10DC6E018C359A300FF95E8 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				C10DC6EC18C359A400FF95E8 /* ReactiveCocoa.framework */,
-				C10DC6EE18C359A400FF95E8 /* libReactiveCocoa-iOS.a */,
-				C10DC6F018C359A400FF95E8 /* ReactiveCocoaTests.octest */,
-				C10DC6F218C359A400FF95E8 /* ReactiveCocoaTests-iOS.octest */,
-				C10DC6F418C359A400FF95E8 /* ReactiveCocoa-iOS-UIKitTestHost.app */,
-				C10DC6F618C359A400FF95E8 /* ReactiveCocoa-iOS-UIKitTestHostTests.octest */,
-				C10DC6F818C359A400FF95E8 /* libReactiveCocoa-Mac.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		C10F2F7C17E5841D00F83206 /* cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -954,6 +899,23 @@
 				C10F2F8017E5845200F83206 /* SMMailCell.xib */,
 			);
 			path = cells;
+			sourceTree = "<group>";
+		};
+		C111548119C022570025A1D2 /* extobjc */ = {
+			isa = PBXGroup;
+			children = (
+				C111548219C022570025A1D2 /* EXTConcreteProtocol.h */,
+				C111548319C022570025A1D2 /* EXTConcreteProtocol.m */,
+				C111548419C022570025A1D2 /* EXTKeyPathCoding.h */,
+				C111548519C022570025A1D2 /* EXTRuntimeExtensions.h */,
+				C111548619C022570025A1D2 /* EXTRuntimeExtensions.m */,
+				C111548719C022570025A1D2 /* EXTScope.h */,
+				C111548819C022570025A1D2 /* EXTScope.m */,
+				C111548919C022570025A1D2 /* EXTSelectorChecking.h */,
+				C111548A19C022570025A1D2 /* EXTSelectorChecking.m */,
+				C111548B19C022570025A1D2 /* metamacros.h */,
+			);
+			path = extobjc;
 			sourceTree = "<group>";
 		};
 		C121F2991750EE790081FD87 /* jsParser */ = {
@@ -1263,8 +1225,8 @@
 		C1BA923917954EC300F76ACF /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				C111548119C022570025A1D2 /* extobjc */,
 				C1F8103C18E5B734001B3759 /* fmdb */,
-				C10DC6DF18C359A300FF95E8 /* ReactiveCocoa.xcodeproj */,
 				C13CB55A18AF62B4003F7407 /* SSZipArchive */,
 				C1C07A141796857900906ED7 /* OWActivityViewController */,
 				C1BA927B17954EC300F76ACF /* PBWebViewController */,
@@ -1307,6 +1269,7 @@
 				C1BFB906174F6A620092FD2E /* newsmthTests */,
 				C1BFB8DB174F6A620092FD2E /* Frameworks */,
 				C1BFB8DA174F6A620092FD2E /* Products */,
+				6F3F33DCAAE044B88F5FD5C7 /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1346,6 +1309,7 @@
 				C1BFB919174F6F260092FD2E /* SystemConfiguration.framework */,
 				C1C07A7B179686F600906ED7 /* Twitter.framework */,
 				C1BFB8DC174F6A620092FD2E /* UIKit.framework */,
+				2BE0AAAEA6A1459991FB8557 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1723,14 +1687,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C1BFB911174F6A620092FD2E /* Build configuration list for PBXNativeTarget "newsmth" */;
 			buildPhases = (
+				F11E71EF84C549DBB59F3ABE /* Check Pods Manifest.lock */,
 				C1BFB8D5174F6A620092FD2E /* Sources */,
 				C1BFB8D6174F6A620092FD2E /* Frameworks */,
 				C1BFB8D7174F6A620092FD2E /* Resources */,
+				0D2DD020A4FE48DA8BBD389B /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				C10DC6FB18C359D000FF95E8 /* PBXTargetDependency */,
 			);
 			name = newsmth;
 			productName = newsmth;
@@ -1754,7 +1719,7 @@
 			name = newsmthTests;
 			productName = newsmthTests;
 			productReference = C1BFB8FF174F6A620092FD2E /* newsmthTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productType = "com.apple.product-type.bundle.ocunit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -1792,12 +1757,6 @@
 			mainGroup = C1BFB8D0174F6A620092FD2E;
 			productRefGroup = C1BFB8DA174F6A620092FD2E /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = C10DC6E018C359A300FF95E8 /* Products */;
-					ProjectRef = C10DC6DF18C359A300FF95E8 /* ReactiveCocoa.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				C1BFB8D8174F6A620092FD2E /* newsmth */,
@@ -1805,58 +1764,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		C10DC6EC18C359A400FF95E8 /* ReactiveCocoa.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = ReactiveCocoa.framework;
-			remoteRef = C10DC6EB18C359A400FF95E8 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C10DC6EE18C359A400FF95E8 /* libReactiveCocoa-iOS.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libReactiveCocoa-iOS.a";
-			remoteRef = C10DC6ED18C359A400FF95E8 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C10DC6F018C359A400FF95E8 /* ReactiveCocoaTests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = ReactiveCocoaTests.octest;
-			remoteRef = C10DC6EF18C359A400FF95E8 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C10DC6F218C359A400FF95E8 /* ReactiveCocoaTests-iOS.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "ReactiveCocoaTests-iOS.octest";
-			remoteRef = C10DC6F118C359A400FF95E8 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C10DC6F418C359A400FF95E8 /* ReactiveCocoa-iOS-UIKitTestHost.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "ReactiveCocoa-iOS-UIKitTestHost.app";
-			remoteRef = C10DC6F318C359A400FF95E8 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C10DC6F618C359A400FF95E8 /* ReactiveCocoa-iOS-UIKitTestHostTests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "ReactiveCocoa-iOS-UIKitTestHostTests.octest";
-			remoteRef = C10DC6F518C359A400FF95E8 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C10DC6F818C359A400FF95E8 /* libReactiveCocoa-Mac.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libReactiveCocoa-Mac.a";
-			remoteRef = C10DC6F718C359A400FF95E8 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		C1BFB8D7174F6A620092FD2E /* Resources */ = {
@@ -2000,6 +1907,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0D2DD020A4FE48DA8BBD389B /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		C1BFB8FD174F6A620092FD2E /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2012,6 +1934,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+		F11E71EF84C549DBB59F3ABE /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -2026,6 +1963,7 @@
 				C1BFB9C3174F6F5C0092FD2E /* ASIAuthenticationDialog.m in Sources */,
 				C1B966FD19B18D2E00ABD136 /* SMPostViewControllerV2.m in Sources */,
 				C1BFB9C4174F6F5C0092FD2E /* ASIDataCompressor.m in Sources */,
+				C111548D19C022570025A1D2 /* EXTRuntimeExtensions.m in Sources */,
 				C15489C51888F9E10046190C /* SMEULAViewController.m in Sources */,
 				C14B22F117FAB00700CF081A /* XTimeLabel.m in Sources */,
 				C1BFB9C5174F6F5C0092FD2E /* ASIDataDecompressor.m in Sources */,
@@ -2048,6 +1986,7 @@
 				C121F29E175106A00081FD87 /* SMWebParser.m in Sources */,
 				C10D16081755E7A0002D6FAD /* SMWebLoaderOperation.m in Sources */,
 				C10D160B1755EFEE002D6FAD /* SMWebLoaderOperationQueue.m in Sources */,
+				C111548E19C022570025A1D2 /* EXTScope.m in Sources */,
 				C10D16111756059B002D6FAD /* SMViewController.m in Sources */,
 				C10F2F8517E595A100F83206 /* SMMailInfoViewController.m in Sources */,
 				C10D16BE1756EF21002D6FAD /* SMMessage.m in Sources */,
@@ -2058,6 +1997,7 @@
 				C1E6289C1764BAD4007ACF2A /* SMPost.m in Sources */,
 				C1E628A01764BAFA007ACF2A /* SMBaseData.m in Sources */,
 				C1E628AA1764C594007ACF2A /* SMMainPage.m in Sources */,
+				C111548F19C022570025A1D2 /* EXTSelectorChecking.m in Sources */,
 				C1E628AB1764C594007ACF2A /* SMPostGroup.m in Sources */,
 				C1E628AC1764C594007ACF2A /* SMSection.m in Sources */,
 				C1ABAB111766107A007DE168 /* SMMainpageCell.m in Sources */,
@@ -2085,6 +2025,7 @@
 				C1F8107418E5B734001B3759 /* FMDatabaseQueue.m in Sources */,
 				C13CB57B18AF62B4003F7407 /* mztools.c in Sources */,
 				C1CC1B40177857FB00FC63A8 /* P2PNavigationController.m in Sources */,
+				C111548C19C022570025A1D2 /* EXTConcreteProtocol.m in Sources */,
 				C1CC1B41177857FB00FC63A8 /* P2PViewController.m in Sources */,
 				C1011D8E17787DA400E0485D /* SMWriteResult.m in Sources */,
 				C1011D96177946D500E0485D /* SMUtils.m in Sources */,
@@ -2168,11 +2109,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		C10DC6FB18C359D000FF95E8 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "ReactiveCocoa-iOS";
-			targetProxy = C10DC6FA18C359D000FF95E8 /* PBXContainerItemProxy */;
-		};
 		C1BFB905174F6A620092FD2E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C1BFB8D8174F6A620092FD2E /* newsmth */;
@@ -2251,6 +2187,7 @@
 		};
 		C102B8C11782D2E0000E2EEB /* Distribution */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6F3F33DCAAE044B88F5FD5C7 /* Pods.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -2363,6 +2300,7 @@
 		};
 		C1BFB912174F6A620092FD2E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6F3F33DCAAE044B88F5FD5C7 /* Pods.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -2396,6 +2334,7 @@
 		};
 		C1BFB913174F6A620092FD2E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6F3F33DCAAE044B88F5FD5C7 /* Pods.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
