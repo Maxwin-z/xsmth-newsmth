@@ -6,6 +6,7 @@ function $parse(html) {
 		rsp.message = matches ? matches[1] : 'parser error';
 	}
 	console.log(rsp);
-	window.location.href = 'newsmth://' + encodeURIComponent(JSON.stringify(rsp));
+	$smth.sendData(rsp);
+	// window.location.href = 'newsmth://' + encodeURIComponent(JSON.stringify(rsp));
 }
 

@@ -63,7 +63,8 @@ function parse_www(html) {
     data.posts = posts.reverse();	// www模式，每页排序需反转
 
 	console.log(rsp);
-	window.location.href = 'newsmth://' + encodeURIComponent(JSON.stringify(rsp));
+	$smth.sendData(rsp);
+	// window.location.href = 'newsmth://' + encodeURIComponent(JSON.stringify(rsp));
 }
 
 function parse_m(html) {
@@ -91,7 +92,8 @@ function parse_m(html) {
 		rsp.message = 'cannot find list <ul>';	
 	}
 	console.log(rsp);
-	window.location.href = 'newsmth://' + encodeURIComponent(JSON.stringify(rsp));
+	$smth.sendData(rsp);
+	// window.location.href = 'newsmth://' + encodeURIComponent(JSON.stringify(rsp));
 
 }
 

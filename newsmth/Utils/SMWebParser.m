@@ -36,7 +36,8 @@
 {
     _html = html;
     
-    NSArray *files = [jsFile componentsSeparatedByString:@","];
+    NSMutableArray *files = [[jsFile componentsSeparatedByString:@","] mutableCopy];
+    [files addObject:@"utils"];
     NSMutableString *js = [[NSMutableString alloc] init];
     [files enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         NSString *file = obj;
@@ -100,7 +101,7 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    NSString *js = [NSString stringWithFormat:@"try{$parse(\"%@\")}catch(e){window.location.href='newsmth://'+encodeURIComponent(JSON.stringify({code:-2,message:e.toString()}))}", [self escape:_html]];
+    NSString *js = [NSString stringWithFormat:@"try{$parse(\"%@\")}catch(e){window.location.href='newsmth://_?'+encodeURIComponent(JSON.stringify({code:-2,message:e.toString()}))}", [self escape:_html]];
 //    XLog_d(@"execute: %@", js);
     [_webView stringByEvaluatingJavaScriptFromString:js];
 }

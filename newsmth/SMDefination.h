@@ -9,7 +9,7 @@
 #ifndef newsmth_SMDefination_h
 #define newsmth_SMDefination_h
 
-#define SM_DATA_SCHEMA @"newsmth://"
+#define SM_DATA_SCHEMA @"newsmth://_?"
 #define SM_ERROR_DOMAIN @"newsmth_error"
 
 #define SM_TOP_INSET    64.0f

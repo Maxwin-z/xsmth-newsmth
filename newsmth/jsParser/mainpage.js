@@ -33,7 +33,8 @@ function $parse(html) {
 	}
 
 	console.log(rsp);
-	window.location.href = 'newsmth://' + encodeURIComponent(JSON.stringify(rsp));
+	$smth.sendData(rsp);
+	// window.location.href = 'newsmth://' + encodeURIComponent(JSON.stringify(rsp));
 }
 
 function parseTop10(html) {

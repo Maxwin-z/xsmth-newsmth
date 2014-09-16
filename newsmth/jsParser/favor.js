@@ -38,5 +38,6 @@ function $parse(html) {
 		rsp.message = 'cannot find favor <ul>';
 	}
 	console.log(rsp);
-	window.location.href = 'newsmth://' + encodeURIComponent(JSON.stringify(rsp));
+	$smth.sendData(rsp);
+	// window.location.href = 'newsmth://' + encodeURIComponent(JSON.stringify(rsp));
 }

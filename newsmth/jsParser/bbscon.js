@@ -157,7 +157,8 @@ function parse_m(html) {
     }
     extractLinks(data);
     console.log(rsp);
-    window.location.href = 'newsmth://' + encodeURIComponent(JSON.stringify(rsp));
+    $smth.sendData(rsp);
+    // window.location.href = 'newsmth://' + encodeURIComponent(JSON.stringify(rsp));
 
 }
 

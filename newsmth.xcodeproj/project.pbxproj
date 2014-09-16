@@ -158,6 +158,7 @@
 		C1A50E2D1786C5BA00D43439 /* SMImagePickerAssetsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1A50E2C1786C5BA00D43439 /* SMImagePickerAssetsCell.xib */; };
 		C1A50E301786C69800D43439 /* SMImagePickerAssetsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C1A50E2F1786C69700D43439 /* SMImagePickerAssetsCell.m */; };
 		C1A50E331786E5BA00D43439 /* button_upload@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1A50E321786E5BA00D43439 /* button_upload@2x.png */; };
+		C1AB10E719C875DA00C2C9AC /* utils.js in Resources */ = {isa = PBXBuildFile; fileRef = C121F29F175108010081FD87 /* utils.js */; };
 		C1ABAB111766107A007DE168 /* SMMainpageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C1ABAB0A1766107A007DE168 /* SMMainpageCell.m */; };
 		C1ABAB121766107A007DE168 /* SMMainpageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1ABAB0B1766107A007DE168 /* SMMainpageCell.xib */; };
 		C1ABAB131766107A007DE168 /* SMMainpageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1ABAB0D1766107A007DE168 /* SMMainpageViewController.m */; };
@@ -1887,6 +1888,7 @@
 				C1C18D9C17A533F3008C598C /* SMMailViewController.xib in Resources */,
 				C1C18DA017A53448008C598C /* tabbar_at@2x.png in Resources */,
 				C1C18DA117A53448008C598C /* tabbar_reply@2x.png in Resources */,
+				C1AB10E719C875DA00C2C9AC /* utils.js in Resources */,
 				C1249B1C18A7A776005B6F69 /* SMAdViewController.xib in Resources */,
 				C1C18DA217A53448008C598C /* tabbar_mail@2x.png in Resources */,
 				C1C18DA717A534D1008C598C /* SMAtMeViewController.xib in Resources */,

@@ -1,6 +1,6 @@
 var $smth = {
-    getData: function(json) {
+    sendData: function(json) {
         console.log(json);
-        window.location.href = 'newsmth://' + JSON.stringify(json);
+        window.location.href = 'newsmth://_?' + encodeURIComponent(JSON.stringify(json));
     }
 };
