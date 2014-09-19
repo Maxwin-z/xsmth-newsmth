@@ -156,7 +156,7 @@
 {
     NSURL *url = request.URL;
     
-    XLog_d(@"load: %@", url);
+//    XLog_d(@"load: %@", url);
     
     if ([url.host isEqualToString:@"_"]) {
         NSDictionary *query = [self parseQuery:url.query];
@@ -339,6 +339,7 @@
     [self mergePosts:posts];
     self.currentPage = [parameters[@"currentPage"] integerValue];
     self.totalPage = [parameters[@"totalPage"] integerValue];
+    XLog_d(@"save post: %@, %@, %@", @(posts.count), @(self.currentPage), @(self.totalPage));
 }
 
 #pragma mark - method
