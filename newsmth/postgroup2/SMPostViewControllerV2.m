@@ -111,6 +111,9 @@
 
 - (void)onRefreshControlValueChanged:(UIRefreshControl *)refreshControl
 {
+    // remove file
+    NSString *file = [NSString stringWithFormat:@"/posts/%d.js", self.post.gid];
+    [SMUtils writeData:[NSData data] toDocumentFolder:file];
     [self.webView stringByEvaluatingJavaScriptFromString:@"window.location.reload()"];
     [self performSelector:@selector(endRefresh) withObject:nil afterDelay:1];
 }
@@ -136,7 +139,12 @@
     NSMutableArray *posts = [NSMutableArray new];
     [self.posts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         SMPost *post = obj;
-        [posts addObject:[post encode]];
+        NSDictionary *json = [post encode];
+        if (json == nil) {
+            
+        } else {
+            [posts addObject:json];
+        }
     }];
     [info setObject:posts forKey:@"posts"];
     
@@ -149,6 +157,7 @@
 - (void)dealloc
 {
     [self savePostInfo];
+    XLog_d(@"%s", __PRETTY_FUNCTION__);
 }
 
 #pragma mark - UIWebViewDelegate
@@ -353,7 +362,7 @@
     @weakify(self);
     [posts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         @strongify(self);
-        SMPost *post = (SMPost *)[SMPost dataWithJSON:obj];
+        SMPost *post = [[SMPost alloc] initWithJSON:obj];
         if (post.pid > lastPid) {
             [self.posts addObject:post];
         }
