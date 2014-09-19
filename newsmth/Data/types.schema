@@ -31,6 +31,8 @@ SMPost {
 	SMNotice notice
     int readCount
     string[] links
+    string indexStr
+    string dateStr
 }
 
 SMPostGroup {

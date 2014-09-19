@@ -21,4 +21,6 @@
 @property (strong, nonatomic) SMNotice* notice;
 @property (assign, nonatomic) int readCount;
 @property (strong, nonatomic) NSArray* links;
+@property (strong, nonatomic) NSString* indexStr;
+@property (strong, nonatomic) NSString* dateStr;
 @end

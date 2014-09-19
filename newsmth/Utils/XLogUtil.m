@@ -8,7 +8,7 @@
 
 #import "XLogUtil.h"
 
-static int isXLogEnable = -1;   // -1: not set, 0: disable, 1: enable
+static int isXLogEnable = 0;   // -1: not set, 0: disable, 1: enable
 static BOOL log2console = NO;
 
 void _XLog_print(NSString *tag, NSString *colorStr, const char *fileName, const char *funcName, unsigned line, NSString *log)
@@ -44,7 +44,7 @@ void _XLog_print(NSString *tag, NSString *colorStr, const char *fileName, const 
 
 BOOL _XLog_isEnable()
 {
-    return YES;
+    return NO;
     if (isXLogEnable == -1) {   // init
         char *xlogEnv = getenv("XLOG_FLAG");
         if (xlogEnv && !strcmp(xlogEnv, "YES")) {

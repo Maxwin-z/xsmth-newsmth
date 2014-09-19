@@ -60,6 +60,16 @@
 	if ([links isKindOfClass:[NSArray class]]) {
 		_links = links;
 	}
+
+	id indexStr = [dict objectForKey:@"indexStr"];
+	if (indexStr != [NSNull null]) {
+		_indexStr = indexStr;
+	}
+
+	id dateStr = [dict objectForKey:@"dateStr"];
+	if (dateStr != [NSNull null]) {
+		_dateStr = dateStr;
+	}
 }
 
 - (id)encode
@@ -117,6 +127,14 @@
 
 	if (_links != nil) {
 		[dict setObject:_links forKey:@"links"];
+	}
+
+	if (_indexStr != nil) {
+		[dict setObject:_indexStr forKey:@"indexStr"];
+	}
+
+	if (_dateStr != nil) {
+		[dict setObject:_dateStr forKey:@"dateStr"];
 	}
 	return dict;
 }
