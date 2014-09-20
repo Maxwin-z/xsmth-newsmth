@@ -422,6 +422,9 @@
 {
     NSInteger pid = [parameters[@"pid"] integerValue];
     SMPost *post = [self postByID:pid];
+    post = [[SMPost alloc] initWithJSON:post.encode];   // make a copy
+    post.content = [SMUtils trimHtmlTag:post.content];
+    post.board = self.post.board;
     self.postForAction = post;
     if (post == nil) {
         [self toast:@"错误，请刷新页面后重试"];

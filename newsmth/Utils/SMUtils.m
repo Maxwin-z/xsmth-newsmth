@@ -252,6 +252,29 @@
     return result;
 }
 
++ (NSString *)trimHtmlTag:(NSString *)html
+{
+    NSError *error = NULL;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"<br\\s*/?>"
+                                                                           options:0
+                                                                             error:&error];
+    if (!error) {
+        html = [regex stringByReplacingMatchesInString:html options:0 range:NSMakeRange(0, html.length) withTemplate:@"\n"];
+    }
+    
+    error = NULL;
+    regex = [NSRegularExpression regularExpressionWithPattern:@"<[^>]+>"
+                                                      options:0
+                                                        error:&error];
+    if (!error) {
+        html = [regex stringByReplacingMatchesInString:html options:0 range:NSMakeRange(0, html.length) withTemplate:@""];
+    }
+    html = [html stringByReplacingOccurrencesOfString:@"&nbsp;" withString:@" "];
+    html = [html stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"];
+    html = [html stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"];
+    html = [html stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
+    return html;
+}
 
 @end
 

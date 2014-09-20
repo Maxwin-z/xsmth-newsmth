@@ -45,6 +45,8 @@
 + (NSString *)gb2312Data2String:(NSData *)data;
 
 + (NSString *)documentPath;
+
++ (NSString *)trimHtmlTag:(NSString *)html;
 @end
 
 @interface NSString (SMUtils)
