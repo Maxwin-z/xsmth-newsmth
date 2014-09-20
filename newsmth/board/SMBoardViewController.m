@@ -319,20 +319,19 @@
         return ;
     }
  
-    SMPostViewController *vc = [[SMPostViewController alloc] init];
+    UIViewController *vc;
     if (_viewTypeSelector.viewType == SMBoardViewTypeTztSortByReply
         || _viewTypeSelector.viewType == SMBoardViewTypeTztSortByPost) {
-        vc.gid = post.gid;
-        vc.board = _board;
         
-        SMPostViewControllerV2 *vc2 = [SMPostViewControllerV2 new];
-        vc2.post = post;
-        [self.navigationController pushViewController:vc2 animated:YES];
-        return ;
+        SMPostViewControllerV2 *groupPVC = [SMPostViewControllerV2 new];
+        groupPVC.post = post;
+        vc = groupPVC;
     } else {
-        vc.postUrl = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/single/%d/0", _board.name, post.gid];
+        SMPostViewController *singlePVC = [[SMPostViewController alloc] init];
+        singlePVC.postUrl = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/single/%d/0", _board.name, post.gid];
+        singlePVC.fromBoard = YES;
+        vc = singlePVC;
     }
-    vc.fromBoard = YES;
     
     if ([SMUtils isPad]) {
         [SMIPadSplitViewController instance].detailViewController = vc;
@@ -341,7 +340,6 @@
     }
     
     [SMUtils trackEventWithCategory:@"board" action:@"view_post" label:_board.name];
-    
     
     // v2.4 mark post read
     post.readCount = post.replyCount;
