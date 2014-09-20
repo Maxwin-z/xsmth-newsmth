@@ -10,4 +10,5 @@
 
 @interface SMPostViewControllerV2 : SMViewController
 @property (strong, nonatomic) SMPost *post;
+@property (strong, nonatomic) NSString *author;
 @end

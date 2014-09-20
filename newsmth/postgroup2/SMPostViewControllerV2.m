@@ -336,7 +336,10 @@
 
 - (void)apiGetPostInfo:(NSDictionary *)parameters
 {
-    [self sendMessage2WebViewWithCallbackID:parameters[@"callbackID"] value:self.post.encode];
+    [self sendMessage2WebViewWithCallbackID:parameters[@"callbackID"] value:@{
+                                                                              @"post": self.post.encode,
+                                                                              @"author": self.author ?: @""
+                                                                              }];
 }
 
 - (void)apiScrollTo:(NSDictionary *)parameters
