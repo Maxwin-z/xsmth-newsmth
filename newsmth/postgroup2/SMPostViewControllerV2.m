@@ -331,16 +331,19 @@
     };
     
     imageView.didLoadBlock = ^() {
+        @strongify(self);
         NSString *path = [[XImageViewCache sharedInstance] pathForUrl:imageUrl];
         XLog_d(@"url: %@ success, %@", imageUrl, path);
         [self sendMessage2WebViewWithCallbackID:parameters[@"callbackID"] value:@{@"success": path}];
     };
     imageView.didFailBlock = ^() {
+        @strongify(self);
         [self sendMessage2WebViewWithCallbackID:parameters[@"callbackID"] value:@{@"fail": @""}];
     };
     
     __block CGFloat latestProgress = 0.0f;
     imageView.updateProgressBlock = ^(CGFloat progress) {
+        @strongify(self);
         XLog_d(@"progress: %@", @(progress));
         if (progress - latestProgress > 0.08) {
             [self sendMessage2WebViewWithCallbackID:parameters[@"callbackID"] value:@{@"progress": @(progress)}];
