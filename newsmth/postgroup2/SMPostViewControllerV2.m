@@ -96,6 +96,7 @@
 
     html = [html stringByReplacingOccurrencesOfString:@"{__gid__}" withString:[NSString stringWithFormat:@"%d", self.post.gid]];
     html = [html stringByReplacingOccurrencesOfString:@"{__t__}" withString:[NSString stringWithFormat:@"%@", @([NSDate timeIntervalSinceReferenceDate])]];
+    html = [html stringByReplacingOccurrencesOfString:@"{__autoload__}" withString:[SMConfig enableMobileAutoLoadImage] ? @"true" : @"false"];
     
     [SMUtils writeData:[html dataUsingEncoding:NSUTF8StringEncoding] toDocumentFolder:@"/post/index2.html"];
     postPagePath = [NSString stringWithFormat:@"%@/post/index2.html", documentPath];
@@ -251,6 +252,10 @@
         [self apiGetImageInfo:parameters];
     }
     
+    if ([method isEqualToString:@"tapImage"]) {
+        [self apiTapImage:parameters];
+    }
+    
     if ([method isEqualToString:@"savePostsInfo"]) {
         [self apiSavePostsInfo:parameters];
     }
@@ -367,6 +372,27 @@
     self.currentPage = [parameters[@"currentPage"] integerValue];
     self.totalPage = [parameters[@"totalPage"] integerValue];
     XLog_d(@"save post: %@, %@, %@", @(posts.count), @(self.currentPage), @(self.totalPage));
+}
+
+- (void)apiTapImage:(NSDictionary *)parameters
+{
+    NSString *url = parameters[@"url"];
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"保存图片", nil];
+    @weakify(sheet);
+    [sheet.rac_buttonClickedSignal subscribeNext:^(id x) {
+        @strongify(sheet);
+        NSInteger buttonIndex = [x integerValue];
+        if (buttonIndex == sheet.cancelButtonIndex) {
+            return  ;
+        }
+        
+        NSString *title = [sheet buttonTitleAtIndex:buttonIndex];
+        if ([title isEqualToString:@"保存图片"]) {
+            UIImage *image = [[XImageViewCache sharedInstance] getImage:url];
+            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+        }
+    }];
+    [sheet showInView:self.view];
 }
 
 #pragma mark - method
