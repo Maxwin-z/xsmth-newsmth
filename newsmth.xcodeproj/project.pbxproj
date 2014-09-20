@@ -238,6 +238,11 @@
 		C1C4C8881781BACC0092E77C /* SMBoardListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C1C4C8871781BACC0092E77C /* SMBoardListItem.m */; };
 		C1C4C8901781BD4B0092E77C /* boardlist.js in Resources */ = {isa = PBXBuildFile; fileRef = C1C4C88F1781BD4B0092E77C /* boardlist.js */; };
 		C1C4C8941781C4A60092E77C /* SMSectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1C4C8931781C4A60092E77C /* SMSectionViewController.m */; };
+		C1CBC4B119CDAAC50074E1B7 /* SMReplyActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = C1CBC4B019CDAAC50074E1B7 /* SMReplyActivity.m */; };
+		C1CBC4B319CDAB990074E1B7 /* icon_reply@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1CBC4B219CDAB990074E1B7 /* icon_reply@2x.png */; };
+		C1CBC4B619CDAD3D0074E1B7 /* SMForwardActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = C1CBC4B519CDAD3D0074E1B7 /* SMForwardActivity.m */; };
+		C1CBC4B819CDAE4F0074E1B7 /* icon_single_author@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1CBC4B719CDAE4F0074E1B7 /* icon_single_author@2x.png */; };
+		C1CBC4BB19CDAE790074E1B7 /* SMSingleAuthorActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = C1CBC4BA19CDAE790074E1B7 /* SMSingleAuthorActivity.m */; };
 		C1CC1B40177857FB00FC63A8 /* P2PNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1CC1B3C177857FB00FC63A8 /* P2PNavigationController.m */; };
 		C1CC1B41177857FB00FC63A8 /* P2PViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1CC1B3F177857FB00FC63A8 /* P2PViewController.m */; };
 		C1CE10BC1812293900B04E15 /* SMUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = C1CE10BB1812293900B04E15 /* SMUpdater.m */; };
@@ -687,6 +692,14 @@
 		C1C4C88F1781BD4B0092E77C /* boardlist.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = boardlist.js; sourceTree = "<group>"; };
 		C1C4C8921781C4A60092E77C /* SMSectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMSectionViewController.h; sourceTree = "<group>"; };
 		C1C4C8931781C4A60092E77C /* SMSectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMSectionViewController.m; sourceTree = "<group>"; };
+		C1CBC4AF19CDAAC50074E1B7 /* SMReplyActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMReplyActivity.h; sourceTree = "<group>"; };
+		C1CBC4B019CDAAC50074E1B7 /* SMReplyActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMReplyActivity.m; sourceTree = "<group>"; };
+		C1CBC4B219CDAB990074E1B7 /* icon_reply@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_reply@2x.png"; sourceTree = "<group>"; };
+		C1CBC4B419CDAD3D0074E1B7 /* SMForwardActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMForwardActivity.h; sourceTree = "<group>"; };
+		C1CBC4B519CDAD3D0074E1B7 /* SMForwardActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMForwardActivity.m; sourceTree = "<group>"; };
+		C1CBC4B719CDAE4F0074E1B7 /* icon_single_author@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_single_author@2x.png"; sourceTree = "<group>"; };
+		C1CBC4B919CDAE790074E1B7 /* SMSingleAuthorActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMSingleAuthorActivity.h; sourceTree = "<group>"; };
+		C1CBC4BA19CDAE790074E1B7 /* SMSingleAuthorActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMSingleAuthorActivity.m; sourceTree = "<group>"; };
 		C1CC1B3C177857FB00FC63A8 /* P2PNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P2PNavigationController.m; sourceTree = "<group>"; };
 		C1CC1B3D177857FB00FC63A8 /* P2PNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P2PNavigationController.h; sourceTree = "<group>"; };
 		C1CC1B3E177857FB00FC63A8 /* P2PViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P2PViewController.h; sourceTree = "<group>"; };
@@ -1079,7 +1092,9 @@
 		C19FF0B01769A71B00EB6F7E /* images */ = {
 			isa = PBXGroup;
 			children = (
+				C1CBC4B719CDAE4F0074E1B7 /* icon_single_author@2x.png */,
 				C10C49A318F05D9300DF946E /* icon_link@2x.png */,
+				C1CBC4B219CDAB990074E1B7 /* icon_reply@2x.png */,
 				C1F8109C18E70263001B3759 /* unread_none@2x.png */,
 				C1F4672118C2EFAB006BCE7A /* common_share_icon_weixin_friends@2x.png */,
 				C1F8D80C18D308360076A790 /* icon_user@2x.png */,
@@ -1627,6 +1642,12 @@
 				C10DC6D418C3011800FF95E8 /* SMMailToActivity.m */,
 				C10C49A018F05CED00DF946E /* SMViewLinkActivity.h */,
 				C10C49A118F05CED00DF946E /* SMViewLinkActivity.m */,
+				C1CBC4AF19CDAAC50074E1B7 /* SMReplyActivity.h */,
+				C1CBC4B019CDAAC50074E1B7 /* SMReplyActivity.m */,
+				C1CBC4B419CDAD3D0074E1B7 /* SMForwardActivity.h */,
+				C1CBC4B519CDAD3D0074E1B7 /* SMForwardActivity.m */,
+				C1CBC4B919CDAE790074E1B7 /* SMSingleAuthorActivity.h */,
+				C1CBC4BA19CDAE790074E1B7 /* SMSingleAuthorActivity.m */,
 			);
 			path = activity;
 			sourceTree = "<group>";
@@ -1811,6 +1832,7 @@
 				C14B812519CA700900FBB0C7 /* LaunchScreen.xib in Resources */,
 				C1178C0D187D605F00A80B91 /* icon@2x.png in Resources */,
 				C1AE9140175A24AF0084C618 /* SMErrorView.xib in Resources */,
+				C1CBC4B319CDAB990074E1B7 /* icon_reply@2x.png in Resources */,
 				C1E6289D1764BAD4007ACF2A /* types.schema in Resources */,
 				C14B22FA17FAC65700CF081A /* SMMailComposeViewController.xib in Resources */,
 				C1ABAB121766107A007DE168 /* SMMainpageCell.xib in Resources */,
@@ -1831,6 +1853,7 @@
 				C19FF0C31769CEC700EB6F7E /* SMBoardViewController.xib in Resources */,
 				C19FF0C81769D0E600EB6F7E /* SMBoardCell.xib in Resources */,
 				C1F4672318C2EFAB006BCE7A /* common_share_icon_weixin_friends@2x.png in Resources */,
+				C1CBC4B819CDAE4F0074E1B7 /* icon_single_author@2x.png in Resources */,
 				C1300A5818795C61006ACA5C /* icon_bg@2x.png in Resources */,
 				C1300A6C187ACB9E006ACA5C /* icon_write@2x.png in Resources */,
 				C13D4124176DD5EC00BD03A4 /* placeholder@2x.jpg in Resources */,
@@ -1975,6 +1998,7 @@
 				C1249B1B18A7A776005B6F69 /* SMAdViewController.m in Sources */,
 				C1BFB9C6174F6F5C0092FD2E /* ASIDownloadCache.m in Sources */,
 				C1BFB9C7174F6F5C0092FD2E /* ASIFormDataRequest.m in Sources */,
+				C1CBC4B119CDAAC50074E1B7 /* SMReplyActivity.m in Sources */,
 				C1BFB9C8174F6F5C0092FD2E /* ASIHTTPRequest.m in Sources */,
 				C13CB57C18AF62B4003F7407 /* unzip.c in Sources */,
 				C1BFB9C9174F6F5C0092FD2E /* ASIInputStream.m in Sources */,
@@ -2001,6 +2025,7 @@
 				C1E6289B1764BAD4007ACF2A /* SMAttach.m in Sources */,
 				C1E6289C1764BAD4007ACF2A /* SMPost.m in Sources */,
 				C1E628A01764BAFA007ACF2A /* SMBaseData.m in Sources */,
+				C1CBC4BB19CDAE790074E1B7 /* SMSingleAuthorActivity.m in Sources */,
 				C1E628AA1764C594007ACF2A /* SMMainPage.m in Sources */,
 				C111548F19C022570025A1D2 /* EXTSelectorChecking.m in Sources */,
 				C1E628AB1764C594007ACF2A /* SMPostGroup.m in Sources */,
@@ -2069,6 +2094,7 @@
 				C10F2F7817E5621800F83206 /* SMMailList.m in Sources */,
 				C1BA92C917954EC300F76ACF /* PBWebViewController.m in Sources */,
 				C1C07A581796857900906ED7 /* OWActivity.m in Sources */,
+				C1CBC4B619CDAD3D0074E1B7 /* SMForwardActivity.m in Sources */,
 				C1F8D81118D3313D0076A790 /* SMDiagnoseViewController.m in Sources */,
 				C14B230417FB189B00CF081A /* SMPageCell.m in Sources */,
 				C1C07A591796857900906ED7 /* OWActivityDelegateObject.m in Sources */,

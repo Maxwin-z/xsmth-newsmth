@@ -16,11 +16,25 @@
 #import "XImageView.h"
 #import "XImageViewCache.h"
 
+#import "SMPostActivityItemProvider.h"
+#import "SMWeiXinSessionActivity.h"
+#import "SMWeiXinTimelineActivity.h"
+#import "SMMailToActivity.h"
+#import "SMViewLinkActivity.h"
+#import "SMReplyActivity.h"
+#import "SMForwardActivity.h"
+#import "SMSingleAuthorActivity.h"
+
+#import "SMMailComposeViewController.h"
+#import "SMWritePostViewController.h"
+#import "SMIPadSplitViewController.h"
+
+
 //#define DEBUG_HOST @"10.128.100.175"
 #define DEBUG_HOST @"192.168.3.161"
 
 
-@interface SMPostViewControllerV2 () <UIWebViewDelegate, UIScrollViewDelegate>
+@interface SMPostViewControllerV2 () <UIWebViewDelegate, UIScrollViewDelegate, SMWebLoaderOperationDelegate>
 @property (strong, nonatomic) UIWebView *webView;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 @property (strong, nonatomic) NSMutableDictionary *imageLoaders;
@@ -28,6 +42,11 @@
 @property (strong, nonatomic) NSMutableArray *posts;
 @property (assign, nonatomic) NSInteger currentPage;
 @property (assign, nonatomic) NSInteger totalPage;
+
+
+@property (strong, nonatomic) SMPost *postForAction;    // 准备回复的主题
+@property (strong, nonatomic) SMWebLoaderOperation *forwardOp;
+
 @end
 
 @implementation SMPostViewControllerV2
@@ -256,6 +275,10 @@
         [self apiTapImage:parameters];
     }
     
+    if ([method isEqualToString:@"tapAction"]) {
+        [self apiTapAction:parameters];
+    }
+    
     if ([method isEqualToString:@"savePostsInfo"]) {
         [self apiSavePostsInfo:parameters];
     }
@@ -395,7 +418,150 @@
     [sheet showInView:self.view];
 }
 
+- (void)apiTapAction:(NSDictionary *)parameters
+{
+    NSInteger pid = [parameters[@"pid"] integerValue];
+    SMPost *post = [self postByID:pid];
+    self.postForAction = post;
+    if (post == nil) {
+        [self toast:@"错误，请刷新页面后重试"];
+        return ;
+    }
+    
+    SMPostActivityItemProvider *provider = [[SMPostActivityItemProvider alloc] initWithPlaceholderItem:post];
+    SMWeiXinSessionActivity *wxSessionActivity = [[SMWeiXinSessionActivity alloc] init];
+    SMWeiXinTimelineActivity *wxTimelineActivity = [[SMWeiXinTimelineActivity alloc] init];
+    
+    SMReplyActivity *replyActivity = [SMReplyActivity new];
+    SMMailToActivity *mailtoActivity = [SMMailToActivity new];
+    SMForwardActivity *forwordActivity = [SMForwardActivity new];
+    SMSingleAuthorActivity *singleAuthorActivity = [SMSingleAuthorActivity new];
+    
+    NSMutableArray *activites = [[NSMutableArray alloc] initWithArray:@[wxSessionActivity, wxTimelineActivity, replyActivity, singleAuthorActivity, mailtoActivity, forwordActivity]];
+    
+    UIActivityViewController *avc = [[UIActivityViewController alloc] initWithActivityItems:@[provider] applicationActivities:activites];
+    if (&UIActivityTypeAirDrop != NULL) {
+        avc.excludedActivityTypes = @[UIActivityTypeAirDrop, UIActivityTypeMessage, UIActivityTypeCopyToPasteboard];
+    } else {
+        avc.excludedActivityTypes = @[UIActivityTypeMessage, UIActivityTypeCopyToPasteboard];
+    }
+    @weakify(self);
+    @weakify(avc);
+    avc.completionHandler = ^(NSString *activityType, BOOL completed) {
+        @strongify(self);
+        @strongify(avc);
+        
+        if ([activityType isEqualToString:SMActivityReplyActivity]) {
+            [self doReplyPost];
+        }
+        
+        if ([activityType isEqualToString:SMActivityTypeMailToAuthor]) {
+            if ([SMUtils systemVersion] < 7) {  // fixme: ios6 animation cause crash
+                [self performSelector:@selector(mailtoWithPost:) withObject:post afterDelay:1];
+            } else {
+                [self mailtoWithPost];
+            }
+        }
+        
+        if ([activityType isEqualToString:SMActivityForwardActivity]) {
+            [self doForwardPost];
+        }
+        
+        [SMUtils trackEventWithCategory:@"postgroup" action:@"more_action" label:activityType];
+        avc.completionHandler = nil;
+    };
+    
+    [self.view.window.rootViewController presentViewController:avc animated:YES completion:nil];
+}
+
+- (void)doReplyPost
+{
+    if (![SMAccountManager instance].isLogin) {
+        [self performSelectorAfterLogin:@selector(doReplyPost)];
+        return ;
+    }
+    SMWritePostViewController *writeViewController = [[SMWritePostViewController alloc] init];
+    writeViewController.post = self.postForAction;
+    writeViewController.postTitle = self.post.title;
+    writeViewController.title = [NSString stringWithFormat:@"回复-%@", self.post.title];
+    P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:writeViewController];
+    if ([SMUtils isPad]) {
+        [[SMIPadSplitViewController instance] presentViewController:nvc animated:YES completion:NULL];
+    } else {
+        [self presentViewController:nvc animated:YES completion:NULL];
+    }
+}
+
+- (void)mailtoWithPost
+{
+    if (![SMAccountManager instance].isLogin) {
+        [self performSelectorAfterLogin:@selector(mailtoWithPost)];  // todo
+        return ;
+    }
+    
+    SMPost *post = self.postForAction;
+    SMMailComposeViewController *vc = [[SMMailComposeViewController alloc] init];
+    SMMailItem *mail = [SMMailItem new];
+    mail.title = post.title;
+    mail.content = post.content;
+    mail.author = post.author;
+    vc.mail = mail;
+    
+    P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:vc];
+    [self.view.window.rootViewController presentViewController:nvc animated:YES completion:NULL];
+}
+
+- (void)doForwardPost
+{
+    [self performSelectorAfterLogin:@selector(forwardAfterLogin)];
+}
+
+- (void)forwardAfterLogin
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"转寄"
+                                                        message:@"请输入转寄到的id或email"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"取消"
+                                              otherButtonTitles:@"转寄", nil];
+    alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [alertView textFieldAtIndex:0].text = [SMAccountManager instance].name;
+    @weakify(alertView);
+    [alertView.rac_buttonClickedSignal subscribeNext:^(id x) {
+        @strongify(alertView);
+        NSInteger buttonIndex = [x integerValue];
+        if (buttonIndex != alertView.cancelButtonIndex) {
+            NSString *text = [alertView textFieldAtIndex:0].text;
+            if (text.length != 0) {
+                _forwardOp = [[SMWebLoaderOperation alloc] init];
+                
+                NSString *formUrl = @"http://www.newsmth.net/bbsfwd.php?do";
+                SMHttpRequest *request = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:formUrl]];
+                
+                NSString *postBody = [NSString stringWithFormat:@"board=%@&id=%d&target=%@&noansi=1", self.post.board.name, self.postForAction.pid, [SMUtils encodeurl:text]];
+                [request setRequestMethod:@"POST"];
+                [request addRequestHeader:@"Content-type" value:@"application/x-www-form-urlencoded"];
+                [request setPostBody:[[postBody dataUsingEncoding:NSUTF8StringEncoding] mutableCopy]];
+                
+                _forwardOp.delegate = self;
+                [_forwardOp loadRequest:request withParser:@"bbsfwd"];
+            }
+        }
+    }];
+    [alertView show];
+}
+
+
 #pragma mark - method
+- (SMPost *)postByID:(NSInteger)pid
+{
+    for (SMPost *post in self.posts) {
+        if (post.pid == pid) {
+            return post;
+        }
+    }
+    return nil;
+}
+
 - (void)mergePosts:(NSArray *)posts
 {
     NSInteger lastPid = 0;
@@ -466,6 +632,24 @@
     int b = (int)(255.0 * bf);
     
     return [NSString stringWithFormat:@"#%02x%02x%02x",r,g,b];
+}
+
+#pragma mark - WebloaderDelegate
+- (void)webLoaderOperationFinished:(SMWebLoaderOperation *)opt
+{
+    if (opt == self.forwardOp) {
+        SMWriteResult *res = _forwardOp.data;
+        if (res.success) {
+            [self toast:@"转寄成功"];
+        }
+    }
+}
+
+- (void)webLoaderOperationFail:(SMWebLoaderOperation *)opt error:(SMMessage *)error
+{
+    if (opt == self.forwardOp) {
+        [self toast:error.message];
+    }
 }
 
 @end
