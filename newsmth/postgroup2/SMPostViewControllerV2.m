@@ -95,6 +95,8 @@
     NSString *html = [NSString stringWithContentsOfURL:[NSURL fileURLWithPath:postPagePath] encoding:NSUTF8StringEncoding error:0];
 
     html = [html stringByReplacingOccurrencesOfString:@"{__gid__}" withString:[NSString stringWithFormat:@"%d", self.post.gid]];
+    html = [html stringByReplacingOccurrencesOfString:@"{__t__}" withString:[NSString stringWithFormat:@"%@", @([NSDate timeIntervalSinceReferenceDate])]];
+    
     [SMUtils writeData:[html dataUsingEncoding:NSUTF8StringEncoding] toDocumentFolder:@"/post/index2.html"];
     postPagePath = [NSString stringWithFormat:@"%@/post/index2.html", documentPath];
     
@@ -226,6 +228,10 @@
     NSString *method = query[@"method"];
     NSDictionary *parameters = [SMUtils string2json:query[@"parameters"]];
     
+    if ([method isEqualToString:@"log"]) {
+        [self apiLog:parameters];
+    }
+    
     if ([method isEqualToString:@"ajax"]) {
         [self apiAjax:parameters];
     }
@@ -254,6 +260,11 @@
     
     [self.webView performSelector:@selector(stringByEvaluatingJavaScriptFromString:) withObject:js];
 //    [self.webView stringByEvaluatingJavaScriptFromString:js];
+}
+
+- (void)apiLog:(NSDictionary *)parameters
+{
+    XLog_d(@"weblog: %@", parameters[@"log"]);
 }
 
 - (void)apiAjax:(NSDictionary *)parameters

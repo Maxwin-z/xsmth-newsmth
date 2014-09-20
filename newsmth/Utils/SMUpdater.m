@@ -122,7 +122,7 @@
 
 - (void)downloadPostPage
 {
-    NSString *url = @"http://10.128.100.240/xsmth/a.zip";
+    NSString *url = @"http://192.168.3.161/xsmth/a.zip";
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
         if (data) {
