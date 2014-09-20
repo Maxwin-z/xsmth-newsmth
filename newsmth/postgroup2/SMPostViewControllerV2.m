@@ -167,25 +167,28 @@
 {
     NSURL *url = request.URL;
     
-//    XLog_d(@"load: %@", url);
-    
-    if ([url.host isEqualToString:@"_"]) {
+    if ([url.absoluteString hasPrefix:@"xsmth://_"]) {
         NSDictionary *query = [self parseQuery:url.query];
         [self handleJSAPI:query];
         return NO;
     }
     
-    return YES;
-    
-    
-    if ([url.host isEqualToString:@"localhost"] || [url.host isEqualToString:DEBUG_HOST] || [url.absoluteString isEqualToString:@"about:blank"]) {
+    if ([url.scheme isEqualToString:@"file"]) {
         return YES;
     }
     
-    PBWebViewController *vc = [[PBWebViewController alloc] init];
-    vc.URL = url;
-    [self.navigationController pushViewController:vc animated:YES];
-    return NO;
+    if ([url.absoluteString isEqualToString:@"about:blank"]) {
+        return YES;
+    }
+    
+    XLog_d(@"load: %@", url);
+    
+    if ([url.scheme isEqualToString:@"http"] || [url.scheme isEqualToString:@"https"]) {
+        PBWebViewController *vc = [[PBWebViewController alloc] init];
+        vc.URL = url;
+        [self.navigationController pushViewController:vc animated:YES];
+        return NO;
+    }
     
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"打开", nil];
     [sheet.rac_buttonClickedSignal subscribeNext:^(id x) {
