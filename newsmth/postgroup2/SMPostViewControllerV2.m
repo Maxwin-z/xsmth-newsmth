@@ -297,7 +297,7 @@
         @strongify(req);
         @strongify(self);
         XLog_e(@"req error: %@", req.error);
-        [self sendMessage2WebViewWithCallbackID:parameters[@"callbackID"] value:@{@"error": req.error.userInfo}];
+        [self sendMessage2WebViewWithCallbackID:parameters[@"callbackID"] value:@{@"error": req.error.localizedDescription ?: @"加载失败"}];
     }];
     
     [req startAsynchronous];
