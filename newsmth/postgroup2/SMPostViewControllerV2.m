@@ -324,8 +324,9 @@
 - (void)apiGetImageInfo:(NSDictionary *)parameters
 {
     NSString *imageUrl = parameters[@"url"];
+    
     XImageView *imageView = [[XImageView alloc] init];
-//    imageView.autoLoad = NO;
+    imageView.autoLoad = [parameters[@"autoload"] boolValue];
     @weakify(self);
     imageView.getSizeBlock = ^(long long size) {
         @strongify(self);
