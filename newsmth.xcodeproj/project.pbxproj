@@ -2236,7 +2236,7 @@
 					"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts/include",
 				);
 				INFOPLIST_FILE = "newsmth/newsmth-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/newsmth/Frameworks/**",
@@ -2350,7 +2350,7 @@
 					"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts/include",
 				);
 				INFOPLIST_FILE = "newsmth/newsmth-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/newsmth/Frameworks/**",
@@ -2385,7 +2385,7 @@
 					"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts/include",
 				);
 				INFOPLIST_FILE = "newsmth/newsmth-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/newsmth/Frameworks/**",
