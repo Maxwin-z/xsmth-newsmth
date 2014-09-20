@@ -12,9 +12,11 @@
  */
 
 #import "SMPostViewControllerV2.h"
+#import "SMBoardViewController.h"
 #import "PBWebViewController.h"
 #import "XImageView.h"
 #import "XImageViewCache.h"
+#import "SMMainViewController.h"
 
 #import "SMPostActivityItemProvider.h"
 #import "SMWeiXinSessionActivity.h"
@@ -55,10 +57,45 @@
 {
     [super viewDidLoad];
     self.posts = [NSMutableArray new];
-    self.title = self.post.title;
+    
+    NSString *title = self.post.title;
+    if (self.author.length > 0) {
+        title = [NSString stringWithFormat:@"%@ - 同作者 %@", title, self.author];
+    }
+    self.title = title;
+    
     self.imageLoaders = [NSMutableDictionary new];
     [self setupWebView];
+    
+    NSMutableArray *items = [NSMutableArray new];
+    if (!_fromBoard) {
+        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+                                                      target:self
+                                                      action:@selector(onRightBarButtonClick)];
+        [items addObject:item];
+    }
+    if ([SMUtils systemVersion] < 6) {
+        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(onRefreshControlValueChanged:)];
+        [items addObject:item];
+    }
+    if (items.count > 0) {
+        self.navigationItem.rightBarButtonItems = items;
+    }
 }
+
+
+- (void)onRightBarButtonClick
+{
+    SMBoardViewController *vc = [[SMBoardViewController alloc] init];
+    vc.board = self.post.board;
+    
+    if ([SMUtils isPad]) {
+        [[SMMainViewController instance] setRootViewController:vc];
+    } else {
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+}
+
 
 - (void)setupTheme
 {
@@ -100,10 +137,11 @@
     scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
 
     // add refresh control
-    self.refreshControl = [[UIRefreshControl alloc] init];
-    [scrollView addSubview:self.refreshControl];
-    [self.refreshControl addTarget:self action:@selector(onRefreshControlValueChanged:) forControlEvents:UIControlEventValueChanged];
-    
+    if ([SMUtils systemVersion] > 5) {
+        self.refreshControl = [[UIRefreshControl alloc] init];
+        [scrollView addSubview:self.refreshControl];
+        [self.refreshControl addTarget:self action:@selector(onRefreshControlValueChanged:) forControlEvents:UIControlEventValueChanged];
+    }
     // debug
 //    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://localhost/xsmth/"]];
 //    NSURL *url = [NSURL URLWithString:@"http://" DEBUG_HOST @"/xsmth/index.html"];
@@ -113,7 +151,7 @@
     NSString *postPagePath = [NSString stringWithFormat:@"%@/post/index.html", documentPath];
     NSString *html = [NSString stringWithContentsOfURL:[NSURL fileURLWithPath:postPagePath] encoding:NSUTF8StringEncoding error:0];
 
-    html = [html stringByReplacingOccurrencesOfString:@"{__gid__}" withString:[NSString stringWithFormat:@"%d", self.post.gid]];
+    html = [html stringByReplacingOccurrencesOfString:@"{__cachedjsfile__}" withString:[self cachedJSFilename]];
     html = [html stringByReplacingOccurrencesOfString:@"{__t__}" withString:[NSString stringWithFormat:@"%@", @([NSDate timeIntervalSinceReferenceDate])]];
     html = [html stringByReplacingOccurrencesOfString:@"{__autoload__}" withString:[SMConfig enableMobileAutoLoadImage] ? @"true" : @"false"];
     
@@ -131,24 +169,34 @@
     
 }
 
+- (NSString *)cachedJSFilename
+{
+    return [NSString stringWithFormat:@"%d_%@", self.post.gid, self.author ?: @""];
+}
+
 - (void)onRefreshControlValueChanged:(UIRefreshControl *)refreshControl
 {
     // remove file
-    NSString *file = [NSString stringWithFormat:@"/posts/%d.js", self.post.gid];
+    [self.posts removeAllObjects];
+    NSString *file = [NSString stringWithFormat:@"/posts/%@.js", [self cachedJSFilename]];
     [SMUtils writeData:[NSData data] toDocumentFolder:file];
     [self.webView stringByEvaluatingJavaScriptFromString:@"window.location.reload()"];
-    [self performSelector:@selector(endRefresh) withObject:nil afterDelay:1];
+    [self performSelector:@selector(endRefresh) withObject:nil afterDelay:0.1];
 }
 
 
 - (void)beginRefresh
 {
-    [self.refreshControl beginRefreshing];
+    if ([SMUtils systemVersion] > 5) {
+        [self.refreshControl beginRefreshing];
+    }
 }
 
 - (void)endRefresh
 {
-    [self.refreshControl endRefreshing];
+    if ([SMUtils systemVersion] > 5) {
+        [self.refreshControl endRefreshing];
+    }
 }
 
 - (void)savePostInfo
@@ -172,7 +220,7 @@
     
     NSString *json = [SMUtils json2string:info];
     NSString *result = [NSString stringWithFormat:@"var info = %@", json];
-    NSString *file = [NSString stringWithFormat:@"/posts/%d.js", self.post.gid];
+    NSString *file = [NSString stringWithFormat:@"/posts/%@.js", [self cachedJSFilename]];
     [SMUtils writeData:[result dataUsingEncoding:NSUTF8StringEncoding] toDocumentFolder:file];
 }
 
@@ -471,6 +519,13 @@
         
         if ([activityType isEqualToString:SMActivityForwardActivity]) {
             [self doForwardPost];
+        }
+        
+        if ([activityType isEqualToString:SMActivitySingleAuthorActivity]) {
+            SMPostViewControllerV2 *vc = [SMPostViewControllerV2 new];
+            vc.post = self.post;
+            vc.author = self.postForAction.author;
+            [self.navigationController pushViewController:vc animated:YES];
         }
         
         [SMUtils trackEventWithCategory:@"postgroup" action:@"more_action" label:activityType];

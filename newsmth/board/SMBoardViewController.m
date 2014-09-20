@@ -325,6 +325,7 @@
         
         SMPostViewControllerV2 *groupPVC = [SMPostViewControllerV2 new];
         groupPVC.post = post;
+        groupPVC.fromBoard = YES;
         vc = groupPVC;
     } else {
         SMPostViewController *singlePVC = [[SMPostViewController alloc] init];
