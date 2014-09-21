@@ -95,7 +95,8 @@ function parse_www(html) {
     var rsp = {code: 0, data: data, message:''};
     extractLinks(data);
     console.log(rsp);
-    window.location.href = 'newsmth://' + encodeURIComponent(JSON.stringify(rsp));
+    $smth.sendData(rsp);
+    // window.location.href = 'newsmth://' + encodeURIComponent(JSON.stringify(rsp));
 }
 
 //////////////////////////////////////////////////////
@@ -159,7 +160,6 @@ function parse_m(html) {
     console.log(rsp);
     $smth.sendData(rsp);
     // window.location.href = 'newsmth://' + encodeURIComponent(JSON.stringify(rsp));
-
 }
 
 function extractLinks(post) {

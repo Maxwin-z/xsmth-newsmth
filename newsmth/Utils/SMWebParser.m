@@ -77,8 +77,11 @@
 #pragma mark - UIWebViewDelegate
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-//    XLog_d(@"%@", request.URL.absoluteString);
+    
     NSString *url = request.URL.absoluteString;
+    if ([url isEqualToString:@"about:blank"]) {
+        return YES;
+    }
     if ([url hasPrefix:SM_DATA_SCHEMA]) {
         NSString *result = [url substringFromIndex:SM_DATA_SCHEMA.length];
         result = [result stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -90,13 +93,13 @@
             XLog_d(@"result: %@", result);
             XLog_e(@"parse result error:%@", error);
         }
-//        XLog_d(@"%@", json);
         if ([_delegate respondsToSelector:@selector(webParser:result:)]) {
             [_delegate webParser:self result:json];
         }
         return NO;
     }
-    return YES;
+//    XLog_d(@"%@", request.URL.absoluteString);
+    return NO;
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView

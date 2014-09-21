@@ -157,7 +157,6 @@
     html = [html stringByReplacingOccurrencesOfString:@"{__t__}" withString:[NSString stringWithFormat:@"%@", @([NSDate timeIntervalSinceReferenceDate])]];
     
     BOOL autoLoadImage = [[Reachability reachabilityForInternetConnection] isReachableViaWiFi] || [SMConfig enableMobileAutoLoadImage];
-    autoLoadImage = NO;
     html = [html stringByReplacingOccurrencesOfString:@"{__autoload__}" withString: autoLoadImage ? @"true" : @"false"];
     
     [SMUtils writeData:[html dataUsingEncoding:NSUTF8StringEncoding] toDocumentFolder:@"/post/index2.html"];
