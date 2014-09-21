@@ -246,7 +246,9 @@ setTimeout(function () {
 	if (window.info) {
 		SMApp.log('info has posts: ' + window.info.posts.length);
 		currentPage = info.currentPage;
-
+		if (window.info.posts.length % postsCountPerPage == 0) {
+			++currentPage;
+		}
 		renderPosts(info.posts);
 
 		var ancher = $('<a name="last_loaded"></a>');

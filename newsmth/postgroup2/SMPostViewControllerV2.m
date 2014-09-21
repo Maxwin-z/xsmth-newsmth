@@ -435,14 +435,14 @@
     };
     imageView.didFailBlock = ^() {
         @strongify(self);
-        [self sendMessage2WebViewWithCallbackID:parameters[@"callbackID"] value:@{@"fail": @""}];
+        [self sendMessage2WebViewWithCallbackID:parameters[@"callbackID"] value:@{@"fail": @"download fail"}];
     };
     
-    __block CGFloat latestProgress = 0.0f;
+    __block CGFloat latestProgress = -1.0f;
     imageView.updateProgressBlock = ^(CGFloat progress) {
         @strongify(self);
         XLog_d(@"progress: %@", @(progress));
-        if (progress - latestProgress > 0.08) {
+        if (progress - latestProgress > 0.05) {
             [self sendMessage2WebViewWithCallbackID:parameters[@"callbackID"] value:@{@"progress": @(progress)}];
             latestProgress = progress;
             XLog_d(@"update progres %@", @(progress));
