@@ -239,6 +239,7 @@ var postsCountPerPage = 10;
 var latestPagePostsCount = 0; // 最近一次加载的页面文章数
 var totalPage = 0;
 var isLoading = false;
+var isInvalidPost = false;
 var tpl = $('#tpl_post').val().trim();
 
 // load cached
@@ -276,8 +277,7 @@ setTimeout(function () {
 }, 0);
 
 function loadNext() {
-	if (isLoading || !mainPost) {
-		console.log('ignore', isLoading, mainPost);
+	if (isLoading || !mainPost || isInvalidPost) {
 		return ;
 	}
 	if (latestPagePostsCount == postsCountPerPage) {
@@ -416,7 +416,7 @@ function makeupLoading () {
 function showPosts(body) {
 	var posts = parsePosts(body);
 	// handle error page
-	if (posts == null || posts.length == 0 && currentPage <= 1) {
+	if (isInvalidPost) {
 		$('body').append(body);
 		return ;
 	}
@@ -449,6 +449,10 @@ function parsePosts(html) {
 		var post = parseArticle(article);
 		posts.push(parseArticle(article));
 	});
+
+	if (currentPage <= 1 && posts.length == 0) {
+		isInvalidPost = true;
+	}
 
 	// debugger;
 	// 获取页数信息
