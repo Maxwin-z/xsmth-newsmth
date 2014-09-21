@@ -1103,7 +1103,7 @@
 #pragma mark - UIActionSheetDelegate
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex != actionSheet.destructiveButtonIndex) {
+    if (buttonIndex != actionSheet.destructiveButtonIndex && buttonIndex >= 0) {
         NSString *title = [actionSheet buttonTitleAtIndex:buttonIndex];
         if ([title isEqualToString:STRING_EXPAND_HERE]) {
             _gid = _singlePost.gid;
