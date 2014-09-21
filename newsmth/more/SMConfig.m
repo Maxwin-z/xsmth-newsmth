@@ -54,6 +54,8 @@
 
 + (BOOL)enableOptimizePostContent
 {
+    return NO;
+    /*
     NSString *platform = [UIDeviceHardware platform];
     BOOL optimize = NO;
     // < iphone 5
@@ -70,6 +72,7 @@
     }
     
     return [SMConfig configForKey:USERDEFAULTS_CONFIG_OPTIMIZE_POST_CONTENT defaults:optimize];
+     */
 }
 
 + (BOOL)enableDayMode

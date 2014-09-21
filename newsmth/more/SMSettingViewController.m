@@ -96,10 +96,10 @@ static SectionData sections[] = {
         SectionTypePostView,
         "帖子",
         NULL,
-        3,
+        2,
         {
             CellTypeEnableMobileAutoLoadImage,
-            CellTypeOptimizePostContent,
+//            CellTypeOptimizePostContent,
             CellTypeEnableQMD
         }
     },
