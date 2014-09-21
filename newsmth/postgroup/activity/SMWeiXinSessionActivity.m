@@ -39,7 +39,7 @@
 
 - (UIImage *)activityImage
 {
-    return [UIImage imageNamed:@"common_share_icon_weixin"];
+    return [UIImage imageNamed:[SMUtils systemVersion] > 7 ? @"common_share_icon_weixin_ios8" : @"common_share_icon_weixin"];
 }
 
 - (BOOL)canPerformWithActivityItems:(NSArray *)activityItems

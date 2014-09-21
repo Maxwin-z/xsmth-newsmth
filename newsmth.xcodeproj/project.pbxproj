@@ -57,6 +57,8 @@
 		C111548D19C022570025A1D2 /* EXTRuntimeExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = C111548619C022570025A1D2 /* EXTRuntimeExtensions.m */; };
 		C111548E19C022570025A1D2 /* EXTScope.m in Sources */ = {isa = PBXBuildFile; fileRef = C111548819C022570025A1D2 /* EXTScope.m */; };
 		C111548F19C022570025A1D2 /* EXTSelectorChecking.m in Sources */ = {isa = PBXBuildFile; fileRef = C111548A19C022570025A1D2 /* EXTSelectorChecking.m */; };
+		C111D62919CEF16900D4DC71 /* common_share_icon_weixin_friends_ios8@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C111D62719CEF16900D4DC71 /* common_share_icon_weixin_friends_ios8@2x.png */; };
+		C111D62A19CEF16900D4DC71 /* common_share_icon_weixin_ios8@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C111D62819CEF16900D4DC71 /* common_share_icon_weixin_ios8@2x.png */; };
 		C1153398175779EF0026A0D5 /* bbstcon.js in Resources */ = {isa = PBXBuildFile; fileRef = C1153397175779DE0026A0D5 /* bbstcon.js */; };
 		C11581621768285C008A421A /* SMLeftViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C115815F1768285C008A421A /* SMLeftViewController.xib */; };
 		C11581631768285C008A421A /* SMLeftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C11581611768285C008A421A /* SMLeftViewController.m */; };
@@ -403,6 +405,8 @@
 		C111548919C022570025A1D2 /* EXTSelectorChecking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTSelectorChecking.h; sourceTree = "<group>"; };
 		C111548A19C022570025A1D2 /* EXTSelectorChecking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXTSelectorChecking.m; sourceTree = "<group>"; };
 		C111548B19C022570025A1D2 /* metamacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = metamacros.h; sourceTree = "<group>"; };
+		C111D62719CEF16900D4DC71 /* common_share_icon_weixin_friends_ios8@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "common_share_icon_weixin_friends_ios8@2x.png"; sourceTree = "<group>"; };
+		C111D62819CEF16900D4DC71 /* common_share_icon_weixin_ios8@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "common_share_icon_weixin_ios8@2x.png"; sourceTree = "<group>"; };
 		C1153397175779DE0026A0D5 /* bbstcon.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = bbstcon.js; sourceTree = "<group>"; };
 		C115815F1768285C008A421A /* SMLeftViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMLeftViewController.xib; sourceTree = "<group>"; };
 		C11581601768285C008A421A /* SMLeftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMLeftViewController.h; sourceTree = "<group>"; };
@@ -1092,6 +1096,8 @@
 		C19FF0B01769A71B00EB6F7E /* images */ = {
 			isa = PBXGroup;
 			children = (
+				C111D62719CEF16900D4DC71 /* common_share_icon_weixin_friends_ios8@2x.png */,
+				C111D62819CEF16900D4DC71 /* common_share_icon_weixin_ios8@2x.png */,
 				C1CBC4B719CDAE4F0074E1B7 /* icon_single_author@2x.png */,
 				C10C49A318F05D9300DF946E /* icon_link@2x.png */,
 				C1CBC4B219CDAB990074E1B7 /* icon_reply@2x.png */,
@@ -1838,6 +1844,7 @@
 				C14B22FA17FAC65700CF081A /* SMMailComposeViewController.xib in Resources */,
 				C1ABAB121766107A007DE168 /* SMMainpageCell.xib in Resources */,
 				C1ABAB141766107A007DE168 /* SMMainpageViewController.xib in Resources */,
+				C111D62919CEF16900D4DC71 /* common_share_icon_weixin_friends_ios8@2x.png in Resources */,
 				C1ABAB1A17661156007DE168 /* SMPostGroupHeaderCell.xib in Resources */,
 				C1E7A1A5180A98DD002CAEEC /* badge_notice@2x.png in Resources */,
 				C1FCFAC21860782600759793 /* icon_favor_on@2x.png in Resources */,
@@ -1850,6 +1857,7 @@
 				C115816E17685606008A421A /* SMLoginViewController.xib in Resources */,
 				C19FF0B21769A71C00EB6F7E /* popup_bg@2x.png in Resources */,
 				C19FF0B41769A7A800EB6F7E /* SMViewControllerPopover.xib in Resources */,
+				C111D62A19CEF16900D4DC71 /* common_share_icon_weixin_ios8@2x.png in Resources */,
 				C14B230117FB0E9500CF081A /* icon_menu@2x.png in Resources */,
 				C19FF0C31769CEC700EB6F7E /* SMBoardViewController.xib in Resources */,
 				C19FF0C81769D0E600EB6F7E /* SMBoardCell.xib in Resources */,

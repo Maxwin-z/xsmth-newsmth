@@ -492,6 +492,39 @@
         return ;
     }
     
+    if ([SMUtils systemVersion] < 6) {
+        [self tapActionForIOS5];
+    } else {
+        [self tapActionForIOS6];
+    }
+}
+
+- (void)tapActionForIOS5
+{
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"回复", @"同作者", @"发信给作者", @"转寄", nil];
+    @weakify(sheet);
+    [sheet.rac_buttonClickedSignal subscribeNext:^(id x) {
+        @strongify(sheet);
+        NSString *title = [sheet buttonTitleAtIndex:[x integerValue]];
+        if ([title isEqualToString:@"回复"]) {
+            [self doReplyPost];
+        }
+        if ([title isEqualToString:@"同作者"]) {
+            [self doSingleAuthor];
+        }
+        if ([title isEqualToString:@"发信给作者"]) {
+            [self performSelector:@selector(mailtoWithPost) withObject:nil afterDelay:1];
+        }
+        if ([title isEqualToString:@"转寄"]) {
+            [self doForwardPost];
+        }
+    }];
+    [sheet showInView:self.view];
+}
+
+- (void)tapActionForIOS6
+{
+    SMPost *post = self.postForAction;
     SMPostActivityItemProvider *provider = [[SMPostActivityItemProvider alloc] initWithPlaceholderItem:post];
     SMWeiXinSessionActivity *wxSessionActivity = [[SMWeiXinSessionActivity alloc] init];
     SMWeiXinTimelineActivity *wxTimelineActivity = [[SMWeiXinTimelineActivity alloc] init];
@@ -521,7 +554,7 @@
         
         if ([activityType isEqualToString:SMActivityTypeMailToAuthor]) {
             if ([SMUtils systemVersion] < 7) {  // fixme: ios6 animation cause crash
-                [self performSelector:@selector(mailtoWithPost:) withObject:post afterDelay:1];
+                [self performSelector:@selector(mailtoWithPost) withObject:post afterDelay:1];
             } else {
                 [self mailtoWithPost];
             }
@@ -532,10 +565,7 @@
         }
         
         if ([activityType isEqualToString:SMActivitySingleAuthorActivity]) {
-            SMPostViewControllerV2 *vc = [SMPostViewControllerV2 new];
-            vc.post = self.post;
-            vc.author = self.postForAction.author;
-            [self.navigationController pushViewController:vc animated:YES];
+            [self doSingleAuthor];
         }
         
         [SMUtils trackEventWithCategory:@"postgroup" action:@"more_action" label:activityType];
@@ -543,6 +573,14 @@
     };
     
     [self.view.window.rootViewController presentViewController:avc animated:YES completion:nil];
+}
+
+- (void)doSingleAuthor
+{
+    SMPostViewControllerV2 *vc = [SMPostViewControllerV2 new];
+    vc.post = self.post;
+    vc.author = self.postForAction.author;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)doReplyPost

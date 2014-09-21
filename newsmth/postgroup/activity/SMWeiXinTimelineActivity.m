@@ -30,7 +30,7 @@
 
 - (UIImage *)activityImage
 {
-    return [UIImage imageNamed:@"common_share_icon_weixin_friends"];
+    return [UIImage imageNamed:[SMUtils systemVersion] > 7 ? @"common_share_icon_weixin_friends_ios8" : @"common_share_icon_weixin_friends"];
 }
 
 @end
