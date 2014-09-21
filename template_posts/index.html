@@ -340,7 +340,7 @@ function loadImage(img, forceLoad) {
 	info.html('正在加载');
 	SMApp.getImageInfo(src, forceLoad, function (value) {
 		// alert(src, size);
-		// console.log(value);
+		console.log(value);
 		if (value.success) {
 			$(img).attr('src', value.success);
 			$(img).attr('status', 'loaded');

@@ -42,9 +42,8 @@
     updateReq.delegate = self;
     [updateReq startAsynchronous];
     
-    
-#warning todo
-    [self downloadPostPage];
+    [self setupPostsTemplate];
+//    [self downloadPostPage];
 }
 
 - (void)handleNewVersion
@@ -118,6 +117,15 @@
 {
     NSString *path = [NSString stringWithFormat:@"parser/%@", filename];
     [SMUtils writeData:[js dataUsingEncoding:NSUTF8StringEncoding] toDocumentFolder:path];
+}
+
+- (void)setupPostsTemplate
+{
+    NSString *filepath = [[NSBundle mainBundle] pathForResource:@"template_posts" ofType:@"zip"];
+    NSString *docPath = [SMUtils documentPath];
+    NSString *destPath = [NSString stringWithFormat:@"%@/post/", docPath];
+    [SSZipArchive unzipFileAtPath:filepath toDestination:destPath];
+    XLog_d(@"unzip posts template");
 }
 
 - (void)downloadPostPage

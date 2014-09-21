@@ -59,6 +59,7 @@
 		C111548F19C022570025A1D2 /* EXTSelectorChecking.m in Sources */ = {isa = PBXBuildFile; fileRef = C111548A19C022570025A1D2 /* EXTSelectorChecking.m */; };
 		C111D62919CEF16900D4DC71 /* common_share_icon_weixin_friends_ios8@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C111D62719CEF16900D4DC71 /* common_share_icon_weixin_friends_ios8@2x.png */; };
 		C111D62A19CEF16900D4DC71 /* common_share_icon_weixin_ios8@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C111D62819CEF16900D4DC71 /* common_share_icon_weixin_ios8@2x.png */; };
+		C111D62C19CF0F2F00D4DC71 /* template_posts.zip in Resources */ = {isa = PBXBuildFile; fileRef = C111D62B19CF0F2F00D4DC71 /* template_posts.zip */; };
 		C1153398175779EF0026A0D5 /* bbstcon.js in Resources */ = {isa = PBXBuildFile; fileRef = C1153397175779DE0026A0D5 /* bbstcon.js */; };
 		C11581621768285C008A421A /* SMLeftViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C115815F1768285C008A421A /* SMLeftViewController.xib */; };
 		C11581631768285C008A421A /* SMLeftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C11581611768285C008A421A /* SMLeftViewController.m */; };
@@ -407,6 +408,7 @@
 		C111548B19C022570025A1D2 /* metamacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = metamacros.h; sourceTree = "<group>"; };
 		C111D62719CEF16900D4DC71 /* common_share_icon_weixin_friends_ios8@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "common_share_icon_weixin_friends_ios8@2x.png"; sourceTree = "<group>"; };
 		C111D62819CEF16900D4DC71 /* common_share_icon_weixin_ios8@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "common_share_icon_weixin_ios8@2x.png"; sourceTree = "<group>"; };
+		C111D62B19CF0F2F00D4DC71 /* template_posts.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; name = template_posts.zip; path = template_posts/template_posts.zip; sourceTree = "<group>"; };
 		C1153397175779DE0026A0D5 /* bbstcon.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = bbstcon.js; sourceTree = "<group>"; };
 		C115815F1768285C008A421A /* SMLeftViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMLeftViewController.xib; sourceTree = "<group>"; };
 		C11581601768285C008A421A /* SMLeftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMLeftViewController.h; sourceTree = "<group>"; };
@@ -1278,6 +1280,7 @@
 		C1BFB8D0174F6A620092FD2E = {
 			isa = PBXGroup;
 			children = (
+				C111D62B19CF0F2F00D4DC71 /* template_posts.zip */,
 				C1178C0C187D605F00A80B91 /* icon@2x.png */,
 				C1300A7C187D5FAD006ACA5C /* icon_57.png */,
 				C1300A74187D3776006ACA5C /* icon_100@2x.png */,
@@ -1868,6 +1871,7 @@
 				C13D4124176DD5EC00BD03A4 /* placeholder@2x.jpg in Resources */,
 				C1B581F4177723F500441299 /* SMWritePostViewController.xib in Resources */,
 				C1902DC0177E672E00967211 /* button_reply@2x.png in Resources */,
+				C111D62C19CF0F2F00D4DC71 /* template_posts.zip in Resources */,
 				C1300A79187D3776006ACA5C /* icon_58@2x.png in Resources */,
 				C1E3A22B1780600900994CE6 /* SMUserViewController.xib in Resources */,
 				C14B22F517FABDD100CF081A /* bg_navigationbar@2x.png in Resources */,
