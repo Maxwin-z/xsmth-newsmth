@@ -303,6 +303,10 @@
         [self apiLog:parameters];
     }
     
+    if ([method isEqualToString:@"toast"]) {
+        [self apiToast:parameters];
+    }
+    
     if ([method isEqualToString:@"ajax"]) {
         [self apiAjax:parameters];
     }
@@ -330,6 +334,7 @@
     if ([method isEqualToString:@"savePostsInfo"]) {
         [self apiSavePostsInfo:parameters];
     }
+    
 }
 
 - (void)sendMessage2WebViewWithCallbackID:(NSString *)callbackID value:(id)value
@@ -344,6 +349,11 @@
 - (void)apiLog:(NSDictionary *)parameters
 {
     XLog_d(@"weblog: %@", parameters[@"log"]);
+}
+
+- (void)apiToast:(NSDictionary *)parameters
+{
+    [self toast:parameters[@"message"]];
 }
 
 - (void)apiAjax:(NSDictionary *)parameters
