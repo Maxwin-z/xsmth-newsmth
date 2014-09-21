@@ -31,6 +31,8 @@
 #import "SMWritePostViewController.h"
 #import "SMIPadSplitViewController.h"
 
+#import "Reachability.h"
+
 
 //#define DEBUG_HOST @"10.128.100.175"
 #define DEBUG_HOST @"192.168.3.161"
@@ -153,7 +155,10 @@
 
     html = [html stringByReplacingOccurrencesOfString:@"{__cachedjsfile__}" withString:[self cachedJSFilename]];
     html = [html stringByReplacingOccurrencesOfString:@"{__t__}" withString:[NSString stringWithFormat:@"%@", @([NSDate timeIntervalSinceReferenceDate])]];
-    html = [html stringByReplacingOccurrencesOfString:@"{__autoload__}" withString:[SMConfig enableMobileAutoLoadImage] ? @"true" : @"false"];
+    
+    BOOL autoLoadImage = [[Reachability reachabilityForInternetConnection] isReachableViaWiFi] || [SMConfig enableMobileAutoLoadImage];
+    autoLoadImage = NO;
+    html = [html stringByReplacingOccurrencesOfString:@"{__autoload__}" withString: autoLoadImage ? @"true" : @"false"];
     
     [SMUtils writeData:[html dataUsingEncoding:NSUTF8StringEncoding] toDocumentFolder:@"/post/index2.html"];
     postPagePath = [NSString stringWithFormat:@"%@/post/index2.html", documentPath];
@@ -492,14 +497,14 @@
         return ;
     }
     
-    if ([SMUtils systemVersion] < 6) {
-        [self tapActionForIOS5];
-    } else {
+    if ([SMUtils systemVersion] < 7) {
         [self tapActionForIOS6];
+    } else {
+        [self tapActionForIOS7];
     }
 }
 
-- (void)tapActionForIOS5
+- (void)tapActionForIOS6
 {
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"回复", @"同作者", @"发信给作者", @"转寄", nil];
     @weakify(sheet);
@@ -522,7 +527,7 @@
     [sheet showInView:self.view];
 }
 
-- (void)tapActionForIOS6
+- (void)tapActionForIOS7
 {
     SMPost *post = self.postForAction;
     SMPostActivityItemProvider *provider = [[SMPostActivityItemProvider alloc] initWithPlaceholderItem:post];
