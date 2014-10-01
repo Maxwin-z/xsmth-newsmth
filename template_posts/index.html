@@ -108,7 +108,8 @@ li.post .post-info {
 	display: inline-block;
 }
 
-.ximg-box img {
+.ximg-box img,
+.xema {
 	zoom: 200%;
 }
 
@@ -434,7 +435,7 @@ function showPosts(body) {
 function parsePosts(html) {
 	html = html.replace(/<script.*?<\/script>/g, '')
 				.replace(/<a[^>]+>(<img[^>]+>)<\/a>/gi, '$1');
-	html = html.replace(/<img[^>]*?src="(.+?)"[^>]*?>/gi, function ($0, src) {
+	html = html.replace(/<img[^>]*?src="(http.+?)"[^>]*?>/gi, function ($0, src) {
 		src = src.replace(/\/large$/, '');
 		return '<span class="ximg-box"><span class="ximg-info"></span><img class="ximg" src="placeholder.jpg" src2="' + src + '"/></span>';
 	});
@@ -497,7 +498,7 @@ function parseArticle(article) {
 	*/
 	// replace ema
 	// <img src="/nForum/img/ubb/ema/25.gif" style="display:inline;border-style:none">
-	content = content.replace(/(<img\s+src=")(\/nForum\/img\/.*?>)/gi, '$1http://www.newsmth.net$2');
+	content = content.replace(/<img(\s+src=")(\/nForum\/img\/.*?>)/gi, '<img class="xema" $1http://www.newsmth.net$2');
 	// content.
 
 	post.content = content;
