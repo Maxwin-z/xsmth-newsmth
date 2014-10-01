@@ -971,8 +971,15 @@
             [SMUtils trackEventWithCategory:@"postgroup" action:@"more_action" label:activityType];
             avc.completionHandler = nil;
         };
-        
-        [self.view.window.rootViewController presentViewController:avc animated:YES completion:nil];
+       
+        if ([SMUtils isPad] && [SMUtils systemVersion] >= 8) {
+            UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:avc];
+            
+            CGRect frame = CGRectMake(self.view.bounds.size.width / 2, self.view.bounds.size.height, 0, 0);
+            [popover presentPopoverFromRect:frame inView:self.view permittedArrowDirections:0 animated:YES];
+        } else {
+            [self.view.window.rootViewController presentViewController:avc animated:YES completion:nil];
+        }
 
 //        [self.navigationController presentModalViewController:avc animated:YES];
         return;
