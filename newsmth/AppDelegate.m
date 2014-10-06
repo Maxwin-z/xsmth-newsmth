@@ -186,7 +186,11 @@
     [self showAdView];
     
     // weixin
-    [WXApi registerApp:@"wx52cf1b1257d16b1d" withDescription:@"demo 2.0"];
+    [WXApi registerApp:@"wx52cf1b1257d16b1d" withDescription:@"xsmth"];
+    
+    if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]) {
+        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeSound categories:nil]];
+    }
 
     return YES;
 }
