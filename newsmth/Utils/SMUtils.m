@@ -236,16 +236,10 @@
             [data getBytes:ch2 range:NSMakeRange(i, 2)];
             @try {
                 [result appendString:[[NSString alloc] initWithBytes:ch2 length:2 encoding:enc]];
+                ++i;    // 2字节
             }
             @catch (NSException *exception) {
-                char ch3[3];
-                [data getBytes:ch3 range:NSMakeRange(i, 3)];
-                char ch10[10];
-                [data getBytes:ch10 range:NSMakeRange(i, 10)];
-                XLog_d(@"%s", ch10);
-            }
-            @finally {
-                ++i;    // 2字节
+                // just skip this char
             }
         }
     }
