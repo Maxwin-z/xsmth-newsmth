@@ -84,7 +84,7 @@
     
     NSString *adid = [[NSUserDefaults standardUserDefaults] stringForKey:USERDEFAULTS_UPDATE_ADID];
 
-    if ([[self class] isAdExists:adid]) {
+    if ([[self class] isAdExists:adid] && ![SMConfig isPro]) {
         NSString *adfile = [NSString stringWithFormat:@"%@/index.html", [[self class] getAdFilePath:adid]];
         NSString *html = [[NSString alloc] initWithData:[NSData dataWithContentsOfFile:adfile] encoding:NSUTF8StringEncoding];
         [self.webView loadHTMLString:html baseURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]]];
