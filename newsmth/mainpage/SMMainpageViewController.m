@@ -181,9 +181,9 @@ static SMMainpageViewController *_instance;
     SMPostViewControllerV2 *vc2 = [SMPostViewControllerV2 new];
     vc2.post = post;
 //    SMPostGroupViewController *vc = [[SMPostGroupViewController alloc] init];
-    SMPostViewController *vc = [[SMPostViewController alloc] init];
-    vc.board = post.board;
-    vc.gid = post.gid;
+//    SMPostViewController *vc = [[SMPostViewController alloc] init];
+//    vc.board = post.board;
+//    vc.gid = post.gid;
     
     if ([SMUtils isPad]) {
         [SMIPadSplitViewController instance].detailViewController = vc2;

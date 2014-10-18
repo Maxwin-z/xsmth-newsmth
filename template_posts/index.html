@@ -418,7 +418,7 @@ function showPosts(body) {
 	var posts = parsePosts(body);
 	// handle error page
 	if (isInvalidPost) {
-		$('body').append(body);
+		$('body').append(body.replace(/<script.*?<\/script>/g, ''));
 		return ;
 	}
 
