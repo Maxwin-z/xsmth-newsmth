@@ -34,6 +34,7 @@
 #import "SMDBManager.h"
 #import "SMBoardViewTypeSelectorView.h"
 #import "SMPostLinksViewController.h"
+#import "SMPostViewControllerV2.h"
 
 #define STRING_EXPAND_HERE  @"从此处展开"
 #define STRING_EXPAND_ALL  @"同主题展开"
@@ -1120,11 +1121,16 @@
             [_tableView beginRefreshing];
             [SMUtils trackEventWithCategory:@"postgroup" action:@"expand" label:@"here"];
         } else if ([title isEqualToString:STRING_EXPAND_ALL]) {
+            SMPostViewControllerV2 *vc = [SMPostViewControllerV2 new];
+            vc.post = _singlePost;
+            [self.navigationController pushViewController:vc animated:YES];
+            /*
             _gid = _singlePost.gid;
             _start = _singlePost.gid;
             _isSinglePost = NO;
             [self.postHeightMap removeAllObjects];
             [_tableView beginRefreshing];
+             */
             [SMUtils trackEventWithCategory:@"postgroup" action:@"expand" label:@"all"];
         } else {
             SMBoardViewController *vc = [[SMBoardViewController alloc] init];
