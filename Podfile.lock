@@ -6,11 +6,14 @@ PODS:
   - ReactiveCocoa/no-arc (2.3.1)
   - ReactiveCocoa/UI (2.3.1):
     - ReactiveCocoa/Core
+  - WKVerticalScrollBar (0.3.3)
 
 DEPENDENCIES:
   - ReactiveCocoa
+  - WKVerticalScrollBar
 
 SPEC CHECKSUMS:
   ReactiveCocoa: dca75777b9d18990c8714a3a6f2149f29b4d1462
+  WKVerticalScrollBar: 89fef80e76da266f2e7717db6bf35853a609022a
 
 COCOAPODS: 0.34.2

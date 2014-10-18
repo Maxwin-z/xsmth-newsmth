@@ -33,6 +33,7 @@
 
 #import "Reachability.h"
 
+#import <WKVerticalScrollBar/WKVerticalScrollBar.h>
 
 //#define DEBUG_HOST @"10.128.100.175"
 #define DEBUG_HOST @"192.168.3.161"
@@ -68,6 +69,14 @@
     
     self.imageLoaders = [NSMutableDictionary new];
     [self setupWebView];
+    
+    CGRect frame = self.view.bounds;
+    frame.origin.y = SM_TOP_INSET;
+    frame.size.height -= SM_TOP_INSET;
+    WKVerticalScrollBar *bar = [[WKVerticalScrollBar alloc] initWithFrame:frame];
+    bar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [self.view addSubview:bar];
+    [bar setScrollView:self.webView.scrollView];
     
     NSMutableArray *items = [NSMutableArray new];
     if (!_fromBoard) {
