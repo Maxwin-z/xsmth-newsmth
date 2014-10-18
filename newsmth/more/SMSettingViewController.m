@@ -31,6 +31,7 @@ typedef enum {
     CellTypeShakeSwitchDayMode,
     CellTypeOptimizePostContent,
     CellTypeEnableMobileAutoLoadImage,
+    CellTypeTapPaging,
     
     CellTypeBackgroundFetch,
     CellTypeBackgroundFetchSmartMode,
@@ -96,11 +97,11 @@ static SectionData sections[] = {
         SectionTypePostView,
         "帖子",
         NULL,
-        2,
+        3,
         {
             CellTypeEnableMobileAutoLoadImage,
-//            CellTypeOptimizePostContent,
-            CellTypeEnableQMD
+            CellTypeEnableQMD,
+            CellTypeTapPaging
         }
     },
     {
@@ -170,6 +171,7 @@ static SectionData sections[] = {
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForEULA;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForDisableTail;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForDisableAd;
+@property (strong, nonatomic) IBOutlet UITableViewCell *cellForTapPaging;
 
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForEnableMobileAutoLoadImage;
 
@@ -187,6 +189,7 @@ static SectionData sections[] = {
 @property (weak, nonatomic) IBOutlet UISwitch *switchForDisableTail;
 @property (weak, nonatomic) IBOutlet UISwitch *switchForDisableAd;
 @property (weak, nonatomic) IBOutlet UISwitch *switchForEnableMobileAutoLoadImage;
+@property (weak, nonatomic) IBOutlet UISwitch *switchForTapPaging;
 
 @property (weak, nonatomic) IBOutlet UILabel *labelForPostFont;
 @property (weak, nonatomic) IBOutlet UISlider *sliderForPostFont;
@@ -230,6 +233,7 @@ static SectionData sections[] = {
     _switchForDisableTail.on = [SMConfig disableTail];
     _switchForDisableAd.on = [SMConfig disableAd];
     _switchForEnableMobileAutoLoadImage.on = [SMConfig enableMobileAutoLoadImage];
+    _switchForTapPaging.on = [SMConfig enableTapPaing];
     
     _sliderForListFont.value = [SMConfig listFont].pointSize;
     _sliderForPostFont.value = [SMConfig postFont].pointSize;
@@ -350,6 +354,11 @@ static SectionData sections[] = {
         [def setBool:sender.on forKey:USERDEFAULTS_CONFIG_ENABLE_MOBILE_AUTO_LOAD_IMAGE];
         action = @"enableMobileAutoLoadImage";
     }
+    
+    if (sender == _switchForTapPaging) {
+        [def setBool:sender.on forKey:USERDEFAULTS_CONFIG_ENABLE_TAP_PAGING];
+        action = @"enableTapPaging";
+    }
 
     [SMUtils trackEventWithCategory:@"setting" action:action label:sender.on ? @"on" : @"off"];
 }
@@ -391,6 +400,8 @@ static SectionData sections[] = {
             return _cellForOptimizePostContent;
         case CellTypeEnableMobileAutoLoadImage:
             return _cellForEnableMobileAutoLoadImage;
+        case CellTypeTapPaging:
+            return _cellForTapPaging;
             
         case CellTypeEnableQMD:
             return _cellForShowQMD;

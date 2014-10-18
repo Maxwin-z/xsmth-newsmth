@@ -24,6 +24,7 @@
 + (BOOL)disableAd;
 + (BOOL)isPro;
 + (BOOL)enableMobileAutoLoadImage;
++ (BOOL)enableTapPaing;
 
 + (void)addBoardToHistory:(SMBoard *)board;
 + (NSArray *)historyBoards;
