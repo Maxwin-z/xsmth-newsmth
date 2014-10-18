@@ -224,7 +224,7 @@
 {
     NSDictionary* info = [n userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
-    if ([SMUtils isPad]) {
+    if ([SMUtils isPad] && [SMUtils systemVersion] < 8) {
         _keyboardHeight = [SMUtils isPortrait] ? kbSize.height : kbSize.width;
     } else {
         _keyboardHeight = kbSize.height;
