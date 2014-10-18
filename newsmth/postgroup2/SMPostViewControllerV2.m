@@ -157,7 +157,13 @@
     html = [html stringByReplacingOccurrencesOfString:@"{__t__}" withString:[NSString stringWithFormat:@"%@", @([NSDate timeIntervalSinceReferenceDate])]];
     
     BOOL autoLoadImage = [[Reachability reachabilityForInternetConnection] isReachableViaWiFi] || [SMConfig enableMobileAutoLoadImage];
-    html = [html stringByReplacingOccurrencesOfString:@"{__autoload__}" withString: autoLoadImage ? @"true" : @"false"];
+    
+    NSDictionary *config = @{
+                             @"autoload": @(autoLoadImage),
+                             @"showQMD": @([SMConfig enableShowQMD]),
+                             @"tapPaging": @([SMConfig enableTapPaing])
+                             };
+    html = [html stringByReplacingOccurrencesOfString:@"{__config__}" withString:[SMUtils json2string:config]];
     
     [SMUtils writeData:[html dataUsingEncoding:NSUTF8StringEncoding] toDocumentFolder:@"/post/index2.html"];
     postPagePath = [NSString stringWithFormat:@"%@/post/index2.html", documentPath];

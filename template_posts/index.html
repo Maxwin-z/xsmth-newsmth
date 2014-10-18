@@ -15,7 +15,7 @@ a {}
 <script type="text/javascript" src="SMAppControl.js"></script>
 <script type="text/javascript" src="../posts/{__cachedjsfile__}.js?t={__t__}"></script>
 <script type="text/javascript">
-var autoloadImage = {__autoload__};
+var config = {__config__};
 </script>
 <style type="text/css">
 * {
@@ -191,21 +191,23 @@ function style2string (styles) {
 ////////////////////////////////////////////////////////////
 //// touch events
 
-var dc = new SMAppControl(document.body);
-dc.highlight = false;
-dc.onClick = function (event) {
-	if (event.target.tagName == 'A' || event.target.className == 'ximg'
-		|| event.target.className == 'action_button') {
-		return ;
-	}
-	var touch = event.touches[0];
-	var height = $(window).height();
-	var scrollTop = $(window).scrollTop();
-	var y = touch.pageY - scrollTop;
-	if (y > height / 5 * 2) {
-		SMApp.scrollTo(scrollTop + height - 50);
-	} else {
-		SMApp.scrollTo(scrollTop - height);
+if (config.tapPaging) {
+	var dc = new SMAppControl(document.body);
+	dc.highlight = false;
+	dc.onClick = function (event) {
+		if (event.target.tagName == 'A' || event.target.className == 'ximg'
+			|| event.target.className == 'action_button') {
+			return ;
+		}
+		var touch = event.touches[0];
+		var height = $(window).height();
+		var scrollTop = $(window).scrollTop();
+		var y = touch.pageY - scrollTop;
+		if (y > height / 5 * 2) {
+			SMApp.scrollTo(scrollTop + height - 50);
+		} else {
+			SMApp.scrollTo(scrollTop - height);
+		}
 	}
 }
 
@@ -314,7 +316,7 @@ function renderPosts(posts) {
 			onImageClick(img);
 		});
 		var info = img.parent().find('.ximg-info');
-		var autoload = autoloadImage;
+		var autoload = config.autoload;
 		loadImage(img, autoload);
 		if (!autoload) {
 			info.html('点击加载图片');
