@@ -203,7 +203,7 @@ NSString *tpl =
     if (optimizeForIP4) {
         // clear labels
         int contentLabelTag = 2014;
-        for (int i = self.labelForContent.superview.subviews.count - 1; i >= 0; --i) {
+        for (int i = (int)(self.labelForContent.superview.subviews.count) - 1; i >= 0; --i) {
             UIView *v = self.labelForContent.superview.subviews[i];
             if (v.tag == contentLabelTag) {
                 [v removeFromSuperview];

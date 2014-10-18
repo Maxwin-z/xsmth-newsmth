@@ -13,7 +13,7 @@
 
 - (void)insertPost:(SMPost *)post;
 - (void)queryPost:(int)pid board:(NSString *)boardName completed:(void (^)(SMPost *post))completed;
-- (void)deletePostsWithGid:(int)gid board:(NSString *)boardName;
+- (void)deletePostsWithGid:(NSInteger)gid board:(NSString *)boardName;
 
 // unread count
 - (void)insertPostReadCount:(SMPost *)post type:(NSInteger)type;

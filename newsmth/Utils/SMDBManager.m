@@ -102,7 +102,7 @@
     }];
 }
 
-- (void)deletePostsWithGid:(int)gid board:(NSString *)boardName
+- (void)deletePostsWithGid:(NSInteger)gid board:(NSString *)boardName
 {
     [self.dbQueue inDatabase:^(FMDatabase *db) {
         [db executeUpdate:@"DELETE FROM posts WHERE gid=? and board=?", @(gid), boardName];

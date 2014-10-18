@@ -265,7 +265,7 @@
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"打开", nil];
     [sheet.rac_buttonClickedSignal subscribeNext:^(id x) {
         NSInteger buttonIndex = [x integerValue];
-        XLog_d(@"%d", buttonIndex);
+        XLog_d(@"%@", @(buttonIndex));
     }];
     [sheet showInView:self.view];
     return NO;
