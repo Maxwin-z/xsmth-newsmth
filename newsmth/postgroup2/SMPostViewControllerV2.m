@@ -30,6 +30,7 @@
 #import "SMMailComposeViewController.h"
 #import "SMWritePostViewController.h"
 #import "SMIPadSplitViewController.h"
+#import "SMImageViewerViewController.h"
 
 #import "Reachability.h"
 
@@ -480,7 +481,7 @@
 - (void)apiTapImage:(NSDictionary *)parameters
 {
     NSString *url = parameters[@"url"];
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"保存图片", nil];
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"保存图片", @"查看大图", nil];
     @weakify(sheet);
     [sheet.rac_buttonClickedSignal subscribeNext:^(id x) {
         @strongify(sheet);
@@ -493,6 +494,13 @@
         if ([title isEqualToString:@"保存图片"]) {
             UIImage *image = [[XImageViewCache sharedInstance] getImage:url];
             UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+        }
+        
+        if ([title isEqualToString:@"查看大图"]) {
+            UIImage *image = [[XImageViewCache sharedInstance] getImage:url];
+            SMImageViewerViewController *vc = [SMImageViewerViewController new];
+            vc.image = image;
+            [self.navigationController pushViewController:vc animated:YES];
         }
     }];
     [sheet showInView:self.view];

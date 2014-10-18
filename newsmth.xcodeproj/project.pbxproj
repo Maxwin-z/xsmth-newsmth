@@ -132,6 +132,7 @@
 		C1671441176766FD00F56535 /* SMMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1671440176766FD00F56535 /* SMMainViewController.m */; };
 		C16C1098179A1CA200A14727 /* SMNotice.m in Sources */ = {isa = PBXBuildFile; fileRef = C16C1097179A1CA200A14727 /* SMNotice.m */; };
 		C16C109A179A238F00A14727 /* notice.js in Resources */ = {isa = PBXBuildFile; fileRef = C16C1099179A238F00A14727 /* notice.js */; };
+		C16CE53B19F2689B00B078A6 /* SMImageViewerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C16CE53A19F2689B00B078A6 /* SMImageViewerViewController.m */; };
 		C176AC1118C202FA00B024C7 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C176AC0E18C202FA00B024C7 /* libWeChatSDK.a */; };
 		C17F4B83178C0A21002F4934 /* SMImageUploadListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C17F4B81178C0A21002F4934 /* SMImageUploadListViewController.m */; };
 		C17F4B84178C0A21002F4934 /* SMImageUploadListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C17F4B82178C0A21002F4934 /* SMImageUploadListViewController.xib */; };
@@ -524,6 +525,8 @@
 		C16C1096179A1CA200A14727 /* SMNotice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMNotice.h; sourceTree = "<group>"; };
 		C16C1097179A1CA200A14727 /* SMNotice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMNotice.m; sourceTree = "<group>"; };
 		C16C1099179A238F00A14727 /* notice.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = notice.js; sourceTree = "<group>"; };
+		C16CE53919F2689B00B078A6 /* SMImageViewerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMImageViewerViewController.h; sourceTree = "<group>"; };
+		C16CE53A19F2689B00B078A6 /* SMImageViewerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMImageViewerViewController.m; sourceTree = "<group>"; };
 		C176AC0E18C202FA00B024C7 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
 		C176AC0F18C202FA00B024C7 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		C176AC1018C202FA00B024C7 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
@@ -1256,6 +1259,8 @@
 			children = (
 				C1B966FB19B18D2E00ABD136 /* SMPostViewControllerV2.h */,
 				C1B966FC19B18D2E00ABD136 /* SMPostViewControllerV2.m */,
+				C16CE53919F2689B00B078A6 /* SMImageViewerViewController.h */,
+				C16CE53A19F2689B00B078A6 /* SMImageViewerViewController.m */,
 			);
 			path = postgroup2;
 			sourceTree = "<group>";
@@ -2145,6 +2150,7 @@
 				C1C07A661796857900906ED7 /* OWTwitterActivity.m in Sources */,
 				C16C1098179A1CA200A14727 /* SMNotice.m in Sources */,
 				C1FF62B1179E6DF4001F7A15 /* SMPostViewController.m in Sources */,
+				C16CE53B19F2689B00B078A6 /* SMImageViewerViewController.m in Sources */,
 				C1D190D017F7F3E00056F3FE /* XScrollIndicator.m in Sources */,
 				C1C18D9B17A533F3008C598C /* SMMailViewController.m in Sources */,
 				C1C18DA617A534D1008C598C /* SMAtMeViewController.m in Sources */,
