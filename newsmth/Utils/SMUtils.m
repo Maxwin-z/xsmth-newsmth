@@ -23,7 +23,7 @@
 }
 + (NSString *)appVersionString
 {
-    return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
+    return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
 }
 
 + (BOOL)isPad
