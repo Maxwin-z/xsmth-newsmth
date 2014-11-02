@@ -13,8 +13,9 @@
     #import <Foundation/Foundation.h>
 
 #import <ReactiveCocoa/ReactiveCocoa.h>
+#import <ReactiveCocoa/RACEXTScope.h>
 //#import <ReactiveCocoa/EXTScope.h>
-#import "EXTScope.h"
+//#import "EXTScope.h"
 
 #import "XLogUtil.h"
 #import "SMUtils.h"

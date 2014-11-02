@@ -53,10 +53,6 @@
 		C10F2F8517E595A100F83206 /* SMMailInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C10F2F8317E595A100F83206 /* SMMailInfoViewController.m */; };
 		C10F2F8617E595A100F83206 /* SMMailInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C10F2F8417E595A100F83206 /* SMMailInfoViewController.xib */; };
 		C10F2F8917E59E5A00F83206 /* mailcontent.js in Resources */ = {isa = PBXBuildFile; fileRef = C10F2F8717E59E4800F83206 /* mailcontent.js */; };
-		C111548C19C022570025A1D2 /* EXTConcreteProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = C111548319C022570025A1D2 /* EXTConcreteProtocol.m */; };
-		C111548D19C022570025A1D2 /* EXTRuntimeExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = C111548619C022570025A1D2 /* EXTRuntimeExtensions.m */; };
-		C111548E19C022570025A1D2 /* EXTScope.m in Sources */ = {isa = PBXBuildFile; fileRef = C111548819C022570025A1D2 /* EXTScope.m */; };
-		C111548F19C022570025A1D2 /* EXTSelectorChecking.m in Sources */ = {isa = PBXBuildFile; fileRef = C111548A19C022570025A1D2 /* EXTSelectorChecking.m */; };
 		C111D62919CEF16900D4DC71 /* common_share_icon_weixin_friends_ios8@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C111D62719CEF16900D4DC71 /* common_share_icon_weixin_friends_ios8@2x.png */; };
 		C111D62A19CEF16900D4DC71 /* common_share_icon_weixin_ios8@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C111D62819CEF16900D4DC71 /* common_share_icon_weixin_ios8@2x.png */; };
 		C111D62C19CF0F2F00D4DC71 /* template_posts.zip in Resources */ = {isa = PBXBuildFile; fileRef = C111D62B19CF0F2F00D4DC71 /* template_posts.zip */; };
@@ -398,16 +394,6 @@
 		C10F2F8317E595A100F83206 /* SMMailInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMMailInfoViewController.m; sourceTree = "<group>"; };
 		C10F2F8417E595A100F83206 /* SMMailInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMMailInfoViewController.xib; sourceTree = "<group>"; };
 		C10F2F8717E59E4800F83206 /* mailcontent.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = mailcontent.js; sourceTree = "<group>"; };
-		C111548219C022570025A1D2 /* EXTConcreteProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTConcreteProtocol.h; sourceTree = "<group>"; };
-		C111548319C022570025A1D2 /* EXTConcreteProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXTConcreteProtocol.m; sourceTree = "<group>"; };
-		C111548419C022570025A1D2 /* EXTKeyPathCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTKeyPathCoding.h; sourceTree = "<group>"; };
-		C111548519C022570025A1D2 /* EXTRuntimeExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTRuntimeExtensions.h; sourceTree = "<group>"; };
-		C111548619C022570025A1D2 /* EXTRuntimeExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXTRuntimeExtensions.m; sourceTree = "<group>"; };
-		C111548719C022570025A1D2 /* EXTScope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTScope.h; sourceTree = "<group>"; };
-		C111548819C022570025A1D2 /* EXTScope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXTScope.m; sourceTree = "<group>"; };
-		C111548919C022570025A1D2 /* EXTSelectorChecking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTSelectorChecking.h; sourceTree = "<group>"; };
-		C111548A19C022570025A1D2 /* EXTSelectorChecking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXTSelectorChecking.m; sourceTree = "<group>"; };
-		C111548B19C022570025A1D2 /* metamacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = metamacros.h; sourceTree = "<group>"; };
 		C111D62719CEF16900D4DC71 /* common_share_icon_weixin_friends_ios8@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "common_share_icon_weixin_friends_ios8@2x.png"; sourceTree = "<group>"; };
 		C111D62819CEF16900D4DC71 /* common_share_icon_weixin_ios8@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "common_share_icon_weixin_ios8@2x.png"; sourceTree = "<group>"; };
 		C111D62B19CF0F2F00D4DC71 /* template_posts.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; name = template_posts.zip; path = template_posts/template_posts.zip; sourceTree = "<group>"; };
@@ -938,23 +924,6 @@
 			path = cells;
 			sourceTree = "<group>";
 		};
-		C111548119C022570025A1D2 /* extobjc */ = {
-			isa = PBXGroup;
-			children = (
-				C111548219C022570025A1D2 /* EXTConcreteProtocol.h */,
-				C111548319C022570025A1D2 /* EXTConcreteProtocol.m */,
-				C111548419C022570025A1D2 /* EXTKeyPathCoding.h */,
-				C111548519C022570025A1D2 /* EXTRuntimeExtensions.h */,
-				C111548619C022570025A1D2 /* EXTRuntimeExtensions.m */,
-				C111548719C022570025A1D2 /* EXTScope.h */,
-				C111548819C022570025A1D2 /* EXTScope.m */,
-				C111548919C022570025A1D2 /* EXTSelectorChecking.h */,
-				C111548A19C022570025A1D2 /* EXTSelectorChecking.m */,
-				C111548B19C022570025A1D2 /* metamacros.h */,
-			);
-			path = extobjc;
-			sourceTree = "<group>";
-		};
 		C121F2991750EE790081FD87 /* jsParser */ = {
 			isa = PBXGroup;
 			children = (
@@ -1268,7 +1237,6 @@
 		C1BA923917954EC300F76ACF /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
-				C111548119C022570025A1D2 /* extobjc */,
 				C1F8103C18E5B734001B3759 /* fmdb */,
 				C13CB55A18AF62B4003F7407 /* SSZipArchive */,
 				C1C07A141796857900906ED7 /* OWActivityViewController */,
@@ -1783,6 +1751,7 @@
 				ORGANIZATIONNAME = nju;
 				TargetAttributes = {
 					C1BFB8D8174F6A620092FD2E = {
+						DevelopmentTeam = 4K4MS8S6B8;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -2020,7 +1989,6 @@
 				C1BFB9C3174F6F5C0092FD2E /* ASIAuthenticationDialog.m in Sources */,
 				C1B966FD19B18D2E00ABD136 /* SMPostViewControllerV2.m in Sources */,
 				C1BFB9C4174F6F5C0092FD2E /* ASIDataCompressor.m in Sources */,
-				C111548D19C022570025A1D2 /* EXTRuntimeExtensions.m in Sources */,
 				C15489C51888F9E10046190C /* SMEULAViewController.m in Sources */,
 				C14B22F117FAB00700CF081A /* XTimeLabel.m in Sources */,
 				C1BFB9C5174F6F5C0092FD2E /* ASIDataDecompressor.m in Sources */,
@@ -2044,7 +2012,6 @@
 				C121F29E175106A00081FD87 /* SMWebParser.m in Sources */,
 				C10D16081755E7A0002D6FAD /* SMWebLoaderOperation.m in Sources */,
 				C10D160B1755EFEE002D6FAD /* SMWebLoaderOperationQueue.m in Sources */,
-				C111548E19C022570025A1D2 /* EXTScope.m in Sources */,
 				C10D16111756059B002D6FAD /* SMViewController.m in Sources */,
 				C10F2F8517E595A100F83206 /* SMMailInfoViewController.m in Sources */,
 				C10D16BE1756EF21002D6FAD /* SMMessage.m in Sources */,
@@ -2056,7 +2023,6 @@
 				C1E628A01764BAFA007ACF2A /* SMBaseData.m in Sources */,
 				C1CBC4BB19CDAE790074E1B7 /* SMSingleAuthorActivity.m in Sources */,
 				C1E628AA1764C594007ACF2A /* SMMainPage.m in Sources */,
-				C111548F19C022570025A1D2 /* EXTSelectorChecking.m in Sources */,
 				C1E628AB1764C594007ACF2A /* SMPostGroup.m in Sources */,
 				C1E628AC1764C594007ACF2A /* SMSection.m in Sources */,
 				C1ABAB111766107A007DE168 /* SMMainpageCell.m in Sources */,
@@ -2084,7 +2050,6 @@
 				C1F8107418E5B734001B3759 /* FMDatabaseQueue.m in Sources */,
 				C13CB57B18AF62B4003F7407 /* mztools.c in Sources */,
 				C1CC1B40177857FB00FC63A8 /* P2PNavigationController.m in Sources */,
-				C111548C19C022570025A1D2 /* EXTConcreteProtocol.m in Sources */,
 				C1CC1B41177857FB00FC63A8 /* P2PViewController.m in Sources */,
 				C1011D8E17787DA400E0485D /* SMWriteResult.m in Sources */,
 				C1011D96177946D500E0485D /* SMUtils.m in Sources */,
