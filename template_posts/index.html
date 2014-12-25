@@ -514,6 +514,46 @@ function parseArticle(article) {
 	return post;
 }
 
+// @2.5.2. swipe left 
+;(function () {
+	var touchStartPos = {x: 0, y: 0};
+	var touchEndPos = {x: 0, y: 0};
+	var touchTarget = null;
+	var swipeLeft = false;
+	var moved = false;
+	$('#post-list').on('touchstart', function (evt) {
+		var touch = evt.touches[0];
+		touchTarget = touch.target;	
+		touchStartPos = {x: touch.pageX, y: touch.pageY};
+		moved = false;
+	}).on('touchmove', function (evt) {
+		if (!moved) {
+			swipeLeft = true;
+			moved = true;
+		}
+		var touch = evt.touches[0];
+		touchEndPos = {x: touch.pageX, y: touch.pageY};
+		var deltaX = touchEndPos.x - touchStartPos.x;
+		var deltaY = touchEndPos.y - touchStartPos.y;
+		if (deltaX > 0 || (Math.abs(deltaX) < Math.abs(deltaY))) {
+			swipeLeft = false;
+		}
+		console.log('end', deltaX, deltaY, swipeLeft);
+	}).on('touchend', function (evt) {
+		if (moved && swipeLeft) {
+			var li = $(touchTarget).parents('li.post');
+			var pid = li.attr('id').substring(5);	// post_
+			SMApp.tapAction(pid);
+		}
+		// console.log('end', touch.pageX, touch.pageY);
+	})
+
+})();
+
+;(function () {
+
+})();
+
 </script>
 </body>
 </html>
