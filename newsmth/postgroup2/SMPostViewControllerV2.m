@@ -53,6 +53,9 @@
 @property (strong, nonatomic) SMPost *postForAction;    // 准备回复的主题
 @property (strong, nonatomic) SMWebLoaderOperation *forwardOp;
 
+#pragma mark bottom bar
+@property (strong, nonatomic) IBOutlet UIView *viewForButtomBar;
+
 @end
 
 @implementation SMPostViewControllerV2
@@ -96,6 +99,15 @@
         self.navigationItem.rightBarButtonItems = items;
     }
 
+    // add bottom bar
+    [[NSBundle mainBundle] loadNibNamed:@"SMPostViewBottomBar" owner:self options:nil];
+    frame = self.viewForButtomBar.frame;
+    frame.origin.y = self.view.frame.size.height - frame.size.height;
+    self.viewForButtomBar.frame = frame;
+    self.viewForButtomBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin
+    | UIViewAutoresizingFlexibleWidth;
+    [self.view addSubview:self.viewForButtomBar];
+    
     // hide status bar
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     [self setNeedsStatusBarAppearanceUpdate];
@@ -105,6 +117,12 @@
 - (BOOL)prefersStatusBarHidden 
 {
     return YES;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 - (void)onRightBarButtonClick
@@ -261,6 +279,7 @@
 {
     [self savePostInfo];
     XLog_d(@"%s", __PRETTY_FUNCTION__);
+    [self.navigationController setNavigationBarHidden:NO];
 }
 
 #pragma mark - UIWebViewDelegate
@@ -807,6 +826,12 @@
     if (opt == self.forwardOp) {
         [self toast:error.message];
     }
+}
+
+#pragma mark - bottom bar
+- (IBAction)onBackButtonClick:(id)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

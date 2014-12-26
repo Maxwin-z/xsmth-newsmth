@@ -143,6 +143,7 @@
 		C1902DC0177E672E00967211 /* button_reply@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1902DBF177E672E00967211 /* button_reply@2x.png */; };
 		C191281D17586DDF005AC60F /* XImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C191281C17586DDF005AC60F /* XImageView.m */; };
 		C191283D17588501005AC60F /* XImageViewCache.m in Sources */ = {isa = PBXBuildFile; fileRef = C191283C17588501005AC60F /* XImageViewCache.m */; };
+		C197FC0A1A4D88670097BC06 /* SMPostViewBottomBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = C197FC091A4D88670097BC06 /* SMPostViewBottomBar.xib */; };
 		C19FF0AF1769A4F000EB6F7E /* login.js in Resources */ = {isa = PBXBuildFile; fileRef = C144B68E1768C62500DA2958 /* login.js */; };
 		C19FF0B21769A71C00EB6F7E /* popup_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C19FF0B11769A71C00EB6F7E /* popup_bg@2x.png */; };
 		C19FF0B41769A7A800EB6F7E /* SMViewControllerPopover.xib in Resources */ = {isa = PBXBuildFile; fileRef = C19FF0B31769A7A700EB6F7E /* SMViewControllerPopover.xib */; };
@@ -536,6 +537,7 @@
 		C191281C17586DDF005AC60F /* XImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XImageView.m; sourceTree = "<group>"; };
 		C191283B17588501005AC60F /* XImageViewCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XImageViewCache.h; sourceTree = "<group>"; };
 		C191283C17588501005AC60F /* XImageViewCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XImageViewCache.m; sourceTree = "<group>"; };
+		C197FC091A4D88670097BC06 /* SMPostViewBottomBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMPostViewBottomBar.xib; sourceTree = "<group>"; };
 		C19FF0B11769A71C00EB6F7E /* popup_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "popup_bg@2x.png"; sourceTree = "<group>"; };
 		C19FF0B31769A7A700EB6F7E /* SMViewControllerPopover.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMViewControllerPopover.xib; sourceTree = "<group>"; };
 		C19FF0B61769CA0F00EB6F7E /* SMBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMBoard.h; sourceTree = "<group>"; };
@@ -1228,6 +1230,7 @@
 			children = (
 				C1B966FB19B18D2E00ABD136 /* SMPostViewControllerV2.h */,
 				C1B966FC19B18D2E00ABD136 /* SMPostViewControllerV2.m */,
+				C197FC091A4D88670097BC06 /* SMPostViewBottomBar.xib */,
 				C16CE53919F2689B00B078A6 /* SMImageViewerViewController.h */,
 				C16CE53A19F2689B00B078A6 /* SMImageViewerViewController.m */,
 			);
@@ -1839,6 +1842,7 @@
 				C185CD3C1766286100BD3714 /* SMPostGroupContentCell.xib in Resources */,
 				C1300A78187D3776006ACA5C /* icon_80@2x.png in Resources */,
 				C185CD4117662BBF00BD3714 /* SMPostGroupAttachCell.xib in Resources */,
+				C197FC0A1A4D88670097BC06 /* SMPostViewBottomBar.xib in Resources */,
 				C167143B1766D01700F56535 /* XPullRefreshTableViewHeader.xib in Resources */,
 				C167143D1766D02100F56535 /* XPullRefreshTableViewFooter.xib in Resources */,
 				C11581621768285C008A421A /* SMLeftViewController.xib in Resources */,
