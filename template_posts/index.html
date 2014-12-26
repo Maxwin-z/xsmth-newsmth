@@ -535,7 +535,7 @@ function parseArticle(article) {
 		touchEndPos = {x: touch.pageX, y: touch.pageY};
 		var deltaX = touchEndPos.x - touchStartPos.x;
 		var deltaY = touchEndPos.y - touchStartPos.y;
-		if (deltaX > 0 || (Math.abs(deltaX) < Math.abs(deltaY))) {
+		if (deltaX > 0 || (Math.abs(deltaX * 2) < Math.abs(deltaY))) {
 			swipeLeft = false;
 		}
 		console.log('end', deltaX, deltaY, swipeLeft);

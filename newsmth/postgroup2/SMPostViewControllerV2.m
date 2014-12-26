@@ -72,8 +72,10 @@
     [self setupWebView];
     
     CGRect frame = self.view.bounds;
+    /*
     frame.origin.y = SM_TOP_INSET;
     frame.size.height -= SM_TOP_INSET;
+     */
     WKVerticalScrollBar *bar = [[WKVerticalScrollBar alloc] initWithFrame:frame];
     bar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:bar];
@@ -93,8 +95,17 @@
     if (items.count > 0) {
         self.navigationItem.rightBarButtonItems = items;
     }
+
+    // hide status bar
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    [self setNeedsStatusBarAppearanceUpdate];
+    [self.navigationController setNavigationBarHidden:YES];
 }
 
+- (BOOL)prefersStatusBarHidden 
+{
+    return YES;
+}
 
 - (void)onRightBarButtonClick
 {
@@ -143,9 +154,11 @@
     
     
     UIScrollView *scrollView = self.webView.scrollView;
+    /*
     UIEdgeInsets insets = scrollView.contentInset;
     insets.top = SM_TOP_INSET;
     scrollView.contentInset = scrollView.scrollIndicatorInsets = insets;
+     */
     scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
 
     // add refresh control

@@ -74,6 +74,7 @@ static SMMainViewController *_instance;
     _centerViewController = [[P2PNavigationController alloc] init];
     _centerViewController.view.frame = self.view.bounds;
     [self.view addSubview:_centerViewController.view];
+    [self addChildViewController:_centerViewController];
 
     SMMainpageViewController *mainpageViewController = [[SMMainpageViewController alloc] init];
     [self setRootViewController:mainpageViewController];
@@ -89,6 +90,16 @@ static SMMainViewController *_instance;
 {
     [super viewDidAppear:animated];
     [self showEndUserLicenseAgreements];
+}
+
+- (UIViewController *)childViewControllerForStatusBarHidden
+{
+    return _centerViewController;
+}
+
+- (UIViewController *)childViewControllerForStatusBarStyle
+{
+    return _centerViewController;
 }
 
 - (void)makeupMenuBarButtonItem
