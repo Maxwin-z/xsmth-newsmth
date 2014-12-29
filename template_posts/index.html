@@ -255,11 +255,12 @@ setTimeout(function () {
 		}
 		renderPosts(info.posts);
 
-		var ancher = $('<a name="last_loaded"></a>');
-		$('#post-list').append(ancher);
+		// var ancher = $('<a name="last_loaded"></a>');
+		// $('#post-list').append(ancher);
 		setTimeout(function () {
-			window.location = window.location.href + '#last_loaded';
-		}, 0);
+			$(window).scrollTop(window.info.maxScrollY * 2);
+			// window.location = window.location.href + '#last_loaded';
+		}, 100);
 
 		SMApp.savePostsInfo(window.info);
 	}
@@ -516,6 +517,8 @@ function parseArticle(article) {
 
 // @2.5.2. swipe left 
 ;(function () {
+	// 不好用，已屏蔽
+	return ;
 	var touchStartPos = {x: 0, y: 0};
 	var touchEndPos = {x: 0, y: 0};
 	var touchTarget = null;
@@ -550,6 +553,7 @@ function parseArticle(article) {
 
 })();
 
+// save last position
 ;(function () {
 
 })();

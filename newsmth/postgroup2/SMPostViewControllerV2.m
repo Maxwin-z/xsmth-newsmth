@@ -53,6 +53,8 @@
 @property (strong, nonatomic) SMPost *postForAction;    // 准备回复的主题
 @property (strong, nonatomic) SMWebLoaderOperation *forwardOp;
 
+@property (assign, nonatomic) CGFloat maxScrollY;
+
 #pragma mark bottom bar
 @property (strong, nonatomic) IBOutlet UIView *viewForButtomBar;
 
@@ -64,6 +66,7 @@
 {
     [super viewDidLoad];
     self.posts = [NSMutableArray new];
+    self.maxScrollY = 0;
     
     NSString *title = self.post.title;
     if (self.author.length > 0) {
@@ -256,7 +259,7 @@
     NSMutableDictionary *info = [NSMutableDictionary new];
     [info setObject:@(self.currentPage) forKey:@"currentPage"];
     [info setObject:@(self.totalPage) forKey:@"totalPage"];
-    
+    [info setObject:@(self.maxScrollY) forKey:@"maxScrollY"];
     NSMutableArray *posts = [NSMutableArray new];
     [self.posts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         SMPost *post = obj;
@@ -328,6 +331,9 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     [self sendScrollToBottomEvent:scrollView];
+    
+    XLog_d(@"%@", @(scrollView.contentOffset.y));
+    self.maxScrollY = MAX(self.maxScrollY, scrollView.contentOffset.y);
 }
 
 - (void)sendScrollToBottomEvent:(UIScrollView *)scrollView
