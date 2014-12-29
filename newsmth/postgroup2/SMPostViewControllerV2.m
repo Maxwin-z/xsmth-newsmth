@@ -74,10 +74,19 @@
     }
     self.title = title;
     
+    // add bottom bar
+    [[NSBundle mainBundle] loadNibNamed:@"SMPostViewBottomBar" owner:self options:nil];
+    CGRect frame = self.viewForButtomBar.frame;
+    frame.origin.y = self.view.frame.size.height - frame.size.height;
+    self.viewForButtomBar.frame = frame;
+    self.viewForButtomBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin
+    | UIViewAutoresizingFlexibleWidth;
+    [self.view addSubview:self.viewForButtomBar];
+    
     self.imageLoaders = [NSMutableDictionary new];
     [self setupWebView];
     
-    CGRect frame = self.view.bounds;
+    frame = self.webView.bounds;
     /*
     frame.origin.y = SM_TOP_INSET;
     frame.size.height -= SM_TOP_INSET;
@@ -101,15 +110,6 @@
     if (items.count > 0) {
         self.navigationItem.rightBarButtonItems = items;
     }
-
-    // add bottom bar
-    [[NSBundle mainBundle] loadNibNamed:@"SMPostViewBottomBar" owner:self options:nil];
-    frame = self.viewForButtomBar.frame;
-    frame.origin.y = self.view.frame.size.height - frame.size.height;
-    self.viewForButtomBar.frame = frame;
-    self.viewForButtomBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin
-    | UIViewAutoresizingFlexibleWidth;
-    [self.view addSubview:self.viewForButtomBar];
     
     // hide status bar
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
@@ -154,7 +154,9 @@
 
 - (void)setupWebView
 {
-    self.webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
+    CGRect frame = self.view.bounds;
+    frame.size.height -= self.viewForButtomBar.frame.size.height;
+    self.webView = [[UIWebView alloc] initWithFrame:frame];
     self.webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.webView.dataDetectorTypes = UIDataDetectorTypeLink;
     self.webView.scalesPageToFit = YES;
@@ -177,7 +179,7 @@
     UIScrollView *scrollView = self.webView.scrollView;
     /*
     UIEdgeInsets insets = scrollView.contentInset;
-    insets.top = SM_TOP_INSET;
+    insets.bottom += self.viewForButtomBar.frame.size.height;
     scrollView.contentInset = scrollView.scrollIndicatorInsets = insets;
      */
     scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
@@ -332,7 +334,7 @@
 {
     [self sendScrollToBottomEvent:scrollView];
     
-    XLog_d(@"%@", @(scrollView.contentOffset.y));
+//    XLog_d(@"%@", @(scrollView.contentOffset.y));
     self.maxScrollY = MAX(self.maxScrollY, scrollView.contentOffset.y);
 }
 

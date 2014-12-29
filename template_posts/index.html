@@ -205,6 +205,7 @@ if (config.tapPaging) {
 		var y = touch.pageY - scrollTop;
 		if (y > height / 5 * 2) {
 			SMApp.scrollTo(scrollTop + height - 50);
+			setTimeout(detectScrollToBotttom, 100);
 		} else {
 			SMApp.scrollTo(scrollTop - height);
 		}
@@ -218,7 +219,13 @@ var height4loading = $('#loading').height();
 
 function detectScrollToBotttom () {
 	// console.log($(window).height(), $(window).scrollTop(), $(document.body).height());
-	if ($(window).scrollTop() + height4loading + $(window).height() > $(document.body).height()) {
+	// 提前触发加载逻辑, wifi 下一直加载
+	var shouldload = config.autoload;
+
+	height4loading = Math.max($(window).height(), 960);
+	shouldload |= $(window).scrollTop() + height4loading + $(window).height() > $(document.body).height();
+
+	if (shouldload) {
 		// console.log('try to load more');
 		if (currentPage != totalPage) {
 			loadNext();
