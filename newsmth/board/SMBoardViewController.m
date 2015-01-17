@@ -212,9 +212,6 @@
     if (!more) {
         _page = 1;
         [SMUtils trackEventWithCategory:@"board" action:@"refresh" label:_board.name];
-    } else {
-        ++_page;
-        [SMUtils trackEventWithCategory:@"board" action:@"loadmore" label:[NSString stringWithFormat:@"%@:%d", _board.name, _page]];
     }
     NSString *url;
     if (_viewTypeSelector.viewType == SMBoardViewTypeTztSortByReply) {
@@ -299,7 +296,7 @@
     cell.post = _posts[indexPath.row];
     cell.delegate = self;
     
-    if (indexPath.row == _posts.count - 1) {
+    if (indexPath.row > _posts.count - 10) { // load more when only 10 posts left
         [self loadData:YES];
         [_tableView setLoadMoreShow];
     }
@@ -383,6 +380,7 @@
     }];
 
     _currentPage = board.currentPage;
+    ++self.page;
     
     self.posts = tmp;
     self.failTimes = 0;
