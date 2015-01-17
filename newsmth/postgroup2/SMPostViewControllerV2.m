@@ -115,7 +115,19 @@
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     [self setNeedsStatusBarAppearanceUpdate];
     [self.navigationController setNavigationBarHidden:YES];
+    
+    // setup swipe gesture
+    UISwipeGestureRecognizer *gesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(onSwipeGesture:)];
+    gesture.direction = UISwipeGestureRecognizerDirectionRight;
+    [self.view addGestureRecognizer:gesture];
+    
 }
+
+- (void)onSwipeGesture:(UIGestureRecognizer *)gesture
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 
 - (BOOL)prefersStatusBarHidden 
 {
