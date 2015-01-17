@@ -83,6 +83,10 @@
             SMApp.send_message('tapAction', {pid: pid});
         },
 
+        reply: function (pid) {
+            SMApp.send_message('reply', {pid: pid});
+        },
+
         savePostsInfo: function (info) {
         	SMApp.send_message('savePostsInfo', info);
         }

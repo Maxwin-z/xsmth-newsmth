@@ -64,6 +64,21 @@ li.post > .author .action_button {
 	background-position: center center;
 }
 
+li.post .action {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	font-size: 80%;
+}
+
+li.post .action span {
+	display: inline-block;
+	border-width: 1px;
+	border-style: solid;
+	border-radius: 5px;
+	padding: 0px 10px;
+	margin-right: 20px;
+}
+
 li.post .post-info {
 	font-size: 30px;
 }
@@ -146,6 +161,10 @@ li.post .post-info {
 			<div class="content">
 				${content}
 			</div>
+			<div class="action">
+				<span class="action_reply" pid="${pid}">回复</span>
+				<span class="action_more" pid="${pid}">···</span>
+			</div>
 		</li>
 </textarea>
 <script type="text/javascript">
@@ -177,6 +196,11 @@ window.onThemeChanged = function (style) {
 		'border-bottom': '1px solid ' + style.textColor
 	}), 0);
 
+	sheet.addRule('li.post .action span', style2string({
+		'color': style.tintColor,
+		'border-color': style.tintColor
+	}), 0);
+
 	$('body').addClass('xsmth');
 }
 
@@ -196,7 +220,7 @@ if (config.tapPaging) {
 	dc.highlight = false;
 	dc.onClick = function (event) {
 		if (event.target.tagName == 'A' || event.target.className == 'ximg'
-			|| event.target.className == 'action_button') {
+			|| event.target.className.indexOf('action') != -1) {
 			return ;
 		}
 		var touch = event.touches[0];
@@ -229,11 +253,11 @@ function detectScrollToBotttom () {
 	}
 	var scrollTop = $(window).scrollTop();
 
-	console.log('s', $(window).scrollTop(), 'h4l', height4loading, 'wh', $(window).height(), 'bh', bodyHeight);
+	// console.log('s', $(window).scrollTop(), 'h4l', height4loading, 'wh', $(window).height(), 'bh', bodyHeight);
 	shouldload = $(window).scrollTop() + height4loading + $(window).height() > bodyHeight; 
 
 	if (shouldload) {
-		console.log('try to load more');
+		// console.log('try to load more');
 		if (currentPage != totalPage) {
 			loadNext();
 		}
@@ -338,6 +362,11 @@ function renderPosts(posts) {
 		}
 	});
 	dom.find('.action_button').on('click', onActionButtonClick);
+	dom.find('.action .action_reply').on('click', function (event) {
+		var pid = $(event.target).attr('pid');
+		SMApp.reply(pid);
+	});
+	dom.find('.action .action_more').on('click', onActionButtonClick);
 }
 
 function onImageClick(img) {
