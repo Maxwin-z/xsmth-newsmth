@@ -221,12 +221,19 @@ function detectScrollToBotttom () {
 	// console.log($(window).height(), $(window).scrollTop(), $(document.body).height());
 	// 提前触发加载逻辑, wifi 下一直加载
 	var shouldload = config.autoload;
+	var bodyHeight = $(document.body).height();
 
 	height4loading = Math.max($(window).height(), 960);
-	shouldload |= $(window).scrollTop() + height4loading + $(window).height() > $(document.body).height();
+	if (currentPage > 0) {
+		height4loading = Math.max(bodyHeight / currentPage, height4loading);
+	}
+	var scrollTop = $(window).scrollTop();
+
+	console.log('s', $(window).scrollTop(), 'h4l', height4loading, 'wh', $(window).height(), 'bh', bodyHeight);
+	shouldload = $(window).scrollTop() + height4loading + $(window).height() > bodyHeight; 
 
 	if (shouldload) {
-		// console.log('try to load more');
+		console.log('try to load more');
 		if (currentPage != totalPage) {
 			loadNext();
 		}
