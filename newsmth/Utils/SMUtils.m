@@ -28,6 +28,7 @@
 
 + (BOOL)isPad
 {
+    return NO;  // debug
     return (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad);
 }
 
