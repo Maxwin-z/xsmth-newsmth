@@ -136,6 +136,16 @@ li.post .post-info {
 	text-align: center;
 }	
 
+.page h1 {
+	text-align: center;
+	padding: 20px 0;
+}
+.anchor_page {
+	height: 1px;
+	overflow: hidden;
+	border: none;
+}
+
 </style>
 </head>
 <body>
@@ -168,7 +178,7 @@ li.post .post-info {
 		</li>
 </textarea>
 <textarea id="tpl_page" style="display: none">
-	<li class="page" id="page_${page}">
+	<li class="page" id="page_${page}" page="${page}">
 		<h1>${page}</h1>
 	</li>
 </textarea>
@@ -278,10 +288,22 @@ btnLoading.onClick = function () {
 
 SMApp.scrollToBottom = detectScrollToBotttom;
 SMApp.loadPage = function (page) {
-	console.log(page);
+	// console.log(page);
+	if (!scroll2page(page))	{
+		needScrollToPage = page;
+		load(page);	
+	}
 }
 $(window).on('scroll', detectScrollToBotttom);
 // $(window).on('scroll', detectCurrentPage);
+function scroll2page(page) {
+	var anchor = $('#anchor_page_' + page + ', #page_' + page);
+	if (anchor.length) {
+		SMApp.scrollTo(anchor.offset().top);
+		return true;
+	}	
+	return false;
+}
 
 ////////////////////////////////////////////////////////////
 var currentPage = 0;
@@ -295,6 +317,8 @@ var isLoading = false;
 var isInvalidPost = false;
 var tpl = $('#tpl_post').val().trim();
 var tplPage = $('#tpl_page').val().trim();
+var loadedPage = {};
+var needScrollToPage = 0;
 
 // load cached
 setTimeout(function () {
@@ -303,6 +327,7 @@ setTimeout(function () {
 		maxPage = info.maxPage;
 		showPageData(window.info);
 		currentPage = info.maxPage;
+		totalPage = info.totalPage;
 
 		try {
 			if (window.info['#' + window.info.maxPage].length == postsCountPerPage) {
@@ -319,6 +344,7 @@ setTimeout(function () {
 		}, 100);
 
 		SMApp.savePage(window.info);
+		SMApp.setCurrentPage(maxPage, totalPage);
 
 		// SMApp.savePostsInfo(window.info);
 	}
@@ -343,11 +369,11 @@ function loadNext() {
 		return ;
 	}
 	if (latestPagePostsCount == postsCountPerPage) {
-		++currentPage;
+		++maxPage;
 	}
 	isLoading = true;
 	$('#loading').addClass('loading');
-	load(currentPage);
+	load(maxPage);
 }
 
 
@@ -360,6 +386,11 @@ function renderPage(page) {
 
 function renderPosts(posts, page) {
 	var htmls = [];
+	if ($('#anchor_page_' + page).length == 0) {
+		html.push(
+			'<li id="anchor_page_' + page + '" class="anchor_page"></li>'
+			);
+	}
 	$.each(posts, function (idx, post) {
 		post.page = page;
 		if ($('#post_' + post.pid).length == 0) {
@@ -488,12 +519,22 @@ function makeupLoading () {
 }
 
 function showPageData (data) {
-	for (var page = Math.max(currentPage, 1); page <= data.maxPage; ++page) {
+	var bottomPage = 1;
+	var bottomLi = $('#post-list li:last-child');
+	if (bottomLi.length > 0) {
+		bottomPage = bottomLi.attr('page');
+	}
+	for (var page = bottomPage; page <= data.maxPage; ++page) {
 		if (data['#' + page]) {	// has posts
 			renderPosts(data['#' + page], page);
-		} else {
+			loadedPage[page] = true;
+		} else if (page > bottomPage) {	// 防止上一页重复绘制
 			renderPage(page);
 		}
+	}
+	if (needScrollToPage > 0) {
+		scroll2page(needScrollToPage);
+		needScrollToPage = 0;
 	}
 }
 

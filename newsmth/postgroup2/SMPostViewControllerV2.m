@@ -569,7 +569,12 @@
     NSInteger totalPage = [parameters[@"total"] integerValue];
     self.currentPage = currentPage;
     self.totalPage = totalPage;
-    NSString *title = [NSString stringWithFormat:@"%@/%@", @(currentPage), @(totalPage)];
+    [self updateButtonForPageSelector];
+}
+
+- (void)updateButtonForPageSelector
+{
+    NSString *title = [NSString stringWithFormat:@"%@/%@", @(self.currentPage), @(self.totalPage)];
     [self.buttonForPageSelector setTitle:title forState:UIControlStateNormal];
 }
 
@@ -926,6 +931,7 @@
                                            self.currentPage = selectedIndex + 1;
                                            NSString *js = [NSString stringWithFormat:@"SMApp.loadPage(%@)", @(self.currentPage)];
                                            [self.webView stringByEvaluatingJavaScriptFromString:js];
+                                           [self updateButtonForPageSelector];
                                        }
                                      cancelBlock:^(ActionSheetStringPicker *picker) {
                                      }
