@@ -553,19 +553,7 @@
 
 - (void)apiSavePageWithPosts:(NSDictionary *)parameters
 {
-    NSArray *posts = parameters[@"posts"];
-    NSString *page = parameters[@"page"];
-    if (!page || !posts) return ;
-    
-    NSInteger maxPage = [parameters[@"maxPage"] integerValue];
-    NSInteger totalPage = [parameters[@"totalPage"] integerValue];
-    self.data[page] = posts;
-    if (maxPage > 0) {
-        self.data[@"maxPage"] = @(maxPage);
-    }
-    if (totalPage > 0) {
-        self.data[@"totalPage"] = @(totalPage);
-    }
+    [self.data addEntriesFromDictionary:parameters];
 }
 
 - (void)apiTapImage:(NSDictionary *)parameters

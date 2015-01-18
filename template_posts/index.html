@@ -505,15 +505,12 @@ function showPosts(body, page) {
 	// });
 
 	var data = {
-		page: '#' + page,
-		posts: posts,
 		maxPage: maxPage,
 		totalPage: totalPage
-	}
+	};
+	data['#' + page] = posts;
 	
-	var pageData = {maxPage: maxPage};
-	pageData['#' + page] = posts;
-	showPageData(pageData);
+	showPageData(data);
 
 	SMApp.savePage(data);
 }
