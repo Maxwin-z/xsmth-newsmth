@@ -387,7 +387,7 @@ function renderPage(page) {
 function renderPosts(posts, page) {
 	var htmls = [];
 	if ($('#anchor_page_' + page).length == 0) {
-		html.push(
+		htmls.push(
 			'<li id="anchor_page_' + page + '" class="anchor_page"></li>'
 			);
 	}
