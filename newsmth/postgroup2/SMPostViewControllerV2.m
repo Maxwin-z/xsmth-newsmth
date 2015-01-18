@@ -278,30 +278,30 @@
 - (void)savePostInfo
 {
     // write to js file
-    NSMutableDictionary *info = [NSMutableDictionary new];
-    [info setObject:@(self.currentPage) forKey:@"currentPage"];
-    [info setObject:@(self.totalPage) forKey:@"totalPage"];
-    [info setObject:@(self.maxScrollY) forKey:@"maxScrollY"];
-    NSMutableArray *posts = [NSMutableArray new];
-    [self.posts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        SMPost *post = obj;
-        NSDictionary *json = [post encode];
-        if (json == nil) {
-            
-        } else {
-            [posts addObject:json];
-        }
-    }];
-    [info setObject:posts forKey:@"posts"];
+//    NSMutableDictionary *info = [NSMutableDictionary new];
+//    [info setObject:@(self.currentPage) forKey:@"currentPage"];
+//    [info setObject:@(self.totalPage) forKey:@"totalPage"];
+//    [info setObject:@(self.maxScrollY) forKey:@"maxScrollY"];
+//    NSMutableArray *posts = [NSMutableArray new];
+//    [self.posts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+//        SMPost *post = obj;
+//        NSDictionary *json = [post encode];
+//        if (json == nil) {
+//            
+//        } else {
+//            [posts addObject:json];
+//        }
+//    }];
+//    [info setObject:posts forKey:@"posts"];
+//    
+//    NSString *json = [SMUtils json2string:info];
+//    NSString *result = [NSString stringWithFormat:@"var info = %@", json];
+//    NSString *file = [NSString stringWithFormat:@"/posts/%@.js", [self cachedJSFilename]];
+//    [SMUtils writeData:[result dataUsingEncoding:NSUTF8StringEncoding] toDocumentFolder:file];
     
-    NSString *json = [SMUtils json2string:info];
+    NSString *json = [SMUtils json2string:self.data];
     NSString *result = [NSString stringWithFormat:@"var info = %@", json];
     NSString *file = [NSString stringWithFormat:@"/posts/%@.js", [self cachedJSFilename]];
-    [SMUtils writeData:[result dataUsingEncoding:NSUTF8StringEncoding] toDocumentFolder:file];
-    
-    json = [SMUtils json2string:self.data];
-    result = [NSString stringWithFormat:@"var info = %@", json];
-    file = [NSString stringWithFormat:@"/posts/info_%@.js", [self cachedJSFilename]];
     [SMUtils writeData:[result dataUsingEncoding:NSUTF8StringEncoding] toDocumentFolder:file];
 //    XLog_d(@"data: %@", [SMUtils json2string:self.data]);
 }
@@ -557,11 +557,11 @@
     NSString *page = parameters[@"page"];
     if (!page || !posts) return ;
     
-    NSInteger currentPage = [parameters[@"currentPage"] integerValue];
+    NSInteger maxPage = [parameters[@"maxPage"] integerValue];
     NSInteger totalPage = [parameters[@"totalPage"] integerValue];
     self.data[page] = posts;
-    if (currentPage > 0) {
-        self.data[@"currentPage"] = @(currentPage);
+    if (maxPage > 0) {
+        self.data[@"maxPage"] = @(maxPage);
     }
     if (totalPage > 0) {
         self.data[@"totalPage"] = @(totalPage);
