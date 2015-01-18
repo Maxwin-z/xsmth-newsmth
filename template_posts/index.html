@@ -519,6 +519,8 @@ function showPosts(body, page) {
 	showPageData(data);
 
 	SMApp.savePage(data);
+
+	SMApp.setCurrentPage(maxPage, totalPage);
 }
 
 function parsePosts(html) {

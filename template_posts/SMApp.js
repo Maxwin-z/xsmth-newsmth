@@ -93,6 +93,13 @@
 
         savePage: function (data) {
             SMApp.send_message('savePage', data);
+        },
+
+        setCurrentPage: function (page, total) {
+            SMApp.send_message('setCurrentPage', {
+                page: page,
+                total: total
+            });
         }
     });
 

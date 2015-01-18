@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SMPostViewControllerV2">
             <connections>
+                <outlet property="buttonForPageSelector" destination="hJS-5N-CJk" id="I5a-9M-Xx4"/>
                 <outlet property="viewForButtomBar" destination="iN0-l3-epB" id="qw2-1f-kSg"/>
             </connections>
         </placeholder>
@@ -26,28 +27,15 @@
                         <action selector="onBackButtonClick:" destination="-1" eventType="touchUpInside" id="JBA-W9-366"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="o9l-Dt-Qtz">
-                    <rect key="frame" x="80" y="0.0" width="30" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" red="0.16470588743686676" green="0.99215692281723022" blue="0.22352942824363708" alpha="1" colorSpace="deviceRGB"/>
-                    <state key="normal" title="&lt;">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Fpy-2b-SoN">
-                    <rect key="frame" x="213" y="0.0" width="30" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" red="0.1647058874" green="0.99215692280000001" blue="0.22352942819999999" alpha="1" colorSpace="deviceRGB"/>
-                    <state key="normal" title="&gt;">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="hJS-5N-CJk">
-                    <rect key="frame" x="118" y="0.0" width="87" height="30"/>
+                    <rect key="frame" x="65" y="0.0" width="190" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="1/2">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="onPageSelectorButtonClick:" destination="-1" eventType="touchUpInside" id="Qbx-cS-RBE"/>
+                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>

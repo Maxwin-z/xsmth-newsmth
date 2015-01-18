@@ -58,6 +58,7 @@
 
 #pragma mark bottom bar
 @property (strong, nonatomic) IBOutlet UIView *viewForButtomBar;
+@property (weak, nonatomic) IBOutlet UIButton *buttonForPageSelector;
 
 @end
 
@@ -429,6 +430,10 @@
     if ([method isEqualToString:@"savePage"]) {
         [self apiSavePageWithPosts:parameters];
     }
+    
+    if ([method isEqualToString:@"setCurrentPage"]) {
+        [self apiSetCurrentPage:parameters];
+    }
 }
 
 - (void)sendMessage2WebViewWithCallbackID:(NSString *)callbackID value:(id)value
@@ -555,6 +560,15 @@
 - (void)apiSavePageWithPosts:(NSDictionary *)parameters
 {
     [self.data addEntriesFromDictionary:parameters];
+}
+
+- (void)apiSetCurrentPage:(NSDictionary *)parameters
+{
+    NSInteger currentPage = [parameters[@"page"] integerValue];
+    NSInteger totalPage = [parameters[@"total"] integerValue];
+    self.totalPage = totalPage;
+    NSString *title = [NSString stringWithFormat:@"%@/%@", @(currentPage), @(totalPage)];
+    [self.buttonForPageSelector setTitle:title forState:UIControlStateNormal];
 }
 
 - (void)apiTapImage:(NSDictionary *)parameters
@@ -894,6 +908,11 @@
 - (IBAction)onBackButtonClick:(id)sender
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction)onPageSelectorButtonClick:(id)sender
+{
+    
 }
 
 @end
