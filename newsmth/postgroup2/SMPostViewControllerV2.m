@@ -35,6 +35,7 @@
 #import "Reachability.h"
 
 #import <WKVerticalScrollBar/WKVerticalScrollBar.h>
+#import <ActionSheetPicker-3.0/ActionSheetPicker.h>
 
 //#define DEBUG_HOST @"10.128.100.175"
 #define DEBUG_HOST @"192.168.3.161"
@@ -566,6 +567,7 @@
 {
     NSInteger currentPage = [parameters[@"page"] integerValue];
     NSInteger totalPage = [parameters[@"total"] integerValue];
+    self.currentPage = currentPage;
     self.totalPage = totalPage;
     NSString *title = [NSString stringWithFormat:@"%@/%@", @(currentPage), @(totalPage)];
     [self.buttonForPageSelector setTitle:title forState:UIControlStateNormal];
@@ -912,7 +914,20 @@
 
 - (IBAction)onPageSelectorButtonClick:(id)sender
 {
-    
+    NSMutableArray *pages = [NSMutableArray new];
+    for (int i = 0; i < self.totalPage; ++i) {
+        [pages addObject:[NSString stringWithFormat:@"%@", @(i + 1)]];
+    }
+
+    [ActionSheetStringPicker showPickerWithTitle:@"页面跳转"
+                                            rows:pages
+                                initialSelection:self.currentPage - 1
+                                       doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
+                                           
+                                       }
+                                     cancelBlock:^(ActionSheetStringPicker *picker) {
+                                     }
+                                          origin:sender];
 }
 
 @end
