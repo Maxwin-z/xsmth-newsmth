@@ -267,6 +267,8 @@ function detectScrollToBotttom () {
 			loadNext();
 		}
 	}
+
+	detectCurrentPage();
 }
 
 var btnLoading = new SMAppControl($('#loading').get(0));
@@ -276,6 +278,7 @@ btnLoading.onClick = function () {
 
 SMApp.scrollToBottom = detectScrollToBotttom;
 $(window).on('scroll', detectScrollToBotttom);
+// $(window).on('scroll', detectCurrentPage);
 
 ////////////////////////////////////////////////////////////
 var currentPage = 0;
@@ -520,7 +523,7 @@ function showPosts(body, page) {
 
 	SMApp.savePage(data);
 
-	SMApp.setCurrentPage(maxPage, totalPage);
+	// SMApp.setCurrentPage(maxPage, totalPage);
 }
 
 function parsePosts(html) {
@@ -602,6 +605,32 @@ function parseArticle(article) {
 	});
 
 	return post;
+}
+
+function detectCurrentPage() {
+	var scrollTop = $(window).scrollTop();
+	var lis = $('#post-list li');
+	var idx = _getIndex(lis, lis.length / 2, lis.length - 1, scrollTop);
+	var li = lis[idx];
+	// console.log(li);
+	SMApp.setCurrentPage($(li).attr('page'), totalPage);
+}
+
+function _getIndex(lis, idx, end, top) {
+	idx = parseInt(idx);
+	// console.log(idx, lis.length, end);
+	if (idx < 1) return 0;
+	if (idx > end) return end;
+
+	var li = lis[idx];
+	// console.log(li.offsetTop, top, li.offsetTop - top, li.offsetHeight);
+	if (Math.abs(li.offsetTop - top) < li.offsetHeight) {
+		return idx;
+	} else if (li.offsetTop < top) {
+		return _getIndex(lis, (idx + end) / 2, end, top);
+	} else {
+		return _getIndex(lis, idx / 2, idx, top);
+	}
 }
 
 // @2.5.2. swipe left 
