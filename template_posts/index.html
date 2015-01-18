@@ -437,7 +437,7 @@ function load(page) {
 	SMApp.ajax({
 		url: url,
 		success: function (body) {
-			showPosts(body);
+			showPosts(body, page);
 			loadingEnd();
 		},
 		fail: function (error) {
@@ -460,7 +460,7 @@ function makeupLoading () {
 	$('#loading-hint').html(text).show();
 }
 
-function showPosts(body) {
+function showPosts(body, page) {
 	var posts = parsePosts(body);
 	// handle error page
 	if (isInvalidPost) {
@@ -475,7 +475,14 @@ function showPosts(body) {
 		posts: posts,
 		currentPage: currentPage,
 		totalPage: totalPage
-	})
+	});
+
+	SMApp.savePage({
+		page: '#' + page,
+		posts: posts,
+		currentPage: currentPage,
+		totalPage: totalPage
+	});
 }
 
 function parsePosts(html) {

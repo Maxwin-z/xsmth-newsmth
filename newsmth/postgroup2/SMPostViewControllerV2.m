@@ -48,6 +48,7 @@
 @property (strong, nonatomic) NSMutableArray *posts;
 @property (assign, nonatomic) NSInteger currentPage;
 @property (assign, nonatomic) NSInteger totalPage;
+@property (strong, nonatomic) NSMutableDictionary *data;
 
 
 @property (strong, nonatomic) SMPost *postForAction;    // 准备回复的主题
@@ -66,6 +67,7 @@
 {
     [super viewDidLoad];
     self.posts = [NSMutableArray new];
+    self.data = [NSMutableDictionary new];
     self.maxScrollY = 0;
     
     NSString *title = self.post.title;
@@ -296,6 +298,7 @@
     NSString *result = [NSString stringWithFormat:@"var info = %@", json];
     NSString *file = [NSString stringWithFormat:@"/posts/%@.js", [self cachedJSFilename]];
     [SMUtils writeData:[result dataUsingEncoding:NSUTF8StringEncoding] toDocumentFolder:file];
+    XLog_d(@"data: %@", [SMUtils json2string:self.data]);
 }
 
 - (void)dealloc
@@ -416,7 +419,10 @@
     if ([method isEqualToString:@"savePostsInfo"]) {
         [self apiSavePostsInfo:parameters];
     }
-    
+   
+    if ([method isEqualToString:@"savePage"]) {
+        [self apiSavePageWithPosts:parameters];
+    }
 }
 
 - (void)sendMessage2WebViewWithCallbackID:(NSString *)callbackID value:(id)value
@@ -538,6 +544,23 @@
     self.currentPage = [parameters[@"currentPage"] integerValue];
     self.totalPage = [parameters[@"totalPage"] integerValue];
     XLog_d(@"save post: %@, %@, %@", @(posts.count), @(self.currentPage), @(self.totalPage));
+}
+
+- (void)apiSavePageWithPosts:(NSDictionary *)parameters
+{
+    NSArray *posts = parameters[@"posts"];
+    NSString *page = parameters[@"page"];
+    if (!page || !posts) return ;
+    
+    NSInteger currentPage = [parameters[@"currentPage"] integerValue];
+    NSInteger totalPage = [parameters[@"totalPage"] integerValue];
+    self.data[page] = posts;
+    if (currentPage > 0) {
+        self.data[@"currentPage"] = @(currentPage);
+    }
+    if (totalPage > 0) {
+        self.data[@"totalPage"] = @(totalPage);
+    }
 }
 
 - (void)apiTapImage:(NSDictionary *)parameters

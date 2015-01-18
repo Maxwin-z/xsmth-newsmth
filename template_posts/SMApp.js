@@ -89,6 +89,10 @@
 
         savePostsInfo: function (info) {
         	SMApp.send_message('savePostsInfo', info);
+        },
+
+        savePage: function (data) {
+            SMApp.send_message('savePage', data);
         }
     });
 
