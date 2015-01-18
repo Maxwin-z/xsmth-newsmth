@@ -461,6 +461,8 @@ function makeupLoading () {
 }
 
 function showPosts(body, page) {
+	if (page == 0) page = 1;
+	
 	var posts = parsePosts(body);
 	// handle error page
 	if (isInvalidPost) {

@@ -298,7 +298,12 @@
     NSString *result = [NSString stringWithFormat:@"var info = %@", json];
     NSString *file = [NSString stringWithFormat:@"/posts/%@.js", [self cachedJSFilename]];
     [SMUtils writeData:[result dataUsingEncoding:NSUTF8StringEncoding] toDocumentFolder:file];
-    XLog_d(@"data: %@", [SMUtils json2string:self.data]);
+    
+    json = [SMUtils json2string:self.data];
+    result = [NSString stringWithFormat:@"var info = %@", json];
+    file = [NSString stringWithFormat:@"/posts/info_%@.js", [self cachedJSFilename]];
+    [SMUtils writeData:[result dataUsingEncoding:NSUTF8StringEncoding] toDocumentFolder:file];
+//    XLog_d(@"data: %@", [SMUtils json2string:self.data]);
 }
 
 - (void)dealloc
