@@ -923,7 +923,9 @@
                                             rows:pages
                                 initialSelection:self.currentPage - 1
                                        doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
-                                           
+                                           self.currentPage = selectedIndex + 1;
+                                           NSString *js = [NSString stringWithFormat:@"SMApp.loadPage(%@)", @(self.currentPage)];
+                                           [self.webView stringByEvaluatingJavaScriptFromString:js];
                                        }
                                      cancelBlock:^(ActionSheetStringPicker *picker) {
                                      }

@@ -277,6 +277,9 @@ btnLoading.onClick = function () {
 }
 
 SMApp.scrollToBottom = detectScrollToBotttom;
+SMApp.loadPage = function (page) {
+	console.log(page);
+}
 $(window).on('scroll', detectScrollToBotttom);
 // $(window).on('scroll', detectCurrentPage);
 
