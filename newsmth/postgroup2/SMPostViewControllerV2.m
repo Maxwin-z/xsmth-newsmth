@@ -298,7 +298,8 @@
 //    NSString *result = [NSString stringWithFormat:@"var info = %@", json];
 //    NSString *file = [NSString stringWithFormat:@"/posts/%@.js", [self cachedJSFilename]];
 //    [SMUtils writeData:[result dataUsingEncoding:NSUTF8StringEncoding] toDocumentFolder:file];
-    
+   
+    self.data[@"maxScrollY"] = @(self.maxScrollY);
     NSString *json = [SMUtils json2string:self.data];
     NSString *result = [NSString stringWithFormat:@"var info = %@", json];
     NSString *file = [NSString stringWithFormat:@"/posts/%@.js", [self cachedJSFilename]];
