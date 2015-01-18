@@ -297,9 +297,12 @@ setTimeout(function () {
 		maxPage = info.maxPage;
 		showPageData(window.info);
 		currentPage = info.maxPage;
-		// if (window.info.posts.length % postsCountPerPage == 0) {
-		// 	++currentPage;
-		// }
+
+		try {
+			if (window.info['#' + window.info.maxPage].length == postsCountPerPage) {
+				++currentPage;
+			}
+		} catch (ignore) {}
 		// renderPosts(info.posts);
 
 		// var ancher = $('<a name="last_loaded"></a>');
@@ -349,9 +352,10 @@ function renderPage(page) {
 	$('#post-list').append(dom);
 }
 
-function renderPosts(posts) {
+function renderPosts(posts, page) {
 	var htmls = [];
 	$.each(posts, function (idx, post) {
+		post.page = page;
 		if ($('#post_' + post.pid).length == 0) {
 			var html = tpl.replace(/\$\{(.*?)\}/g, function ($0, $1) {
 				return post[$1] || '';
@@ -480,7 +484,7 @@ function makeupLoading () {
 function showPageData (data) {
 	for (var page = Math.max(currentPage, 1); page <= data.maxPage; ++page) {
 		if (data['#' + page]) {	// has posts
-			renderPosts(data['#' + page]);
+			renderPosts(data['#' + page], page);
 		} else {
 			renderPage(page);
 		}
