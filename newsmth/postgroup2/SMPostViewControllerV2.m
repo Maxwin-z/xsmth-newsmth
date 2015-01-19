@@ -983,4 +983,9 @@
                                           origin:sender];
 }
 
+- (IBAction)onScrollTopButtonClick:(id)sender
+{
+    [self.webView.scrollView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+}
+
 @end
