@@ -137,14 +137,25 @@ li.post .post-info {
 	text-align: center;
 }	
 
-.page h1 {
+.action_page {
+	border-bottom: 1px solid #ccc;	
+}
+
+.action_page h1 {
 	text-align: center;
-	padding: 20px 0;
+	margin-top: 20px;
+	margin-bottom: 10px;
 }
 .anchor_page {
 	height: 1px;
 	overflow: hidden;
 	border: none;
+}
+.action_page_hint {
+	font-size: 80%;
+	text-shadow: #f0f0f0 1px 1px;
+	text-align: center;
+	margin-bottom: 20px;
 }
 
 </style>
@@ -181,6 +192,7 @@ li.post .post-info {
 <textarea id="tpl_page" style="display: none">
 	<li class="page action_page" id="page_${page}" page="${page}">
 		<h1 class="action_page_title">${page}</h1>
+		<div class="action_page_hint">点击加载</div>
 	</li>
 </textarea>
 <script type="text/javascript">
@@ -508,7 +520,7 @@ function load(page) {
 		},
 		fail: function (error) {
 			SMApp.toast(error);
-			--currentPage;
+			--maxPage;
 			loadingEnd();
 			$('#loading-hint').html('加载失败，点击重试');
 		}
@@ -586,8 +598,9 @@ function showPosts(body, page) {
 		var dom = renderPosts(posts, page);
 		dom.insertAfter(anchor);
 		anchor.remove();
+	} else {
+		showPageData(data);
 	}
-	showPageData(data);
 
 	SMApp.savePage(data);
 
