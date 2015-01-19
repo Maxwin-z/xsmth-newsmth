@@ -813,12 +813,20 @@
 #pragma mark - method
 - (SMPost *)postByID:(NSInteger)pid
 {
-    for (SMPost *post in self.posts) {
-        if (post.pid == pid) {
-            return post;
+    __block SMPost *ret = nil;
+   [self.data enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        if ([obj isKindOfClass:[NSArray class]]) {
+            NSArray *posts = obj;
+            for (NSDictionary *post in posts) {
+                if ([post[@"pid"] integerValue] == pid) {
+                    ret = [[SMPost alloc] initWithJSON:post];
+                    *stop = YES;
+                    break;
+                }
+            }
         }
-    }
-    return nil;
+    }];
+    return ret;
 }
 
 - (void)mergePosts:(NSArray *)posts
