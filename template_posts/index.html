@@ -11,6 +11,7 @@ body.xsmth {}
 a {}
 </style>
 <script type="text/javascript" src="zepto.js"></script>
+<script type="text/javascript" src="touch.js"></script>
 <script type="text/javascript" src="SMApp.js"></script>
 <script type="text/javascript" src="SMAppControl.js"></script>
 <script type="text/javascript" src="../posts/{__cachedjsfile__}.js?t={__t__}"></script>
@@ -178,8 +179,8 @@ li.post .post-info {
 		</li>
 </textarea>
 <textarea id="tpl_page" style="display: none">
-	<li class="page" id="page_${page}" page="${page}">
-		<h1>${page}</h1>
+	<li class="page action_page" id="page_${page}" page="${page}">
+		<h1 class="action_page_title">${page}</h1>
 	</li>
 </textarea>
 <script type="text/javascript">
@@ -381,6 +382,9 @@ function loadNext() {
 function renderPage(page) {
 	var html = tplPage.replace(/\$\{page\}/g, page);
 	var dom = $(html);
+	dom.on('tap', function () {
+		load(dom.attr('page'));
+	});
 	$('#post-list').append(dom);
 }
 
@@ -401,7 +405,7 @@ function renderPosts(posts, page) {
 		}
 	});
 	var dom = $(htmls.join(''));
-	$('#post-list').append(dom);
+	// $('#post-list').append(dom);
 	// console.log(dom.find('img.ximg'));
 	var windowWidth = $(window).width();
 	var imageMaxWidth = parseInt((windowWidth - 40) / 2);
@@ -409,7 +413,7 @@ function renderPosts(posts, page) {
 		img = $(img);
 		img.css('max-width', imageMaxWidth + 'px');
 		console.log('bind click', img);
-		img.on('click', function () {
+		img.on('tap', function () {
 			onImageClick(img);
 		});
 		var info = img.parent().find('.ximg-info');
@@ -419,12 +423,16 @@ function renderPosts(posts, page) {
 			info.html('点击加载图片');
 		}
 	});
-	dom.find('.action_button').on('click', onActionButtonClick);
-	dom.find('.action .action_reply').on('click', function (event) {
+	dom.find('.action_button').on('tap', onActionButtonClick);
+	dom.find('.action .action_reply').on('tap', function (event) {
 		var pid = $(event.target).attr('pid');
 		SMApp.reply(pid);
 	});
-	dom.find('.action .action_more').on('click', onActionButtonClick);
+	dom.find('.action .action_more').on('tap', onActionButtonClick);
+
+	loadedPage[page] = true;
+
+	return dom;
 }
 
 function onImageClick(img) {
@@ -524,10 +532,11 @@ function showPageData (data) {
 	if (bottomLi.length > 0) {
 		bottomPage = bottomLi.attr('page');
 	}
+	bottomPage = parseInt(bottomPage);
 	for (var page = bottomPage; page <= data.maxPage; ++page) {
 		if (data['#' + page]) {	// has posts
-			renderPosts(data['#' + page], page);
-			loadedPage[page] = true;
+			var dom = renderPosts(data['#' + page], page);
+			$('#post-list').append(dom);
 		} else if (page > bottomPage) {	// 防止上一页重复绘制
 			renderPage(page);
 		}
@@ -563,6 +572,21 @@ function showPosts(body, page) {
 	};
 	data['#' + page] = posts;
 	
+	var anchor = $('#anchor_page_' + page + ', #page_' + page);
+	if (anchor.length) {
+		// remove old posts
+		var node = anchor.next();
+		while(node && parseInt(node.attr('page')) == page) {
+			var tmp = node;
+			node = node.next();
+			tmp.remove();
+		}
+
+		// add new posts
+		var dom = renderPosts(posts, page);
+		dom.insertAfter(anchor);
+		anchor.remove();
+	}
 	showPageData(data);
 
 	SMApp.savePage(data);
@@ -600,6 +624,9 @@ function parsePosts(html) {
 	totalPage = Math.ceil(parseInt(div.find('.page-pre > i').html()) / postsCountPerPage);
 	currentPage = parseInt(div.find('.page-select > a').html());
 	maxPage = Math.max(maxPage, currentPage);
+	if (maxPage == currentPage) {
+		SMApp.setCurrentPage(currentPage, totalPage);
+	}
 	makeupLoading();
 	return posts;
 }
