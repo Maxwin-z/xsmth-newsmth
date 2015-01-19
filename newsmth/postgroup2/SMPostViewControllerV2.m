@@ -56,6 +56,8 @@
 @property (strong, nonatomic) SMWebLoaderOperation *forwardOp;
 
 @property (assign, nonatomic) CGFloat maxScrollY;
+@property (assign, nonatomic) CGFloat lastScrollY;
+@property (assign, nonatomic) BOOL hideTop;
 
 #pragma mark bottom bar
 @property (strong, nonatomic) IBOutlet UIView *viewForButtomBar;
@@ -73,6 +75,7 @@
     self.posts = [NSMutableArray new];
     self.data = [NSMutableDictionary new];
     self.maxScrollY = 0;
+    self.lastScrollY = 0;
     
     NSString *title = self.post.title;
     if (self.author.length > 0) {
@@ -117,11 +120,6 @@
         self.navigationItem.rightBarButtonItems = items;
     }
     
-    // hide status bar
-    [[UIApplication sharedApplication] setStatusBarHidden:YES];
-    [self setNeedsStatusBarAppearanceUpdate];
-    [self.navigationController setNavigationBarHidden:YES];
-    
     // setup swipe gesture
     UISwipeGestureRecognizer *gesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(onSwipeGesture:)];
     gesture.direction = UISwipeGestureRecognizerDirectionRight;
@@ -136,22 +134,38 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)hideNavigation:(BOOL)animated
+{
+    self.hideTop = YES;
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
+    [self.navigationController setNavigationBarHidden:animated];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    [self setNeedsStatusBarAppearanceUpdate];
+}
+
+- (void)showNavigation:(BOOL)animated
+{
+    self.hideTop = NO;
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
+    [self setNeedsStatusBarAppearanceUpdate];
+}
 
 - (BOOL)prefersStatusBarHidden 
 {
-    return YES;
+    return self.hideTop;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES];
+    [self hideNavigation:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:NO];
+    [self showNavigation:NO];
 }
 
 - (void)onRightBarButtonClick
@@ -381,6 +395,13 @@
     
 //    XLog_d(@"%@", @(scrollView.contentOffset.y));
     self.maxScrollY = MAX(self.maxScrollY, scrollView.contentOffset.y);
+    
+    if (scrollView.contentOffset.y >= self.lastScrollY) {
+        [self hideNavigation:YES];
+    } else {
+        [self showNavigation:YES];
+    }
+    self.lastScrollY = scrollView.contentOffset.y;
 }
 
 - (void)sendScrollToBottomEvent:(UIScrollView *)scrollView
