@@ -121,6 +121,8 @@
 		C15489C21888CDF60046190C /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C15489C11888CDF60046190C /* AdSupport.framework */; };
 		C15489C51888F9E10046190C /* SMEULAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C15489C41888F9E10046190C /* SMEULAViewController.m */; };
 		C154CC5B1873C1E800C32F0D /* UIView+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = C154CC5A1873C1E800C32F0D /* UIView+Utils.m */; };
+		C15BAC841A6CDFBD00D88CEC /* icon_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C15BAC831A6CDFBD00D88CEC /* icon_back@2x.png */; };
+		C15BAC861A6CE22900D88CEC /* icon_gotop@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C15BAC851A6CE22900D88CEC /* icon_gotop@2x.png */; };
 		C1643A7917E9A54C00107559 /* icon_120@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1643A7817E9A54C00107559 /* icon_120@2x.png */; };
 		C16714391766CFED00F56535 /* XPullRefreshTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = C16714381766CFED00F56535 /* XPullRefreshTableView.m */; };
 		C167143B1766D01700F56535 /* XPullRefreshTableViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = C167143A1766D01700F56535 /* XPullRefreshTableViewHeader.xib */; };
@@ -502,6 +504,8 @@
 		C15489C41888F9E10046190C /* SMEULAViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMEULAViewController.m; sourceTree = "<group>"; };
 		C154CC591873C1E800C32F0D /* UIView+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Utils.h"; sourceTree = "<group>"; };
 		C154CC5A1873C1E800C32F0D /* UIView+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Utils.m"; sourceTree = "<group>"; };
+		C15BAC831A6CDFBD00D88CEC /* icon_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_back@2x.png"; sourceTree = "<group>"; };
+		C15BAC851A6CE22900D88CEC /* icon_gotop@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_gotop@2x.png"; sourceTree = "<group>"; };
 		C1643A7817E9A54C00107559 /* icon_120@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_120@2x.png"; sourceTree = "<group>"; };
 		C16714371766CFED00F56535 /* XPullRefreshTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPullRefreshTableView.h; sourceTree = "<group>"; };
 		C16714381766CFED00F56535 /* XPullRefreshTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPullRefreshTableView.m; sourceTree = "<group>"; };
@@ -1084,6 +1088,8 @@
 		C19FF0B01769A71B00EB6F7E /* images */ = {
 			isa = PBXGroup;
 			children = (
+				C15BAC851A6CE22900D88CEC /* icon_gotop@2x.png */,
+				C15BAC831A6CDFBD00D88CEC /* icon_back@2x.png */,
 				C111D62719CEF16900D4DC71 /* common_share_icon_weixin_friends_ios8@2x.png */,
 				C111D62819CEF16900D4DC71 /* common_share_icon_weixin_ios8@2x.png */,
 				C1CBC4B719CDAE4F0074E1B7 /* icon_single_author@2x.png */,
@@ -1857,6 +1863,7 @@
 				C1CBC4B819CDAE4F0074E1B7 /* icon_single_author@2x.png in Resources */,
 				C1300A5818795C61006ACA5C /* icon_bg@2x.png in Resources */,
 				C1300A6C187ACB9E006ACA5C /* icon_write@2x.png in Resources */,
+				C15BAC861A6CE22900D88CEC /* icon_gotop@2x.png in Resources */,
 				C13D4124176DD5EC00BD03A4 /* placeholder@2x.jpg in Resources */,
 				C1B581F4177723F500441299 /* SMWritePostViewController.xib in Resources */,
 				C1902DC0177E672E00967211 /* button_reply@2x.png in Resources */,
@@ -1878,6 +1885,7 @@
 				C1FD13D1178182E3006A6061 /* button_gray_default@2x.png in Resources */,
 				C1888D0E1807F2C300024B47 /* icon_top@2x.png in Resources */,
 				392417D8187C6A7100558725 /* icon_72.png in Resources */,
+				C15BAC841A6CDFBD00D88CEC /* icon_back@2x.png in Resources */,
 				C1FD13D2178182E3006A6061 /* button_gray_pressed@2x.png in Resources */,
 				C1FD13D3178182E3006A6061 /* button_red_default@2x.png in Resources */,
 				C1FCFAC11860782600759793 /* icon_search@2x.png in Resources */,

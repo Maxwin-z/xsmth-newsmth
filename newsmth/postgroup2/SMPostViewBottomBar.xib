@@ -7,20 +7,21 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SMPostViewControllerV2">
             <connections>
+                <outlet property="buttonForBack" destination="JFr-KA-3Oe" id="fYG-AP-tHh"/>
+                <outlet property="buttonForGoTop" destination="4wh-lv-Zhe" id="Jq5-Jv-rBb"/>
                 <outlet property="buttonForPageSelector" destination="hJS-5N-CJk" id="I5a-9M-Xx4"/>
                 <outlet property="viewForButtomBar" destination="iN0-l3-epB" id="qw2-1f-kSg"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="JFr-KA-3Oe">
-                    <rect key="frame" x="0.0" y="0.0" width="40" height="30"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="JFr-KA-3Oe">
+                    <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
-                    <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <state key="normal" title="&lt;">
+                    <state key="normal" image="icon_back.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
@@ -28,14 +29,22 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="hJS-5N-CJk">
-                    <rect key="frame" x="65" y="0.0" width="190" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <rect key="frame" x="65" y="0.0" width="190" height="40"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                     <state key="normal" title="-/-">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
                         <action selector="onPageSelectorButtonClick:" destination="-1" eventType="touchUpInside" id="Qbx-cS-RBE"/>
                     </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="4wh-lv-Zhe">
+                    <rect key="frame" x="280" y="0.0" width="40" height="40"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" heightSizable="YES"/>
+                    <state key="normal" image="icon_gotop.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
                 </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -44,6 +53,10 @@
             <point key="canvasLocation" x="237" y="371"/>
         </view>
     </objects>
+    <resources>
+        <image name="icon_back.png" width="32" height="32"/>
+        <image name="icon_gotop.png" width="32" height="32"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

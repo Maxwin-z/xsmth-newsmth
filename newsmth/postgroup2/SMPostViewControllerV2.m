@@ -59,7 +59,9 @@
 
 #pragma mark bottom bar
 @property (strong, nonatomic) IBOutlet UIView *viewForButtomBar;
+@property (weak, nonatomic) IBOutlet UIButton *buttonForBack;
 @property (weak, nonatomic) IBOutlet UIButton *buttonForPageSelector;
+@property (weak, nonatomic) IBOutlet UIButton *buttonForGoTop;
 
 @end
 
@@ -125,6 +127,8 @@
     gesture.direction = UISwipeGestureRecognizerDirectionRight;
     [self.view addGestureRecognizer:gesture];
     
+    [self setupTheme];
+    
 }
 
 - (void)onSwipeGesture:(UIGestureRecognizer *)gesture
@@ -166,6 +170,18 @@
 - (void)setupTheme
 {
     [super setupTheme];
+    if (!self.viewForButtomBar) {
+        return ;
+    }
+    self.viewForButtomBar.backgroundColor = [SMTheme colorForBackground];
+    NSArray *buttons = @[self.buttonForBack, self.buttonForGoTop];
+    for (UIButton *button in buttons) {
+        UIImage *image = [button imageForState:UIControlStateNormal];
+        if ([image respondsToSelector:@selector(imageWithRenderingMode:)]) {
+            image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        }
+        [button setImage:image forState:UIControlStateNormal];
+    }
 }
 
 - (void)onThemeChangedNotification:(NSNotification *)n
