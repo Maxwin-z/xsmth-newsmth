@@ -722,6 +722,8 @@ function parseMPosts(html) {
 		post.pid = li.find('.nav.hl div').last().attr('tid');
 		var content = li.find('div.sp').html();
 		content = content.replace(/<br\s*\/?>(:[^>]+)/g, '<br/><span class="f006">$1</span>');
+		content = content.replace(/<img(\s+src=")(\/img\/.*?>)/gi, '<img class="xema" $1http://m.newsmth.net$2');
+
 		post.content = '<div class="sp">' + content + '</div>';
 
 		posts.push(post);
