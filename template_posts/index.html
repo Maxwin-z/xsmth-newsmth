@@ -17,6 +17,7 @@ a {}
 <script type="text/javascript" src="../posts/{__cachedjsfile__}.js?t={__t__}"></script>
 <script type="text/javascript">
 var config = {__config__};
+config.autoload = false;
 </script>
 <style type="text/css">
 * {
@@ -127,6 +128,26 @@ li.post div.sp {
 .ximg-box {
 	position: relative;
 	display: inline-block;
+}
+.ximg-action {
+	position: absolute;
+	top: 50%;
+	left: 0;
+	right: 0;
+}
+
+.ximg-middle, 
+.ximage-large {
+	position: absolute;
+	width: 50%;
+	top:0;
+	bottom: 0;
+	left: 0;
+	text-align: center;
+}
+.ximage-large {
+	left: 50%;
+	right: 0;
 }
 
 .ximg-box img,
@@ -451,14 +472,27 @@ function renderPosts(posts, page) {
 		img = $(img);
 		img.css('max-width', imageMaxWidth + 'px');
 		console.log('bind click', img);
-		img.on('tap', function () {
-			onImageClick(img);
+		img.on('tap', function (evt) {
+			onImageClick(img, evt);
 		});
 		var info = img.parent().find('.ximg-info');
 		var autoload = config.autoload;
-		loadImage(img, autoload);
 		if (!autoload) {
+			var src = img.attr('src2');
 			info.html('点击加载图片');
+			SMApp.getImageInfo(src + '/middle', false, function (value) {
+				if (value.size) {
+					img.parent().find('.ximg-middle').html('中图' + formatSize(value.size));
+				}
+			});
+
+			SMApp.getImageInfo(src + '/large', false, function (value) {
+				if (value.size) {
+					img.parent().find('.ximg-large').html('原图' + formatSize(value.size));
+				}
+			});
+		} else {
+			loadImage(img, autoload);
 		}
 	});
 	dom.find('.action_button').on('tap', onActionButtonClick);
@@ -473,8 +507,8 @@ function renderPosts(posts, page) {
 	return dom;
 }
 
-function onImageClick(img) {
-	console.log('clicked', img);
+function onImageClick(img, evt) {
+	console.log('clicked', img, evt, evt.target);
 	var status = img.attr('status');
 	if (!status || status == 'fail') {
 		loadImage(img, true);
@@ -491,6 +525,7 @@ function loadImage(img, forceLoad) {
 	}
 	var info = img.parent().find('.ximg-info');
 	info.html('正在加载');
+	
 	SMApp.getImageInfo(src, forceLoad, function (value) {
 		// alert(src, size);
 		console.log(value);
@@ -502,9 +537,9 @@ function loadImage(img, forceLoad) {
 		if (value.progress) {
 			info.html((Math.round(value.progress * 1000) / 10) + '%');
 		}
-		if (value.size) {
-			info.html('点击加载 ' + formatSize(value.size));
-		}
+		// if (value.size) {
+		// 	info.html('点击加载 ' + formatSize(value.size));
+		// }
 		if (value.fail) {
 			img.attr('status', 'fail');
 			info.html('下载失败，点击重试');
@@ -645,14 +680,18 @@ function parsePosts(html) {
 	return ret.posts;
 }
 
-function parseMPosts(html) {
-	html = html.replace(/<script.*?<\/script>/g, '')
+function trimHtml(html) {
+	return html.replace(/<script.*?<\/script>/g, '')
 	.replace(/<a[^>]+>(<img[^>]+>)<\/a>/gi, '$1')
 	.replace(/(<img[^>]*?src=")(\/nForum\/att\/)/gi, '$1http://www.newsmth.net$2')
 	.replace(/<img[^>]*?src="(http.+?)"[^>]*?>/gi, function ($0, src) {
 		src = src.replace(/\/(large|middle)$/, '');
-		return '<span class="ximg-box"><span class="ximg-info"></span><img class="ximg" src="placeholder.jpg" src2="' + src + '"/></span>';
+		return '<span class="ximg-box"><span class="ximg-info"></span><div class="ximg-action"><span class="ximg-middle">中图</span><span class="ximage-large">原图</span></div><img class="ximg" src="placeholder.jpg" src2="' + src + '"/></span>';
 	});
+}
+
+function parseMPosts(html) {
+	html = trimHtml(html);
 
 	isInvalidPost = true;
 	var ret = {};
@@ -701,13 +740,7 @@ function parseMPosts(html) {
 }
 
 function parseWPosts(html) {
-	html = html.replace(/<script.*?<\/script>/g, '')
-	.replace(/<a[^>]+>(<img[^>]+>)<\/a>/gi, '$1')
-	.replace(/(<img[^>]*?src=")(\/nForum\/att\/)/gi, '$1http://www.newsmth.net$2')
-	.replace(/<img[^>]*?src="(http.+?)"[^>]*?>/gi, function ($0, src) {
-		src = src.replace(/\/(large|middle)$/, '');
-		return '<span class="ximg-box"><span class="ximg-info"></span><img class="ximg" src="placeholder.jpg" src2="' + src + '"/></span>';
-	});
+	html = trimHtml(html);
 
 	var div = $(document.createElement('div'));
 	div.hide();
