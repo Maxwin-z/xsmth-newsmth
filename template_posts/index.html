@@ -669,10 +669,10 @@ function parseMPosts(html) {
 			dateStr: ''
 		};
 		var as = li.find('a');
-		if (as.length > 3) {
-			post.indexStr = $(as[0]).html().trim();
-			post.author = $(as[1]).html().trim();
-			post.dateStr = $(as[2]).html().trim();
+		if (as.length > 4) {
+			post.indexStr = $(as[1]).html().trim();
+			post.author = $(as[2]).html().trim();
+			post.dateStr = $(as[3]).html().trim();
 		}
 		post.pid = li.find('.nav.hl div').last().attr('tid');
 		var content = li.find('div.sp').html();
