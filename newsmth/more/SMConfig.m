@@ -137,7 +137,7 @@
     NSString *listFontFamily = [[NSUserDefaults standardUserDefaults] stringForKey:USERDEFAULTS_LIST_FONT_FAMILY];
     NSInteger listFontSize = [[NSUserDefaults standardUserDefaults] integerForKey:USERDEFAULTS_LIST_FONT_SIZE];
     if (listFontFamily == nil) {
-        listFontFamily = @"ArialRoundedMTBold";
+        listFontFamily = @"FZLanTingHei-L-GBK";
     }
     if (listFontSize == 0) {
         listFontSize = 15;
