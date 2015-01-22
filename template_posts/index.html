@@ -675,7 +675,9 @@ function parseMPosts(html) {
 			post.dateStr = $(as[2]).html().trim();
 		}
 		post.pid = li.find('.nav.hl div').last().attr('tid');
-		post.content = '<div class="sp">' + li.find('div.sp').html() + '</div>';
+		var content = li.find('div.sp').html();
+		content = content.replace(/<br\s*\/?>(:[^>]+)/g, '<br/><span class="f006">$1</span>');
+		post.content = '<div class="sp">' + content + '</div>';
 
 		posts.push(post);
 	});
