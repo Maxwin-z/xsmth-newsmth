@@ -137,6 +137,27 @@ li.post .post-info {
 	text-align: center;
 }	
 
+.action {
+	position: absolute;
+	top: 0;
+	right: 0;
+	font-size: 14px;
+}
+
+/*
+.action .action_reply,
+.action .action_more {
+	background-image: url(icon_reply.png);
+	background-repeat: no-repeat;
+	width: 100px;
+	height: 100px;
+	display: inline-block;
+}
+.action .action_more {
+	background-image: url(icon_more.png);	
+}
+*/
+
 .action_page {
 	border-bottom: 1px solid #ccc;	
 }
@@ -153,7 +174,6 @@ li.post .post-info {
 }
 .action_page_hint {
 	font-size: 80%;
-	text-shadow: #f0f0f0 1px 1px;
 	text-align: center;
 	margin-bottom: 20px;
 }
@@ -175,17 +195,17 @@ li.post .post-info {
 		<li class="post" id="post_${pid}" page="${page}">
 			<div class="author">
 				<span class="uid">${author}</span> (<span class="nick">${nick}</span>)
-				<div class="action_button" pid="${pid}"></div>
+				<div class="action">
+					<span class="action_reply" pid="${pid}">回复</span>
+					<span class="action_more" pid="${pid}">···</span>
+				</div>
+				<!-- div class="action_button" pid="${pid}"></div -->
 			</div>
 			<div class="post-info">
 				${indexStr} ${dateStr}
 			</div>
 			<div class="content">
 				${content}
-			</div>
-			<div class="action">
-				<span class="action_reply" pid="${pid}">回复</span>
-				<span class="action_more" pid="${pid}">···</span>
 			</div>
 		</li>
 </textarea>
@@ -226,7 +246,8 @@ window.onThemeChanged = function (style) {
 
 	sheet.addRule('li.post .action span', style2string({
 		'color': style.tintColor,
-		'border-color': style.tintColor
+		'border-color': style.tintColor,
+		'background-color': style.backgroundColor
 	}), 0);
 
 	$('body').addClass('xsmth');
