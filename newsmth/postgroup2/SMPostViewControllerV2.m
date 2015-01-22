@@ -81,12 +81,16 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     self.data = [NSMutableDictionary new];
     self.maxScrollY = 0;
     self.lastScrollY = 0;
+    self.hideTop = NO;
     
     NSString *title = self.post.title;
     if (self.author.length > 0) {
         title = [NSString stringWithFormat:@"%@ - 同作者 %@", title, self.author];
     }
     self.title = title;
+    
+    self.imageLoaders = [NSMutableDictionary new];
+    [self setupWebView];
     
     // add bottom bar
     [[NSBundle mainBundle] loadNibNamed:@"SMPostViewBottomBar" owner:self options:nil];
@@ -97,20 +101,7 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     self.viewForButtomBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin
     | UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:self.viewForButtomBar];
-    
-    self.imageLoaders = [NSMutableDictionary new];
-    [self setupWebView];
-    
-    frame = self.webView.bounds;
-    /*
-    frame.origin.y = SM_TOP_INSET;
-    frame.size.height -= SM_TOP_INSET;
-     */
-    WKVerticalScrollBar *bar = [[WKVerticalScrollBar alloc] initWithFrame:frame];
-    bar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [self.view addSubview:bar];
-    [bar setScrollView:self.webView.scrollView];
-    
+ 
     NSMutableArray *items = [NSMutableArray new];
     if (!_fromBoard) {
         UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
@@ -140,21 +131,44 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (BOOL)shouldHideNavigation
+{
+    return self.webView.scrollView.contentOffset.y > SM_TOP_INSET;
+}
+
 - (void)hideNavigation:(BOOL)animated
 {
+    if (self.hideTop) return ;
     self.hideTop = YES;
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [self.navigationController setNavigationBarHidden:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     [self setNeedsStatusBarAppearanceUpdate];
+    
+    [UIView animateWithDuration:animated ? 0.5 : 0 animations:^{
+        CGRect frame = self.viewForButtomBar.frame;
+        frame.origin.y = self.view.frame.size.height;
+        self.viewForButtomBar.frame = frame;
+        
+        [self setWebViewContentInsetTop:0 bottom:0];
+    }];
 }
 
 - (void)showNavigation:(BOOL)animated
 {
+    if (!self.hideTop) return ;
     self.hideTop = NO;
     [self.navigationController setNavigationBarHidden:NO animated:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
     [self setNeedsStatusBarAppearanceUpdate];
+    
+    [UIView animateWithDuration:animated ? 0.5 : 0 animations:^{
+        CGRect frame = self.viewForButtomBar.frame;
+        frame.origin.y = self.view.frame.size.height - self.viewForButtomBar.frame.size.height;
+        self.viewForButtomBar.frame = frame;
+        
+       [self setWebViewContentInsetTop:SM_TOP_INSET bottom:self.viewForButtomBar.frame.size.height];
+    }];
 }
 
 - (BOOL)prefersStatusBarHidden 
@@ -165,7 +179,9 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self hideNavigation:YES];
+    if ([self shouldHideNavigation]) {
+        [self hideNavigation:YES];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -210,10 +226,17 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     [self sendThemeChangedMessage];
 }
 
+- (void)setWebViewContentInsetTop:(CGFloat)top bottom:(CGFloat)bottom
+{
+    UIEdgeInsets insets = self.webView.scrollView.contentInset;
+    insets.top = top;
+    insets.bottom = bottom;
+    self.webView.scrollView.contentInset = self.webView.scrollView.scrollIndicatorInsets = insets;
+}
+
 - (void)setupWebView
 {
     CGRect frame = self.view.bounds;
-    frame.size.height -= self.viewForButtomBar.frame.size.height;
     self.webView = [[UIWebView alloc] initWithFrame:frame];
     self.webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.webView.dataDetectorTypes = UIDataDetectorTypeLink;
@@ -233,13 +256,8 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
         }
     }
     
-    
     UIScrollView *scrollView = self.webView.scrollView;
-    /*
-    UIEdgeInsets insets = scrollView.contentInset;
-    insets.bottom += self.viewForButtomBar.frame.size.height;
-    scrollView.contentInset = scrollView.scrollIndicatorInsets = insets;
-     */
+    [self setWebViewContentInsetTop:SM_TOP_INSET bottom:self.viewForButtomBar.frame.size.height];
     scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
 
     // add refresh control
@@ -405,7 +423,9 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     
     if (scrollView.contentOffset.y >= self.lastScrollY) {
         self.scrollDirection = ScrollDirectionUp;
-        [self hideNavigation:YES];
+        if ([self shouldHideNavigation]) {
+            [self hideNavigation:YES];
+        }
     } else {
         self.scrollDirection = ScrollDirectionDown;
     }
