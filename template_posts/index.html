@@ -647,7 +647,14 @@ function parsePosts(html) {
 }
 
 function parseMPosts(html) {
-	html = html.replace(/<script.*?<\/script>/g, '');
+	html = html.replace(/<script.*?<\/script>/g, '')
+	.replace(/<a[^>]+>(<img[^>]+>)<\/a>/gi, '$1')
+	.replace(/(<img[^>]*?src=")(\/nForum\/att\/)/gi, '$1http://www.newsmth.net$2')
+	.replace(/<img[^>]*?src="(http.+?)"[^>]*?>/gi, function ($0, src) {
+		src = src.replace(/\/(large|middle)$/, '');
+		return '<span class="ximg-box"><span class="ximg-info"></span><img class="ximg" src="placeholder.jpg" src2="' + src + '"/></span>';
+	});
+	
 	isInvalidPost = true;
 	var ret = {};
 	var div = $('<div>');
@@ -699,7 +706,7 @@ function parseWPosts(html) {
 	.replace(/<a[^>]+>(<img[^>]+>)<\/a>/gi, '$1')
 	.replace(/(<img[^>]*?src=")(\/nForum\/att\/)/gi, '$1http://www.newsmth.net$2')
 	.replace(/<img[^>]*?src="(http.+?)"[^>]*?>/gi, function ($0, src) {
-		src = src.replace(/\/large$/, '');
+		src = src.replace(/\/(large|middle)$/, '');
 		return '<span class="ximg-box"><span class="ximg-info"></span><img class="ximg" src="placeholder.jpg" src2="' + src + '"/></span>';
 	});
 
