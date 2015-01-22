@@ -358,7 +358,6 @@ var tpl = $('#tpl_post').val().trim();
 var tplPage = $('#tpl_page').val().trim();
 var loadedPage = {};
 var needScrollToPage = 0;
-var noqmd = true;
 
 // load cached
 setTimeout(function () {
@@ -535,7 +534,7 @@ function loadingEnd() {
 }
 
 function load(page) {
-	var url = noqmd ? 'http://m.newsmth.net' : 'http://www.newsmth.net/nForum';
+	var url = config.showQMD ? 'http://www.newsmth.net/nForum' : 'http://m.newsmth.net';
 	
 	url += '/article/' + mainPost.board.name + '/' + mainPost.gid + '?p=' + page;
 	if (mainAuthor.length > 0) {
@@ -630,10 +629,10 @@ function showPosts(body, page) {
 
 function parsePosts(html) {
 	var ret = null;
-	if (noqmd) {
-		ret = parseMPosts(html);
-	} else {
+	if (config.showQMD) {
 		ret = parseWPosts(html);
+	} else {
+		ret = parseMPosts(html);
 	}
 	latestPagePostsCount = ret.posts.length;
 	totalPage = ret.total;
@@ -654,7 +653,7 @@ function parseMPosts(html) {
 		src = src.replace(/\/(large|middle)$/, '');
 		return '<span class="ximg-box"><span class="ximg-info"></span><img class="ximg" src="placeholder.jpg" src2="' + src + '"/></span>';
 	});
-	
+
 	isInvalidPost = true;
 	var ret = {};
 	var div = $('<div>');
