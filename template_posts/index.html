@@ -84,6 +84,11 @@ li.post .post-info {
 	font-size: 30px;
 }
 
+li.post div.sp {
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
 #loading {
 	height: 100px;
 	text-align: center;
@@ -353,6 +358,7 @@ var tpl = $('#tpl_post').val().trim();
 var tplPage = $('#tpl_page').val().trim();
 var loadedPage = {};
 var needScrollToPage = 0;
+var noqmd = true;
 
 // load cached
 setTimeout(function () {
@@ -529,10 +535,13 @@ function loadingEnd() {
 }
 
 function load(page) {
-	var url = 'http://www.newsmth.net/nForum/article/' + mainPost.board.name + '/' + mainPost.gid + '?p=' + page;
+	var url = noqmd ? 'http://m.newsmth.net' : 'http://www.newsmth.net/nForum';
+	
+	url += '/article/' + mainPost.board.name + '/' + mainPost.gid + '?p=' + page;
 	if (mainAuthor.length > 0) {
 		url += '&au=' + mainAuthor;
 	}
+
 	SMApp.ajax({
 		url: url,
 		success: function (body) {
@@ -590,15 +599,6 @@ function showPosts(body, page) {
 		return ;
 	}
 
-	// renderPosts(posts);
-
-	// // save loaded posts
-	// SMApp.savePostsInfo({
-	// 	posts: posts,
-	// 	currentPage: currentPage,
-	// 	totalPage: totalPage
-	// });
-
 	var data = {
 		maxPage: maxPage,
 		totalPage: totalPage
@@ -629,6 +629,70 @@ function showPosts(body, page) {
 }
 
 function parsePosts(html) {
+	var ret = null;
+	if (noqmd) {
+		ret = parseMPosts(html);
+	} else {
+		ret = parseWPosts(html);
+	}
+	latestPagePostsCount = ret.posts.length;
+	totalPage = ret.total;
+	currentPage = ret.page;
+	maxPage = Math.max(maxPage, currentPage);
+	if (maxPage == currentPage) {
+		SMApp.setCurrentPage(currentPage, totalPage);
+	}
+	makeupLoading();
+	return ret.posts;
+}
+
+function parseMPosts(html) {
+	html = html.replace(/<script.*?<\/script>/g, '');
+	isInvalidPost = true;
+	var ret = {};
+	var div = $('<div>');
+	div.html(html);
+	var lis = div.find('.list.sec li');
+	var posts = [];
+	lis.each(function (idx, li) {
+		li = $(li);
+		if (li.hasClass('f')) return ;
+		var post = {
+			'__type': 'SMPost',
+			pid: 0,
+			gid: 0,
+			author: '',
+			nick: '',
+			date: '',
+			content: '',
+			indexStr: '',
+			dateStr: ''
+		};
+		var as = li.find('a');
+		if (as.length > 3) {
+			post.indexStr = $(as[0]).html().trim();
+			post.author = $(as[1]).html().trim();
+			post.dateStr = $(as[2]).html().trim();
+		}
+		post.pid = li.find('.nav.hl div').last().attr('tid');
+		post.content = '<div class="sp">' + li.find('div.sp').html() + '</div>';
+
+		posts.push(post);
+	});
+
+	var pageStr = div.find('form .plant').html();
+	var ps = pageStr.split('/');
+
+	ret = {
+		posts: posts,
+		page: parseInt(ps[0]),
+		total: parseInt(ps[1])
+	}
+	isInvalidPost = false;
+	return ret;
+}
+
+function parseWPosts(html) {
 	html = html.replace(/<script.*?<\/script>/g, '')
 	.replace(/<a[^>]+>(<img[^>]+>)<\/a>/gi, '$1')
 	.replace(/(<img[^>]*?src=")(\/nForum\/att\/)/gi, '$1http://www.newsmth.net$2')
@@ -652,17 +716,14 @@ function parsePosts(html) {
 		isInvalidPost = true;
 	}
 
-	// debugger;
-	// 获取页数信息
-	latestPagePostsCount = posts.length;
-	totalPage = Math.ceil(parseInt(div.find('.page-pre > i').html()) / postsCountPerPage);
-	currentPage = parseInt(div.find('.page-select > a').html());
-	maxPage = Math.max(maxPage, currentPage);
-	if (maxPage == currentPage) {
-		SMApp.setCurrentPage(currentPage, totalPage);
+	var page = parseInt(div.find('.page-select > a').html());
+	var total = Math.ceil(parseInt(div.find('.page-pre > i').html()) / postsCountPerPage);
+
+	return {
+		posts: posts,
+		page: page,
+		total: total
 	}
-	makeupLoading();
-	return posts;
 }
 
 function parseArticle(article) {
