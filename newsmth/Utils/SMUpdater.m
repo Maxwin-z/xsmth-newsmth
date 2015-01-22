@@ -10,6 +10,7 @@
 #import "ASIHTTPRequest.h"
 #import "SSZipArchive.h"
 #import "SMAdViewController.h"
+#import <CoreText/CoreText.h>
 
 #define API_PREFIX @"http://maxwin.me/xsmth/service/"
 
@@ -126,6 +127,35 @@
     NSString *destPath = [NSString stringWithFormat:@"%@/post/", docPath];
     [SSZipArchive unzipFileAtPath:filepath toDestination:destPath];
     XLog_d(@"unzip posts template");
+    
+    // copy fonts to post folder
+//    NSFileManager *fm = [NSFileManager defaultManager];
+    NSString *resourceDirectory = [[NSBundle mainBundle] resourcePath];
+    
+    NSArray *files = [[NSFileManager defaultManager]
+                      contentsOfDirectoryAtPath:resourceDirectory
+                      error:NULL];
+    for (NSString *file in files) {
+        if ([file hasSuffix:@".TTF"]) {
+            NSString *from = [NSString stringWithFormat:@"%@/%@", resourceDirectory, file];
+//            NSString *to = [NSString stringWithFormat:@"%@/%@", destPath, file];
+//            if (![fm fileExistsAtPath:to]) {
+//                [fm copyItemAtPath:from toPath:to error:NULL];
+//            }
+            NSData *data = [NSData dataWithContentsOfFile:from];
+            CFErrorRef error;
+            CGDataProviderRef provider = CGDataProviderCreateWithCFData((CFDataRef)data);
+            CGFontRef font = CGFontCreateWithDataProvider(provider);
+            if (! CTFontManagerRegisterGraphicsFont(font, &error)) {
+                CFStringRef errorDescription = CFErrorCopyDescription(error);
+                NSLog(@"Failed to load font: %@", errorDescription);
+                CFRelease(errorDescription);
+            }
+           
+            CFRelease(font);
+            CFRelease(provider);
+        }
+    }
 }
 
 - (void)downloadPostPage
