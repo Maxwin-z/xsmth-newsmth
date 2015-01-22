@@ -142,7 +142,7 @@
     if (listFontSize == 0) {
         listFontSize = 15;
     }
-    return [UIFont fontWithName:listFontFamily size:listFontSize];
+    return [UIFont fontWithName:listFontFamily size:listFontSize] ?: [UIFont systemFontOfSize:listFontSize];
 }
 
 + (UIFont *)postFont
@@ -150,12 +150,12 @@
     NSString *postFontFamily = [[NSUserDefaults standardUserDefaults] stringForKey:USERDEFAULTS_POST_FONT_FAMILY];
     NSInteger postFontSize = [[NSUserDefaults standardUserDefaults] integerForKey:USERDEFAULTS_POST_FONT_SIZE];
     if (postFontFamily == nil) {
-        postFontFamily = @"Helvetica";
+        postFontFamily = @"FZLanTingHei-L-GBK";
     }
     if (postFontSize == 0) {
         postFontSize = 17;
     }
-    return [UIFont fontWithName:postFontFamily size:postFontSize];
+    return [UIFont fontWithName:postFontFamily size:postFontSize] ?: [UIFont systemFontOfSize:postFontSize];
 }
 
 + (NSInteger)nextFetchTime
