@@ -40,6 +40,10 @@
 //#define DEBUG_HOST @"10.128.100.175"
 #define DEBUG_HOST @"192.168.3.161"
 
+typedef NS_ENUM(NSInteger, ScrollDirection) {
+    ScrollDirectionUp,
+    ScrollDirectionDown
+};
 
 @interface SMPostViewControllerV2 () <UIWebViewDelegate, UIScrollViewDelegate, SMWebLoaderOperationDelegate>
 @property (strong, nonatomic) UIWebView *webView;
@@ -57,6 +61,7 @@
 
 @property (assign, nonatomic) CGFloat maxScrollY;
 @property (assign, nonatomic) CGFloat lastScrollY;
+@property (assign, nonatomic) ScrollDirection scrollDirection;
 @property (assign, nonatomic) BOOL hideTop;
 
 #pragma mark bottom bar
@@ -397,11 +402,20 @@
     self.maxScrollY = MAX(self.maxScrollY, scrollView.contentOffset.y);
     
     if (scrollView.contentOffset.y >= self.lastScrollY) {
+        self.scrollDirection = ScrollDirectionUp;
         [self hideNavigation:YES];
     } else {
+        self.scrollDirection = ScrollDirectionDown;
+    }
+    
+    self.lastScrollY = scrollView.contentOffset.y;
+}
+
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView
+{
+    if (self.scrollDirection == ScrollDirectionDown) {
         [self showNavigation:YES];
     }
-    self.lastScrollY = scrollView.contentOffset.y;
 }
 
 - (void)sendScrollToBottomEvent:(UIScrollView *)scrollView
