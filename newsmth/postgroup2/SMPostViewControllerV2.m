@@ -91,6 +91,7 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     // add bottom bar
     [[NSBundle mainBundle] loadNibNamed:@"SMPostViewBottomBar" owner:self options:nil];
     CGRect frame = self.viewForButtomBar.frame;
+    frame.size.width = self.view.frame.size.width;
     frame.origin.y = self.view.frame.size.height - frame.size.height;
     self.viewForButtomBar.frame = frame;
     self.viewForButtomBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin
@@ -979,6 +980,10 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
 
 - (IBAction)onPageSelectorButtonClick:(id)sender
 {
+    if (self.currentPage == 0 || self.totalPage == 0) {
+        return ;
+    }
+    
     NSMutableArray *pages = [NSMutableArray new];
     for (int i = 0; i < self.totalPage; ++i) {
         [pages addObject:[NSString stringWithFormat:@"%@", @(i + 1)]];
