@@ -399,7 +399,8 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     [self sendScrollToBottomEvent:scrollView];
     
 //    XLog_d(@"%@", @(scrollView.contentOffset.y));
-    self.maxScrollY = MAX(self.maxScrollY, scrollView.contentOffset.y);
+//    self.maxScrollY = MAX(self.maxScrollY, scrollView.contentOffset.y);
+    self.maxScrollY = scrollView.contentOffset.y;   // save leave pos
     
     if (scrollView.contentOffset.y >= self.lastScrollY) {
         self.scrollDirection = ScrollDirectionUp;
