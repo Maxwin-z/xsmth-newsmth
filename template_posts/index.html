@@ -137,15 +137,16 @@ li.post div.sp {
 }
 
 .ximg-middle, 
-.ximage-large {
+.ximg-large {
 	position: absolute;
+	padding-top: 20%;
 	width: 50%;
 	top:0;
 	bottom: 0;
 	left: 0;
 	text-align: center;
 }
-.ximage-large {
+.ximg-large {
 	left: 50%;
 	right: 0;
 }
@@ -475,11 +476,10 @@ function renderPosts(posts, page) {
 		img.on('tap', function (evt) {
 			onImageClick(img, evt);
 		});
-		var info = img.parent().find('.ximg-info');
+		
 		var autoload = config.autoload;
 		if (!autoload) {
 			var src = img.attr('src2');
-			info.html('点击加载图片');
 			SMApp.getImageInfo(src + '/middle', false, function (value) {
 				if (value.size) {
 					img.parent().find('.ximg-middle').html('中图' + formatSize(value.size));
@@ -686,7 +686,15 @@ function trimHtml(html) {
 	.replace(/(<img[^>]*?src=")(\/nForum\/att\/)/gi, '$1http://www.newsmth.net$2')
 	.replace(/<img[^>]*?src="(http.+?)"[^>]*?>/gi, function ($0, src) {
 		src = src.replace(/\/(large|middle)$/, '');
-		return '<span class="ximg-box"><span class="ximg-info"></span><div class="ximg-action"><span class="ximg-middle">中图</span><span class="ximage-large">原图</span></div><img class="ximg" src="placeholder.jpg" src2="' + src + '"/></span>';
+		return [
+			'<span class="ximg-box">',
+				'<img class="ximg" src="placeholder.jpg" src2="', src , '"/>',
+				'<span class="ximg-middle">Middle</span>',
+				'<span class="ximg-large">Large</span>',
+			'</span>'
+		].join('');
+
+		// '<span class="ximg-box"><span class="ximg-info"></span><div class="ximg-action"><span class="ximg-middle">中图</span><span class="ximage-large">原图</span></div><img class="ximg" src="placeholder.jpg" src2="' + src + '"/></span>';
 	});
 }
 
