@@ -10,4 +10,5 @@
 
 @interface SMImageViewerViewController : SMViewController
 @property (strong, nonatomic) UIImage *image;
+@property (strong, nonatomic) NSString *imageUrl;
 @end

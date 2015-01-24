@@ -676,9 +676,10 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
         }
         
         if ([title isEqualToString:@"查看大图"]) {
-            UIImage *image = [[XImageViewCache sharedInstance] getImage:url];
+//            UIImage *image = [[XImageViewCache sharedInstance] getImage:url];
             SMImageViewerViewController *vc = [SMImageViewerViewController new];
-            vc.image = image;
+            vc.imageUrl = url;
+//            vc.image = image;
             [self.navigationController pushViewController:vc animated:YES];
         }
     }];

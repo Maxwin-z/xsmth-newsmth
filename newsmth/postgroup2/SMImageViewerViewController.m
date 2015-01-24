@@ -7,9 +7,10 @@
 //
 
 #import "SMImageViewerViewController.h"
+#import "XImageView.h"
 
 @interface SMImageViewerViewController () <UIScrollViewDelegate>
-@property (strong, nonatomic) UIImageView *imageView;
+@property (strong, nonatomic) XImageView *imageView;
 @end
 
 @implementation SMImageViewerViewController
@@ -29,10 +30,27 @@
     
     scrollView.delegate = self;
 
-    self.imageView = [[UIImageView alloc] initWithImage:self.image];
+    self.imageView = [XImageView new];
+    @weakify(self);
+    [self.imageView setDidLoadBlock:^ {
+        @strongify(self);
+        [self.imageView sizeToFit];
+        scrollView.contentSize = self.imageView.frame.size;
+        self.navigationItem.title = @"查看大图";
+    }];
+    [self.imageView setUpdateProgressBlock:^ (CGFloat progress) {
+        @strongify(self);
+        self.navigationItem.title = [NSString stringWithFormat:@"正在加载: %.1f%%", progress * 100];
+    }];
+    self.imageUrl = self.imageUrl;
     
-    scrollView.contentSize = self.imageView.frame.size;
-    [scrollView addSubview:self.imageView];
+   [scrollView addSubview:self.imageView];
+}
+
+- (void)setImageUrl:(NSString *)imageUrl
+{
+    _imageUrl = imageUrl;
+    self.imageView.url = imageUrl;
 }
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
