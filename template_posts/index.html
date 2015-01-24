@@ -213,6 +213,7 @@ li.post div.sp {
 }
 #sm-ad-img {
 	width: 100%;
+	min-height: 60px;
 }
 #sm-ad-mask {
 	position: absolute;
@@ -545,7 +546,7 @@ function tryLoadAd() {
 	if ($('#post-list li').length < 3) return;
 	adLoading = true;
 	SMApp.getSMUUID(function (uuid) {
-		var url = "http://192.168.3.230/test/ad.json?userid=" + uuid
+		var url = "http://intely.cn/jebe-show?userid=" + uuid
 			+ '&appid=xsmth'
 			+ '&keyword=' + encodeURIComponent(mainPost.title);
 		console.log('adurl', url);

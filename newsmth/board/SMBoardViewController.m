@@ -66,7 +66,7 @@
     
     // ad static
     if (_board.cnName.length > 0) {
-        NSString *url = [NSString stringWithFormat:@"%@/test/jebe-log.php", SM_AD_DOMIN];
+        NSString *url = [NSString stringWithFormat:@"%@/jebe-log", SM_AD_DOMIN];
         ASIFormDataRequest *req = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:url]];
         [req setPostValue:[SMUtils getSMUUID] forKey:@"userid"];
         [req setPostValue:SM_AD_APPID forKey:@"appid"];

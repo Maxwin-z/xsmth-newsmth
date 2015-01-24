@@ -12,7 +12,7 @@
 #define SM_DATA_SCHEMA @"newsmth://_?"
 #define SM_ERROR_DOMAIN @"newsmth_error"
 
-#define SM_AD_DOMIN @"http://192.168.3.230"
+#define SM_AD_DOMIN @"http://intely.cn"
 #define SM_AD_APPID @"xsmth"
 
 #define SM_TOP_INSET    64.0f
