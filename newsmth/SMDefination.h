@@ -70,6 +70,7 @@ typedef enum {
 #define USERDEFAULTS_CONFIG_ENABLE_DISABLE_AD @"cfg_disable_ad"
 #define USERDEFAULTS_CONFIG_ENABLE_MOBILE_AUTO_LOAD_IMAGE @"cfg_enable_mobile_auto_load_image"
 #define USERDEFAULTS_CONFIG_ENABLE_TAP_PAGING @"cfg_enable_tap_paging"
+#define USERDEFAULTS_CONFIG_ENABLE_PAD_MODE @"cfg_enable_page_mode"
 
 #define USERDEFAULTS_UPDATE_ADID    @"updater_adid"
 #define USERDEFAULTS_UPDATE_GADRATIO @"updater_gadratio"

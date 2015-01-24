@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
-        <deployment defaultVersion="1280" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SMSettingViewController">
@@ -23,6 +23,7 @@
                 <outlet property="cellForHideTop" destination="VWe-NO-y7A" id="QRu-jU-ziT"/>
                 <outlet property="cellForListFont" destination="J5h-jh-sQ0" id="z3V-GV-7KE"/>
                 <outlet property="cellForOptimizePostContent" destination="lm1-5n-PtG" id="IfX-X6-abd"/>
+                <outlet property="cellForPadMode" destination="daP-1J-JyW" id="MpW-7g-spa"/>
                 <outlet property="cellForPostFont" destination="ni6-wg-VaA" id="JBi-wA-jeK"/>
                 <outlet property="cellForRate" destination="QvN-rk-4dd" id="0I0-2w-rVI"/>
                 <outlet property="cellForShakeSwitchDayMode" destination="nxp-hP-LUe" id="EDT-B6-ESW"/>
@@ -35,6 +36,7 @@
                 <outlet property="labelForAppVersion" destination="sAq-aJ-VXr" id="7I5-A1-04b"/>
                 <outlet property="labelForListFont" destination="xnr-Tc-fXn" id="BoB-8D-mOO"/>
                 <outlet property="labelForPostFont" destination="9HU-NW-ZR5" id="jXl-Qt-J3O"/>
+                <outlet property="segmentedControlForPadMode" destination="QVP-MZ-o8I" id="N2J-ws-fsF"/>
                 <outlet property="sliderForListFont" destination="2rr-zj-8sT" id="qGo-go-hta"/>
                 <outlet property="sliderForPostFont" destination="vIx-9p-iMN" id="4Iw-X9-uPW"/>
                 <outlet property="switchForBackgroundFetch" destination="6w0-LD-wEj" id="nPt-XF-iId"/>
@@ -643,6 +645,39 @@
                     </label>
                 </subviews>
             </tableViewCellContentView>
+        </tableViewCell>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="QfX-AH-cek" detailTextLabel="C2b-Jk-3g2" style="IBUITableViewCellStyleSubtitle" id="daP-1J-JyW" userLabel="iPad模式">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="daP-1J-JyW" id="b02-sB-Eai">
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="iPad模式" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QfX-AH-cek">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="设置后，需重启App生效" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="C2b-Jk-3g2">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="QVP-MZ-o8I">
+                        <rect key="frame" x="210" y="8" width="100" height="29"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                        <segments>
+                            <segment title="分栏"/>
+                            <segment title="全屏"/>
+                        </segments>
+                        <connections>
+                            <action selector="onPadModeSegmentedControlValueChanged:" destination="-1" eventType="touchUpInside" id="SZc-UF-fQT"/>
+                        </connections>
+                    </segmentedControl>
+                </subviews>
+            </tableViewCellContentView>
+            <point key="canvasLocation" x="167" y="1180"/>
         </tableViewCell>
     </objects>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

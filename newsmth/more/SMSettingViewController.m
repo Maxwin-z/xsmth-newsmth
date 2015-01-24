@@ -19,6 +19,8 @@
 #define MAX_CELL_COUNT  6
 
 typedef enum {
+    CellTypePadMode,
+    
     CellTypeDisableTail,
     CellTypeDisableAd,
     
@@ -90,8 +92,8 @@ static SectionData sections[] = {
         SectionTypeBoard,
         "浏览",
         NULL,
-        3,
-        {CellTypeHideTop, CellTypeUserClickable, CellTypeShowReplyAuthor}
+        4,
+        {CellTypeHideTop, CellTypeUserClickable, CellTypeShowReplyAuthor, CellTypePadMode}
     },
     {
         SectionTypePostView,
@@ -174,6 +176,7 @@ static SectionData sections[] = {
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForTapPaging;
 
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForEnableMobileAutoLoadImage;
+@property (strong, nonatomic) IBOutlet UITableViewCell *cellForPadMode;
 
 @property (weak, nonatomic) IBOutlet UILabel *labelForAppVersion;
 @property (weak, nonatomic) IBOutlet UISwitch *switchForHideTop;
@@ -190,6 +193,7 @@ static SectionData sections[] = {
 @property (weak, nonatomic) IBOutlet UISwitch *switchForDisableAd;
 @property (weak, nonatomic) IBOutlet UISwitch *switchForEnableMobileAutoLoadImage;
 @property (weak, nonatomic) IBOutlet UISwitch *switchForTapPaging;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControlForPadMode;
 
 @property (weak, nonatomic) IBOutlet UILabel *labelForPostFont;
 @property (weak, nonatomic) IBOutlet UISlider *sliderForPostFont;
@@ -237,6 +241,8 @@ static SectionData sections[] = {
     
     _sliderForListFont.value = [SMConfig listFont].pointSize;
     _sliderForPostFont.value = [SMConfig postFont].pointSize;
+    
+    _segmentedControlForPadMode.selectedSegmentIndex = [SMConfig iPadMode] ? 0 : 1;
     
     if ([SMUtils systemVersion] < 7) {
         _switchForBackgroundFetch.on = _switchForSwipeBack.on = _switchForBackgroundFetchSmartMode.on = NO;
@@ -363,6 +369,12 @@ static SectionData sections[] = {
     [SMUtils trackEventWithCategory:@"setting" action:action label:sender.on ? @"on" : @"off"];
 }
 
+- (IBAction)onPadModeSegmentedControlValueChanged:(UISegmentedControl *)sender
+{
+    BOOL padMode = sender.selectedSegmentIndex == 0;
+    [[NSUserDefaults standardUserDefaults] setBool:padMode forKey:USERDEFAULTS_CONFIG_ENABLE_PAD_MODE];
+}
+
 - (IBAction)onPostFontSliderValueChanged:(UISlider *)slider
 {
     NSInteger size = (int)slider.value;
@@ -381,6 +393,13 @@ static SectionData sections[] = {
 #pragma mark - cache
 
 #pragma mark - UITableViewDataSource/Delegate
+- (void)fixPadModeCell  // don't know wht
+{
+    CGRect frame = self.segmentedControlForPadMode.frame;
+    frame.origin.x = self.cellForPadMode.bounds.size.width - frame.size.width - 10;
+    self.segmentedControlForPadMode.frame = frame;
+}
+
 - (UITableViewCell *)cellForType:(CellType)type;
 {
     switch (type) {
@@ -402,6 +421,9 @@ static SectionData sections[] = {
             return _cellForEnableMobileAutoLoadImage;
         case CellTypeTapPaging:
             return _cellForTapPaging;
+        case CellTypePadMode:
+            [self fixPadModeCell];
+            return _cellForPadMode;
             
         case CellTypeEnableQMD:
             return _cellForShowQMD;
@@ -453,7 +475,12 @@ static SectionData sections[] = {
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return sections[section].cellCount;
+    SectionData sec = sections[section];
+    NSInteger count = sec.cellCount;
+    if (sec.sectionType == SectionTypeBoard && ![SMUtils isPad]) {
+        --count;
+    }
+    return count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

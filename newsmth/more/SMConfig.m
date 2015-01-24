@@ -112,7 +112,7 @@
 
 + (BOOL)iPadMode
 {
-    return [SMUtils isPad] && NO;
+    return [SMUtils isPad] && YES;
 }
 
 + (NSArray *)historyBoards
