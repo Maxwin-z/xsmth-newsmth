@@ -110,6 +110,11 @@
     return [SMConfig configForKey:USERDEFAULTS_CONFIG_ENABLE_TAP_PAGING defaults:YES];
 }
 
++ (BOOL)iPadMode
+{
+    return [SMUtils isPad] && NO;
+}
+
 + (NSArray *)historyBoards
 {
     return [[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_BOARD_HISTORY];

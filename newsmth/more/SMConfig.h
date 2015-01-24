@@ -25,6 +25,7 @@
 + (BOOL)isPro;
 + (BOOL)enableMobileAutoLoadImage;
 + (BOOL)enableTapPaing;
++ (BOOL)iPadMode;
 
 + (void)addBoardToHistory:(SMBoard *)board;
 + (NSArray *)historyBoards;
