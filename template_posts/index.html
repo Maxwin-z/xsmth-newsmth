@@ -472,27 +472,34 @@ function renderPosts(posts, page) {
 	dom.find('img.ximg').each(function (idx, img) {
 		img = $(img);
 		img.css('max-width', imageMaxWidth + 'px');
-		console.log('bind click', img);
-		img.on('tap', function (evt) {
-			onImageClick(img, evt);
-		});
 		
+		var src = img.attr('src2');
+
+		var middle = img.parent().find('.ximg-middle');
+		var large = img.parent().find('.ximg-large');
+
+		middle.on('tap', function (evt) {
+			onImageClick(img, IMG_TYPE_MIDDLE, evt);
+		});
+		large.on('tap', function (evt) {
+			onImageClick(img, IMG_TYPE_LARGE, evt);
+		});
+
 		var autoload = config.autoload;
 		if (!autoload) {
-			var src = img.attr('src2');
 			SMApp.getImageInfo(src + '/middle', false, function (value) {
 				if (value.size) {
-					img.parent().find('.ximg-middle').html('中图' + formatSize(value.size));
+					middle.html('小图' + formatSize(value.size));
 				}
 			});
 
-			SMApp.getImageInfo(src + '/large', false, function (value) {
+			SMApp.getImageInfo(src, false, function (value) {
 				if (value.size) {
-					img.parent().find('.ximg-large').html('原图' + formatSize(value.size));
+					large.html('原图' + formatSize(value.size));
 				}
 			});
 		} else {
-			loadImage(img, autoload);
+			loadImage(img, src, autoload);
 		}
 	});
 	dom.find('.action_button').on('tap', onActionButtonClick);
@@ -507,24 +514,30 @@ function renderPosts(posts, page) {
 	return dom;
 }
 
-function onImageClick(img, evt) {
+var IMG_TYPE_MIDDLE = 0;
+var IMG_TYPE_LARGE = 1;
+
+function onImageClick(img, type, evt) {
 	console.log('clicked', img, evt, evt.target);
 	var status = img.attr('status');
 	if (!status || status == 'fail') {
-		loadImage(img, true);
+		var src = img.attr('src2');
+		if (type == IMG_TYPE_MIDDLE) {
+			src += '/middle';
+		}
+		loadImage(img, src, true);
 	}
 	if (status == 'loaded') {
 		SMApp.tapImage(img.attr('src2'));
 	}
 }
 
-function loadImage(img, forceLoad) {
-	var src = img.attr('src2');
+function loadImage(img, src, forceLoad) {
 	if (forceLoad) {
 		img.attr('status', 'loading');
 	}
 	var info = img.parent().find('.ximg-info');
-	info.html('正在加载');
+	var spans = img.parent().find('span');
 	
 	SMApp.getImageInfo(src, forceLoad, function (value) {
 		// alert(src, size);
@@ -532,7 +545,7 @@ function loadImage(img, forceLoad) {
 		if (value.success) {
 			$(img).attr('src', value.success);
 			$(img).attr('status', 'loaded');
-			info.hide();
+			spans.html('');
 		}
 		if (value.progress) {
 			info.html((Math.round(value.progress * 1000) / 10) + '%');
@@ -689,8 +702,9 @@ function trimHtml(html) {
 		return [
 			'<span class="ximg-box">',
 				'<img class="ximg" src="placeholder.jpg" src2="', src , '"/>',
-				'<span class="ximg-middle">Middle</span>',
-				'<span class="ximg-large">Large</span>',
+				'<span class="ximg-info action-img"></span>',
+				'<span class="ximg-middle action-img">小图</span>',
+				'<span class="ximg-large action-img">原图</span>',
 			'</span>'
 		].join('');
 
