@@ -112,7 +112,7 @@
 
 + (BOOL)iPadMode
 {
-    return [SMUtils isPad] && YES;
+    return [SMUtils isPad] && [SMConfig configForKey:USERDEFAULTS_CONFIG_ENABLE_PAD_MODE defaults:NO];
 }
 
 + (NSArray *)historyBoards

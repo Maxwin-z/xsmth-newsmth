@@ -373,6 +373,8 @@ static SectionData sections[] = {
 {
     BOOL padMode = sender.selectedSegmentIndex == 0;
     [[NSUserDefaults standardUserDefaults] setBool:padMode forKey:USERDEFAULTS_CONFIG_ENABLE_PAD_MODE];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [[[UIAlertView alloc] initWithTitle:@"!!注意!!" message:@"需要重启应用，使之生效" delegate:self cancelButtonTitle:nil otherButtonTitles:@"重启", nil] show];
 }
 
 - (IBAction)onPostFontSliderValueChanged:(UISlider *)slider

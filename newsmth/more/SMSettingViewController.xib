@@ -672,7 +672,7 @@
                             <segment title="全屏"/>
                         </segments>
                         <connections>
-                            <action selector="onPadModeSegmentedControlValueChanged:" destination="-1" eventType="touchUpInside" id="SZc-UF-fQT"/>
+                            <action selector="onPadModeSegmentedControlValueChanged:" destination="-1" eventType="valueChanged" id="rqt-4j-eV1"/>
                         </connections>
                     </segmentedControl>
                 </subviews>
