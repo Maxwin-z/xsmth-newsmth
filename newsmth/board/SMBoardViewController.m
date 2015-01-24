@@ -18,6 +18,7 @@
 #import "SMDiagnoseViewController.h"
 #import "SMDBManager.h"
 #import "SMPostViewControllerV2.h"
+#import "ASIFormDataRequest.h"
 
 @interface SMBoardViewController ()<UITableViewDelegate, UITableViewDataSource, XPullRefreshTableViewDelegate, SMWebLoaderOperationDelegate, SMBoardCellDelegate, SMBoardViewTypeSelectorViewDelegate>
 @property (weak, nonatomic) IBOutlet XPullRefreshTableView *tableView;
@@ -62,6 +63,17 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(writePost)];
     
     [SMConfig addBoardToHistory:_board];
+    
+    // ad static
+    if (_board.cnName.length > 0) {
+        NSString *url = [NSString stringWithFormat:@"%@/test/jebe-log.php", SM_AD_DOMIN];
+        ASIFormDataRequest *req = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:url]];
+        [req setPostValue:[SMUtils getSMUUID] forKey:@"userid"];
+        [req setPostValue:SM_AD_APPID forKey:@"appid"];
+        [req setPostValue:_board.cnName forKey:@"keyword"];
+        [req startAsynchronous];
+    }
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated

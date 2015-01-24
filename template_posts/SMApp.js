@@ -100,6 +100,12 @@
                 page: page,
                 total: total
             });
+        },
+
+        getSMUUID: function (callback) {
+            SMApp.send_message('getSMUUID', {}, function (ret) {
+                callback && callback(ret.uuid);
+            });
         }
     });
 

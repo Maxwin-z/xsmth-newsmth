@@ -270,6 +270,25 @@
     return html;
 }
 
++ (NSString *)generateUUID
+{
+    CFUUIDRef theUUID = CFUUIDCreate(NULL);
+    CFStringRef string = CFUUIDCreateString(NULL, theUUID);
+    CFRelease(theUUID);
+    return (__bridge NSString *)string;
+}
+
++ (NSString *)getSMUUID
+{
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    NSString *uuid = [def stringForKey:USERDEFAULTS_UUID];
+    if (uuid.length == 0) {
+        uuid = [[self class] generateUUID];
+        [def setObject:uuid forKey:USERDEFAULTS_UUID];
+    }
+    return uuid;
+}
+
 @end
 
 

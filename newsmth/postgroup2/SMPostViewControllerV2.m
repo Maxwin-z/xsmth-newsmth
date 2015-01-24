@@ -514,6 +514,10 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     if ([method isEqualToString:@"setCurrentPage"]) {
         [self apiSetCurrentPage:parameters];
     }
+    
+    if ([method isEqualToString:@"getSMUUID"]) {
+        [self apiGetSMUUID:parameters];
+    }
 }
 
 - (void)sendMessage2WebViewWithCallbackID:(NSString *)callbackID value:(id)value
@@ -704,6 +708,11 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     } else {
         [self tapActionForIOS7];
     }
+}
+
+- (void)apiGetSMUUID:(NSDictionary *)parameters
+{
+    [self sendMessage2WebViewWithCallbackID:parameters[@"callbackID"] value:@{@"uuid": [SMUtils getSMUUID]}];
 }
 
 - (void)apiReply:(NSDictionary *)parameters

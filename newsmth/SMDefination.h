@@ -12,6 +12,9 @@
 #define SM_DATA_SCHEMA @"newsmth://_?"
 #define SM_ERROR_DOMAIN @"newsmth_error"
 
+#define SM_AD_DOMIN @"http://192.168.3.230"
+#define SM_AD_APPID @"xsmth"
+
 #define SM_TOP_INSET    64.0f
 
 #define SMRGB(r, g, b)  [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:1.0f]
@@ -39,6 +42,7 @@ typedef enum {
 
 #define USERDEFAULTS_STAT_VERSION   @"statversion"  // 每个版本统计一次ga，唯一用户
 
+#define USERDEFAULTS_UUID @"sm_uuid"
 #define USERDEFAULTS_USERNAME   @"username"
 #define USERDEFAULTS_PASSWORD   @"password"
 #define USERDEFAULTS_NOTICE @"notice"   // 保存当前notice信息

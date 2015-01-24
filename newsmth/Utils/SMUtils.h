@@ -47,6 +47,8 @@
 + (NSString *)documentPath;
 
 + (NSString *)trimHtmlTag:(NSString *)html;
++ (NSString *)generateUUID;
++ (NSString *)getSMUUID;
 @end
 
 @interface NSString (SMUtils)

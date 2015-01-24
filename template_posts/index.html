@@ -204,6 +204,23 @@ li.post div.sp {
 	margin-bottom: 20px;
 }
 
+#sm-ad {
+	padding-left: 20px;
+	position: relative;
+}
+#sm-ad a {
+	display: block;
+}
+#sm-ad-img {
+	width: 100%;
+}
+#sm-ad-mask {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 80px;
+}
+
 </style>
 </head>
 <body>
@@ -241,6 +258,15 @@ li.post div.sp {
 		<div class="action_page_hint">点击加载</div>
 	</li>
 </textarea>
+
+<script type="text/template" id="tpl_ad">
+<li id="sm-ad">
+	<a href="${url}" class="action-ad">
+		<img id="sm-ad-img" class="action-ad" alt=" " src="${src}" />
+		<img id="sm-ad-mask" src="mask_ad.png" />
+	</a>
+</li>
+</script>
 <script type="text/javascript">
 // js events
 window.onThemeChanged = function (style) {
@@ -512,6 +538,50 @@ function renderPosts(posts, page) {
 	return dom;
 }
 
+var adLoading = false;
+function tryLoadAd() {
+	if (adLoading) return ;
+	if ($('#sm-ad').length > 0) return;
+	if ($('#post-list li').length < 3) return;
+	adLoading = true;
+	SMApp.getSMUUID(function (uuid) {
+		var url = "http://192.168.3.230/test/ad.json?userid=" + uuid
+			+ '&appid=xsmth'
+			+ '&keyword=' + encodeURIComponent(mainPost.title);
+		console.log('adurl', url);
+		SMApp.ajax({
+			url: url,
+			success: function (body) {
+				var json = JSON.parse(body);
+				if (json.code != 0) return ;
+				var ad = json.data;
+				var tplAd = $('#tpl_ad').html().trim();
+				SMApp.getImageInfo(ad.impurl, true, function (value) {
+					if (value.fail) {
+						adLoading = false;
+					}
+					if (!value.success) {
+						return ;
+					}
+					var data = {
+						url: ad.clickurl,
+						src: value.success 
+					};
+					var html = tplAd.replace(/\$\{(.*?)\}/g, function ($0, $1) {
+						return data[$1] || '';
+					});
+					var dom = $(html);
+					var li = $('#post-list li').get(2);
+					dom.insertAfter($(li));
+				});
+			},
+			fail: function (error) {
+				adLoading = false;
+			}
+		});
+	});
+}
+
 var IMG_TYPE_MIDDLE = 0;
 var IMG_TYPE_LARGE = 1;
 
@@ -672,7 +742,7 @@ function showPosts(body, page) {
 
 	SMApp.savePage(data);
 
-	// SMApp.setCurrentPage(maxPage, totalPage);
+	tryLoadAd();
 }
 
 function parsePosts(html) {
