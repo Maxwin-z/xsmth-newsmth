@@ -29,7 +29,7 @@
 
 + (BOOL)disableShowTopPost
 {
-    return [SMConfig configForKey:USERDEFAULTS_CONFIG_HIDE_TOP_POST defaults:YES];
+    return [SMConfig configForKey:USERDEFAULTS_CONFIG_HIDE_TOP_POST defaults:NO];
 }
 
 + (BOOL)enableUserClick
@@ -49,7 +49,7 @@
 
 + (BOOL)enableShowQMD
 {
-    return [SMConfig configForKey:USERDEFAULTS_CONFIG_SHOW_QMD defaults:YES];
+    return [SMConfig configForKey:USERDEFAULTS_CONFIG_SHOW_QMD defaults:NO];
 }
 
 + (BOOL)enableOptimizePostContent
@@ -102,7 +102,7 @@
 
 + (BOOL)enableMobileAutoLoadImage
 {
-    return [SMConfig configForKey:USERDEFAULTS_CONFIG_ENABLE_MOBILE_AUTO_LOAD_IMAGE defaults:YES];
+    return [SMConfig configForKey:USERDEFAULTS_CONFIG_ENABLE_MOBILE_AUTO_LOAD_IMAGE defaults:NO];
 }
 
 + (BOOL)enableTapPaing
