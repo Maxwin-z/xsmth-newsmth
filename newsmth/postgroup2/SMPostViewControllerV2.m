@@ -841,7 +841,7 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     SMPost *post = self.postForAction;
     SMMailComposeViewController *vc = [[SMMailComposeViewController alloc] init];
     SMMailItem *mail = [SMMailItem new];
-    mail.title = post.title;
+    mail.title = [NSString stringWithFormat:@"Re: %@", self.post.title];
     mail.content = post.content;
     mail.author = post.author;
     vc.mail = mail;
