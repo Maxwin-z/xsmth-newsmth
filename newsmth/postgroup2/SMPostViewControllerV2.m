@@ -141,8 +141,9 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     if (self.hideTop) return ;
     self.hideTop = YES;
     [self.navigationController setNavigationBarHidden:YES animated:animated];
-    [self.navigationController setNavigationBarHidden:animated];
-    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    if ([SMUtils systemVersion] >= 7) {
+        [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    }
     
     if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
         [self setNeedsStatusBarAppearanceUpdate];
