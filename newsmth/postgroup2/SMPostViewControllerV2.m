@@ -143,7 +143,10 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [self.navigationController setNavigationBarHidden:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
-    [self setNeedsStatusBarAppearanceUpdate];
+    
+    if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
+        [self setNeedsStatusBarAppearanceUpdate];
+    }
     
     [UIView animateWithDuration:animated ? 0.5 : 0 animations:^{
         CGRect frame = self.viewForButtomBar.frame;
@@ -160,7 +163,10 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     self.hideTop = NO;
     [self.navigationController setNavigationBarHidden:NO animated:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
-    [self setNeedsStatusBarAppearanceUpdate];
+    
+    if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
+        [self setNeedsStatusBarAppearanceUpdate];
+    }
     
     [UIView animateWithDuration:animated ? 0.5 : 0 animations:^{
         CGRect frame = self.viewForButtomBar.frame;
