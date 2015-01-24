@@ -497,9 +497,8 @@ function renderPosts(posts, page) {
 					large.html('原图' + formatSize(value.size));
 				}
 			});
-		} else {
-			loadImage(img, src, autoload);
 		}
+		loadImage(img, src, autoload);
 	});
 	dom.find('.action_button').on('tap', onActionButtonClick);
 	dom.find('.action .action_reply').on('tap', function (event) {
