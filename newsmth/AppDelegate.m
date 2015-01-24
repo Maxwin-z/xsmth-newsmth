@@ -137,7 +137,7 @@
     
     _mainViewController = [[SMMainViewController alloc] init];
     
-    if ([SMUtils isPad]) {
+    if ([SMConfig iPadMode]) {
         _ipadSplitViewController = [SMIPadSplitViewController new];
         SMIpadEmptyViewController *detailVc = [SMIpadEmptyViewController new];
         _ipadSplitViewController.masterViewController = _mainViewController;

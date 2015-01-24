@@ -368,7 +368,7 @@ typedef enum {
     
     P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:mailComposeViewController];
     
-    if ([SMUtils isPad]) {
+    if ([SMConfig iPadMode]) {
         [[SMIPadSplitViewController instance] presentModalViewController:nvc animated:YES];
     } else {
         [self presentModalViewController:nvc animated:YES];

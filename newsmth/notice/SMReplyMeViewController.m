@@ -112,7 +112,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (![SMUtils isPad]) { // ipad master view. 保持选中态
+    if (![SMConfig iPadMode]) { // ipad master view. 保持选中态
         [_tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
 
@@ -120,7 +120,7 @@
     NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/refer/%@/read?index=%d", _refer, post.gid];
     SMPostViewController *vc = [[SMPostViewController alloc] init];
     vc.postUrl = url;
-    if ([SMUtils isPad]) {
+    if ([SMConfig iPadMode]) {
         [SMIPadSplitViewController instance].detailViewController = vc;
     } else {
         [[SMNoticeViewController instance].navigationController pushViewController:vc animated:YES];

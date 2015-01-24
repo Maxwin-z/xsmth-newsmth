@@ -82,7 +82,7 @@
     vc.postUrl = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/single/%d/0", _board.name, post.gid];
     vc.fromBoard = YES;
     
-    if ([SMUtils isPad]) {
+    if ([SMConfig iPadMode]) {
         [SMIPadSplitViewController instance].detailViewController = vc;
     } else {
         [self.navigationController pushViewController:vc animated:YES];

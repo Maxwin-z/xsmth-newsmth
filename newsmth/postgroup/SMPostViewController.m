@@ -837,7 +837,7 @@
     writeViewController.postTitle = _postTitle;
     writeViewController.title = [NSString stringWithFormat:@"回复-%@", _postTitle];
     P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:writeViewController];
-    if ([SMUtils isPad]) {
+    if ([SMConfig iPadMode]) {
         [[SMIPadSplitViewController instance] presentModalViewController:nvc animated:YES];
     } else {
         [self presentModalViewController:nvc animated:YES];
@@ -910,7 +910,7 @@
     
     [self hidePostCellActions];
 
-    if ([SMUtils isPad]) {
+    if ([SMConfig iPadMode]) {
         [[(SMMainViewController *)([SMIPadSplitViewController instance].masterViewController) centerViewController] pushViewController:svc animated:YES];
     } else {
         [self.navigationController pushViewController:svc animated:YES];

@@ -168,7 +168,7 @@ static SMMainViewController *_instance;
         SMEULAViewController *vc = [SMEULAViewController new];
         P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:vc];
         
-        if ([SMUtils isPad]) {
+        if ([SMConfig iPadMode]) {
             [[SMIPadSplitViewController instance] presentModalViewController:nvc animated:YES];
         } else {
             [self presentViewController:nvc animated:YES completion:NULL];

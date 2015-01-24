@@ -185,7 +185,7 @@ static SMMainpageViewController *_instance;
 //    vc.board = post.board;
 //    vc.gid = post.gid;
     
-    if ([SMUtils isPad]) {
+    if ([SMConfig iPadMode]) {
         [SMIPadSplitViewController instance].detailViewController = vc2;
     } else {
         [self.navigationController pushViewController:vc2 animated:YES];

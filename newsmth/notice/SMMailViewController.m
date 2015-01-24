@@ -139,7 +139,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (![SMUtils isPad]) {
+    if (![SMConfig iPadMode]) {
         [_tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
 
@@ -148,7 +148,7 @@
         item.unread = NO;
         SMMailInfoViewController *mailInfoVc = [[SMMailInfoViewController alloc] init];
         mailInfoVc.mail = item;
-        if ([SMUtils isPad]) {
+        if ([SMConfig iPadMode]) {
             [SMIPadSplitViewController instance].detailViewController = mailInfoVc;
         } else {
             [[SMNoticeViewController instance].navigationController pushViewController:mailInfoVc animated:YES];
@@ -222,7 +222,7 @@
 {
     SMUserViewController *vc = [[SMUserViewController alloc] init];
     vc.username = username;
-    if ([SMUtils isPad]) {
+    if ([SMConfig iPadMode]) {
         [SMIPadSplitViewController instance].detailViewController = vc;
     } else {
         [[SMNoticeViewController instance].navigationController pushViewController:vc animated:YES];

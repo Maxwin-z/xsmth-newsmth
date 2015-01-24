@@ -247,7 +247,7 @@
     writeViewController.post = newPost;
     writeViewController.title = [NSString stringWithFormat:@"发表-%@", _board.cnName];
     P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:writeViewController];
-    if ([SMUtils isPad]) {
+    if ([SMConfig iPadMode]) {
         [[SMIPadSplitViewController instance] presentModalViewController:nvc animated:YES];
     } else {
         [self presentModalViewController:nvc animated:YES];
@@ -331,7 +331,7 @@
         vc = singlePVC;
     }
     
-    if ([SMUtils isPad]) {
+    if ([SMConfig iPadMode]) {
         [SMIPadSplitViewController instance].detailViewController = vc;
     } else {
         [self.navigationController pushViewController:vc animated:YES];

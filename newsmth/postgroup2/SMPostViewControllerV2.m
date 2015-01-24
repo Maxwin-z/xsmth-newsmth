@@ -201,7 +201,7 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     SMBoardViewController *vc = [[SMBoardViewController alloc] init];
     vc.board = self.post.board;
     
-    if ([SMUtils isPad]) {
+    if ([SMConfig iPadMode]) {
         [[SMMainViewController instance] setRootViewController:vc];
     } else {
         [self.navigationController pushViewController:vc animated:YES];
@@ -824,7 +824,7 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     writeViewController.postTitle = self.post.title;
     writeViewController.title = [NSString stringWithFormat:@"回复-%@", self.post.title];
     P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:writeViewController];
-    if ([SMUtils isPad]) {
+    if ([SMConfig iPadMode]) {
         [[SMIPadSplitViewController instance] presentViewController:nvc animated:YES completion:NULL];
     } else {
         [self presentViewController:nvc animated:YES completion:NULL];

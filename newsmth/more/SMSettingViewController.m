@@ -530,7 +530,7 @@ static SectionData sections[] = {
     if (cellType == CellTypeEULA) {
         SMEULAViewController *vc = [SMEULAViewController new];
         vc.hideAgreeButton = YES;
-        if ([SMUtils isPad]) {
+        if ([SMConfig iPadMode]) {
             [SMIPadSplitViewController instance].detailViewController = vc;
         } else {
             [self.navigationController pushViewController:vc animated:YES];
@@ -551,7 +551,7 @@ static SectionData sections[] = {
         PBWebViewController *vc = [[PBWebViewController alloc] init];
         vc.URL = [NSURL URLWithString:@"http://maxwin.me/xsmth/PsyYiYi.html"];
         
-        if ([SMUtils isPad]) {
+        if ([SMConfig iPadMode]) {
             [SMIPadSplitViewController instance].detailViewController = vc;
         } else {
             [self.navigationController pushViewController:vc animated:YES];
@@ -569,7 +569,7 @@ static SectionData sections[] = {
     if (cellType == CellTypeAbout) {
         PBWebViewController *vc = [[PBWebViewController alloc] init];
         vc.URL = [NSURL URLWithString:@"http://maxwin.me/xsmth/about.html"];
-        if ([SMUtils isPad]) {
+        if ([SMConfig iPadMode]) {
             [SMIPadSplitViewController instance].detailViewController = vc;
         } else {
             [self.navigationController pushViewController:vc animated:YES];
@@ -580,7 +580,7 @@ static SectionData sections[] = {
     if (cellType == CellTypeBackgroundFetchHelp) {
         PBWebViewController *vc = [[PBWebViewController alloc] init];
         vc.URL = [NSURL URLWithString:@"http://maxwin.me/xsmth/background_fetch_help.html"];
-        if ([SMUtils isPad]) {
+        if ([SMConfig iPadMode]) {
             [SMIPadSplitViewController instance].detailViewController = vc;
         } else {
             [self.navigationController pushViewController:vc animated:YES];
@@ -640,7 +640,7 @@ static SectionData sections[] = {
     
     P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:mailComposeViewController];
 
-    if ([SMUtils isPad]) {
+    if ([SMConfig iPadMode]) {
         [[SMIPadSplitViewController instance] presentModalViewController:nvc animated:YES];
     } else {
         [self presentModalViewController:nvc animated:YES];
