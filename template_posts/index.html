@@ -17,7 +17,6 @@ a {}
 <script type="text/javascript" src="../posts/{__cachedjsfile__}.js?t={__t__}"></script>
 <script type="text/javascript">
 var config = {__config__};
-config.autoload = false;
 </script>
 <style type="text/css">
 * {
@@ -538,6 +537,8 @@ function loadImage(img, src, forceLoad) {
 	}
 	var info = img.parent().find('.ximg-info');
 	var spans = img.parent().find('span');
+	
+	info.html('正在加载');
 	
 	SMApp.getImageInfo(src, forceLoad, function (value) {
 		// alert(src, size);
