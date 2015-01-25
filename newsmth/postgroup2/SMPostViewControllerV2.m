@@ -90,7 +90,6 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     self.title = title;
     
     self.imageLoaders = [NSMutableDictionary new];
-    [self setupWebView];
     
     // add bottom bar
     [[NSBundle mainBundle] loadNibNamed:@"SMPostViewBottomBar" owner:self options:nil];
@@ -101,6 +100,8 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     self.viewForButtomBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin
     | UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:self.viewForButtomBar];
+    
+    [self setupWebView];
  
     NSMutableArray *items = [NSMutableArray new];
     if (!_fromBoard) {
@@ -248,7 +249,7 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     self.webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.webView.dataDetectorTypes = UIDataDetectorTypeLink;
     self.webView.scalesPageToFit = YES;
-    [self.view addSubview:self.webView];
+    [self.view insertSubview:self.webView belowSubview:self.viewForButtomBar];
     
     self.webView.delegate = self;
     self.webView.scrollView.delegate = self;
