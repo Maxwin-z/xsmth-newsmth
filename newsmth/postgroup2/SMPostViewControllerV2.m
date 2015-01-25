@@ -96,6 +96,9 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     CGRect frame = self.viewForButtomBar.frame;
     frame.size.width = self.view.frame.size.width;
     frame.origin.y = self.view.frame.size.height - frame.size.height;
+    if ([SMUtils systemVersion] < 6) {
+        frame = CGRectZero; // ios5 not support
+    }
     self.viewForButtomBar.frame = frame;
     self.viewForButtomBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin
     | UIViewAutoresizingFlexibleWidth;
