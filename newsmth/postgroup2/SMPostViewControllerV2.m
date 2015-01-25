@@ -291,7 +291,8 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     NSDictionary *config = @{
                              @"autoload": @(autoLoadImage),
                              @"showQMD": @([SMConfig enableShowQMD]),
-                             @"tapPaging": @([SMConfig enableTapPaing])
+                             @"tapPaging": @([SMConfig enableTapPaing]),
+                             @"disableAd": @([SMConfig disableAd])
                              };
     html = [html stringByReplacingOccurrencesOfString:@"{__config__}" withString:[SMUtils json2string:config]];
     

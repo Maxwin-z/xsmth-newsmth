@@ -541,6 +541,7 @@ function renderPosts(posts, page) {
 
 var adLoading = false;
 function tryLoadAd() {
+	if (config.disableAd) return ;
 	if (adLoading) return ;
 	if ($('#sm-ad').length > 0) return;
 	if ($('#post-list li').length < 3) return;
