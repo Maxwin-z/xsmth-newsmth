@@ -13,7 +13,7 @@
 #define SM_ERROR_DOMAIN @"newsmth_error"
 
 #define SM_AD_DOMIN @"http://intely.cn"
-#define SM_AD_APPID @"xsmth"
+#define SM_AD_APPID @"8"
 
 #define SM_TOP_INSET    64.0f
 

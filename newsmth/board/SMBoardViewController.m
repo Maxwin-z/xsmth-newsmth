@@ -70,7 +70,7 @@
         ASIFormDataRequest *req = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:url]];
         [req setPostValue:[SMUtils getSMUUID] forKey:@"userid"];
         [req setPostValue:SM_AD_APPID forKey:@"appid"];
-        [req setPostValue:_board.cnName forKey:@"keyword"];
+        [req setPostValue:_board.name forKey:@"keyword"];
         [req startAsynchronous];
     }
     

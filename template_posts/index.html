@@ -546,9 +546,9 @@ function tryLoadAd() {
 	if ($('#post-list li').length < 3) return;
 	adLoading = true;
 	SMApp.getSMUUID(function (uuid) {
-		var url = "http://intely.cn/jebe-show?userid=" + uuid
-			+ '&appid=xsmth'
-			+ '&keyword=' + encodeURIComponent(mainPost.title);
+		var url = "http://intely.cn/jebe-show?userid=" + encodeURIComponent(uuid)
+			+ '&appid=8'
+			+ '&keyword=' + encodeURIComponent(mainPost.board.name);
 		console.log('adurl', url);
 		SMApp.ajax({
 			url: url,
@@ -557,7 +557,7 @@ function tryLoadAd() {
 				if (json.code != 0) return ;
 				var ad = json.data;
 				var tplAd = $('#tpl_ad').html().trim();
-				SMApp.getImageInfo(ad.impurl, true, function (value) {
+				SMApp.getImageInfo(ad.img, true, function (value) {
 					if (value.fail) {
 						adLoading = false;
 					}
@@ -572,7 +572,14 @@ function tryLoadAd() {
 						return data[$1] || '';
 					});
 					var dom = $(html);
-					var li = $('#post-list li').get(2);
+					var lis = $('#post-list li');
+
+					// get current shown post
+					var scrollTop = $(window).scrollTop();
+					var index = _getIndex(lis, lis.length / 2, lis.length, scrollTop);
+					index = Math.min(index + 3, lis.length - 2);
+					index = Math.max(0, index);
+					var li = $('#post-list li').get(index);
 					dom.insertAfter($(li));
 				});
 			},
