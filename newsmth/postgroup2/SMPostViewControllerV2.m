@@ -291,11 +291,19 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     
     BOOL autoLoadImage = [[Reachability reachabilityForInternetConnection] isReachableViaWiFi] || [SMConfig enableMobileAutoLoadImage];
     
+    // calc show ad ratio
+    BOOL disableAd = [SMConfig disableAd];
+    if (!disableAd) {
+        NSInteger rand = arc4random() % 100;
+        disableAd = (rand > [SMConfig adRatio]);
+    }
+    
     NSDictionary *config = @{
                              @"autoload": @(autoLoadImage),
                              @"showQMD": @([SMConfig enableShowQMD]),
                              @"tapPaging": @([SMConfig enableTapPaing]),
-                             @"disableAd": @([SMConfig disableAd])
+                             @"disableAd": @(disableAd),
+                             @"adPostion": @([SMConfig adPostion])
                              };
     html = [html stringByReplacingOccurrencesOfString:@"{__config__}" withString:[SMUtils json2string:config]];
     
