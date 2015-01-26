@@ -27,6 +27,7 @@
 + (BOOL)enableTapPaing;
 + (BOOL)iPadMode;
 + (NSInteger)adRatio;
++ (NSInteger)adPostion;
 
 + (void)addBoardToHistory:(SMBoard *)board;
 + (NSArray *)historyBoards;

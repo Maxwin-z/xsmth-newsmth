@@ -80,6 +80,7 @@ typedef enum {
 #define USERDEFAULTS_UPDATE_GADRATIO @"updater_gadratio"
 #define USERDEFAULTS_UPDATE_IADRATIO @"updater_iadratio"
 #define USERDEFAULTS_UPDATE_ADRATIO @"updater_adratio"
+#define USERDEFAULTS_UPDATE_ADPOSTION @"updater_adpostion"
 
 #define USERDEFAULTS_PRO    @"ispro"
 

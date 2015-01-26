@@ -67,6 +67,7 @@
     [[NSUserDefaults standardUserDefaults] setInteger:newVersion.gadratio forKey:USERDEFAULTS_UPDATE_GADRATIO];
     [[NSUserDefaults standardUserDefaults] setInteger:newVersion.iadratio forKey:USERDEFAULTS_UPDATE_IADRATIO];
     [[NSUserDefaults standardUserDefaults] setInteger:newVersion.adratio forKey:USERDEFAULTS_UPDATE_ADRATIO];
+    [[NSUserDefaults standardUserDefaults] setInteger:newVersion.adPosition forKey:USERDEFAULTS_UPDATE_ADPOSTION];
 }
 
 - (void)downloadParsers

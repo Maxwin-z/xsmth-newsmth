@@ -124,6 +124,15 @@
     return 30;  // default 30%
 }
 
++ (NSInteger)adPostion
+{
+    id obj = [[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_UPDATE_ADPOSTION];
+    if (obj) {
+        return [obj integerValue];
+    }
+    return 4;  // default 4 posts
+}
+
 + (NSArray *)historyBoards
 {
     return [[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_BOARD_HISTORY];
