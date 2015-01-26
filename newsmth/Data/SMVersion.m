@@ -16,6 +16,8 @@
 	_gadratio = [[dict objectForKey:@"gadratio"] intValue];
 
 	_iadratio = [[dict objectForKey:@"iadratio"] intValue];
+
+	_adratio = [[dict objectForKey:@"adratio"] intValue];
 }
 
 - (id)encode
@@ -32,6 +34,8 @@
 	[dict setObject:@(_gadratio) forKey:@"gadratio"];
 
 	[dict setObject:@(_iadratio) forKey:@"iadratio"];
+
+	[dict setObject:@(_adratio) forKey:@"adratio"];
 	return dict;
 }
 @end

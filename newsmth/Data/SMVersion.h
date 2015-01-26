@@ -7,4 +7,5 @@
 @property (strong, nonatomic) NSString* adid;
 @property (assign, nonatomic) int gadratio;
 @property (assign, nonatomic) int iadratio;
+@property (assign, nonatomic) int adratio;
 @end
