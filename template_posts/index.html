@@ -544,7 +544,7 @@ function tryLoadAd() {
 	if (config.disableAd) return ;
 	if (adLoading) return ;
 	if ($('#sm-ad').length > 0) return;
-	if ($('#post-list li').length < 3) return;
+	if ($('#post-list li').length < config.adPosition) return;
 	adLoading = true;
 	SMApp.getSMUUID(function (uuid) {
 		var url = "http://intely.cn/jebe-show?userid=" + encodeURIComponent(uuid)
@@ -830,7 +830,7 @@ function parseMPosts(html) {
 		posts.push(post);
 	});
 
-	var pageStr = div.find('form .plant').html();
+	var pageStr = div.find('form .plant').html() || '0/0';
 	var ps = pageStr.split('/');
 
 	ret = {
@@ -838,7 +838,7 @@ function parseMPosts(html) {
 		page: parseInt(ps[0]),
 		total: parseInt(ps[1])
 	}
-	isInvalidPost = false;
+	isInvalidPost = (lis.length == 0);
 	return ret;
 }
 

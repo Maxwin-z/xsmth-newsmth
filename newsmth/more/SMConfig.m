@@ -128,7 +128,7 @@
 {
     id obj = [[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_UPDATE_ADPOSTION];
     if (obj) {
-        return [obj integerValue];
+        return MAX(3, [obj integerValue]);
     }
     return 4;  // default 4 posts
 }
