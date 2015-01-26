@@ -26,6 +26,7 @@
 + (BOOL)enableMobileAutoLoadImage;
 + (BOOL)enableTapPaing;
 + (BOOL)iPadMode;
++ (NSInteger)adRatio;
 
 + (void)addBoardToHistory:(SMBoard *)board;
 + (NSArray *)historyBoards;

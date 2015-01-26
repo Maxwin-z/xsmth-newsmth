@@ -115,6 +115,15 @@
     return [SMUtils isPad] && [SMConfig configForKey:USERDEFAULTS_CONFIG_ENABLE_PAD_MODE defaults:NO];
 }
 
++ (NSInteger)adRatio
+{
+    id obj = [[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_UPDATE_ADRATIO];
+    if (obj) {
+        return [obj integerValue];
+    }
+    return 30;  // default 30%
+}
+
 + (NSArray *)historyBoards
 {
     return [[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_BOARD_HISTORY];

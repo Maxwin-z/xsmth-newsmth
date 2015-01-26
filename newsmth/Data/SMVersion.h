@@ -8,4 +8,5 @@
 @property (assign, nonatomic) int gadratio;
 @property (assign, nonatomic) int iadratio;
 @property (assign, nonatomic) int adratio;
+@property (assign, nonatomic) int adPosition;
 @end

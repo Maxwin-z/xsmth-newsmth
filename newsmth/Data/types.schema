@@ -131,6 +131,7 @@ SMVersion {
     int gadratio
     int iadratio
 	int adratio
+	int adPosition
 }
 
 SMParserItem {

@@ -18,6 +18,8 @@
 	_iadratio = [[dict objectForKey:@"iadratio"] intValue];
 
 	_adratio = [[dict objectForKey:@"adratio"] intValue];
+
+	_adPosition = [[dict objectForKey:@"adPosition"] intValue];
 }
 
 - (id)encode
@@ -36,6 +38,8 @@
 	[dict setObject:@(_iadratio) forKey:@"iadratio"];
 
 	[dict setObject:@(_adratio) forKey:@"adratio"];
+
+	[dict setObject:@(_adPosition) forKey:@"adPosition"];
 	return dict;
 }
 @end
