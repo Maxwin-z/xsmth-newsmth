@@ -98,7 +98,6 @@
 		C13CB6C118B0A07F003F7407 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C13CB6C018B0A07F003F7407 /* AudioToolbox.framework */; };
 		C13CB6C318B0A089003F7407 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C13CB6C218B0A089003F7407 /* AVFoundation.framework */; };
 		C13CB6C518B0A09A003F7407 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C13CB6C418B0A09A003F7407 /* CoreTelephony.framework */; };
-		C13CB6C718B0AA48003F7407 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C13CB6C618B0AA48003F7407 /* iAd.framework */; };
 		C13CB6C918B0FE17003F7407 /* icon_search_64@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C13CB6C818B0FE17003F7407 /* icon_search_64@2x.png */; };
 		C13D4124176DD5EC00BD03A4 /* placeholder@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C13D4123176DD5EC00BD03A4 /* placeholder@2x.jpg */; };
 		C14505E51750787C00DC5431 /* SMAccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C14505E41750787C00DC5431 /* SMAccountManager.m */; };
@@ -818,7 +817,6 @@
 				C10C49D118F2C34E00DF946E /* CoreImage.framework in Frameworks */,
 				C1F8109218E5B786001B3759 /* libsqlite3.dylib in Frameworks */,
 				C1C07A7A179686E300906ED7 /* Social.framework in Frameworks */,
-				C13CB6C718B0AA48003F7407 /* iAd.framework in Frameworks */,
 				C13CB6C518B0A09A003F7407 /* CoreTelephony.framework in Frameworks */,
 				C1BFB8E1174F6A620092FD2E /* CoreGraphics.framework in Frameworks */,
 				C13CB6C318B0A089003F7407 /* AVFoundation.framework in Frameworks */,
