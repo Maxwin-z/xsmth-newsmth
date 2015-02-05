@@ -514,13 +514,13 @@ function renderPosts(posts, page) {
 		var autoload = config.autoload;
 		if (!autoload) {
 			SMApp.getImageInfo(src + '/middle', false, function (value) {
-				if (value.size) {
+				if (value.size && img.attr('status') != 'loaded') {
 					middle.html('小图' + formatSize(value.size));
 				}
 			});
 
 			SMApp.getImageInfo(src, false, function (value) {
-				if (value.size) {
+				if (value.size && img.attr('status') != 'loaded') {
 					large.html('原图' + formatSize(value.size));
 				}
 			});
@@ -610,13 +610,13 @@ function onImageClick(img, type, evt) {
 }
 
 function loadImage(img, src, forceLoad) {
-	if (forceLoad) {
-		img.attr('status', 'loading');
-	}
 	var info = img.parent().find('.ximg-info');
 	var spans = img.parent().find('span');
-	
-	info.html('正在加载');
+
+	if (forceLoad) {
+		img.attr('status', 'loading');
+		info.html('正在加载');
+	}
 
 	SMApp.getImageInfo(src, forceLoad, function (value) {
 		// alert(src, size);
