@@ -93,7 +93,6 @@
 		C13CB57C18AF62B4003F7407 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = C13CB56418AF62B4003F7407 /* unzip.c */; };
 		C13CB57D18AF62B4003F7407 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = C13CB56618AF62B4003F7407 /* zip.c */; };
 		C13CB57F18AF62B4003F7407 /* SSZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = C13CB56A18AF62B4003F7407 /* SSZipArchive.m */; };
-		C13CB6B818B0A060003F7407 /* libGoogleAdMobAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C13CB66918B0A060003F7407 /* libGoogleAdMobAds.a */; };
 		C13CB6B918B0A060003F7407 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = C13CB66A18B0A060003F7407 /* README.txt */; };
 		C13CB6C118B0A07F003F7407 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C13CB6C018B0A07F003F7407 /* AudioToolbox.framework */; };
 		C13CB6C318B0A089003F7407 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C13CB6C218B0A089003F7407 /* AVFoundation.framework */; };
@@ -119,7 +118,6 @@
 		C15188CF17A7B2A900E8344D /* SMNoticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C15188CD17A7B2A900E8344D /* SMNoticeViewController.m */; };
 		C15188D017A7B2A900E8344D /* SMNoticeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C15188CE17A7B2A900E8344D /* SMNoticeViewController.xib */; };
 		C15489C01888CA580046190C /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C15489BF1888CA580046190C /* libGoogleAnalyticsServices.a */; };
-		C15489C21888CDF60046190C /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C15489C11888CDF60046190C /* AdSupport.framework */; };
 		C15489C51888F9E10046190C /* SMEULAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C15489C41888F9E10046190C /* SMEULAViewController.m */; };
 		C154CC5B1873C1E800C32F0D /* UIView+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = C154CC5A1873C1E800C32F0D /* UIView+Utils.m */; };
 		C15BAC841A6CDFBD00D88CEC /* icon_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C15BAC831A6CDFBD00D88CEC /* icon_back@2x.png */; };
@@ -822,7 +820,6 @@
 				C13CB6C318B0A089003F7407 /* AVFoundation.framework in Frameworks */,
 				C13CB6C118B0A07F003F7407 /* AudioToolbox.framework in Frameworks */,
 				C176AC1118C202FA00B024C7 /* libWeChatSDK.a in Frameworks */,
-				C15489C21888CDF60046190C /* AdSupport.framework in Frameworks */,
 				C1327EDC187850DF00B1862A /* StoreKit.framework in Frameworks */,
 				C1C07A78179686BD00906ED7 /* MessageUI.framework in Frameworks */,
 				C1C07A7C179686F600906ED7 /* Twitter.framework in Frameworks */,
@@ -831,7 +828,6 @@
 				C10D16BB1756276D002D6FAD /* QuartzCore.framework in Frameworks */,
 				C1BFB91E174F6F390092FD2E /* libz.dylib in Frameworks */,
 				C15489C01888CA580046190C /* libGoogleAnalyticsServices.a in Frameworks */,
-				C13CB6B818B0A060003F7407 /* libGoogleAdMobAds.a in Frameworks */,
 				C1BFB91C174F6F2A0092FD2E /* MobileCoreServices.framework in Frameworks */,
 				C1BFB91A174F6F260092FD2E /* SystemConfiguration.framework in Frameworks */,
 				C1BFB918174F6F200092FD2E /* CFNetwork.framework in Frameworks */,

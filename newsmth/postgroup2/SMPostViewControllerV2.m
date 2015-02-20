@@ -193,12 +193,14 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     if ([self shouldHideNavigation]) {
         [self hideNavigation:YES];
     }
+    self.webView.scrollView.delegate = self;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [self showNavigation:NO];
+    self.webView.scrollView.delegate = nil;
 }
 
 - (void)onRightBarButtonClick
