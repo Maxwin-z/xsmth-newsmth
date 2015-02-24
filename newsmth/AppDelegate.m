@@ -171,10 +171,6 @@
                 XLog_d(@"remove [%@] error:[%@]", filepath, error);
             }
         }
-        
-        // should remove this after 2.6
-        [[NSUserDefaults standardUserDefaults] setObject:@"FZLanTingHei-L-GBK" forKey:USERDEFAULTS_POST_FONT_FAMILY];
-        [[NSUserDefaults standardUserDefaults] setObject:@"FZLanTingHei-L-GBK" forKey:USERDEFAULTS_POST_FONT_FAMILY];
     }
     
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
