@@ -115,6 +115,14 @@
     [self dismiss];
 }
 
+- (IBAction)onCleanAccountButtonClick:(id)sender
+{
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:USERDEFAULTS_USERNAME];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:USERDEFAULTS_PASSWORD];
+    self.textFieldForUsername.text = @"";
+    self.textFieldForPassword.text = @"";
+}
+
 - (void)webLoaderOperationFinished:(SMWebLoaderOperation *)opt
 {
     [self hideLoading];
