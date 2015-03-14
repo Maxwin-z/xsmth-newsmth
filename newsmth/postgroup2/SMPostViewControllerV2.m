@@ -60,6 +60,7 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
 
 @property (strong, nonatomic) SMPost *postForAction;    // 准备回复的主题
 @property (strong, nonatomic) SMWebLoaderOperation *forwardOp;
+@property (strong, nonatomic) SMWebLoaderOperation *deleteOp;
 
 @property (assign, nonatomic) CGFloat maxScrollY;
 @property (assign, nonatomic) CGFloat lastScrollY;
@@ -750,7 +751,7 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
 
 - (void)tapActionForIOS6
 {
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"回复", @"同作者", @"发信给作者", @"转寄", nil];
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"回复", @"同作者", @"发信给作者", @"转寄", @"编辑", @"删除", nil];
     @weakify(sheet);
     [sheet.rac_buttonClickedSignal subscribeNext:^(id x) {
         @strongify(sheet);
@@ -766,6 +767,12 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
         }
         if ([title isEqualToString:@"转寄"]) {
             [self doForwardPost];
+        }
+        if ([title isEqualToString:@"编辑"]) {
+            [self doEditPost];
+        }
+        if ([title isEqualToString:@"删除"]) {
+            [self doDeletePost];
         }
     }];
     [sheet showInView:self.view];
@@ -828,6 +835,10 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
             [self doEditPost];
         }
         
+        if ([activityType isEqualToString:SMActivityDeleteActivity]) {
+            [self doDeletePost];
+        }
+        
         [SMUtils trackEventWithCategory:@"postgroup" action:@"more_action" label:activityType];
         avc.completionHandler = nil;
     };
@@ -880,6 +891,14 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     } else {
         [self presentViewController:nvc animated:YES completion:NULL];
     }
+}
+
+- (void)doDeletePost
+{
+    self.deleteOp = [SMWebLoaderOperation new];
+    self.deleteOp.delegate = self;
+    NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/delete/%@", self.postForAction.board.name, @(self.postForAction.pid)];
+    [self.deleteOp loadUrl:url withParser:nil];
 }
 
 - (void)mailtoWithPost
@@ -1047,6 +1066,9 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
 {
     if (opt == self.forwardOp) {
         [self toast:error.message];
+    }
+    if (opt == self.deleteOp) {
+        [self toast:@"请刷新页面查看删除结果"];
     }
 }
 
