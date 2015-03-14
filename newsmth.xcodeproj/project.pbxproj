@@ -37,6 +37,8 @@
 		C10206011AB438110096D210 /* icon_delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C10205FF1AB438110096D210 /* icon_delete@2x.png */; };
 		C10206041AB438BA0096D210 /* SMEditActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = C10206031AB438BA0096D210 /* SMEditActivity.m */; };
 		C10206071AB438CD0096D210 /* SMDeleteActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = C10206061AB438CD0096D210 /* SMDeleteActivity.m */; };
+		C10206091AB44C550096D210 /* icon_forward_all@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C10206081AB44C550096D210 /* icon_forward_all@2x.png */; };
+		C102060C1AB44C700096D210 /* SMForwardAllActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = C102060B1AB44C700096D210 /* SMForwardAllActivity.m */; };
 		C10C499F18F04F3400DF946E /* UIDeviceHardware.m in Sources */ = {isa = PBXBuildFile; fileRef = C10C499E18F04F3400DF946E /* UIDeviceHardware.m */; };
 		C10C49A218F05CED00DF946E /* SMViewLinkActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = C10C49A118F05CED00DF946E /* SMViewLinkActivity.m */; };
 		C10C49A418F05D9300DF946E /* icon_link@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C10C49A318F05D9300DF946E /* icon_link@2x.png */; };
@@ -373,6 +375,9 @@
 		C10206031AB438BA0096D210 /* SMEditActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMEditActivity.m; sourceTree = "<group>"; };
 		C10206051AB438CD0096D210 /* SMDeleteActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMDeleteActivity.h; sourceTree = "<group>"; };
 		C10206061AB438CD0096D210 /* SMDeleteActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMDeleteActivity.m; sourceTree = "<group>"; };
+		C10206081AB44C550096D210 /* icon_forward_all@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_forward_all@2x.png"; sourceTree = "<group>"; };
+		C102060A1AB44C700096D210 /* SMForwardAllActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMForwardAllActivity.h; sourceTree = "<group>"; };
+		C102060B1AB44C700096D210 /* SMForwardAllActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMForwardAllActivity.m; sourceTree = "<group>"; };
 		C10C499D18F04F3400DF946E /* UIDeviceHardware.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIDeviceHardware.h; sourceTree = "<group>"; };
 		C10C499E18F04F3400DF946E /* UIDeviceHardware.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIDeviceHardware.m; sourceTree = "<group>"; };
 		C10C49A018F05CED00DF946E /* SMViewLinkActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMViewLinkActivity.h; sourceTree = "<group>"; };
@@ -1105,6 +1110,7 @@
 		C19FF0B01769A71B00EB6F7E /* images */ = {
 			isa = PBXGroup;
 			children = (
+				C10206081AB44C550096D210 /* icon_forward_all@2x.png */,
 				C10205FE1AB438110096D210 /* icon_edit@2x.png */,
 				C10205FF1AB438110096D210 /* icon_delete@2x.png */,
 				C15BAC851A6CE22900D88CEC /* icon_gotop@2x.png */,
@@ -1670,6 +1676,8 @@
 				C1CBC4B019CDAAC50074E1B7 /* SMReplyActivity.m */,
 				C1CBC4B419CDAD3D0074E1B7 /* SMForwardActivity.h */,
 				C1CBC4B519CDAD3D0074E1B7 /* SMForwardActivity.m */,
+				C102060A1AB44C700096D210 /* SMForwardAllActivity.h */,
+				C102060B1AB44C700096D210 /* SMForwardAllActivity.m */,
 				C1CBC4B919CDAE790074E1B7 /* SMSingleAuthorActivity.h */,
 				C1CBC4BA19CDAE790074E1B7 /* SMSingleAuthorActivity.m */,
 				C10206021AB438BA0096D210 /* SMEditActivity.h */,
@@ -1922,6 +1930,7 @@
 				C1FD13D4178182E3006A6061 /* button_red_pressed@2x.png in Resources */,
 				C1FD13DD1781B26F006A6061 /* left_shadow@2x.png in Resources */,
 				C1F8109B18E70105001B3759 /* unread_half@2x.png in Resources */,
+				C10206091AB44C550096D210 /* icon_forward_all@2x.png in Resources */,
 				C1C4C8821781B4FF0092E77C /* SMBaseBorardListViewController.xib in Resources */,
 				C100985217828310001608EE /* SMPostFailCell.xib in Resources */,
 				C10098581782A136001608EE /* popup_bkg_left@2x.png in Resources */,
@@ -2161,6 +2170,7 @@
 				C1D190D017F7F3E00056F3FE /* XScrollIndicator.m in Sources */,
 				C1C18D9B17A533F3008C598C /* SMMailViewController.m in Sources */,
 				C1C18DA617A534D1008C598C /* SMAtMeViewController.m in Sources */,
+				C102060C1AB44C700096D210 /* SMForwardAllActivity.m in Sources */,
 				C1C18DAB17A534FE008C598C /* SMReplyMeViewController.m in Sources */,
 				C15188CF17A7B2A900E8344D /* SMNoticeViewController.m in Sources */,
 			);
