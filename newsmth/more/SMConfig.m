@@ -44,7 +44,7 @@
 
 + (BOOL)enableIOS7SwipeBack
 {
-    return [SMUtils systemVersion] >= 7 && [SMConfig configForKey:USERDEFAULTS_CONFIG_IOS7_SWIPE_BACK defaults:YES];
+    return [SMUtils systemVersion] >= 7 && [SMConfig configForKey:USERDEFAULTS_CONFIG_IOS7_SWIPE_BACK defaults:NO];
 }
 
 + (BOOL)enableShowQMD
