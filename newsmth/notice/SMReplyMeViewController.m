@@ -12,6 +12,7 @@
 #import "SMPostViewController.h"
 #import "SMNoticeViewController.h"
 #import "SMDiagnoseViewController.h"
+#import "SMNoticeViewController.h"
 
 @interface SMReferMeCell : SMMainpageCell
 @end
@@ -31,6 +32,7 @@
 
 @property (strong, nonatomic) NSArray *posts;
 @property (strong, nonatomic) SMWebLoaderOperation *op;
+@property (strong, nonatomic) SMWebLoaderOperation *allReadOp;
 @property (weak, nonatomic) IBOutlet XPullRefreshTableView *tableView;
 
 @property (assign, nonatomic) NSInteger failTimes;
@@ -60,6 +62,15 @@
 {
     [super viewWillAppear:animated];
     [self.tableView reloadData];
+    [SMNoticeViewController instance].navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"全部已读" style:UIBarButtonItemStylePlain target:self action:@selector(onRightBarButtonItemClick:)];
+}
+
+- (void)onRightBarButtonItemClick:(UIBarButtonItem *)item
+{
+    NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/refer/%@/read?index=all", _refer];
+    self.allReadOp = [[SMWebLoaderOperation alloc] init];
+    self.allReadOp.delegate = self;
+    [self.allReadOp loadUrl:url withParser:nil];
 }
 
 - (void)loadData:(BOOL)more
@@ -76,6 +87,7 @@
     _op = [[SMWebLoaderOperation alloc] init];
     _op.delegate = self;
     [_op loadUrl:url withParser:@"refer_me"];
+    
 }
 
 - (void)setPosts:(NSArray *)posts
@@ -177,6 +189,11 @@
 
 - (void)webLoaderOperationFail:(SMWebLoaderOperation *)opt error:(SMMessage *)error
 {
+    if (opt == self.allReadOp) {
+        [self loadData:NO];
+        return ;
+    }
+    
     [self toast:error.message];
     if (_page == 1) {
         [_tableView endRefreshing:NO];
