@@ -60,7 +60,7 @@
 
 - (void)onRightBarButtonClick
 {
-    UIImageWriteToSavedPhotosAlbum(self.image, nil, nil, nil);
+    UIImageWriteToSavedPhotosAlbum(self.imageView.image, nil, nil, nil);
     [self toast:@"保存成功"];
 }
 
