@@ -26,6 +26,8 @@
 #import "SMReplyActivity.h"
 #import "SMForwardActivity.h"
 #import "SMSingleAuthorActivity.h"
+#import "SMEditActivity.h"
+#import "SMDeleteActivity.h"
 
 #import "SMMailComposeViewController.h"
 #import "SMWritePostViewController.h"
@@ -783,6 +785,13 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     
     NSMutableArray *activites = [[NSMutableArray alloc] initWithArray:@[wxSessionActivity, wxTimelineActivity, replyActivity, singleAuthorActivity, mailtoActivity, forwordActivity]];
     
+    if ([self.postForAction.author isEqualToString:[SMAccountManager instance].name]) {
+        SMEditActivity *editActivity = [SMEditActivity new];
+        SMDeleteActivity *deleteActivity = [SMDeleteActivity new];
+        [activites addObject:editActivity];
+        [activites addObject:deleteActivity];
+    }
+    
     UIActivityViewController *avc = [[UIActivityViewController alloc] initWithActivityItems:@[provider] applicationActivities:activites];
     if (&UIActivityTypeAirDrop != NULL) {
         avc.excludedActivityTypes = @[UIActivityTypeAirDrop, UIActivityTypeMessage, UIActivityTypeCopyToPasteboard];
@@ -813,6 +822,10 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
         
         if ([activityType isEqualToString:SMActivitySingleAuthorActivity]) {
             [self doSingleAuthor];
+        }
+        
+        if ([activityType isEqualToString:SMActivityEditActivity]) {
+            [self doEditPost];
         }
         
         [SMUtils trackEventWithCategory:@"postgroup" action:@"more_action" label:activityType];
@@ -848,6 +861,19 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     writeViewController.post = self.postForAction;
     writeViewController.postTitle = self.post.title;
     writeViewController.title = [NSString stringWithFormat:@"回复-%@", self.post.title];
+    P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:writeViewController];
+    if ([SMConfig iPadMode]) {
+        [[SMIPadSplitViewController instance] presentViewController:nvc animated:YES completion:NULL];
+    } else {
+        [self presentViewController:nvc animated:YES completion:NULL];
+    }
+}
+
+- (void)doEditPost
+{
+    SMWritePostViewController *writeViewController = [[SMWritePostViewController alloc] init];
+    writeViewController.editPost = self.postForAction;
+    
     P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:writeViewController];
     if ([SMConfig iPadMode]) {
         [[SMIPadSplitViewController instance] presentViewController:nvc animated:YES completion:NULL];

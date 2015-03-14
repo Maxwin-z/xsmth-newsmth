@@ -820,6 +820,7 @@ function parseMPosts(html) {
 			gid: 0,
 			author: '',
 			nick: '',
+			title: '',
 			date: '',
 			content: '',
 			indexStr: '',
@@ -837,6 +838,10 @@ function parseMPosts(html) {
 		content = content.replace(/<img(\s+src=")(\/img\/.*?>)/gi, '<img class="xema" $1http://m.newsmth.net$2');
 
 		post.content = '<div class="sp">' + content + '</div>';
+		post.title = mainPost.title;
+		if (post.pid != mainPost.pid) {
+			post.title = 'Re: ' + mainPost.title;
+		}
 
 		posts.push(post);
 	});
@@ -888,6 +893,7 @@ function parseArticle(article) {
 		gid: 0,
 		author: '',
 		nick: '',
+		title: '',
 		date: '',
 		content: '',
 		indexStr: '',
@@ -924,6 +930,11 @@ function parseArticle(article) {
 		post.pid = pid;
 		return '';
 	});
+
+	post.title = mainPost.title;
+	if (post.pid != mainPost.pid) {
+		post.title = 'Re: ' + post.title;
+	}
 
 	return post;
 }

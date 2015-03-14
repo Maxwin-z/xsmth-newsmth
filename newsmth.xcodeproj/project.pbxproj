@@ -33,6 +33,10 @@
 		C1011D96177946D500E0485D /* SMUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C1011D95177946D500E0485D /* SMUtils.m */; };
 		C1011DA31779657000E0485D /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1011DA21779657000E0485D /* CoreData.framework */; };
 		C1011DAC1779946600E0485D /* UIButton+Custom.m in Sources */ = {isa = PBXBuildFile; fileRef = C1011DAB1779946600E0485D /* UIButton+Custom.m */; };
+		C10206001AB438110096D210 /* icon_edit@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C10205FE1AB438110096D210 /* icon_edit@2x.png */; };
+		C10206011AB438110096D210 /* icon_delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C10205FF1AB438110096D210 /* icon_delete@2x.png */; };
+		C10206041AB438BA0096D210 /* SMEditActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = C10206031AB438BA0096D210 /* SMEditActivity.m */; };
+		C10206071AB438CD0096D210 /* SMDeleteActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = C10206061AB438CD0096D210 /* SMDeleteActivity.m */; };
 		C10C499F18F04F3400DF946E /* UIDeviceHardware.m in Sources */ = {isa = PBXBuildFile; fileRef = C10C499E18F04F3400DF946E /* UIDeviceHardware.m */; };
 		C10C49A218F05CED00DF946E /* SMViewLinkActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = C10C49A118F05CED00DF946E /* SMViewLinkActivity.m */; };
 		C10C49A418F05D9300DF946E /* icon_link@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C10C49A318F05D9300DF946E /* icon_link@2x.png */; };
@@ -363,6 +367,12 @@
 		C1011DA21779657000E0485D /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		C1011DAA1779946600E0485D /* UIButton+Custom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Custom.h"; sourceTree = "<group>"; };
 		C1011DAB1779946600E0485D /* UIButton+Custom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Custom.m"; sourceTree = "<group>"; };
+		C10205FE1AB438110096D210 /* icon_edit@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_edit@2x.png"; sourceTree = "<group>"; };
+		C10205FF1AB438110096D210 /* icon_delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_delete@2x.png"; sourceTree = "<group>"; };
+		C10206021AB438BA0096D210 /* SMEditActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMEditActivity.h; sourceTree = "<group>"; };
+		C10206031AB438BA0096D210 /* SMEditActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMEditActivity.m; sourceTree = "<group>"; };
+		C10206051AB438CD0096D210 /* SMDeleteActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMDeleteActivity.h; sourceTree = "<group>"; };
+		C10206061AB438CD0096D210 /* SMDeleteActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMDeleteActivity.m; sourceTree = "<group>"; };
 		C10C499D18F04F3400DF946E /* UIDeviceHardware.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIDeviceHardware.h; sourceTree = "<group>"; };
 		C10C499E18F04F3400DF946E /* UIDeviceHardware.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIDeviceHardware.m; sourceTree = "<group>"; };
 		C10C49A018F05CED00DF946E /* SMViewLinkActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMViewLinkActivity.h; sourceTree = "<group>"; };
@@ -1095,6 +1105,8 @@
 		C19FF0B01769A71B00EB6F7E /* images */ = {
 			isa = PBXGroup;
 			children = (
+				C10205FE1AB438110096D210 /* icon_edit@2x.png */,
+				C10205FF1AB438110096D210 /* icon_delete@2x.png */,
 				C15BAC851A6CE22900D88CEC /* icon_gotop@2x.png */,
 				C15BAC831A6CDFBD00D88CEC /* icon_back@2x.png */,
 				C111D62719CEF16900D4DC71 /* common_share_icon_weixin_friends_ios8@2x.png */,
@@ -1660,6 +1672,10 @@
 				C1CBC4B519CDAD3D0074E1B7 /* SMForwardActivity.m */,
 				C1CBC4B919CDAE790074E1B7 /* SMSingleAuthorActivity.h */,
 				C1CBC4BA19CDAE790074E1B7 /* SMSingleAuthorActivity.m */,
+				C10206021AB438BA0096D210 /* SMEditActivity.h */,
+				C10206031AB438BA0096D210 /* SMEditActivity.m */,
+				C10206051AB438CD0096D210 /* SMDeleteActivity.h */,
+				C10206061AB438CD0096D210 /* SMDeleteActivity.m */,
 			);
 			path = activity;
 			sourceTree = "<group>";
@@ -1825,6 +1841,7 @@
 				C1FD13B917815A21006A6061 /* bbsqry.js in Resources */,
 				C1011D9017787E7E00E0485D /* bbssnd.js in Resources */,
 				C10F2F8617E595A100F83206 /* SMMailInfoViewController.xib in Resources */,
+				C10206011AB438110096D210 /* icon_delete@2x.png in Resources */,
 				C19018E81769FBCA0098150A /* board.js in Resources */,
 				C19FF0BD1769CA4A00EB6F7E /* favor.js in Resources */,
 				C19FF0AF1769A4F000EB6F7E /* login.js in Resources */,
@@ -1871,6 +1888,7 @@
 				C1F4672318C2EFAB006BCE7A /* common_share_icon_weixin_friends@2x.png in Resources */,
 				C1CBC4B819CDAE4F0074E1B7 /* icon_single_author@2x.png in Resources */,
 				C1300A5818795C61006ACA5C /* icon_bg@2x.png in Resources */,
+				C10206001AB438110096D210 /* icon_edit@2x.png in Resources */,
 				C1300A6C187ACB9E006ACA5C /* icon_write@2x.png in Resources */,
 				C15BAC861A6CE22900D88CEC /* icon_gotop@2x.png in Resources */,
 				C13D4124176DD5EC00BD03A4 /* placeholder@2x.jpg in Resources */,
@@ -2022,6 +2040,7 @@
 				C13CB57C18AF62B4003F7407 /* unzip.c in Sources */,
 				C1BFB9C9174F6F5C0092FD2E /* ASIInputStream.m in Sources */,
 				C1BFB9CA174F6F5C0092FD2E /* ASINetworkQueue.m in Sources */,
+				C10206071AB438CD0096D210 /* SMDeleteActivity.m in Sources */,
 				C1E1CAFB1870268000324EAF /* SMIPadSplitViewController.m in Sources */,
 				C1BFB9EA174F6F5C0092FD2E /* Reachability.m in Sources */,
 				C124CAF3185D962300B9CEA3 /* SMBoardViewTypeSelectorView.m in Sources */,
@@ -2083,6 +2102,7 @@
 				C1F8109918E5BAA0001B3759 /* SMDBManager.m in Sources */,
 				C1FD13C217817AAA006A6061 /* SMUser.m in Sources */,
 				39C260051860A0E400AEFE0E /* SMBoardSearchResultViewController.m in Sources */,
+				C10206041AB438BA0096D210 /* SMEditActivity.m in Sources */,
 				C1C4C8811781B4FF0092E77C /* SMBaseBorardListViewController.m in Sources */,
 				C1CE10C018122D7B00B04E15 /* SMParserItem.m in Sources */,
 				C1C4C8851781B6C00092E77C /* SMBoardList.m in Sources */,

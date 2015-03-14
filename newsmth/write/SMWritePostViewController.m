@@ -100,6 +100,12 @@
     }
     _textViewForText.text = quoteString;
     
+    // 文章编辑，覆盖上面的配置。 ugly patch
+    if (self.editPost) {
+        _textFieldForTitle.text = self.editPost.title;
+        _textViewForText.text = self.editPost.content;
+    }
+    
     // style
     _imageViewForTitle.image = [SMUtils stretchedImage:_imageViewForTitle.image];
     _imageViewForText.image = [SMUtils stretchedImage:_imageViewForText.image];
@@ -170,6 +176,11 @@
     } else {
         formUrl = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/post/%d", _post.board.name, _post.pid];
     }
+    
+    if (self.editPost) {
+        formUrl = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/edit/%d", self.editPost.board.name, self.editPost.pid];
+    }
+    
     SMHttpRequest *request = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:formUrl]];
     [request setRequestMethod:@"POST"];
     [request addRequestHeader:@"Content-type" value:@"application/x-www-form-urlencoded"];
