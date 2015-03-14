@@ -71,8 +71,13 @@
     [super viewDidAppear:animated];
     if (ENABLE_P2P) {
         _backImageView.frame = self.view.frame;
-        _backMaskerView.frame = self.view.frame;
-        _backImageView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0f, 1.0f);
+        CGRect frame = self.view.frame;
+        frame.origin.x = -frame.size.width / 2;
+        _backImageView.frame = frame;
+//        _backImageView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0f, 1.0f);
+        
+        frame.origin.x = 0;
+        _backMaskerView.frame = frame;
         _backMaskerView.backgroundColor = [UIColor clearColor];
         
         UIView *superview = self.view.superview;
@@ -89,8 +94,10 @@
     [super viewDidDisappear:animated];
     if (ENABLE_P2P) {
         _backImageView.frame = self.view.frame;
-        _backMaskerView.frame = self.view.frame;
-        _backImageView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0f, 1.0f);
+        CGRect frame = self.view.frame;
+        frame.origin.x = -frame.size.width / 2;
+        _backImageView.frame = frame;
+//        _backImageView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0f, 1.0f);
         _backMaskerView.backgroundColor = [UIColor clearColor];
     }
 }
@@ -112,7 +119,9 @@
             frame.origin.x = frame.size.width - 100;
             self.view.frame = frame;
             
-            _backImageView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0f, 1.0f);
+            frame.origin.x  = 0;
+            _backImageView.frame = frame;
+//            _backImageView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0f, 1.0f);
             _backMaskerView.backgroundColor = [UIColor clearColor];
             
             _backImageView.hidden = NO;
@@ -184,9 +193,10 @@
     
     CGFloat totalWidth = self.view.bounds.size.width;
     CGFloat currentX = frame.origin.x;
-    
-    CGFloat scale = 1 - (totalWidth - currentX) * (1 - BACK_IMAGE_SCALE) / totalWidth;
-    _backImageView.transform = CGAffineTransformScale(CGAffineTransformIdentity, scale, scale);
+    frame.origin.x = (-totalWidth + currentX) / 2;
+    _backImageView.frame = frame;
+//    CGFloat scale = 1 - (totalWidth - currentX) * (1 - BACK_IMAGE_SCALE) / totalWidth;
+//    _backImageView.transform = CGAffineTransformScale(CGAffineTransformIdentity, scale, scale);
     
     CGFloat alpha = 1 - (totalWidth - currentX) * (1 - BACK_MASKER_ALPHA) / totalWidth;
     _backMaskerView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1 - alpha];
@@ -209,8 +219,11 @@
     CGFloat totalWidth = self.view.bounds.size.width;
     CGFloat currentX = self.view.frame.origin.x;
     
-    CGFloat scale = 1 - (totalWidth - currentX) * (1 - BACK_IMAGE_SCALE) / totalWidth;
-    _backImageView.transform = CGAffineTransformScale(CGAffineTransformIdentity, scale, scale);
+    CGRect frame = self.view.bounds;
+    frame.origin.x = (-totalWidth + currentX) / 2;
+    _backImageView.frame = frame;
+//    CGFloat scale = 1 - (totalWidth - currentX) * (1 - BACK_IMAGE_SCALE) / totalWidth;
+//    _backImageView.transform = CGAffineTransformScale(CGAffineTransformIdentity, scale, scale);
     
     CGFloat alpha = 1 - (totalWidth - currentX) * (1 - BACK_MASKER_ALPHA) / totalWidth;
     _backMaskerView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1 - alpha];
@@ -222,8 +235,10 @@
         frame.origin.x = endX;
         self.view.frame = frame;
         
-        CGFloat scale = pop ? 1.0f : BACK_IMAGE_SCALE;
-        _backImageView.transform = CGAffineTransformScale(CGAffineTransformIdentity, scale, scale);
+        frame.origin.x = (-totalWidth + endX) / 2;
+        _backImageView.frame = frame;
+//        CGFloat scale = pop ? 1.0f : BACK_IMAGE_SCALE;
+//        _backImageView.transform = CGAffineTransformScale(CGAffineTransformIdentity, scale, scale);
         
         CGFloat alpha = pop ? 1.0f : BACK_MASKER_ALPHA;
         _backMaskerView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1 - alpha];
