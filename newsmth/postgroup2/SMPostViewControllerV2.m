@@ -26,6 +26,7 @@
 #import "SMReplyActivity.h"
 #import "SMForwardActivity.h"
 #import "SMSingleAuthorActivity.h"
+#import "SMForwardAllActivity.h"
 #import "SMEditActivity.h"
 #import "SMDeleteActivity.h"
 
@@ -61,6 +62,7 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
 @property (strong, nonatomic) SMPost *postForAction;    // 准备回复的主题
 @property (strong, nonatomic) SMWebLoaderOperation *forwardOp;
 @property (strong, nonatomic) SMWebLoaderOperation *deleteOp;
+@property (assign, nonatomic) BOOL forwardAll;
 
 @property (assign, nonatomic) CGFloat maxScrollY;
 @property (assign, nonatomic) CGFloat lastScrollY;
@@ -788,9 +790,10 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     SMReplyActivity *replyActivity = [SMReplyActivity new];
     SMMailToActivity *mailtoActivity = [SMMailToActivity new];
     SMForwardActivity *forwordActivity = [SMForwardActivity new];
+    SMForwardAllActivity *forwardAllActivity = [SMForwardAllActivity new];
     SMSingleAuthorActivity *singleAuthorActivity = [SMSingleAuthorActivity new];
     
-    NSMutableArray *activites = [[NSMutableArray alloc] initWithArray:@[wxSessionActivity, wxTimelineActivity, replyActivity, singleAuthorActivity, mailtoActivity, forwordActivity]];
+    NSMutableArray *activites = [[NSMutableArray alloc] initWithArray:@[wxSessionActivity, wxTimelineActivity, replyActivity, singleAuthorActivity, mailtoActivity, forwordActivity, forwardAllActivity]];
     
     if ([self.postForAction.author isEqualToString:[SMAccountManager instance].name]) {
         SMEditActivity *editActivity = [SMEditActivity new];
@@ -825,6 +828,10 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
         
         if ([activityType isEqualToString:SMActivityForwardActivity]) {
             [self doForwardPost];
+        }
+        
+        if ([activityType isEqualToString:SMActivityForwardAllActivity]) {
+            [self doForwardAllPost];
         }
         
         if ([activityType isEqualToString:SMActivitySingleAuthorActivity]) {
@@ -922,6 +929,13 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
 
 - (void)doForwardPost
 {
+    self.forwardAll = NO;
+    [self performSelectorAfterLogin:@selector(forwardAfterLogin)];
+}
+
+- (void)doForwardAllPost
+{
+    self.forwardAll = YES;
     [self performSelectorAfterLogin:@selector(forwardAfterLogin)];
 }
 
@@ -947,6 +961,12 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
                 SMHttpRequest *request = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:formUrl]];
                 
                 NSString *postBody = [NSString stringWithFormat:@"board=%@&id=%d&target=%@&noansi=1", self.post.board.name, self.postForAction.pid, [SMUtils encodeurl:text]];
+                
+                if (self.forwardAll) {
+                    formUrl = @"http://www.newsmth.net/bbstfwd.php?do";
+                    request = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:formUrl]];
+                    postBody = [NSString stringWithFormat:@"board=%@&gid=%@&start=%@&target=%@", self.post.board.name, @(self.post.pid), @(self.postForAction.pid), [SMUtils encodeurl:text]];
+                }
                 [request setRequestMethod:@"POST"];
                 [request addRequestHeader:@"Content-type" value:@"application/x-www-form-urlencoded"];
                 [request setPostBody:[[postBody dataUsingEncoding:NSUTF8StringEncoding] mutableCopy]];
