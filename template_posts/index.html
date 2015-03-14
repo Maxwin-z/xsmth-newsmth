@@ -317,6 +317,7 @@ function style2string (styles) {
 ////////////////////////////////////////////////////////////
 //// touch events
 
+var tapEventTimer = null;
 if (config.tapPaging) {
 	var dc = new SMAppControl(document.body);
 	dc.highlight = false;
@@ -329,12 +330,14 @@ if (config.tapPaging) {
 		var height = $(window).height();
 		var scrollTop = $(window).scrollTop();
 		var y = touch.pageY - scrollTop;
-		if (y > height / 5 * 2) {
-			SMApp.scrollTo(scrollTop + height - 50);
-			setTimeout(detectScrollToBotttom, 100);
-		} else {
-			SMApp.scrollTo(scrollTop - height);
-		}
+		tapEventTimer = setTimeout(function () {
+			if (y > height / 5 * 2) {
+				SMApp.scrollTo(scrollTop + height - 50);
+				setTimeout(detectScrollToBotttom, 100);
+			} else {
+				SMApp.scrollTo(scrollTop - height);
+			}
+		});
 	}
 }
 
@@ -382,6 +385,13 @@ SMApp.loadPage = function (page) {
 	}
 }
 $(window).on('scroll', detectScrollToBotttom);
+$(window).on('scroll', function () { // clear tap scroll event
+	if (tapEventTimer) {
+		clearTimeout(tapEventTimer);
+		tapEventTimer = null;
+	}
+});
+
 // $(window).on('scroll', detectCurrentPage);
 function scroll2page(page) {
 	var anchor = $('#anchor_page_' + page + ', #page_' + page);
