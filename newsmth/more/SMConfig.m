@@ -176,7 +176,7 @@
         postFontFamily = @"FZLanTingHei-L-GBK";
     }
     if (postFontSize == 0) {
-        postFontSize = 17;
+        postFontSize = 22;
     }
     return [UIFont fontWithName:postFontFamily size:postFontSize] ?: [UIFont systemFontOfSize:postFontSize];
 }
