@@ -83,8 +83,17 @@ static SMMainpageViewController *_instance;
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(onRightBarButtonItemClick)];
     
-    [_boardSearchDelegateImpl reload];
+    if (self.searchDisplayController.searchBar.hidden == NO) {
+        [_boardSearchDelegateImpl reload];
+    }
+    
     [self.tableView reloadData];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.searchDisplayController.searchBar resignFirstResponder];
 }
 
 - (void)setSections:(NSArray *)sections
