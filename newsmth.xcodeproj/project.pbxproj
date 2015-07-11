@@ -123,6 +123,8 @@
 		C14B812519CA700900FBB0C7 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C14B812419CA700900FBB0C7 /* LaunchScreen.xib */; };
 		C15188CF17A7B2A900E8344D /* SMNoticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C15188CD17A7B2A900E8344D /* SMNoticeViewController.m */; };
 		C15188D017A7B2A900E8344D /* SMNoticeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C15188CE17A7B2A900E8344D /* SMNoticeViewController.xib */; };
+		C153189C1B50DD1600CF84FE /* icon_report@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C153189B1B50DD1600CF84FE /* icon_report@2x.png */; };
+		C153189F1B50DD5900CF84FE /* SMSpamActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = C153189E1B50DD5900CF84FE /* SMSpamActivity.m */; };
 		C15489C01888CA580046190C /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C15489BF1888CA580046190C /* libGoogleAnalyticsServices.a */; };
 		C15489C51888F9E10046190C /* SMEULAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C15489C41888F9E10046190C /* SMEULAViewController.m */; };
 		C154CC5B1873C1E800C32F0D /* UIView+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = C154CC5A1873C1E800C32F0D /* UIView+Utils.m */; };
@@ -511,6 +513,9 @@
 		C15188CC17A7B2A900E8344D /* SMNoticeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMNoticeViewController.h; sourceTree = "<group>"; };
 		C15188CD17A7B2A900E8344D /* SMNoticeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMNoticeViewController.m; sourceTree = "<group>"; };
 		C15188CE17A7B2A900E8344D /* SMNoticeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMNoticeViewController.xib; sourceTree = "<group>"; };
+		C153189B1B50DD1600CF84FE /* icon_report@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_report@2x.png"; sourceTree = "<group>"; };
+		C153189D1B50DD5900CF84FE /* SMSpamActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMSpamActivity.h; sourceTree = "<group>"; };
+		C153189E1B50DD5900CF84FE /* SMSpamActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMSpamActivity.m; sourceTree = "<group>"; };
 		C15489BC1888CA580046190C /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIDictionaryBuilder.h; sourceTree = "<group>"; };
 		C15489BD1888CA580046190C /* GAIFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIFields.h; sourceTree = "<group>"; };
 		C15489BE1888CA580046190C /* GAILogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAILogger.h; sourceTree = "<group>"; };
@@ -1111,6 +1116,7 @@
 			isa = PBXGroup;
 			children = (
 				C10206081AB44C550096D210 /* icon_forward_all@2x.png */,
+				C153189B1B50DD1600CF84FE /* icon_report@2x.png */,
 				C10205FE1AB438110096D210 /* icon_edit@2x.png */,
 				C10205FF1AB438110096D210 /* icon_delete@2x.png */,
 				C15BAC851A6CE22900D88CEC /* icon_gotop@2x.png */,
@@ -1684,6 +1690,8 @@
 				C10206031AB438BA0096D210 /* SMEditActivity.m */,
 				C10206051AB438CD0096D210 /* SMDeleteActivity.h */,
 				C10206061AB438CD0096D210 /* SMDeleteActivity.m */,
+				C153189D1B50DD5900CF84FE /* SMSpamActivity.h */,
+				C153189E1B50DD5900CF84FE /* SMSpamActivity.m */,
 			);
 			path = activity;
 			sourceTree = "<group>";
@@ -1922,6 +1930,7 @@
 				392417D8187C6A7100558725 /* icon_72.png in Resources */,
 				C15BAC841A6CDFBD00D88CEC /* icon_back@2x.png in Resources */,
 				C1FD13D2178182E3006A6061 /* button_gray_pressed@2x.png in Resources */,
+				C153189C1B50DD1600CF84FE /* icon_report@2x.png in Resources */,
 				C1FD13D3178182E3006A6061 /* button_red_default@2x.png in Resources */,
 				C1FCFAC11860782600759793 /* icon_search@2x.png in Resources */,
 				C1643A7917E9A54C00107559 /* icon_120@2x.png in Resources */,
@@ -2069,6 +2078,7 @@
 				C191281D17586DDF005AC60F /* XImageView.m in Sources */,
 				C191283D17588501005AC60F /* XImageViewCache.m in Sources */,
 				C1E6289B1764BAD4007ACF2A /* SMAttach.m in Sources */,
+				C153189F1B50DD5900CF84FE /* SMSpamActivity.m in Sources */,
 				C1E6289C1764BAD4007ACF2A /* SMPost.m in Sources */,
 				C1E628A01764BAFA007ACF2A /* SMBaseData.m in Sources */,
 				C1CBC4BB19CDAE790074E1B7 /* SMSingleAuthorActivity.m in Sources */,

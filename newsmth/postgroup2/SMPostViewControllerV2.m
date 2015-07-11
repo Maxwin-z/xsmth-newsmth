@@ -29,6 +29,7 @@
 #import "SMForwardAllActivity.h"
 #import "SMEditActivity.h"
 #import "SMDeleteActivity.h"
+#import "SMSpamActivity.h"
 
 #import "SMMailComposeViewController.h"
 #import "SMWritePostViewController.h"
@@ -802,6 +803,9 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
         [activites addObject:deleteActivity];
     }
     
+    SMSpamActivity *spamActivity = [SMSpamActivity new];
+    [activites addObject:spamActivity];
+    
     UIActivityViewController *avc = [[UIActivityViewController alloc] initWithActivityItems:@[provider] applicationActivities:activites];
     if (&UIActivityTypeAirDrop != NULL) {
         avc.excludedActivityTypes = @[UIActivityTypeAirDrop, UIActivityTypeMessage, UIActivityTypeCopyToPasteboard];
@@ -844,6 +848,10 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
         
         if ([activityType isEqualToString:SMActivityDeleteActivity]) {
             [self doDeletePost];
+        }
+        
+        if ([activityType isEqualToString:SMActivitySpamActivity]) {
+            [self toast:@"举报成功。净化水木，人人有责！"];
         }
         
         [SMUtils trackEventWithCategory:@"postgroup" action:@"more_action" label:activityType];
