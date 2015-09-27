@@ -10,7 +10,7 @@
 #import "SMLoginViewController.h"
 #import "UIButton+Custom.h"
 
-@interface SMViewController ()<UIViewControllerPreviewingDelegate>
+@interface SMViewController ()
 @property (assign, nonatomic) SEL selectorAfterLogin;
 
 @property (strong, nonatomic) IBOutlet UIView *viewForPopover;
@@ -66,8 +66,6 @@
     } else {
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
-    
-    [self registerForPreviewingWithDelegate:self sourceView:self.view];
     
 }
 

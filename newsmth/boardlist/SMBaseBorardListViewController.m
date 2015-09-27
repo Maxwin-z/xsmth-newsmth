@@ -136,8 +136,8 @@
                                                                       handler:^(UITableViewRowAction *action, NSIndexPath *indexPath)
                                     {
                                         @strongify(self);
-                                        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
                                         [SMConfig addOfflineBoard:item.board];
+                                        [self.tableView endEditing:YES];
                                     }];
     addFavor.backgroundColor = [UIColor colorWithRed:0.188 green:0.514 blue:0.984 alpha:1];
     
