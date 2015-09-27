@@ -192,18 +192,8 @@
     }
     
     // ios9 add shortcuts
-    
-    if ([SMUtils systemVersion] >= 9
-        && _mainViewController.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable
-        ) {
-        NSMutableArray *items = [NSMutableArray new];
-        [[SMConfig getOfflineBoards] enumerateObjectsUsingBlock:^(NSDictionary *board, NSUInteger idx, BOOL * _Nonnull stop) {
-            UIMutableApplicationShortcutItem *item = [[UIMutableApplicationShortcutItem alloc] initWithType:board[@"name"] localizedTitle:board[@"cnName"] localizedSubtitle:board[@"name"] icon:nil userInfo:nil];
-            [items addObject:item];
-        }];
-        application.shortcutItems = items;
-    }
-   return YES;
+    [self makeupShortcuts];
+    return YES;
 }
 
 
@@ -284,6 +274,7 @@
     SMNotice *lastFetchNotice = [[SMNotice alloc] initWithJSON:[def objectForKey:USERDEFAULTS_NOTICE_FETCH]];
     
     SMNotice *newNotice = opt.data;
+    [SMAccountManager instance].notice = newNotice;
     NSMutableArray *res = [[NSMutableArray alloc] init];
     int badge = 0;
     if (newNotice.mail > oldNotice.mail) {
@@ -317,6 +308,10 @@
 
     _completionHandler(UIBackgroundFetchResultNewData);
     _completionHandler = nil;
+    
+    
+    // add notice
+    [self makeupShortcuts];
 }
 
 - (void)webLoaderOperationFail:(SMWebLoaderOperation *)opt error:(SMMessage *)error
@@ -375,6 +370,44 @@
 - (void)hideAdViewDelay
 {
     [self performSelector:@selector(hideAdView) withObject:nil afterDelay:2];
+}
+
+
+- (void)makeupShortcuts
+{
+    if ([SMUtils systemVersion] >= 9
+        && _mainViewController.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable
+        ) {
+        NSMutableArray *items = [NSMutableArray new];
+        
+        SMNotice *notice = [SMAccountManager instance].notice;
+        if (notice.reply > 0 || notice.mail > 0 || notice.at > 0) {
+            NSMutableArray *comps = [[NSMutableArray alloc] init];
+            if (notice.at > 0) {
+                [comps addObject:[NSString stringWithFormat:@"At:%d", notice.at]];
+            }
+            if (notice.reply > 0) {
+                [comps addObject:[NSString stringWithFormat:@"Re:%d", notice.reply]];
+            }
+            if (notice.mail > 0) {
+                [comps addObject:@"信"];
+            }
+            
+            NSString *hint = [comps componentsJoinedByString:@", "];
+            NSString *text = [NSString stringWithFormat:@"消息(%@)", hint.length > 0 ? hint : @"0"];
+            
+            UIMutableApplicationShortcutItem *item = [[UIMutableApplicationShortcutItem alloc] initWithType:@"me.maxin.newsmth/message" localizedTitle:text localizedSubtitle:nil icon:[UIApplicationShortcutIcon iconWithTemplateImageName:@"icon_ring"] userInfo:nil];
+            [items addObject:item];
+        }
+        
+        [[SMConfig getOfflineBoards] enumerateObjectsUsingBlock:^(NSDictionary *board, NSUInteger idx, BOOL * _Nonnull stop) {
+            UIMutableApplicationShortcutItem *item = [[UIMutableApplicationShortcutItem alloc] initWithType:board[@"name"] localizedTitle:board[@"cnName"] localizedSubtitle:board[@"name"] icon:nil userInfo:nil];
+            [items addObject:item];
+        }];
+        
+        UIApplication *app = [UIApplication sharedApplication];
+        app.shortcutItems = items;
+    }
 }
 
 @end

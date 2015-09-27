@@ -182,6 +182,7 @@
 		C1B68848180824160085DC69 /* SMBoardSearchDelegateImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B68847180824160085DC69 /* SMBoardSearchDelegateImpl.m */; };
 		C1B966FD19B18D2E00ABD136 /* SMPostViewControllerV2.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B966FC19B18D2E00ABD136 /* SMPostViewControllerV2.m */; };
 		C1B9D5861BB7DC5F00AE4699 /* SMOfflineFavorTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B9D5851BB7DC5F00AE4699 /* SMOfflineFavorTableViewController.m */; settings = {ASSET_TAGS = (); }; };
+		C1B9D5881BB7EDE300AE4699 /* icon_ring@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1B9D5871BB7EDE300AE4699 /* icon_ring@2x.png */; settings = {ASSET_TAGS = (); }; };
 		C1BA92C917954EC300F76ACF /* PBWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1BA929817954EC300F76ACF /* PBWebViewController.m */; };
 		C1BBFD97190279EB008460B5 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1BBFD96190279EB008460B5 /* CoreMotion.framework */; };
 		C1BBFD9E1902986E008460B5 /* UIWindow+SMShakeListener.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FEC602185DFF2E007E1C24 /* UIWindow+SMShakeListener.m */; };
@@ -604,6 +605,7 @@
 		C1B966FC19B18D2E00ABD136 /* SMPostViewControllerV2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMPostViewControllerV2.m; sourceTree = "<group>"; };
 		C1B9D5841BB7DC5F00AE4699 /* SMOfflineFavorTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMOfflineFavorTableViewController.h; sourceTree = "<group>"; };
 		C1B9D5851BB7DC5F00AE4699 /* SMOfflineFavorTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMOfflineFavorTableViewController.m; sourceTree = "<group>"; };
+		C1B9D5871BB7EDE300AE4699 /* icon_ring@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_ring@2x.png"; sourceTree = "<group>"; };
 		C1BA929717954EC300F76ACF /* PBWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBWebViewController.h; sourceTree = "<group>"; };
 		C1BA929817954EC300F76ACF /* PBWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBWebViewController.m; sourceTree = "<group>"; };
 		C1BBFD96190279EB008460B5 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
@@ -1115,6 +1117,7 @@
 		C19FF0B01769A71B00EB6F7E /* images */ = {
 			isa = PBXGroup;
 			children = (
+				C1B9D5871BB7EDE300AE4699 /* icon_ring@2x.png */,
 				C10206081AB44C550096D210 /* icon_forward_all@2x.png */,
 				C153189B1B50DD1600CF84FE /* icon_report@2x.png */,
 				C10205FE1AB438110096D210 /* icon_edit@2x.png */,
@@ -1915,6 +1918,7 @@
 				C1300A79187D3776006ACA5C /* icon_58@2x.png in Resources */,
 				C1E3A22B1780600900994CE6 /* SMUserViewController.xib in Resources */,
 				C14B22F517FABDD100CF081A /* bg_navigationbar@2x.png in Resources */,
+				C1B9D5881BB7EDE300AE4699 /* icon_ring@2x.png in Resources */,
 				C1FD13B717814E06006A6061 /* bg_photo_border@2x.png in Resources */,
 				C1327EE11878549700B1862A /* SMDonateViewController.xib in Resources */,
 				C1F4672418C2EFAB006BCE7A /* common_share_icon_weixin@2x.png in Resources */,
