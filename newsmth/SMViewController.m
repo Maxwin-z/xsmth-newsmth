@@ -10,7 +10,7 @@
 #import "SMLoginViewController.h"
 #import "UIButton+Custom.h"
 
-@interface SMViewController ()
+@interface SMViewController ()<UIViewControllerPreviewingDelegate>
 @property (assign, nonatomic) SEL selectorAfterLogin;
 
 @property (strong, nonatomic) IBOutlet UIView *viewForPopover;
@@ -66,6 +66,8 @@
     } else {
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
+    
+    [self registerForPreviewingWithDelegate:self sourceView:self.view];
     
 }
 
@@ -307,4 +309,18 @@
     return toInterfaceOrientation != UIInterfaceOrientationPortraitUpsideDown;
 }
 
+// ios9 3d touch
+
+
+- (nullable UIViewController *)previewingContext:(id <UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location
+{
+    UIViewController *vc = [UIViewController new];
+    vc.view.backgroundColor = [UIColor redColor];
+    return vc;
+}
+
+- (void)previewingContext:(id <UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit
+{
+    [self showViewController:viewControllerToCommit sender:self];
+}
 @end
