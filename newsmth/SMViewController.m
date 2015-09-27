@@ -312,15 +312,15 @@
 // ios9 3d touch
 
 
-- (nullable UIViewController *)previewingContext:(id <UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location
-{
-    UIViewController *vc = [UIViewController new];
-    vc.view.backgroundColor = [UIColor redColor];
-    return vc;
-}
-
-- (void)previewingContext:(id <UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit
-{
-    [self showViewController:viewControllerToCommit sender:self];
-}
+//- (nullable UIViewController *)previewingContext:(id <UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location
+//{
+//    UIViewController *vc = [UIViewController new];
+//    vc.view.backgroundColor = [UIColor redColor];
+//    return vc;
+//}
+//
+//- (void)previewingContext:(id <UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit
+//{
+//    [self showViewController:viewControllerToCommit sender:self];
+//}
 @end
