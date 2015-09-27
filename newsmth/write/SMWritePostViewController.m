@@ -138,10 +138,16 @@
     [super setupTheme];
     _textFieldForTitle.keyboardAppearance = _textViewForText.keyboardAppearance = [SMConfig enableDayMode] ? UIKeyboardAppearanceLight : UIKeyboardAppearanceDark;
     
-    self.textFieldForTitle.backgroundColor = [SMTheme colorForBackground];
+    self.textFieldForTitle.backgroundColor = [UIColor clearColor];
     self.textFieldForTitle.textColor = [SMTheme colorForPrimary];
-    self.textViewForText.backgroundColor = [SMTheme colorForBackground];
+    self.textViewForText.backgroundColor = [UIColor clearColor];
     self.textViewForText.textColor = [SMTheme colorForPrimary];
+    
+    
+    self.imageViewForTitle.image = self.imageViewForText.image = nil;
+    self.imageViewForTitle.layer.borderColor = self.imageViewForText.layer.borderColor = [SMTheme colorForSecondary].CGColor;
+    self.imageViewForTitle.layer.borderWidth = self.imageViewForText.layer.borderWidth = 1;
+    self.imageViewForTitle.layer.cornerRadius = self.imageViewForText.layer.cornerRadius = 5.0f;
 }
 
 - (void)cancel
