@@ -124,6 +124,12 @@
     }
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    SMBoardListItem *item = _items[indexPath.row];
+    return !item.isDir;
+}
+
 -(NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     SMBoardListItem *item = _items[indexPath.row];
     if (item.isDir) {
@@ -137,7 +143,7 @@
                                     {
                                         @strongify(self);
                                         [SMConfig addOfflineBoard:item.board];
-                                        [self.tableView endEditing:YES];
+                                        [self.tableView setEditing:NO animated:YES];
                                     }];
     addFavor.backgroundColor = [UIColor colorWithRed:0.188 green:0.514 blue:0.984 alpha:1];
     
