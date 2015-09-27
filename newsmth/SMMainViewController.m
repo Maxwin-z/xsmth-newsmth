@@ -237,7 +237,7 @@ static SMMainViewController *_instance;
 - (BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)gestureRecognizer
 {
     CGPoint pan = [gestureRecognizer translationInView:self.view];
-    if (ABS(pan.x) > ABS(pan.y) && self.centerViewController.viewControllers.count <= 1) {
+    if (ABS(pan.x) > ABS(pan.y) && pan.x > 0 && self.centerViewController.viewControllers.count <= 1) {
         _leftPanX = pan.x;
         _leftViewController.view.hidden = NO;
         return YES;
