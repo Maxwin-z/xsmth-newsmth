@@ -190,7 +190,16 @@
     if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]) {
         [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeSound categories:nil]];
     }
-
+    
+    // ios9 add shortcuts
+    
+//    NSMutableArray *items = [NSMutableArray new];
+//    for (int i = 0; i != 20; ++i) {
+//        NSString *title = [NSString stringWithFormat:@"ShortCut%@", @(i)];
+//        UIMutableApplicationShortcutItem *shortItem = [[UIMutableApplicationShortcutItem alloc] initWithType:title localizedTitle:title];
+//        [items addObject:shortItem];
+//    }
+//    application.shortcutItems =  items;
     return YES;
 }
 
