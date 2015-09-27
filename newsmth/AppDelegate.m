@@ -193,14 +193,17 @@
     
     // ios9 add shortcuts
     
-//    NSMutableArray *items = [NSMutableArray new];
-//    for (int i = 0; i != 20; ++i) {
-//        NSString *title = [NSString stringWithFormat:@"ShortCut%@", @(i)];
-//        UIMutableApplicationShortcutItem *shortItem = [[UIMutableApplicationShortcutItem alloc] initWithType:title localizedTitle:title];
-//        [items addObject:shortItem];
-//    }
-//    application.shortcutItems =  items;
-    return YES;
+    if ([SMUtils systemVersion] >= 9
+        && _mainViewController.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable
+        ) {
+        NSMutableArray *items = [NSMutableArray new];
+        [[SMConfig getOfflineBoards] enumerateObjectsUsingBlock:^(NSDictionary *board, NSUInteger idx, BOOL * _Nonnull stop) {
+            UIMutableApplicationShortcutItem *item = [[UIMutableApplicationShortcutItem alloc] initWithType:board[@"name"] localizedTitle:board[@"cnName"] localizedSubtitle:board[@"name"] icon:nil userInfo:nil];
+            [items addObject:item];
+        }];
+        application.shortcutItems = items;
+    }
+   return YES;
 }
 
 
