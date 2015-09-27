@@ -10,4 +10,5 @@
 
 @interface SMOfflineFavorTableViewController : UITableViewController
 + (instancetype)instance;
+@property (strong, nonatomic) UIImage *captureImage;
 @end

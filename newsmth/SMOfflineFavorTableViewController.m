@@ -9,6 +9,7 @@
 #import "SMOfflineFavorTableViewController.h"
 #import "SMMainViewController.h"
 #import "SMFavorListViewController.h"
+#import "SMBoardViewController.h"
 
 @interface SMOfflineFavorTableViewController ()
 @property (nonatomic, strong) NSArray *boards;
@@ -28,6 +29,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onThemeChangedNotification:) name:NOTIFYCATION_THEME_CHANGED object:nil];
+    [self setupTheme];
+}
+
+- (void)onThemeChangedNotification:(NSNotification *)n
+{
+    [self setupTheme];
+}
+
+- (void)setupTheme
+{
+    self.view.backgroundColor = [SMTheme colorForBackground];
+    [self.tableView reloadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -78,12 +92,33 @@
    
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.textLabel.backgroundColor = [UIColor clearColor];
+        cell.detailTextLabel.backgroundColor = [UIColor clearColor];
     }
+    
+    cell.textLabel.textColor = [SMTheme colorForPrimary];
+    cell.detailTextLabel.textColor = [SMTheme colorForSecondary];
+    cell.contentView.backgroundColor = [SMTheme colorForBackground];
+    cell.backgroundColor = [SMTheme colorForBackground];
+    
     NSDictionary *board = self.boards[indexPath.row];
     cell.textLabel.text = board[@"cnName"];
     cell.detailTextLabel.text = board[@"name"];
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSDictionary *dict = self.boards[indexPath.row];
+    SMBoard *board = [SMBoard new];
+    board.name = dict[@"name"];
+    board.cnName = dict[@"cnName"];
+    
+    SMBoardViewController *vc = [SMBoardViewController new];
+    vc.board = board;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 // Override to support conditional editing of the table view.
