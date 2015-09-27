@@ -19,7 +19,9 @@
 #import "SMIpadEmptyViewController.h"
 #import "SMAdViewController.h"
 #import "WXApi.h"
+#import "SMNoticeViewController.h"
 #import <CoreMotion/CoreMotion.h>
+#import "SMBoardViewController.h"
 
 @interface AppDelegate ()<SMWebLoaderOperationDelegate>
 @property (strong, nonatomic) UINavigationController *nvc;
@@ -39,6 +41,7 @@
 @property (assign, nonatomic) BOOL isNewLaunching;
 
 @property (strong, nonatomic) CMMotionManager *motionManager;
+@property (strong, nonatomic) UIApplicationShortcutItem *launchedShortcutItem;
 @end
 
 @implementation AppDelegate
@@ -193,6 +196,38 @@
     
     // ios9 add shortcuts
     [self makeupShortcuts];
+    
+    // handle shortcuts
+    BOOL shouldPerformAdditionalDelegateHandling = true;
+    if ([SMUtils systemVersion] >= 9) {
+        UIApplicationShortcutItem *item = launchOptions[UIApplicationLaunchOptionsShortcutItemKey];
+        if (item) {
+            shouldPerformAdditionalDelegateHandling = false;
+            self.launchedShortcutItem = item;
+        }
+    }
+    
+    return shouldPerformAdditionalDelegateHandling;
+}
+
+- (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler
+{
+    completionHandler([self handleShortCutItem:shortcutItem]);
+}
+
+- (BOOL)handleShortCutItem:(UIApplicationShortcutItem *)item
+{
+    if ([item.type isEqualToString:@"me.maxin.newsmth/message"]) {
+        [[SMMainViewController instance] setRootViewController:[SMNoticeViewController instance]];
+    } else {
+        SMBoardViewController *vc = [SMBoardViewController new];
+        SMBoard *board = [SMBoard new];
+        board.name = item.type;
+        board.cnName = (NSString *)item.userInfo[@"cnName"];
+        vc.board = board;
+        
+        [[SMMainViewController instance].centerViewController pushViewController:vc animated:YES];
+    }
     return YES;
 }
 
@@ -206,10 +241,16 @@
         [self hideAdView];
     }
     self.isNewLaunching = NO;
+    
+    if (self.launchedShortcutItem) {
+        [self handleShortCutItem:self.launchedShortcutItem];
+        self.launchedShortcutItem = nil;
+    }
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
+    [self makeupShortcuts];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -401,7 +442,7 @@
         }
         
         [[SMConfig getOfflineBoards] enumerateObjectsUsingBlock:^(NSDictionary *board, NSUInteger idx, BOOL * _Nonnull stop) {
-            UIMutableApplicationShortcutItem *item = [[UIMutableApplicationShortcutItem alloc] initWithType:board[@"name"] localizedTitle:board[@"cnName"] localizedSubtitle:board[@"name"] icon:nil userInfo:nil];
+            UIMutableApplicationShortcutItem *item = [[UIMutableApplicationShortcutItem alloc] initWithType:board[@"name"] localizedTitle:board[@"cnName"] localizedSubtitle:board[@"name"] icon:nil userInfo:board];
             [items addObject:item];
         }];
         

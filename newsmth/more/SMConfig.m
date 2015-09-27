@@ -140,7 +140,7 @@
 
 + (void)addBoardToHistory:(SMBoard *)board
 {
-    NSDictionary *dict = @{@"name": board.name, @"cnName": board.cnName};
+    NSDictionary *dict = @{@"name": board.name, @"cnName": board.cnName ?: @""};
     NSMutableArray *boards = [[SMConfig historyBoards] mutableCopy];
     if (boards == nil) {
         boards = [[NSMutableArray alloc] init];
