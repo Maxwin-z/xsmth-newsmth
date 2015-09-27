@@ -11,7 +11,7 @@
 #import "SMFavorListViewController.h"
 
 @interface SMOfflineFavorTableViewController ()
-
+@property (nonatomic, strong) NSArray *boards;
 @end
 
 @implementation SMOfflineFavorTableViewController
@@ -41,7 +41,11 @@
     [sc addTarget:self action:@selector(onTitleViewSegmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(onRightBarButtonClick)];
+    
+    self.boards = [SMConfig getOfflineBoards];
+    [self.tableView reloadData];
 }
+
 
 - (void)onRightBarButtonClick
 {
@@ -66,7 +70,7 @@
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return self.boards.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -75,7 +79,9 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
     }
-    cell.textLabel.text = [NSString stringWithFormat:@"%@", @(indexPath.row)];
+    NSDictionary *board = self.boards[indexPath.row];
+    cell.textLabel.text = board[@"cnName"];
+    cell.detailTextLabel.text = board[@"name"];
     
     return cell;
 }
@@ -88,20 +94,29 @@
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
+        NSMutableArray *boards = [self.boards mutableCopy];
+        [boards removeObjectAtIndex:indexPath.row];
+        _boards = boards;
+        [SMConfig setOfflineBoards:_boards];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        XLog_e(@"why insert?");
     }   
 }
 
 // Override to support rearranging the table view.
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+    NSMutableArray *boards = [self.boards mutableCopy];
+    id from = [boards objectAtIndex:fromIndexPath.row];
+    id to = [boards objectAtIndex:toIndexPath.row];
+    [boards replaceObjectAtIndex:fromIndexPath.row withObject:to];
+    [boards replaceObjectAtIndex:toIndexPath.row withObject:from];
+    _boards = boards;
+    [SMConfig setOfflineBoards:boards];
 }
 
 // Override to support conditional rearranging of the table view.
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
     return YES;
 }
 

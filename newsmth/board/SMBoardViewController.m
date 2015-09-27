@@ -433,6 +433,8 @@
     } else {
         [self performSelectorAfterLogin:@selector(doAddFavor)];
     }
+    [SMConfig addOfflineBoard:self.board];
+    [self toast:@"已添加至离线版面列表"];
 }
 
 - (void)doAddFavor

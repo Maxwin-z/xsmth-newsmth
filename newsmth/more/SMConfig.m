@@ -157,8 +157,9 @@
 
 + (void)addOfflineBoard:(SMBoard *)board
 {
+    NSDictionary *dict = @{@"name": board.name, @"cnName": board.cnName};
     NSMutableArray *boards = [[SMConfig getOfflineBoards] mutableCopy];
-    [boards insertObject:board atIndex:0];
+    [boards insertObject:dict atIndex:0];
     [SMConfig setOfflineBoards:boards];
 }
 
