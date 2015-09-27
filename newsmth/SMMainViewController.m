@@ -197,7 +197,7 @@ static SMMainViewController *_instance;
     CGFloat leftWidth = self.view.bounds.size.width - RIGHTBAR_WIDTH;
     CGFloat endX = visiable ? leftWidth : 0;
     CGFloat length = _centerViewController.view.frame.origin.x - endX;
-    CGFloat duration = ANIMATION_DURATION * fabsf(length) / leftWidth;
+    CGFloat duration = ANIMATION_DURATION * ABS(length) / leftWidth;
     [UIView animateWithDuration:duration animations:^{
         CGRect frame = _centerViewController.view.frame;
         frame.origin.x = endX;
@@ -237,7 +237,7 @@ static SMMainViewController *_instance;
 - (BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)gestureRecognizer
 {
     CGPoint pan = [gestureRecognizer translationInView:self.view];
-    if (fabsf(pan.x) > fabsf(pan.y) && self.centerViewController.viewControllers.count <= 1) {
+    if (ABS(pan.x) > ABS(pan.y) && self.centerViewController.viewControllers.count <= 1) {
         _leftPanX = pan.x;
         _leftViewController.view.hidden = NO;
         return YES;

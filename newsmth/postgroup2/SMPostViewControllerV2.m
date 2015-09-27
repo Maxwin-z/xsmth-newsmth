@@ -268,7 +268,7 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     // remove webview background color
     self.webView.backgroundColor = [UIColor clearColor];
     self.webView.opaque = NO;
-    if (![SMUtils systemVersion] < 7) {
+    if ([SMUtils systemVersion] < 7) {
         UIWebView *webView = self.webView;
         for (UIView *view in [[webView subviews].firstObject subviews]) {
             if ([view isKindOfClass:[UIImageView class]]) view.hidden = YES;

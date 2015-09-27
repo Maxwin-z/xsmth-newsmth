@@ -196,7 +196,6 @@
 		C1BFB8F3174F6A620092FD2E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1BFB8F2174F6A620092FD2E /* Default-568h@2x.png */; };
 		C1BFB8F6174F6A620092FD2E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1BFB8F5174F6A620092FD2E /* ViewController.m */; };
 		C1BFB8F9174F6A620092FD2E /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1BFB8F7174F6A620092FD2E /* ViewController.xib */; };
-		C1BFB901174F6A620092FD2E /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1BFB900174F6A620092FD2E /* SenTestingKit.framework */; };
 		C1BFB902174F6A620092FD2E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1BFB8DC174F6A620092FD2E /* UIKit.framework */; };
 		C1BFB903174F6A620092FD2E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1BFB8DE174F6A620092FD2E /* Foundation.framework */; };
 		C1BFB90B174F6A620092FD2E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C1BFB909174F6A620092FD2E /* InfoPlist.strings */; };
@@ -622,8 +621,7 @@
 		C1BFB8F4174F6A620092FD2E /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		C1BFB8F5174F6A620092FD2E /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		C1BFB8F8174F6A620092FD2E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
-		C1BFB8FF174F6A620092FD2E /* newsmthTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = newsmthTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C1BFB900174F6A620092FD2E /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		C1BFB8FF174F6A620092FD2E /* newsmthTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = newsmthTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1BFB908174F6A620092FD2E /* newsmthTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "newsmthTests-Info.plist"; sourceTree = "<group>"; };
 		C1BFB90A174F6A620092FD2E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C1BFB90C174F6A620092FD2E /* newsmthTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = newsmthTests.h; sourceTree = "<group>"; };
@@ -861,7 +859,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C1BFB901174F6A620092FD2E /* SenTestingKit.framework in Frameworks */,
 				C1BFB902174F6A620092FD2E /* UIKit.framework in Frameworks */,
 				C1BFB903174F6A620092FD2E /* Foundation.framework in Frameworks */,
 			);
@@ -1329,7 +1326,7 @@
 			isa = PBXGroup;
 			children = (
 				C1BFB8D9174F6A620092FD2E /* newsmth.app */,
-				C1BFB8FF174F6A620092FD2E /* newsmthTests.octest */,
+				C1BFB8FF174F6A620092FD2E /* newsmthTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1357,7 +1354,6 @@
 				C1C07A77179686BD00906ED7 /* MessageUI.framework */,
 				C1BFB91B174F6F2A0092FD2E /* MobileCoreServices.framework */,
 				C10D16BA1756276C002D6FAD /* QuartzCore.framework */,
-				C1BFB900174F6A620092FD2E /* SenTestingKit.framework */,
 				C1C07A79179686E300906ED7 /* Social.framework */,
 				C1BFB919174F6F260092FD2E /* SystemConfiguration.framework */,
 				C1C07A7B179686F600906ED7 /* Twitter.framework */,
@@ -1787,8 +1783,8 @@
 			);
 			name = newsmthTests;
 			productName = newsmthTests;
-			productReference = C1BFB8FF174F6A620092FD2E /* newsmthTests.octest */;
-			productType = "com.apple.product-type.bundle.ocunit-test";
+			productReference = C1BFB8FF174F6A620092FD2E /* newsmthTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -1796,7 +1792,7 @@
 		C1BFB8D1174F6A620092FD2E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastTestingUpgradeCheck = 0600;
+				LastTestingUpgradeCheck = 0700;
 				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = nju;
 				TargetAttributes = {
@@ -2279,6 +2275,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/newsmth/Frameworks\"/**",
@@ -2314,13 +2311,13 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"$(inherited)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "newsmth/newsmth-Prefix.pch";
 				INFOPLIST_FILE = "newsmthTests/newsmthTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Distribution;
 		};
@@ -2392,6 +2389,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/newsmth/Frameworks\"/**",
@@ -2426,6 +2424,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/newsmth/Frameworks\"/**",
@@ -2460,13 +2459,13 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"$(inherited)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "newsmth/newsmth-Prefix.pch";
 				INFOPLIST_FILE = "newsmthTests/newsmthTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
 		};
@@ -2477,13 +2476,13 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"$(inherited)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "newsmth/newsmth-Prefix.pch";
 				INFOPLIST_FILE = "newsmthTests/newsmthTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};

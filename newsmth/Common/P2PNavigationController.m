@@ -160,7 +160,7 @@
 {
     if (_panGesture == gestureRecognizer) {
         CGPoint pan = [gestureRecognizer translationInView:self.view];
-        BOOL begin = pan.x > 0 && fabsf(pan.x) > fabsf(pan.y) && (self.viewControllers.count > 1);
+        BOOL begin = pan.x > 0 && ABS(pan.x) > ABS(pan.y) && (self.viewControllers.count > 1);
         
         P2PViewController *topVc = [self.viewControllers lastObject];
         if ([topVc respondsToSelector:@selector(navigationUnsupportPanToPop)]) {
@@ -206,7 +206,7 @@
         || gesture.state == UIGestureRecognizerStateCancelled
         || gesture.state == UIGestureRecognizerStateFailed) {
         CGFloat velocity = [gesture velocityInView:self.view].x;
-        if (velocity < -500.0f || (fabsf(velocity) < 500 && currentX < totalWidth / 2.0f)) {
+        if (velocity < -500.0f || (ABS(velocity) < 500 && currentX < totalWidth / 2.0f)) {
             [self panToPop:NO];
         } else {
             [self panToPop:YES];
