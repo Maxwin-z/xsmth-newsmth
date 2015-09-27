@@ -89,5 +89,4 @@ static SMFavorListViewController *_instance;
         [self showLogin];
     }
 }
-
 @end

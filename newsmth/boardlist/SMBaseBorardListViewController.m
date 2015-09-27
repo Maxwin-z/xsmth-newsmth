@@ -124,6 +124,27 @@
     }
 }
 
+-(NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    SMBoardListItem *item = _items[indexPath.row];
+    if (item.isDir) {
+        return @[];
+    }
+    
+    @weakify(self);
+    UITableViewRowAction *addFavor = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault
+                                                                        title:@"离线收藏"
+                                                                      handler:^(UITableViewRowAction *action, NSIndexPath *indexPath)
+                                    {
+                                        @strongify(self);
+                                        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                                        [SMConfig addOfflineBoard:item.board];
+                                    }];
+    addFavor.backgroundColor = [UIColor colorWithRed:0.188 green:0.514 blue:0.984 alpha:1];
+    
+    return @[addFavor];
+}
+
+
 #pragma mark - XPullRefreshTableViewDelegate
 - (void)tableViewDoRefresh:(XPullRefreshTableView *)tableView
 {
