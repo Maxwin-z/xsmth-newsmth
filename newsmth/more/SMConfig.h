@@ -32,6 +32,10 @@
 + (void)addBoardToHistory:(SMBoard *)board;
 + (NSArray *)historyBoards;
 
++ (void)addOfflineBoard:(SMBoard *)board;
++ (void)setOfflineBoards:(NSArray *)boards;
++ (NSArray *)getOfflineBoards;
+
 + (UIFont *)listFont;
 + (UIFont *)postFont;
 

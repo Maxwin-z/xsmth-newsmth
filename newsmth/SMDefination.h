@@ -52,6 +52,7 @@ typedef enum {
 #define USERDEFAULTS_BACKGROUND_FETCH_INDEX @"backgroundfetchindex" // 斐波那契数列下标
 
 #define USERDEFAULTS_BOARD_HISTORY @"board_history"
+#define USERDEFAULTS_BOARD_OFFLINE @"board_offline"
 
 #define USERDEFAULTS_EULA_ACCEPTED   @"pref_eula_accepted"
 

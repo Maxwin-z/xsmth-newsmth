@@ -155,6 +155,28 @@
     [[NSUserDefaults standardUserDefaults] setObject:boards forKey:USERDEFAULTS_BOARD_HISTORY];
 }
 
++ (void)addOfflineBoard:(SMBoard *)board
+{
+    NSMutableArray *boards = [[SMConfig getOfflineBoards] mutableCopy];
+    [boards insertObject:board atIndex:0];
+    [SMConfig setOfflineBoards:boards];
+}
+
++ (void)setOfflineBoards:(NSArray *)boards
+{
+    [[NSUserDefaults standardUserDefaults] setObject:boards forKey:USERDEFAULTS_BOARD_OFFLINE];
+}
+
++ (NSArray *)getOfflineBoards
+{
+    NSArray *boards = [[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_BOARD_OFFLINE];
+    if (boards == nil) {
+        boards = @[];
+    }
+    return boards;
+}
+
+
 + (UIFont *)listFont
 {
     NSString *listFontFamily = [[NSUserDefaults standardUserDefaults] stringForKey:USERDEFAULTS_LIST_FONT_FAMILY];
