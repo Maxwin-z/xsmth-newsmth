@@ -222,6 +222,22 @@ li.post div.sp {
 	width: 80px;
 }
 
+#btn_next_post {
+	position: fixed;
+	bottom: 200px;
+	right: 20px;
+	width: 100px;
+	height: 100px;
+	border-radius: 5px;
+	border: 1px solid black;
+	border-color: rgba(0,0,0,0.5);
+	background-color: rgba(0,0,0,0.3);
+	background-image: url('icon_arrow_right.png');
+	background-size: 64px 64px;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
 </style>
 </head>
 <body>
@@ -235,6 +251,9 @@ li.post div.sp {
 			<div id="loading-indicator"></div>
 		</div>
 	</div>
+
+	<div id="btn_next_post"></div>
+
 <textarea id="tpl_post" style="display: none">
 		<li class="post" id="post_${pid}" page="${page}">
 			<div class="author">
@@ -404,6 +423,7 @@ function scroll2page(page) {
 
 ////////////////////////////////////////////////////////////
 var currentPage = 0;
+var currentLi = null;
 var maxPage = 0;
 var mainPost = null;
 var mainAuthor = null;
@@ -943,10 +963,21 @@ function detectCurrentPage() {
 	var scrollTop = $(window).scrollTop();
 	var lis = $('#post-list li');
 	var idx = _getIndex(lis, lis.length / 2, lis.length - 1, scrollTop);
-	var li = lis[idx];
-	// console.log(li);
+	var li = $(lis[idx]);
+	console.log(li);
+	currentLi = li;
+	if (li.offset().top + li.offset().height > $(window).scrollTop() + $(window).height() && li.next('li').length > 0) {
+		$('#btn_next_post').show();
+	} else {
+		$('#btn_next_post').hide();
+	}
 	SMApp.setCurrentPage($(li).attr('page'), totalPage);
 }
+
+$('#btn_next_post').tap(function () {
+	var li = currentLi.next();
+	SMApp.scrollTo(li.offset().top);
+});
 
 function _getIndex(lis, idx, end, top) {
 	idx = parseInt(idx);
