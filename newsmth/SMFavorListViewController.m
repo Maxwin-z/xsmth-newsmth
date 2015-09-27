@@ -12,6 +12,8 @@
 #import "SMBoardViewController.h"
 #import "SMFavor.h"
 #import "SMBoard.h"
+#import "SMMainViewController.h"
+#import "SMOfflineFavorTableViewController.h"
 
 static SMFavorListViewController *_instance;
 
@@ -49,6 +51,29 @@ static SMFavorListViewController *_instance;
         self.url = @"http://m.newsmth.net/favor";
     }
     [self accountChanged];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    UISegmentedControl *sc = [[UISegmentedControl alloc] initWithItems:@[@"水木收藏夹", @"本地收藏"]];
+    self.navigationItem.titleView = sc;
+    sc.selectedSegmentIndex = 0;
+    
+    [sc addTarget:self action:@selector(onTitleViewSegmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
+}
+
+- (void)onTitleViewSegmentedControlValueChanged:(UISegmentedControl *)sc
+{
+   
+    UIViewController *vc;
+    if (sc.selectedSegmentIndex == 0) {
+        vc = [SMFavorListViewController instance];
+    } else {
+        vc = [SMOfflineFavorTableViewController instance];
+    }
+    
+    [[SMMainViewController instance] setRootViewController:vc];
 }
 
 - (void)accountChanged

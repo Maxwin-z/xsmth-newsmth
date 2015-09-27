@@ -181,6 +181,7 @@
 		C1B581F4177723F500441299 /* SMWritePostViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1B581F2177723F500441299 /* SMWritePostViewController.xib */; };
 		C1B68848180824160085DC69 /* SMBoardSearchDelegateImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B68847180824160085DC69 /* SMBoardSearchDelegateImpl.m */; };
 		C1B966FD19B18D2E00ABD136 /* SMPostViewControllerV2.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B966FC19B18D2E00ABD136 /* SMPostViewControllerV2.m */; };
+		C1B9D5861BB7DC5F00AE4699 /* SMOfflineFavorTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B9D5851BB7DC5F00AE4699 /* SMOfflineFavorTableViewController.m */; settings = {ASSET_TAGS = (); }; };
 		C1BA92C917954EC300F76ACF /* PBWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1BA929817954EC300F76ACF /* PBWebViewController.m */; };
 		C1BBFD97190279EB008460B5 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1BBFD96190279EB008460B5 /* CoreMotion.framework */; };
 		C1BBFD9E1902986E008460B5 /* UIWindow+SMShakeListener.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FEC602185DFF2E007E1C24 /* UIWindow+SMShakeListener.m */; };
@@ -601,6 +602,8 @@
 		C1B68847180824160085DC69 /* SMBoardSearchDelegateImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMBoardSearchDelegateImpl.m; sourceTree = "<group>"; };
 		C1B966FB19B18D2E00ABD136 /* SMPostViewControllerV2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMPostViewControllerV2.h; sourceTree = "<group>"; };
 		C1B966FC19B18D2E00ABD136 /* SMPostViewControllerV2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMPostViewControllerV2.m; sourceTree = "<group>"; };
+		C1B9D5841BB7DC5F00AE4699 /* SMOfflineFavorTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMOfflineFavorTableViewController.h; sourceTree = "<group>"; };
+		C1B9D5851BB7DC5F00AE4699 /* SMOfflineFavorTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMOfflineFavorTableViewController.m; sourceTree = "<group>"; };
 		C1BA929717954EC300F76ACF /* PBWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBWebViewController.h; sourceTree = "<group>"; };
 		C1BA929817954EC300F76ACF /* PBWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBWebViewController.m; sourceTree = "<group>"; };
 		C1BBFD96190279EB008460B5 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
@@ -1405,6 +1408,8 @@
 				C1E3A2291780600900994CE6 /* SMUserViewController.xib */,
 				C1158165176851B5008A421A /* SMFavorListViewController.h */,
 				C1158166176851B5008A421A /* SMFavorListViewController.m */,
+				C1B9D5841BB7DC5F00AE4699 /* SMOfflineFavorTableViewController.h */,
+				C1B9D5851BB7DC5F00AE4699 /* SMOfflineFavorTableViewController.m */,
 				C115816A17685606008A421A /* SMLoginViewController.h */,
 				C115816B17685606008A421A /* SMLoginViewController.m */,
 				C115816C17685606008A421A /* SMLoginViewController.xib */,
@@ -2152,6 +2157,7 @@
 				C13CB57F18AF62B4003F7407 /* SSZipArchive.m in Sources */,
 				C1C07A5A1796857900906ED7 /* OWActivityView.m in Sources */,
 				C1F8107518E5B734001B3759 /* FMResultSet.m in Sources */,
+				C1B9D5861BB7DC5F00AE4699 /* SMOfflineFavorTableViewController.m in Sources */,
 				C13CB57A18AF62B4003F7407 /* ioapi.c in Sources */,
 				C1C07A5C1796857900906ED7 /* OWActivityViewController.m in Sources */,
 				C1C07A5D1796857900906ED7 /* OWCopyActivity.m in Sources */,
