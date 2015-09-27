@@ -137,6 +137,11 @@
 {
     [super setupTheme];
     _textFieldForTitle.keyboardAppearance = _textViewForText.keyboardAppearance = [SMConfig enableDayMode] ? UIKeyboardAppearanceLight : UIKeyboardAppearanceDark;
+    
+    self.textFieldForTitle.backgroundColor = [SMTheme colorForBackground];
+    self.textFieldForTitle.textColor = [SMTheme colorForPrimary];
+    self.textViewForText.backgroundColor = [SMTheme colorForBackground];
+    self.textViewForText.textColor = [SMTheme colorForPrimary];
 }
 
 - (void)cancel
