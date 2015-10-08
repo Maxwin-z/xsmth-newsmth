@@ -50,7 +50,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _assets == nil ? 0 : ceilf((_assets.count - 1) / CELL_COLS) + 1;
+    return (_assets == nil || _assets.count == 0) ? 0 : ceilf((_assets.count - 1) / CELL_COLS) + 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

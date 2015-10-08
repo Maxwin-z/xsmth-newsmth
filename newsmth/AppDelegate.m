@@ -231,7 +231,6 @@
     return YES;
 }
 
-
 -(void)applicationDidBecomeActive:(UIApplication *)application
 {
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
