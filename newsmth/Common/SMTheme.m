@@ -43,4 +43,9 @@
     return [SMConfig enableDayMode] ? SMRGB(0xfc, 0xfc, 0xfc) : SMRGB(0x28, 0x28, 0x29);
 }
 
++ (UIColor *)colorForHighlightBackground
+{
+    return [SMConfig enableDayMode] ? SMRGB(0xe0, 0xe0, 0xe0) : [UIColor darkGrayColor];
+}
+
 @end

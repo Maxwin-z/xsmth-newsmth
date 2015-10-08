@@ -40,6 +40,9 @@ static SMMainpageCell *_instance;
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        UIView *selectedBackgroundView = [[UIView alloc] initWithFrame:self.contentView.bounds];
+        selectedBackgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        self.selectedBackgroundView = selectedBackgroundView;
         [[NSBundle mainBundle] loadNibNamed:@"SMMainpageCell" owner:self options:nil];
         self.viewForCell.frame = self.contentView.bounds;
         [self.contentView addSubview:self.viewForCell];
@@ -56,6 +59,7 @@ static SMMainpageCell *_instance;
     _labelForAuthor.text = post.author;
 
     self.backgroundColor = [SMTheme colorForBackground];
+    self.selectedBackgroundView.backgroundColor = [SMTheme colorForHighlightBackground];
     self.labelForTitle.textColor = [SMTheme colorForPrimary];
     self.labelForBoardName.textColor = self.labelForAuthor.textColor = [SMTheme colorForSecondary];
 }

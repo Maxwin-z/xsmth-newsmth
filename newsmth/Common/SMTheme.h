@@ -15,4 +15,5 @@
 + (UIColor *)colorForTintColor;
 + (UIColor *)colorForBarTintColor;
 + (UIColor *)colorForBackground;
++ (UIColor *)colorForHighlightBackground;
 @end
