@@ -105,6 +105,12 @@
     [super setupTheme];
     _textFieldForTitle.keyboardAppearance = _textViewForContent.keyboardAppearance = _textFieldForReciver.keyboardAppearance = [SMConfig enableDayMode] ? UIKeyboardAppearanceLight : UIKeyboardAppearanceDark;
 
+    _textFieldForTitle.textColor = _textFieldForReciver.textColor = _textViewForContent.textColor = [SMTheme colorForPrimary];
+    [@[_textFieldForTitle, _textFieldForReciver, _textViewForContent] enumerateObjectsUsingBlock:^(UIView *v, NSUInteger idx, BOOL * _Nonnull stop) {
+        v.layer.borderColor = [SMTheme colorForSecondary].CGColor;
+        v.layer.borderWidth = 1;
+        v.layer.cornerRadius = 5.0f;
+    }];
 }
 
 - (void)cancel
