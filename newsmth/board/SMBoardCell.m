@@ -48,6 +48,9 @@ static SMBoardCell *_instance;
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        UIView *selectedBackgroundView = [[UIView alloc] initWithFrame:self.contentView.bounds];
+        selectedBackgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        self.selectedBackgroundView = selectedBackgroundView;
         [[NSBundle mainBundle] loadNibNamed:@"SMBoardCell" owner:self options:nil];
         _viewForCell.frame = self.contentView.bounds;
         [self.contentView addSubview:_viewForCell];
@@ -80,6 +83,7 @@ static SMBoardCell *_instance;
     _labelForReplyTime.hidden = ![SMConfig enableShowReplyAuthor] || _post.replyDate == 0;
     
     self.backgroundColor = [SMTheme colorForBackground];
+    self.selectedBackgroundView.backgroundColor = [SMTheme colorForHighlightBackground];
     _labelForTitle.textColor = [SMTheme colorForPrimary];
     _labelForPostTime.textColor = _labelForReplyTime.textColor = [SMTheme colorForSecondary];
     
