@@ -32,6 +32,10 @@
 
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        UIView *selectedBackgroundView = [[UIView alloc] initWithFrame:self.contentView.bounds];
+        selectedBackgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        self.selectedBackgroundView = selectedBackgroundView;
+        
         [[NSBundle mainBundle] loadNibNamed:@"SMMailCell" owner:self options:nil];
         _viewForCell.frame = self.contentView.bounds;
         _viewForCell.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -61,6 +65,7 @@
     _labelForTitle.textColor = [SMTheme colorForPrimary];
     _labelForDate.textColor = [SMTheme colorForSecondary];
     [_buttonForAuthor setTitleColor:[SMTheme colorForTintColor] forState:UIControlStateNormal];
+    self.selectedBackgroundView.backgroundColor = [SMTheme colorForHighlightBackground];
 }
 
 @end
