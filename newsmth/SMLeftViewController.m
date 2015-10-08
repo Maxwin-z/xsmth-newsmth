@@ -147,8 +147,12 @@ typedef NS_ENUM(NSInteger, CellType) {
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
+    UIView *selectedBackgroundView = [[UIView alloc] initWithFrame:cell.contentView.bounds];
+    selectedBackgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    cell.selectedBackgroundView = selectedBackgroundView;
     cell.backgroundColor = [SMTheme colorForBackground];
     cell.textLabel.textColor = [SMTheme colorForPrimary];
+    cell.selectedBackgroundView.backgroundColor = [SMTheme colorForHighlightBackground];
     
     UIImageView *seperator = [[UIImageView alloc] init];
     CGRect frame = cell.contentView.bounds;
