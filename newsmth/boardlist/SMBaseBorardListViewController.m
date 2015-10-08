@@ -89,10 +89,15 @@
         cell.textLabel.backgroundColor = [UIColor clearColor];
         cell.detailTextLabel.backgroundColor = [UIColor clearColor];
         cell.detailTextLabel.font = [UIFont systemFontOfSize:13.0f];
+        
+        UIView *selectedBackgroundView = [[UIView alloc] initWithFrame:cell.contentView.bounds];
+        selectedBackgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        cell.selectedBackgroundView = selectedBackgroundView;
     }
 
     cell.textLabel.font = [SMConfig listFont];
     cell.backgroundColor = [SMTheme colorForBackground];
+    cell.selectedBackgroundView.backgroundColor = [SMTheme colorForHighlightBackground];
     cell.textLabel.textColor = [SMTheme colorForPrimary];
     cell.detailTextLabel.textColor = [SMTheme colorForSecondary];
     
