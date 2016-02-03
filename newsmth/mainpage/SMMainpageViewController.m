@@ -118,7 +118,7 @@ static SMMainpageViewController *_instance;
 
 - (NSString *)dataUrl
 {
-    return @"http://www.newsmth.net/mainpage.html";
+    return [NSString stringWithFormat:@"http://www.newsmth.net/mainpage.html?t=%@", @([NSDate timeIntervalSinceReferenceDate])];
 }
 
 - (void)loadData:(BOOL)more
