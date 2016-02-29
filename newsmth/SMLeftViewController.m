@@ -190,9 +190,9 @@ typedef NS_ENUM(NSInteger, CellType) {
         text = @"分区";
     } else if (cellType == CellTypeSetting) {
         text = @"设置";
-        if (![SMConfig isPro]) {
-            cell.detailTextLabel.text = @"升级到Pro版        :)";
-        }
+//        if (![SMConfig isPro]) {
+//            cell.detailTextLabel.text = @"升级到Pro版        :)";
+//        }
     }
     
     cell.textLabel.text = text;

@@ -254,10 +254,10 @@ static SectionData sections[] = {
         _switchForBackgroundFetch.enabled = _switchForSwipeBack.enabled = _switchForBackgroundFetchSmartMode.enabled = NO;
     }
     
-    if ([SMConfig isPro]) {
-        _cellForDonate.textLabel.text = @"已升级为Pro版";
-    }
-    _switchForDisableTail.enabled = _switchForDisableAd.enabled = [SMConfig isPro];
+//    if ([SMConfig isPro]) {
+//        _cellForDonate.textLabel.text = @"已升级为Pro版";
+//    }
+//    _switchForDisableTail.enabled = _switchForDisableAd.enabled = [SMConfig isPro];
     
     __block unsigned long long cacheSize = 0;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{

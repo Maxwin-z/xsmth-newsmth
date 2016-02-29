@@ -87,7 +87,7 @@
 
 + (BOOL)disableTail
 {
-    return [SMConfig isPro] && [SMConfig configForKey:USERDEFAULTS_CONFIG_ENABLE_DISABLE_TAIL defaults:NO];
+    return [SMConfig configForKey:USERDEFAULTS_CONFIG_ENABLE_DISABLE_TAIL defaults:NO];
 }
 
 + (BOOL)disableAd
