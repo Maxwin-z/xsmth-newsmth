@@ -46,6 +46,7 @@ typedef enum {
     CellTypeFeedback,
     CellTypeRate,
     CellTypeClearCache,
+    CellTypeClearPostCache,
     
     CellTypeThxPsyYiYi,
     CellTypeAbout,
@@ -134,8 +135,8 @@ static SectionData sections[] = {
         SectionTypeMore,
         "其他",
         NULL,
-        4,
-        {CellTypeEULA, CellTypeFeedback, CellTypeRate, CellTypeClearCache}
+        5,
+        {CellTypeEULA, CellTypeFeedback, CellTypeRate, CellTypeClearCache, CellTypeClearPostCache}
     },
     {
         SectionTypeThanks,
@@ -164,6 +165,7 @@ static SectionData sections[] = {
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForPostFont;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForListFont;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForClearCache;
+@property (strong, nonatomic) IBOutlet UITableViewCell *cellForClearPostCache;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForThxPsyYiYi;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForBackgroundFetchHelp;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForEnableDayMode;
@@ -201,6 +203,7 @@ static SectionData sections[] = {
 @property (weak, nonatomic) IBOutlet UISlider *sliderForListFont;
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorForClearCache;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorForClearPostCache;
 
 @end
 
@@ -264,7 +267,63 @@ static SectionData sections[] = {
         });
     });
     
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        __block unsigned long long postsSize = [self postCacheSize];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            _cellForClearPostCache.detailTextLabel.text = [SMUtils formatSize:postsSize];
+            _activityIndicatorForClearPostCache.hidden = YES;
+            [self.tableView reloadData];
+        });
+    });
+    
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onUpdateProNotification) name:NOTIFYCATION_IAP_PRO object:nil];
+}
+
+- (NSString *)postsPath
+{
+    return [[SMUtils documentPath] stringByAppendingString:@"/posts/"];
+}
+
+- (unsigned long long)postCacheSize
+{
+    NSArray *filesArray = [[NSFileManager defaultManager] subpathsOfDirectoryAtPath:self.postsPath error:nil];
+    NSEnumerator *filesEnumerator = [filesArray objectEnumerator];
+    NSString *fileName;
+    unsigned long long fileSize = 0;
+    
+    while (fileName = [filesEnumerator nextObject]) {
+        NSError *error;
+        NSString *fullPath = [self.postsPath stringByAppendingPathComponent:fileName];
+        NSDictionary *fileDictionary = [[NSFileManager defaultManager] attributesOfItemAtPath:fullPath error:&error];
+        if (!error) {
+            fileSize += [fileDictionary fileSize];
+        } else {
+            XLog_e(@"attribute file error: %@, %@", fullPath, error);
+        }
+    }
+    
+    return fileSize;
+}
+
+- (void)clearPostCache
+{
+    NSFileManager *fileMgr = [[NSFileManager alloc] init];
+    NSError *error = nil;
+    NSArray *directoryContents = [fileMgr contentsOfDirectoryAtPath:self.postsPath error:&error];
+    if (error == nil) {
+        for (NSString *path in directoryContents) {
+            NSString *fullPath = [self.postsPath stringByAppendingPathComponent:path];
+            BOOL removeSuccess = [fileMgr removeItemAtPath:fullPath error:&error];
+            if (!removeSuccess) {
+                XLog_e(@"remove file fail: %@", fullPath);
+            } else {
+                XLog_d(@"remove file success: %@", fullPath);
+            }
+        }
+    } else {
+        XLog_e(@"%@", error);
+    }
 }
 
 - (void)setupTheme
@@ -458,6 +517,8 @@ static SectionData sections[] = {
             return _cellForRate;
         case CellTypeClearCache:
             return _cellForClearCache;
+        case CellTypeClearPostCache:
+            return _cellForClearPostCache;
             
         case CellTypeThxPsyYiYi:
             return _cellForThxPsyYiYi;
@@ -629,6 +690,20 @@ static SectionData sections[] = {
         });
         action = @"clearImageCache";
     }
+    
+    if (cellType == CellTypeClearPostCache) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            _activityIndicatorForClearPostCache.hidden = YES;
+            _cellForClearPostCache.detailTextLabel.text = @"";
+            [self clearPostCache];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                _cellForClearPostCache.detailTextLabel.text = @"0";
+                _activityIndicatorForClearPostCache.hidden = YES;
+            });
+        });
+        action = @"clearPostsCache";
+    }
+    
     [SMUtils trackEventWithCategory:@"setting" action:action label:nil];
 }
 
