@@ -75,6 +75,7 @@ typedef struct {
 }SectionData;
 
 static SectionData sections[] = {
+    /*
     {
         SectionTypeIAP,
         "支持开发者",
@@ -82,6 +83,7 @@ static SectionData sections[] = {
         4,
         {CellTypeDonate, CellTypeDisableTail, CellTypeDisableAd, CellTypeAbout}
     },
+     */
     {
         SectionTypeBackgroundFetch,
         "后台获取最新邮件、回复、AT",
@@ -93,8 +95,8 @@ static SectionData sections[] = {
         SectionTypeBoard,
         "浏览",
         NULL,
-        4,
-        {CellTypeHideTop, CellTypeUserClickable, CellTypeShowReplyAuthor, CellTypePadMode}
+        5,
+        {CellTypeHideTop, CellTypeUserClickable, CellTypeShowReplyAuthor, CellTypeDisableTail, CellTypePadMode}
     },
     {
         SectionTypePostView,
@@ -142,8 +144,8 @@ static SectionData sections[] = {
         SectionTypeThanks,
         "感谢",
         NULL,
-        1,
-        {CellTypeThxPsyYiYi /*, CellTypeAbout , CellTypeDonate */}
+        2,
+        {CellTypeThxPsyYiYi, CellTypeAbout /*, CellTypeDonate */}
     }
 };
 
