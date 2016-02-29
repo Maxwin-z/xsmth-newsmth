@@ -181,8 +181,8 @@
 		C1B581F4177723F500441299 /* SMWritePostViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1B581F2177723F500441299 /* SMWritePostViewController.xib */; };
 		C1B68848180824160085DC69 /* SMBoardSearchDelegateImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B68847180824160085DC69 /* SMBoardSearchDelegateImpl.m */; };
 		C1B966FD19B18D2E00ABD136 /* SMPostViewControllerV2.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B966FC19B18D2E00ABD136 /* SMPostViewControllerV2.m */; };
-		C1B9D5861BB7DC5F00AE4699 /* SMOfflineFavorTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B9D5851BB7DC5F00AE4699 /* SMOfflineFavorTableViewController.m */; settings = {ASSET_TAGS = (); }; };
-		C1B9D5881BB7EDE300AE4699 /* icon_ring@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1B9D5871BB7EDE300AE4699 /* icon_ring@2x.png */; settings = {ASSET_TAGS = (); }; };
+		C1B9D5861BB7DC5F00AE4699 /* SMOfflineFavorTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B9D5851BB7DC5F00AE4699 /* SMOfflineFavorTableViewController.m */; };
+		C1B9D5881BB7EDE300AE4699 /* icon_ring@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1B9D5871BB7EDE300AE4699 /* icon_ring@2x.png */; };
 		C1BA92C917954EC300F76ACF /* PBWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1BA929817954EC300F76ACF /* PBWebViewController.m */; };
 		C1BBFD97190279EB008460B5 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1BBFD96190279EB008460B5 /* CoreMotion.framework */; };
 		C1BBFD9E1902986E008460B5 /* UIWindow+SMShakeListener.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FEC602185DFF2E007E1C24 /* UIWindow+SMShakeListener.m */; };
@@ -1765,6 +1765,7 @@
 				C1BFB8D6174F6A620092FD2E /* Frameworks */,
 				C1BFB8D7174F6A620092FD2E /* Resources */,
 				0D2DD020A4FE48DA8BBD389B /* Copy Pods Resources */,
+				6396455CBDE093422F1A5A37 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -2009,6 +2010,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6396455CBDE093422F1A5A37 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C1BFB8FD174F6A620092FD2E /* ShellScript */ = {

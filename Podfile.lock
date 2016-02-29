@@ -15,8 +15,8 @@ DEPENDENCIES:
   - WKVerticalScrollBar
 
 SPEC CHECKSUMS:
-  ActionSheetPicker-3.0: a60eed5b5090116114ce9557c7cabcf45f81ce5f
-  ReactiveCocoa: dca75777b9d18990c8714a3a6f2149f29b4d1462
-  WKVerticalScrollBar: 89fef80e76da266f2e7717db6bf35853a609022a
+  ActionSheetPicker-3.0: 75337b784ebaae74e72c4ca8365bd1d3f41da810
+  ReactiveCocoa: 3fe9b233ca6db810e86681b5749488564c1179a1
+  WKVerticalScrollBar: 555c3473ada57433e7d891ba73d1fc9de8ab848f
 
-COCOAPODS: 0.35.0
+COCOAPODS: 0.39.0

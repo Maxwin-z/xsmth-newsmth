@@ -7,6 +7,7 @@
 //
 
 #import "SMPostActivityItemProvider.h"
+#import "SMWeiXinSessionActivity.h"
 
 @implementation SMPostActivityItemProvider
 - (id)activityViewControllerPlaceholderItem:(UIActivityViewController *)activityViewController
@@ -31,6 +32,13 @@
     
     if ([activityType isEqualToString:UIActivityTypeCopyToPasteboard]) {
         return url;
+    }
+    
+    if ([activityType isEqualToString:SMActivityTypePostToWXSession] || [activityType isEqualToString:SMActivityTypePostToWXTimeline]) {
+        return @{
+                 @"url": url,
+                 @"post": post
+                 };
     }
     
     return [NSString stringWithFormat:@"%@ (原文: %@)", post.content, url];

@@ -10,6 +10,7 @@
 
 @interface SMWeiXinSessionActivity ()
 @property (strong, nonatomic) NSString *text;
+@property (strong, nonatomic) NSDictionary *shareInfo;
 @end
 
 @implementation SMWeiXinSessionActivity
@@ -49,18 +50,38 @@
 
 - (void)prepareWithActivityItems:(NSArray *)activityItems
 {
-    self.text = activityItems.firstObject;
+//    self.text = activityItems.firstObject;
+    self.shareInfo = activityItems.firstObject;
 }
 
 - (void)performActivity
 {
-    SendMessageToWXReq *req = [SendMessageToWXReq new];
+    SMPost *post = self.shareInfo[@"post"];
+    NSString *url = self.shareInfo[@"url"];
     
-    req.text = self.text;
-    req.bText = YES;
+    WXMediaMessage *message = [WXMediaMessage message];
+    message.title = post.title;
+    message.description = post.content;
+    [message setThumbImage:[UIImage imageNamed:@"icon"]];
+    
+    WXWebpageObject *ext = [WXWebpageObject object];
+    ext.webpageUrl = url;
+    
+    message.mediaObject = ext;
+    
+    SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
+    req.bText = NO;
+    req.message = message;
     req.scene = _scene;
     [WXApi sendReq:req];
     
+//    SendMessageToWXReq *req = [SendMessageToWXReq new];
+//    
+//    req.text = self.text;
+//    req.bText = YES;
+//    req.scene = _scene;
+//    [WXApi sendReq:req];
+//    
     [self activityDidFinish:YES];
 }
 
