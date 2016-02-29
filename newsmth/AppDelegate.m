@@ -375,7 +375,7 @@
 - (void)showAdView
 {
 //    if (![SMAdViewController hasAd]) return ;
-    
+  /* do nth
     if (self.adViewController == nil) {
         self.adViewController = [SMAdViewController new];
     }
@@ -400,6 +400,7 @@
 
     self.adViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.window addSubview:self.adViewController.view];
+   */
 }
 
 - (void)hideAdView
