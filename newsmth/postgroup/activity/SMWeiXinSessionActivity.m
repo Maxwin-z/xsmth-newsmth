@@ -59,8 +59,13 @@
     SMPost *post = self.shareInfo[@"post"];
     NSString *url = self.shareInfo[@"url"];
     
+    NSString *title = post.title;
+    if ([title hasPrefix:@"Re: "]) {
+        title = [title substringFromIndex:4];
+    }
+    
     WXMediaMessage *message = [WXMediaMessage message];
-    message.title = post.title;
+    message.title = title;
     message.description = post.content;
     [message setThumbImage:[UIImage imageNamed:@"icon"]];
     
