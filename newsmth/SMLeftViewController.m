@@ -13,7 +13,7 @@
 #import "SMAccountManager.h"
 #import "SMUserViewController.h"
 #import "SMSectionViewController.h"
-#import "PBWebViewController.h"
+#import "XWebViewController.h"
 #import "SMNoticeViewController.h"
 #import "SMSettingViewController.h"
 

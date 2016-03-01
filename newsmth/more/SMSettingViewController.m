@@ -10,7 +10,7 @@
 #import "SMMailComposeViewController.h"
 #import "SMFontSelectorViewController.h"
 #import "XImageViewCache.h"
-#import "PBWebViewController.h"
+#import "XWebViewController.h"
 #import "SMDonateViewController.h"
 #import <MessageUI/MessageUI.h>
 #import "SMIPadSplitViewController.h"
@@ -640,8 +640,8 @@ static SectionData sections[] = {
     }
     
     if (cellType == CellTypeThxPsyYiYi) {
-        PBWebViewController *vc = [[PBWebViewController alloc] init];
-        vc.URL = [NSURL URLWithString:@"http://maxwin.me/xsmth/PsyYiYi.html"];
+        XWebViewController *vc = [[XWebViewController alloc] init];
+        vc.url = [NSURL URLWithString:@"http://maxwin.me/xsmth/PsyYiYi.html"];
         
         if ([SMConfig iPadMode]) {
             [SMIPadSplitViewController instance].detailViewController = vc;
@@ -659,8 +659,8 @@ static SectionData sections[] = {
     }
     
     if (cellType == CellTypeAbout) {
-        PBWebViewController *vc = [[PBWebViewController alloc] init];
-        vc.URL = [NSURL URLWithString:@"http://maxwin.me/xsmth/about.html"];
+        XWebViewController *vc = [[XWebViewController alloc] init];
+        vc.url = [NSURL URLWithString:@"http://maxwin.me/xsmth/about.html"];
         if ([SMConfig iPadMode]) {
             [SMIPadSplitViewController instance].detailViewController = vc;
         } else {
@@ -670,8 +670,8 @@ static SectionData sections[] = {
     }
 
     if (cellType == CellTypeBackgroundFetchHelp) {
-        PBWebViewController *vc = [[PBWebViewController alloc] init];
-        vc.URL = [NSURL URLWithString:@"http://maxwin.me/xsmth/background_fetch_help.html"];
+        XWebViewController *vc = [[XWebViewController alloc] init];
+        vc.url = [NSURL URLWithString:@"http://maxwin.me/xsmth/background_fetch_help.html"];
         if ([SMConfig iPadMode]) {
             [SMIPadSplitViewController instance].detailViewController = vc;
         } else {

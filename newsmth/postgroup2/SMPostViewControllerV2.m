@@ -13,7 +13,7 @@
 
 #import "SMPostViewControllerV2.h"
 #import "SMBoardViewController.h"
-#import "PBWebViewController.h"
+#import "XWebViewController.h"
 #import "XImageView.h"
 #import "XImageViewCache.h"
 #import "SMMainViewController.h"
@@ -420,8 +420,8 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     XLog_d(@"load: %@", url);
     
     if ([url.scheme isEqualToString:@"http"] || [url.scheme isEqualToString:@"https"]) {
-        PBWebViewController *vc = [[PBWebViewController alloc] init];
-        vc.URL = url;
+        XWebViewController *vc = [[XWebViewController alloc] init];
+        vc.url = url;
         [self.navigationController pushViewController:vc animated:YES];
         return NO;
     }

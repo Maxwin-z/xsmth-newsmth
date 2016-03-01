@@ -7,7 +7,7 @@
 //
 
 #import "SMPostLinksViewController.h"
-#import "PBWebViewController.h"
+#import "XWebViewController.h"
 
 @interface SMPostLinksViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (strong, nonatomic) UITableView *tableView;
@@ -94,8 +94,8 @@
     if ([[link lowercaseString] hasSuffix:@".mp4"]) {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:link]];
     } else {
-        PBWebViewController *webView = [[PBWebViewController alloc] init];
-        webView.URL = [NSURL URLWithString:link];
+        XWebViewController *webView = [[XWebViewController alloc] init];
+        webView.url = [NSURL URLWithString:link];
         [self.navigationController pushViewController:webView animated:YES];
     }
 

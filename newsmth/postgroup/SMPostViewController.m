@@ -12,7 +12,7 @@
 #import "SMPostFailCell.h"
 #import "SMPostGroupContentCell.h"
 #import "SMPostGroupAttachCell.h"
-#import "PBWebViewController.h"
+#import "XWebViewController.h"
 #import "SMWritePostViewController.h"
 #import "SMUserViewController.h"
 #import "SMBoardViewController.h"
@@ -406,8 +406,8 @@
             }
             if ([[sheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"查看原图"]) {
                 NSString *attachUrl = [self getAttachOriginalUrl:[self attachAtIndexPath:indexPath]];
-                PBWebViewController *webView = [[PBWebViewController alloc] init];
-                webView.URL = [NSURL URLWithString:attachUrl];
+                XWebViewController *webView = [[XWebViewController alloc] init];
+                webView.url = [NSURL URLWithString:attachUrl];
                 [self.navigationController pushViewController:webView animated:YES];
             } else {
                 SMPostGroupAttachCell *attachCell = (SMPostGroupAttachCell *)[tableView cellForRowAtIndexPath:indexPath];
@@ -866,8 +866,8 @@
     if ([[url.absoluteString lowercaseString] hasSuffix:@".mp4"]) {
         [[UIApplication sharedApplication] openURL:url];
     } else {
-        PBWebViewController *webView = [[PBWebViewController alloc] init];
-        webView.URL = url;
+        XWebViewController *webView = [[XWebViewController alloc] init];
+        webView.url = url;
         [self.navigationController pushViewController:webView animated:YES];
     }
 }

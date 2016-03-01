@@ -7,7 +7,7 @@
 //
 
 #import "SMMailInfoViewController.h"
-#import "PBWebViewController.h"
+#import "XWebViewController.h"
 #import "SMMailComposeViewController.h"
 #import "SMUserViewController.h"
 
@@ -177,8 +177,8 @@
         return YES;
     }
     
-    PBWebViewController *pbvc = [[PBWebViewController alloc] init];
-    pbvc.URL = request.URL;
+    XWebViewController *pbvc = [[XWebViewController alloc] init];
+    pbvc.url = request.URL;
     [self.navigationController pushViewController:pbvc animated:YES];
     return NO;
 }
