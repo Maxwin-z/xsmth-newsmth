@@ -744,6 +744,8 @@
 		C1D190DD17F94CA40056F3FE /* bg_scrollindicator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_scrollindicator@2x.png"; sourceTree = "<group>"; };
 		C1D8546A1C8573160068C698 /* XWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWebViewController.h; sourceTree = "<group>"; };
 		C1D8546B1C8573160068C698 /* XWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWebViewController.m; sourceTree = "<group>"; };
+		C1D854901C85AE120068C698 /* UINavigationBar+CustomHeight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+CustomHeight.h"; sourceTree = "<group>"; };
+		C1D854911C85AE120068C698 /* UINavigationBar+CustomHeight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+CustomHeight.m"; sourceTree = "<group>"; };
 		C1E1CAF81870268000324EAF /* SMIPadSplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMIPadSplitViewController.h; sourceTree = "<group>"; };
 		C1E1CAF91870268000324EAF /* SMIPadSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMIPadSplitViewController.m; sourceTree = "<group>"; };
 		C1E1CAFA1870268000324EAF /* SMIPadSplitViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMIPadSplitViewController.xib; sourceTree = "<group>"; };
@@ -1068,6 +1070,8 @@
 				C154CC5A1873C1E800C32F0D /* UIView+Utils.m */,
 				C10C499D18F04F3400DF946E /* UIDeviceHardware.h */,
 				C10C499E18F04F3400DF946E /* UIDeviceHardware.m */,
+				C1D854901C85AE120068C698 /* UINavigationBar+CustomHeight.h */,
+				C1D854911C85AE120068C698 /* UINavigationBar+CustomHeight.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
