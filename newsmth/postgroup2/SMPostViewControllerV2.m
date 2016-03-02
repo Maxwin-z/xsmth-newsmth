@@ -38,8 +38,6 @@
 
 #import "Reachability.h"
 
-#import "UINavigationBar+CustomHeight.h"
-
 #import <WKVerticalScrollBar/WKVerticalScrollBar.h>
 #import <ActionSheetPicker-3.0/ActionSheetPicker.h>
 
@@ -204,6 +202,24 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
 
 - (void)hideNavigation:(BOOL)animated
 {
+    if ([SMUtils systemVersion] >= 9) {
+        [self hideNavigation_iOS9:animated];
+    } else {
+        [self hideNavigation_iOS6:animated];
+    }
+}
+
+- (void)showNavigation:(BOOL)animated
+{
+    if ([SMUtils systemVersion] >= 9) {
+        [self showNavigation_iOS9:animated];
+    } else {
+        [self showNavigation_iOS6:animated];
+    }
+}
+
+- (void)hideNavigation_iOS9:(BOOL)animated
+{
     if (self.hideTop) return ;
     self.hideTop = YES;
     
@@ -223,12 +239,12 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
         frame.origin.y = self.view.frame.size.height;
         self.viewForButtomBar.frame = frame;
         
-        [self setWebViewContentInsetTop:0 bottom:0];
+        [self setWebViewContentInsetTop:40 bottom:0];
     }];
 }
 
 
-- (void)showNavigation:(BOOL)animated
+- (void)showNavigation_iOS9:(BOOL)animated
 {
     if (!self.hideTop) return ;
     self.hideTop = NO;
