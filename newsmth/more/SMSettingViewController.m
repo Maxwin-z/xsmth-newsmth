@@ -95,8 +95,8 @@ static SectionData sections[] = {
         SectionTypeBoard,
         "浏览",
         NULL,
-        5,
-        {CellTypeHideTop, CellTypeUserClickable, CellTypeShowReplyAuthor, CellTypeDisableTail, CellTypePadMode}
+        4,
+        {CellTypeHideTop, CellTypeUserClickable, CellTypeShowReplyAuthor, CellTypePadMode}
     },
     {
         SectionTypePostView,
