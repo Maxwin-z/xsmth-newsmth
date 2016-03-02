@@ -220,9 +220,14 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     }
 }
 
+- (BOOL)useNewHideShow
+{
+    return [SMUtils systemVersion] >= 9;
+}
+
 - (void)hideNavigation:(BOOL)animated
 {
-    if ([SMUtils systemVersion] >= 9) {
+    if ([self useNewHideShow]) {
         [self hideNavigation_iOS9:animated];
     } else {
         [self hideNavigation_iOS6:animated];
@@ -333,7 +338,7 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
 
 - (BOOL)prefersStatusBarHidden 
 {
-    return self.hideTop;
+    return [self useNewHideShow] ? NO : self.hideTop;
 }
 
 - (void)viewWillAppear:(BOOL)animated
