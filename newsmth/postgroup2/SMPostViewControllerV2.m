@@ -201,7 +201,6 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
         if (hide) {
             view.transform = CGAffineTransformScale(CGAffineTransformIdentity, .5, .5);
             view.top += 20;
-            
         } else {
             view.transform = CGAffineTransformIdentity;
             view.top -= 20;
