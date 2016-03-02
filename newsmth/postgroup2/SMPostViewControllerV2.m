@@ -198,13 +198,14 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
 //        [self.navigationController.navigationBar setXHeight:44];
 //    }
     [self.barItemViews enumerateObjectsUsingBlock:^(UIView * _Nonnull view, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (hide) {
-            view.transform = CGAffineTransformScale(CGAffineTransformIdentity, .5, .5);
-            view.top += 20;
-        } else {
-            view.transform = CGAffineTransformIdentity;
-            view.top -= 20;
-        }
+        view.hidden = hide;
+//        if (hide) {
+//            view.transform = CGAffineTransformScale(CGAffineTransformIdentity, .5, .5);
+//            view.top += 20;
+//        } else {
+//            view.transform = CGAffineTransformIdentity;
+//            view.top -= 20;
+//        }
     }];
 //    self.navigationItem.hidesBackButton = hide;
 }
@@ -247,12 +248,14 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     if (self.hideTop) return ;
     self.hideTop = YES;
     
+//    self.navigationItem.hidesBackButton = YES;
+    [self setBarItemsHide:YES];
+    
     CGRect frame = self.navigationController.navigationBar.frame;
     frame.size.height = 20;
     self.navigationController.navigationBar.frame = frame;
     
-    [self setBarItemsHide:YES];
-    self.titleView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.5, 0.5);
+    self.titleView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.6, 0.6);
     frame = self.titleLabel.frame;
     frame.origin.y = 20;
     self.titleLabel.frame = frame;
@@ -272,16 +275,18 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
 {
     if (!self.hideTop) return ;
     self.hideTop = NO;
+    
+//    self.navigationItem.hidesBackButton = NO;
+    [self setBarItemsHide:NO];
+ 
     CGRect frame = self.navigationController.navigationBar.frame;
     frame.size.height = 44;
     self.navigationController.navigationBar.frame = frame;
     
-    [self setBarItemsHide:NO];
     self.titleView.transform = CGAffineTransformIdentity;
     frame = self.titleLabel.frame;
     frame.origin.y = 0;
     self.titleLabel.frame = frame;
-    
     
     // bottom
     [UIView animateWithDuration:animated ? 0.5 : 0 animations:^{
