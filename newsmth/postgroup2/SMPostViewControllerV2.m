@@ -146,6 +146,16 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     
     [self setupTheme];
     
+    [self.navigationController.interactivePopGestureRecognizer addTarget:self
+                                                                  action:@selector(handlePopGesture:)];
+    
+}
+
+- (void)handlePopGesture:(UIGestureRecognizer *)gesture
+{
+    if (gesture.state == UIGestureRecognizerStateBegan) {
+        [self showNavigation:NO];
+    }
 }
 
 - (void)onSwipeGesture:(UIGestureRecognizer *)gesture
