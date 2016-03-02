@@ -200,6 +200,16 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
 //    self.navigationItem.hidesBackButton = hide;
 }
 
+- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView
+{
+    if (self.hideTop) {
+        [self showNavigation:YES];
+        return NO;
+    } else {
+        return YES;
+    }
+}
+
 - (void)hideNavigation:(BOOL)animated
 {
     if ([SMUtils systemVersion] >= 9) {
