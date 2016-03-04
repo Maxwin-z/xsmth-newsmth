@@ -148,6 +148,7 @@
 		C185CD3F17662BAF00BD3714 /* SMPostGroupAttachCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C185CD3E17662BAE00BD3714 /* SMPostGroupAttachCell.m */; };
 		C185CD4117662BBF00BD3714 /* SMPostGroupAttachCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C185CD4017662BBF00BD3714 /* SMPostGroupAttachCell.xib */; };
 		C1888D0E1807F2C300024B47 /* icon_top@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1888D0D1807F2C300024B47 /* icon_top@2x.png */; };
+		C189E91F1C899C4800154F49 /* icon_167.png in Resources */ = {isa = PBXBuildFile; fileRef = C189E91E1C899C4800154F49 /* icon_167.png */; };
 		C19018E81769FBCA0098150A /* board.js in Resources */ = {isa = PBXBuildFile; fileRef = C19018E71769FBCA0098150A /* board.js */; };
 		C1902DC0177E672E00967211 /* button_reply@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1902DBF177E672E00967211 /* button_reply@2x.png */; };
 		C191281D17586DDF005AC60F /* XImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C191281C17586DDF005AC60F /* XImageView.m */; };
@@ -558,6 +559,7 @@
 		C185CD3E17662BAE00BD3714 /* SMPostGroupAttachCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMPostGroupAttachCell.m; sourceTree = "<group>"; };
 		C185CD4017662BBF00BD3714 /* SMPostGroupAttachCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMPostGroupAttachCell.xib; sourceTree = "<group>"; };
 		C1888D0D1807F2C300024B47 /* icon_top@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_top@2x.png"; sourceTree = "<group>"; };
+		C189E91E1C899C4800154F49 /* icon_167.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_167.png; sourceTree = "<group>"; };
 		C19018E71769FBCA0098150A /* board.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = board.js; sourceTree = "<group>"; };
 		C1902DBF177E672E00967211 /* button_reply@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_reply@2x.png"; sourceTree = "<group>"; };
 		C191281B17586DDF005AC60F /* XImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XImageView.h; sourceTree = "<group>"; };
@@ -1317,6 +1319,7 @@
 		C1BFB8D0174F6A620092FD2E = {
 			isa = PBXGroup;
 			children = (
+				C189E91E1C899C4800154F49 /* icon_167.png */,
 				C111D62B19CF0F2F00D4DC71 /* template_posts.zip */,
 				C1178C0C187D605F00A80B91 /* icon@2x.png */,
 				C1300A7C187D5FAD006ACA5C /* icon_57.png */,
@@ -1815,7 +1818,7 @@
 				ORGANIZATIONNAME = nju;
 				TargetAttributes = {
 					C1BFB8D8174F6A620092FD2E = {
-						DevelopmentTeam = 4K4MS8S6B8;
+						DevelopmentTeam = KPV96X526S;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -1934,6 +1937,7 @@
 				C1F4672418C2EFAB006BCE7A /* common_share_icon_weixin@2x.png in Resources */,
 				C1FCFAC31860782600759793 /* icon_favor_off@2x.png in Resources */,
 				C1FD13BB17815BD1006A6061 /* SMViewControllerNeedLogin.xib in Resources */,
+				C189E91F1C899C4800154F49 /* icon_167.png in Resources */,
 				C147EC5217EB368C00530E86 /* unread@2x.png in Resources */,
 				C1FD13CF178182E3006A6061 /* button_blue_default@2x.png in Resources */,
 				C1300A7D187D5FAD006ACA5C /* icon_57.png in Resources */,
@@ -2331,6 +2335,7 @@
 					"$(SRCROOT)/newsmth/Frameworks/**",
 					"$(SDKROOT)/usr/lib/system",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = me.maxwin.newsmth.pro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
@@ -2445,6 +2450,7 @@
 					"$(SRCROOT)/newsmth/Frameworks/**",
 					"$(SDKROOT)/usr/lib/system",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = me.maxwin.newsmth.pro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
@@ -2480,6 +2486,7 @@
 					"$(SRCROOT)/newsmth/Frameworks/**",
 					"$(SDKROOT)/usr/lib/system",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = me.maxwin.newsmth.pro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
