@@ -18,9 +18,9 @@
 
 #define ENABLE_P2P  [self enableP2P]
 
-@interface UINavigationController (XPan)
-@property (strong, nonatomic) id _cachedInteractionController;
-@end
+//@interface UINavigationController (XPan)
+//@property (strong, nonatomic) id _cachedInteractionController;
+//@end
 
 @interface P2PNavigationController ()<UIGestureRecognizerDelegate>
 @property (strong, nonatomic) UIPanGestureRecognizer *panGesture;
@@ -65,13 +65,13 @@
         backgroundView.backgroundColor = [UIColor blackColor];
         backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [self.view insertSubview:backgroundView atIndex:0];
-    } else if ([SMUtils systemVersion] >= 7
-               && [self respondsToSelector:@selector(_cachedInteractionController)]
-               && self._cachedInteractionController
-               && [self._cachedInteractionController respondsToSelector:@selector(handleNavigationTransition:)]
-               ) {
-        UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self._cachedInteractionController action:@selector(handleNavigationTransition:)];
-        [self.view addGestureRecognizer:pan];
+//    } else if ([SMUtils systemVersion] >= 7
+//               && [self respondsToSelector:@selector(_cachedInteractionController)]
+//               && self._cachedInteractionController
+//               && [self._cachedInteractionController respondsToSelector:@selector(handleNavigationTransition:)]
+//               ) {
+//        UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self._cachedInteractionController action:@selector(handleNavigationTransition:)];
+//        [self.view addGestureRecognizer:pan];
     }
 }
 
