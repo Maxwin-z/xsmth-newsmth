@@ -353,6 +353,7 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
         [self hideNavigation:YES];
     }
     self.webView.scrollView.delegate = self;
+    self.navigationController.toolbar.hidden = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
