@@ -9,6 +9,8 @@
 #import "SMConfig.h"
 #import "UIDeviceHardware.h"
 
+static NSMutableDictionary *_blocklist;
+
 @implementation SMConfig
 
 + (BOOL)configForKey:(NSString *)key defaults:(BOOL)defaults
@@ -234,5 +236,43 @@
     [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:USERDEFAULTS_BACKGROUND_FETCH_INDEX];
 }
 
+
+#pragma mark - block list
++ (NSString *)blocklistPath
+{
+    return [[SMUtils documentPath] stringByAppendingString:@"/blocklist.json"];
+}
+
++ (NSMutableDictionary *)blocklist
+{
+    if (_blocklist == nil) {
+        NSString *path = [SMConfig blocklistPath];
+        NSString *content = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+        NSDictionary *json = [SMUtils string2json:content];
+        if (json != nil) {
+            _blocklist = [json mutableCopy];
+        } else {
+            _blocklist = [[NSMutableDictionary alloc] init];
+        }
+    }
+    return _blocklist;
+}
+
++ (void)saveBlocklist
+{
+    NSString *content = [SMUtils json2string:[SMConfig blocklist]];
+    [content writeToFile:[SMConfig blocklistPath] atomically:YES encoding:NSUTF8StringEncoding error:nil];
+}
+
++ (BOOL)isBlocked:(int)pid
+{
+    return [[SMConfig blocklist] objectForKey:@(pid)];
+}
+
++ (void)addBlock:(int)pid
+{
+    [[SMConfig blocklist] setObject:@(YES) forKey:@(pid)];
+    [SMConfig saveBlocklist];
+}
 
 @end
