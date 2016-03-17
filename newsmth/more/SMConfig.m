@@ -9,7 +9,6 @@
 #import "SMConfig.h"
 #import "UIDeviceHardware.h"
 
-static NSMutableDictionary *_blocklist;
 
 @implementation SMConfig
 
@@ -245,16 +244,21 @@ static NSMutableDictionary *_blocklist;
 
 + (NSMutableDictionary *)blocklist
 {
-    if (_blocklist == nil) {
+    static dispatch_once_t onceToken;
+    static NSMutableDictionary *_blocklist;
+
+    dispatch_once(&onceToken, ^{
         NSString *path = [SMConfig blocklistPath];
         NSString *content = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-        NSDictionary *json = [SMUtils string2json:content];
+        NSDictionary *json = [SMUtils string2json:content ?: @"{}"];
         if (json != nil) {
             _blocklist = [json mutableCopy];
         } else {
             _blocklist = [[NSMutableDictionary alloc] init];
         }
-    }
+        
+    });
+    
     return _blocklist;
 }
 
