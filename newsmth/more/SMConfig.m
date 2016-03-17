@@ -10,6 +10,7 @@
 #import "UIDeviceHardware.h"
 
 
+
 @implementation SMConfig
 
 + (BOOL)configForKey:(NSString *)key defaults:(BOOL)defaults
@@ -248,13 +249,12 @@
     static NSMutableDictionary *_blocklist;
 
     dispatch_once(&onceToken, ^{
+        _blocklist = [NSMutableDictionary new];
         NSString *path = [SMConfig blocklistPath];
         NSString *content = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
         NSDictionary *json = [SMUtils string2json:content ?: @"{}"];
         if (json != nil) {
-            _blocklist = [json mutableCopy];
-        } else {
-            _blocklist = [[NSMutableDictionary alloc] init];
+            [_blocklist addEntriesFromDictionary:json];
         }
         
     });
@@ -264,19 +264,25 @@
 
 + (void)saveBlocklist
 {
-    NSString *content = [SMUtils json2string:[SMConfig blocklist]];
+    NSDictionary *json = [SMConfig blocklist];
+    NSString *content = [SMUtils json2string:json];
     [content writeToFile:[SMConfig blocklistPath] atomically:YES encoding:NSUTF8StringEncoding error:nil];
+}
+
++ (NSString *)pid2key:(int)pid
+{
+    return [NSString stringWithFormat:@"_%d", pid];
 }
 
 + (BOOL)isBlocked:(int)pid
 {
-    id val = [[SMConfig blocklist] objectForKey:@(pid)];
+    id val = [[SMConfig blocklist] objectForKey:[SMConfig pid2key:pid]];
     return val ? [val boolValue] : NO;
 }
 
 + (void)addBlock:(int)pid
 {
-    [[SMConfig blocklist] setObject:@(YES) forKey:@(pid)];
+    [[SMConfig blocklist] setObject:@(YES) forKey:[SMConfig pid2key:pid]];
     [SMConfig saveBlocklist];
 }
 
