@@ -180,34 +180,14 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
             [views addObject:view];
         }
     }];
-//    if (self.navigationItem.backBarButtonItem) {
-//        [items addObject:self.navigationItem.backBarButtonItem];
-//    }
-//    
-//    [items addObjectsFromArray:self.navigationItem.leftBarButtonItems];
-//    [items addObjectsFromArray:self.navigationItem.rightBarButtonItems];
-    NSLog(@"%@", views);
     return views;
 }
 
 - (void)setBarItemsHide:(BOOL)hide
 {
-//    if (hide) {
-//        [self.navigationController.navigationBar setXHeight:20];
-//    } else {
-//        [self.navigationController.navigationBar setXHeight:44];
-//    }
     [self.barItemViews enumerateObjectsUsingBlock:^(UIView * _Nonnull view, NSUInteger idx, BOOL * _Nonnull stop) {
         view.hidden = hide;
-//        if (hide) {
-//            view.transform = CGAffineTransformScale(CGAffineTransformIdentity, .5, .5);
-//            view.top += 20;
-//        } else {
-//            view.transform = CGAffineTransformIdentity;
-//            view.top -= 20;
-//        }
     }];
-//    self.navigationItem.hidesBackButton = hide;
 }
 
 - (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView
@@ -358,6 +338,7 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
 {
     [super viewWillDisappear:animated];
     [self showNavigation:NO];
+    [self setBarItemsHide:NO];
     self.webView.scrollView.delegate = nil;
 }
 
