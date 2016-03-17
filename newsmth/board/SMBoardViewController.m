@@ -358,6 +358,26 @@
     [[SMDBManager instance] insertPostReadCount:post type:self.viewTypeSelector.viewType];
 }
 
+// edit
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return @"屏蔽";
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+       [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
+        XLog_e(@"why insert?");
+    }
+}
+
 #pragma mark - SMWebLoaderOperationDelegate
 - (void)webLoaderOperationFinished:(SMWebLoaderOperation *)opt
 {
