@@ -266,7 +266,8 @@ static NSMutableDictionary *_blocklist;
 
 + (BOOL)isBlocked:(int)pid
 {
-    return [[SMConfig blocklist] objectForKey:@(pid)];
+    id val = [[SMConfig blocklist] objectForKey:@(pid)];
+    return val ? [val boolValue] : NO;
 }
 
 + (void)addBlock:(int)pid
