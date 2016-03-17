@@ -205,11 +205,49 @@ static SMMainpageViewController *_instance;
      ];
 }
 
+#pragma block
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return @"屏蔽";
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        SMSection *section = _sections[indexPath.section];
+        NSMutableArray *posts = [section.posts mutableCopy];
+        SMPost *post = posts[indexPath.row];
+        [SMConfig addBlock:post.gid];
+        
+        [posts removeObjectAtIndex:indexPath.row];
+        section.posts = posts;
+        
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
+        XLog_e(@"why insert?");
+    }
+}
+
 #pragma mark - SMWebLoaderOperationDelegate
 - (void)webLoaderOperationFinished:(SMWebLoaderOperation *)opt
 {
     [_tableView endRefreshing:YES];
     SMMainPage *data = opt.data;
+    [data.sections enumerateObjectsUsingBlock:^(SMSection * _Nonnull section, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSMutableArray *posts = [NSMutableArray new];
+        [section.posts enumerateObjectsUsingBlock:^(SMPost * _Nonnull post, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (![SMConfig isBlocked:post.gid]) {
+                [posts addObject:post];
+            }
+        }];
+        section.posts = posts;
+    }];
+    
     self.sections = data.sections;
     self.failTimes = 0;
 }
