@@ -225,7 +225,7 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
 
 - (void)hideNavigation_iOS9:(BOOL)animated
 {
-    if (self.hideTop) return ;
+    if (self.hideTop && self.navigationController.navigationBar.frame.size.height < 40) return ;
     self.hideTop = YES;
     
 //    self.navigationItem.hidesBackButton = YES;

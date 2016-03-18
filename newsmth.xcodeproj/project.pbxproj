@@ -2309,7 +2309,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AA4CC0B2B8FB08FBC3BDB79E /* Pods.distribution.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: NanJing HuoWei Information Technology Co., Ltd. (KPV96X526S)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2334,7 +2334,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = me.maxwin.newsmth.pro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "19866a89-2af8-4fb1-a01e-d5631bd55fa8";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
