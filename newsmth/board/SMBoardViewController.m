@@ -358,6 +358,33 @@
     [[SMDBManager instance] insertPostReadCount:post type:self.viewTypeSelector.viewType];
 }
 
+// edit
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return @"屏蔽";
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        SMPost *post = _posts[indexPath.row];
+        [SMConfig addBlock:post.pid];
+        
+        NSMutableArray *tmp = [_posts mutableCopy];
+        [tmp removeObjectAtIndex:indexPath.row];
+        _posts = tmp;
+        
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
+        XLog_e(@"why insert?");
+    }
+}
+
 #pragma mark - SMWebLoaderOperationDelegate
 - (void)webLoaderOperationFinished:(SMWebLoaderOperation *)opt
 {
@@ -384,7 +411,8 @@
         post.readCount = -1;    // -1 means not read at all. for new post.replyCount == 0
         post.board.name = _board.name;
         NSString *key = [NSString stringWithFormat:@"%d", post.gid];
-        if (![_postsMap objectForKey:key]) {    // not exists, add
+        if (![_postsMap objectForKey:key]   // not exists, add
+                && ![SMConfig isBlocked:post.pid]) {    // not blocked
             [tmp addObject:post];
             [_postsMap setObject:post forKey:key];
             [postsForReadCount addObject:post];

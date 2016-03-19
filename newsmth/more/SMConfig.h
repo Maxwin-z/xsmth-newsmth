@@ -42,4 +42,7 @@
 + (NSInteger)nextFetchTime;
 + (void)resetFetchTime;
 
++ (BOOL)isBlocked:(int)pid;
++ (void)addBlock:(int)pid;
+
 @end

@@ -326,6 +326,9 @@ static SectionData sections[] = {
     } else {
         XLog_e(@"%@", error);
     }
+    
+    // remove blocklist
+    [fileMgr removeItemAtPath:[[SMUtils documentPath] stringByAppendingString:@"/blocklist.json"] error:nil];
 }
 
 - (void)setupTheme
