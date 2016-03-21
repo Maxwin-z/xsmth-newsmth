@@ -146,8 +146,8 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     
     [self setupTheme];
     
-    [self.navigationController.interactivePopGestureRecognizer addTarget:self
-                                                                  action:@selector(handlePopGesture:)];
+//    [self.navigationController.interactivePopGestureRecognizer addTarget:self
+//                                                                  action:@selector(handlePopGesture:)];
     
 }
 
@@ -202,7 +202,7 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
 
 - (BOOL)useNewHideShow
 {
-    return [SMUtils systemVersion] >= 9;
+    return [SMUtils systemVersion] >= 7;
 }
 
 - (void)hideNavigation:(BOOL)animated
@@ -216,7 +216,7 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
 
 - (void)showNavigation:(BOOL)animated
 {
-    if ([SMUtils systemVersion] >= 9) {
+    if ([self useNewHideShow]) {
         [self showNavigation_iOS9:animated];
     } else {
         [self showNavigation_iOS6:animated];
@@ -237,7 +237,7 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     
     self.titleView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.6, 0.6);
     frame = self.titleLabel.frame;
-    frame.origin.y = 20;
+    frame.origin.y = 12;
     self.titleLabel.frame = frame;
     
     // bottom
@@ -332,6 +332,8 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
         [self hideNavigation:YES];
     }
     self.webView.scrollView.delegate = self;
+    [self.navigationController.interactivePopGestureRecognizer addTarget:self action:@selector(handlePopGesture:)];
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -340,6 +342,8 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     [self showNavigation:NO];
     [self setBarItemsHide:NO];
     self.webView.scrollView.delegate = nil;
+    [self.navigationController.interactivePopGestureRecognizer removeTarget:self action:@selector(handlePopGesture:)];
+    
 }
 
 - (void)onRightBarButtonClick
