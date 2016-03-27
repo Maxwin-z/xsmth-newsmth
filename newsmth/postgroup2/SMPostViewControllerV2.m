@@ -186,7 +186,7 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
 - (void)setBarItemsHide:(BOOL)hide
 {
     [self.barItemViews enumerateObjectsUsingBlock:^(UIView * _Nonnull view, NSUInteger idx, BOOL * _Nonnull stop) {
-        view.hidden = hide;
+        view.alpha = hide ? 0.0 : 1.0;
     }];
 }
 
@@ -341,7 +341,7 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
 {
     [super viewWillDisappear:animated];
     [self showNavigation:NO];
-    [self setBarItemsHide:NO];
+//    [self setBarItemsHide:NO];
     self.webView.scrollView.delegate = nil;
     [self.navigationController.interactivePopGestureRecognizer removeTarget:self action:@selector(handlePopGesture:)];
     
