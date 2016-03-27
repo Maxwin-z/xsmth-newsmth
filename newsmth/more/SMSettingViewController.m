@@ -638,7 +638,7 @@ static SectionData sections[] = {
     }
     
     if (cellType == CellTypeRate) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/us/app/xsmth-shui-mu-she-qu/id669036871?ls=1&mt=8"]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/us/app/xsmth-for-shui-mu/id1090365014?ls=1&mt=8"]];
         action = @"rate";
     }
     

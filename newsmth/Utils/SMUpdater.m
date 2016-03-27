@@ -202,7 +202,7 @@
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex != alertView.cancelButtonIndex) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/us/app/xsmth-shui-mu-she-qu/id669036871?ls=1&mt=8"]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/us/app/xsmth-for-shui-mu/id1090365014?ls=1&mt=8"]];
         [SMUtils trackEventWithCategory:@"app" action:@"do_update" label:nil];
     } else {
         [SMUtils trackEventWithCategory:@"app" action:@"cancel_update" label:nil];
