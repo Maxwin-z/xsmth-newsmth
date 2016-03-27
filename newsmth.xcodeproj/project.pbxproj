@@ -281,6 +281,7 @@
 		C1E7A1A3180A91EB002CAEEC /* bg_barbuttonitem@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1E7A1A2180A91EB002CAEEC /* bg_barbuttonitem@2x.png */; };
 		C1E7A1A5180A98DD002CAEEC /* badge_notice@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1E7A1A4180A98DD002CAEEC /* badge_notice@2x.png */; };
 		C1E7A1A7180AA8C7002CAEEC /* util_notice.js in Resources */ = {isa = PBXBuildFile; fileRef = C1E7A1A6180AA8C7002CAEEC /* util_notice.js */; };
+		C1F0D27E1CA69D28006AD489 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1F0D27D1CA69D28006AD489 /* Images.xcassets */; };
 		C1F4671D18C2E766006BCE7A /* SMPostActivityItemProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F4671C18C2E766006BCE7A /* SMPostActivityItemProvider.m */; };
 		C1F4672018C2EDFA006BCE7A /* SMWeiXinSessionActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F4671F18C2EDFA006BCE7A /* SMWeiXinSessionActivity.m */; };
 		C1F4672318C2EFAB006BCE7A /* common_share_icon_weixin_friends@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1F4672118C2EFAB006BCE7A /* common_share_icon_weixin_friends@2x.png */; };
@@ -773,6 +774,7 @@
 		C1E7A1A2180A91EB002CAEEC /* bg_barbuttonitem@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_barbuttonitem@2x.png"; sourceTree = "<group>"; };
 		C1E7A1A4180A98DD002CAEEC /* badge_notice@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "badge_notice@2x.png"; sourceTree = "<group>"; };
 		C1E7A1A6180AA8C7002CAEEC /* util_notice.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = util_notice.js; sourceTree = "<group>"; };
+		C1F0D27D1CA69D28006AD489 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C1F4671B18C2E766006BCE7A /* SMPostActivityItemProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMPostActivityItemProvider.h; sourceTree = "<group>"; };
 		C1F4671C18C2E766006BCE7A /* SMPostActivityItemProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMPostActivityItemProvider.m; sourceTree = "<group>"; };
 		C1F4671E18C2EDFA006BCE7A /* SMWeiXinSessionActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMWeiXinSessionActivity.h; sourceTree = "<group>"; };
@@ -1431,6 +1433,7 @@
 				C1E1CAF81870268000324EAF /* SMIPadSplitViewController.h */,
 				C1E1CAF91870268000324EAF /* SMIPadSplitViewController.m */,
 				C1E1CAFA1870268000324EAF /* SMIPadSplitViewController.xib */,
+				C1F0D27D1CA69D28006AD489 /* Images.xcassets */,
 			);
 			path = newsmth;
 			sourceTree = "<group>";
@@ -1924,6 +1927,7 @@
 				C1B581F4177723F500441299 /* SMWritePostViewController.xib in Resources */,
 				C1902DC0177E672E00967211 /* button_reply@2x.png in Resources */,
 				C111D62C19CF0F2F00D4DC71 /* template_posts.zip in Resources */,
+				C1F0D27E1CA69D28006AD489 /* Images.xcassets in Resources */,
 				C1300A79187D3776006ACA5C /* icon_58@2x.png in Resources */,
 				C1E3A22B1780600900994CE6 /* SMUserViewController.xib in Resources */,
 				C14B22F517FABDD100CF081A /* bg_navigationbar@2x.png in Resources */,
@@ -2309,6 +2313,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AA4CC0B2B8FB08FBC3BDB79E /* Pods.distribution.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: NanJing HuoWei Information Technology Co., Ltd. (KPV96X526S)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
@@ -2325,7 +2331,7 @@
 					"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts/include",
 				);
 				INFOPLIST_FILE = "newsmth/newsmth-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/newsmth/Frameworks/**",
@@ -2424,6 +2430,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DD635C5ADAC230C25BD01DB7 /* Pods.debug.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
@@ -2440,7 +2448,7 @@
 					"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts/include",
 				);
 				INFOPLIST_FILE = "newsmth/newsmth-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/newsmth/Frameworks/**",
@@ -2460,6 +2468,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 44D5CD290F159D734B6233B7 /* Pods.release.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
@@ -2476,7 +2486,7 @@
 					"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts/include",
 				);
 				INFOPLIST_FILE = "newsmth/newsmth-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/newsmth/Frameworks/**",
