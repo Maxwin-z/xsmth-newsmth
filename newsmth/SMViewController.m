@@ -282,6 +282,8 @@
             [self setNeedsStatusBarAppearanceUpdate];
         }
         
+        [[UIApplication sharedApplication] setStatusBarStyle:[self preferredStatusBarStyle]];
+        
         if ([[UIApplication sharedApplication].keyWindow respondsToSelector:@selector(setTintColor:)]) {
             [UIApplication sharedApplication].keyWindow.tintColor = [SMTheme colorForTintColor];
         }
