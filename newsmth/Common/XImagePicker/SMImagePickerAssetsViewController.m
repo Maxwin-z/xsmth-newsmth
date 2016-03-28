@@ -55,7 +55,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [SMImagePickerAssetsCell cellHeight];
+    return [SMImagePickerAssetsCell cellHeight:self.view.width];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -68,7 +68,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
-    [cell setAssets:_assets start:indexPath.row * 4];
+    [cell setAssets:_assets start:indexPath.row * 4 width:self.view.width];
     return cell;
 }
 

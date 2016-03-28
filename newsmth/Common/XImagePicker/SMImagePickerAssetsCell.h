@@ -14,8 +14,8 @@
 @end
 
 @interface SMImagePickerAssetsCell : UITableViewCell
-+ (CGFloat)cellHeight;
-- (void)setAssets:(NSArray *)assets start:(NSInteger)start;
++ (CGFloat)cellHeight:(CGFloat)width;
+- (void)setAssets:(NSArray *)assets start:(NSInteger)start width:(CGFloat)cellWidth;
 
 @property (weak, nonatomic) id<SMImagePickerAssetsCellDelegate> delegate;
 @end

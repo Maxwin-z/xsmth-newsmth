@@ -20,10 +20,10 @@
 
 @implementation SMImagePickerAssetsCell
 
-+ (CGFloat)cellHeight
++ (CGFloat)cellHeight:(CGFloat)width
 {
     int cols = 4;
-    return ([UIScreen mainScreen].bounds.size.width - (cols + 1) * PADDING) / cols + PADDING;
+    return (width - (cols + 1) * PADDING) / cols + PADDING;
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -40,9 +40,9 @@
     return self;
 }
 
-- (void)setAssets:(NSArray *)assets start:(NSInteger)start;
+- (void)setAssets:(NSArray *)assets start:(NSInteger)start width:(CGFloat)cellWidth;
 {
-    int width = [[self class] cellHeight] - PADDING;
+    int width = [[self class] cellHeight:cellWidth] - PADDING;
     int i = 0;
     for (; i + start != assets.count && i != _imageButton.count; ++i) {
         UIButton *button = _imageButton[i];
