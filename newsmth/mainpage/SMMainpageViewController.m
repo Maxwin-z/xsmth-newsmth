@@ -118,14 +118,15 @@ static SMMainpageViewController *_instance;
 
 - (NSString *)dataUrl
 {
-    return [NSString stringWithFormat:@"http://www.newsmth.net/mainpage.html?t=%@", @([NSDate timeIntervalSinceReferenceDate])];
+//    return [NSString stringWithFormat:@"http://www.newsmth.net/mainpage.html?t=%@", @([NSDate timeIntervalSinceReferenceDate])];
+    return @"http://www.newsmth.net/nForum/mainpage?ajax";
 }
 
 - (void)loadData:(BOOL)more
 {
     _op = [[SMWebLoaderOperation alloc] init];
     _op.delegate = self;
-    [_op loadUrl:[self dataUrl] withParser:@"mainpage"];
+    [_op loadUrl:[self dataUrl] withParser:@"mainpage2"];
 }
 
 - (void)onDeviceRotate

@@ -105,6 +105,7 @@
 		C13CB6C518B0A09A003F7407 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C13CB6C418B0A09A003F7407 /* CoreTelephony.framework */; };
 		C13CB6C918B0FE17003F7407 /* icon_search_64@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C13CB6C818B0FE17003F7407 /* icon_search_64@2x.png */; };
 		C13D4124176DD5EC00BD03A4 /* placeholder@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C13D4123176DD5EC00BD03A4 /* placeholder@2x.jpg */; };
+		C13FBE4D1CA962BD0099FCA6 /* mainpage2.js in Resources */ = {isa = PBXBuildFile; fileRef = C13FBE4C1CA962BD0099FCA6 /* mainpage2.js */; };
 		C14505E51750787C00DC5431 /* SMAccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C14505E41750787C00DC5431 /* SMAccountManager.m */; };
 		C14505E817507A9800DC5431 /* SMHttpRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C14505E717507A9800DC5431 /* SMHttpRequest.m */; };
 		C14505ED17507DD400DC5431 /* XLogUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = C14505EC17507DD400DC5431 /* XLogUtil.m */; };
@@ -490,6 +491,7 @@
 		C13CB6C618B0AA48003F7407 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		C13CB6C818B0FE17003F7407 /* icon_search_64@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_search_64@2x.png"; sourceTree = "<group>"; };
 		C13D4123176DD5EC00BD03A4 /* placeholder@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "placeholder@2x.jpg"; sourceTree = "<group>"; };
+		C13FBE4C1CA962BD0099FCA6 /* mainpage2.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = mainpage2.js; sourceTree = "<group>"; };
 		C144B68E1768C62500DA2958 /* login.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = login.js; sourceTree = "<group>"; };
 		C14505E31750787C00DC5431 /* SMAccountManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMAccountManager.h; sourceTree = "<group>"; };
 		C14505E41750787C00DC5431 /* SMAccountManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMAccountManager.m; sourceTree = "<group>"; };
@@ -971,6 +973,7 @@
 		C121F2991750EE790081FD87 /* jsParser */ = {
 			isa = PBXGroup;
 			children = (
+				C13FBE4C1CA962BD0099FCA6 /* mainpage2.js */,
 				C1300A71187C0A30006ACA5C /* bbsfwd.js */,
 				39C260071860A8DF00AEFE0E /* bbsbfind.js */,
 				C1E7A1A6180AA8C7002CAEEC /* util_notice.js */,
@@ -1874,6 +1877,7 @@
 				C1011D9017787E7E00E0485D /* bbssnd.js in Resources */,
 				C10F2F8617E595A100F83206 /* SMMailInfoViewController.xib in Resources */,
 				C10206011AB438110096D210 /* icon_delete@2x.png in Resources */,
+				C13FBE4D1CA962BD0099FCA6 /* mainpage2.js in Resources */,
 				C19018E81769FBCA0098150A /* board.js in Resources */,
 				C19FF0BD1769CA4A00EB6F7E /* favor.js in Resources */,
 				C19FF0AF1769A4F000EB6F7E /* login.js in Resources */,
