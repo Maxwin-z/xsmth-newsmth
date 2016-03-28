@@ -22,7 +22,7 @@ typedef NS_ENUM(NSInteger, SMUploadAct) {
 @interface SMImageUploader ()<SMWebLoaderOperationDelegate, ASIProgressDelegate>
 @property (strong, nonatomic) SMWebLoaderOperation *uploadOp;
 @property (strong, nonatomic) SMWebLoaderOperation *deleteOp;
-@property (assign, nonatomic) dispatch_queue_t queue;
+@property (strong, nonatomic) dispatch_queue_t queue;
 @property (assign, nonatomic) BOOL isUploading;
 @end
 
