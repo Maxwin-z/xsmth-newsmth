@@ -945,12 +945,19 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     SMSpamActivity *spamActivity = [SMSpamActivity new];
     [activites addObject:spamActivity];
     
-    UIActivityViewController *avc = [[UIActivityViewController alloc] initWithActivityItems:@[provider] applicationActivities:activites];
-    if (&UIActivityTypeAirDrop != NULL) {
-        avc.excludedActivityTypes = @[UIActivityTypeAirDrop, UIActivityTypeMessage, UIActivityTypeCopyToPasteboard];
-    } else {
-        avc.excludedActivityTypes = @[UIActivityTypeMessage, UIActivityTypeCopyToPasteboard];
-    }
+    
+    NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/single/%d/0",
+                     post.board.name, post.pid];
+    
+    NSInteger kTwitterLength = 140;
+    NSString* content = [post.content substringToIndex:MIN(post.content.length, kTwitterLength)];
+    
+    UIActivityViewController *avc = [[UIActivityViewController alloc] initWithActivityItems:@[provider, content, [NSURL URLWithString:url]] applicationActivities:activites];
+//    if (&UIActivityTypeAirDrop != NULL) {
+//        avc.excludedActivityTypes = @[UIActivityTypeAirDrop, UIActivityTypeMessage, UIActivityTypeCopyToPasteboard];
+//    } else {
+//        avc.excludedActivityTypes = @[UIActivityTypeMessage, UIActivityTypeCopyToPasteboard];
+//    }
     @weakify(self);
     @weakify(avc);
     avc.completionHandler = ^(NSString *activityType, BOOL completed) {

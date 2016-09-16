@@ -22,26 +22,23 @@
     NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/single/%d/0",
                      post.board.name, post.pid];
     
-    if ([activityType isEqualToString:UIActivityTypePostToWeibo]
-        || (&UIActivityTypePostToTencentWeibo != NULL && [activityType isEqualToString:UIActivityTypePostToTencentWeibo])
-        || [activityType isEqualToString:UIActivityTypePostToTwitter]) {
-        NSInteger kTwitterLength = 140;
-        NSString *content = [post.content substringToIndex:MIN(post.content.length, kTwitterLength)];
-        return content;
-    }
-    
-    if ([activityType isEqualToString:UIActivityTypeCopyToPasteboard]) {
-        return url;
-    }
-    
-    if ([activityType isEqualToString:SMActivityTypePostToWXSession] || [activityType isEqualToString:SMActivityTypePostToWXTimeline]) {
+    if ([activityType isEqualToString:SMActivityTypePostToWXSession]
+        || [activityType isEqualToString:SMActivityTypePostToWXTimeline]) {
         return @{
                  @"url": url,
                  @"post": post
                  };
     }
     
-    return [NSString stringWithFormat:@"%@ (原文: %@)", post.content, url];
+    NSString *content = [NSString stringWithFormat:@"%@ (原文: %@)", post.content, url];
+    if ([activityType isEqualToString:UIActivityTypePostToWeibo]
+        || [activityType isEqualToString:UIActivityTypePostToTencentWeibo]
+        || [activityType isEqualToString:UIActivityTypePostToTwitter]) {
+        NSInteger kTwitterLength = 140;
+        content = [post.content substringToIndex:MIN(post.content.length, kTwitterLength)];
+    }
+    
+    return content;
 }
 
 @end
