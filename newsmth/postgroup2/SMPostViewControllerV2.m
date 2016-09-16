@@ -30,6 +30,8 @@
 #import "SMEditActivity.h"
 #import "SMDeleteActivity.h"
 #import "SMSpamActivity.h"
+#import <TOWebViewController/TOWebViewController.h>
+#import <TOWebViewController/TOActivitySafari.h>
 
 #import "SMMailComposeViewController.h"
 #import "SMWritePostViewController.h"
@@ -932,8 +934,9 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     SMForwardActivity *forwordActivity = [SMForwardActivity new];
     SMForwardAllActivity *forwardAllActivity = [SMForwardAllActivity new];
     SMSingleAuthorActivity *singleAuthorActivity = [SMSingleAuthorActivity new];
+    TOActivitySafari *safariActivity = [TOActivitySafari new];
     
-    NSMutableArray *activites = [[NSMutableArray alloc] initWithArray:@[wxSessionActivity, wxTimelineActivity, replyActivity, singleAuthorActivity, mailtoActivity, forwordActivity, forwardAllActivity]];
+    NSMutableArray *activites = [[NSMutableArray alloc] initWithArray:@[wxSessionActivity, wxTimelineActivity, replyActivity, singleAuthorActivity, mailtoActivity, safariActivity, forwordActivity, forwardAllActivity]];
     
     if ([self.postForAction.author isEqualToString:[SMAccountManager instance].name]) {
         SMEditActivity *editActivity = [SMEditActivity new];

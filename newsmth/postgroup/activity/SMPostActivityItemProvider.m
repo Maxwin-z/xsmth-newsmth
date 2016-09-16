@@ -30,15 +30,7 @@
                  };
     }
     
-    NSString *content = [NSString stringWithFormat:@"%@ (原文: %@)", post.content, url];
-    if ([activityType isEqualToString:UIActivityTypePostToWeibo]
-        || [activityType isEqualToString:UIActivityTypePostToTencentWeibo]
-        || [activityType isEqualToString:UIActivityTypePostToTwitter]) {
-        NSInteger kTwitterLength = 140;
-        content = [post.content substringToIndex:MIN(post.content.length, kTwitterLength)];
-    }
-    
-    return content;
+    return nil;
 }
 
 @end
