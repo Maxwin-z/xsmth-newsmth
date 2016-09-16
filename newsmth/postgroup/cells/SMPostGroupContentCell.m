@@ -269,6 +269,9 @@ NSString *tpl =
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     CGFloat height = [[webView stringByEvaluatingJavaScriptFromString:@"document.height"] floatValue];
+    if (height < 1) {
+        height = [[webView stringByEvaluatingJavaScriptFromString:@"document.body.scrollHeight"] floatValue];
+    }
     [_delegate postGroupContentCell:self heightChanged:height];
 }
 
