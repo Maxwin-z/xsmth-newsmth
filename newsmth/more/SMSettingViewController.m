@@ -11,7 +11,7 @@
 #import "SMFontSelectorViewController.h"
 #import "XImageViewCache.h"
 #import "XWebViewController.h"
-#import "SMDonateViewController.h"
+//#import "SMDonateViewController.h"
 #import <MessageUI/MessageUI.h>
 #import "SMIPadSplitViewController.h"
 #import "SMEULAViewController.h"
@@ -656,8 +656,8 @@ static SectionData sections[] = {
     }
     
     if (cellType == CellTypeDonate) {
-        SMDonateViewController *vc = [SMDonateViewController new];
-        [self.navigationController pushViewController:vc animated:YES];
+//        SMDonateViewController *vc = [SMDonateViewController new];
+//        [self.navigationController pushViewController:vc animated:YES];
         action = @"donate";
     }
     

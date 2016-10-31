@@ -91,9 +91,6 @@
 		C1300A78187D3776006ACA5C /* icon_80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1300A75187D3776006ACA5C /* icon_80@2x.png */; };
 		C1300A79187D3776006ACA5C /* icon_58@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1300A76187D3776006ACA5C /* icon_58@2x.png */; };
 		C1300A7D187D5FAD006ACA5C /* icon_57.png in Resources */ = {isa = PBXBuildFile; fileRef = C1300A7C187D5FAD006ACA5C /* icon_57.png */; };
-		C1327EDC187850DF00B1862A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1327EDB187850DF00B1862A /* StoreKit.framework */; };
-		C1327EE01878549700B1862A /* SMDonateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1327EDE1878549700B1862A /* SMDonateViewController.m */; };
-		C1327EE11878549700B1862A /* SMDonateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1327EDF1878549700B1862A /* SMDonateViewController.xib */; };
 		C13CB57A18AF62B4003F7407 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = C13CB56018AF62B4003F7407 /* ioapi.c */; };
 		C13CB57B18AF62B4003F7407 /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = C13CB56218AF62B4003F7407 /* mztools.c */; };
 		C13CB57C18AF62B4003F7407 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = C13CB56418AF62B4003F7407 /* unzip.c */; };
@@ -459,7 +456,6 @@
 		C1300A75187D3776006ACA5C /* icon_80@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_80@2x.png"; sourceTree = "<group>"; };
 		C1300A76187D3776006ACA5C /* icon_58@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_58@2x.png"; sourceTree = "<group>"; };
 		C1300A7C187D5FAD006ACA5C /* icon_57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_57.png; sourceTree = "<group>"; };
-		C1327EDB187850DF00B1862A /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		C1327EDD1878549700B1862A /* SMDonateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMDonateViewController.h; sourceTree = "<group>"; };
 		C1327EDE1878549700B1862A /* SMDonateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMDonateViewController.m; sourceTree = "<group>"; };
 		C1327EDF1878549700B1862A /* SMDonateViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMDonateViewController.xib; sourceTree = "<group>"; };
@@ -852,7 +848,6 @@
 				C13CB6C318B0A089003F7407 /* AVFoundation.framework in Frameworks */,
 				C13CB6C118B0A07F003F7407 /* AudioToolbox.framework in Frameworks */,
 				C176AC1118C202FA00B024C7 /* libWeChatSDK.a in Frameworks */,
-				C1327EDC187850DF00B1862A /* StoreKit.framework in Frameworks */,
 				C1C07A78179686BD00906ED7 /* MessageUI.framework in Frameworks */,
 				C1C07A7C179686F600906ED7 /* Twitter.framework in Frameworks */,
 				C10080D6178598D900487A45 /* AssetsLibrary.framework in Frameworks */,
@@ -1362,7 +1357,6 @@
 				C13CB6C218B0A089003F7407 /* AVFoundation.framework */,
 				C13CB6C018B0A07F003F7407 /* AudioToolbox.framework */,
 				C15489C11888CDF60046190C /* AdSupport.framework */,
-				C1327EDB187850DF00B1862A /* StoreKit.framework */,
 				C1CE10C3181278FD00B04E15 /* libcommonCrypto.dylib */,
 				C1BFB91D174F6F390092FD2E /* libz.dylib */,
 				C10080D5178598D900487A45 /* AssetsLibrary.framework */,
@@ -1826,6 +1820,9 @@
 							com.apple.BackgroundModes = {
 								enabled = 1;
 							};
+							com.apple.InAppPurchase = {
+								enabled = 0;
+							};
 						};
 					};
 				};
@@ -1938,7 +1935,6 @@
 				C14B22F517FABDD100CF081A /* bg_navigationbar@2x.png in Resources */,
 				C1B9D5881BB7EDE300AE4699 /* icon_ring@2x.png in Resources */,
 				C1FD13B717814E06006A6061 /* bg_photo_border@2x.png in Resources */,
-				C1327EE11878549700B1862A /* SMDonateViewController.xib in Resources */,
 				C1F4672418C2EFAB006BCE7A /* common_share_icon_weixin@2x.png in Resources */,
 				C1FCFAC31860782600759793 /* icon_favor_off@2x.png in Resources */,
 				C1FD13BB17815BD1006A6061 /* SMViewControllerNeedLogin.xib in Resources */,
@@ -2126,7 +2122,6 @@
 				C1E628AC1764C594007ACF2A /* SMSection.m in Sources */,
 				C1ABAB111766107A007DE168 /* SMMainpageCell.m in Sources */,
 				C1BBFD9E1902986E008460B5 /* UIWindow+SMShakeListener.m in Sources */,
-				C1327EE01878549700B1862A /* SMDonateViewController.m in Sources */,
 				C10F2F7717E5621800F83206 /* SMMailItem.m in Sources */,
 				C1ABAB131766107A007DE168 /* SMMainpageViewController.m in Sources */,
 				C1B68848180824160085DC69 /* SMBoardSearchDelegateImpl.m in Sources */,
@@ -2322,7 +2317,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: NanJing HuoWei Information Technology Co., Ltd. (KPV96X526S)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = KPV96X526S;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2441,7 +2436,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = KPV96X526S;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2481,7 +2476,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = KPV96X526S;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
