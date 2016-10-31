@@ -166,6 +166,10 @@ static NSOperationQueue *downloadQueue;
 
 - (void)requestFinished:(ASIHTTPRequest *)request
 {
+    if (request.responseData.length != request.contentLength) {
+        [self requestFailed:request];
+        return ;
+    }
     _labelForProgress.hidden = YES;
     self.isLoaded = YES;
     self.image = [UIImage imageWithData:request.responseData];
