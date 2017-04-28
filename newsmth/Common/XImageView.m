@@ -167,6 +167,21 @@ static NSOperationQueue *downloadQueue;
 - (void)requestFinished:(ASIHTTPRequest *)request
 {
     if (request.responseData.length != request.contentLength) {
+        
+        NSRange range = [request.url.absoluteString rangeOfString:@"att.newsmth.net"];
+        if (range.location != NSNotFound) {
+            NSString *alternate_url = [
+            self.url stringByReplacingOccurrencesOfString:@"att.newsmth.net"
+                                       withString:@"newsmth.net"];
+            // 替换域名后重试
+            [_downloadRequest clearDelegatesAndCancel];
+            _downloadRequest = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:alternate_url]];
+            _downloadRequest.delegate = self;
+            _downloadRequest.downloadProgressDelegate = self;
+            _labelForProgress.hidden = YES;
+            [[[self class] queue] addOperation:_downloadRequest];
+            return;
+        }
         [self requestFailed:request];
         return ;
     }
