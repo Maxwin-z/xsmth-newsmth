@@ -135,7 +135,7 @@ li.post div.sp {
 	right: 0;
 }
 
-.ximg-middle, 
+.ximg-middle,
 .ximg-large {
 	position: absolute;
 	padding-top: 20%;
@@ -161,7 +161,7 @@ li.post div.sp {
 	top: 20%;
 	left: 0;
 	text-align: center;
-}	
+}
 
 .action {
 	position: absolute;
@@ -180,12 +180,12 @@ li.post div.sp {
 	display: inline-block;
 }
 .action .action_more {
-	background-image: url(icon_more.png);	
+	background-image: url(icon_more.png);
 }
 */
 
 .action_page {
-	border-bottom: 1px solid #ccc;	
+	border-bottom: 1px solid #ccc;
 }
 
 .action_page h1 {
@@ -378,7 +378,7 @@ function detectScrollToBotttom () {
 	var scrollTop = $(window).scrollTop();
 
 	// console.log('s', $(window).scrollTop(), 'h4l', height4loading, 'wh', $(window).height(), 'bh', bodyHeight);
-	shouldload = $(window).scrollTop() + height4loading + $(window).height() > bodyHeight; 
+	shouldload = $(window).scrollTop() + height4loading + $(window).height() > bodyHeight;
 
 	if (shouldload) {
 		// console.log('try to load more');
@@ -400,7 +400,7 @@ SMApp.loadPage = function (page) {
 	// console.log(page);
 	if (!scroll2page(page))	{
 		needScrollToPage = page;
-		load(page);	
+		load(page);
 	}
 }
 $(window).on('scroll', detectScrollToBotttom);
@@ -417,7 +417,7 @@ function scroll2page(page) {
 	if (anchor.length) {
 		SMApp.scrollTo(anchor.offset().top);
 		return true;
-	}	
+	}
 	return false;
 }
 
@@ -528,7 +528,7 @@ function renderPosts(posts, page) {
 	dom.find('img.ximg').each(function (idx, img) {
 		img = $(img);
 		img.css('max-width', imageMaxWidth + 'px');
-		
+
 		var src = img.attr('src2');
 
 		var middle = img.parent().find('.ximg-middle');
@@ -597,7 +597,7 @@ function tryLoadAd() {
 					}
 					var data = {
 						url: ad.clickurl,
-						src: value.success 
+						src: value.success
 					};
 					var html = tplAd.replace(/\$\{(.*?)\}/g, function ($0, $1) {
 						return data[$1] || '';
@@ -692,7 +692,7 @@ function loadingEnd() {
 
 function load(page) {
 	var url = config.showQMD ? 'http://www.newsmth.net/nForum' : 'http://m.newsmth.net';
-	
+
 	url += '/article/' + mainPost.board.name + '/' + mainPost.gid + '?p=' + page;
 	if (mainAuthor.length > 0) {
 		url += '&au=' + mainAuthor;
@@ -760,7 +760,7 @@ function showPosts(body, page) {
 		totalPage: totalPage
 	};
 	data['#' + page] = posts;
-	
+
 	var anchor = $('#anchor_page_' + page + ', #page_' + page);
 	if (anchor.length) {
 		// remove old posts
@@ -807,8 +807,9 @@ function trimHtml(html) {
 	.replace(/<a[^>]+>(<img[^>]+>)<\/a>/gi, '$1')
 	.replace(/(<img[^>]*?src=")(\/nForum\/att\/)/gi, '$1http://www.newsmth.net$2')
 	.replace(/(<img[^>]*?src=")(\/att\/)/gi, '$1http://m.newsmth.net$2')
-	.replace(/<img[^>]*?src="(http.+?)"[^>]*?>/gi, function ($0, src) {
+	.replace(/<img[^>]*?src="(.+?)"[^>]*?>/gi, function ($0, src) {
 		src = src.replace(/\/(large|middle)$/, '');
+    src = src.indexOf('http:') === 0 ? src : 'http:' + src
 		return [
 			'<span class="ximg-box">',
 				'<img class="ximg" src="placeholder.jpg" src2="', src , '"/>',
@@ -996,7 +997,7 @@ function _getIndex(lis, idx, end, top) {
 	}
 }
 
-// @2.5.2. swipe left 
+// @2.5.2. swipe left
 ;(function () {
 	// 不好用，已屏蔽
 	return ;
@@ -1007,7 +1008,7 @@ function _getIndex(lis, idx, end, top) {
 	var moved = false;
 	$('#post-list').on('touchstart', function (evt) {
 		var touch = evt.touches[0];
-		touchTarget = touch.target;	
+		touchTarget = touch.target;
 		touchStartPos = {x: touch.pageX, y: touch.pageY};
 		moved = false;
 	}).on('touchmove', function (evt) {
@@ -1042,4 +1043,3 @@ function _getIndex(lis, idx, end, top) {
 </script>
 </body>
 </html>
-
