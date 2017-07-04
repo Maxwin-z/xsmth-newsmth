@@ -804,12 +804,10 @@ function parsePosts(html) {
 
 function trimHtml(html) {
 	return html.replace(/<script.*?<\/script>/g, '')
-	.replace(/<a[^>]+>(<img[^>]+>)<\/a>/gi, '$1')
-	.replace(/(<img[^>]*?src=")(\/nForum\/att\/)/gi, '$1http://www.newsmth.net$2')
-	.replace(/(<img[^>]*?src=")(\/att\/)/gi, '$1http://m.newsmth.net$2')
-	.replace(/<img[^>]*?src="(.+?)"[^>]*?>/gi, function ($0, src) {
-		src = src.replace(/\/(large|middle)$/, '');
-    src = src.indexOf('http:') === 0 ? src : 'http:' + src
+  .replace(/<a[^>]+>(<img[^>]+>)<\/a>/gi, '$1')  // remove <a>
+  .replace(/<img\s+[^>]*?src="(\/\/att.newsmth.net.*?\/(middle|large))"[^>]*?>/gi, function($0, src) {
+    src = src.replace(/\/(large|middle)$/, '');
+    src = 'https:' + src
 		return [
 			'<span class="ximg-box">',
 				'<img class="ximg" src="placeholder.jpg" src2="', src , '"/>',
@@ -818,9 +816,9 @@ function trimHtml(html) {
 				'<span class="ximg-large action-img">原图</span>',
 			'</span>'
 		].join('');
-
-		// '<span class="ximg-box"><span class="ximg-info"></span><div class="ximg-action"><span class="ximg-middle">中图</span><span class="ximage-large">原图</span></div><img class="ximg" src="placeholder.jpg" src2="' + src + '"/></span>';
-	});
+  })
+  .replace(/(<img[^>]*?src=")(\/\/)/gi, '$1http:$2')  // add http to //[url]
+	.replace(/(<img[^>]*?src=")(\/)/gi, '$1http://www.newsmth.net$2')
 }
 
 function parseMPosts(html) {
