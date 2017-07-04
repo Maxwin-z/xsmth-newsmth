@@ -91,7 +91,7 @@
                     [NSCharacterSet whitespaceCharacterSet]];
         self.title = username;
         
-        NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbsqry.php?userid=%@", username];
+        NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//www.newsmth.net/bbsqry.php?userid=%@", username];
         [_userInfoOp loadUrl:url withParser:@"bbsqry"];
     }
     

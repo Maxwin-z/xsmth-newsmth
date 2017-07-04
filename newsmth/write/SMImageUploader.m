@@ -145,7 +145,7 @@ typedef NS_ENUM(NSInteger, SMUploadAct) {
     if (index < _currentIndex) {    // already uploaded
         --_currentIndex;
         SMUploadData *data = _uploadQueue[index];
-        NSString *deleteUrl = [NSString stringWithFormat:@"http://www.newsmth.net/bbsupload.php?act=delete&attachname=%@", data.key];
+        NSString *deleteUrl = [NSString stringWithFormat:URL_PROTOCOL @"//www.newsmth.net/bbsupload.php?act=delete&attachname=%@", data.key];
         _deleteOp = [[SMWebLoaderOperation alloc] init];
         _deleteOp.delegate = self;
         [_deleteOp loadUrl:deleteUrl withParser:@"upload"];
@@ -179,7 +179,7 @@ typedef NS_ENUM(NSInteger, SMUploadAct) {
             return;
         }
         
-        ASIFormDataRequest *request = [[ASIFormDataRequest alloc] initWithURL:[NSURL URLWithString:@"http://www.newsmth.net/bbsupload.php?act=add"]];
+        ASIFormDataRequest *request = [[ASIFormDataRequest alloc] initWithURL:[NSURL URLWithString:URL_PROTOCOL @"//www.newsmth.net/bbsupload.php?act=add"]];
         request.uploadProgressDelegate = self;
         
         SMUploadData *data = _uploadQueue[_currentIndex];

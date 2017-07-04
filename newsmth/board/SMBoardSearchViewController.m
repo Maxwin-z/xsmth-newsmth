@@ -144,7 +144,7 @@ typedef enum {
 
 - (void)doSearch
 {
-    NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbsbfind.php?q=1&board=%@&title=%@&title2=%@&title3=%@&userid=%@&dt=%@&ag=%@&og=%@",
+    NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//www.newsmth.net/bbsbfind.php?q=1&board=%@&title=%@&title2=%@&title3=%@&userid=%@&dt=%@&ag=%@&og=%@",
                      [self encodeGBKUrl:_textFieldForBoardName.text],
                      [self encodeGBKUrl:_textFieldForPostTitle1.text],
                      [self encodeGBKUrl:_textFieldForPostTitle2.text],

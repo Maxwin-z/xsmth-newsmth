@@ -250,7 +250,7 @@
 
     [_currentPageItem.op cancel];
     [_pageOp cancel];
-    NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbstcon.php?board=%@&gid=%@&start=%@&pno=%@", _board.name, @(_gid), @(_currentPageItem.start), @(_currentPageItem.pno)];
+    NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//www.newsmth.net/bbstcon.php?board=%@&gid=%@&start=%@&pno=%@", _board.name, @(_gid), @(_currentPageItem.start), @(_currentPageItem.pno)];
     _pageOp = [[SMWebLoaderOperation alloc] init];
     _pageOp.highPriority = YES;
     _pageOp.delegate = self;
@@ -634,7 +634,7 @@
                 }
             }
             
-            NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbscon.php?bid=%@&id=%@", @(_bid), @(post.pid)];
+            NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//www.newsmth.net/bbscon.php?bid=%@&id=%@", @(_bid), @(post.pid)];
             if (![SMConfig enableShowQMD]) {
                 url = [NSString stringWithFormat:URL_PROTOCOL @"//m.newsmth.net/article/%@/single/%d/0",
                              _board.name, post.pid];
@@ -1155,7 +1155,7 @@
         if (text.length != 0) {
             _forwardOp = [[SMWebLoaderOperation alloc] init];
 
-            NSString *formUrl = @"http://www.newsmth.net/bbsfwd.php?do";
+            NSString *formUrl = URL_PROTOCOL @"//www.newsmth.net/bbsfwd.php?do";
             SMHttpRequest *request = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:formUrl]];
             
             NSString *postBody = [NSString stringWithFormat:@"board=%@&id=%d&target=%@&noansi=1", self.board.name, _replyPost.pid, [SMUtils encodeurl:text]];
