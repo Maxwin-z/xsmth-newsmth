@@ -267,12 +267,12 @@
         _keepLoginOp = [[SMWebLoaderOperation alloc] init];
         _keepLoginOp.delegate = self;
         _completionHandler = completionHandler;
-        [_keepLoginOp loadUrl:@"http://m.newsmth.net/user/query/" withParser:@"notice,util_notice"];
+        [_keepLoginOp loadUrl:URL_PROTOCOL @"//m.newsmth.net/user/query/" withParser:@"notice,util_notice"];
     } else {
         NSString *user = [[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_USERNAME];
         NSString *passwd =  [[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_PASSWORD];
         if (user && passwd) {
-            SMHttpRequest *request = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:@"http://m.newsmth.net/user/login"]];
+            SMHttpRequest *request = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:URL_PROTOCOL @"//m.newsmth.net/user/login"]];
             NSString *postBody = [NSString stringWithFormat:@"id=%@&passwd=%@&save=on", user, passwd];
             [request setRequestMethod:@"POST"];
             [request addRequestHeader:@"Content-type" value:@"application/x-www-form-urlencoded"];
@@ -290,7 +290,7 @@
         }
     }
 
-//    NSURL *url = [NSURL URLWithString:@"http://m.newsmth.net/user/query/"];
+//    NSURL *url = [NSURL URLWithString:URL_PROTOCOL @"//m.newsmth.net/user/query/"];
 //    NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
 //        NSString *content = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 //        XLog_d(@"%@", content);

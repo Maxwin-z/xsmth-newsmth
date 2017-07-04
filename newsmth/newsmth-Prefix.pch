@@ -32,3 +32,5 @@
 #import "UIView+Utils.h"
 
 #endif
+
+#define URL_PROTOCOL @"https:"

@@ -427,7 +427,7 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
         [self.refreshControl addTarget:self action:@selector(onRefreshControlValueChanged:) forControlEvents:UIControlEventValueChanged];
     }
     // debug
-//    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://localhost/xsmth/"]];
+//    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:URL_PROTOCOL @"//localhost/xsmth/"]];
 //    NSURL *url = [NSURL URLWithString:@"http://" DEBUG_HOST @"/xsmth/index.html"];
 //    NSString *str = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:NULL];
 
@@ -709,7 +709,7 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     XLog_d(@"load url: %@", url);
     req = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:url]];
     
-    if ([url hasPrefix:@"http://www.newsmth.net/nForum/"]) {
+    if ([url hasPrefix:URL_PROTOCOL @"//www.newsmth.net/nForum/"]) {
         [req addRequestHeader:@"X-Requested-With" value:@"XMLHttpRequest"];
     }
     
@@ -949,7 +949,7 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     [activites addObject:spamActivity];
     
     
-    NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/single/%d/0",
+    NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//m.newsmth.net/article/%@/single/%d/0",
                      post.board.name, post.pid];
     
     NSInteger kTwitterLength = 140;
@@ -1061,7 +1061,7 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
 {
     self.deleteOp = [SMWebLoaderOperation new];
     self.deleteOp.delegate = self;
-    NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/delete/%@", self.postForAction.board.name, @(self.postForAction.pid)];
+    NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//m.newsmth.net/article/%@/delete/%@", self.postForAction.board.name, @(self.postForAction.pid)];
     [self.deleteOp loadUrl:url withParser:nil];
 }
 
@@ -1114,13 +1114,13 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
             if (text.length != 0) {
                 _forwardOp = [[SMWebLoaderOperation alloc] init];
                 
-                NSString *formUrl = @"http://www.newsmth.net/bbsfwd.php?do";
+                NSString *formUrl = URL_PROTOCOL @"//www.newsmth.net/bbsfwd.php?do";
                 SMHttpRequest *request = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:formUrl]];
                 
                 NSString *postBody = [NSString stringWithFormat:@"board=%@&id=%d&target=%@&noansi=1", self.post.board.name, self.postForAction.pid, [SMUtils encodeurl:text]];
                 
                 if (self.forwardAll) {
-                    formUrl = @"http://www.newsmth.net/bbstfwd.php?do";
+                    formUrl = URL_PROTOCOL @"//www.newsmth.net/bbstfwd.php?do";
                     request = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:formUrl]];
                     postBody = [NSString stringWithFormat:@"board=%@&gid=%@&start=%@&target=%@", self.post.board.name, @(self.post.pid), @(self.postForAction.pid), [SMUtils encodeurl:text]];
                 }
