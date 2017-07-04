@@ -125,11 +125,11 @@
 
 - (void)doSend
 {
-    NSString *formUrl = @"http://m.newsmth.net/mail/send";
+    NSString *formUrl = URL_PROTOCOL @"//m.newsmth.net/mail/send";
     if (_mail.url.length > 0) {
         NSString *path = _mail.url;
         path = [path stringByReplacingOccurrencesOfString:@"inbox/" withString:@"inbox/send/"];
-        formUrl = [NSString stringWithFormat:@"http://m.newsmth.net/%@", path];
+        formUrl = [NSString stringWithFormat:URL_PROTOCOL @"//m.newsmth.net/%@", path];
     }
  
     NSString *title = [SMUtils encodeurl:_textFieldForTitle.text];

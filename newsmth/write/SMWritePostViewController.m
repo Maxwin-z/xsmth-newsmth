@@ -183,13 +183,13 @@
 //    NSString *formUrl = [NSString stringWithFormat:@"http://www.newsmth.net/bbssnd.php?board=%@&reid=%d", _post.board.name, _post.pid];
     NSString *formUrl;
     if (_post.pid == 0) {
-        formUrl = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/post", _post.board.name];
+        formUrl = [NSString stringWithFormat:URL_PROTOCOL @"//m.newsmth.net/article/%@/post", _post.board.name];
     } else {
-        formUrl = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/post/%d", _post.board.name, _post.pid];
+        formUrl = [NSString stringWithFormat:URL_PROTOCOL @"//m.newsmth.net/article/%@/post/%d", _post.board.name, _post.pid];
     }
     
     if (self.editPost) {
-        formUrl = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/edit/%d", self.editPost.board.name, self.editPost.pid];
+        formUrl = [NSString stringWithFormat:URL_PROTOCOL @"//m.newsmth.net/article/%@/edit/%d", self.editPost.board.name, self.editPost.pid];
     }
     
     SMHttpRequest *request = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:formUrl]];

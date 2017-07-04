@@ -19,7 +19,7 @@
 {
     SMPost *post = self.placeholderItem;
     
-    NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/single/%d/0",
+    NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//m.newsmth.net/article/%@/single/%d/0",
                      post.board.name, post.pid];
     
     if ([activityType isEqualToString:SMActivityTypePostToWXSession]

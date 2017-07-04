@@ -636,7 +636,7 @@
             
             NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbscon.php?bid=%@&id=%@", @(_bid), @(post.pid)];
             if (![SMConfig enableShowQMD]) {
-                url = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/single/%d/0",
+                url = [NSString stringWithFormat:URL_PROTOCOL @"//m.newsmth.net/article/%@/single/%d/0",
                              _board.name, post.pid];
             }
 
@@ -928,7 +928,7 @@
         SMPost *post = cell.post;
         post.board = self.board;
         
-        NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/single/%d/0",
+        NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//m.newsmth.net/article/%@/single/%d/0",
                          post.board.name, post.pid];
 
         SMPostActivityItemProvider *provider = [[SMPostActivityItemProvider alloc] initWithPlaceholderItem:post];
@@ -1019,7 +1019,7 @@
                 NSString *title = [shareActionSheet buttonTitleAtIndex:[buttonIndex integerValue]];
                 
                 SMPost *post = cell.post;
-                NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/single/%d/0",
+                NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//m.newsmth.net/article/%@/single/%d/0",
                                  _board.name, post.pid];
 
                 if ([title isEqualToString:titleForWXSession] || [title isEqualToString:titleForWXTimeline]) {
@@ -1085,7 +1085,7 @@
 {
     SMPostItem *item = cell.item;
     SMPost *post = item.post;
-    NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/single/%d/0", _board.name, post.pid];
+    NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//m.newsmth.net/article/%@/single/%d/0", _board.name, post.pid];
 
     [item.op cancel];
 

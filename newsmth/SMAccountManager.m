@@ -48,7 +48,7 @@ static SMAccountManager *_instance;
 
 - (void)loadCookie
 {
-    NSURL *url = [NSURL URLWithString:@"http://m.newsmth.net"];
+    NSURL *url = [NSURL URLWithString:URL_PROTOCOL @"//m.newsmth.net"];
     NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:url];
     if (cookies) {
         [self setCookies:cookies];

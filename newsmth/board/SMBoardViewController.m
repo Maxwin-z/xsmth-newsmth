@@ -227,9 +227,9 @@
     }
     NSString *url;
     if (_viewTypeSelector.viewType == SMBoardViewTypeTztSortByReply) {
-        url = [NSString stringWithFormat:@"http://m.newsmth.net/board/%@?p=%d", _board.name, _page];
+        url = [NSString stringWithFormat:URL_PROTOCOL @"//m.newsmth.net/board/%@?p=%d", _board.name, _page];
     } else if (_viewTypeSelector.viewType == SMBoardViewTypeNormal) {
-        url = [NSString stringWithFormat:@"http://m.newsmth.net/board/%@/0?p=%d", _board.name, _page];
+        url = [NSString stringWithFormat:URL_PROTOCOL @"//m.newsmth.net/board/%@/0?p=%d", _board.name, _page];
     } else {
         url = [NSString stringWithFormat:@"http://www.newsmth.net/bbsdoc.php?board=%@&ftype=6", _board.name];
         if (more) {
@@ -338,7 +338,7 @@
         vc = groupPVC;
     } else {
         SMPostViewController *singlePVC = [[SMPostViewController alloc] init];
-        singlePVC.postUrl = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/single/%d/0", _board.name, post.gid];
+        singlePVC.postUrl = [NSString stringWithFormat:URL_PROTOCOL @"//m.newsmth.net/article/%@/single/%d/0", _board.name, post.gid];
         singlePVC.fromBoard = YES;
         vc = singlePVC;
     }

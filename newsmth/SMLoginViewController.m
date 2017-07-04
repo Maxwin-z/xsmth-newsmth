@@ -84,7 +84,7 @@
 
 - (IBAction)onLoginButtonClick:(id)sender
 {
-    SMHttpRequest *request = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:@"http://m.newsmth.net/user/login"]];
+    SMHttpRequest *request = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:URL_PROTOCOL @"//m.newsmth.net/user/login"]];
     NSString *username = [SMUtils encodeurl:_textFieldForUsername.text];
     NSString *password = [SMUtils encodeurl:_textFieldForPassword.text];
     
@@ -151,7 +151,7 @@
     
     if (++self.failTimes > 1) {
         self.failTimes = 0;
-        [SMDiagnoseViewController diagnose:@"http://m.newsmth.net" rootViewController:self];
+        [SMDiagnoseViewController diagnose:URL_PROTOCOL @"//m.newsmth.net" rootViewController:self];
     }
 }
 

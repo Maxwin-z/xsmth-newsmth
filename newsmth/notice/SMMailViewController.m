@@ -63,7 +63,7 @@
         mailType = @"deleted";
     }
     
-    NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/mail/%@?p=%@", mailType, @(_page)];
+    NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//m.newsmth.net/mail/%@?p=%@", mailType, @(_page)];
     
     [_mailOp cancel];
     _mailOp = [[SMWebLoaderOperation alloc] init];

@@ -112,7 +112,7 @@
 {
     [_logoutOp cancel];
     _logoutOp = [[SMWebLoaderOperation alloc] init];
-    [_logoutOp loadUrl:@"http://m.newsmth.net/user/logout" withParser:nil];
+    [_logoutOp loadUrl:URL_PROTOCOL @"//m.newsmth.net/user/logout" withParser:nil];
     
     // disable 
     if ([SMUtils systemVersion] >= 7) {

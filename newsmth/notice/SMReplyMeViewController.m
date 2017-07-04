@@ -67,7 +67,7 @@
 
 - (void)onRightBarButtonItemClick:(UIBarButtonItem *)item
 {
-    NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/refer/%@/read?index=all", _refer];
+    NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//m.newsmth.net/refer/%@/read?index=all", _refer];
     self.allReadOp = [[SMWebLoaderOperation alloc] init];
     self.allReadOp.delegate = self;
     [self.allReadOp loadUrl:url withParser:nil];
@@ -129,7 +129,7 @@
     }
 
     SMPost *post = _posts[indexPath.row];
-    NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/refer/%@/read?index=%d", _refer, post.gid];
+    NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//m.newsmth.net/refer/%@/read?index=%d", _refer, post.gid];
     SMPostViewController *vc = [[SMPostViewController alloc] init];
     vc.postUrl = url;
     if ([SMConfig iPadMode]) {

@@ -184,7 +184,7 @@ NSString *tpl =
         NSString *tail = [content substringFromIndex:maxLength];
 
         if (clip) {
-            NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/single/%d/0",
+            NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//m.newsmth.net/article/%@/single/%d/0",
                              self.post.board.name, self.post.pid];
             content = [NSString stringWithFormat:@"%@ <a class=\"origin_link\" href=\"xsmth://fullpost?url=%@\">原文过长，已加载%@<br />点击查看全部</a>", head, url, ratio];
         } else {

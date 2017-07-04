@@ -80,7 +80,7 @@
 - (void)loadMailInfo
 {
     _mailContentOp = [[SMWebLoaderOperation alloc] init];
-    NSString *url = [NSString stringWithFormat:@"http://m.newsmth.net/%@", _mail.url];
+    NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//m.newsmth.net/%@", _mail.url];
     _mailContentOp.delegate = self;
     [_mailContentOp loadUrl:url withParser:@"mailcontent,util_notice"];
 }

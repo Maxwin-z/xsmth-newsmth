@@ -37,7 +37,7 @@
         } else {
             NSString *url = [NSString stringWithFormat:@"http://www.newsmth.net/bbscon.php?bid=%@&id=%@", @(post.board.bid), @(post.pid)];
             if (self.fromMobile) {
-                url = [NSString stringWithFormat:@"http://m.newsmth.net/article/%@/single/%d/0",
+                url = [NSString stringWithFormat:URL_PROTOCOL @"//m.newsmth.net/article/%@/single/%d/0",
                        post.board.name, post.pid];
             }
            
