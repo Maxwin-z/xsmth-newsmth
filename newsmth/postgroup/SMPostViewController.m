@@ -586,12 +586,12 @@
 - (NSString *)getAttachUrl:(SMAttach *)attach
 {
     NSString *type = @"large";
-    return [NSString stringWithFormat:@"http://att.newsmth.net/nForum/att/%@/%d/%d/%@", attach.boardName, attach.pid, attach.pos, type];
+    return [NSString stringWithFormat:URL_PROTOCOL @"//att.newsmth.net/nForum/att/%@/%d/%d/%@", attach.boardName, attach.pid, attach.pos, type];
 }
 
 - (NSString *)getAttachOriginalUrl:(SMAttach *)attach
 {
-    return [NSString stringWithFormat:@"http://att.newsmth.net/nForum/att/%@/%d/%d", attach.boardName, attach.pid, attach.pos];
+    return [NSString stringWithFormat:URL_PROTOCOL @"//att.newsmth.net/nForum/att/%@/%d/%d", attach.boardName, attach.pid, attach.pos];
 }
 
 #pragma mark - SMWebLoaderOperationDelegate
