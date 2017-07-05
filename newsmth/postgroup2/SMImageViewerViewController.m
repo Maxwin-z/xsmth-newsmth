@@ -8,6 +8,7 @@
 
 #import "SMImageViewerViewController.h"
 #import "XImageView.h"
+#import "XImageViewCache.h"
 
 @interface SMImageViewerViewController () <UIScrollViewDelegate>
 @property (strong, nonatomic) XImageView *imageView;
@@ -60,8 +61,13 @@
 
 - (void)onRightBarButtonClick
 {
-    UIImageWriteToSavedPhotosAlbum(self.imageView.image, nil, nil, nil);
-    [self toast:@"保存成功"];
+    NSData *dadata = [NSData dataWithContentsOfFile:[[XImageViewCache sharedInstance] pathForUrl:_imageUrl]];
+    [SMUtils savePhoto:dadata completionHandler:^(BOOL success, NSError * _Nullable error) {
+        if(success)
+            [self toast:@"保存成功"];
+        else
+            [self toast:@"保存失败"];
+    }];
 }
 
 @end

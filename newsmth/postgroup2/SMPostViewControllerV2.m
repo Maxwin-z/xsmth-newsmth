@@ -838,8 +838,13 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
         
         NSString *title = [sheet buttonTitleAtIndex:buttonIndex];
         if ([title isEqualToString:@"保存图片"]) {
-            UIImage *image = [[XImageViewCache sharedInstance] getImage:url];
-            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+            NSData *dadata = [NSData dataWithContentsOfFile:[[XImageViewCache sharedInstance] pathForUrl:url]];
+            [SMUtils savePhoto:dadata completionHandler:^(BOOL success, NSError * _Nullable error) {
+                if(success)
+                    [self toast:@"保存成功"];
+                else
+                    [self toast:@"保存失败"];
+            }];
         }
         
         if ([title isEqualToString:@"查看大图"]) {
