@@ -802,10 +802,12 @@ function parsePosts(html) {
 	return ret.posts;
 }
 
-function trimHtml(html) {
+function trimHtml(html, isM) {
 	return html.replace(/<script.*?<\/script>/g, '')
   .replace(/<a[^>]+>(<img[^>]+>)<\/a>/gi, '$1')  // remove <a>
-  .replace(/<img\s+[^>]*?src="(\/\/att.newsmth.net.*?\/(middle|large))"[^>]*?>/gi, function($0, src) {
+  .replace(/(<img\s+[^>]*?src=")(\/nForum\/att[^"]+\/(middle|large)")/gi, '$1//att.newsmth.net$2')
+  .replace(/(<img\s+[^>]*?src=")(\/att\/[^\/]+\/\d+[^"]+\/(middle|large)")/gi, '$1//m.newsmth.net$2')
+  .replace(/<img\s+[^>]*?src="(\/\/(att|m).newsmth.net.*?\/(middle|large))"[^>]*?>/gi, function($0, src) {
     src = src.replace(/\/(large|middle)$/, '');
     src = 'https:' + src
 		return [
@@ -818,11 +820,11 @@ function trimHtml(html) {
 		].join('');
   })
   .replace(/(<img[^>]*?src=")(\/\/)/gi, '$1http:$2')  // add http to //[url]
-	.replace(/(<img[^>]*?src=")(\/)/gi, '$1http://www.newsmth.net$2')
+	.replace(/(<img[^>]*?src=")(\/)/gi, '$1http://' + (isM ? 'm' : 'www') + '.newsmth.net$2')
 }
 
 function parseMPosts(html) {
-	html = trimHtml(html);
+	html = trimHtml(html, true);
 
 	isInvalidPost = true;
 	var ret = {};
@@ -878,7 +880,7 @@ function parseMPosts(html) {
 }
 
 function parseWPosts(html) {
-	html = trimHtml(html);
+	html = trimHtml(html, false);
 
 	var div = $(document.createElement('div'));
 	div.hide();
