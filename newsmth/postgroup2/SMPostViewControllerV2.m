@@ -1123,11 +1123,10 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
                 SMHttpRequest *request = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:formUrl]];
                 
                 NSString *postBody = [NSString stringWithFormat:@"board=%@&id=%d&target=%@&noansi=1", self.post.board.name, self.postForAction.pid, [SMUtils encodeurl:text]];
-                
                 if (self.forwardAll) {
                     formUrl = URL_PROTOCOL @"//www.newsmth.net/bbstfwd.php?do";
                     request = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:formUrl]];
-                    postBody = [NSString stringWithFormat:@"board=%@&gid=%@&start=%@&target=%@", self.post.board.name, @(self.post.pid), @(self.postForAction.pid), [SMUtils encodeurl:text]];
+                    postBody = [NSString stringWithFormat:@"board=%@&gid=%@&start=%@&target=%@", self.post.board.name, @(self.post.gid), @(self.postForAction.pid), [SMUtils encodeurl:text]];
                 }
                 [request setRequestMethod:@"POST"];
                 [request addRequestHeader:@"Content-type" value:@"application/x-www-form-urlencoded"];
