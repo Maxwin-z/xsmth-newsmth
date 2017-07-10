@@ -39,6 +39,8 @@
 + (BOOL)writeData:(NSData *)data toDocumentFolder:(NSString *)path;
 + (NSData *)readDataFromDocumentFolder:(NSString *)path;
 + (BOOL)fileExistsInDocumentFolder:(NSString *)path;
++ (void)savePhoto:(NSData*) dadata completionHandler:(void(^)(BOOL success, NSError * _Nullable error))block;
++ (BOOL)isGif:(NSData *)data;
 
 + (void)setIOS7ButtonStyle:(UIButton *)button;
 + (void)setTextFieldStyle:(UITextField *)textField;

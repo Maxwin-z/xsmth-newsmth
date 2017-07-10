@@ -318,6 +318,7 @@
 		C1FD13DD1781B26F006A6061 /* left_shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1FD13DC1781B26F006A6061 /* left_shadow@2x.png */; };
 		C1FF62B1179E6DF4001F7A15 /* SMPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FF62AF179E6DF4001F7A15 /* SMPostViewController.m */; };
 		C1FF62B2179E6DF4001F7A15 /* SMPostViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1FF62B0179E6DF4001F7A15 /* SMPostViewController.xib */; };
+		CBDFF1341F1390F4005EB0B9 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBDFF1331F1390F4005EB0B9 /* Photos.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -830,6 +831,7 @@
 		C1FF62AE179E6DF4001F7A15 /* SMPostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMPostViewController.h; sourceTree = "<group>"; };
 		C1FF62AF179E6DF4001F7A15 /* SMPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMPostViewController.m; sourceTree = "<group>"; };
 		C1FF62B0179E6DF4001F7A15 /* SMPostViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMPostViewController.xib; sourceTree = "<group>"; };
+		CBDFF1331F1390F4005EB0B9 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		D3810D26CEA5003BA313441D /* Pods-newsmth.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-newsmth.release.xcconfig"; path = "Pods/Target Support Files/Pods-newsmth/Pods-newsmth.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -838,6 +840,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CBDFF1341F1390F4005EB0B9 /* Photos.framework in Frameworks */,
 				C1129B591A70DE7E00B5EB1E /* CoreText.framework in Frameworks */,
 				C1BBFD97190279EB008460B5 /* CoreMotion.framework in Frameworks */,
 				C10C49D118F2C34E00DF946E /* CoreImage.framework in Frameworks */,
@@ -1348,6 +1351,7 @@
 		C1BFB8DB174F6A620092FD2E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CBDFF1331F1390F4005EB0B9 /* Photos.framework */,
 				C1129B581A70DE7E00B5EB1E /* CoreText.framework */,
 				C1BBFD96190279EB008460B5 /* CoreMotion.framework */,
 				C10C49D018F2C34E00DF946E /* CoreImage.framework */,
@@ -2036,7 +2040,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		EB89DCCB2028CAB20F32354A /* [CP] Embed Pods Frameworks */ = {
