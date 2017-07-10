@@ -187,7 +187,7 @@
         ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
         [library writeImageDataToSavedPhotosAlbum:dadata metadata:nil completionBlock:^(NSURL *assetURL, NSError *error) {
             if(block != nil){
-                block(error != NULL, error);
+                block(error == nil, error);
             }
         }];
     }
