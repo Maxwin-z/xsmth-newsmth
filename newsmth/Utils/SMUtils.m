@@ -9,6 +9,8 @@
 #import "SMUtils.h"
 #import "GAI.h"
 #import "GAIDictionaryBuilder.h"
+#import <Photos/Photos.h>
+#import <AssetsLibrary/ALAssetsLibrary.h>
 
 @implementation SMUtils
 
@@ -161,6 +163,45 @@
     }
     XLog_d(@"save data to %@", filepath);
     return YES;
+}
+
++ (void)savePhoto:(NSData*) dadata completionHandler:(void(^)(BOOL success, NSError * _Nullable error))block
+{
+    if ([UIDevice currentDevice].systemVersion.floatValue >= 9.0f) {
+        [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+            
+            PHAssetResourceCreationOptions *options = [[PHAssetResourceCreationOptions alloc] init];
+            options.shouldMoveFile = YES;
+            [[PHAssetCreationRequest creationRequestForAsset] addResourceWithType:PHAssetResourceTypePhoto data:dadata options:options];
+            
+        } completionHandler:^(BOOL success, NSError * _Nullable error) {
+            //子线程
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                if(block != nil){
+                    block(success, error);
+                }
+            });
+        }];
+    }
+    else{
+        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+        [library writeImageDataToSavedPhotosAlbum:dadata metadata:nil completionBlock:^(NSURL *assetURL, NSError *error) {
+            if(block != nil){
+                block(error == nil, error);
+            }
+        }];
+    }
+}
+
++(BOOL) isGif:(NSData *)data
+{
+    uint8_t c;
+    [data getBytes:&c length:1];
+    if (c == 0x47) {
+        return YES;
+    }else{
+        return NO;
+    }
 }
 
 + (NSData *)readDataFromDocumentFolder:(NSString *)path

@@ -10,6 +10,7 @@
 #import "SMWebLoaderOperation.h"
 #import "ASIFormDataRequest.h"
 #import <AssetsLibrary/AssetsLibrary.h>
+#import "SMUtils.h"
 
 typedef NS_ENUM(NSInteger, SMUploadAct) {
     SMUploadActAdd = 1,
@@ -79,38 +80,49 @@ typedef NS_ENUM(NSInteger, SMUploadAct) {
     
     for (int i = 0; i != assets.count; ++i) {
         ALAsset *asset = assets[i];
+        NSString *filePath = nil;
         NSDate *now = [NSDate date];
-        NSString *filePath = [NSString stringWithFormat:@"%@/xsmth_%d_%@.jpg", docPath, i, [formatter stringFromDate:now]];
         
         ALAssetRepresentation *assetRepresentation = [asset defaultRepresentation];
-        CGImageRef fullResImage = [assetRepresentation fullResolutionImage];
-        NSString *adjustment = [[assetRepresentation metadata] objectForKey:@"AdjustmentXMP"];
-        if (adjustment) {
-            NSData *xmpData = [adjustment dataUsingEncoding:NSUTF8StringEncoding];
-            CIImage *image = [CIImage imageWithCGImage:fullResImage];
-            
-            NSError *error = nil;
-            NSArray *filterArray = [CIFilter filterArrayFromSerializedXMP:xmpData
-                                                         inputImageExtent:image.extent
-                                                                    error:&error];
-            CIContext *context = [CIContext contextWithOptions:nil];
-            if (filterArray && !error) {
-                for (CIFilter *filter in filterArray) {
-                    [filter setValue:image forKey:kCIInputImageKey];
-                    image = [filter outputImage];
-                }
-                fullResImage = [context createCGImage:image fromRect:[image extent]];
-            }
+        Byte *buffer = (Byte*)malloc(assetRepresentation.size);
+        NSUInteger buffered = [assetRepresentation getBytes:buffer fromOffset:0.0 length:assetRepresentation.size error:nil];
+        NSData *sourceData = [NSData dataWithBytesNoCopy:buffer length:buffered freeWhenDone:YES];
+        if([SMUtils isGif:sourceData]){
+            filePath = [NSString stringWithFormat:@"%@/xsmth_%d_%@.gif", docPath, i, [formatter stringFromDate:now]];
+            [sourceData writeToFile:filePath atomically:YES];
         }
-        UIImage *imageOriginal = [UIImage imageWithCGImage:fullResImage
-                                              scale:[assetRepresentation scale]
-                                        orientation:(UIImageOrientation)[assetRepresentation orientation]];
-        
-        UIImage *imageResized = [self resizeImage:imageOriginal toMaxSize:800.0f];
-        
-        NSData *imageData = UIImageJPEGRepresentation(imageResized, 0.9);
-        
-        [imageData writeToFile:filePath atomically:YES];
+        else{
+            filePath = [NSString stringWithFormat:@"%@/xsmth_%d_%@.jpg", docPath, i, [formatter stringFromDate:now]];
+
+            CGImageRef fullResImage = [assetRepresentation fullResolutionImage];
+            NSString *adjustment = [[assetRepresentation metadata] objectForKey:@"AdjustmentXMP"];
+            if (adjustment) {
+                NSData *xmpData = [adjustment dataUsingEncoding:NSUTF8StringEncoding];
+                CIImage *image = [CIImage imageWithCGImage:fullResImage];
+                
+                NSError *error = nil;
+                NSArray *filterArray = [CIFilter filterArrayFromSerializedXMP:xmpData
+                                                             inputImageExtent:image.extent
+                                                                        error:&error];
+                CIContext *context = [CIContext contextWithOptions:nil];
+                if (filterArray && !error) {
+                    for (CIFilter *filter in filterArray) {
+                        [filter setValue:image forKey:kCIInputImageKey];
+                        image = [filter outputImage];
+                    }
+                    fullResImage = [context createCGImage:image fromRect:[image extent]];
+                }
+            }
+            UIImage *imageOriginal = [UIImage imageWithCGImage:fullResImage
+                                                         scale:[assetRepresentation scale]
+                                                   orientation:(UIImageOrientation)[assetRepresentation orientation]];
+            
+            UIImage *imageResized = [self resizeImage:imageOriginal toMaxSize:800.0f];
+            
+            NSData *imageData = UIImageJPEGRepresentation(imageResized, 0.9);
+            
+            [imageData writeToFile:filePath atomically:YES];
+        }
         
         [files addObject:filePath];
     }
