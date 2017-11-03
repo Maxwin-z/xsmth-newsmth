@@ -67,6 +67,17 @@ static SMNoticeViewController *_instance;
     
     [self onNoticeNotification];
     
+    if (@available(iOS 11.0, *)) {
+        CGFloat bottom = UIApplication.sharedApplication.keyWindow.safeAreaInsets.bottom;
+        CGRect frame = self.tabbar.frame;
+        frame.origin.y -= bottom;
+        self.tabbar.frame = frame;
+        
+        frame = self.viewForContainer.frame;
+        frame.size.height -= bottom;
+        self.viewForContainer.frame = frame;
+    }
+    
 }
 
 - (void)setupTheme
