@@ -115,6 +115,11 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     [[NSBundle mainBundle] loadNibNamed:@"SMPostViewBottomBar" owner:self options:nil];
     CGRect frame = self.viewForButtomBar.frame;
     frame.size.width = self.view.frame.size.width;
+    
+    if (@available(iOS 11.0, *)) {
+        frame.size.height += UIApplication.sharedApplication.keyWindow.safeAreaInsets.bottom;
+    }
+    
     frame.origin.y = self.view.frame.size.height - frame.size.height;
     if ([SMUtils systemVersion] < 6) {
         frame = CGRectZero; // ios5 not support
@@ -251,7 +256,11 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
         frame.origin.y = self.view.frame.size.height;
         self.viewForButtomBar.frame = frame;
         
-        [self setWebViewContentInsetTop:40 bottom:0];
+        CGFloat bottom = 0.0f;
+        if (@available(iOS 11.0, *)) {
+            bottom = UIApplication.sharedApplication.keyWindow.safeAreaInsets.bottom;
+        }
+        [self setWebViewContentInsetTop:SM_TOP_INSET bottom:bottom];
     }];
 }
 
