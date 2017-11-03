@@ -92,6 +92,7 @@
     CGFloat titleHeight = [_mail.title smSizeWithFont:_labelForTitle.font constrainedToSize:CGSizeMake(_labelForTitle.frame.size.width, CGFLOAT_MAX) lineBreakMode:_labelForTitle.lineBreakMode].height;
     
     CGRect frame = _viewForInfo.frame;
+    frame.origin.y = SM_TOP_INSET;
     frame.size.height = titleHeight + heightExpectTitle;
     _viewForInfo.frame = frame;
     
@@ -116,6 +117,9 @@
     UIEdgeInsets inset = scrollView.contentInset;
     inset.top = SM_TOP_INSET + _viewForInfo.frame.size.height;
     scrollView.contentInset = scrollView.scrollIndicatorInsets = inset;
+    if (@available(iOS 11.0, *)) {
+        scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }
     
     _mail.content = _result.message;
     
