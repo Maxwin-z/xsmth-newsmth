@@ -706,6 +706,10 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
 {
     SMHttpRequest *req;
     NSString *url = parameters[@"url"];
+    if ([url hasPrefix:@"http:"]) {
+        url = [url substringFromIndex:[@"http:" length]];
+        url = [NSString stringWithFormat:@"%@%@", URL_PROTOCOL, url];
+    }
     XLog_d(@"load url: %@", url);
     req = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:url]];
     
