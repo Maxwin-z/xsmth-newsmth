@@ -15,7 +15,10 @@
 #define SM_AD_DOMIN @"http://intely.cn"
 #define SM_AD_APPID @"8"
 
-#define SM_TOP_INSET    64.0f
+#define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+#define IS_IPHONE_X (IS_IPHONE && [[UIScreen mainScreen] bounds].size.height == 812.0f)
+
+#define SM_TOP_INSET  (IS_IPHONE_X ? 88.0f : 64.0f)
 
 #define SMRGB(r, g, b)  [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:1.0f]
 #define SMRGBA(r, g, b, a)  [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:(a)]

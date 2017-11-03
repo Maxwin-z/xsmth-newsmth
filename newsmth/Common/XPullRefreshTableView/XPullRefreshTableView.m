@@ -11,7 +11,7 @@
 #import "XTimeLabel.h"
 
 #define ANIMATION_DURATION  0.1f
-#define NAVIGATION_HEIGHT   64.0f
+#define NAVIGATION_HEIGHT   (IS_IPHONE_X ? 88.0f : 64.0f)
 #define REFRESH_TRIGGER_HEIGHT  (60.0f + NAVIGATION_HEIGHT)
 
 @interface XPullRefreshTableView ()<UITableViewDelegate>
