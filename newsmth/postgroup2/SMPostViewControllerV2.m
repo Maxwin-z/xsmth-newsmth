@@ -232,16 +232,18 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     self.hideTop = YES;
     
 //    self.navigationItem.hidesBackButton = YES;
-    [self setBarItemsHide:YES];
-    
-    CGRect frame = self.navigationController.navigationBar.frame;
-    frame.size.height = 20;
-    self.navigationController.navigationBar.frame = frame;
-    
-    self.titleView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.6, 0.6);
-    frame = self.titleLabel.frame;
-    frame.origin.y = 12;
-    self.titleLabel.frame = frame;
+    if ([SMUtils systemVersion] < 11) {
+        [self setBarItemsHide:YES];
+        
+        CGRect frame = self.navigationController.navigationBar.frame;
+        frame.size.height = 20;
+        self.navigationController.navigationBar.frame = frame;
+        
+        self.titleView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.6, 0.6);
+        frame = self.titleLabel.frame;
+        frame.origin.y = 12;
+        self.titleLabel.frame = frame;
+    }
     
     // bottom
     [UIView animateWithDuration:animated ? 0.5 : 0 animations:^{
@@ -262,14 +264,16 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
 //    self.navigationItem.hidesBackButton = NO;
     [self setBarItemsHide:NO];
  
-    CGRect frame = self.navigationController.navigationBar.frame;
-    frame.size.height = 44;
-    self.navigationController.navigationBar.frame = frame;
-    
-    self.titleView.transform = CGAffineTransformIdentity;
-    frame = self.titleLabel.frame;
-    frame.origin.y = 0;
-    self.titleLabel.frame = frame;
+    if ([SMUtils systemVersion] < 11) {
+        CGRect frame = self.navigationController.navigationBar.frame;
+        frame.size.height = 44;
+        self.navigationController.navigationBar.frame = frame;
+        
+        self.titleView.transform = CGAffineTransformIdentity;
+        frame = self.titleLabel.frame;
+        frame.origin.y = 0;
+        self.titleLabel.frame = frame;
+    }
     
     // bottom
     [UIView animateWithDuration:animated ? 0.5 : 0 animations:^{
