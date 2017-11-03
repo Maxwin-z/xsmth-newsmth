@@ -142,8 +142,6 @@
     button.titleLabel.adjustsFontSizeToFitWidth = YES;
     if ([button.titleLabel respondsToSelector:@selector(setMinimumScaleFactor:)]) {
         button.titleLabel.minimumScaleFactor = 0.6f;
-    } else {
-        button.titleLabel.minimumFontSize = 12.0f;
     }
 
     [button setImage:[UIImage imageNamed:@"icon_board_view_type"] forState:UIControlStateNormal];
@@ -170,7 +168,7 @@
 {
     _isViewTypeSelectorVisiable = YES;
     CGRect frame = _viewTypeSelector.frame;
-    frame.origin.y = 64;
+    frame.origin.y = SM_TOP_INSET;
     _viewForMasker.hidden = NO;
     [UIView animateWithDuration:0.2 animations:^{
         _viewTypeSelector.frame = frame;
