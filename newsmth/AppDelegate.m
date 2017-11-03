@@ -136,6 +136,11 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
 //    [self setupTheme];
+    // fix iOS11 ScrollView
+    if (@available(iOS 11.0, *)){
+        [[UIScrollView appearance] setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];
+    }
+    
     self.isNewLaunching = YES;
     
     _mainViewController = [[SMMainViewController alloc] init];
