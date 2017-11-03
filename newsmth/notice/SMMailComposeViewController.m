@@ -84,6 +84,12 @@
         }
     }
     _textViewForContent.text = quoteString;
+    
+    if (IS_IPHONE_X) {
+        CGRect frame = self.viewForContainer.frame;
+        frame.origin.y = SM_TOP_INSET;
+        self.viewForContainer.frame = frame;
+    }
 
 }
 
