@@ -62,6 +62,7 @@
 
 - (void)awakeFromNib
 {
+    [super awakeFromNib];
     [self setup];
 }
 
@@ -83,6 +84,12 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupTheme) name:NOTIFYCATION_THEME_CHANGED object:nil];
     
     [self setupTheme];
+    
+    if (@available(iOS 11.0, *)) {
+        UIEdgeInsets inset = self.contentInset;
+        inset.bottom = UIApplication.sharedApplication.keyWindow.safeAreaInsets.bottom;
+        self.contentInset = inset;
+    }
 }
 
 - (void)setupTheme
