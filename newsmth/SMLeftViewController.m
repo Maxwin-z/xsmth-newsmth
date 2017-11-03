@@ -64,7 +64,7 @@ typedef NS_ENUM(NSInteger, CellType) {
     _tableView.scrollsToTop = NO;
     
     frame = _viewForSetting.frame;
-    frame.origin.y = 20.0f;
+    frame.origin.y = IS_IPHONE_X ? 44.0f : 20.0f;
     _viewForSetting.frame = frame;
     [self.view addSubview:_viewForSetting];
 
@@ -74,6 +74,16 @@ typedef NS_ENUM(NSInteger, CellType) {
     }
     [_buttonForSetting setImage:image forState:UIControlStateNormal];
     
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    if (@available(iOS 11.0, *)) {
+        UIEdgeInsets inset = UIApplication.sharedApplication.keyWindow.safeAreaInsets;
+        NSLog(@"%@", NSStringFromUIEdgeInsets(inset));
+        self.tableView.contentInset = UIApplication.sharedApplication.keyWindow.safeAreaInsets;
+    }
 }
 
 - (void)setupTheme
