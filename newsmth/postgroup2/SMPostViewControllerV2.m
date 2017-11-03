@@ -396,6 +396,10 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     insets.top = top;
     insets.bottom = bottom;
     self.webView.scrollView.contentInset = self.webView.scrollView.scrollIndicatorInsets = insets;
+    
+    if (@available(iOS 11.0, *)) {
+        self.webView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }
 }
 
 - (void)setupWebView
