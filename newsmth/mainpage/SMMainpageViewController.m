@@ -64,6 +64,10 @@ static SMMainpageViewController *_instance;
     self.searchDisplayController.delegate = _boardSearchDelegateImpl;
     self.searchDisplayController.searchResultsDataSource = _boardSearchDelegateImpl;
     self.searchDisplayController.searchResultsDelegate = _boardSearchDelegateImpl;
+    
+    CGRect frame = self.searchDisplayController.searchBar.frame;
+    frame.origin.y = SM_TOP_INSET - 44.0f;  // for iPhoneX, safe area
+    self.searchDisplayController.searchBar.frame = frame;
 }
 
 - (void)setupTheme
