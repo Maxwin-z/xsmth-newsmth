@@ -27,7 +27,7 @@
     webView.scrollView.contentInset = webView.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(SM_TOP_INSET, 0, 0, 0);
     webView.backgroundColor = [UIColor whiteColor];
     
-    NSString *url = @"http://maxwin.me/xsmth/eula.html";
+    NSString *url = @"https://maxwin-z.github.io/xsmth/eula.html";
     [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
     
     if (!self.hideAgreeButton) {

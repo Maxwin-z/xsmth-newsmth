@@ -12,7 +12,7 @@
 #import "SMAdViewController.h"
 #import <CoreText/CoreText.h>
 
-#define API_PREFIX @"http://maxwin.me/xsmth/service/"
+#define API_PREFIX @"https://maxwin-z.github.io/xsmth/service/"
 
 #define USERDEFAULTS_UPDATE_VERSION   @"updater_version"
 #define USERDEFAULTS_UPDATE_PARSER   @"updater_parser"

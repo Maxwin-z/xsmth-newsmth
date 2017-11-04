@@ -644,7 +644,7 @@ static SectionData sections[] = {
     
     if (cellType == CellTypeThxPsyYiYi) {
         XWebViewController *vc = [[XWebViewController alloc] init];
-        vc.url = [NSURL URLWithString:@"http://maxwin.me/xsmth/PsyYiYi.html"];
+        vc.url = [NSURL URLWithString:@"https://maxwin-z.github.io/xsmth/PsyYiYi.html"];
         
         if ([SMConfig iPadMode]) {
             [SMIPadSplitViewController instance].detailViewController = vc;
@@ -663,7 +663,7 @@ static SectionData sections[] = {
     
     if (cellType == CellTypeAbout) {
         XWebViewController *vc = [[XWebViewController alloc] init];
-        vc.url = [NSURL URLWithString:@"http://maxwin.me/xsmth/about.html"];
+        vc.url = [NSURL URLWithString:@"https://maxwin-z.github.io/xsmth/about.html"];
         if ([SMConfig iPadMode]) {
             [SMIPadSplitViewController instance].detailViewController = vc;
         } else {
@@ -674,7 +674,7 @@ static SectionData sections[] = {
 
     if (cellType == CellTypeBackgroundFetchHelp) {
         XWebViewController *vc = [[XWebViewController alloc] init];
-        vc.url = [NSURL URLWithString:@"http://maxwin.me/xsmth/background_fetch_help.html"];
+        vc.url = [NSURL URLWithString:@"https://maxwin-z.github.io/xsmth/background_fetch_help.html"];
         if ([SMConfig iPadMode]) {
             [SMIPadSplitViewController instance].detailViewController = vc;
         } else {
@@ -774,7 +774,7 @@ static SectionData sections[] = {
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex != alertView.cancelButtonIndex) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://maxwin.me/xsmth/start.html"]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://maxwin-z.github.io/xsmth/start.html"]];
         [SMUtils trackEventWithCategory:@"setting" action:@"restart" label:nil];
         exit(0);
     }

@@ -64,7 +64,7 @@ typedef enum {
 - (void)loadProductIDs
 {
     [self showLoading:@"正在加载"];
-    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:@"http://maxwin.me/xsmth/service/donate.json"]];
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:@"https://maxwin-z.github.io/xsmth/service/donate.json"]];
     request.delegate = self;
     self.donateConfigRequest = request;
 
