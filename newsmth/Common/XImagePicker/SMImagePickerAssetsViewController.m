@@ -37,6 +37,11 @@
         self.tableView = nil; 
     }
     [_tableView reloadData];
+    
+    // for X
+    UIEdgeInsets inset = self.tableView.contentInset;
+    inset.top = SM_TOP_INSET;
+    self.tableView.contentInset = inset;
 }
 
 - (void)viewDidAppear:(BOOL)animated
