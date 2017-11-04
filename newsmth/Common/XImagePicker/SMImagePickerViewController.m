@@ -57,13 +57,21 @@
     [self.pickerContainer addSubview:_pickerNvc.view];
     
     CGRect frame = _tableViewForPhotos.frame;
+    if (@available(iOS 11.0, *)) {
+        frame.origin.y -= UIApplication.sharedApplication.keyWindow.safeAreaInsets.bottom;
+    }
     _tableViewForPhotos.transform = CGAffineTransformRotate(CGAffineTransformIdentity, k90DegreesCounterClockwiseAngle);
     _tableViewForPhotos.frame = frame;
+    
+    frame = self.pickerContainer.frame;
+    frame.size.height = self.tableViewForPhotos.frame.origin.y - frame.origin.y;
+    self.pickerContainer.frame = frame;
+    
 }
 
 - (void)dismiss
 {
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)onDoneButtonClick
