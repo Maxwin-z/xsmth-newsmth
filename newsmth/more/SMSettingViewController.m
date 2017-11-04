@@ -15,6 +15,7 @@
 #import <MessageUI/MessageUI.h>
 #import "SMIPadSplitViewController.h"
 #import "SMEULAViewController.h"
+#import "XImageView.h"
 
 #define MAX_CELL_COUNT  6
 
@@ -50,7 +51,8 @@ typedef enum {
     
     CellTypeThxPsyYiYi,
     CellTypeAbout,
-    CellTypeDonate
+    CellTypeDonate,
+    CellTypeZanShang
     
 }CellType;
 
@@ -144,8 +146,8 @@ static SectionData sections[] = {
         SectionTypeThanks,
         "感谢",
         NULL,
-        2,
-        {CellTypeThxPsyYiYi, CellTypeAbout /*, CellTypeDonate */}
+        3,
+        {CellTypeThxPsyYiYi, CellTypeAbout, CellTypeZanShang /*, CellTypeDonate */}
     }
 };
 
@@ -181,6 +183,9 @@ static SectionData sections[] = {
 
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForEnableMobileAutoLoadImage;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForPadMode;
+@property (strong, nonatomic) IBOutlet UITableViewCell *cellForZanShang;
+@property (weak, nonatomic) IBOutlet XImageView *imageViewForZanShang;
+@property (assign, nonatomic) CGFloat heigitForZanShang;
 
 @property (weak, nonatomic) IBOutlet UILabel *labelForAppVersion;
 @property (weak, nonatomic) IBOutlet UISwitch *switchForHideTop;
@@ -254,6 +259,8 @@ static SectionData sections[] = {
         _switchForBackgroundFetch.enabled = _switchForSwipeBack.enabled = _switchForBackgroundFetchSmartMode.enabled = NO;
     }
     
+    self.heigitForZanShang = 0.1f;
+    
 //    if ([SMConfig isPro]) {
 //        _cellForDonate.textLabel.text = @"已升级为Pro版";
 //    }
@@ -278,8 +285,32 @@ static SectionData sections[] = {
         });
     });
     
-    
+    [self loadZanShangImage];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onUpdateProNotification) name:NOTIFYCATION_IAP_PRO object:nil];
+}
+
+- (void)loadZanShangImage
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        NSURL *url = [NSURL URLWithString:@"https://maxwin-z.github.io/xsmth/zanshang.md"];
+        NSError *error = nil;
+        NSString *imageUrl = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
+        if ([imageUrl hasPrefix:@"http"]) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.imageViewForZanShang.url = [imageUrl stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                __weak SMSettingViewController *weakSelf = self;
+                [self.imageViewForZanShang setDidLoadBlock:^{
+                    UIImage *image = weakSelf.imageViewForZanShang.image;
+                    if (image.size.width > 0) {
+                        CGFloat padding = 21.0f;
+                        self.heigitForZanShang = weakSelf.imageViewForZanShang.frame.size.width * image.size.height / image.size.width + padding;
+                        [weakSelf.tableView reloadData];
+                    }
+                }];
+            });
+
+        }
+    });
 }
 
 - (NSString *)postsPath
@@ -346,6 +377,10 @@ static SectionData sections[] = {
     [super viewWillAppear:animated];
     [_tableView beginUpdates];
     [_tableView endUpdates];
+    
+    if (@available(iOS 11.0, *)) {
+        self.tableView.contentInset = UIApplication.sharedApplication.keyWindow.safeAreaInsets;
+    }
 }
 
 - (void)onUpdateProNotification
@@ -531,6 +566,8 @@ static SectionData sections[] = {
             return _cellForAbout;
         case CellTypeDonate:
             return _cellForDonate;
+        case CellTypeZanShang:
+            return _cellForZanShang;
         default:
             return [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
     }
@@ -567,6 +604,10 @@ static SectionData sections[] = {
         _labelForPostFont.text = [NSString stringWithFormat:@"文章字体预览：%@", _labelForPostFont.font.familyName];
         CGFloat delta = _cellForPostFont.frame.size.height - _labelForPostFont.frame.size.height;
         return delta + [_labelForPostFont.text smSizeWithFont:_labelForPostFont.font constrainedToSize:CGSizeMake(_labelForPostFont.frame.size.width, CGFLOAT_MAX) lineBreakMode:_labelForPostFont.lineBreakMode].height;
+    }
+    
+    if (cellType == CellTypeZanShang) {
+        return self.heigitForZanShang;
     }
     
     return 44.0f;
@@ -707,6 +748,10 @@ static SectionData sections[] = {
             });
         });
         action = @"clearPostsCache";
+    }
+    
+    if (cellType == CellTypeZanShang) {
+        // TODO
     }
     
     [SMUtils trackEventWithCategory:@"setting" action:action label:nil];
