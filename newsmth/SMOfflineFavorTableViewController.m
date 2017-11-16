@@ -31,6 +31,15 @@
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onThemeChangedNotification:) name:NOTIFYCATION_THEME_CHANGED object:nil];
     [self setupTheme];
+    
+    if (@available(iOS 11.0, *)) {
+        NSLog(@"%@", @(self.tableView.contentInsetAdjustmentBehavior));
+        self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        NSLog(@"%@", @(self.tableView.contentInsetAdjustmentBehavior));
+    } else {
+        self.automaticallyAdjustsScrollViewInsets = false;
+    }
+    self.tableView.contentInset = UIEdgeInsetsMake(SM_TOP_INSET, 0, 0, 0);
 }
 
 - (void)onThemeChangedNotification:(NSNotification *)n
