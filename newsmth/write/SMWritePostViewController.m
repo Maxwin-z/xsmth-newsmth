@@ -59,7 +59,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(confirmCancel)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"发表" style:UIBarButtonItemStyleBordered target:self action:@selector(doPost)];
     
     NSMutableString *quoteString = [[NSMutableString alloc] initWithString:@"  \n  \n"];
@@ -157,6 +157,18 @@
     self.imageViewForTitle.layer.cornerRadius = self.imageViewForText.layer.cornerRadius = 5.0f;
 }
 
+- (void)confirmCancel
+{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"放弃编辑" message:@"将删除已录入的内容" preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"放弃编辑" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        [self cancel];
+    }]];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"继续编辑" style:UIAlertActionStyleDefault handler:nil]];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
 - (void)cancel
 {
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
@@ -171,7 +183,7 @@
 
 - (void)dismiss
 {
-    [self.navigationController dismissModalViewControllerAnimated:YES];
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)doPost
