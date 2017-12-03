@@ -29,7 +29,7 @@
 
 + (UIColor *)colorForBarTintColor
 {
-    return [SMConfig enableDayMode] ? SMRGB(0xff, 0xff, 0xff) : SMRGB(0x26, 0x26, 0x27);
+    return [SMConfig enableDayMode] ? SMRGB(0xff, 0xff, 0xff) : (IS_IPHONE_X ? [UIColor blackColor] : SMRGB(0x26, 0x26, 0x27));
 }
 
 + (UIColor *)colorForTintColor
@@ -40,7 +40,7 @@
 
 + (UIColor *)colorForBackground
 {
-    return [SMConfig enableDayMode] ? SMRGB(0xfc, 0xfc, 0xfc) : SMRGB(0x28, 0x28, 0x29);
+    return [SMConfig enableDayMode] ? SMRGB(0xfc, 0xfc, 0xfc) : (IS_IPHONE_X ? [UIColor blackColor] : SMRGB(0x28, 0x28, 0x29));
 }
 
 + (UIColor *)colorForHighlightBackground
