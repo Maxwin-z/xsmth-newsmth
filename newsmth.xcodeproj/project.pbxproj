@@ -274,6 +274,7 @@
 		C1E628AA1764C594007ACF2A /* SMMainPage.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E628A51764C594007ACF2A /* SMMainPage.m */; };
 		C1E628AB1764C594007ACF2A /* SMPostGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E628A71764C594007ACF2A /* SMPostGroup.m */; };
 		C1E628AC1764C594007ACF2A /* SMSection.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E628A91764C594007ACF2A /* SMSection.m */; };
+		C1E6A6A31FD3C5AA004E1490 /* SMZanShangUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E6A6A21FD3C5AA004E1490 /* SMZanShangUtil.m */; };
 		C1E7A1971809900F002CAEEC /* boards.json in Resources */ = {isa = PBXBuildFile; fileRef = C1E7A1961809900F002CAEEC /* boards.json */; };
 		C1E7A19A1809A7F1002CAEEC /* SMFontSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E7A1991809A7F1002CAEEC /* SMFontSelectorViewController.m */; };
 		C1E7A1A3180A91EB002CAEEC /* bg_barbuttonitem@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1E7A1A2180A91EB002CAEEC /* bg_barbuttonitem@2x.png */; };
@@ -767,6 +768,8 @@
 		C1E628A71764C594007ACF2A /* SMPostGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMPostGroup.m; sourceTree = "<group>"; };
 		C1E628A81764C594007ACF2A /* SMSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMSection.h; sourceTree = "<group>"; };
 		C1E628A91764C594007ACF2A /* SMSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMSection.m; sourceTree = "<group>"; };
+		C1E6A6A11FD3C5AA004E1490 /* SMZanShangUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMZanShangUtil.h; sourceTree = "<group>"; };
+		C1E6A6A21FD3C5AA004E1490 /* SMZanShangUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMZanShangUtil.m; sourceTree = "<group>"; };
 		C1E7A1961809900F002CAEEC /* boards.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = boards.json; sourceTree = "<group>"; };
 		C1E7A1981809A7F1002CAEEC /* SMFontSelectorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMFontSelectorViewController.h; sourceTree = "<group>"; };
 		C1E7A1991809A7F1002CAEEC /* SMFontSelectorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMFontSelectorViewController.m; sourceTree = "<group>"; };
@@ -1073,6 +1076,8 @@
 				C154CC5A1873C1E800C32F0D /* UIView+Utils.m */,
 				C10C499D18F04F3400DF946E /* UIDeviceHardware.h */,
 				C10C499E18F04F3400DF946E /* UIDeviceHardware.m */,
+				C1E6A6A11FD3C5AA004E1490 /* SMZanShangUtil.h */,
+				C1E6A6A21FD3C5AA004E1490 /* SMZanShangUtil.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -2115,6 +2120,7 @@
 				C10D16BE1756EF21002D6FAD /* SMMessage.m in Sources */,
 				C1F8107218E5B734001B3759 /* FMDatabaseAdditions.m in Sources */,
 				C191281D17586DDF005AC60F /* XImageView.m in Sources */,
+				C1E6A6A31FD3C5AA004E1490 /* SMZanShangUtil.m in Sources */,
 				C191283D17588501005AC60F /* XImageViewCache.m in Sources */,
 				C1E6289B1764BAD4007ACF2A /* SMAttach.m in Sources */,
 				C153189F1B50DD5900CF84FE /* SMSpamActivity.m in Sources */,

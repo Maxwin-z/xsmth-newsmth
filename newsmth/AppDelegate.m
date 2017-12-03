@@ -22,6 +22,7 @@
 #import "SMNoticeViewController.h"
 #import <CoreMotion/CoreMotion.h>
 #import "SMBoardViewController.h"
+#import "SMZanShangUtil.h"
 
 @interface AppDelegate ()<SMWebLoaderOperationDelegate>
 @property (strong, nonatomic) UINavigationController *nvc;
@@ -201,6 +202,9 @@
     
     // ios9 add shortcuts
     [self makeupShortcuts];
+    
+    // zanshang
+    [[SMZanShangUtil sharedInstance] addOpenCount];
     
     // handle shortcuts
     BOOL shouldPerformAdditionalDelegateHandling = true;
