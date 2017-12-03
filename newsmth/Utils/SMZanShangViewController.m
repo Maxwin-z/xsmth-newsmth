@@ -30,6 +30,12 @@
     CGSize size = image.size;
     size.height = size.height * self.view.width / size.width;
     size.width = self.view.width;
+    
+    if (size.height > self.view.height) {
+        size.width = size.width * self.view.height / size.height;
+        size.height = self.view.height;
+    }
+    
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
     imageView.size = size;
     imageView.center = self.view.center;
