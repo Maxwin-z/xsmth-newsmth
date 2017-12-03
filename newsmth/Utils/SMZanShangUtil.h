@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface SMZanShangUtil : NSObject
+@property (strong, nonatomic) NSData *imageData;
 + (instancetype)sharedInstance;
 - (void)addOpenCount;
 - (void)addViewCount;

@@ -43,6 +43,8 @@
 #import <WKVerticalScrollBar/WKVerticalScrollBar.h>
 #import <ActionSheetPicker-3.0/ActionSheetPicker.h>
 
+#import "SMZanShangUtil.h"
+
 //#define DEBUG_HOST @"10.128.100.175"
 #define DEBUG_HOST @"192.168.3.161"
 
@@ -554,6 +556,7 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     [self savePostInfo];
     XLog_d(@"%s", __PRETTY_FUNCTION__);
     [self.navigationController setNavigationBarHidden:NO];
+    [[SMZanShangUtil sharedInstance] addViewCount];
 }
 
 #pragma mark - UIWebViewDelegate

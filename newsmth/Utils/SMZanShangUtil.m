@@ -7,15 +7,16 @@
 //
 
 #import "SMZanShangUtil.h"
+#import "SMMainViewController.h"
+#import "SMZanShangViewController.h"
 
 #define USER_DEFAULT_OPEN_COUNT @"USER_DEFAULT_OPEN_COUNT"
 #define USER_DEFAULT_DID_ZANSHANG @"USER_DEFAULT_DID_ZANSHANG"
 
 #define OPEN_COUNT_THRESHOLD 10
-#define VIEW_COUNT_THRESHOLD 10
+#define VIEW_COUNT_THRESHOLD 6
 
 @interface SMZanShangUtil ()
-@property (strong, nonatomic) NSData *imageData;
 @property (assign, nonatomic) NSInteger openCount;
 @property (assign, nonatomic) NSInteger viewCount;
 @property (assign, nonatomic) BOOL didZanShang;
@@ -80,7 +81,22 @@
         && self.viewCount > VIEW_COUNT_THRESHOLD
         && self.imageData
         ) {
-        NSLog(@"should zanshangzanshangzanshangzanshangzanshangzanshangzanshang");
+        
+        self.didZanShang = YES;
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:USER_DEFAULT_DID_ZANSHANG];
+        
+        UIViewController *vc = [SMMainViewController instance];
+
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"支持作者" message:@"觉得App好用，打赏作者表示支持 :)" preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"算了" style:UIAlertActionStyleDefault handler:nil]];
+        
+        [alert addAction:[UIAlertAction actionWithTitle:@"打赏一下" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            SMZanShangViewController *zsvc = [SMZanShangViewController new];
+            P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:zsvc];
+            [vc presentViewController:nvc animated:YES completion:NULL];
+        }]];
+        
+        [vc presentViewController:alert animated:YES completion:NULL];
     }
 }
 
