@@ -51,7 +51,7 @@ tconWriter.prototype.h = function() {}
 
 function parse_www(html) {
 	var rsp = {code: 0, data: null, message: ''};
-	var script = html.match(/<!--((.|\s)*?)\/\/-->/);
+	var script = html.match(/<!--\s*var o\s*=\s*new\s+tconWriter((.|\s)*?)\/\/-->/);
 	if (script == null) {	// error
 		var errorTable = html.match(/<table class="error">(.|\s)*?<\/table>/)[0];
 		if (errorTable) {
