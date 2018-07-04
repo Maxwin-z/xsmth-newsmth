@@ -45,8 +45,7 @@
 
 #import "SMZanShangUtil.h"
 
-#import <PBJVideoPlayer/PBJVideoPlayer.h>
-#import <AVKit/AVKit.h>
+#import "SMVideoPlayerViewController.h"
 
 //#define DEBUG_HOST @"10.128.100.175"
 #define DEBUG_HOST @"192.168.3.161"
@@ -584,22 +583,12 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     if ([url.scheme isEqualToString:@"xsmthvideo"]) {
         NSString *videoUrl = [url.absoluteString stringByReplacingOccurrencesOfString:@"xsmthvideo" withString:@"http" options:0 range:NSMakeRange(0, 10)];
         XLog_d(@"videoUrl: %@", videoUrl);
-
-        PBJVideoPlayerController *videoPlayerController = [PBJVideoPlayerController new];
-        videoPlayerController.videoPath = videoUrl;
-
-        SMViewController *vc = [SMViewController new];
-        videoPlayerController.view.frame = vc.view.bounds;
-        [vc addChildViewController:videoPlayerController];
-        [vc.view addSubview:videoPlayerController.view];
-        [self.navigationController pushViewController:vc animated:YES];
-
-//        AVPlayerViewController *vc = [AVPlayerViewController new];
-//        vc.player = [[AVPlayer alloc] initWithURL:[NSURL URLWithString:videoUrl]];
-//        [self presentViewController:vc animated:YES completion:^{
-//
-//        }];
         
+        SMVideoPlayerViewController *vc = [SMVideoPlayerViewController new];
+        vc.url = [NSURL URLWithString:videoUrl];
+        P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:vc];
+        [self presentViewController:nvc animated:YES completion:NULL];
+
         return YES;
     }
     
