@@ -46,6 +46,7 @@
 #import "SMZanShangUtil.h"
 
 #import <PBJVideoPlayer/PBJVideoPlayer.h>
+#import <AVKit/AVKit.h>
 
 //#define DEBUG_HOST @"10.128.100.175"
 #define DEBUG_HOST @"192.168.3.161"
@@ -581,9 +582,9 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     }
     
     if ([url.scheme isEqualToString:@"xsmthvideo"]) {
-        NSString *videoUrl = [url.absoluteString stringByReplacingOccurrencesOfString:@"xsmthvideo" withString:@"https" options:0 range:NSMakeRange(0, 10)];
+        NSString *videoUrl = [url.absoluteString stringByReplacingOccurrencesOfString:@"xsmthvideo" withString:@"http" options:0 range:NSMakeRange(0, 10)];
         XLog_d(@"videoUrl: %@", videoUrl);
-        
+
         PBJVideoPlayerController *videoPlayerController = [PBJVideoPlayerController new];
         videoPlayerController.videoPath = videoUrl;
 
@@ -591,8 +592,13 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
         videoPlayerController.view.frame = vc.view.bounds;
         [vc addChildViewController:videoPlayerController];
         [vc.view addSubview:videoPlayerController.view];
-
         [self.navigationController pushViewController:vc animated:YES];
+
+//        AVPlayerViewController *vc = [AVPlayerViewController new];
+//        vc.player = [[AVPlayer alloc] initWithURL:[NSURL URLWithString:videoUrl]];
+//        [self presentViewController:vc animated:YES completion:^{
+//
+//        }];
         
         return YES;
     }
