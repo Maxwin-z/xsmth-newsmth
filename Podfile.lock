@@ -1,5 +1,6 @@
 PODS:
   - ActionSheetPicker-3.0 (1.3.10)
+  - PBJVideoPlayer (0.3.2)
   - ReactiveCocoa (2.3.1):
     - ReactiveCocoa/UI (= 2.3.1)
   - ReactiveCocoa/Core (2.3.1):
@@ -12,16 +13,18 @@ PODS:
 
 DEPENDENCIES:
   - ActionSheetPicker-3.0 (~> 1.3.10)
+  - PBJVideoPlayer
   - ReactiveCocoa
   - TOWebViewController (= 2.1.1)
   - WKVerticalScrollBar
 
 SPEC CHECKSUMS:
   ActionSheetPicker-3.0: 75337b784ebaae74e72c4ca8365bd1d3f41da810
+  PBJVideoPlayer: b2f79c2139e4a74711bc900dd879cee4e7ccfef6
   ReactiveCocoa: 3fe9b233ca6db810e86681b5749488564c1179a1
   TOWebViewController: fd326dab61dfa75e8b80b739c2c02486ba7187c8
   WKVerticalScrollBar: 555c3473ada57433e7d891ba73d1fc9de8ab848f
 
-PODFILE CHECKSUM: ed4a1fb964686269c996063264bad817e61a32c1
+PODFILE CHECKSUM: b784d8a8fd10effd734252609710041ac22d01a8
 
-COCOAPODS: 1.2.1
+COCOAPODS: 1.4.0

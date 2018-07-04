@@ -45,6 +45,8 @@
 
 #import "SMZanShangUtil.h"
 
+#import <PBJVideoPlayer/PBJVideoPlayer.h>
+
 //#define DEBUG_HOST @"10.128.100.175"
 #define DEBUG_HOST @"192.168.3.161"
 
@@ -575,6 +577,23 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     }
     
     if ([url.absoluteString isEqualToString:@"about:blank"]) {
+        return YES;
+    }
+    
+    if ([url.scheme isEqualToString:@"xsmthvideo"]) {
+        NSString *videoUrl = [url.absoluteString stringByReplacingOccurrencesOfString:@"xsmthvideo" withString:@"https" options:0 range:NSMakeRange(0, 10)];
+        XLog_d(@"videoUrl: %@", videoUrl);
+        
+        PBJVideoPlayerController *videoPlayerController = [PBJVideoPlayerController new];
+        videoPlayerController.videoPath = videoUrl;
+
+        SMViewController *vc = [SMViewController new];
+        videoPlayerController.view.frame = vc.view.bounds;
+        [vc addChildViewController:videoPlayerController];
+        [vc.view addSubview:videoPlayerController.view];
+
+        [self.navigationController pushViewController:vc animated:YES];
+        
         return YES;
     }
     

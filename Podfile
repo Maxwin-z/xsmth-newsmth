@@ -6,6 +6,7 @@ target "newsmth" do
   pod "ReactiveCocoa"
   pod "WKVerticalScrollBar"
   pod 'ActionSheetPicker-3.0', '~> 1.3.10'
+  pod 'PBJVideoPlayer'
   pod 'TOWebViewController', '2.1.1'
 end
 

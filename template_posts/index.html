@@ -821,6 +821,7 @@ function trimHtml(html, isM) {
   })
   .replace(/(<img[^>]*?src=")(\/\/)/gi, '$1http:$2')  // add http to //[url]
 	.replace(/(<img[^>]*?src=")(\/)/gi, '$1http://' + (isM ? 'm' : 'www') + '.newsmth.net$2')
+  .replace(/<a href="(\/\/.+?)".*?>.+\.mp4<\/a>/g, '<a href="xsmthvideo:$1">Play ▶️</a>')
 }
 
 function parseMPosts(html) {

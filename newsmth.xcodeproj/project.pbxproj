@@ -176,6 +176,7 @@
 		C1ABAB181766114A007DE168 /* SMPostGroupHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C1ABAB171766114A007DE168 /* SMPostGroupHeaderCell.m */; };
 		C1ABAB1A17661156007DE168 /* SMPostGroupHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1ABAB1917661156007DE168 /* SMPostGroupHeaderCell.xib */; };
 		C1AE9140175A24AF0084C618 /* SMErrorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1AE913F175A24AF0084C618 /* SMErrorView.xib */; };
+		C1B33E0020ECE2AE00404E45 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1B33DFF20ECE2AD00404E45 /* AVKit.framework */; };
 		C1B581F3177723F500441299 /* SMWritePostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B581F1177723F500441299 /* SMWritePostViewController.m */; };
 		C1B581F4177723F500441299 /* SMWritePostViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1B581F2177723F500441299 /* SMWritePostViewController.xib */; };
 		C1B68848180824160085DC69 /* SMBoardSearchDelegateImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B68847180824160085DC69 /* SMBoardSearchDelegateImpl.m */; };
@@ -601,6 +602,7 @@
 		C1ABAB171766114A007DE168 /* SMPostGroupHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMPostGroupHeaderCell.m; sourceTree = "<group>"; };
 		C1ABAB1917661156007DE168 /* SMPostGroupHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMPostGroupHeaderCell.xib; sourceTree = "<group>"; };
 		C1AE913F175A24AF0084C618 /* SMErrorView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMErrorView.xib; sourceTree = "<group>"; };
+		C1B33DFF20ECE2AD00404E45 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		C1B581F0177723F500441299 /* SMWritePostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMWritePostViewController.h; sourceTree = "<group>"; };
 		C1B581F1177723F500441299 /* SMWritePostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMWritePostViewController.m; sourceTree = "<group>"; };
 		C1B581F2177723F500441299 /* SMWritePostViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMWritePostViewController.xib; sourceTree = "<group>"; };
@@ -846,6 +848,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1B33E0020ECE2AE00404E45 /* AVKit.framework in Frameworks */,
 				CBDFF1361F147346005EB0B9 /* Photos.framework in Frameworks */,
 				C1129B591A70DE7E00B5EB1E /* CoreText.framework in Frameworks */,
 				C1BBFD97190279EB008460B5 /* CoreMotion.framework in Frameworks */,
@@ -1361,6 +1364,7 @@
 		C1BFB8DB174F6A620092FD2E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C1B33DFF20ECE2AD00404E45 /* AVKit.framework */,
 				CBDFF1351F147346005EB0B9 /* Photos.framework */,
 				C1129B581A70DE7E00B5EB1E /* CoreText.framework */,
 				C1BBFD96190279EB008460B5 /* CoreMotion.framework */,
@@ -2044,13 +2048,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-newsmth-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		EB89DCCB2028CAB20F32354A /* [CP] Embed Pods Frameworks */ = {
@@ -2074,9 +2081,12 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-newsmth/Pods-newsmth-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/TOWebViewController/TOWebViewControllerLocalizable.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TOWebViewControllerLocalizable.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
