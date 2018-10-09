@@ -148,9 +148,10 @@
         boards = [[NSMutableArray alloc] init];
     }
     [boards insertObject:dict atIndex:0];
+    const int maxHistory = 20;
     for (int i = (int)boards.count - 1; i > 0; --i) {
         NSDictionary *b = boards[i];
-        if (i > 10 || [b[@"name"] isEqualToString:board.name]) {    // 最多保存10个最近浏览版面
+        if (i > maxHistory || [b[@"name"] isEqualToString:board.name]) {    // 最多保存maxHistory个最近浏览版面
             [boards removeObjectAtIndex:i];
         }
     }

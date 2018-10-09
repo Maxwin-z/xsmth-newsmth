@@ -60,13 +60,7 @@
 
     [self setupTheme];
 //    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background"]];
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0f) {
-        self.navigationController.navigationBar.translucent = YES;
-        self.wantsFullScreenLayout = YES;
-    } else {
-        self.automaticallyAdjustsScrollViewInsets = NO;
-    }
-    
+    self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle

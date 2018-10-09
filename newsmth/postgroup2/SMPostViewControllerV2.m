@@ -342,7 +342,7 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
 
 - (BOOL)prefersStatusBarHidden 
 {
-    return [self useNewHideShow] ? NO : self.hideTop;
+    return NO; // [self useNewHideShow] ? NO : self.hideTop;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -475,7 +475,7 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
                              @"disableAd": @(disableAd),
                              @"adPosition": @([SMConfig adPostion])
                              };
-    html = [html stringByReplacingOccurrencesOfString:@"{__config__}" withString:[SMUtils json2string:config]];
+    html = [html stringByReplacingOccurrencesOfString:@"{ __config__ }" withString:[SMUtils json2string:config]];
     
     [SMUtils writeData:[html dataUsingEncoding:NSUTF8StringEncoding] toDocumentFolder:@"/post/index2.html"];
     postPagePath = [NSString stringWithFormat:@"%@/post/index2.html", documentPath];
