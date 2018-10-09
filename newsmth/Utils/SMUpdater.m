@@ -12,10 +12,12 @@
 #import "SMAdViewController.h"
 #import <CoreText/CoreText.h>
 
-#define API_PREFIX @"https://maxwin-z.github.io/xsmth/service/"
+// #define API_PREFIX @"https://maxwin-z.github.io/xsmth/service/"
+#define API_PREFIX @"http://10.0.0.3:8080/"
 
 #define USERDEFAULTS_UPDATE_VERSION   @"updater_version"
 #define USERDEFAULTS_UPDATE_PARSER   @"updater_parser"
+#define USERDEFAULTS_UPDATE_TEMPLATE @"updater_template"
 
 @interface SMUpdater ()<ASIHTTPRequestDelegate, UIAlertViewDelegate>
 
@@ -28,6 +30,7 @@
     NSInteger currentVersion;
     NSInteger currentParser;
     NSString *currentAdid;
+    NSString *currentTemplate;
     SMVersion *newVersion;
 }
 
@@ -36,6 +39,7 @@
     currentVersion = [[NSUserDefaults standardUserDefaults] integerForKey:USERDEFAULTS_UPDATE_VERSION];
     currentParser = [[NSUserDefaults standardUserDefaults] integerForKey:USERDEFAULTS_UPDATE_PARSER];
     currentAdid = [[NSUserDefaults standardUserDefaults] stringForKey:USERDEFAULTS_UPDATE_ADID];
+    currentTemplate = [[NSUserDefaults standardUserDefaults] stringForKey:USERDEFAULTS_UPDATE_TEMPLATE];
     
     // load [version].json
     NSString *versionUrl = [NSString stringWithFormat:API_PREFIX @"v%@.json", [SMUtils appVersionString]];
@@ -45,6 +49,7 @@
     
     [self setupPostsTemplate];
 //    [self downloadPostPage];
+    [self checkTemplate];
 }
 
 - (void)handleNewVersion
@@ -124,11 +129,21 @@
 
 - (void)setupPostsTemplate
 {
-    NSString *filepath = [[NSBundle mainBundle] pathForResource:@"template_posts" ofType:@"zip"];
+//    NSString *filepath = [[NSBundle mainBundle] pathForResource:@"template_posts" ofType:@"zip"];
     NSString *docPath = [SMUtils documentPath];
+    
+    NSString *filepath = [NSString stringWithFormat:@"template.%@.zip", currentTemplate];
+   
+    NSString *md5 =[SMUtils md5:[SMUtils readDataFromDocumentFolder:filepath]];
+    if ([SMUtils fileExistsInDocumentFolder:filepath] && [currentTemplate isEqualToString:md5]) {
+        filepath = [NSString stringWithFormat:@"%@/%@", docPath, filepath];
+    } else {
+        filepath = [[NSBundle mainBundle] pathForResource:@"template_posts" ofType:@"zip"];
+    }
+    
     NSString *destPath = [NSString stringWithFormat:@"%@/post/", docPath];
     [SSZipArchive unzipFileAtPath:filepath toDestination:destPath];
-    XLog_d(@"unzip posts template");
+    XLog_d(@"unzip posts template %@", filepath);
     
     // copy fonts to post folder
 //    NSFileManager *fm = [NSFileManager defaultManager];
@@ -158,6 +173,44 @@
             CFRelease(provider);
         }
     }
+}
+
+- (void)checkTemplate
+{
+    NSString *url = API_PREFIX @"template.json";
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSError *error;
+        NSString *rsp = [NSString stringWithContentsOfURL:[NSURL URLWithString:url] encoding:NSUTF8StringEncoding error:&error];
+        if (error) {
+            return ;
+        }
+        NSDictionary *templateConfig = [SMUtils string2json:rsp];
+        NSString *version = [SMUtils appVersionString];
+        __block NSString *templateMD5 = nil;
+        [templateConfig enumerateKeysAndObjectsUsingBlock:^(NSString *md5, NSString *versions, BOOL * _Nonnull stop) {
+            if ([versions rangeOfString:[NSString stringWithFormat:@"|%@|", version]].location != NSNotFound) {
+                templateMD5 = md5;
+                *stop = YES;
+            }
+        }];
+        if (templateMD5 == nil || [templateMD5 isEqualToString:currentTemplate]) {
+            return;
+        }
+        NSString *downloadUrl = [NSString stringWithFormat:API_PREFIX @"template.%@.zip", templateMD5];
+        NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:downloadUrl]];
+        if (!data) {
+            XLog_e(@"download %@ fail", downloadUrl);
+            return ;
+        }
+        NSString *dataMD5 = [SMUtils md5:data];
+        if (![templateMD5 isEqualToString:dataMD5]) {
+            XLog_e(@"file %@ md5 not match: %@ != %@", downloadUrl, templateMD5, dataMD5);
+            return ;
+        }
+        [SMUtils writeData:data toDocumentFolder:[NSString stringWithFormat:@"template.%@.zip", templateMD5]];
+        [[NSUserDefaults standardUserDefaults] setObject:templateMD5 forKey:USERDEFAULTS_UPDATE_TEMPLATE];
+        XLog_d(@"download template %@ success", templateMD5);
+    });
 }
 
 - (void)downloadPostPage

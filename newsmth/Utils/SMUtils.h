@@ -51,8 +51,10 @@
 + (NSString *)trimHtmlTag:(NSString *)html;
 + (NSString *)generateUUID;
 + (NSString *)getSMUUID;
++ (NSString *)md5:(NSData *)data;
 @end
 
 @interface NSString (SMUtils)
 -(CGSize) smSizeWithFont:(UIFont *)font constrainedToSize:(CGSize)size lineBreakMode:(NSLineBreakMode)mode;
+
 @end

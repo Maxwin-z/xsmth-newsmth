@@ -9,4 +9,5 @@
 @property (assign, nonatomic) int iadratio;
 @property (assign, nonatomic) int adratio;
 @property (assign, nonatomic) int adPosition;
+@property (strong, nonatomic) NSString* template;
 @end

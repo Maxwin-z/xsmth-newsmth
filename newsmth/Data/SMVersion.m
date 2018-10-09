@@ -20,6 +20,11 @@
 	_adratio = [[dict objectForKey:@"adratio"] intValue];
 
 	_adPosition = [[dict objectForKey:@"adPosition"] intValue];
+
+	id template = [dict objectForKey:@"template"];
+	if (template != [NSNull null]) {
+		_template = template;
+	}
 }
 
 - (id)encode
@@ -40,6 +45,10 @@
 	[dict setObject:@(_adratio) forKey:@"adratio"];
 
 	[dict setObject:@(_adPosition) forKey:@"adPosition"];
+
+	if (_template != nil) {
+		[dict setObject:_template forKey:@"template"];
+	}
 	return dict;
 }
 @end
