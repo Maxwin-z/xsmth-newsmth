@@ -209,23 +209,9 @@
         }
         [SMUtils writeData:data toDocumentFolder:[NSString stringWithFormat:@"template.%@.zip", templateMD5]];
         [[NSUserDefaults standardUserDefaults] setObject:templateMD5 forKey:USERDEFAULTS_UPDATE_TEMPLATE];
+        currentTemplate = templateMD5;
+        [self setupPostsTemplate];
         XLog_d(@"download template %@ success", templateMD5);
-    });
-}
-
-- (void)downloadPostPage
-{
-    NSString *url = @"http://192.168.3.161/xsmth/a.zip";
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
-        if (data) {
-            XLog_d(@"download post page success");
-            [SMUtils writeData:data toDocumentFolder:@"tmp/post.zip"];
-        }
-        NSString *docPath = [SMUtils documentPath];
-        NSString *filepath = [NSString stringWithFormat:@"%@/tmp/post.zip", docPath];
-        NSString *destPath = [NSString stringWithFormat:@"%@/post/", docPath];
-        [SSZipArchive unzipFileAtPath:filepath toDestination:destPath];
     });
 }
 
