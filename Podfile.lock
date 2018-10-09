@@ -18,6 +18,14 @@ DEPENDENCIES:
   - TOWebViewController (= 2.1.1)
   - WKVerticalScrollBar
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - ActionSheetPicker-3.0
+    - JPVideoPlayer
+    - ReactiveCocoa
+    - TOWebViewController
+    - WKVerticalScrollBar
+
 SPEC CHECKSUMS:
   ActionSheetPicker-3.0: 75337b784ebaae74e72c4ca8365bd1d3f41da810
   JPVideoPlayer: 02b6d95e9dd2c8a8dcc5bdb111014957848b73b1
@@ -27,4 +35,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 0a89be13b81efab65c90dbff27fc4b28cd0c66d5
 
-COCOAPODS: 1.3.1
+COCOAPODS: 1.5.3

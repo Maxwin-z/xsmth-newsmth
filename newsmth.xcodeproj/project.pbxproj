@@ -1795,7 +1795,6 @@
 				C1BFB8D5174F6A620092FD2E /* Sources */,
 				C1BFB8D6174F6A620092FD2E /* Frameworks */,
 				C1BFB8D7174F6A620092FD2E /* Resources */,
-				EB89DCCB2028CAB20F32354A /* [CP] Embed Pods Frameworks */,
 				F48D2A28511FBEF34C9694E0 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -2065,21 +2064,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		EB89DCCB2028CAB20F32354A /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-newsmth/Pods-newsmth-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		F48D2A28511FBEF34C9694E0 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2087,11 +2071,11 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-newsmth/Pods-newsmth-resources.sh",
-				$PODS_CONFIGURATION_BUILD_DIR/TOWebViewController/TOWebViewControllerLocalizable.bundle,
+				"${PODS_CONFIGURATION_BUILD_DIR}/TOWebViewController/TOWebViewControllerLocalizable.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TOWebViewControllerLocalizable.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
