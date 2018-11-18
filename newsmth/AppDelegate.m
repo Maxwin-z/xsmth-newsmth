@@ -144,6 +144,8 @@
     
     self.isNewLaunching = YES;
     
+    [SMAccountManager instance];
+    
     _mainViewController = [[SMMainViewController alloc] init];
     
     if ([SMConfig iPadMode]) {

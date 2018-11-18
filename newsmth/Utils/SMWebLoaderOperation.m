@@ -101,7 +101,7 @@
         return;
     }
 
-    XLog_d(@"url[%@] response", _url);
+//    XLog_d(@"url[%@] response %@", _url, request.requestCookies);
     NSString *body;
     NSString *contentType = [request.responseHeaders objectForKey:@"Content-Type"];
     if ([[contentType lowercaseString] rangeOfString:@"charset=utf-8"].location != NSNotFound) {

@@ -49,7 +49,26 @@ static SMAccountManager *_instance;
 - (void)loadCookie
 {
     NSURL *url = [NSURL URLWithString:URL_PROTOCOL @"//m.newsmth.net"];
-    NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:url];
+    NSMutableArray *cookies =[[NSMutableArray alloc] initWithArray:[[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:url]];
+    
+    NSArray *savedCookies = [[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_COOKIES];
+    XLog_d(@"saved cookies: %@", savedCookies);
+    if (savedCookies) {
+        NSDateFormatter *formatter = [NSDateFormatter new];
+        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        
+        [savedCookies enumerateObjectsUsingBlock:^(NSDictionary *item, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSMutableDictionary *cookieProps = [[NSMutableDictionary alloc] initWithDictionary:item];
+            if (item[NSHTTPCookieExpires]) {
+                cookieProps[NSHTTPCookieExpires] = [formatter dateFromString:item[NSHTTPCookieExpires]];
+            }
+            NSHTTPCookie *cookie = [[NSHTTPCookie alloc] initWithProperties:cookieProps];
+            [cookies addObject:cookie];
+            [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookie];
+        }];
+        XLog_d(@"debug cookie: %@", [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:url]);
+    }
+    
     if (cookies) {
         [self setCookies:cookies];
     }
@@ -59,8 +78,29 @@ static SMAccountManager *_instance;
 - (void)setCookies:(NSArray *)cookies
 {
     NSString *name = nil;
+//    NSMutableDictionary *savedCookies = [NSMutableDictionary new];
+    NSMutableArray *savedCookies = [NSMutableArray new];
+    int loginStatus = 0;    // 1 login; 2 logout
     for (int i = 0; i != cookies.count; ++i) {
         NSHTTPCookie *cookie = cookies[i];
+        
+        if ([@[@"main[UTMPKEY]", @"main[UTMPNUM]", COOKIE_USERID] containsObject:cookie.name]) {
+//            [savedCookies setObject:(cookie.value ?: @"") forKey:cookie.name];
+            NSDateFormatter *formatter = [NSDateFormatter new];
+            [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+            NSMutableDictionary *obj = [[NSMutableDictionary alloc] initWithDictionary:@{
+                                      NSHTTPCookieValue:cookie.value ?: @"",
+                                      NSHTTPCookieName: cookie.name,
+                                      NSHTTPCookieDomain: cookie.domain,
+                                      NSHTTPCookiePath: cookie.path,
+                                      NSHTTPCookieVersion: @(cookie.version),
+                                      NSHTTPCookieSecure: @(cookie.secure)
+                                      }];
+            if (cookie.expiresDate) {
+                [obj setObject:[formatter stringFromDate:cookie.expiresDate] forKey:NSHTTPCookieExpires];
+            }
+            [savedCookies addObject:obj];
+        }
         
         if ([cookie.name isEqualToString:COOKIE_USERID]) {
             name = cookie.value;
@@ -70,6 +110,9 @@ static SMAccountManager *_instance;
             if ([name isEqualToString:@"guest"] || isExpired) {    // login status
                 name = nil;
                 self.notice = nil;
+                loginStatus = 2;
+            } else {
+                loginStatus = 1;
             }
             
             // notify account changed.
@@ -85,6 +128,20 @@ static SMAccountManager *_instance;
                 });
             }
         }
+    }
+    
+    // 2018.11.17; fix newsmth.net cookie expired time
+//    if (savedCookies[COOKIE_USERID] && [savedCookies[COOKIE_USERID] isEqualToString:@"guest"]) {
+//        [[NSUserDefaults standardUserDefaults] removeObjectForKey:USERDEFAULTS_COOKIES];
+//    } else if([savedCookies count] == 3) {
+//        [[NSUserDefaults standardUserDefaults] setObject:savedCookies forKey:USERDEFAULTS_COOKIES];
+//    }
+    XLog_d(@"savedCookies: %@", savedCookies);
+
+    if (loginStatus == 1 && savedCookies.count == 3) {
+        [[NSUserDefaults standardUserDefaults] setObject:savedCookies forKey:USERDEFAULTS_COOKIES];
+    } else if (loginStatus == 2) {
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:USERDEFAULTS_COOKIES];
     }
 }
 
