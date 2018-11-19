@@ -80,6 +80,7 @@
 		C124CAEE185D8BC500B9CEA3 /* SMTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = C124CAED185D8BC500B9CEA3 /* SMTheme.m */; };
 		C124CAF0185D951700B9CEA3 /* SMBoardViewTypeSelectorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C124CAEF185D951700B9CEA3 /* SMBoardViewTypeSelectorView.xib */; };
 		C124CAF3185D962300B9CEA3 /* SMBoardViewTypeSelectorView.m in Sources */ = {isa = PBXBuildFile; fileRef = C124CAF2185D962300B9CEA3 /* SMBoardViewTypeSelectorView.m */; };
+		C12F79D521A28BA400016605 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C12F79D421A28BA400016605 /* SafariServices.framework */; };
 		C1300A511879596F006ACA5C /* icon_152@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1300A4F1879596F006ACA5C /* icon_152@2x.png */; };
 		C1300A521879596F006ACA5C /* icon_144@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1300A501879596F006ACA5C /* icon_144@2x.png */; };
 		C1300A5618795C23006ACA5C /* SMIpadEmptyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1300A5518795C23006ACA5C /* SMIpadEmptyViewController.m */; };
@@ -450,6 +451,7 @@
 		C124CAEF185D951700B9CEA3 /* SMBoardViewTypeSelectorView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMBoardViewTypeSelectorView.xib; sourceTree = "<group>"; };
 		C124CAF1185D962300B9CEA3 /* SMBoardViewTypeSelectorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMBoardViewTypeSelectorView.h; sourceTree = "<group>"; };
 		C124CAF2185D962300B9CEA3 /* SMBoardViewTypeSelectorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMBoardViewTypeSelectorView.m; sourceTree = "<group>"; };
+		C12F79D421A28BA400016605 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		C1300A4F1879596F006ACA5C /* icon_152@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_152@2x.png"; sourceTree = "<group>"; };
 		C1300A501879596F006ACA5C /* icon_144@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_144@2x.png"; sourceTree = "<group>"; };
 		C1300A5418795C23006ACA5C /* SMIpadEmptyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMIpadEmptyViewController.h; sourceTree = "<group>"; };
@@ -851,6 +853,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C12F79D521A28BA400016605 /* SafariServices.framework in Frameworks */,
 				C1B33E0020ECE2AE00404E45 /* AVKit.framework in Frameworks */,
 				CBDFF1361F147346005EB0B9 /* Photos.framework in Frameworks */,
 				C1129B591A70DE7E00B5EB1E /* CoreText.framework in Frameworks */,
@@ -1369,6 +1372,7 @@
 		C1BFB8DB174F6A620092FD2E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C12F79D421A28BA400016605 /* SafariServices.framework */,
 				C1B33DFF20ECE2AD00404E45 /* AVKit.framework */,
 				CBDFF1351F147346005EB0B9 /* Photos.framework */,
 				C1129B581A70DE7E00B5EB1E /* CoreText.framework */,
@@ -2348,7 +2352,7 @@
 					"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts/include",
 				);
 				INFOPLIST_FILE = "newsmth/newsmth-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/newsmth/Frameworks/**",
@@ -2465,7 +2469,7 @@
 					"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts/include",
 				);
 				INFOPLIST_FILE = "newsmth/newsmth-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/newsmth/Frameworks/**",
@@ -2504,7 +2508,7 @@
 					"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts/include",
 				);
 				INFOPLIST_FILE = "newsmth/newsmth-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/newsmth/Frameworks/**",

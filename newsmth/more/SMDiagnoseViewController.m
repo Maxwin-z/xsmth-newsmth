@@ -7,6 +7,7 @@
 //
 
 #import "SMDiagnoseViewController.h"
+#import <SafariServices/SafariServices.h>
 
 @interface SMDiagnoseViewController () <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
@@ -22,10 +23,8 @@
     [alertView.rac_buttonClickedSignal subscribeNext:^(NSNumber *buttonIndex) {
         @strongify(alertView);
         if (buttonIndex.integerValue != alertView.cancelButtonIndex) {
-            SMDiagnoseViewController *dvc = [[SMDiagnoseViewController alloc] initWithNibName:@"SMDiagnoseViewController" bundle:nil];
-            dvc.url = url;
-            P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:dvc];
-            [vc presentModalViewController:nvc animated:YES];
+            SFSafariViewController *safari = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:url]];
+            [vc presentViewController:safari animated:YES completion:NULL];
         }
     }];
     [alertView show];

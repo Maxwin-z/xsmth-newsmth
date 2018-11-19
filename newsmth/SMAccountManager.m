@@ -15,6 +15,7 @@ static SMAccountManager *_instance;
 
 @interface SMAccountManager ()
 @property (strong, nonatomic) NSMutableDictionary *cookieMap;   // name -> index
+@property (assign, nonatomic) NSTimeInterval lastAutoLoginTime;
 @end
 
 @implementation SMAccountManager
@@ -31,6 +32,7 @@ static SMAccountManager *_instance;
     self = [super init];
     if (self) {
         [self loadCookie];
+        self.lastAutoLoginTime = 0;
     }
     return self;
 }
@@ -154,10 +156,15 @@ static SMAccountManager *_instance;
 
 - (void)autoLogin
 {
+    if ([NSDate timeIntervalSinceReferenceDate] - self.lastAutoLoginTime < 60) {    // 每分钟内重试一次
+        XLog_d(@"autologin 重试时间较短，稍后重试");
+        return ;
+    }
     NSString *user = [[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_USERNAME];
     NSString *passwd =  [[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_PASSWORD];
     BOOL autoLogin = [[NSUserDefaults standardUserDefaults] boolForKey:USERDEFAULTS_AUTOLOGIN];
     if (autoLogin && user && passwd) {
+        self.lastAutoLoginTime = [NSDate timeIntervalSinceReferenceDate];
         XLog_d(@"try autologin");
         SMHttpRequest *request = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:URL_PROTOCOL @"//m.newsmth.net/user/login"]];
         NSString *postBody = [NSString stringWithFormat:@"id=%@&passwd=%@&save=on", user, passwd];
