@@ -641,7 +641,7 @@
             info.html('点击加载原图')
             SMApp.getImageInfo(src, false, function(value) {
               if (value.size && img.attr('status') != 'loaded') {
-                info.html('原图' + formatSize(value.size))
+                info.html('点击加载原图: ' + formatSize(value.size))
               }
             })
           } else {
