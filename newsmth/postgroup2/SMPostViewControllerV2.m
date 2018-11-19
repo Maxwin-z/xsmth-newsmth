@@ -46,6 +46,7 @@
 #import "SMZanShangUtil.h"
 
 #import "SMVideoPlayerViewController.h"
+#import <SafariServices/SafariServices.h>
 
 //#define DEBUG_HOST @"10.128.100.175"
 #define DEBUG_HOST @"192.168.3.161"
@@ -595,9 +596,11 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     XLog_d(@"load: %@", url);
     
     if ([url.scheme isEqualToString:@"http"] || [url.scheme isEqualToString:@"https"]) {
-        XWebViewController *vc = [[XWebViewController alloc] init];
-        vc.url = url;
-        [self.navigationController pushViewController:vc animated:YES];
+//        XWebViewController *vc = [[XWebViewController alloc] init];
+//        vc.url = url;
+//        [self.navigationController pushViewController:safari animated:YES];
+        SFSafariViewController *safari = [[SFSafariViewController alloc] initWithURL:url];
+        [self presentViewController:safari animated:YES completion:NULL];
         return NO;
     }
     
