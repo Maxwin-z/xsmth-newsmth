@@ -134,7 +134,7 @@
     
     NSString *filepath = [NSString stringWithFormat:@"template.%@.zip", currentTemplate];
    
-    NSString *md5 =[SMUtils md5:[SMUtils readDataFromDocumentFolder:filepath]];
+    NSString *md5 = [SMUtils md5:[SMUtils readDataFromDocumentFolder:filepath]];
     if ([SMUtils fileExistsInDocumentFolder:filepath] && [currentTemplate isEqualToString:md5]) {
         filepath = [NSString stringWithFormat:@"%@/%@", docPath, filepath];
     } else {
@@ -193,6 +193,8 @@
                 *stop = YES;
             }
         }];
+        [[NSUserDefaults standardUserDefaults] setObject:templateMD5 forKey:USERDEFAULTS_UPDATE_TEMPLATE];
+
         if (templateMD5 == nil || [templateMD5 isEqualToString:currentTemplate]) {
             return;
         }
@@ -208,7 +210,6 @@
             return ;
         }
         [SMUtils writeData:data toDocumentFolder:[NSString stringWithFormat:@"template.%@.zip", templateMD5]];
-        [[NSUserDefaults standardUserDefaults] setObject:templateMD5 forKey:USERDEFAULTS_UPDATE_TEMPLATE];
         currentTemplate = templateMD5;
         [self setupPostsTemplate];
         XLog_d(@"download template %@ success", templateMD5);

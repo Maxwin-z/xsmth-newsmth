@@ -1,191 +1,199 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=0.5, maximum-scale=0.5, user-scalable=no"
+    />
+    <title>xsmth</title>
+    <style type="text/css">
+      body.xsmth {
+      }
 
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="viewport" content="initial-scale=0.5, maximum-scale=0.5, user-scalable=no" />
-	<title>xsmth</title>
-	<style type="text/css">
-		body.xsmth {}
+      .f006 {
+      }
 
-		.f006 {}
+      a {
+      }
+    </style>
+    <script type="text/javascript" src="zepto.js"></script>
+    <script type="text/javascript" src="touch.js"></script>
+    <script type="text/javascript" src="SMApp.js"></script>
+    <script type="text/javascript" src="SMAppControl.js"></script>
+    <script
+      type="text/javascript"
+      src="../posts/{__cachedjsfile__}.js?t={__t__}"
+    ></script>
+    <script type="text/javascript">
+      var config = { __config__ }
+    </script>
+    <style type="text/css">
+      * {
+        word-break: break-all;
+      }
 
-		a {}
-	</style>
-	<script type="text/javascript" src="zepto.js"></script>
-	<script type="text/javascript" src="touch.js"></script>
-	<script type="text/javascript" src="SMApp.js"></script>
-	<script type="text/javascript" src="SMAppControl.js"></script>
-	<script type="text/javascript" src="../posts/{__cachedjsfile__}.js?t={__t__}"></script>
-	<script type="text/javascript">
-		var config = { __config__ };
-	</script>
-	<style type="text/css">
-		* {
-			word-break: break-all;
-		}
+      a {
+        text-decoration: none;
+      }
 
-		a {
-			text-decoration: none;
-		}
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
 
-		html,
-		body {
-			margin: 0;
-			padding: 0;
-			overflow: hidden;
-		}
+      ul,
+      li {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
 
-		ul,
-		li {
-			list-style: none;
-			padding: 0;
-			margin: 0;
-		}
+      #post-title {
+        zoom: 120%;
+        padding: 20px;
+        border-bottom: 1px solid #ccc;
+        margin-bottom: 20px;
+      }
 
-		#post-title {
-			zoom: 120%;
-			padding: 20px;
-			border-bottom: 1px solid #ccc;
-			margin-bottom: 20px;
-		}
+      li.post {
+        margin-left: 20px;
+        padding-right: 20px;
+        margin-bottom: 6px;
+      }
 
-		li.post {
-			margin-left: 20px;
-			padding-right: 20px;
-			margin-bottom: 6px;
-		}
+      li.post > .author {
+        position: relative;
+      }
 
-		li.post>.author {
-			position: relative;
-		}
+      li.post > .author .action_button {
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        height: 100px;
+        width: 100px;
+        background-image: url(icon_action.png);
+        background-repeat: no-repeat;
+        background-position: center center;
+      }
 
-		li.post>.author .action_button {
-			position: absolute;
-			right: 0px;
-			top: 0px;
-			height: 100px;
-			width: 100px;
-			background-image: url(icon_action.png);
-			background-repeat: no-repeat;
-			background-position: center center;
-		}
+      li.post .action {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        font-size: 80%;
+      }
 
-		li.post .action {
-			padding-top: 20px;
-			padding-bottom: 20px;
-			font-size: 80%;
-		}
+      li.post .action span {
+        display: inline-block;
+        border-width: 1px;
+        border-style: solid;
+        border-radius: 5px;
+        padding: 0px 10px;
+        margin-right: 20px;
+      }
 
-		li.post .action span {
-			display: inline-block;
-			border-width: 1px;
-			border-style: solid;
-			border-radius: 5px;
-			padding: 0px 10px;
-			margin-right: 20px;
-		}
+      li.post .post-info {
+        font-size: 30px;
+      }
 
-		li.post .post-info {
-			font-size: 30px;
-		}
+      li.post div.sp {
+        padding-top: 20px;
+        padding-bottom: 20px;
+      }
 
-		li.post div.sp {
-			padding-top: 20px;
-			padding-bottom: 20px;
-		}
+      #loading {
+        height: 100px;
+        text-align: center;
+        font-size: 30px;
+        line-height: 40px;
+        position: relative;
+      }
 
-		#loading {
-			height: 100px;
-			text-align: center;
-			font-size: 30px;
-			line-height: 40px;
-			position: relative;
-		}
+      #loading #loading-box {
+        width: 0px;
+        height: 0px;
+        position: absolute;
+        bottom: 32px;
+        left: 50%;
+      }
 
-		#loading #loading-box {
-			width: 0px;
-			height: 0px;
-			position: absolute;
-			bottom: 32px;
-			left: 50%;
-		}
+      #loading #loading-indicator {
+        position: absolute;
+        width: 64px;
+        height: 64px;
+        top: -32px;
+        left: -32px;
+      }
 
-		#loading #loading-indicator {
-			position: absolute;
-			width: 64px;
-			height: 64px;
-			top: -32px;
-			left: -32px;
-		}
+      #loading.loading #loading-indicator {
+        background-image: url(icon_loading.png);
+        -webkit-animation: spin 2s linear infinite;
+        animation: spin 2s linear infinite;
+      }
 
-		#loading.loading #loading-indicator {
-			background-image: url(icon_loading.png);
-			-webkit-animation: spin 2s linear infinite;
-			animation: spin 2s linear infinite;
-		}
+      @-webkit-keyframes spin {
+        100% {
+          -webkit-transform: rotate(360deg);
+        }
+      }
 
-		@-webkit-keyframes spin {
-			100% {
-				-webkit-transform: rotate(360deg);
-			}
-		}
+      /*720*/
 
-		/*720*/
+      #loading.SMAppControl-highlight {
+        background-color: #ccc;
+      }
 
-		#loading.SMAppControl-highlight {
-			background-color: #ccc;
-		}
+      .ximg-box {
+        position: relative;
+        display: inline-block;
+      }
 
-		.ximg-box {
-			position: relative;
-			display: inline-block;
-		}
+      .ximg-action {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+      }
 
-		.ximg-action {
-			position: absolute;
-			top: 50%;
-			left: 0;
-			right: 0;
-		}
+      .ximg-middle,
+      .ximg-large {
+        position: absolute;
+        padding-top: 20%;
+        width: 50%;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        text-align: center;
+      }
 
-		.ximg-middle,
-		.ximg-large {
-			position: absolute;
-			padding-top: 20%;
-			width: 50%;
-			top: 0;
-			bottom: 0;
-			left: 0;
-			text-align: center;
-		}
+      .ximg-large {
+        left: 50%;
+        right: 0;
+      }
 
-		.ximg-large {
-			left: 50%;
-			right: 0;
-		}
+      .ximg-box img,
+      .xema {
+        zoom: 200%;
+      }
 
-		.ximg-box img,
-		.xema {
-			zoom: 200%;
-		}
+      .ximg-info {
+        position: absolute;
+        width: 100%;
+        top: 20%;
+        left: 0;
+        text-align: center;
+      }
 
-		.ximg-info {
-			position: absolute;
-			width: 100%;
-			top: 20%;
-			left: 0;
-			text-align: center;
-		}
+      .action {
+        position: absolute;
+        top: 0;
+        right: 0;
+        font-size: 14px;
+      }
 
-		.action {
-			position: absolute;
-			top: 0;
-			right: 0;
-			font-size: 14px;
-		}
-
-		/*
+      /*
 .action .action_reply,
 .action .action_more {
 	background-image: url(icon_reply.png);
@@ -199,82 +207,92 @@
 }
 */
 
-		.action_page {
-			border-bottom: 1px solid #ccc;
-		}
+      .action_page {
+        border-bottom: 1px solid #ccc;
+      }
 
-		.action_page h1 {
-			text-align: center;
-			margin-top: 20px;
-			margin-bottom: 10px;
-		}
+      .action_page h1 {
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 10px;
+      }
 
-		.anchor_page {
-			height: 1px;
-			overflow: hidden;
-			border: none;
-		}
+      .anchor_page {
+        height: 1px;
+        overflow: hidden;
+        border: none;
+      }
 
-		.action_page_hint {
-			font-size: 80%;
-			text-align: center;
-			margin-bottom: 20px;
-		}
+      .action_page_hint {
+        font-size: 80%;
+        text-align: center;
+        margin-bottom: 20px;
+      }
 
-		#sm-ad {
-			padding-left: 20px;
-			position: relative;
-		}
+      #sm-ad {
+        padding-left: 20px;
+        position: relative;
+      }
 
-		#sm-ad a {
-			display: block;
-		}
+      #sm-ad a {
+        display: block;
+      }
 
-		#sm-ad-img {
-			width: 100%;
-			min-height: 60px;
-		}
+      #sm-ad-img {
+        width: 100%;
+        min-height: 60px;
+      }
 
-		#sm-ad-mask {
-			position: absolute;
-			top: 0;
-			right: 0;
-			width: 80px;
-		}
+      #sm-ad-mask {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 80px;
+      }
 
-		#btn_next_post {
-			position: fixed;
-			bottom: 200px;
-			right: 20px;
-			width: 100px;
-			height: 100px;
-			border-radius: 64px;
-			border: 1px solid black;
-			border-color: rgba(0, 0, 0, 0.5);
-			background-color: rgba(0, 0, 0, 0.3);
-			background-image: url('icon_arrow_right.png');
-			background-size: 64px 64px;
-			background-repeat: no-repeat;
-			background-position: center;
-		}
-	</style>
-</head>
+      #btn_next_post {
+        position: fixed;
+        bottom: 200px;
+        right: 20px;
+        width: 100px;
+        height: 100px;
+        border-radius: 64px;
+        border: 1px solid black;
+        border-color: rgba(0, 0, 0, 0.5);
+        background-color: rgba(0, 0, 0, 0.3);
+        background-image: url('icon_arrow_right.png');
+        background-size: 64px 64px;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
 
-<body>
-	<div id="post-title"></div>
-	<ul id="post-list">
+      .likes {
+        padding-left: 10px;
+        font-size: 80%;
+      }
+      .likes .like_score_1 {
+        color: red;
+      }
+      .likes .like_score_2 {
+        color: green;
+      }
+      .likes .like_user {
+        font-weight: bold;
+      }
+    </style>
+  </head>
 
-	</ul>
-	<div id="loading">
-		<span id="loading-hint">加载中...</span>
-		<div id="loading-box">
-			<div id="loading-indicator"></div>
-		</div>
-	</div>
+  <body>
+    <div id="post-title"></div>
+    <ul id="post-list"></ul>
+    <div id="loading">
+      <span id="loading-hint">加载中...</span>
+      <div id="loading-box"><div id="loading-indicator"></div></div>
+    </div>
 
-	<div id="btn_next_post"></div>
+    <div id="btn_next_post"></div>
 
-	<textarea id="tpl_post" style="display: none">
+    <textarea id="tpl_post" style="display: none">
 		<li class="post" id="post_${pid}" page="${page}">
 			<div class="author">
 				<span class="uid">${author}</span> (<span class="nick">${nick}</span>)
@@ -291,779 +309,917 @@
 				${content}
 			</div>
 		</li>
-</textarea>
-	<textarea id="tpl_page" style="display: none">
+</textarea
+    >
+    <textarea id="tpl_page" style="display: none">
 	<li class="page action_page" id="page_${page}" page="${page}">
 		<h1 class="action_page_title">${page}</h1>
 		<div class="action_page_hint">点击加载</div>
 	</li>
-</textarea>
-
-	<script type="text/template" id="tpl_ad">
-<li id="sm-ad">
-	<a href="${url}" class="action-ad">
-		<img id="sm-ad-img" class="action-ad" alt=" " src="${src}" />
-		<img id="sm-ad-mask" src="mask_ad.png" />
-	</a>
-</li>
-</script>
-	<script type="text/javascript">
-		// js events
-		window.onThemeChanged = function (style) {
-			var sheet = document.styleSheets[0];
-
-			for (var i = sheet.rules.length - 1; i >= 0; --i) {
-				sheet.deleteRule(i);
-			}
-
-			sheet.addRule('body.xsmth', style2string({
-				'background-color': style.backgroundColor,
-				'color': style.textColor,
-				'font-family': style.fontFamily,
-				'font-size': style.fontSize,
-				'line-height': style.lineHeight
-			}), 0);
-
-			sheet.addRule('.f006', style2string({
-				'color': style.quoteColor
-			}), 0);
-
-			sheet.addRule('a', style2string({
-				'color': style.tintColor
-			}), 0);
-
-			sheet.addRule('li.post', style2string({
-				'border-bottom': '1px solid ' + style.textColor
-			}), 0);
-
-			sheet.addRule('li.post .action span', style2string({
-				'color': style.tintColor,
-				'border-color': style.tintColor,
-				'background-color': style.backgroundColor
-			}), 0);
-
-			$('body').addClass('xsmth');
-		}
-
-		function style2string(styles) {
-			var res = [];
-			$.each(styles, function (key, value) {
-				res.push(key + ':' + value + ';');
-			});
-			return res.join('');
-		}
-
-		////////////////////////////////////////////////////////////
-		//// touch events
-
-		var tapEventTimer = null;
-		if (config.tapPaging) {
-			var dc = new SMAppControl(document.body);
-			dc.highlight = false;
-			dc.onClick = function (event) {
-				if (event.target.tagName == 'A' || event.target.className == 'ximg'
-					|| event.target.className.indexOf('action') != -1) {
-					return;
-				}
-				var touch = event.touches[0];
-				var height = $(window).height();
-				var scrollTop = $(window).scrollTop();
-				var y = touch.pageY - scrollTop;
-				tapEventTimer = setTimeout(function () {
-					if (y > height / 5 * 2) {
-						SMApp.scrollTo(scrollTop + height - 50);
-						setTimeout(detectScrollToBotttom, 100);
-					} else {
-						SMApp.scrollTo(scrollTop - height);
-					}
-				});
-			}
-		}
-
-		////////////////////////////////////////////////////////////
-
-		//// 监听滚动到底部事件
-		var height4loading = $('#loading').height();
-
-		function detectScrollToBotttom() {
-			// console.log($(window).height(), $(window).scrollTop(), $(document.body).height());
-			// 提前触发加载逻辑, wifi 下一直加载
-			var shouldload = config.autoload;
-			var bodyHeight = $(document.body).height();
-
-			height4loading = Math.max($(window).height(), 960);
-			if (currentPage > 0) {
-				height4loading = Math.max(bodyHeight / currentPage, height4loading);
-			}
-			var scrollTop = $(window).scrollTop();
-
-			// console.log('s', $(window).scrollTop(), 'h4l', height4loading, 'wh', $(window).height(), 'bh', bodyHeight);
-			shouldload = $(window).scrollTop() + height4loading + $(window).height() > bodyHeight;
-
-			if (shouldload) {
-				// console.log('try to load more');
-				if (currentPage != totalPage) {
-					loadNext();
-				}
-			}
-
-			detectCurrentPage();
-		}
-
-		var btnLoading = new SMAppControl($('#loading').get(0));
-		btnLoading.onClick = function () {
-			loadNext();
-		}
-
-		SMApp.scrollToBottom = detectScrollToBotttom;
-		SMApp.loadPage = function (page) {
-			// console.log(page);
-			if (!scroll2page(page)) {
-				needScrollToPage = page;
-				load(page);
-			}
-		}
-		$(window).on('scroll', detectScrollToBotttom);
-		$(window).on('scroll', function () { // clear tap scroll event
-			if (tapEventTimer) {
-				clearTimeout(tapEventTimer);
-				tapEventTimer = null;
-			}
-		});
-
-		// $(window).on('scroll', detectCurrentPage);
-		function scroll2page(page) {
-			var anchor = $('#anchor_page_' + page + ', #page_' + page);
-			if (anchor.length) {
-				SMApp.scrollTo(anchor.offset().top);
-				return true;
-			}
-			return false;
-		}
-
-		////////////////////////////////////////////////////////////
-		var currentPage = 0;
-		var currentLi = null;
-		var maxPage = 0;
-		var mainPost = null;
-		var mainAuthor = null;
-		var postsCountPerPage = 10;
-		var latestPagePostsCount = 0; // 最近一次加载的页面文章数
-		var totalPage = 0;
-		var isLoading = false;
-		var isInvalidPost = false;
-		var tpl = $('#tpl_post').val().trim();
-		var tplPage = $('#tpl_page').val().trim();
-		var loadedPage = {};
-		var needScrollToPage = 0;
-
-		// load cached
-		setTimeout(function () {
-			if (window.info) {
-				// SMApp.log('info has posts: ' + window.info.posts.length);
-				maxPage = info.maxPage;
-				showPageData(window.info);
-				currentPage = info.maxPage;
-				totalPage = info.totalPage;
-
-				try {
-					if (window.info['#' + window.info.maxPage].length == postsCountPerPage) {
-						++currentPage;
-					}
-				} catch (ignore) { }
-				// renderPosts(info.posts);
-
-				// var ancher = $('<a name="last_loaded"></a>');
-				// $('#post-list').append(ancher);
-				setTimeout(function () {
-					$(window).scrollTop(window.info.maxScrollY * 2);
-					// window.location = window.location.href + '#last_loaded';
-				}, 100);
-
-				SMApp.savePage(window.info);
-				SMApp.setCurrentPage(maxPage, totalPage);
-
-				// SMApp.savePostsInfo(window.info);
-			}
-
-			// start load
-			SMApp.getPostInfo(function (info) {
-				mainAuthor = info.author;
-				mainPost = info.post;
-				loadNext();
-
-				var title = info.post.title;
-				if (mainAuthor.length > 0) {
-					title += ' - 同作者 ' + mainAuthor;
-				}
-				$('#post-title').html(title);
-			});
-
-		}, 0);
-
-		function loadNext() {
-			if (isLoading || !mainPost || isInvalidPost) {
-				return;
-			}
-			if (latestPagePostsCount == postsCountPerPage) {
-				++maxPage;
-			}
-			isLoading = true;
-			$('#loading').addClass('loading');
-			load(maxPage);
-		}
-
-
-		/** render posts */
-		function renderPage(page) {
-			var html = tplPage.replace(/\$\{page\}/g, page);
-			var dom = $(html);
-			dom.on('tap', function () {
-				load(dom.attr('page'));
-			});
-			$('#post-list').append(dom);
-		}
-
-		function renderPosts(posts, page) {
-			var htmls = [];
-			if ($('#anchor_page_' + page).length == 0) {
-				htmls.push(
-					'<li id="anchor_page_' + page + '" class="anchor_page"></li>'
-				);
-			}
-			$.each(posts, function (idx, post) {
-				post.page = page;
-				if ($('#post_' + post.pid).length == 0) {
-					var html = tpl.replace(/\$\{(.*?)\}/g, function ($0, $1) {
-						return post[$1] || '';
-					});
-					htmls.push(html);
-				}
-			});
-			var dom = $(htmls.join(''));
-			// $('#post-list').append(dom);
-			// console.log(dom.find('img.ximg'));
-			var windowWidth = $(window).width();
-			var imageMaxWidth = parseInt((windowWidth - 40) / 2);
-			dom.find('img.ximg').each(function (idx, img) {
-				img = $(img);
-				img.css('max-width', imageMaxWidth + 'px');
-
-				var src = img.attr('src2');
-
-				var middle = img.parent().find('.ximg-middle');
-				var large = img.parent().find('.ximg-large');
-
-				middle.on('tap', function (evt) {
-					onImageClick(img, IMG_TYPE_MIDDLE, evt);
-				});
-				large.on('tap', function (evt) {
-					onImageClick(img, IMG_TYPE_LARGE, evt);
-				});
-
-				var autoload = config.autoload;
-				if (!autoload) {
-					SMApp.getImageInfo(src + '/middle', false, function (value) {
-						if (value.size && img.attr('status') != 'loaded') {
-							middle.html('小图' + formatSize(value.size));
-						}
-					});
-
-					SMApp.getImageInfo(src, false, function (value) {
-						if (value.size && img.attr('status') != 'loaded') {
-							large.html('原图' + formatSize(value.size));
-						}
-					});
-				}
-				loadImage(img, src, autoload);
-			});
-			dom.find('.action_button').on('tap', onActionButtonClick);
-			dom.find('.action .action_reply').on('tap', function (event) {
-				var pid = $(event.target).attr('pid');
-				SMApp.reply(pid);
-			});
-			dom.find('.action .action_more').on('tap', onActionButtonClick);
-
-			loadedPage[page] = true;
-
-			return dom;
-		}
-
-		var adLoading = false;
-		function tryLoadAd() {
-			if (config.disableAd) return;
-			if (adLoading) return;
-			if ($('#sm-ad').length > 0) return;
-			if ($('#post-list li').length < config.adPosition) return;
-			adLoading = true;
-			SMApp.getSMUUID(function (uuid) {
-				var url = "http://intely.cn/jebe-show?userid=" + encodeURIComponent(uuid)
-					+ '&appid=8'
-					+ '&keyword=' + encodeURIComponent(mainPost.board.name);
-				console.log('adurl', url);
-				SMApp.ajax({
-					url: url,
-					success: function (body) {
-						var json = JSON.parse(body);
-						if (json.code != 0) return;
-						var ad = json.data;
-						var tplAd = $('#tpl_ad').html().trim();
-						SMApp.getImageInfo(ad.img, true, function (value) {
-							if (value.fail) {
-								adLoading = false;
-							}
-							if (!value.success) {
-								return;
-							}
-							var data = {
-								url: ad.clickurl,
-								src: value.success
-							};
-							var html = tplAd.replace(/\$\{(.*?)\}/g, function ($0, $1) {
-								return data[$1] || '';
-							});
-							var dom = $(html);
-							var lis = $('#post-list li');
-
-							// get current shown post
-							var scrollTop = $(window).scrollTop();
-							var index = _getIndex(lis, lis.length / 2, lis.length, scrollTop);
-							index = Math.min(index + 3, lis.length - 2);
-							index = Math.max(0, index);
-							var li = $('#post-list li').get(index);
-							dom.insertAfter($(li));
-						});
-					},
-					fail: function (error) {
-						adLoading = false;
-					}
-				});
-			});
-		}
-
-		var IMG_TYPE_MIDDLE = 0;
-		var IMG_TYPE_LARGE = 1;
-
-		function onImageClick(img, type, evt) {
-			console.log('clicked', img, evt, evt.target);
-			var status = img.attr('status');
-			if (!status || status == 'fail') {
-				var src = img.attr('src2');
-				if (type == IMG_TYPE_MIDDLE) {
-					src += '/middle';
-				}
-				loadImage(img, src, true);
-			}
-			if (status == 'loaded') {
-				SMApp.tapImage(img.attr('src2'));
-			}
-		}
-
-		function loadImage(img, src, forceLoad) {
-			var info = img.parent().find('.ximg-info');
-			var spans = img.parent().find('span');
-
-			if (forceLoad) {
-				img.attr('status', 'loading');
-				info.html('正在加载');
-			}
-
-			SMApp.getImageInfo(src, forceLoad, function (value) {
-				// alert(src, size);
-				console.log(value);
-				if (value.success) {
-					$(img).attr('src', value.success);
-					$(img).attr('status', 'loaded');
-					spans.html('');
-				}
-				if (value.progress) {
-					info.html((Math.round(value.progress * 1000) / 10) + '%');
-				}
-				// if (value.size) {
-				// 	info.html('点击加载 ' + formatSize(value.size));
-				// }
-				if (value.fail) {
-					img.attr('status', 'fail');
-					info.html('下载失败，点击重试');
-				}
-			});
-		}
-
-		function formatSize(size) {
-			if (size < 1000) {
-				return size + 'B';
-			}
-			if (size < 1000 * 1000) {
-				return Math.round(size / 10) / 100 + 'KB';
-			}
-			return Math.round(size / 1000 / 10) / 100 + 'MB';
-		}
-
-		function onActionButtonClick(evt) {
-			console.log(evt.target);
-			var pid = $(evt.target).attr('pid');
-			SMApp.tapAction(pid);
-		}
-
-		function loadingEnd() {
-			isLoading = false;
-			$('#loading').removeClass('loading');
-		}
-
-		function load(page) {
-			var url = config.showQMD ? 'http://www.newsmth.net/nForum' : 'http://m.newsmth.net';
-
-			url += '/article/' + mainPost.board.name + '/' + mainPost.gid + '?p=' + page;
-			if (mainAuthor.length > 0) {
-				url += '&au=' + mainAuthor;
-			}
-
-			SMApp.ajax({
-				url: url,
-				success: function (body) {
-					showPosts(body, page);
-					loadingEnd();
-				},
-				fail: function (error) {
-					SMApp.toast(error);
-					--maxPage;
-					loadingEnd();
-					$('#loading-hint').html('加载失败，点击重试');
-				}
-			});
-		}
-
-		function makeupLoading() {
-			var text = '加载中...';
-			if (currentPage == totalPage) {
-				text = '已加载' + totalPage + '/' + totalPage + '页 '
-					+ '点击尝试加载新文章';
-			} else {
-				text = '正在加载' + (currentPage + 1) + '/' + totalPage + '...';
-			}
-			$('#loading-hint').html(text).show();
-		}
-
-		function showPageData(data) {
-			var bottomPage = 1;
-			var bottomLi = $('#post-list li:last-child');
-			if (bottomLi.length > 0) {
-				bottomPage = bottomLi.attr('page');
-			}
-			bottomPage = parseInt(bottomPage);
-			for (var page = bottomPage; page <= data.maxPage; ++page) {
-				if (data['#' + page]) {	// has posts
-					var dom = renderPosts(data['#' + page], page);
-					$('#post-list').append(dom);
-				} else if (page > bottomPage) {	// 防止上一页重复绘制
-					renderPage(page);
-				}
-			}
-			if (needScrollToPage > 0) {
-				scroll2page(needScrollToPage);
-				needScrollToPage = 0;
-			}
-		}
-
-		function showPosts(body, page) {
-			if (page == 0) page = 1;
-
-			var posts = parsePosts(body);
-			// handle error page
-			if (isInvalidPost) {
-				$('body').append(body.replace(/<script.*?<\/script>/g, ''));
-				return;
-			}
-
-			var data = {
-				maxPage: maxPage,
-				totalPage: totalPage
-			};
-			data['#' + page] = posts;
-
-			var anchor = $('#anchor_page_' + page + ', #page_' + page);
-			if (anchor.length) {
-				// remove old posts
-				var node = anchor.next();
-				while (node && parseInt(node.attr('page')) == page) {
-					var tmp = node;
-					node = node.next();
-					tmp.remove();
-				}
-
-				// add new posts
-				var dom = renderPosts(posts, page);
-				dom.insertAfter(anchor);
-				anchor.remove();
-			} else {
-				showPageData(data);
-			}
-
-			SMApp.savePage(data);
-
-			tryLoadAd();
-		}
-
-		function parsePosts(html) {
-			var ret = null;
-			if (config.showQMD) {
-				ret = parseWPosts(html);
-			} else {
-				ret = parseMPosts(html);
-			}
-			latestPagePostsCount = ret.posts.length;
-			totalPage = ret.total;
-			currentPage = ret.page;
-			maxPage = Math.max(maxPage, currentPage);
-			if (maxPage == currentPage) {
-				SMApp.setCurrentPage(currentPage, totalPage);
-			}
-			makeupLoading();
-			return ret.posts;
-		}
-
-		function trimHtml(html, isM) {
-			return html.replace(/<script.*?<\/script>/g, '')
-				.replace(/<a[^>]+>(<img[^>]+>)<\/a>/gi, '$1')  // remove <a>
-				.replace(/(<img\s+[^>]*?src=")(\/nForum\/att[^"]+\/(middle|large)")/gi, '$1//att.newsmth.net$2')
-				.replace(/(<img\s+[^>]*?src=")(\/att\/[^\/]+\/\d+[^"]+\/(middle|large)")/gi, '$1//m.newsmth.net$2')
-				.replace(/<img\s+[^>]*?src="(\/\/(att|m).newsmth.net.*?\/(middle|large))"[^>]*?>/gi, function ($0, src) {
-					src = src.replace(/\/(large|middle)$/, '');
-					src = 'https:' + src
-					return [
-						'<span class="ximg-box">',
-						'<img class="ximg" src="placeholder.jpg" src2="', src, '"/>',
-						'<span class="ximg-info action-img"></span>',
-						'<span class="ximg-middle action-img">小图</span>',
-						'<span class="ximg-large action-img">原图</span>',
-						'</span>'
-					].join('');
-				})
-				.replace(/(<img[^>]*?src=")(\/\/)/gi, '$1http:$2')  // add http to //[url]
-				.replace(/(<img[^>]*?src=")(\/)/gi, '$1http://' + (isM ? 'm' : 'www') + '.newsmth.net$2')
-				.replace(/<a href="(\/\/.+?)".*?>.+\.mp4<\/a>/g, '<a href="xsmthvideo:$1">Play ▶️</a>')
-		}
-
-		function parseMPosts(html) {
-			html = trimHtml(html, true);
-
-			isInvalidPost = true;
-			var ret = {};
-			var div = $('<div>');
-			div.html(html);
-			var lis = div.find('.list.sec li');
-			var posts = [];
-			lis.each(function (idx, li) {
-				li = $(li);
-				if (li.hasClass('f')) return;
-				var post = {
-					'__type': 'SMPost',
-					pid: 0,
-					gid: 0,
-					author: '',
-					nick: '',
-					title: '',
-					date: '',
-					content: '',
-					indexStr: '',
-					dateStr: ''
-				};
-				try {
-					var as = li.find('a');
-					if (as.length > 4) {
-						post.indexStr = $(as[1]).html().trim();
-						post.author = $(as[2]).html().trim();
-						post.dateStr = $(as[3]).html().trim();
-					}
-					post.pid = li.find('.nav.hl div').last().attr('tid');
-					var content = li.find('div.sp').html();
-					content = content.replace(/<br\s*\/?>(:[^<]+)/g, '<br/><span class="f006">$1</span>');
-					content = content.replace(/<img(\s+src=")(\/img\/.*?>)/gi, '<img class="xema" $1http://m.newsmth.net$2');
-
-					post.content = '<div class="sp">' + content + '</div>';
-					post.title = mainPost.title;
-					if (post.pid != mainPost.pid) {
-						post.title = 'Re: ' + mainPost.title;
-					}
-
-					posts.push(post);
-				} catch (ignore) { console.log(ignore) }
-			});
-
-			var pageStr = div.find('form .plant').html() || '0/0';
-			var ps = pageStr.split('/');
-
-			ret = {
-				posts: posts,
-				page: parseInt(ps[0]),
-				total: parseInt(ps[1])
-			}
-			isInvalidPost = (lis.length == 0);
-			return ret;
-		}
-
-		function parseWPosts(html) {
-			html = trimHtml(html, false);
-
-			var div = $(document.createElement('div'));
-			div.hide();
-			div.html(html);
-
-			var posts = [];
-			var articles = div.find('table.article');
-			articles.each(function (idx, article) {
-				var post = parseArticle(article);
-				posts.push(parseArticle(article));
-			});
-
-			if (currentPage <= 1 && posts.length == 0) {
-				isInvalidPost = true;
-			}
-
-			var page = parseInt(div.find('.page-select > a').html());
-			var total = Math.ceil(parseInt(div.find('.page-pre > i').html()) / postsCountPerPage);
-
-			return {
-				posts: posts,
-				page: page,
-				total: total
-			}
-		}
-
-		function parseArticle(article) {
-			var post = {
-				'__type': 'SMPost',
-				pid: 0,
-				gid: 0,
-				author: '',
-				nick: '',
-				title: '',
-				date: '',
-				content: '',
-				indexStr: '',
-				dateStr: ''
-			};
-			article = $(article);
-			post.author = article.find('.a-u-name > a').html();
-			post.indexStr = article.find('.a-pos').html();
-
-			var content = article.find('.a-content > p').html();
-			// debugger;
-			content = content.replace(/^\s*发信人: ([\w\d]+) \((.*?)\), 信区: (.|\s)*?发信站: 水木社区\s+\(([\w\d\s:&;]+)\), 站内\s*(?:<br\s*\/?>&nbsp;&nbsp;)/i, function ($0, author, nick, ignore, date) {
-				post.nick = nick;
-				post.dateStr = date;
-				return '';
-			}).replace(/※ 来源:·水木社区 [\w\d\:\/\._<> ="]{0,80}·\[FROM: [\w\d\.\*:]*?\]/, '');
-
-			// replace image
-			// <a target="_blank" href="http://att.newsmth.net/nForum/att/DUT/15622/832"><img border="0" title="单击此查看原图" src="http://att.newsmth.net/nForum/att/DUT/15622/832/large" class="resizeable"></a>
-			/*
-			content = content.replace(/<a[^>]*?><img[^>]*?src="(.+?)"[^>]*?><\/a>/gi, function ($0, src) {
-				src = src.replace(/\/large$/, '');
-				return '<span class="ximg-box"><span class="ximg-info"></span><img class="ximg" src="placeholder.jpg" src2="' + src + '"/></span>';
-			});
-			*/
-			// replace ema
-			// <img src="/nForum/img/ubb/ema/25.gif" style="display:inline;border-style:none">
-			content = content.replace(/<img(\s+src=")(\/nForum\/img\/.*?>)/gi, '<img class="xema" $1http://www.newsmth.net$2');
-			// content.
-
-			post.content = content;
-
-			article.find('a.a-post').attr('href').replace(/.*\/(\d+)$/, function ($0, pid) {
-				post.pid = pid;
-				return '';
-			});
-
-			post.title = mainPost.title;
-			if (post.pid != mainPost.pid) {
-				post.title = 'Re: ' + post.title;
-			}
-
-			return post;
-		}
-
-		function detectCurrentPage() {
-			var scrollTop = $(window).scrollTop();
-			var lis = $('#post-list li');
-			var idx = _getIndex(lis, lis.length / 2, lis.length - 1, scrollTop);
-			var li = $(lis[idx]);
-			console.log(li);
-			currentLi = li;
-			if (li.offset().top + li.offset().height > $(window).scrollTop() + $(window).height() && li.next('li').length > 0) {
-				$('#btn_next_post').show();
-			} else {
-				$('#btn_next_post').hide();
-			}
-			SMApp.setCurrentPage($(li).attr('page'), totalPage);
-		}
-
-		$('#btn_next_post').tap(function () {
-			var li = currentLi.next();
-			SMApp.scrollTo(li.offset().top);
-		});
-
-		function _getIndex(lis, idx, end, top) {
-			idx = parseInt(idx);
-			// console.log(idx, lis.length, end);
-			if (idx < 1) return 0;
-			if (idx > end) return end;
-
-			var li = lis[idx];
-			// console.log(li.offsetTop, top, li.offsetTop - top, li.offsetHeight);
-			if (Math.abs(li.offsetTop - top) < li.offsetHeight) {
-				return idx;
-			} else if (li.offsetTop < top) {
-				return _getIndex(lis, (idx + end) / 2, end, top);
-			} else {
-				return _getIndex(lis, idx / 2, idx, top);
-			}
-		}
-
-		// @2.5.2. swipe left
-		; (function () {
-			// 不好用，已屏蔽
-			return;
-			var touchStartPos = { x: 0, y: 0 };
-			var touchEndPos = { x: 0, y: 0 };
-			var touchTarget = null;
-			var swipeLeft = false;
-			var moved = false;
-			$('#post-list').on('touchstart', function (evt) {
-				var touch = evt.touches[0];
-				touchTarget = touch.target;
-				touchStartPos = { x: touch.pageX, y: touch.pageY };
-				moved = false;
-			}).on('touchmove', function (evt) {
-				if (!moved) {
-					swipeLeft = true;
-					moved = true;
-				}
-				var touch = evt.touches[0];
-				touchEndPos = { x: touch.pageX, y: touch.pageY };
-				var deltaX = touchEndPos.x - touchStartPos.x;
-				var deltaY = touchEndPos.y - touchStartPos.y;
-				if (deltaX > 0 || (Math.abs(deltaX * 2) < Math.abs(deltaY))) {
-					swipeLeft = false;
-				}
-				console.log('end', deltaX, deltaY, swipeLeft);
-			}).on('touchend', function (evt) {
-				if (moved && swipeLeft) {
-					var li = $(touchTarget).parents('li.post');
-					var pid = li.attr('id').substring(5);	// post_
-					SMApp.tapAction(pid);
-				}
-				// console.log('end', touch.pageX, touch.pageY);
-			})
-
-		})();
-
-		// save last position
-		; (function () {
-
-		})();
-
-	</script>
-</body>
-
+</textarea
+    >
+
+    <script type="text/template" id="tpl_ad">
+      <li id="sm-ad">
+      	<a href="${url}" class="action-ad">
+      		<img id="sm-ad-img" class="action-ad" alt=" " src="${src}" />
+      		<img id="sm-ad-mask" src="mask_ad.png" />
+      	</a>
+      </li>
+    </script>
+    <script type="text/javascript">
+      // js events
+      window.onThemeChanged = function(style) {
+        var sheet = document.styleSheets[0]
+
+        for (var i = sheet.rules.length - 1; i >= 0; --i) {
+          sheet.deleteRule(i)
+        }
+
+        sheet.addRule(
+          'body.xsmth',
+          style2string({
+            'background-color': style.backgroundColor,
+            color: style.textColor,
+            'font-family': style.fontFamily,
+            'font-size': style.fontSize,
+            'line-height': style.lineHeight
+          }),
+          0
+        )
+
+        sheet.addRule(
+          '.f006',
+          style2string({
+            color: style.quoteColor
+          }),
+          0
+        )
+
+        sheet.addRule(
+          'a',
+          style2string({
+            color: style.tintColor
+          }),
+          0
+        )
+
+        sheet.addRule(
+          'li.post',
+          style2string({
+            'border-bottom': '1px solid ' + style.textColor
+          }),
+          0
+        )
+
+        sheet.addRule(
+          'li.post .action span',
+          style2string({
+            color: style.tintColor,
+            'border-color': style.tintColor,
+            'background-color': style.backgroundColor
+          }),
+          0
+        )
+
+        $('body').addClass('xsmth')
+      }
+
+      function style2string(styles) {
+        var res = []
+        $.each(styles, function(key, value) {
+          res.push(key + ':' + value + ';')
+        })
+        return res.join('')
+      }
+
+      ////////////////////////////////////////////////////////////
+      //// touch events
+
+      var tapEventTimer = null
+      if (config.tapPaging) {
+        var dc = new SMAppControl(document.body)
+        dc.highlight = false
+        dc.onClick = function(event) {
+          if (
+            event.target.tagName == 'A' ||
+            event.target.className == 'ximg' ||
+            event.target.className.indexOf('action') != -1
+          ) {
+            return
+          }
+          var touch = event.touches[0]
+          var height = $(window).height()
+          var scrollTop = $(window).scrollTop()
+          var y = touch.pageY - scrollTop
+          tapEventTimer = setTimeout(function() {
+            if (y > (height / 5) * 2) {
+              SMApp.scrollTo(scrollTop + height - 50)
+              setTimeout(detectScrollToBotttom, 100)
+            } else {
+              SMApp.scrollTo(scrollTop - height)
+            }
+          })
+        }
+      }
+
+      ////////////////////////////////////////////////////////////
+
+      //// 监听滚动到底部事件
+      var height4loading = $('#loading').height()
+
+      function detectScrollToBotttom() {
+        // console.log($(window).height(), $(window).scrollTop(), $(document.body).height());
+        // 提前触发加载逻辑, wifi 下一直加载
+        var shouldload = config.autoload
+        var bodyHeight = $(document.body).height()
+
+        height4loading = Math.max($(window).height(), 960)
+        if (currentPage > 0) {
+          height4loading = Math.max(bodyHeight / currentPage, height4loading)
+        }
+        var scrollTop = $(window).scrollTop()
+
+        // console.log('s', $(window).scrollTop(), 'h4l', height4loading, 'wh', $(window).height(), 'bh', bodyHeight);
+        shouldload =
+          $(window).scrollTop() + height4loading + $(window).height() >
+          bodyHeight
+
+        if (shouldload) {
+          // console.log('try to load more');
+          if (currentPage != totalPage) {
+            loadNext()
+          }
+        }
+
+        detectCurrentPage()
+      }
+
+      var btnLoading = new SMAppControl($('#loading').get(0))
+      btnLoading.onClick = function() {
+        loadNext()
+      }
+
+      SMApp.scrollToBottom = detectScrollToBotttom
+      SMApp.loadPage = function(page) {
+        // console.log(page);
+        if (!scroll2page(page)) {
+          needScrollToPage = page
+          load(page)
+        }
+      }
+      $(window).on('scroll', detectScrollToBotttom)
+      $(window).on('scroll', function() {
+        // clear tap scroll event
+        if (tapEventTimer) {
+          clearTimeout(tapEventTimer)
+          tapEventTimer = null
+        }
+      })
+
+      // $(window).on('scroll', detectCurrentPage);
+      function scroll2page(page) {
+        var anchor = $('#anchor_page_' + page + ', #page_' + page)
+        if (anchor.length) {
+          SMApp.scrollTo(anchor.offset().top)
+          return true
+        }
+        return false
+      }
+
+      ////////////////////////////////////////////////////////////
+      var currentPage = 0
+      var currentLi = null
+      var maxPage = 0
+      var mainPost = null
+      var mainAuthor = null
+      var postsCountPerPage = 10
+      var latestPagePostsCount = 0 // 最近一次加载的页面文章数
+      var totalPage = 0
+      var isLoading = false
+      var isInvalidPost = false
+      var tpl = $('#tpl_post')
+        .val()
+        .trim()
+      var tplPage = $('#tpl_page')
+        .val()
+        .trim()
+      var loadedPage = {}
+      var needScrollToPage = 0
+      let likes = null
+
+      // load cached
+      setTimeout(function() {
+        if (window.info) {
+          // SMApp.log('info has posts: ' + window.info.posts.length);
+          maxPage = info.maxPage
+          showPageData(window.info)
+          currentPage = info.maxPage
+          totalPage = info.totalPage
+
+          try {
+            if (
+              window.info['#' + window.info.maxPage].length == postsCountPerPage
+            ) {
+              ++currentPage
+            }
+          } catch (ignore) {}
+          // renderPosts(info.posts);
+
+          // var ancher = $('<a name="last_loaded"></a>');
+          // $('#post-list').append(ancher);
+          setTimeout(function() {
+            $(window).scrollTop(window.info.maxScrollY * 2)
+            // window.location = window.location.href + '#last_loaded';
+          }, 100)
+
+          SMApp.savePage(window.info)
+          SMApp.setCurrentPage(maxPage, totalPage)
+
+          // SMApp.savePostsInfo(window.info);
+        }
+
+        // start load
+        SMApp.getPostInfo(function(info) {
+          mainAuthor = info.author
+          mainPost = info.post
+          loadNext()
+          loadLikes()
+          var title = info.post.title
+          if (mainAuthor.length > 0) {
+            title += ' - 同作者 ' + mainAuthor
+          }
+          $('#post-title').html(title)
+        })
+      }, 0)
+
+      function loadLikes() {
+        const gid = mainPost.gid
+        const url = `http://www.newsmth.net/nForum/article/${
+          mainPost.board.name
+        }/${gid}?ajax&p=1`
+        SMApp.ajax({
+          url,
+          success(body) {
+            // console.log('like', body)
+            const html = body.replace(/<script.*?<\/script>/g, '')
+            likes = $('<div>')
+              .html(html)
+              .find('.likes')
+            if (likes) {
+              addLikes()
+            }
+          }
+        })
+      }
+
+      function addLikes() {
+        let el
+        if (likes && (el = $(`#post_${mainPost.gid}`))) {
+          el.append(likes)
+          likes = null
+        } else {
+          setTimeout(addLikes, 100)
+        }
+      }
+
+      function loadNext() {
+        if (isLoading || !mainPost || isInvalidPost) {
+          return
+        }
+        if (latestPagePostsCount == postsCountPerPage) {
+          ++maxPage
+        }
+        isLoading = true
+        $('#loading').addClass('loading')
+        load(maxPage)
+      }
+
+      /** render posts */
+      function renderPage(page) {
+        var html = tplPage.replace(/\$\{page\}/g, page)
+        var dom = $(html)
+        dom.on('tap', function() {
+          load(dom.attr('page'))
+        })
+        $('#post-list').append(dom)
+      }
+
+      function renderPosts(posts, page) {
+        var htmls = []
+        if ($('#anchor_page_' + page).length == 0) {
+          htmls.push(
+            '<li id="anchor_page_' + page + '" class="anchor_page"></li>'
+          )
+        }
+        $.each(posts, function(idx, post) {
+          post.page = page
+          if ($('#post_' + post.pid).length == 0) {
+            var html = tpl.replace(/\$\{(.*?)\}/g, function($0, $1) {
+              return post[$1] || ''
+            })
+            htmls.push(html)
+          }
+        })
+        var dom = $(htmls.join(''))
+        // $('#post-list').append(dom);
+        // console.log(dom.find('img.ximg'));
+        var windowWidth = $(window).width()
+        var imageMaxWidth = parseInt((windowWidth - 40) / 2)
+        dom.find('img.ximg').each(function(idx, img) {
+          img = $(img)
+          img.css('max-width', imageMaxWidth + 'px')
+
+          var src = img.attr('src2')
+
+          var middle = img.parent().find('.ximg-middle')
+          var large = img.parent().find('.ximg-large')
+
+          middle.on('tap', function(evt) {
+            onImageClick(img, IMG_TYPE_MIDDLE, evt)
+          })
+          large.on('tap', function(evt) {
+            onImageClick(img, IMG_TYPE_LARGE, evt)
+          })
+
+          var autoload = config.autoload
+          if (!autoload) {
+            SMApp.getImageInfo(src + '/middle', false, function(value) {
+              if (value.size && img.attr('status') != 'loaded') {
+                middle.html('小图' + formatSize(value.size))
+              }
+            })
+
+            SMApp.getImageInfo(src, false, function(value) {
+              if (value.size && img.attr('status') != 'loaded') {
+                large.html('原图' + formatSize(value.size))
+              }
+            })
+          }
+          loadImage(img, src, autoload)
+        })
+        dom.find('.action_button').on('tap', onActionButtonClick)
+        dom.find('.action .action_reply').on('tap', function(event) {
+          var pid = $(event.target).attr('pid')
+          SMApp.reply(pid)
+        })
+        dom.find('.action .action_more').on('tap', onActionButtonClick)
+
+        loadedPage[page] = true
+
+        return dom
+      }
+
+      var adLoading = false
+      function tryLoadAd() {
+        if (config.disableAd) return
+        if (adLoading) return
+        if ($('#sm-ad').length > 0) return
+        if ($('#post-list li').length < config.adPosition) return
+        adLoading = true
+        SMApp.getSMUUID(function(uuid) {
+          var url =
+            'http://intely.cn/jebe-show?userid=' +
+            encodeURIComponent(uuid) +
+            '&appid=8' +
+            '&keyword=' +
+            encodeURIComponent(mainPost.board.name)
+          console.log('adurl', url)
+          SMApp.ajax({
+            url: url,
+            success: function(body) {
+              var json = JSON.parse(body)
+              if (json.code != 0) return
+              var ad = json.data
+              var tplAd = $('#tpl_ad')
+                .html()
+                .trim()
+              SMApp.getImageInfo(ad.img, true, function(value) {
+                if (value.fail) {
+                  adLoading = false
+                }
+                if (!value.success) {
+                  return
+                }
+                var data = {
+                  url: ad.clickurl,
+                  src: value.success
+                }
+                var html = tplAd.replace(/\$\{(.*?)\}/g, function($0, $1) {
+                  return data[$1] || ''
+                })
+                var dom = $(html)
+                var lis = $('#post-list li')
+
+                // get current shown post
+                var scrollTop = $(window).scrollTop()
+                var index = _getIndex(
+                  lis,
+                  lis.length / 2,
+                  lis.length,
+                  scrollTop
+                )
+                index = Math.min(index + 3, lis.length - 2)
+                index = Math.max(0, index)
+                var li = $('#post-list li').get(index)
+                dom.insertAfter($(li))
+              })
+            },
+            fail: function(error) {
+              adLoading = false
+            }
+          })
+        })
+      }
+
+      var IMG_TYPE_MIDDLE = 0
+      var IMG_TYPE_LARGE = 1
+
+      function onImageClick(img, type, evt) {
+        console.log('clicked', img, evt, evt.target)
+        var status = img.attr('status')
+        if (!status || status == 'fail') {
+          var src = img.attr('src2')
+          if (type == IMG_TYPE_MIDDLE) {
+            src += '/middle'
+          }
+          loadImage(img, src, true)
+        }
+        if (status == 'loaded') {
+          SMApp.tapImage(img.attr('src2'))
+        }
+      }
+
+      function loadImage(img, src, forceLoad) {
+        var info = img.parent().find('.ximg-info')
+        var spans = img.parent().find('span')
+
+        if (forceLoad) {
+          img.attr('status', 'loading')
+          info.html('正在加载')
+        }
+
+        SMApp.getImageInfo(src, forceLoad, function(value) {
+          // alert(src, size);
+          console.log(value)
+          if (value.success) {
+            $(img).attr('src', value.success)
+            $(img).attr('status', 'loaded')
+            spans.html('')
+          }
+          if (value.progress) {
+            info.html(Math.round(value.progress * 1000) / 10 + '%')
+          }
+          // if (value.size) {
+          // 	info.html('点击加载 ' + formatSize(value.size));
+          // }
+          if (value.fail) {
+            img.attr('status', 'fail')
+            info.html('下载失败，点击重试')
+          }
+        })
+      }
+
+      function formatSize(size) {
+        if (size < 1000) {
+          return size + 'B'
+        }
+        if (size < 1000 * 1000) {
+          return Math.round(size / 10) / 100 + 'KB'
+        }
+        return Math.round(size / 1000 / 10) / 100 + 'MB'
+      }
+
+      function onActionButtonClick(evt) {
+        console.log(evt.target)
+        var pid = $(evt.target).attr('pid')
+        SMApp.tapAction(pid)
+      }
+
+      function loadingEnd() {
+        isLoading = false
+        $('#loading').removeClass('loading')
+      }
+
+      function load(page) {
+        var url = config.showQMD
+          ? 'http://www.newsmth.net/nForum'
+          : 'http://m.newsmth.net'
+
+        url +=
+          '/article/' + mainPost.board.name + '/' + mainPost.gid + '?p=' + page
+        if (mainAuthor.length > 0) {
+          url += '&au=' + mainAuthor
+        }
+
+        SMApp.ajax({
+          url: url,
+          success: function(body) {
+            showPosts(body, page)
+            loadingEnd()
+          },
+          fail: function(error) {
+            SMApp.toast(error)
+            --maxPage
+            loadingEnd()
+            $('#loading-hint').html('加载失败，点击重试')
+          }
+        })
+      }
+
+      function makeupLoading() {
+        var text = '加载中...'
+        if (currentPage == totalPage) {
+          text =
+            '已加载' +
+            totalPage +
+            '/' +
+            totalPage +
+            '页 ' +
+            '点击尝试加载新文章'
+        } else {
+          text = '正在加载' + (currentPage + 1) + '/' + totalPage + '...'
+        }
+        $('#loading-hint')
+          .html(text)
+          .show()
+      }
+
+      function showPageData(data) {
+        var bottomPage = 1
+        var bottomLi = $('#post-list li:last-child')
+        if (bottomLi.length > 0) {
+          bottomPage = bottomLi.attr('page')
+        }
+        bottomPage = parseInt(bottomPage)
+        for (var page = bottomPage; page <= data.maxPage; ++page) {
+          if (data['#' + page]) {
+            // has posts
+            var dom = renderPosts(data['#' + page], page)
+            $('#post-list').append(dom)
+          } else if (page > bottomPage) {
+            // 防止上一页重复绘制
+            renderPage(page)
+          }
+        }
+        if (needScrollToPage > 0) {
+          scroll2page(needScrollToPage)
+          needScrollToPage = 0
+        }
+      }
+
+      function showPosts(body, page) {
+        if (page == 0) page = 1
+
+        var posts = parsePosts(body)
+        // handle error page
+        if (isInvalidPost) {
+          $('body').append(body.replace(/<script.*?<\/script>/g, ''))
+          return
+        }
+
+        var data = {
+          maxPage: maxPage,
+          totalPage: totalPage
+        }
+        data['#' + page] = posts
+
+        var anchor = $('#anchor_page_' + page + ', #page_' + page)
+        if (anchor.length) {
+          // remove old posts
+          var node = anchor.next()
+          while (node && parseInt(node.attr('page')) == page) {
+            var tmp = node
+            node = node.next()
+            tmp.remove()
+          }
+
+          // add new posts
+          var dom = renderPosts(posts, page)
+          dom.insertAfter(anchor)
+          anchor.remove()
+        } else {
+          showPageData(data)
+        }
+
+        SMApp.savePage(data)
+
+        tryLoadAd()
+      }
+
+      function parsePosts(html) {
+        var ret = null
+        if (config.showQMD) {
+          ret = parseWPosts(html)
+        } else {
+          ret = parseMPosts(html)
+        }
+        latestPagePostsCount = ret.posts.length
+        totalPage = ret.total
+        currentPage = ret.page
+        maxPage = Math.max(maxPage, currentPage)
+        if (maxPage == currentPage) {
+          SMApp.setCurrentPage(currentPage, totalPage)
+        }
+        makeupLoading()
+        return ret.posts
+      }
+
+      function trimHtml(html, isM) {
+        return html
+          .replace(/<script.*?<\/script>/g, '')
+          .replace(/<a[^>]+>(<img[^>]+>)<\/a>/gi, '$1') // remove <a>
+          .replace(
+            /(<img\s+[^>]*?src=")(\/nForum\/att[^"]+\/(middle|large)")/gi,
+            '$1//att.newsmth.net$2'
+          )
+          .replace(
+            /(<img\s+[^>]*?src=")(\/att\/[^\/]+\/\d+[^"]+\/(middle|large)")/gi,
+            '$1//m.newsmth.net$2'
+          )
+          .replace(
+            /<img\s+[^>]*?src="(\/\/(att|m).newsmth.net.*?\/(middle|large))"[^>]*?>/gi,
+            function($0, src) {
+              src = src.replace(/\/(large|middle)$/, '')
+              src = 'https:' + src
+              return [
+                '<span class="ximg-box">',
+                '<img class="ximg" src="placeholder.jpg" src2="',
+                src,
+                '"/>',
+                '<span class="ximg-info action-img"></span>',
+                '<span class="ximg-middle action-img">小图</span>',
+                '<span class="ximg-large action-img">原图</span>',
+                '</span>'
+              ].join('')
+            }
+          )
+          .replace(/(<img[^>]*?src=")(\/\/)/gi, '$1http:$2') // add http to //[url]
+          .replace(
+            /(<img[^>]*?src=")(\/)/gi,
+            '$1http://' + (isM ? 'm' : 'www') + '.newsmth.net$2'
+          )
+          .replace(
+            /<a href="(\/\/.+?)".*?>.+\.mp4<\/a>/g,
+            '<a href="xsmthvideo:$1">Play ▶️</a>'
+          )
+      }
+
+      function parseMPosts(html) {
+        html = trimHtml(html, true)
+
+        isInvalidPost = true
+        var ret = {}
+        var div = $('<div>')
+        div.html(html)
+        var lis = div.find('.list.sec li')
+        var posts = []
+        lis.each(function(idx, li) {
+          li = $(li)
+          if (li.hasClass('f')) return
+          var post = {
+            __type: 'SMPost',
+            pid: 0,
+            gid: 0,
+            author: '',
+            nick: '',
+            title: '',
+            date: '',
+            content: '',
+            indexStr: '',
+            dateStr: ''
+          }
+          try {
+            var as = li.find('a')
+            if (as.length > 4) {
+              post.indexStr = $(as[1])
+                .html()
+                .trim()
+              post.author = $(as[2])
+                .html()
+                .trim()
+              post.dateStr = $(as[3])
+                .html()
+                .trim()
+            }
+            post.pid = li
+              .find('.nav.hl div')
+              .last()
+              .attr('tid')
+            var content = li.find('div.sp').html()
+            content = content.replace(
+              /<br\s*\/?>(:[^<]+)/g,
+              '<br/><span class="f006">$1</span>'
+            )
+            content = content.replace(
+              /<img(\s+src=")(\/img\/.*?>)/gi,
+              '<img class="xema" $1http://m.newsmth.net$2'
+            )
+
+            post.content = '<div class="sp">' + content + '</div>'
+            post.title = mainPost.title
+            if (post.pid != mainPost.pid) {
+              post.title = 'Re: ' + mainPost.title
+            }
+
+            posts.push(post)
+          } catch (ignore) {
+            console.log(ignore)
+          }
+        })
+
+        var pageStr = div.find('form .plant').html() || '0/0'
+        var ps = pageStr.split('/')
+
+        ret = {
+          posts: posts,
+          page: parseInt(ps[0]),
+          total: parseInt(ps[1])
+        }
+        isInvalidPost = lis.length == 0
+        return ret
+      }
+
+      function parseWPosts(html) {
+        html = trimHtml(html, false)
+
+        var div = $(document.createElement('div'))
+        div.hide()
+        div.html(html)
+
+        var posts = []
+        var articles = div.find('table.article')
+        articles.each(function(idx, article) {
+          var post = parseArticle(article)
+          posts.push(parseArticle(article))
+        })
+
+        if (currentPage <= 1 && posts.length == 0) {
+          isInvalidPost = true
+        }
+
+        var page = parseInt(div.find('.page-select > a').html())
+        var total = Math.ceil(
+          parseInt(div.find('.page-pre > i').html()) / postsCountPerPage
+        )
+
+        return {
+          posts: posts,
+          page: page,
+          total: total
+        }
+      }
+
+      function parseArticle(article) {
+        var post = {
+          __type: 'SMPost',
+          pid: 0,
+          gid: 0,
+          author: '',
+          nick: '',
+          title: '',
+          date: '',
+          content: '',
+          indexStr: '',
+          dateStr: ''
+        }
+        article = $(article)
+        post.author = article.find('.a-u-name > a').html()
+        post.indexStr = article.find('.a-pos').html()
+
+        var content = article.find('.a-content > p').html()
+        // debugger;
+        content = content
+          .replace(
+            /^\s*发信人: ([\w\d]+) \((.*?)\), 信区: (.|\s)*?发信站: 水木社区\s+\(([\w\d\s:&;]+)\), 站内\s*(?:<br\s*\/?>&nbsp;&nbsp;)/i,
+            function($0, author, nick, ignore, date) {
+              post.nick = nick
+              post.dateStr = date
+              return ''
+            }
+          )
+          .replace(
+            /※ 来源:·水木社区 [\w\d\:\/\._<> ="]{0,80}·\[FROM: [\w\d\.\*:]*?\]/,
+            ''
+          )
+
+        // replace image
+        // <a target="_blank" href="http://att.newsmth.net/nForum/att/DUT/15622/832"><img border="0" title="单击此查看原图" src="http://att.newsmth.net/nForum/att/DUT/15622/832/large" class="resizeable"></a>
+        /*
+      content = content.replace(/<a[^>]*?><img[^>]*?src="(.+?)"[^>]*?><\/a>/gi, function ($0, src) {
+      	src = src.replace(/\/large$/, '');
+      	return '<span class="ximg-box"><span class="ximg-info"></span><img class="ximg" src="placeholder.jpg" src2="' + src + '"/></span>';
+      });
+      */
+        // replace ema
+        // <img src="/nForum/img/ubb/ema/25.gif" style="display:inline;border-style:none">
+        content = content.replace(
+          /<img(\s+src=")(\/nForum\/img\/.*?>)/gi,
+          '<img class="xema" $1http://www.newsmth.net$2'
+        )
+        // content.
+
+        post.content = content
+
+        article
+          .find('a.a-post')
+          .attr('href')
+          .replace(/.*\/(\d+)$/, function($0, pid) {
+            post.pid = pid
+            return ''
+          })
+
+        post.title = mainPost.title
+        if (post.pid != mainPost.pid) {
+          post.title = 'Re: ' + post.title
+        }
+
+        return post
+      }
+
+      function detectCurrentPage() {
+        var scrollTop = $(window).scrollTop()
+        var lis = $('#post-list li')
+        var idx = _getIndex(lis, lis.length / 2, lis.length - 1, scrollTop)
+        var li = $(lis[idx])
+        console.log(li)
+        currentLi = li
+        if (
+          li.offset().top + li.offset().height >
+            $(window).scrollTop() + $(window).height() &&
+          li.next('li').length > 0
+        ) {
+          $('#btn_next_post').show()
+        } else {
+          $('#btn_next_post').hide()
+        }
+        SMApp.setCurrentPage($(li).attr('page'), totalPage)
+      }
+
+      $('#btn_next_post').tap(function() {
+        var li = currentLi.next()
+        SMApp.scrollTo(li.offset().top)
+      })
+
+      function _getIndex(lis, idx, end, top) {
+        idx = parseInt(idx)
+        // console.log(idx, lis.length, end);
+        if (idx < 1) return 0
+        if (idx > end) return end
+
+        var li = lis[idx]
+        // console.log(li.offsetTop, top, li.offsetTop - top, li.offsetHeight);
+        if (Math.abs(li.offsetTop - top) < li.offsetHeight) {
+          return idx
+        } else if (li.offsetTop < top) {
+          return _getIndex(lis, (idx + end) / 2, end, top)
+        } else {
+          return _getIndex(lis, idx / 2, idx, top)
+        }
+      }
+
+      // @2.5.2. swipe left
+      ;(function() {
+        // 不好用，已屏蔽
+        return
+        var touchStartPos = { x: 0, y: 0 }
+        var touchEndPos = { x: 0, y: 0 }
+        var touchTarget = null
+        var swipeLeft = false
+        var moved = false
+        $('#post-list')
+          .on('touchstart', function(evt) {
+            var touch = evt.touches[0]
+            touchTarget = touch.target
+            touchStartPos = { x: touch.pageX, y: touch.pageY }
+            moved = false
+          })
+          .on('touchmove', function(evt) {
+            if (!moved) {
+              swipeLeft = true
+              moved = true
+            }
+            var touch = evt.touches[0]
+            touchEndPos = { x: touch.pageX, y: touch.pageY }
+            var deltaX = touchEndPos.x - touchStartPos.x
+            var deltaY = touchEndPos.y - touchStartPos.y
+            if (deltaX > 0 || Math.abs(deltaX * 2) < Math.abs(deltaY)) {
+              swipeLeft = false
+            }
+            console.log('end', deltaX, deltaY, swipeLeft)
+          })
+          .on('touchend', function(evt) {
+            if (moved && swipeLeft) {
+              var li = $(touchTarget).parents('li.post')
+              var pid = li.attr('id').substring(5) // post_
+              SMApp.tapAction(pid)
+            }
+            // console.log('end', touch.pageX, touch.pageY);
+          })
+      })()
+
+      // save last position
+      ;(function() {})()
+    </script>
+  </body>
 </html>

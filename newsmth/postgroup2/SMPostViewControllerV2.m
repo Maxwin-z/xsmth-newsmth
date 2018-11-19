@@ -766,6 +766,7 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
             XLog_e(@"get response string error. parse from data");
             responseString = [SMUtils gb2312Data2String:req.responseData];
         }
+//        XLog_d(@"%@", responseString);
         [self sendMessage2WebViewWithCallbackID:parameters[@"callbackID"] value:@{@"response": responseString ?: @""}];
     }];
     
