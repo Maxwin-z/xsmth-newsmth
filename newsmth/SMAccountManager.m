@@ -53,6 +53,7 @@ static SMAccountManager *_instance;
 {
     NSURL *url = [NSURL URLWithString:URL_PROTOCOL @"//m.newsmth.net"];
     NSMutableArray *cookies =[[NSMutableArray alloc] initWithArray:[[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:url]];
+    XLog_d(@"load cookies: %@", cookies);
     
 //    NSArray *savedCookies = [[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_COOKIES];
 //    XLog_d(@"saved cookies: %@", savedCookies);
@@ -81,9 +82,10 @@ static SMAccountManager *_instance;
 - (void)setCookies:(NSArray *)cookies
 {
     NSString *name = nil;
+    XLog_d(@"cookies: %@", cookies);
 //    NSMutableDictionary *savedCookies = [NSMutableDictionary new];
 //    NSMutableArray *savedCookies = [NSMutableArray new];
-//    int loginStatus = 0;    // 1 login; 2 logout
+    int loginStatus = 0;    // 1 login; 2 logout
     for (int i = 0; i != cookies.count; ++i) {
         NSHTTPCookie *cookie = cookies[i];
         
@@ -111,27 +113,34 @@ static SMAccountManager *_instance;
             BOOL isExpired = cookie.expiresDate != nil && cookie.expiresDate.timeIntervalSince1970 < [[NSDate alloc] init].timeIntervalSince1970;
 
             if ([name isEqualToString:@"guest"] || isExpired) {    // login status
-                name = nil;
-                self.notice = nil;
-                [self autoLogin];   // 尝试自动登录
-//                loginStatus = 2;
+                if (loginStatus == 0) { // guest & uid 会同时出现在cookie里，判断是否已经有uid
+                    name = nil;
+                    self.notice = nil;
+                    loginStatus = 2;
+                }
             } else {
-//                loginStatus = 1;
+                loginStatus = 1;
             }
             
             // notify account changed.
+            XLog_d(@"account: %@ -> %@", _name, name);
             if ((name != nil || _name != nil) && ![name isEqualToString:_name]) {
                 _name = name;
                 
                 if ([SMConfig enableBackgroundFetch]) {
                     [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
-                    XLog_v(@"enable bg fetch");
+                    XLog_v(@"enable bg fetch: %@", _name);
                 }
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ACCOUT object:nil];
                 });
             }
         }
+    }
+    
+    if (loginStatus == 2) {
+        [[NSHTTPCookieStorage sharedHTTPCookieStorage] removeCookiesSinceDate:[NSDate dateWithTimeIntervalSince1970:0]];
+        [self autoLogin];   // 尝试自动登录
     }
     
     // 2018.11.17; fix newsmth.net cookie expired time

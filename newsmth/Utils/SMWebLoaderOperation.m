@@ -101,7 +101,7 @@
         return;
     }
 
-//    XLog_d(@"url[%@] response %@", _url, request.requestCookies);
+    XLog_d(@"url[%@] response %@", _url, request.requestCookies);
     NSString *body;
     NSString *contentType = [request.responseHeaders objectForKey:@"Content-Type"];
     if ([[contentType lowercaseString] rangeOfString:@"charset=utf-8"].location != NSNotFound) {
@@ -114,7 +114,9 @@
         body = [SMUtils gb2312Data2String:request.responseData];
     }
 
-//    XLog_d(@"%@",body);
+    if(body.length < 1000) {
+        XLog_d(@"body: %@",body);
+    }
     _webParser = [[SMWebParser alloc] init];
     _webParser.delegate = self;
     [_webParser parseHtml:body withJSFile:_parser];

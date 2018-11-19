@@ -194,7 +194,7 @@
         listFontFamily = @"FZLanTingHei-L-GBK";
     }
     if (listFontSize == 0) {
-        listFontSize = 15;
+        listFontSize = 20;
     }
     return [UIFont fontWithName:listFontFamily size:listFontSize] ?: [UIFont systemFontOfSize:listFontSize];
 }
@@ -207,7 +207,7 @@
         postFontFamily = @"FZLanTingHei-L-GBK";
     }
     if (postFontSize == 0) {
-        postFontSize = 22;
+        postFontSize = 26;
     }
     return [UIFont fontWithName:postFontFamily size:postFontSize] ?: [UIFont systemFontOfSize:postFontSize];
 }
