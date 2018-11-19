@@ -130,6 +130,7 @@
         // save user & password
         [[NSUserDefaults standardUserDefaults] setObject:_textFieldForUsername.text forKey:USERDEFAULTS_USERNAME];
         [[NSUserDefaults standardUserDefaults] setObject:_textFieldForPassword.text forKey:USERDEFAULTS_PASSWORD];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:USERDEFAULTS_AUTOLOGIN];
 
         [SMUtils trackEventWithCategory:@"user" action:@"login" label:_textFieldForUsername.text];
 

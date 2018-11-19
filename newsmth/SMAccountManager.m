@@ -7,6 +7,7 @@
 //
 
 #import "SMAccountManager.h"
+#import "SMWebLoaderOperation.h"
 
 #define COOKIE_USERID   @"main[UTMPUSERID]"
 
@@ -51,23 +52,23 @@ static SMAccountManager *_instance;
     NSURL *url = [NSURL URLWithString:URL_PROTOCOL @"//m.newsmth.net"];
     NSMutableArray *cookies =[[NSMutableArray alloc] initWithArray:[[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:url]];
     
-    NSArray *savedCookies = [[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_COOKIES];
-    XLog_d(@"saved cookies: %@", savedCookies);
-    if (savedCookies) {
-        NSDateFormatter *formatter = [NSDateFormatter new];
-        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-        
-        [savedCookies enumerateObjectsUsingBlock:^(NSDictionary *item, NSUInteger idx, BOOL * _Nonnull stop) {
-            NSMutableDictionary *cookieProps = [[NSMutableDictionary alloc] initWithDictionary:item];
-            if (item[NSHTTPCookieExpires]) {
-                cookieProps[NSHTTPCookieExpires] = [formatter dateFromString:item[NSHTTPCookieExpires]];
-            }
-            NSHTTPCookie *cookie = [[NSHTTPCookie alloc] initWithProperties:cookieProps];
-            [cookies addObject:cookie];
-            [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookie];
-        }];
-        XLog_d(@"debug cookie: %@", [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:url]);
-    }
+//    NSArray *savedCookies = [[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_COOKIES];
+//    XLog_d(@"saved cookies: %@", savedCookies);
+//    if (savedCookies) {
+//        NSDateFormatter *formatter = [NSDateFormatter new];
+//        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+//
+//        [savedCookies enumerateObjectsUsingBlock:^(NSDictionary *item, NSUInteger idx, BOOL * _Nonnull stop) {
+//            NSMutableDictionary *cookieProps = [[NSMutableDictionary alloc] initWithDictionary:item];
+//            if (item[NSHTTPCookieExpires]) {
+//                cookieProps[NSHTTPCookieExpires] = [formatter dateFromString:item[NSHTTPCookieExpires]];
+//            }
+//            NSHTTPCookie *cookie = [[NSHTTPCookie alloc] initWithProperties:cookieProps];
+//            [cookies addObject:cookie];
+//            [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookie];
+//        }];
+//        XLog_d(@"debug cookie: %@", [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:url]);
+//    }
     
     if (cookies) {
         [self setCookies:cookies];
@@ -79,28 +80,28 @@ static SMAccountManager *_instance;
 {
     NSString *name = nil;
 //    NSMutableDictionary *savedCookies = [NSMutableDictionary new];
-    NSMutableArray *savedCookies = [NSMutableArray new];
-    int loginStatus = 0;    // 1 login; 2 logout
+//    NSMutableArray *savedCookies = [NSMutableArray new];
+//    int loginStatus = 0;    // 1 login; 2 logout
     for (int i = 0; i != cookies.count; ++i) {
         NSHTTPCookie *cookie = cookies[i];
         
-        if ([@[@"main[UTMPKEY]", @"main[UTMPNUM]", COOKIE_USERID] containsObject:cookie.name]) {
-//            [savedCookies setObject:(cookie.value ?: @"") forKey:cookie.name];
-            NSDateFormatter *formatter = [NSDateFormatter new];
-            [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-            NSMutableDictionary *obj = [[NSMutableDictionary alloc] initWithDictionary:@{
-                                      NSHTTPCookieValue:cookie.value ?: @"",
-                                      NSHTTPCookieName: cookie.name,
-                                      NSHTTPCookieDomain: cookie.domain,
-                                      NSHTTPCookiePath: cookie.path,
-                                      NSHTTPCookieVersion: @(cookie.version),
-                                      NSHTTPCookieSecure: @(cookie.secure)
-                                      }];
-            if (cookie.expiresDate) {
-                [obj setObject:[formatter stringFromDate:cookie.expiresDate] forKey:NSHTTPCookieExpires];
-            }
-            [savedCookies addObject:obj];
-        }
+//        if ([@[@"main[UTMPKEY]", @"main[UTMPNUM]", COOKIE_USERID] containsObject:cookie.name]) {
+////            [savedCookies setObject:(cookie.value ?: @"") forKey:cookie.name];
+//            NSDateFormatter *formatter = [NSDateFormatter new];
+//            [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+//            NSMutableDictionary *obj = [[NSMutableDictionary alloc] initWithDictionary:@{
+//                                      NSHTTPCookieValue:cookie.value ?: @"",
+//                                      NSHTTPCookieName: cookie.name,
+//                                      NSHTTPCookieDomain: cookie.domain,
+//                                      NSHTTPCookiePath: cookie.path,
+//                                      NSHTTPCookieVersion: @(cookie.version),
+//                                      NSHTTPCookieSecure: @(cookie.secure)
+//                                      }];
+//            if (cookie.expiresDate) {
+//                [obj setObject:[formatter stringFromDate:cookie.expiresDate] forKey:NSHTTPCookieExpires];
+//            }
+//            [savedCookies addObject:obj];
+//        }
         
         if ([cookie.name isEqualToString:COOKIE_USERID]) {
             name = cookie.value;
@@ -110,9 +111,10 @@ static SMAccountManager *_instance;
             if ([name isEqualToString:@"guest"] || isExpired) {    // login status
                 name = nil;
                 self.notice = nil;
-                loginStatus = 2;
+                [self autoLogin];   // 尝试自动登录
+//                loginStatus = 2;
             } else {
-                loginStatus = 1;
+//                loginStatus = 1;
             }
             
             // notify account changed.
@@ -136,18 +138,36 @@ static SMAccountManager *_instance;
 //    } else if([savedCookies count] == 3) {
 //        [[NSUserDefaults standardUserDefaults] setObject:savedCookies forKey:USERDEFAULTS_COOKIES];
 //    }
-    XLog_d(@"savedCookies: %@", savedCookies);
-
-    if (loginStatus == 1 && savedCookies.count == 3) {
-        [[NSUserDefaults standardUserDefaults] setObject:savedCookies forKey:USERDEFAULTS_COOKIES];
-    } else if (loginStatus == 2) {
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:USERDEFAULTS_COOKIES];
-    }
+//    XLog_d(@"savedCookies: %@", savedCookies);
+//
+//    if (loginStatus == 1 && savedCookies.count == 3) {
+//        [[NSUserDefaults standardUserDefaults] setObject:savedCookies forKey:USERDEFAULTS_COOKIES];
+//    } else if (loginStatus == 2) {
+//        [[NSUserDefaults standardUserDefaults] removeObjectForKey:USERDEFAULTS_COOKIES];
+//    }
 }
 
 - (BOOL)isLogin
 {
     return _name != nil;
+}
+
+- (void)autoLogin
+{
+    NSString *user = [[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_USERNAME];
+    NSString *passwd =  [[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_PASSWORD];
+    BOOL autoLogin = [[NSUserDefaults standardUserDefaults] boolForKey:USERDEFAULTS_AUTOLOGIN];
+    if (autoLogin && user && passwd) {
+        XLog_d(@"try autologin");
+        SMHttpRequest *request = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:URL_PROTOCOL @"//m.newsmth.net/user/login"]];
+        NSString *postBody = [NSString stringWithFormat:@"id=%@&passwd=%@&save=on", user, passwd];
+        [request setRequestMethod:@"POST"];
+        [request addRequestHeader:@"Content-type" value:@"application/x-www-form-urlencoded"];
+        [request setPostBody:[[postBody dataUsingEncoding:NSUTF8StringEncoding] mutableCopy]];
+        
+        SMWebLoaderOperation *op = [[SMWebLoaderOperation alloc] init];
+        [op loadRequest:request withParser:@"notice,util_notice"];
+    }
 }
 
 @end

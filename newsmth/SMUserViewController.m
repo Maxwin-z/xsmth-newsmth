@@ -114,6 +114,8 @@
     _logoutOp = [[SMWebLoaderOperation alloc] init];
     [_logoutOp loadUrl:URL_PROTOCOL @"//m.newsmth.net/user/logout" withParser:nil];
     
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:USERDEFAULTS_AUTOLOGIN];
+    
     // disable 
     if ([SMUtils systemVersion] >= 7) {
         [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalNever];

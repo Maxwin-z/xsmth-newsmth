@@ -50,6 +50,7 @@ typedef enum {
 #define USERDEFAULTS_UUID @"sm_uuid"
 #define USERDEFAULTS_USERNAME   @"username"
 #define USERDEFAULTS_PASSWORD   @"password"
+#define USERDEFAULTS_AUTOLOGIN @"autologin"
 #define USERDEFAULTS_COOKIES @"cookies"
 #define USERDEFAULTS_NOTICE @"notice"   // 保存当前notice信息
 #define USERDEFAULTS_NOTICE_LATEST    @"notice_latest"  // 保持最近一次打开Left看到的notice
