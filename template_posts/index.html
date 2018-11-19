@@ -158,7 +158,7 @@
       }
 
       .ximg-middle,
-      .ximg-large {
+      /*.ximg-large*/ {
         position: absolute;
         padding-top: 20%;
         width: 50%;
@@ -169,8 +169,11 @@
       }
 
       .ximg-large {
-        left: 50%;
+        position: absolute;
+        left: 0;
         right: 0;
+        bottom: 0;
+        text-align: center;
       }
 
       .ximg-box img,
@@ -181,9 +184,10 @@
       .ximg-info {
         position: absolute;
         width: 100%;
-        top: 20%;
+        top: 0;
         left: 0;
-        text-align: center;
+        text-align: end;
+        font-size: 20px;
       }
 
       .action {
@@ -630,34 +634,37 @@
           img = $(img)
           img.css('max-width', imageMaxWidth + 'px')
 
+          const info = img.parent().find('.ximg-info')
           var src = img.attr('src2')
-
-          var middle = img.parent().find('.ximg-middle')
-          var large = img.parent().find('.ximg-large')
-
-          middle.on('tap', function(evt) {
-            onImageClick(img, IMG_TYPE_MIDDLE, evt)
-          })
-          large.on('tap', function(evt) {
-            onImageClick(img, IMG_TYPE_LARGE, evt)
-          })
-
           var autoload = config.autoload
           if (!autoload) {
-            SMApp.getImageInfo(src + '/middle', false, function(value) {
-              if (value.size && img.attr('status') != 'loaded') {
-                middle.html('小图' + formatSize(value.size))
-              }
-            })
-
+            info.html('点击加载原图')
             SMApp.getImageInfo(src, false, function(value) {
               if (value.size && img.attr('status') != 'loaded') {
-                large.html('原图' + formatSize(value.size))
+                info.html('原图' + formatSize(value.size))
               }
             })
+          } else {
+            loadImage(img, src)
           }
-          loadImage(img, src, autoload)
+          // load middle image
+          SMApp.getImageInfo(src + '/middle', true, function(value) {
+            if (value.success && img.attr('status') != 'loaded') {
+              $(img).attr('src', value.success)
+            }
+          })
+
+          img.click(() => {
+            const status = img.attr('status')
+            if (status != 'loading' && status != 'loaded') {
+              loadImage(img, src)
+            }
+            if (status == 'loaded') {
+              SMApp.tapImage(src)
+            }
+          })
         })
+
         dom.find('.action_button').on('tap', onActionButtonClick)
         dom.find('.action .action_reply').on('tap', function(event) {
           var pid = $(event.target).attr('pid')
@@ -735,37 +742,23 @@
       var IMG_TYPE_MIDDLE = 0
       var IMG_TYPE_LARGE = 1
 
-      function onImageClick(img, type, evt) {
-        console.log('clicked', img, evt, evt.target)
-        var status = img.attr('status')
-        if (!status || status == 'fail') {
-          var src = img.attr('src2')
-          if (type == IMG_TYPE_MIDDLE) {
-            src += '/middle'
-          }
-          loadImage(img, src, true)
-        }
-        if (status == 'loaded') {
-          SMApp.tapImage(img.attr('src2'))
-        }
-      }
-
-      function loadImage(img, src, forceLoad) {
+      function loadImage(img, src) {
         var info = img.parent().find('.ximg-info')
-        var spans = img.parent().find('span')
-
-        if (forceLoad) {
-          img.attr('status', 'loading')
-          info.html('正在加载')
+        const status = img.attr('status')
+        if (status == 'loading' || status == 'loaded') {
+          return
         }
 
-        SMApp.getImageInfo(src, forceLoad, function(value) {
+        img.attr('status', 'loading')
+        info.html('正在加载')
+
+        SMApp.getImageInfo(src, true, function(value) {
           // alert(src, size);
           console.log(value)
           if (value.success) {
             $(img).attr('src', value.success)
             $(img).attr('status', 'loaded')
-            spans.html('')
+            info.html('')
           }
           if (value.progress) {
             info.html(Math.round(value.progress * 1000) / 10 + '%')
@@ -948,8 +941,8 @@
                 src,
                 '"/>',
                 '<span class="ximg-info action-img"></span>',
-                '<span class="ximg-middle action-img">小图</span>',
-                '<span class="ximg-large action-img">原图</span>',
+                // '<span class="ximg-middle action-img">小图</span>',
+                // '<span class="ximg-large action-img">原图</span>',
                 '</span>'
               ].join('')
             }
