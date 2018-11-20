@@ -263,7 +263,7 @@ static SMMainpageViewController *_instance;
     [self toast:error.message];
     if (++self.failTimes > 1) {
         self.failTimes = 0;
-        [SMDiagnoseViewController diagnose:[self dataUrl] rootViewController:self];
+//        [SMDiagnoseViewController diagnose:[self dataUrl] rootViewController:self];
     }
 }
 

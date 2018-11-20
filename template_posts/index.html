@@ -183,11 +183,13 @@
 
       .ximg-info {
         position: absolute;
-        width: 100%;
         top: 0;
         left: 0;
         text-align: end;
         font-size: 20px;
+        line-height: 20px;
+        background-color: lightslategray;
+        padding: 6px;
       }
 
       .action {
@@ -682,7 +684,7 @@
         if (config.disableAd) return
         if (adLoading) return
         if ($('#sm-ad').length > 0) return
-        if ($('#post-list li').length < config.adPosition) return
+        if ($('#post-list li.post').length < config.adPosition) return
         adLoading = true
         SMApp.getSMUUID(function(uuid) {
           var url =
@@ -716,7 +718,7 @@
                   return data[$1] || ''
                 })
                 var dom = $(html)
-                var lis = $('#post-list li')
+                var lis = $('#post-list li.post')
 
                 // get current shown post
                 var scrollTop = $(window).scrollTop()
@@ -728,7 +730,7 @@
                 )
                 index = Math.min(index + 3, lis.length - 2)
                 index = Math.max(0, index)
-                var li = $('#post-list li').get(index)
+                var li = $('#post-list li.post').get(index)
                 dom.insertAfter($(li))
               })
             },
@@ -840,7 +842,7 @@
 
       function showPageData(data) {
         var bottomPage = 1
-        var bottomLi = $('#post-list li:last-child')
+        var bottomLi = $('#post-list li.post:last-child')
         if (bottomLi.length > 0) {
           bottomPage = bottomLi.attr('page')
         }
@@ -1132,7 +1134,7 @@
 
       function detectCurrentPage() {
         var scrollTop = $(window).scrollTop()
-        var lis = $('#post-list li')
+        var lis = $('#post-list li.post')
         var idx = _getIndex(lis, lis.length / 2, lis.length - 1, scrollTop)
         var li = $(lis[idx])
         console.log(li)

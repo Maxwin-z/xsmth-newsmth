@@ -439,7 +439,7 @@
     
     if (++self.failTimes > 1) {
         self.failTimes = 0;
-        [SMDiagnoseViewController diagnose:opt.url rootViewController:self];
+//        [SMDiagnoseViewController diagnose:opt.url rootViewController:self];
     }
 }
 
