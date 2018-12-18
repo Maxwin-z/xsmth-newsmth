@@ -55,23 +55,23 @@ static SMAccountManager *_instance;
     NSMutableArray *cookies =[[NSMutableArray alloc] initWithArray:[[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:url]];
     XLog_d(@"load cookies: %@", cookies);
     
-//    NSArray *savedCookies = [[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_COOKIES];
-//    XLog_d(@"saved cookies: %@", savedCookies);
-//    if (savedCookies) {
-//        NSDateFormatter *formatter = [NSDateFormatter new];
-//        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-//
-//        [savedCookies enumerateObjectsUsingBlock:^(NSDictionary *item, NSUInteger idx, BOOL * _Nonnull stop) {
-//            NSMutableDictionary *cookieProps = [[NSMutableDictionary alloc] initWithDictionary:item];
-//            if (item[NSHTTPCookieExpires]) {
-//                cookieProps[NSHTTPCookieExpires] = [formatter dateFromString:item[NSHTTPCookieExpires]];
-//            }
-//            NSHTTPCookie *cookie = [[NSHTTPCookie alloc] initWithProperties:cookieProps];
-//            [cookies addObject:cookie];
-//            [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookie];
-//        }];
-//        XLog_d(@"debug cookie: %@", [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:url]);
-//    }
+    NSArray *savedCookies = [[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_COOKIES];
+    XLog_d(@"saved cookies: %@", savedCookies);
+    if (savedCookies) {
+        NSDateFormatter *formatter = [NSDateFormatter new];
+        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+
+        [savedCookies enumerateObjectsUsingBlock:^(NSDictionary *item, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSMutableDictionary *cookieProps = [[NSMutableDictionary alloc] initWithDictionary:item];
+            if (item[NSHTTPCookieExpires]) {
+                cookieProps[NSHTTPCookieExpires] = [formatter dateFromString:item[NSHTTPCookieExpires]];
+            }
+            NSHTTPCookie *cookie = [[NSHTTPCookie alloc] initWithProperties:cookieProps];
+            [cookies addObject:cookie];
+            [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookie];
+        }];
+        XLog_d(@"debug cookie: %@", [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:url]);
+    }
     
     if (cookies) {
         [self setCookies:cookies];
@@ -84,28 +84,28 @@ static SMAccountManager *_instance;
     NSString *name = nil;
     XLog_d(@"cookies: %@", cookies);
 //    NSMutableDictionary *savedCookies = [NSMutableDictionary new];
-//    NSMutableArray *savedCookies = [NSMutableArray new];
+    NSMutableArray *savedCookies = [NSMutableArray new];
     int loginStatus = 0;    // 1 login; 2 logout
     for (int i = 0; i != cookies.count; ++i) {
         NSHTTPCookie *cookie = cookies[i];
         
-//        if ([@[@"main[UTMPKEY]", @"main[UTMPNUM]", COOKIE_USERID] containsObject:cookie.name]) {
-////            [savedCookies setObject:(cookie.value ?: @"") forKey:cookie.name];
-//            NSDateFormatter *formatter = [NSDateFormatter new];
-//            [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-//            NSMutableDictionary *obj = [[NSMutableDictionary alloc] initWithDictionary:@{
-//                                      NSHTTPCookieValue:cookie.value ?: @"",
-//                                      NSHTTPCookieName: cookie.name,
-//                                      NSHTTPCookieDomain: cookie.domain,
-//                                      NSHTTPCookiePath: cookie.path,
-//                                      NSHTTPCookieVersion: @(cookie.version),
-//                                      NSHTTPCookieSecure: @(cookie.secure)
-//                                      }];
-//            if (cookie.expiresDate) {
-//                [obj setObject:[formatter stringFromDate:cookie.expiresDate] forKey:NSHTTPCookieExpires];
-//            }
-//            [savedCookies addObject:obj];
-//        }
+        if ([@[@"main[UTMPKEY]", @"main[UTMPNUM]", COOKIE_USERID] containsObject:cookie.name]) {
+//            [savedCookies setObject:(cookie.value ?: @"") forKey:cookie.name];
+            NSDateFormatter *formatter = [NSDateFormatter new];
+            [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+            NSMutableDictionary *obj = [[NSMutableDictionary alloc] initWithDictionary:@{
+                                      NSHTTPCookieValue:cookie.value ?: @"",
+                                      NSHTTPCookieName: cookie.name,
+                                      NSHTTPCookieDomain: cookie.domain,
+                                      NSHTTPCookiePath: cookie.path,
+                                      NSHTTPCookieVersion: @(cookie.version),
+                                      NSHTTPCookieSecure: @(cookie.secure)
+                                      }];
+            if (cookie.expiresDate) {
+                [obj setObject:[formatter stringFromDate:cookie.expiresDate] forKey:NSHTTPCookieExpires];
+            }
+            [savedCookies addObject:obj];
+        }
         
         if ([cookie.name isEqualToString:COOKIE_USERID]) {
             name = cookie.value;
@@ -138,8 +138,14 @@ static SMAccountManager *_instance;
         }
     }
     
+    if (loginStatus == 1) {
+        XLog_d(@"savedCookies: %@", savedCookies);
+        [[NSUserDefaults standardUserDefaults] setObject:savedCookies forKey:USERDEFAULTS_COOKIES];
+    }
     if (loginStatus == 2) {
+        XLog_d(@"clear savedCookies: %@", savedCookies);
         [[NSHTTPCookieStorage sharedHTTPCookieStorage] removeCookiesSinceDate:[NSDate dateWithTimeIntervalSince1970:0]];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:USERDEFAULTS_COOKIES];
         [self autoLogin];   // 尝试自动登录
     }
     
@@ -165,7 +171,7 @@ static SMAccountManager *_instance;
 
 - (void)autoLogin
 {
-    if ([NSDate timeIntervalSinceReferenceDate] - self.lastAutoLoginTime < 60) {    // 每分钟内重试一次
+    if ([NSDate timeIntervalSinceReferenceDate] - self.lastAutoLoginTime < 10) {    // 每10s内重试一次
         XLog_d(@"autologin 重试时间较短，稍后重试");
         return ;
     }

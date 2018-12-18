@@ -512,7 +512,7 @@
         .trim()
       var loadedPage = {}
       var needScrollToPage = 0
-      let likes = null
+      var likes = null
 
       // load cached
       setTimeout(function() {
@@ -560,15 +560,15 @@
       }, 0)
 
       function loadLikes() {
-        const gid = mainPost.gid
-        const url = `http://www.newsmth.net/nForum/article/${
+        var gid = mainPost.gid
+        var url = `http://www.newsmth.net/nForum/article/${
           mainPost.board.name
         }/${gid}?ajax&p=1`
         SMApp.ajax({
           url,
           success(body) {
             // console.log('like', body)
-            const html = body.replace(/<script.*?<\/script>/g, '')
+            var html = body.replace(/<script.*?<\/script>/g, '')
             likes = $('<div>')
               .html(html)
               .find('.likes')
@@ -580,7 +580,7 @@
       }
 
       function addLikes() {
-        let el
+        var el
         if (likes && (el = $(`#post_${mainPost.gid}`))) {
           el.append(likes)
           likes = null
@@ -636,7 +636,7 @@
           img = $(img)
           img.css('max-width', imageMaxWidth + 'px')
 
-          const info = img.parent().find('.ximg-info')
+          var info = img.parent().find('.ximg-info')
           var src = img.attr('src2')
           var autoload = config.autoload
           if (!autoload) {
@@ -656,8 +656,8 @@
             }
           })
 
-          img.click(() => {
-            const status = img.attr('status')
+          img.click(function() {
+            var status = img.attr('status')
             if (status != 'loading' && status != 'loaded') {
               loadImage(img, src)
             }
@@ -746,7 +746,7 @@
 
       function loadImage(img, src) {
         var info = img.parent().find('.ximg-info')
-        const status = img.attr('status')
+        var status = img.attr('status')
         if (status == 'loading' || status == 'loaded') {
           return
         }
@@ -760,7 +760,7 @@
           if (value.success) {
             $(img).attr('src', value.success)
             $(img).attr('status', 'loaded')
-            info.html('')
+            info.remove()
           }
           if (value.progress) {
             info.html(Math.round(value.progress * 1000) / 10 + '%')
