@@ -810,7 +810,9 @@
         SMApp.ajax({
           url: url,
           success: function(body) {
-            showPosts(body, page)
+            try {
+              showPosts(body, page)
+            } catch (ignore) {}
             loadingEnd()
           },
           fail: function(error) {
