@@ -512,7 +512,7 @@
         .trim()
       var loadedPage = {}
       var needScrollToPage = 0
-      let likes = null
+      var likes = null
 
       // load cached
       setTimeout(function() {
@@ -580,7 +580,7 @@
       }
 
       function addLikes() {
-        let el
+        var el
         if (likes && (el = $(`#post_${mainPost.gid}`))) {
           el.append(likes)
           likes = null
@@ -656,7 +656,7 @@
             }
           })
 
-          img.click(() => {
+          img.click(function() {
             const status = img.attr('status')
             if (status != 'loading' && status != 'loaded') {
               loadImage(img, src)
@@ -936,7 +936,7 @@
             /<img\s+[^>]*?src="(\/\/(att|m).newsmth.net.*?\/(middle|large))"[^>]*?>/gi,
             function($0, src) {
               src = src.replace(/\/(large|middle)$/, '')
-              src = 'https:' + src
+              src = 'http:' + src
               return [
                 '<span class="ximg-box">',
                 '<img class="ximg" src="placeholder.jpg" src2="',
