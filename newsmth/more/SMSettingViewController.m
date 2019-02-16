@@ -760,7 +760,7 @@ static SectionData sections[] = {
         // TODO
         NSURL *url = [NSURL URLWithString:@"https://item.taobao.com/item.htm?id=587181842343"];
         SFSafariViewController *safari = [[SFSafariViewController alloc] initWithURL:url];
-        [self presentViewController:safari animated:YES completion:NULL];
+        [self.view.window.rootViewController presentViewController:safari animated:YES completion:NULL];
     }
     
     [SMUtils trackEventWithCategory:@"setting" action:action label:nil];

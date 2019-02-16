@@ -600,7 +600,8 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
 //        vc.url = url;
 //        [self.navigationController pushViewController:safari animated:YES];
         SFSafariViewController *safari = [[SFSafariViewController alloc] initWithURL:url];
-        [self presentViewController:safari animated:YES completion:NULL];
+        [self.view.window.rootViewController presentViewController:safari animated:YES completion:NULL];
+//        [self presentViewController:safari animated:YES completion:NULL];
         return NO;
     }
     

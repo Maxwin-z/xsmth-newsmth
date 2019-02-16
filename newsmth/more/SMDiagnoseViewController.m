@@ -24,7 +24,7 @@
         @strongify(alertView);
         if (buttonIndex.integerValue != alertView.cancelButtonIndex) {
             SFSafariViewController *safari = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:url]];
-            [vc presentViewController:safari animated:YES completion:NULL];
+            [vc.view.window.rootViewController presentViewController:safari animated:YES completion:NULL];
         }
     }];
     [alertView show];

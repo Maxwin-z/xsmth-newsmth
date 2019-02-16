@@ -94,7 +94,7 @@
         [alert addAction:[UIAlertAction actionWithTitle:@"打赏一下" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             NSURL *url = [NSURL URLWithString:@"https://item.taobao.com/item.htm?id=587181842343"];
             SFSafariViewController *safari = [[SFSafariViewController alloc] initWithURL:url];
-            [vc presentViewController:safari animated:YES completion:NULL];
+            [vc.view.window.rootViewController presentViewController:safari animated:YES completion:NULL];
         }]];
         
         [vc presentViewController:alert animated:YES completion:NULL];
