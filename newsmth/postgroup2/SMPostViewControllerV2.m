@@ -494,7 +494,7 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
 
 - (NSString *)cachedJSFilename
 {
-    return [NSString stringWithFormat:@"%d_%@", self.post.gid, self.author ?: @""];
+    return [NSString stringWithFormat:@"%@_%d_%@", self.post.board.name, self.post.gid, self.author ?: @""];
 }
 
 - (void)onRefreshControlValueChanged:(UIRefreshControl *)refreshControl
