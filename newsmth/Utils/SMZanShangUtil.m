@@ -9,6 +9,7 @@
 #import "SMZanShangUtil.h"
 #import "SMMainViewController.h"
 #import "SMZanShangViewController.h"
+#import <SafariServices/SafariServices.h>
 
 #define USER_DEFAULT_OPEN_COUNT @"USER_DEFAULT_OPEN_COUNT"
 #define USER_DEFAULT_DID_ZANSHANG @"USER_DEFAULT_DID_ZANSHANG"
@@ -91,9 +92,9 @@
         [alert addAction:[UIAlertAction actionWithTitle:@"算了" style:UIAlertActionStyleDefault handler:nil]];
         
         [alert addAction:[UIAlertAction actionWithTitle:@"打赏一下" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            SMZanShangViewController *zsvc = [SMZanShangViewController new];
-            P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:zsvc];
-            [vc presentViewController:nvc animated:YES completion:NULL];
+            NSURL *url = [NSURL URLWithString:@"https://item.taobao.com/item.htm?id=587181842343"];
+            SFSafariViewController *safari = [[SFSafariViewController alloc] initWithURL:url];
+            [vc presentViewController:safari animated:YES completion:NULL];
         }]];
         
         [vc presentViewController:alert animated:YES completion:NULL];

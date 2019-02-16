@@ -16,6 +16,7 @@
 #import "SMIPadSplitViewController.h"
 #import "SMEULAViewController.h"
 #import "XImageView.h"
+#import <SafariServices/SafariServices.h>
 
 #define MAX_CELL_COUNT  6
 
@@ -754,6 +755,9 @@ static SectionData sections[] = {
     
     if (cellType == CellTypeZanShang) {
         // TODO
+        NSURL *url = [NSURL URLWithString:@"https://item.taobao.com/item.htm?id=587181842343"];
+        SFSafariViewController *safari = [[SFSafariViewController alloc] initWithURL:url];
+        [self presentViewController:safari animated:YES completion:NULL];
     }
     
     [SMUtils trackEventWithCategory:@"setting" action:action label:nil];
