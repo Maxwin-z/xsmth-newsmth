@@ -231,8 +231,6 @@ static SectionData sections[] = {
     _tableView.backgroundColor = [UIColor clearColor];
     _tableView.backgroundView = nil;
     _tableView.tableHeaderView = _viewForTableViewHeader;
-
-    _labelForAppVersion.text = [NSString stringWithFormat:@"xsmth %@ @Maxwin", [SMUtils appVersionString]];
     
     _switchForHideTop.on = [SMConfig disableShowTopPost];
     _switchForUserClickable.on = [SMConfig enableUserClick];
@@ -381,6 +379,10 @@ static SectionData sections[] = {
     if (@available(iOS 11.0, *)) {
         self.tableView.contentInset = UIApplication.sharedApplication.keyWindow.safeAreaInsets;
     }
+    
+    NSString *postVersion = [[NSUserDefaults standardUserDefaults] stringForKey:@"updater_template"] ?: @"Bundle";
+    _labelForAppVersion.text = [NSString stringWithFormat:@"xsmth %@ @Maxwin\nPost Version: %@", [SMUtils appVersionString], postVersion];
+
 }
 
 - (void)onUpdateProNotification
