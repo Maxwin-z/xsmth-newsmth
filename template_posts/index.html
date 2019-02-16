@@ -760,7 +760,7 @@
           if (value.success) {
             $(img).attr('src', value.success)
             $(img).attr('status', 'loaded')
-            info.html('')
+            info.remove()
           }
           if (value.progress) {
             info.html(Math.round(value.progress * 1000) / 10 + '%')
