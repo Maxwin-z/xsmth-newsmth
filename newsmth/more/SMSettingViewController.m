@@ -381,9 +381,12 @@ static SectionData sections[] = {
         self.tableView.contentInset = UIApplication.sharedApplication.keyWindow.safeAreaInsets;
     }
     
-    NSString *postVersion = [[NSUserDefaults standardUserDefaults] stringForKey:@"updater_template"] ?: @"Bundle";
-    _labelForAppVersion.text = [NSString stringWithFormat:@"xsmth %@ @Maxwin\nPost Version: %@", [SMUtils appVersionString], postVersion];
+    _labelForAppVersion.text = [NSString stringWithFormat:@"xsmth %@ @Maxwin\nPost Version: %@", [SMUtils appVersionString], [self postVersion]];
+}
 
+- (NSString *)postVersion
+{
+    return [[NSUserDefaults standardUserDefaults] stringForKey:@"updater_template"] ?: @"Bundle";
 }
 
 - (void)onUpdateProNotification
@@ -796,6 +799,11 @@ static SectionData sections[] = {
     SMMailItem *mail = [[SMMailItem alloc] init];
     mail.author = @"Maxwin";
     mail.title = [NSString stringWithFormat:@"[xsmth v%@]意见与反馈", [SMUtils appVersionString]];
+    NSMutableString *msg = [[NSMutableString alloc] initWithString:@"\n\n设备信息：\n"];
+    [msg appendFormat:@"App: %@\n", [SMUtils appVersionString]];
+    [msg appendFormat:@"iOS: %@\n", [SMUtils systemVersionString]];
+    [msg appendFormat:@"Post: %@\n", [self postVersion]];
+    mail.message = msg;
     mailComposeViewController.mail = mail;
     
     P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:mailComposeViewController];

@@ -114,7 +114,7 @@
 
 + (BOOL)iPadMode
 {
-    return [SMUtils isPad] && [SMConfig configForKey:USERDEFAULTS_CONFIG_ENABLE_PAD_MODE defaults:NO];
+    return [SMUtils isPad] && [SMConfig configForKey:USERDEFAULTS_CONFIG_ENABLE_PAD_MODE defaults:YES];
 }
 
 + (NSInteger)adRatio
