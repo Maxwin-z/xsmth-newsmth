@@ -15,6 +15,7 @@
 #import <MessageUI/MessageUI.h>
 #import "SMIPadSplitViewController.h"
 #import "SMEULAViewController.h"
+#import "SMBlockedAuthorsViewController.h"
 #import "XImageView.h"
 
 #define MAX_CELL_COUNT  6
@@ -43,6 +44,7 @@ typedef enum {
     CellTypeListFont,
     CellTypePostFont,
     
+    CellTypeBlockedAuthors,
     CellTypeEULA,
     CellTypeFeedback,
     CellTypeRate,
@@ -140,7 +142,7 @@ static SectionData sections[] = {
         "其他",
         NULL,
         5,
-        {CellTypeEULA, CellTypeFeedback, CellTypeRate, CellTypeClearCache, CellTypeClearPostCache}
+        {CellTypeBlockedAuthors, CellTypeEULA, CellTypeFeedback, CellTypeRate, CellTypeClearCache, CellTypeClearPostCache}
     },
     {
         SectionTypeThanks,
@@ -176,6 +178,7 @@ static SectionData sections[] = {
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForShakeSwitchDayMode;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForAbout;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForDonate;
+@property (strong, nonatomic) IBOutlet UITableViewCell *cellForBlockedAuthors;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForEULA;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForDisableTail;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellForDisableAd;
@@ -548,7 +551,9 @@ static SectionData sections[] = {
             return _cellForListFont;
         case CellTypePostFont:
             return _cellForPostFont;
-            
+
+        case CellTypeBlockedAuthors:
+            return _cellForBlockedAuthors;
         case CellTypeEULA:
             return _cellForEULA;
         case CellTypeFeedback:
@@ -662,7 +667,16 @@ static SectionData sections[] = {
         
         action = cellType == CellTypePostFont ? @"changePostFont" : @"changeListFont";
     }
-    
+
+    if (cellType == CellTypeBlockedAuthors) {
+        SMBlockedAuthorsViewController *vc = [SMBlockedAuthorsViewController new];
+        if ([SMConfig iPadMode]) {
+            [SMIPadSplitViewController instance].detailViewController = vc;
+        } else {
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+    }
+
     if (cellType == CellTypeEULA) {
         SMEULAViewController *vc = [SMEULAViewController new];
         vc.hideAgreeButton = YES;

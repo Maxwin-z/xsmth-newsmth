@@ -410,7 +410,8 @@
         post.board.name = _board.name;
         NSString *key = [NSString stringWithFormat:@"%d", post.gid];
         if (![_postsMap objectForKey:key]   // not exists, add
-                && ![SMConfig isBlocked:post.pid]) {    // not blocked
+                && ![SMConfig isBlocked:post.pid]    // not blocked
+                && ![SMConfig isBlockedAuthor:post.author]) {
             [tmp addObject:post];
             [_postsMap setObject:post forKey:key];
             [postsForReadCount addObject:post];

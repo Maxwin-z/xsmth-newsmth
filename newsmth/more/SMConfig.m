@@ -270,6 +270,21 @@
     [content writeToFile:[SMConfig blocklistPath] atomically:YES encoding:NSUTF8StringEncoding error:nil];
 }
 
++ (BOOL)isBlockedKey:(NSString *)key {
+    id val = [[SMConfig blocklist] objectForKey:key];
+    return val ? [val boolValue] : NO;
+}
+
++ (void)addBlockedKey:(NSString *)key {
+    [[SMConfig blocklist] setObject:@(YES) forKey:key];
+    [SMConfig saveBlocklist];
+}
+
++ (void)removeBlockedKey:(NSString *)key {
+    [[SMConfig blocklist] removeObjectForKey:key];
+    [SMConfig saveBlocklist];
+}
+
 + (NSString *)pid2key:(int)pid
 {
     return [NSString stringWithFormat:@"_%d", pid];
@@ -277,14 +292,41 @@
 
 + (BOOL)isBlocked:(int)pid
 {
-    id val = [[SMConfig blocklist] objectForKey:[SMConfig pid2key:pid]];
-    return val ? [val boolValue] : NO;
+    return [SMConfig isBlockedKey:[SMConfig pid2key:pid]];
 }
 
 + (void)addBlock:(int)pid
 {
-    [[SMConfig blocklist] setObject:@(YES) forKey:[SMConfig pid2key:pid]];
-    [SMConfig saveBlocklist];
+    [SMConfig addBlockedKey:[SMConfig pid2key:pid]];
+}
+
++ (NSString *)author2key:(NSString *)author
+{
+    return [NSString stringWithFormat:@"@%@", author];
+}
+
++ (BOOL)isBlockedAuthor:(NSString *)author {
+    return [SMConfig isBlockedKey:[SMConfig author2key:author]];
+}
+
++ (void)addBlockedAuthor:(NSString *)author {
+    [SMConfig addBlockedKey:[SMConfig author2key:author]];
+}
+
++ (void)removeBlockedAuthor:(NSString *)author {
+    [SMConfig removeBlockedKey:[SMConfig author2key:author]];
+}
+
++ (NSArray *)getBlockedAuthors {
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+
+    for (NSString *key in [SMConfig blocklist]) {
+        if ([key hasPrefix:@"@"] && [SMConfig isBlockedKey:key]) {
+            [array addObject:[key substringFromIndex:1]];
+        }
+    }
+
+    return [array sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 }
 
 @end

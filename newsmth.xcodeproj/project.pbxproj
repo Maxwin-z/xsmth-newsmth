@@ -16,6 +16,9 @@
 		39C260061860A0E400AEFE0E /* SMBoardSearchResultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 39C260041860A0E400AEFE0E /* SMBoardSearchResultViewController.xib */; };
 		39C260081860A8DF00AEFE0E /* bbsbfind.js in Resources */ = {isa = PBXBuildFile; fileRef = 39C260071860A8DF00AEFE0E /* bbsbfind.js */; };
 		508BFA4820ED20BD005ACFD6 /* SMVideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 508BFA4720ED20BD005ACFD6 /* SMVideoPlayerViewController.m */; };
+		9E6ED22622EC8340000985A1 /* SMBlockAuthorActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E6ED22522EC8340000985A1 /* SMBlockAuthorActivity.m */; };
+		9E6ED22C22EC8957000985A1 /* SMBlockedAuthorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E6ED22B22EC8957000985A1 /* SMBlockedAuthorsViewController.m */; };
+		9EC39DBC22ECA67A003FF9AA /* icon_blocked_author@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EC39DBB22ECA67A003FF9AA /* icon_blocked_author@2x.png */; };
 		AC597B7F555449F0D8AD91C9 /* libPods-newsmth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5616CAAD5D6F6B14BA51241C /* libPods-newsmth.a */; };
 		C10080D31785984700487A45 /* SMImagePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C10080D11785984700487A45 /* SMImagePickerViewController.m */; };
 		C10080D41785984700487A45 /* SMImagePickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C10080D21785984700487A45 /* SMImagePickerViewController.xib */; };
@@ -351,6 +354,11 @@
 		508BFA4620ED20BD005ACFD6 /* SMVideoPlayerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMVideoPlayerViewController.h; sourceTree = "<group>"; };
 		508BFA4720ED20BD005ACFD6 /* SMVideoPlayerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMVideoPlayerViewController.m; sourceTree = "<group>"; };
 		5616CAAD5D6F6B14BA51241C /* libPods-newsmth.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-newsmth.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9E6ED22422EC8340000985A1 /* SMBlockAuthorActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SMBlockAuthorActivity.h; path = "../../../../../../System/Volumes/Data/Users/qchen/xsmth-newsmth/newsmth/postgroup/activity/SMBlockAuthorActivity.h"; sourceTree = "<group>"; };
+		9E6ED22522EC8340000985A1 /* SMBlockAuthorActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SMBlockAuthorActivity.m; path = "../../../../../../System/Volumes/Data/Users/qchen/xsmth-newsmth/newsmth/postgroup/activity/SMBlockAuthorActivity.m"; sourceTree = "<group>"; };
+		9E6ED22A22EC8947000985A1 /* SMBlockedAuthorsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SMBlockedAuthorsViewController.h; path = "../../../../../System/Volumes/Data/Users/qchen/xsmth-newsmth/newsmth/more/SMBlockedAuthorsViewController.h"; sourceTree = "<group>"; };
+		9E6ED22B22EC8957000985A1 /* SMBlockedAuthorsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMBlockedAuthorsViewController.m; sourceTree = "<group>"; };
+		9EC39DBB22ECA67A003FF9AA /* icon_blocked_author@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_blocked_author@2x.png"; sourceTree = "<group>"; };
 		B916E7AB0910121F565E1DC2 /* Pods-newsmth.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-newsmth.debug.xcconfig"; path = "Pods/Target Support Files/Pods-newsmth/Pods-newsmth.debug.xcconfig"; sourceTree = "<group>"; };
 		C10080D01785984700487A45 /* SMImagePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMImagePickerViewController.h; sourceTree = "<group>"; };
 		C10080D11785984700487A45 /* SMImagePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMImagePickerViewController.m; sourceTree = "<group>"; };
@@ -1117,6 +1125,8 @@
 				C1F8D80E18D3313D0076A790 /* SMDiagnoseViewController.h */,
 				C1F8D80F18D3313D0076A790 /* SMDiagnoseViewController.m */,
 				C1F8D81018D3313D0076A790 /* SMDiagnoseViewController.xib */,
+				9E6ED22A22EC8947000985A1 /* SMBlockedAuthorsViewController.h */,
+				9E6ED22B22EC8957000985A1 /* SMBlockedAuthorsViewController.m */,
 			);
 			path = more;
 			sourceTree = "<group>";
@@ -1146,6 +1156,7 @@
 		C19FF0B01769A71B00EB6F7E /* images */ = {
 			isa = PBXGroup;
 			children = (
+				9EC39DBB22ECA67A003FF9AA /* icon_blocked_author@2x.png */,
 				C1B9D5871BB7EDE300AE4699 /* icon_ring@2x.png */,
 				C10206081AB44C550096D210 /* icon_forward_all@2x.png */,
 				C153189B1B50DD1600CF84FE /* icon_report@2x.png */,
@@ -1707,6 +1718,8 @@
 		C1F4671118C2E732006BCE7A /* activity */ = {
 			isa = PBXGroup;
 			children = (
+				9E6ED22422EC8340000985A1 /* SMBlockAuthorActivity.h */,
+				9E6ED22522EC8340000985A1 /* SMBlockAuthorActivity.m */,
 				C1F4671B18C2E766006BCE7A /* SMPostActivityItemProvider.h */,
 				C1F4671C18C2E766006BCE7A /* SMPostActivityItemProvider.m */,
 				C1F4671E18C2EDFA006BCE7A /* SMWeiXinSessionActivity.h */,
@@ -1923,6 +1936,7 @@
 				C1178C0D187D605F00A80B91 /* icon@2x.png in Resources */,
 				C1AE9140175A24AF0084C618 /* SMErrorView.xib in Resources */,
 				C1CBC4B319CDAB990074E1B7 /* icon_reply@2x.png in Resources */,
+				9EC39DBC22ECA67A003FF9AA /* icon_blocked_author@2x.png in Resources */,
 				C1E6289D1764BAD4007ACF2A /* types.schema in Resources */,
 				C14B22FA17FAC65700CF081A /* SMMailComposeViewController.xib in Resources */,
 				C1ABAB121766107A007DE168 /* SMMainpageCell.xib in Resources */,
@@ -2074,7 +2088,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-newsmth/Pods-newsmth-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-newsmth/Pods-newsmth-resources.sh",
 				"${PODS_CONFIGURATION_BUILD_DIR}/TOWebViewController/TOWebViewControllerLocalizable.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -2083,7 +2097,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-newsmth/Pods-newsmth-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-newsmth/Pods-newsmth-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -2213,6 +2227,8 @@
 				C1F8107518E5B734001B3759 /* FMResultSet.m in Sources */,
 				C1B9D5861BB7DC5F00AE4699 /* SMOfflineFavorTableViewController.m in Sources */,
 				C13CB57A18AF62B4003F7407 /* ioapi.c in Sources */,
+				9E6ED22C22EC8957000985A1 /* SMBlockedAuthorsViewController.m in Sources */,
+				9E6ED22622EC8340000985A1 /* SMBlockAuthorActivity.m in Sources */,
 				C1C07A5C1796857900906ED7 /* OWActivityViewController.m in Sources */,
 				C1C07A5D1796857900906ED7 /* OWCopyActivity.m in Sources */,
 				C1F4C5AC1806D4BD00E8A52D /* SMConfig.m in Sources */,

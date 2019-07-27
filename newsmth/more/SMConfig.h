@@ -45,4 +45,9 @@
 + (BOOL)isBlocked:(int)pid;
 + (void)addBlock:(int)pid;
 
++ (BOOL)isBlockedAuthor:(NSString *)author;
++ (void)addBlockedAuthor:(NSString *)author;
++ (void)removeBlockedAuthor:(NSString *)author;
++ (NSArray *)getBlockedAuthors;
+
 @end
