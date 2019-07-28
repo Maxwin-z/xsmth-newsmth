@@ -98,18 +98,15 @@
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSString *author = self.blockedAuthors[indexPath.row];
-    [SMConfig removeBlockedAuthor:author];
-}
-
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
+        NSString *author = self.blockedAuthors[indexPath.row];
+        [SMConfig removeBlockedAuthor:author];
+
         NSMutableArray *blockedAuthors = [self.blockedAuthors mutableCopy];
         [blockedAuthors removeObjectAtIndex:indexPath.row];
         _blockedAuthors = blockedAuthors;
