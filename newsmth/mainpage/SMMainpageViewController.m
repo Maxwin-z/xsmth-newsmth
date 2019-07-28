@@ -246,7 +246,7 @@ static SMMainpageViewController *_instance;
     [data.sections enumerateObjectsUsingBlock:^(SMSection * _Nonnull section, NSUInteger idx, BOOL * _Nonnull stop) {
         NSMutableArray *posts = [NSMutableArray new];
         [section.posts enumerateObjectsUsingBlock:^(SMPost * _Nonnull post, NSUInteger idx, BOOL * _Nonnull stop) {
-            if (![SMConfig isBlocked:post.gid]) {
+            if (![SMConfig isBlocked:post.gid] && ![SMConfig isBlockedAuthor:post.author]) {
                 [posts addObject:post];
             }
         }];

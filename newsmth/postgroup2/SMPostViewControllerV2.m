@@ -30,6 +30,7 @@
 #import "SMEditActivity.h"
 #import "SMDeleteActivity.h"
 #import "SMSpamActivity.h"
+#import "SMBlockAuthorActivity.h"
 #import <TOWebViewController/TOWebViewController.h>
 #import <TOWebViewController/TOActivitySafari.h>
 
@@ -991,7 +992,12 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
         [activites addObject:editActivity];
         [activites addObject:deleteActivity];
     }
-    
+
+    if (self.postForAction.author != nil) {
+        SMBlockAuthorActivity *blockAuthorActivity = [SMBlockAuthorActivity new];
+        [activites addObject:blockAuthorActivity];
+    }
+
     SMSpamActivity *spamActivity = [SMSpamActivity new];
     [activites addObject:spamActivity];
     
@@ -1041,15 +1047,19 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
         if ([activityType isEqualToString:SMActivityEditActivity]) {
             [self doEditPost];
         }
-        
+
         if ([activityType isEqualToString:SMActivityDeleteActivity]) {
             [self doDeletePost];
         }
-        
+
         if ([activityType isEqualToString:SMActivitySpamActivity]) {
             [self toast:@"举报成功。净化水木，人人有责！"];
         }
-        
+
+        if ([activityType isEqualToString:SMActivityBlockAuthorActivity]) {
+            [self blockAuthor];
+        }
+
         [SMUtils trackEventWithCategory:@"postgroup" action:@"more_action" label:activityType];
         avc.completionHandler = nil;
     };
@@ -1129,6 +1139,10 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     
     P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:vc];
     [self.view.window.rootViewController presentViewController:nvc animated:YES completion:NULL];
+}
+
+- (void)blockAuthor{
+    [SMConfig addBlockedAuthor:self.postForAction.author];
 }
 
 - (void)doForwardPost
