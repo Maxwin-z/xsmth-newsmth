@@ -2074,7 +2074,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-newsmth/Pods-newsmth-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-newsmth/Pods-newsmth-resources.sh",
 				"${PODS_CONFIGURATION_BUILD_DIR}/TOWebViewController/TOWebViewControllerLocalizable.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -2083,7 +2083,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-newsmth/Pods-newsmth-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-newsmth/Pods-newsmth-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -2352,7 +2352,7 @@
 					"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts/include",
 				);
 				INFOPLIST_FILE = "newsmth/newsmth-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/newsmth/Frameworks/**",
@@ -2469,7 +2469,7 @@
 					"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts/include",
 				);
 				INFOPLIST_FILE = "newsmth/newsmth-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/newsmth/Frameworks/**",
@@ -2508,7 +2508,7 @@
 					"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts/include",
 				);
 				INFOPLIST_FILE = "newsmth/newsmth-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/newsmth/Frameworks/**",

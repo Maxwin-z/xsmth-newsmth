@@ -31,6 +31,8 @@ static SMMainpageViewController *_instance;
 
 @property (assign, nonatomic) NSInteger failTimes;
 
+@property (strong, nonatomic) UISearchController *boardSearchController;
+
 @end
 
 @implementation SMMainpageViewController
@@ -59,22 +61,44 @@ static SMMainpageViewController *_instance;
     
     _boardSearchDelegateImpl = [[SMBoardSearchDelegateImpl alloc] init];
     _boardSearchDelegateImpl.mainpage = self;
+    
+    UITableViewController *searchResultController = [[UITableViewController alloc] initWithStyle:UITableViewStylePlain];
+
+    searchResultController.tableView.delegate = _boardSearchDelegateImpl;
+    searchResultController.tableView.dataSource = _boardSearchDelegateImpl;
+    // hardcode now, UISearchBar height is 56 other than 44, so add 12.
+    searchResultController.tableView.contentInset = UIEdgeInsetsMake(SM_TOP_INSET + 12, 0, 0, 0);
+    _boardSearchDelegateImpl.resultTableView = searchResultController.tableView;
+    
+    self.boardSearchController = [[UISearchController alloc] initWithSearchResultsController:searchResultController];
+    self.boardSearchController.searchBar.placeholder = @"版面搜索 空格显示历史";
+    self.boardSearchController.searchBar.text = @" ";
+    self.boardSearchController.delegate = _boardSearchDelegateImpl;
+    self.boardSearchController.searchResultsUpdater = _boardSearchDelegateImpl;
+
+    XLog_d(@"searchbar height %@", NSStringFromCGRect(self.boardSearchController.searchBar.frame));
+    [self setupTheme];
+    /* < iOS 11
     self.searchDisplayController.searchBar.hidden = YES;
     self.searchDisplayController.searchBar.delegate = _boardSearchDelegateImpl;
     self.searchDisplayController.delegate = _boardSearchDelegateImpl;
     self.searchDisplayController.searchResultsDataSource = _boardSearchDelegateImpl;
     self.searchDisplayController.searchResultsDelegate = _boardSearchDelegateImpl;
-    
+
     CGRect frame = self.searchDisplayController.searchBar.frame;
     frame.origin.y = SM_TOP_INSET - 44.0f;  // for iPhoneX, safe area
     self.searchDisplayController.searchBar.frame = frame;
+     */
 }
 
 - (void)setupTheme
 {
     [super setupTheme];
+    self.boardSearchController.searchResultsController.view.backgroundColor = [SMTheme colorForBackground];
+    /* < iOS 11
     self.searchDisplayController.searchResultsTableView.backgroundColor = [SMTheme colorForBackground];
     [self.searchDisplayController.searchResultsTableView reloadData];
+     */
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -86,10 +110,11 @@ static SMMainpageViewController *_instance;
     }
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(onRightBarButtonItemClick)];
-    
+    /* < iOS 11
     if (self.searchDisplayController.searchBar.hidden == NO) {
         [_boardSearchDelegateImpl reload];
     }
+     */
     
     [self.tableView reloadData];
 }
@@ -97,7 +122,7 @@ static SMMainpageViewController *_instance;
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self.searchDisplayController.searchBar resignFirstResponder];
+//    [self.searchDisplayController.searchBar resignFirstResponder];
 }
 
 - (void)setSections:(NSArray *)sections
@@ -108,9 +133,16 @@ static SMMainpageViewController *_instance;
 
 - (void)onRightBarButtonItemClick
 {
-    self.searchDisplayController.searchBar.hidden = NO;
+//    self.searchDisplayController.searchBar.hidden = NO;
+//
+//    [self.searchDisplayController.searchBar becomeFirstResponder];
+    
+//    self.boardSearchController.searchBar.hidden = NO;
+    self.navigationItem.searchController = self.boardSearchController;
 
-    [self.searchDisplayController.searchBar becomeFirstResponder];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_MSEC)), dispatch_get_main_queue(), ^{
+        [self.boardSearchController.searchBar becomeFirstResponder];
+    });
     
     [SMUtils trackEventWithCategory:@"mainpage" action:@"boardSearch" label:nil];
 }

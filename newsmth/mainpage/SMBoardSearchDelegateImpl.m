@@ -29,10 +29,10 @@
 
 - (void)reload
 {
-    if ([self.mainpage.searchDisplayController.searchBar.text isEqualToString:@" "]) {
-        filters = [SMConfig historyBoards];
-        [self.mainpage.searchDisplayController.searchResultsTableView reloadData];
-    }
+//    if ([self.mainpage.searchDisplayController.searchBar.text isEqualToString:@" "]) {
+//        filters = [SMConfig historyBoards];
+//        [self.mainpage.searchDisplayController.searchResultsTableView reloadData];
+//    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -56,6 +56,7 @@
     return YES;
 }
 
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:nil];
@@ -77,25 +78,46 @@
     vc.board = board;
     [self.mainpage.navigationController pushViewController:vc animated:YES];
     
-    [SMUtils trackEventWithCategory:@"boardsearch" action:@"enterBoard" label:self.mainpage.searchDisplayController.searchBar.text];
+//    [SMUtils trackEventWithCategory:@"boardsearch" action:@"enterBoard" label:self.mainpage.searchDisplayController.searchBar.text];
 }
 
-- (void)searchDisplayControllerDidEndSearch:(UISearchDisplayController *)controller
+//- (void)searchDisplayControllerDidEndSearch:(UISearchDisplayController *)controller
+//{
+//    controller.searchBar.hidden = YES;
+//}
+//
+//- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+//{
+//    [self performSelector:@selector(showHis) withObject:nil afterDelay:0.1];
+//}
+//
+//- (void)showHis
+//{
+//    if (self.mainpage.searchDisplayController.searchBar.text.length == 0) {
+//        self.mainpage.searchDisplayController.searchBar.text = @" ";
+//    }
+//}
+
+#pragma mark - UISearchControllerDelegate
+- (void)didDismissSearchController:(UISearchController *)searchController
 {
-    controller.searchBar.hidden = YES;
+    self.mainpage.navigationItem.searchController = nil;
+    XLog_d(@"dissmiss search");
 }
 
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+#pragma mark - UISearchResultsUpdating
+-(void)updateSearchResultsForSearchController:(UISearchController *)searchController
 {
-    [self performSelector:@selector(showHis) withObject:nil afterDelay:0.1];
-}
-
-- (void)showHis
-{
-    if (self.mainpage.searchDisplayController.searchBar.text.length == 0) {
-        self.mainpage.searchDisplayController.searchBar.text = @" ";
+    NSString *searchString = searchController.searchBar.text;
+    searchString = [searchString stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" "]];
+    if (searchString.length) {
+        NSPredicate *resultPredicate = [NSPredicate
+                                        predicateWithFormat:@"(name contains[cd] %@) or (cnName contains[cd] %@)",
+                                        searchString, searchString];
+        filters = [boards filteredArrayUsingPredicate:resultPredicate];
+    } else {
+        filters = [SMConfig historyBoards];
     }
+    [self.resultTableView reloadData];
 }
-
-
 @end

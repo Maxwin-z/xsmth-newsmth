@@ -9,8 +9,12 @@
 #import <Foundation/Foundation.h>
 #import "SMMainpageViewController.h"
 
-@interface SMBoardSearchDelegateImpl : NSObject<UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate, UISearchBarDelegate>
+@interface SMBoardSearchDelegateImpl : NSObject<UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate, UISearchBarDelegate,
+    UISearchControllerDelegate,
+    UISearchResultsUpdating
+>
 @property (weak, nonatomic) SMMainpageViewController *mainpage;
+@property (weak, nonatomic) UITableView *resultTableView;
 
 - (void)reload;
 
