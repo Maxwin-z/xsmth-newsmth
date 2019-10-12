@@ -560,15 +560,15 @@
       }, 0)
 
       function loadLikes() {
-        const gid = mainPost.gid
-        const url = `http://www.newsmth.net/nForum/article/${
+        var gid = mainPost.gid
+        var url = `http://www.newsmth.net/nForum/article/${
           mainPost.board.name
         }/${gid}?ajax&p=1`
         SMApp.ajax({
           url,
           success(body) {
             // console.log('like', body)
-            const html = body.replace(/<script.*?<\/script>/g, '')
+            var html = body.replace(/<script.*?<\/script>/g, '')
             likes = $('<div>')
               .html(html)
               .find('.likes')
@@ -636,7 +636,7 @@
           img = $(img)
           img.css('max-width', imageMaxWidth + 'px')
 
-          const info = img.parent().find('.ximg-info')
+          var info = img.parent().find('.ximg-info')
           var src = img.attr('src2')
           var autoload = config.autoload
           if (!autoload) {
@@ -657,7 +657,7 @@
           })
 
           img.click(function() {
-            const status = img.attr('status')
+            var status = img.attr('status')
             if (status != 'loading' && status != 'loaded') {
               loadImage(img, src)
             }
@@ -746,7 +746,7 @@
 
       function loadImage(img, src) {
         var info = img.parent().find('.ximg-info')
-        const status = img.attr('status')
+        var status = img.attr('status')
         if (status == 'loading' || status == 'loaded') {
           return
         }
