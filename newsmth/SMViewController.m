@@ -60,7 +60,7 @@
 
     [self setupTheme];
 //    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background"]];
-    self.automaticallyAdjustsScrollViewInsets = NO;
+//    self.contentInsetAdjustmentBehavior = NO;
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle

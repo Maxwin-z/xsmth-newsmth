@@ -152,7 +152,10 @@
         inset.top = REFRESH_TRIGGER_HEIGHT; // + NAVIGATION_HEIGHT;
         [UIView animateWithDuration:ANIMATION_DURATION animations:^{
             self.contentInset = inset;
-            self.scrollIndicatorInsets = inset;
+            if (@available(iOS 13.0, *)) {
+            } else {
+                self.scrollIndicatorInsets = inset;
+            }
             self.contentOffset = CGPointMake(0, -self.contentInset.top);
         }];
     }
@@ -167,7 +170,10 @@
     insets.top = NAVIGATION_HEIGHT;
     [UIView animateWithDuration:ANIMATION_DURATION animations:^{
         self.contentInset = insets;
-        self.scrollIndicatorInsets = insets;
+        if (@available(iOS 13.0, *)) {
+        } else {
+            self.scrollIndicatorInsets = insets;
+        }
     } completion:^(BOOL finished) {
         [self resetRefreshHeader];
     }];
