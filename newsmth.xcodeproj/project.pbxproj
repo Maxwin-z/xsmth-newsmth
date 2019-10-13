@@ -15,6 +15,7 @@
 		39C260051860A0E400AEFE0E /* SMBoardSearchResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 39C260031860A0E400AEFE0E /* SMBoardSearchResultViewController.m */; };
 		39C260061860A0E400AEFE0E /* SMBoardSearchResultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 39C260041860A0E400AEFE0E /* SMBoardSearchResultViewController.xib */; };
 		39C260081860A8DF00AEFE0E /* bbsbfind.js in Resources */ = {isa = PBXBuildFile; fileRef = 39C260071860A8DF00AEFE0E /* bbsbfind.js */; };
+		504F7B8C2352FEC200009940 /* SMBoardHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 504F7B8B2352FEC200009940 /* SMBoardHistoryViewController.m */; };
 		508BFA4820ED20BD005ACFD6 /* SMVideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 508BFA4720ED20BD005ACFD6 /* SMVideoPlayerViewController.m */; };
 		AC597B7F555449F0D8AD91C9 /* libPods-newsmth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5616CAAD5D6F6B14BA51241C /* libPods-newsmth.a */; };
 		C10080D31785984700487A45 /* SMImagePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C10080D11785984700487A45 /* SMImagePickerViewController.m */; };
@@ -348,6 +349,8 @@
 		39C260031860A0E400AEFE0E /* SMBoardSearchResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMBoardSearchResultViewController.m; sourceTree = "<group>"; };
 		39C260041860A0E400AEFE0E /* SMBoardSearchResultViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMBoardSearchResultViewController.xib; sourceTree = "<group>"; };
 		39C260071860A8DF00AEFE0E /* bbsbfind.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = bbsbfind.js; sourceTree = "<group>"; };
+		504F7B8A2352FEC200009940 /* SMBoardHistoryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMBoardHistoryViewController.h; sourceTree = "<group>"; };
+		504F7B8B2352FEC200009940 /* SMBoardHistoryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMBoardHistoryViewController.m; sourceTree = "<group>"; };
 		508BFA4620ED20BD005ACFD6 /* SMVideoPlayerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMVideoPlayerViewController.h; sourceTree = "<group>"; };
 		508BFA4720ED20BD005ACFD6 /* SMVideoPlayerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMVideoPlayerViewController.m; sourceTree = "<group>"; };
 		5616CAAD5D6F6B14BA51241C /* libPods-newsmth.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-newsmth.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1253,6 +1256,8 @@
 				C1ABAB0E1766107A007DE168 /* SMMainpageViewController.xib */,
 				C1B68846180824160085DC69 /* SMBoardSearchDelegateImpl.h */,
 				C1B68847180824160085DC69 /* SMBoardSearchDelegateImpl.m */,
+				504F7B8A2352FEC200009940 /* SMBoardHistoryViewController.h */,
+				504F7B8B2352FEC200009940 /* SMBoardHistoryViewController.m */,
 			);
 			path = mainpage;
 			sourceTree = "<group>";
@@ -2130,6 +2135,7 @@
 				C191281D17586DDF005AC60F /* XImageView.m in Sources */,
 				C1E6A6A31FD3C5AA004E1490 /* SMZanShangUtil.m in Sources */,
 				C191283D17588501005AC60F /* XImageViewCache.m in Sources */,
+				504F7B8C2352FEC200009940 /* SMBoardHistoryViewController.m in Sources */,
 				C1E6289B1764BAD4007ACF2A /* SMAttach.m in Sources */,
 				C153189F1B50DD5900CF84FE /* SMSpamActivity.m in Sources */,
 				C1E6289C1764BAD4007ACF2A /* SMPost.m in Sources */,

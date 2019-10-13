@@ -33,6 +33,7 @@
 //        filters = [SMConfig historyBoards];
 //        [self.mainpage.searchDisplayController.searchResultsTableView reloadData];
 //    }
+    [self.resultTableView reloadData];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -97,6 +98,11 @@
 //        self.mainpage.searchDisplayController.searchBar.text = @" ";
 //    }
 //}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [self.mainpage.navigationItem.searchController.searchBar resignFirstResponder];
+}
 
 #pragma mark - UISearchControllerDelegate
 - (void)didDismissSearchController:(UISearchController *)searchController

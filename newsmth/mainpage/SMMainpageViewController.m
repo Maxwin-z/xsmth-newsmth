@@ -17,6 +17,7 @@
 #import "SMIPadSplitViewController.h"
 #import "SMDiagnoseViewController.h"
 #import "SMPostViewControllerV2.h"
+#import "SMBoardHistoryViewController.h"
 
 static SMMainpageViewController *_instance;
 
@@ -32,6 +33,8 @@ static SMMainpageViewController *_instance;
 @property (assign, nonatomic) NSInteger failTimes;
 
 @property (strong, nonatomic) UISearchController *boardSearchController;
+
+@property (strong, nonatomic) SMBoardHistoryViewController *boardHistoryController;
 
 @end
 
@@ -144,8 +147,11 @@ static SMMainpageViewController *_instance;
         self.boardSearchController.searchBar.text = @" ";
         [self.boardSearchController.searchBar becomeFirstResponder];
     });
-    
-    [SMUtils trackEventWithCategory:@"mainpage" action:@"boardSearch" label:nil];
+//
+//    [SMUtils trackEventWithCategory:@"mainpage" action:@"boardSearch" label:nil];
+//    self.boardHistoryController = [SMBoardHistoryViewController new];
+//    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:self.boardHistoryController];
+//    [self presentViewController:nvc animated:YES completion:NULL];
 }
 
 - (void)dealloc

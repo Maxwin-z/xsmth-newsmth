@@ -11,7 +11,8 @@
 
 @interface SMBoardSearchDelegateImpl : NSObject<UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate, UISearchBarDelegate,
     UISearchControllerDelegate,
-    UISearchResultsUpdating
+    UISearchResultsUpdating,
+    UIScrollViewDelegate    
 >
 @property (weak, nonatomic) SMMainpageViewController *mainpage;
 @property (weak, nonatomic) UITableView *resultTableView;
