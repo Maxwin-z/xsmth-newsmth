@@ -90,6 +90,7 @@
         inset.bottom = UIApplication.sharedApplication.keyWindow.safeAreaInsets.bottom;
         self.contentInset = inset;
     }
+    self.separatorColor = [UIColor lightGrayColor];
 }
 
 - (void)setupTheme
