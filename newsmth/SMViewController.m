@@ -65,6 +65,9 @@
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
+    if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark && [SMConfig enableDayMode]) {
+        return  UIStatusBarStyleDarkContent;
+    }
     return [SMConfig enableDayMode] ? UIStatusBarStyleDefault : UIStatusBarStyleLightContent;
 }
 
