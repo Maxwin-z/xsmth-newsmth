@@ -28,7 +28,6 @@
     [self.resultController.tableView reloadData];
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:self.resultController];
     self.searchController.hidesNavigationBarDuringPresentation = NO;
-    self.searchController.dimsBackgroundDuringPresentation = YES;
     self.searchController.obscuresBackgroundDuringPresentation = NO;
     self.searchController.searchResultsUpdater = self;
     self.navigationItem.hidesSearchBarWhenScrolling = NO;
