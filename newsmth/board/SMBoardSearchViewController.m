@@ -91,6 +91,7 @@ typedef enum {
             textField.clearButtonMode = UITextFieldViewModeWhileEditing;
         }
         textField.delegate = self;
+        textField.textColor = [UIColor blackColor];
     }];
     
     if ([self respondsToSelector:@selector(setAutomaticallyAdjustsScrollViewInsets:)]) {
@@ -105,6 +106,7 @@ typedef enum {
     // v2.1
     self.textForAuthor.text = self.postAuthor;
     self.textFieldForPostTitle1.text = self.postTitle;
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
