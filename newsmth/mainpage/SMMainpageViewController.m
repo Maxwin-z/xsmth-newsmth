@@ -17,6 +17,7 @@
 #import "SMIPadSplitViewController.h"
 #import "SMDiagnoseViewController.h"
 #import "SMPostViewControllerV2.h"
+#import "SMPostViewControllerV3.h"
 #import "SMBoardHistoryViewController.h"
 
 static SMMainpageViewController *_instance;
@@ -231,7 +232,9 @@ static SMMainpageViewController *_instance;
 {
     SMSection *secdata = _sections[indexPath.section];
     SMPost *post = secdata.posts[indexPath.row];
-    SMPostViewControllerV2 *vc2 = [SMPostViewControllerV2 new];
+//    SMPostViewControllerV2 *vc2 = [SMPostViewControllerV2 new];
+
+    SMPostViewControllerV3 *vc2 = [SMPostViewControllerV3 new];
     vc2.post = post;
 //    SMPostGroupViewController *vc = [[SMPostGroupViewController alloc] init];
 //    SMPostViewController *vc = [[SMPostViewController alloc] init];

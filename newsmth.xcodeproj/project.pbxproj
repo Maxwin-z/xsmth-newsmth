@@ -17,6 +17,8 @@
 		39C260081860A8DF00AEFE0E /* bbsbfind.js in Resources */ = {isa = PBXBuildFile; fileRef = 39C260071860A8DF00AEFE0E /* bbsbfind.js */; };
 		504F7B8C2352FEC200009940 /* SMBoardHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 504F7B8B2352FEC200009940 /* SMBoardHistoryViewController.m */; };
 		508BFA4820ED20BD005ACFD6 /* SMVideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 508BFA4720ED20BD005ACFD6 /* SMVideoPlayerViewController.m */; };
+		50D2003C23DFF24D00F88B22 /* SMPostViewControllerV3.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D2003B23DFF24D00F88B22 /* SMPostViewControllerV3.m */; };
+		50FE53C623DFFF5700C896E6 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50FE53C523DFFF5700C896E6 /* WebKit.framework */; };
 		AC597B7F555449F0D8AD91C9 /* libPods-newsmth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5616CAAD5D6F6B14BA51241C /* libPods-newsmth.a */; };
 		C10080D31785984700487A45 /* SMImagePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C10080D11785984700487A45 /* SMImagePickerViewController.m */; };
 		C10080D41785984700487A45 /* SMImagePickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C10080D21785984700487A45 /* SMImagePickerViewController.xib */; };
@@ -353,6 +355,9 @@
 		504F7B8B2352FEC200009940 /* SMBoardHistoryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMBoardHistoryViewController.m; sourceTree = "<group>"; };
 		508BFA4620ED20BD005ACFD6 /* SMVideoPlayerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMVideoPlayerViewController.h; sourceTree = "<group>"; };
 		508BFA4720ED20BD005ACFD6 /* SMVideoPlayerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMVideoPlayerViewController.m; sourceTree = "<group>"; };
+		50D2003A23DFF24D00F88B22 /* SMPostViewControllerV3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMPostViewControllerV3.h; sourceTree = "<group>"; };
+		50D2003B23DFF24D00F88B22 /* SMPostViewControllerV3.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMPostViewControllerV3.m; sourceTree = "<group>"; };
+		50FE53C523DFFF5700C896E6 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		5616CAAD5D6F6B14BA51241C /* libPods-newsmth.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-newsmth.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B916E7AB0910121F565E1DC2 /* Pods-newsmth.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-newsmth.debug.xcconfig"; path = "Pods/Target Support Files/Pods-newsmth/Pods-newsmth.debug.xcconfig"; sourceTree = "<group>"; };
 		C10080D01785984700487A45 /* SMImagePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMImagePickerViewController.h; sourceTree = "<group>"; };
@@ -856,6 +861,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50FE53C623DFFF5700C896E6 /* WebKit.framework in Frameworks */,
 				C12F79D521A28BA400016605 /* SafariServices.framework in Frameworks */,
 				C1B33E0020ECE2AE00404E45 /* AVKit.framework in Frameworks */,
 				CBDFF1361F147346005EB0B9 /* Photos.framework in Frameworks */,
@@ -1309,6 +1315,8 @@
 				C16CE53A19F2689B00B078A6 /* SMImageViewerViewController.m */,
 				508BFA4620ED20BD005ACFD6 /* SMVideoPlayerViewController.h */,
 				508BFA4720ED20BD005ACFD6 /* SMVideoPlayerViewController.m */,
+				50D2003A23DFF24D00F88B22 /* SMPostViewControllerV3.h */,
+				50D2003B23DFF24D00F88B22 /* SMPostViewControllerV3.m */,
 			);
 			path = postgroup2;
 			sourceTree = "<group>";
@@ -1377,6 +1385,7 @@
 		C1BFB8DB174F6A620092FD2E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				50FE53C523DFFF5700C896E6 /* WebKit.framework */,
 				C12F79D421A28BA400016605 /* SafariServices.framework */,
 				C1B33DFF20ECE2AD00404E45 /* AVKit.framework */,
 				CBDFF1351F147346005EB0B9 /* Photos.framework */,
@@ -2235,6 +2244,7 @@
 				C1C07A641796857900906ED7 /* OWSaveToCameraRollActivity.m in Sources */,
 				C10DC6D518C3011800FF95E8 /* SMMailToActivity.m in Sources */,
 				C1C07A651796857900906ED7 /* OWSinaWeiboActivity.m in Sources */,
+				50D2003C23DFF24D00F88B22 /* SMPostViewControllerV3.m in Sources */,
 				C1C07A661796857900906ED7 /* OWTwitterActivity.m in Sources */,
 				C16C1098179A1CA200A14727 /* SMNotice.m in Sources */,
 				C1FF62B1179E6DF4001F7A15 /* SMPostViewController.m in Sources */,
