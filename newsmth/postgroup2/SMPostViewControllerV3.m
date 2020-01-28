@@ -23,7 +23,8 @@
     self.webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:self.webView];
     
-    NSString *urlString = [NSString stringWithFormat:@"http://m.newsmth.net/article/FamilyLife/%@", @(self.post.gid)];
+//    NSString *urlString = [NSString stringWithFormat:@"http://m.newsmth.net/article/FamilyLife/%@", @(self.post.gid)];
+    NSString *urlString = @"http://10.0.0.11:3000/";
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
     [self.webView loadRequest:request];
 }
