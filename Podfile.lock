@@ -1,5 +1,6 @@
 PODS:
   - ActionSheetPicker-3.0 (1.3.10)
+  - Alamofire (5.0.0-rc.3)
   - JPVideoPlayer (2.3.4)
   - ReactiveCocoa (2.3.1):
     - ReactiveCocoa/UI (= 2.3.1)
@@ -15,14 +16,16 @@ PODS:
 
 DEPENDENCIES:
   - ActionSheetPicker-3.0 (~> 1.3.10)
+  - Alamofire (~> 5.0.0-rc.3)
   - JPVideoPlayer
   - ReactiveCocoa
   - TOWebViewController (= 2.2.8)
   - WKVerticalScrollBar
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - ActionSheetPicker-3.0
+    - Alamofire
     - JPVideoPlayer
     - ReactiveCocoa
     - TOWebViewController
@@ -30,11 +33,12 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   ActionSheetPicker-3.0: 75337b784ebaae74e72c4ca8365bd1d3f41da810
+  Alamofire: ca8c0de6906873be89d6deec5c8de279e00bf872
   JPVideoPlayer: 02b6d95e9dd2c8a8dcc5bdb111014957848b73b1
   ReactiveCocoa: 3fe9b233ca6db810e86681b5749488564c1179a1
   TOWebViewController: 953a24619d32f7aa1d9d4098a74885a9236f7348
   WKVerticalScrollBar: 555c3473ada57433e7d891ba73d1fc9de8ab848f
 
-PODFILE CHECKSUM: 887fe3c724476b30b58e9b9dbcbda0d42ffc7717
+PODFILE CHECKSUM: 9181cddba71266f6c32b2c0aa475eba6a65b8859
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.8.4

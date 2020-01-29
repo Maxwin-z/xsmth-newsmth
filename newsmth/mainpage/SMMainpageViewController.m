@@ -18,7 +18,9 @@
 #import "SMDiagnoseViewController.h"
 #import "SMPostViewControllerV2.h"
 #import "SMPostViewControllerV3.h"
+//#import "SMPostViewControllerV4.h"
 #import "SMBoardHistoryViewController.h"
+#import "newsmth-Swift.h"
 
 static SMMainpageViewController *_instance;
 
@@ -234,7 +236,8 @@ static SMMainpageViewController *_instance;
     SMPost *post = secdata.posts[indexPath.row];
 //    SMPostViewControllerV2 *vc2 = [SMPostViewControllerV2 new];
 
-    SMPostViewControllerV3 *vc2 = [SMPostViewControllerV3 new];
+//    SMPostViewControllerV3 *vc2 = [SMPostViewControllerV3 new];
+    SMPostViewControllerV4 *vc2 = [SMPostViewControllerV4 new];
     vc2.post = post;
 //    SMPostGroupViewController *vc = [[SMPostGroupViewController alloc] init];
 //    SMPostViewController *vc = [[SMPostViewController alloc] init];
