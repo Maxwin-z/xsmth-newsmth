@@ -8,7 +8,7 @@ window.$x = (function() {
     return new Promise((resolve, reject) => {
       parameters = parameters || {};
       const cb = ({ code, data, message }) => {
-        if (code == 0) {
+        if (code === 0) {
           resolve(data);
         } else {
           reject(message);
