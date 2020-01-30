@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 /**
  * 一些关键数据
  * board: 版面的英文名，如“Apple”
@@ -40,13 +40,22 @@ import React from "react";
  * http://www.newsmth.net/nForum/article/[board]/[gid]?s=[pid]
  * m.newsmth.net也有”展开“，不过采用的是HTTP 302，为了简化工作，暂不采用
  */
+
+async function main() {
+  const postInfo = await window.$x.postInfo();
+  console.log(postInfo);
+}
+
 export default function PostGroup() {
+  const [pageLoading, setPageLoading] = useState(true);
+
+  useEffect(() => {
+    main();
+  });
   return (
     <div>
       <h1>PostGroup {"1" + new Date()}</h1>
-
-      <button onClick={onClick}>Send Message</button>
-      <button onClick={onClick}>Send Message</button>
+      {pageLoading ? <div>Loading</div> : <div>Posts</div>}
     </div>
   );
 }

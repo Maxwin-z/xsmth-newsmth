@@ -20,7 +20,10 @@ window.$x = (function() {
         parameters,
         callbackID: callbacks.length - 1
       };
-      window.webkit.messageHandlers.nativeBridge.postMessage(message);
+      window.webkit &&
+        window.webkit.messageHandlers &&
+        window.webkit.messageHandlers.nativeBridge &&
+        window.webkit.messageHandlers.nativeBridge.postMessage(message);
     });
   }
 

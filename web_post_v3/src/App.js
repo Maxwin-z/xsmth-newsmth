@@ -1,14 +1,17 @@
 import React from "react";
-import "./App.css";
-import "./PostGroup";
-import PostGroup from "./PostGroup";
+import "./postgroup/PostGroup";
+import PostGroup from "./postgroup/PostGroup";
 import BridgeTest from "./BridgeTest";
+import DebugPage from "./DebugPage";
 
 function App() {
-  const test = 1;
+  const url = new URL(window.location.href);
+  const isDebug = !!url.searchParams.get("debug");
   return (
     <div className="App">
-      {test ? <BridgeTest /> : null}
+      <button onClick={e => window.location.reload()}>Refresh</button>
+      {isDebug ? <DebugPage /> : null}
+      {isDebug ? <BridgeTest /> : null}
       <PostGroup />
     </div>
   );
