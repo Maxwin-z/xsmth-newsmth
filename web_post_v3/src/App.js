@@ -11,7 +11,7 @@ function App() {
     <div className="App">
       <button onClick={e => window.location.reload()}>Refresh</button>
       {isDebug ? <DebugPage /> : null}
-      {isDebug ? <BridgeTest /> : null}
+      {true || isDebug ? <BridgeTest /> : null}
       <PostGroup />
     </div>
   );

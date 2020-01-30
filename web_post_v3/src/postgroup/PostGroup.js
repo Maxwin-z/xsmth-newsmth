@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import * as $x from "../jsbridge";
 /**
  * 一些关键数据
  * board: 版面的英文名，如“Apple”
@@ -42,7 +43,7 @@ import React, { useState, useEffect } from "react";
  */
 
 async function main() {
-  const postInfo = await window.$x.postInfo();
+  const postInfo = await $x.postInfo();
   console.log(postInfo);
 }
 

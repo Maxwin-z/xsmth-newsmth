@@ -1,25 +1,27 @@
 import React, { useState } from "react";
+import * as $x from "./jsbridge";
+
 export default function BridgeTest() {
   const [log, setLog] = useState("");
   const methods = {
     ajaxUTF8: async () => {
-      return await window.$x.ajax({
+      return await $x.ajax({
         url: "https://m.newsmth.net"
       });
     },
     ajaxGBK: async () => {
-      return await window.$x.ajax({
+      return await $x.ajax({
         url: "http://www.newsmth.net/nForum/#!mainpage"
       });
     },
     ajaxNForumJSON: async () => {
-      return await window.$x.ajax({
+      return await $x.ajax({
         url: "https://www.newsmth.net/nForum/fav/0.json",
         withXhr: true
       });
     },
     postInfo: async () => {
-      return await window.$x.postInfo();
+      return await $x.postInfo();
     }
   };
   const test = fn => async () => {

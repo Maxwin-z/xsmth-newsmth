@@ -93,11 +93,11 @@ class SMPostViewControllerV4 : SMViewController, WKScriptMessageHandler {
 //            throw SMBridgeError(code: -1, message: "debug") // test
             let rspData = try JSONSerialization.data(withJSONObject: ["code": code, "data": data, "message": message], options: .prettyPrinted)
             let rspString = String(data: rspData, encoding: .utf8) ?? "{code:1, message: 'JSON转换异常'}"
-            let js = "window.$x.callback(\(callbackID), \(rspString))"
+            let js = "window.$xCallback(\(callbackID), \(rspString))"
             self.webView.evaluateJavaScript(js) { debugPrint($0 ?? "", $1 ?? "") }
             debugPrint("js: \(js)")
         } catch {
-            let js = "window.$x.callback(\(callbackID), {code: -1, message: '序列化Bridge返回值异常'})"
+            let js = "window.$xCallback(\(callbackID), {code: -1, message: '序列化Bridge返回值异常'})"
             self.webView.evaluateJavaScript(js) { debugPrint($0 ?? "", $1 ?? "") }
             debugPrint(error)
         }
