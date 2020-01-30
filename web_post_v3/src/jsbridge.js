@@ -1,18 +1,47 @@
 window.$x = (function() {
   const callbacks = [];
-  const nope = () => {};
-  function sendMessage(methodName, parameters, callback) {
-    callback = callback || nope;
-    parameters = parameters || {};
-    callbacks.push(callback);
-    const message = {
-      methodName,
-      parameters,
-      callbackID: callbacks.length - 1
-    };
-    window.webkit.messageHandlers.nativeBridge.postMessage(message);
+  function callback(callbackID, rsp) {
+    callbacks[callbackID](rsp);
+    delete callbacks[callbackID];
   }
+  function sendMessage(methodName, parameters) {
+    return new Promise((resolve, reject) => {
+      parameters = parameters || {};
+      const cb = ({ code, data, message }) => {
+        if (code == 0) {
+          resolve(data);
+        } else {
+          reject(message);
+        }
+      };
+      callbacks.push(cb);
+      const message = {
+        methodName,
+        parameters,
+        callbackID: callbacks.length - 1
+      };
+      window.webkit.messageHandlers.nativeBridge.postMessage(message);
+    });
+  }
+
+  function ajax({ url, method, data, headers, withXhr }) {
+    method = method || "GET";
+    data = data || {};
+    headers = headers || {};
+    if (withXhr) {
+      // just for newsmth/nForum
+      headers["X-Requested-With"] = "XMLHttpRequest";
+    }
+    return sendMessage("ajax", {
+      url,
+      method,
+      data,
+      headers
+    });
+  }
+
   return {
-    sendMessage
+    callback,
+    ajax
   };
 })();

@@ -13,8 +13,8 @@ import WebKit
 import Alamofire
 
 struct SMBridgeError : Error {
-    let code: Int?
-    let message: String?
+    let code: Int
+    let message: String
     init(code: Int, message: String) {
         self.code = code
         self.message = message
@@ -26,7 +26,7 @@ class SMPostViewControllerV4 : SMViewController, WKScriptMessageHandler {
     @objc var post:SMPost?
     var webView:WKWebView!
     
-    var bridges: [String: (Any) -> Future<Dictionary<String, Any>, Error>] = [:]
+    var bridges: [String: (Any) -> Future<Any, SMBridgeError>] = [:]
     var cancellables: [Int: AnyCancellable] = [:]
    
     override func viewDidLoad() {
@@ -56,46 +56,65 @@ class SMPostViewControllerV4 : SMViewController, WKScriptMessageHandler {
         }
         if let body = message.body as? Dictionary<String, AnyObject> {
             debugPrint(body)
-            let methodName = body["methodName"] as? String ?? "__nope"
-//            let callbackID = body["callbackID"]
-            let parameters = body["parameters"]
-//            let methodName = "ajax"
-//            let parameters = ["url": "https://m.newsmth.net"]
-//            let parameters = [
-//                "url": "https://www.newsmth.net/nForum/fav/0.json?_t=1580358795114" + String(format: "%f", Date().timeIntervalSince1970),
-//                "headers": ["X-Requested-With": "XMLHttpRequest"]] as [String : Any]
-            if let fn = bridges[methodName] {
-                let index = cancellables.count
-                cancellables[index] = fn(parameters as AnyObject).sink(receiveCompletion: { ret in
-                    switch(ret) {
-                    case .finished:
-                        debugPrint("success")
-                    case let .failure(error):
-                        debugPrint("failure", error)
-                    }
-//                    self.cancellables.removeValue(forKey: index)
-                    debugPrint(self.cancellables)
-                }, receiveValue: { data in
-                   debugPrint("\(methodName) success: \(data)")
-                })
+            guard let methodName = body["methodName"] as? String else {
+                debugPrint("invalid methodName")
+                return
             }
+            guard let callbackID = body["callbackID"] as? Int else {
+                debugPrint("invalid callbackID")
+                return
+            }
+            guard let fn = bridges[methodName] else {
+                sendMessageToWeb(callbackID: callbackID, code: -1, data: "", message: "不存在的Bridge方法[\(methodName)]")
+                return
+            }
+            let parameters = body["parameters"] as Any
+            let index = cancellables.count
+            cancellables[index] = fn(parameters).sink(receiveCompletion: { ret in
+                switch(ret) {
+                case .finished:
+                    debugPrint("success")
+                case let .failure(error):
+                    self.sendMessageToWeb(callbackID: callbackID, code: error.code, data: [:], message: error.message)
+                    debugPrint("failure", error)
+                }
+                self.cancellables.removeValue(forKey: index)
+                debugPrint(self.cancellables)
+            }, receiveValue: { data in
+                self.sendMessageToWeb(callbackID: callbackID, code: 0, data: data, message: "")
+            })
         }
     }
     
-    func _ajax(parameters: Any) -> Future<Dictionary<String, Any>, Error> {
-        return Future<Dictionary<String, Any>, Error> { promise in
+    func sendMessageToWeb(callbackID: Int, code: Int, data: Any, message: String) {
+        do {
+//            throw SMBridgeError(code: -1, message: "debug") // test
+            let rspData = try JSONSerialization.data(withJSONObject: ["code": code, "data": data, "message": message], options: .prettyPrinted)
+            let rspString = String(data: rspData, encoding: .utf8) ?? "{code:1, message: 'JSON转换异常'}"
+            let js = "window.$x.callback(\(callbackID), \(rspString))"
+            self.webView.evaluateJavaScript(js) { debugPrint($0 ?? "", $1 ?? "") }
+            debugPrint("js: \(js)")
+        } catch {
+            let js = "window.$x.callback(\(callbackID), {code: -1, message: '序列化Bridge返回值异常'})"
+            self.webView.evaluateJavaScript(js) { debugPrint($0 ?? "", $1 ?? "") }
+            debugPrint(error)
+        }
+    }
+    
+    func _ajax(parameters: Any) -> Future<Any, SMBridgeError> {
+        return Future<Any, SMBridgeError> { promise in
             if let opts = parameters as? Dictionary<String, AnyObject> {
                 let headers = HTTPHeaders(opts["headers"] as? [String: String] ?? [:])
                 if let url = opts["url"] as? String {
-                    AF.request(url, headers: headers).response { resp in
-                        if case let .failure(error) = resp.result {
+                    AF.request(url, headers: headers).response { rsp in
+                        if case let .failure(error) = rsp.result {
                             debugPrint(error.errorDescription ?? "")
                             promise(.failure(SMBridgeError(code: -1, message: "AFError:" + (error.errorDescription ?? "unknown error"))))
                         } else {
-                            debugPrint("rsp: ", resp.result)
+                            debugPrint("rsp: ", rsp.result)
                             do {
-                                if let data = try resp.result.get() {
-                                    let ct = resp.response?.headers.value(for: "content-type")
+                                if let data = try rsp.result.get() {
+                                    let ct = rsp.response?.headers.value(for: "content-type")
                                     debugPrint("ct", ct!)
                                     var html: String = ""
                                     if ((ct?.uppercased().contains("GBK"))!) {
@@ -105,7 +124,7 @@ class SMPostViewControllerV4 : SMViewController, WKScriptMessageHandler {
                                     } else {
                                         html = String(data: data, encoding: .utf8)!
                                     }
-                                    promise(.success(["data": html as Any]))
+                                    promise(.success(html))
                                 } else {
                                     promise(.failure(SMBridgeError(code: -1, message: "请求回包为空")))
                                 }
@@ -123,9 +142,9 @@ class SMPostViewControllerV4 : SMViewController, WKScriptMessageHandler {
         }
     }
     
-    func _nope(parameters: Any) -> Future<Dictionary<String, Any>, Error> {
+    func _nope(parameters: Any) -> Future<Any, SMBridgeError> {
         return Future { promise in
-            promise(.success([:]))
+            promise(.success(()))
         }
     }
 }
