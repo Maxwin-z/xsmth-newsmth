@@ -32,7 +32,9 @@ class SMPostViewControllerV4 : SMViewController, WKScriptMessageHandler {
     override func viewDidLoad() {
         self.title = "Post"
 
-        bridges = ["ajax": self._ajax, "__nope": self._nope]
+        bridges = ["ajax": self._ajax,
+                   "postInfo": self._postInfo,
+                   "__nope": self._nope]
         
         let userContentController = WKUserContentController()
         userContentController.add(self, name: "nativeBridge")
@@ -142,6 +144,12 @@ class SMPostViewControllerV4 : SMViewController, WKScriptMessageHandler {
         }
     }
     
+    func _postInfo(parameters: Any) -> Future<Any, SMBridgeError> {
+        return Future { promise in
+            promise(.success("https://m.newsmth.net/article/Divorce/1557529?p=1"))
+        }
+    }
+
     func _nope(parameters: Any) -> Future<Any, SMBridgeError> {
         return Future { promise in
             promise(.success(()))

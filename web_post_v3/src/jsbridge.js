@@ -40,8 +40,13 @@ window.$x = (function() {
     });
   }
 
+  function postInfo() {
+    return sendMessage("postInfo");
+  }
+
   return {
     callback,
-    ajax
+    ajax,
+    postInfo
   };
 })();

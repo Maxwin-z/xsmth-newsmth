@@ -17,12 +17,19 @@ export default function BridgeTest() {
         url: "https://www.newsmth.net/nForum/fav/0.json",
         withXhr: true
       });
+    },
+    postInfo: async () => {
+      return await window.$x.postInfo();
     }
   };
   const test = fn => async () => {
     setLog(`test ${fn}...`);
-    const ret = await methods[fn]();
-    setLog(`test ${fn} \nret: ${ret}`);
+    try {
+      const ret = await methods[fn]();
+      setLog(`test ${fn} \nret: ${ret}`);
+    } catch (e) {
+      setLog(`test ${fn} \nerror: ${e}`);
+    }
   };
   return (
     <div>
@@ -31,6 +38,7 @@ export default function BridgeTest() {
         rows="10"
         placeholder="log"
         value={log}
+        readOnly
       ></textarea>
       <ul>
         {Object.keys(methods).map(m => (

@@ -5,7 +5,7 @@ import PostGroup from "./PostGroup";
 import BridgeTest from "./BridgeTest";
 
 function App() {
-  const test = 0;
+  const test = 1;
   return (
     <div className="App">
       {test ? <BridgeTest /> : null}
