@@ -1,6 +1,8 @@
 import { Json } from "../index.d";
-import { Post } from "./postgroup.d";
+import { Post, PostGroup } from "./types.d";
 import { ajax } from "../jsbridge";
+
+// import "./tests";
 
 export function parseUrl(urlString: string): Post {
   const url = new URL(urlString);
@@ -41,7 +43,7 @@ export async function fetchPostGroup(
   gid: number,
   page: number = 1,
   author?: string | null
-) {
+): Promise<PostGroup> {
   const data: Json = {};
   if (Number.isInteger(page) && page > 0) {
     data.p = page;
@@ -54,6 +56,51 @@ export async function fetchPostGroup(
     data,
     withXhr: true
   });
-  console.log(html);
-  return html;
+  return retrieveGroupPosts(html);
+}
+
+function cleanHtml(html: string): string {
+  return html
+    .replace(/<script.*?<\/script>/g, "")
+    .replace(/<style.*?<\/style>/g, "")
+    .replace(/<style.*?>/g, "");
+}
+
+export function retrieveGroupPosts(html: string): PostGroup {
+  html = cleanHtml(html);
+  const div = document.createElement("div");
+  div.innerHTML = html;
+  document.body.appendChild(div);
+  const title = (document.querySelector(
+    ".b-head .n-left"
+  ) as HTMLSpanElement).innerText.replace("文章主题: ", "");
+  const total = parseInt(
+    (document.querySelector(".pagination i") as HTMLElement).innerText || "0",
+    10
+  );
+  const posts = [].slice
+    .call(document.querySelectorAll("table.article"))
+    .map((table: HTMLTableElement) => {
+      const author = (table.querySelector(".a-head a") as HTMLAnchorElement)
+        .innerText;
+      const pid = parseInt(
+        (table.querySelector("a.a-post") as HTMLAnchorElement).href
+          .split("/")
+          .pop() || "0",
+        10
+      );
+      const content = table.querySelector(".a-content > p")?.innerHTML || "";
+      return {
+        author,
+        pid,
+        content,
+        isSingle: false
+      };
+    });
+
+  return {
+    title,
+    total,
+    posts
+  };
 }

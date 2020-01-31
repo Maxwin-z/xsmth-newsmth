@@ -148,7 +148,11 @@ class SMPostViewControllerV4 : SMViewController, WKScriptMessageHandler {
     
     func _postInfo(parameters: Any) -> Future<Any, SMBridgeError> {
         return Future { promise in
-            promise(.success(["url": "https://m.newsmth.net/article/Divorce/1557529?p=1"]))
+            promise(.success([
+                              "pid": self.post?.pid as Any,
+                              "gid": self.post?.gid as Any,
+                              "board": self.post?.board?.name as Any
+            ]))
         }
     }
 

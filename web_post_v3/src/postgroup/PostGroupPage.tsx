@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { postInfo } from "../jsbridge";
 import { parseUrl, fetchPostGroup } from "./postUtils";
-import { Post } from "./postgroup.d";
+import { Post, PostGroup } from "./types";
 
-export default function PostGroup() {
+export default function PostGroupPage() {
   const [entryPost, setEntryPost] = useState<Post>({ isSingle: false });
   const [pageLoading, setPageLoading] = useState(true);
 
@@ -13,8 +13,9 @@ export default function PostGroup() {
     post = parseUrl(url!);
     setEntryPost(post);
     console.log(post);
-    // fetchPostGroup(post.board!, post.gid!, 1, null);
-    fetchPostGroup("Test", 939423);
+    const postGroup = await fetchPostGroup(post.board!, post.gid!, 1, null);
+    console.log(postGroup);
+    // fetchPostGroup("Test", 939423);
   }
 
   useEffect(() => {

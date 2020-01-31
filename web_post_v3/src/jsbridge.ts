@@ -1,5 +1,5 @@
 import { Json } from "./index.d";
-import { Post } from "./postgroup/postgroup.d";
+import { Post } from "./postgroup/types.d";
 
 const callbacks: Array<Function> = [];
 
