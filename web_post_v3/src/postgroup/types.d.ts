@@ -6,7 +6,7 @@ export interface Post {
   title?: string;
   author?: string;
   content?: string;
-  isSingle: boolean;
+  isSingle?: boolean;
 }
 
 export interface PostGroup {

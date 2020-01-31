@@ -56,6 +56,7 @@ export async function fetchPostGroup(
     data,
     withXhr: true
   });
+  console.log("get post html", html);
   return retrieveGroupPosts(html);
 }
 
@@ -70,16 +71,17 @@ export function retrieveGroupPosts(html: string): PostGroup {
   html = cleanHtml(html);
   const div = document.createElement("div");
   div.innerHTML = html;
-  document.body.appendChild(div);
-  const title = (document.querySelector(
+  debugger;
+  const title = (div.querySelector(
     ".b-head .n-left"
   ) as HTMLSpanElement).innerText.replace("文章主题: ", "");
+  debugger;
   const total = parseInt(
-    (document.querySelector(".pagination i") as HTMLElement).innerText || "0",
+    (div.querySelector(".pagination i") as HTMLElement).innerText || "0",
     10
   );
   const posts = [].slice
-    .call(document.querySelectorAll("table.article"))
+    .call(div.querySelectorAll("table.article"))
     .map((table: HTMLTableElement) => {
       const author = (table.querySelector(".a-head a") as HTMLAnchorElement)
         .innerText;

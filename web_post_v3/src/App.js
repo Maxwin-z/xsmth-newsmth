@@ -10,7 +10,7 @@ function App() {
     <div className="App">
       <button onClick={e => window.location.reload()}>Refresh</button>
       {isDebug ? <DebugPage /> : null}
-      {true || isDebug ? <BridgeTest /> : null}
+      {isDebug ? <BridgeTest /> : null}
       <PostGroupPage />
     </div>
   );
