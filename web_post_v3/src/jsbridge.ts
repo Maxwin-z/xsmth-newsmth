@@ -53,7 +53,14 @@ function sendMessage(methodName: string, parameters?: any): Promise<any> {
   });
 }
 
-export function postInfo() {
+interface PostInfo {
+  url: string;
+  board: string;
+  gid: number;
+  pid: number;
+}
+
+export function postInfo(): Promise<PostInfo> {
   return sendMessage("postInfo");
 }
 

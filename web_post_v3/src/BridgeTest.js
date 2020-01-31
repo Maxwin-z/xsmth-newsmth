@@ -28,7 +28,7 @@ export default function BridgeTest() {
     setLog(`test ${fn}...`);
     try {
       const ret = await methods[fn]();
-      setLog(`test ${fn} \nret: ${ret}`);
+      setLog(`test ${fn} \nret: ${JSON.stringify(ret, true, 2)}`);
     } catch (e) {
       setLog(`test ${fn} \nerror: ${e}`);
     }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import * as $x from "../jsbridge";
+import { postInfo } from "../jsbridge";
 /**
  * 一些关键数据
  * board: 版面的英文名，如“Apple”
@@ -43,8 +43,8 @@ import * as $x from "../jsbridge";
  */
 
 async function main() {
-  const postInfo = await $x.postInfo();
-  console.log(postInfo);
+  const post = await postInfo();
+  console.log(post);
 }
 
 export default function PostGroup() {
@@ -53,6 +53,7 @@ export default function PostGroup() {
   useEffect(() => {
     main();
   });
+
   return (
     <div>
       <h1>PostGroup {"1" + new Date()}</h1>

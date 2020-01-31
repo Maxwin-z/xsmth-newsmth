@@ -146,7 +146,7 @@ class SMPostViewControllerV4 : SMViewController, WKScriptMessageHandler {
     
     func _postInfo(parameters: Any) -> Future<Any, SMBridgeError> {
         return Future { promise in
-            promise(.success("https://m.newsmth.net/article/Divorce/1557529?p=1"))
+            promise(.success(["url": "https://m.newsmth.net/article/Divorce/1557529?p=1"]))
         }
     }
 
