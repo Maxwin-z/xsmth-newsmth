@@ -1,3 +1,6 @@
+import { Json } from "./index.d";
+import { Post } from "./postgroup/postgroup.d";
+
 const callbacks: Array<Function> = [];
 
 interface BridgeResult {
@@ -6,16 +9,12 @@ interface BridgeResult {
   message: string;
 }
 
-interface RequestHeader {
-  "X-Requested-With": string;
-}
-
 interface AjaxOption {
   url: string;
-  method: string;
-  data: Object;
-  headers: RequestHeader;
-  withXhr: boolean;
+  method?: string;
+  data?: Json;
+  headers?: Json;
+  withXhr?: boolean;
 }
 
 interface Window {
@@ -53,27 +52,32 @@ function sendMessage(methodName: string, parameters?: any): Promise<any> {
   });
 }
 
-interface PostInfo {
-  url: string;
-  board: string;
-  gid: number;
-  pid: number;
-}
-
-export function postInfo(): Promise<PostInfo> {
+export function postInfo(): Promise<Post> {
   return sendMessage("postInfo");
 }
 
-export function ajax({ url, method, data, headers, withXhr }: AjaxOption) {
-  method = method || "GET";
-  data = data || {};
-  headers = headers || {};
+export function ajax({
+  url,
+  method = "GET",
+  data = {},
+  headers = {},
+  withXhr = false
+}: AjaxOption) {
   if (withXhr) {
     // just for newsmth/nForum
     headers["X-Requested-With"] = "XMLHttpRequest";
   }
+  const _url = new URL(url);
+  Object.keys(data).map(key => {
+    _url.searchParams.append(key, "" + data[key]);
+  });
+  // debug, disable cache
+  _url.searchParams.append("_xsmth_disable_cache", "" + new Date().getTime());
+
+  console.log(_url.toString());
+
   return sendMessage("ajax", {
-    url,
+    url: _url.toString(),
     method,
     data,
     headers

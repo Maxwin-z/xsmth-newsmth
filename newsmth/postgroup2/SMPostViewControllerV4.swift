@@ -120,9 +120,11 @@ class SMPostViewControllerV4 : SMViewController, WKScriptMessageHandler {
                                     debugPrint("ct", ct!)
                                     var html: String = ""
                                     if ((ct?.uppercased().contains("GBK"))!) {
-                                        let cfEncoding = CFStringEncodings.GB_18030_2000
-                                        let encoding = CFStringConvertEncodingToNSStringEncoding(CFStringEncoding(cfEncoding.rawValue))
-                                        html = NSString(data: data, encoding: encoding)! as String
+//                                        html = SMUtils.s
+                                        html = SMUtils.gb2312Data2String(data);
+//                                        let cfEncoding = CFStringEncodings.GB_18030_2000
+//                                        let encoding = CFStringConvertEncodingToNSStringEncoding(CFStringEncoding(cfEncoding.rawValue))
+//                                        html = NSString(data: data, encoding: encoding)! as String
                                     } else {
                                         html = String(data: data, encoding: .utf8)!
                                     }
