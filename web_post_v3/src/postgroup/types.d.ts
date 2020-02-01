@@ -5,6 +5,7 @@ export interface Post {
   pid?: number;
   title?: string;
   author?: string;
+  date?: number;
   content?: string;
   isSingle?: boolean;
 }

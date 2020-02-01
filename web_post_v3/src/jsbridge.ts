@@ -68,7 +68,7 @@ export function ajax({
     headers["X-Requested-With"] = "XMLHttpRequest";
   }
   const _url = new URL(url);
-  Object.keys(data).map(key => {
+  Object.keys(data).forEach(key => {
     _url.searchParams.append(key, "" + data[key]);
   });
   // debug, disable cache

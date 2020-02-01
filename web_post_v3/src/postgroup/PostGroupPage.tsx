@@ -1,7 +1,7 @@
 import React, { useState, useEffect, FunctionComponent } from "react";
 import { postInfo } from "../jsbridge";
 import { parseUrl, fetchPostGroup } from "./postUtils";
-import { Post, PostGroup } from "./types";
+import { Post } from "./types";
 import "./index.css";
 
 enum Status {
@@ -21,12 +21,16 @@ interface Page {
   errorMessage?: string;
 }
 
-const PostList: FunctionComponent<{ posts?: Post[] }> = ({ posts = [] }) => {
+const PostList: FunctionComponent<{ posts: Post[] }> = ({ posts = [] }) => {
   return (
     <div>
       {posts.map(post => (
         <div className="post" key={post.pid}>
-          {post.content}
+          <div>
+            {post.author}
+            {new Date(post.date!).toString()}
+          </div>
+          <div dangerouslySetInnerHTML={{ __html: post.content || "" }}></div>
         </div>
       ))}
     </div>
@@ -34,8 +38,8 @@ const PostList: FunctionComponent<{ posts?: Post[] }> = ({ posts = [] }) => {
 };
 
 export default function PostGroupPage() {
-  let maxPage = 0;
   const postsPerPage = 10;
+  const [maxPage, setMaxPage] = useState(0);
   const [mainPost, setMainPost] = useState<Post>({ isSingle: false });
   const [pages, setPages] = useState<Page[]>([]);
   const [title, setTitle] = useState("");
@@ -78,39 +82,47 @@ export default function PostGroupPage() {
     setMainPost(post);
   }
 
-  async function renderFirstPage() {
-    const page = await loadPage(1);
-    if (page.status === Status.fail) {
-      setPageLoadError(page.errorMessage!);
-      return;
-    }
-    setTitle(page.title);
-    // init
-    maxPage = Math.max(maxPage, page.index);
-    const totalPage = Math.ceil(page.total / postsPerPage);
-    const _pages: Page[] = new Array(totalPage).fill(0).map((_, i) => ({
-      title: "",
-      total: page.total,
-      index: i,
-      posts: [],
-      status: Status.init
-    }));
-    _pages[0] = page;
-    setPages(_pages);
-  }
-
   useEffect(() => {
     main();
   }, []);
 
   useEffect(() => {
     console.log("mainPost:", mainPost);
+
+    async function renderFirstPage() {
+      const page = await loadPage(1);
+      if (page.status === Status.fail) {
+        setPageLoadError(page.errorMessage!);
+        return;
+      }
+      setTitle(page.title);
+      // init
+      setMaxPage(Math.max(maxPage, page.index));
+      const totalPage = Math.ceil(page.total / postsPerPage);
+      const _pages: Page[] = new Array(totalPage).fill(0).map((_, i) => ({
+        title: "",
+        total: page.total,
+        index: i,
+        posts: [],
+        status: Status.init
+      }));
+      _pages[0] = page;
+      setPages(_pages);
+    }
     mainPost.gid && renderFirstPage();
   }, [mainPost]);
 
+  useEffect(() => {
+    function handleScroll(e: Event) {
+      console.log("scroll: ", e);
+    }
+    document.addEventListener("scroll", handleScroll);
+    return () => document.removeEventListener("scroll", handleScroll);
+  });
+
   return (
     <div>
-      <h1>PostGroup {"1" + new Date()}</h1>
+      <h1>PostGroup {"33" + new Date()}</h1>
       {pageLoading ? <div>Loading</div> : null}
       <h1>{title}</h1>
       <div>{pageLoadError}</div>
