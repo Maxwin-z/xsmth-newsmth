@@ -62,9 +62,10 @@ export async function fetchPostGroup(
 
 function cleanHtml(html: string): string {
   return html
-    .replace(/<script.*?<\/script>/g, "")
-    .replace(/<style.*?<\/style>/g, "")
-    .replace(/<style.*?>/g, "");
+    .replace(/<script.*?<\/script>/gi, "")
+    .replace(/<style.*?<\/style>/gi, "")
+    .replace(/<style.*?>/gi, "")
+    .replace(/<img .+?>/gi, "");
 }
 
 export function retrieveGroupPosts(html: string): PostGroup {
@@ -74,7 +75,6 @@ export function retrieveGroupPosts(html: string): PostGroup {
   const title = (div.querySelector(
     ".b-head .n-left"
   ) as HTMLSpanElement).innerText.replace("文章主题: ", "");
-  debugger;
   const total = parseInt(
     (div.querySelector(".pagination i") as HTMLElement).innerText || "0",
     10
@@ -127,6 +127,8 @@ function formatPost(
     /^发信人:.+?<br> 标.+?<br> 发信站:.+?站内 <br>&nbsp;&nbsp;<br>/i,
     ""
   );
+  // replace images
+  content = content.replace(/<img .+?>/gi, "");
   return {
     date,
     content

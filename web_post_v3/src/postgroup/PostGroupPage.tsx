@@ -39,11 +39,23 @@ const PostList: FunctionComponent<{ posts: Post[] }> = ({ posts = [] }) => {
 
 export default function PostGroupPage() {
   const postsPerPage = 10;
-  const [maxPage, setMaxPage] = useState(0);
+  // const taskQueue: number[] = [];
+
+  // let incompletePageNumber = 1;
+  const [incompletePageNumber, setIncompletePageNumber] = useState(1);
+  const [taskQueue, setTaskQueue] = useState<number[]>([]);
   const [mainPost, setMainPost] = useState<Post>({ isSingle: false });
-  const [pages, setPages] = useState<Page[]>([]);
+  const [pages, setPages] = useState<Page[]>([
+    {
+      title: "",
+      total: 0,
+      index: 1,
+      posts: [],
+      status: Status.init
+    }
+  ]);
   const [title, setTitle] = useState("");
-  const [pageLoading, setPageLoading] = useState(true);
+  const [pageLoading, setPageLoading] = useState(false);
   const [pageLoadError, setPageLoadError] = useState("");
 
   async function loadPage(p: number = 1, author?: string): Promise<Page> {
@@ -82,35 +94,77 @@ export default function PostGroupPage() {
     setMainPost(post);
   }
 
+  async function loadIncompletePage() {
+    taskQueue.unshift(incompletePageNumber);
+    nextTask();
+  }
+  async function nextTask() {
+    debugger;
+    if (taskQueue.length === 0 || pageLoading) return;
+    const _pages = [...pages];
+    const p = taskQueue[0];
+    console.log(`load page ${p}`, pages);
+
+    // change page to loading status
+    _pages[p! - 1]!.status = Status.loading;
+    setPageLoading(true);
+    setPages([..._pages]);
+
+    const page = await loadPage(p);
+    if (page.status === Status.fail) {
+      console.log("load page error", page);
+      return;
+    }
+    // load success
+    if (p === 1) {
+      setTitle(page.title);
+    }
+
+    const totalPage = Math.ceil(page.total / postsPerPage);
+    // put unloaded pages to queue
+    for (let i = pages.length + 1; i <= totalPage; ++i) {
+      taskQueue.push(i);
+      _pages.push({
+        title: "",
+        total: 0,
+        index: i,
+        posts: [],
+        status: Status.init
+      });
+    }
+    _pages[p! - 1] = page;
+    setPages([..._pages]);
+
+    // set last page always incomplete, try to load new posts
+    // incompletePageNumber = totalPage;
+    setIncompletePageNumber(totalPage);
+
+    // remove current page, task done
+    taskQueue.shift();
+    setTaskQueue(taskQueue);
+    setPageLoading(false);
+  }
+
+  // get post info
   useEffect(() => {
     main();
   }, []);
 
   useEffect(() => {
-    console.log("mainPost:", mainPost);
+    console.log(`pages changed, ${pages.length}`);
+  }, [pages]);
 
-    async function renderFirstPage() {
-      const page = await loadPage(1);
-      if (page.status === Status.fail) {
-        setPageLoadError(page.errorMessage!);
-        return;
-      }
-      setTitle(page.title);
-      // init
-      setMaxPage(Math.max(maxPage, page.index));
-      const totalPage = Math.ceil(page.total / postsPerPage);
-      const _pages: Page[] = new Array(totalPage).fill(0).map((_, i) => ({
-        title: "",
-        total: page.total,
-        index: i,
-        posts: [],
-        status: Status.init
-      }));
-      _pages[0] = page;
-      setPages(_pages);
+  // load first page
+  useEffect(() => {
+    console.log("mainPost:", mainPost);
+    mainPost.gid && mainPost.board && loadIncompletePage();
+  }, [mainPost, pageLoading, pages, incompletePageNumber, taskQueue]);
+
+  useEffect(() => {
+    if (!pageLoading) {
+      setTimeout(nextTask, 3000);
     }
-    mainPost.gid && renderFirstPage();
-  }, [mainPost]);
+  }, [pageLoading]);
 
   useEffect(() => {
     function handleScroll(e: Event) {
@@ -123,7 +177,6 @@ export default function PostGroupPage() {
   return (
     <div>
       <h1>PostGroup {"33" + new Date()}</h1>
-      {pageLoading ? <div>Loading</div> : null}
       <h1>{title}</h1>
       <div>{pageLoadError}</div>
       <div className="page-list">
@@ -136,9 +189,7 @@ export default function PostGroupPage() {
             {page.status === Status.fail ? (
               <div>{page.errorMessage}</div>
             ) : null}
-            {page.status === Status.init && page.index < maxPage ? (
-              <div>click to load</div>
-            ) : null}
+            {page.status === Status.loading ? <div>Loading</div> : null}
           </div>
         ))}
       </div>

@@ -25,7 +25,11 @@ interface Window {
 declare let window: Window;
 
 window.$xCallback = function(callbackID: number, rsp: BridgeResult) {
-  callbacks[callbackID](rsp);
+  if (callbacks[callbackID]) {
+    callbacks[callbackID](rsp);
+  } else {
+    console.error(`callbackID ${callbackID} not exists`);
+  }
   delete callbacks[callbackID];
 };
 
