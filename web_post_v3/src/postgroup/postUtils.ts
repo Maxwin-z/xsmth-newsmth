@@ -45,6 +45,12 @@ export async function fetchPostGroup(
   author?: string | null
 ): Promise<PostGroup> {
   const data: Json = {};
+
+  if (!board || !gid) {
+    const error = `invalid boardd or gid: (${board}, ${gid})`;
+    console.error(error);
+    throw error;
+  }
   if (Number.isInteger(page) && page > 0) {
     data.p = page;
   }

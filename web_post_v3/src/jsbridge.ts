@@ -33,6 +33,14 @@ window.$xCallback = function(callbackID: number, rsp: BridgeResult) {
   delete callbacks[callbackID];
 };
 
+function isBridgeAvaiable() {
+  return (
+    window.webkit &&
+    window.webkit.messageHandlers &&
+    window.webkit.messageHandlers.nativeBridge
+  );
+}
+
 function sendMessage(methodName: string, parameters?: any): Promise<any> {
   return new Promise((resolve, reject) => {
     parameters = parameters || {};
@@ -49,14 +57,16 @@ function sendMessage(methodName: string, parameters?: any): Promise<any> {
       parameters,
       callbackID: callbacks.length - 1
     };
-    window.webkit &&
-      window.webkit.messageHandlers &&
-      window.webkit.messageHandlers.nativeBridge &&
+    if (isBridgeAvaiable()) {
       window.webkit.messageHandlers.nativeBridge.postMessage(message);
+    }
   });
 }
 
 export function postInfo(): Promise<Post> {
+  if (!isBridgeAvaiable()) {
+    return postInfoInWeb();
+  }
   return sendMessage("postInfo");
 }
 
@@ -66,7 +76,7 @@ export function ajax({
   data = {},
   headers = {},
   withXhr = false
-}: AjaxOption) {
+}: AjaxOption): Promise<string> {
   if (withXhr) {
     // just for newsmth/nForum
     headers["X-Requested-With"] = "XMLHttpRequest";
@@ -80,10 +90,43 @@ export function ajax({
 
   console.log(_url.toString());
 
+  if (!isBridgeAvaiable()) {
+    return ajaxInWeb({
+      url: _url.toString(),
+      withXhr
+    });
+  }
+
   return sendMessage("ajax", {
     url: _url.toString(),
     method,
     data,
     headers
   });
+}
+
+function postInfoInWeb(): Promise<Post> {
+  return Promise.resolve({
+    board: "WorkLife",
+    gid: 2164300
+  });
+}
+
+async function ajaxInWeb({
+  url,
+  withXhr = false
+}: AjaxOption): Promise<string> {
+  console.log("ajax in web");
+  const rsp = await fetch("/api", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      url,
+      withXhr
+    })
+  });
+  console.log(rsp);
+  return Promise.resolve(rsp.text());
 }
