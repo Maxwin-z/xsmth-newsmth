@@ -63,6 +63,9 @@ export async function fetchPostGroup(
     withXhr: true
   });
   // console.log("get post html", html);
+  // if (page === 3) {
+  //   throw "debug exception";
+  // }
   return retrieveGroupPosts(html);
 }
 

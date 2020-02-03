@@ -1453,6 +1453,11 @@
   resolved "https://registry.npm.taobao.org/@types/prop-types/download/@types/prop-types-15.7.3.tgz?cache=0&sync_timestamp=1572464318358&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fprop-types%2Fdownload%2F%40types%2Fprop-types-15.7.3.tgz#2ab0d5da2e5815f94b0b9d4b95d1e5f243ab2ca7"
   integrity sha1-KrDV2i5YFflLC51LldHl8kOrLKc=
 
+"@types/pubsub-js@^1.5.18":
+  version "1.5.18"
+  resolved "https://registry.npm.taobao.org/@types/pubsub-js/download/@types/pubsub-js-1.5.18.tgz#dd12284c5e93b39874e62675702bf50c6f55e9ec"
+  integrity sha1-3RIoTF6Ts5h05iZ1cCv1DG9V6ew=
+
 "@types/q@^1.5.1":
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/@types/q/-/q-1.5.2.tgz#690a1475b84f2a884fd07cd797c00f5f31356ea8"
@@ -8323,6 +8328,11 @@ public-encrypt@^4.0.0:
     parse-asn1 "^5.0.0"
     randombytes "^2.0.1"
     safe-buffer "^5.1.2"
+
+pubsub-js@^1.8.0:
+  version "1.8.0"
+  resolved "https://registry.npm.taobao.org/pubsub-js/download/pubsub-js-1.8.0.tgz#e2b523a030140a3d6e080735a48850a9622ed20a"
+  integrity sha1-4rUjoDAUCj1uCAc1pIhQqWIu0go=
 
 pump@^2.0.0:
   version "2.0.1"

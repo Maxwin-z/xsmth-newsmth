@@ -1,196 +1,230 @@
 import React, { useState, useEffect, FunctionComponent } from "react";
+import PubSub from "pubsub-js";
 import { postInfo } from "../jsbridge";
-import { parseUrl, fetchPostGroup } from "./postUtils";
+import { fetchPostGroup } from "./postUtils";
 import { Post } from "./types";
 import "./index.css";
 
+const NOTIFICATION_TOTAL_PAGES_CHANGED = "NOTIFICATION_TOTAL_PAGES_CHANGED";
+const NOTIFICATION_FORCE_LOAD_PAGE = "NOTIFICATION_FORCE_LOAD_PAGE";
+const NOTIFICATION_PAGE_CHANGED = (p: number) =>
+  `NOTIFICATION_PAGE_CHANGED_${p}`;
 enum Status {
-  init,
-  loading,
-  success,
-  incomplete,
-  fail
+  init = 0,
+  loading = 1,
+  success = 2,
+  incomplete = 3,
+  fail = 4
 }
 
 interface Page {
   title: string;
   total: number;
-  index: number;
+  p: number;
   posts: Post[];
   status: Status;
   errorMessage?: string;
 }
 
-const PostList: FunctionComponent<{ posts: Post[] }> = ({ posts = [] }) => {
+const PostComponent: FunctionComponent<{ post: Post }> = ({ post }) => {
   return (
-    <div>
-      {posts.map(post => (
-        <div className="post" key={post.pid}>
-          <div>
-            {post.author}
-            {post.nickname!.length > 0 ? `(${post.nickname})` : ``}
-            {new Date(post.date!).toString()}
-            {post.floor}
-          </div>
-          <div dangerouslySetInnerHTML={{ __html: post.content || "" }}></div>
-        </div>
-      ))}
+    <div className="post" key={post.pid}>
+      <div>
+        {post.author}
+        {post.nickname!.length > 0 ? `(${post.nickname})` : ``}
+        {new Date(post.date!).toString()}
+        {post.floor}
+      </div>
+      <div dangerouslySetInnerHTML={{ __html: post.content || "" }}></div>
     </div>
   );
 };
 
-export default function PostGroupPage() {
-  const postsPerPage = 10;
-  // const taskQueue: number[] = [];
+const PostList: FunctionComponent<{ posts: Post[] }> = ({ posts = [] }) => (
+  <div>
+    {posts.map(post => (
+      <PostComponent key={post.pid} post={post} />
+    ))}
+  </div>
+);
 
-  // let incompletePageNumber = 1;
-  const [incompletePageNumber, setIncompletePageNumber] = useState(1);
-  const [taskQueue, setTaskQueue] = useState<number[]>([]);
-  const [mainPost, setMainPost] = useState<Post>({ isSingle: false });
-  const [pages, setPages] = useState<Page[]>([
-    {
+const PageComponent: FunctionComponent<{ p: number }> = ({ p }) => {
+  function onClick() {
+    PubSub.publish(NOTIFICATION_FORCE_LOAD_PAGE, {
+      p
+    });
+  }
+  const [flag, setFlag] = useState(false);
+  useEffect(() => {
+    console.log("sub", p);
+    PubSub.subscribe(NOTIFICATION_PAGE_CHANGED(p), () => {
+      console.log("in sub", p);
+      setFlag(!flag);
+    });
+    return () => {
+      console.log("unsub", p);
+      PubSub.unsubscribe(NOTIFICATION_PAGE_CHANGED(p));
+    };
+  });
+  const page = pages[p - 1];
+  return (
+    <div onClick={onClick}>
+      {page.status === Status.success || page.status === Status.incomplete ? (
+        <PostList posts={page.posts} />
+      ) : null}
+      {page.status === Status.fail ? <div>{page.errorMessage}</div> : null}
+      {page.status === Status.loading ? <div>Loading</div> : null}
+      {page.status === Status.init ? <div>Init: {page.p}</div> : null}
+    </div>
+  );
+};
+
+///////////////////////////////////////////////////////////////
+// page functions
+const postsPerPage = 10;
+let taskQueue: number[] = [];
+const pages: Page[] = [
+  {
+    title: "",
+    total: 0,
+    p: 1,
+    posts: [],
+    status: Status.init
+  }
+];
+let mainPost: Post;
+let incompletePageNumber = 1;
+let pageLoading = false;
+
+async function initPage() {
+  mainPost = await postInfo();
+  console.log(mainPost);
+  loadIncompletePage();
+}
+
+async function loadIncompletePage() {
+  taskQueue.unshift(incompletePageNumber);
+  nextTask();
+}
+
+async function loadPage(p: number = 1, author?: string): Promise<Page> {
+  const page: Page = {
+    title: "",
+    total: 0,
+    p: p,
+    posts: [],
+    status: Status.init,
+    errorMessage: ""
+  };
+  try {
+    const postGroup = await fetchPostGroup(
+      mainPost.board!,
+      mainPost.gid!,
+      p,
+      null
+    );
+    page.posts = postGroup.posts!;
+    page.total = postGroup.total!;
+    page.title = postGroup.title!;
+    page.status =
+      page.posts.length >= postsPerPage ? Status.success : Status.incomplete;
+  } catch (e) {
+    page.status = Status.fail;
+    page.errorMessage = e.toString();
+  }
+  return page;
+}
+
+async function nextTask() {
+  console.log("task queue:", taskQueue);
+  if (taskQueue.length === 0 || pageLoading) return;
+  pageLoading = true;
+  const p = taskQueue[0];
+  pages[p! - 1]!.status = Status.loading;
+
+  PubSub.publish(NOTIFICATION_PAGE_CHANGED(p), {});
+
+  const page = await loadPage(p);
+  if (page.status === Status.fail) {
+    console.log("load page error", page);
+    pages[p! - 1] = page;
+    pageLoading = false;
+    PubSub.publish(NOTIFICATION_PAGE_CHANGED(p), {});
+    return;
+  }
+  // load success
+  const totalPage = Math.ceil(page.total / postsPerPage);
+  const totalPagesChanged = totalPage !== pages.length;
+  // put unloaded pages to queue
+  for (let i = pages.length + 1; i <= totalPage; ++i) {
+    taskQueue.push(i);
+    pages.push({
       title: "",
       total: 0,
-      index: 1,
+      p: i,
       posts: [],
       status: Status.init
-    }
-  ]);
-  const [title, setTitle] = useState("");
-  const [pageLoading, setPageLoading] = useState(false);
-  const [pageLoadError, setPageLoadError] = useState("");
-
-  async function loadPage(p: number = 1, author?: string): Promise<Page> {
-    const page: Page = {
-      title: "",
-      total: 0,
-      index: p,
-      posts: [],
-      status: Status.init,
-      errorMessage: ""
-    };
-    try {
-      const postGroup = await fetchPostGroup(
-        mainPost.board!,
-        mainPost.gid!,
-        p,
-        null
-      );
-      page.posts = postGroup.posts!;
-      page.total = postGroup.total!;
-      page.title = postGroup.title!;
-      page.status =
-        page.posts.length >= postsPerPage ? Status.success : Status.incomplete;
-    } catch (e) {
-      page.status = Status.fail;
-      page.errorMessage = e.toString();
-    }
-    return page;
+    });
   }
+  pages[p! - 1] = page;
 
-  async function loadIncompletePage() {
-    taskQueue.unshift(incompletePageNumber);
+  // set last page always incomplete, try to load new posts
+  incompletePageNumber = totalPage;
+  // remove current page, task done
+  taskQueue.splice(taskQueue.indexOf(p), 1);
+  pageLoading = false;
+
+  setTimeout(() => {
+    nextTask();
+  }, 3000);
+
+  if (totalPagesChanged) {
+    PubSub.publish(NOTIFICATION_TOTAL_PAGES_CHANGED, {});
+  }
+  PubSub.publish(NOTIFICATION_PAGE_CHANGED(p), {});
+}
+
+function orderTaskQueue(index: number) {
+  const nextTasks: number[] = [];
+  const prevTasks: number[] = [];
+  taskQueue.forEach(i => {
+    i < index ? prevTasks.push(i) : nextTasks.push(i);
+  });
+  taskQueue = nextTasks
+    .sort((a, b) => a - b)
+    .concat(prevTasks.sort((a, b) => a - b));
+  console.log("reorder queue:", taskQueue);
+  return;
+}
+
+initPage();
+PubSub.subscribe(
+  NOTIFICATION_FORCE_LOAD_PAGE,
+  (_: string, msg: { p: number }) => {
+    orderTaskQueue(msg.p);
     nextTask();
   }
-  async function nextTask() {
-    if (taskQueue.length === 0 || pageLoading) return;
-    const _pages = [...pages];
-    const p = taskQueue[0];
-    console.log(`load page ${p}`, pages);
+);
 
-    // change page to loading status
-    _pages[p! - 1]!.status = Status.loading;
-    setPageLoading(true);
-    setPages([..._pages]);
-
-    const page = await loadPage(p);
-    if (page.status === Status.fail) {
-      console.log("load page error", page);
-      return;
-    }
-    // load success
-    if (p === 1) {
-      setTitle(page.title);
-    }
-
-    const totalPage = Math.ceil(page.total / postsPerPage);
-    // put unloaded pages to queue
-    for (let i = pages.length + 1; i <= totalPage; ++i) {
-      taskQueue.push(i);
-      _pages.push({
-        title: "",
-        total: 0,
-        index: i,
-        posts: [],
-        status: Status.init
-      });
-    }
-    _pages[p! - 1] = page;
-    setPages([..._pages]);
-
-    // set last page always incomplete, try to load new posts
-    // incompletePageNumber = totalPage;
-    setIncompletePageNumber(totalPage);
-
-    // remove current page, task done
-    taskQueue.shift();
-    setTaskQueue(taskQueue);
-    setPageLoading(false);
-  }
-
-  // get post info
+export default function PostGroupPage() {
+  console.log("render , PostGroupPage");
+  const [flag, setFlag] = useState(false);
   useEffect(() => {
-    async function main() {
-      let post: Post = await postInfo();
-      if (post.url) {
-        post = parseUrl(post.url);
-      }
-      console.log("postinfo: ", post);
-      setMainPost(post);
-    }
-    main();
-  }, []);
-
-  useEffect(() => {
-    console.log("mainpost change");
-    mainPost.board && mainPost.gid && loadIncompletePage();
-  }, [mainPost]);
-
-  useEffect(() => {
-    console.log(`pages changed, ${pages.length}`);
-  }, [pages]);
-
-  // useEffect(() => {
-  //   if (!pageLoading && mainPost.board && mainPost.gid) {
-  //     setTimeout(nextTask, 3000);
-  //   }
-  // }, [pageLoading]);
-
-  useEffect(() => {
-    function handleScroll(e: Event) {
-      console.log("scroll: ", e);
-    }
-    document.addEventListener("scroll", handleScroll);
-    return () => document.removeEventListener("scroll", handleScroll);
+    PubSub.subscribe(NOTIFICATION_TOTAL_PAGES_CHANGED, () => {
+      console.log("get notify");
+      setFlag(!flag);
+    });
+    return () => {
+      PubSub.unsubscribe(NOTIFICATION_TOTAL_PAGES_CHANGED);
+    };
   });
-
   return (
     <div>
       <h1>PostGroup {"33" + new Date()}</h1>
-      <h1>{title}</h1>
-      <div>{pageLoadError}</div>
+      <h1>{mainPost && mainPost.title}</h1>
       <div className="page-list">
         {pages.map(page => (
-          <div className="page" key={`${page.index}-${page.status}`}>
-            {page.status === Status.success ||
-            page.status === Status.incomplete ? (
-              <PostList posts={page.posts} />
-            ) : null}
-            {page.status === Status.fail ? (
-              <div>{page.errorMessage}</div>
-            ) : null}
-            {page.status === Status.loading ? <div>Loading</div> : null}
-          </div>
+          <PageComponent key={`${page.p}-${page.status}`} p={page.p} />
         ))}
       </div>
       <div>footer</div>

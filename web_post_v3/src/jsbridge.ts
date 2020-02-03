@@ -107,8 +107,8 @@ export function ajax({
 
 function postInfoInWeb(): Promise<Post> {
   return Promise.resolve({
-    board: "WorkLife",
-    gid: 2164300
+    board: "DigiHome" || "WorkLife",
+    gid: 941251 || 2164300
   });
 }
 
