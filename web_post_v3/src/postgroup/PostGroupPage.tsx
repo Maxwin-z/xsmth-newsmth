@@ -28,7 +28,9 @@ const PostList: FunctionComponent<{ posts: Post[] }> = ({ posts = [] }) => {
         <div className="post" key={post.pid}>
           <div>
             {post.author}
+            {post.nickname!.length > 0 ? `(${post.nickname})` : ``}
             {new Date(post.date!).toString()}
+            {post.floor}
           </div>
           <div dangerouslySetInnerHTML={{ __html: post.content || "" }}></div>
         </div>
@@ -85,21 +87,12 @@ export default function PostGroupPage() {
     }
     return page;
   }
-  async function main() {
-    let post: Post = await postInfo();
-    if (post.url) {
-      post = parseUrl(post.url);
-    }
-    console.log("postinfo: ", post);
-    setMainPost(post);
-  }
 
   async function loadIncompletePage() {
     taskQueue.unshift(incompletePageNumber);
     nextTask();
   }
   async function nextTask() {
-    debugger;
     if (taskQueue.length === 0 || pageLoading) return;
     const _pages = [...pages];
     const p = taskQueue[0];
@@ -147,24 +140,31 @@ export default function PostGroupPage() {
 
   // get post info
   useEffect(() => {
+    async function main() {
+      let post: Post = await postInfo();
+      if (post.url) {
+        post = parseUrl(post.url);
+      }
+      console.log("postinfo: ", post);
+      setMainPost(post);
+    }
     main();
   }, []);
+
+  useEffect(() => {
+    console.log("mainpost change");
+    mainPost.board && mainPost.gid && loadIncompletePage();
+  }, [mainPost]);
 
   useEffect(() => {
     console.log(`pages changed, ${pages.length}`);
   }, [pages]);
 
-  // load first page
-  useEffect(() => {
-    console.log("mainPost:", mainPost);
-    mainPost.gid && mainPost.board && loadIncompletePage();
-  }, [mainPost, pageLoading, pages, incompletePageNumber, taskQueue]);
-
-  useEffect(() => {
-    if (!pageLoading) {
-      setTimeout(nextTask, 3000);
-    }
-  }, [pageLoading]);
+  // useEffect(() => {
+  //   if (!pageLoading && mainPost.board && mainPost.gid) {
+  //     setTimeout(nextTask, 3000);
+  //   }
+  // }, [pageLoading]);
 
   useEffect(() => {
     function handleScroll(e: Event) {

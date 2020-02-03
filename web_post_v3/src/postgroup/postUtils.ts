@@ -62,7 +62,7 @@ export async function fetchPostGroup(
     data,
     withXhr: true
   });
-  console.log("get post html", html);
+  // console.log("get post html", html);
   return retrieveGroupPosts(html);
 }
 
@@ -96,10 +96,14 @@ export function retrieveGroupPosts(html: string): PostGroup {
           .pop() || "0",
         10
       );
+      const floor = (table.querySelector(".a-pos") as HTMLSpanElement)
+        .innerText;
       const body = table.querySelector(".a-content > p")?.innerHTML || "";
-      const { date, content } = formatPost(body);
+      const { date, nickname, content } = formatPost(body);
       return {
         author,
+        nickname,
+        floor,
         pid,
         date,
         content,
@@ -120,6 +124,7 @@ function formatPost(
   body: string
 ): {
   date: number;
+  nickname: string;
   content: string;
 } {
   const dateRegex = /^发信人:.+?<br> 标.+?<br> 发信站:.+?\([A-Z][a-z]{2} +([A-Z][a-z]{2} +\d+ +\d{1,2}:\d{1,2}:\d{1,2} +\d{4})\)/;
@@ -128,6 +133,11 @@ function formatPost(
   if (matches) {
     date = Date.parse(matches[1]);
   }
+
+  // get nickname
+  matches = body.match(/^发信人: \w+? \((.*?)\), /);
+  const nickname = matches ? matches[1] : "";
+
   // 移除顶部4行
   let content = body.replace(
     /^发信人:.+?<br> 标.+?<br> 发信站:.+?站内 <br>&nbsp;&nbsp;<br>/i,
@@ -137,6 +147,7 @@ function formatPost(
   content = content.replace(/<img .+?>/gi, "");
   return {
     date,
+    nickname,
     content
   };
 }
