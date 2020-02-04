@@ -8,6 +8,7 @@ export interface Post {
   nickname?: string;
   floor?: string;
   date?: number;
+  dateString?: string;
   content?: string;
   isSingle?: boolean;
 }

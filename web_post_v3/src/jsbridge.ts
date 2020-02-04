@@ -106,10 +106,10 @@ export function ajax({
 }
 
 function postInfoInWeb(): Promise<Post> {
-  return Promise.resolve({
-    board: "DigiHome" || "WorkLife",
-    gid: 941251 || 2164300
-  });
+  let post = { board: "Children", gid: 932484268 };
+  // let post = {board: 'DigiHome', gid: 941251}
+  // let post = {board: 'WorkLife', gid: 2164300}
+  return Promise.resolve(post);
 }
 
 async function ajaxInWeb({

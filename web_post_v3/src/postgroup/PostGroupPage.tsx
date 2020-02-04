@@ -29,11 +29,19 @@ interface Page {
 const PostComponent: FunctionComponent<{ post: Post }> = ({ post }) => {
   return (
     <div className="post" key={post.pid}>
-      <div>
-        {post.author}
-        {post.nickname!.length > 0 ? `(${post.nickname})` : ``}
-        {new Date(post.date!).toString()}
-        {post.floor}
+      <div className="post-title">
+        <div>
+          {post.author}
+          {post.nickname!.length > 0 ? `(${post.nickname})` : ``}
+        </div>
+        <div>
+          <span className="floor">{post.floor}</span>
+          <span className="date">{post.dateString}</span>
+        </div>
+        <div className="post-action">
+          <div className="action replay">回复</div>
+          <div className="action more">...</div>
+        </div>
       </div>
       <div dangerouslySetInnerHTML={{ __html: post.content || "" }}></div>
     </div>
@@ -153,6 +161,9 @@ async function nextTask() {
     return;
   }
   // load success
+  if (p === 1) {
+    mainPost.title = page.title;
+  }
   const totalPage = Math.ceil(page.total / postsPerPage);
   const totalPagesChanged = totalPage !== pages.length;
   // put unloaded pages to queue
@@ -220,7 +231,6 @@ export default function PostGroupPage() {
   });
   return (
     <div>
-      <h1>PostGroup {"33" + new Date()}</h1>
       <h1>{mainPost && mainPost.title}</h1>
       <div className="page-list">
         {pages.map(page => (

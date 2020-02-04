@@ -8,7 +8,6 @@ function App() {
   const isDebug = !!url.searchParams.get("debug");
   return (
     <div className="App">
-      <button onClick={e => window.location.reload()}>Refresh</button>
       {isDebug ? <DebugPage /> : null}
       {isDebug ? <BridgeTest /> : null}
       <PostGroupPage />
