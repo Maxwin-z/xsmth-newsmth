@@ -29,6 +29,7 @@ class SMPostViewControllerV4 : SMViewController, WKScriptMessageHandler {
     
     var bridges: [String: (Any) -> Future<Any, SMBridgeError>] = [:]
     var cancellables: [Int: AnyCancellable] = [:]
+    var promiseID:Int = 0
    
     override func viewDidLoad() {
         self.title = "Post"
@@ -36,6 +37,7 @@ class SMPostViewControllerV4 : SMViewController, WKScriptMessageHandler {
         bridges = ["ajax": self._ajax,
                    "postInfo": self._postInfo,
                    "reply": self._reply,
+                   "activity": self._activity,
                    "__nope": self._nope]
         
         let userContentController = WKUserContentController()
@@ -59,7 +61,7 @@ class SMPostViewControllerV4 : SMViewController, WKScriptMessageHandler {
             return
         }
         if let body = message.body as? Dictionary<String, AnyObject> {
-            debugPrint(body)
+//            debugPrint(body)
             guard let methodName = body["methodName"] as? String else {
                 debugPrint("invalid methodName")
                 return
@@ -73,7 +75,9 @@ class SMPostViewControllerV4 : SMViewController, WKScriptMessageHandler {
                 return
             }
             let parameters = body["parameters"] as Any
-            let index = cancellables.count
+            let index = promiseID
+            var tryToRemoveSync = false
+            promiseID += 1
             cancellables[index] = fn(parameters).sink(receiveCompletion: { ret in
                 switch(ret) {
                 case .finished:
@@ -82,11 +86,16 @@ class SMPostViewControllerV4 : SMViewController, WKScriptMessageHandler {
                     self.sendMessageToWeb(callbackID: callbackID, code: error.code, data: [:], message: error.message)
                     debugPrint("failure", error)
                 }
-                self.cancellables.removeValue(forKey: index)
+                if((self.cancellables.removeValue(forKey: index)) == nil) {
+                    tryToRemoveSync = true
+                }
                 debugPrint(self.cancellables)
             }, receiveValue: { data in
                 self.sendMessageToWeb(callbackID: callbackID, code: 0, data: data, message: "")
             })
+            if (tryToRemoveSync) {
+                self.cancellables.removeValue(forKey: index)
+            }
         }
     }
     
@@ -97,7 +106,7 @@ class SMPostViewControllerV4 : SMViewController, WKScriptMessageHandler {
             let rspString = String(data: rspData, encoding: .utf8) ?? "{code:1, message: 'JSON转换异常'}"
             let js = "window.$xCallback(\(callbackID), \(rspString))"
             self.webView.evaluateJavaScript(js) { debugPrint($0 ?? "", $1 ?? "") }
-            debugPrint("js: \(js)")
+//            debugPrint("js: \(js)")
         } catch {
             let js = "window.$xCallback(\(callbackID), {code: -1, message: '序列化Bridge返回值异常'})"
             self.webView.evaluateJavaScript(js) { debugPrint($0 ?? "", $1 ?? "") }
@@ -115,7 +124,7 @@ class SMPostViewControllerV4 : SMViewController, WKScriptMessageHandler {
                             debugPrint(error.errorDescription ?? "")
                             promise(.failure(SMBridgeError(code: -1, message: "AFError:" + (error.errorDescription ?? "unknown error"))))
                         } else {
-                            debugPrint("rsp: ", rsp.result)
+//                            debugPrint("rsp: ", rsp.result)
                             do {
                                 if let data = try rsp.result.get() {
                                     let ct = rsp.response?.headers.value(for: "content-type")
@@ -187,10 +196,51 @@ class SMPostViewControllerV4 : SMViewController, WKScriptMessageHandler {
             ]))
         }
     }
+    
+    func _activity(parameters: Any) -> Future<Any, SMBridgeError> {
+        return Future { promise in
+            if let _postForAction = parameters as? Dictionary<String, AnyObject> {
+                self.postForAction = SMPost.init(json: _postForAction)
+                let p = self.postForAction!
+                let forward = SMForwardActivity()
+                let urlString = "https://m.newsmth.net/article/\(p.board.name!)/single/\(p.pid)/0"
+                let url = URL(string: urlString)
+                let activity = UIActivityViewController(activityItems: [
+                    p.content!, url!], applicationActivities: [forward])
+                activity.completionWithItemsHandler = {(activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
+                    if !completed {
+                        return
+                    }
+                    let at = activityType?.rawValue ?? ""
+                    if (at == SMActivityForwardActivity) {
+                        self.forwardActivity()
+                    }
+                    debugPrint(activityType?.rawValue ?? "no activity")
+                }
+                self.present(activity, animated: true, completion: nil)
+            }
+            promise(.success(true))
+        }
+    }
 
     func _nope(parameters: Any) -> Future<Any, SMBridgeError> {
         return Future { promise in
-            promise(.success(()))
+            promise(.success(true))
         }
+    }
+    
+    /// activity methods
+    func forwardActivity() {
+        let alert = UIAlertController(title: "转寄", message: "", preferredStyle: .alert)
+        alert.addTextField(configurationHandler: { textField in
+            textField.placeholder = "请输入转寄地址"
+        })
+        alert.addAction(UIAlertAction(title: "确定", style: .default, handler: { [weak alert] (_) in
+            guard let textField = alert?.textFields?[0],
+                let userText = textField.text else { return }
+            debugPrint("alert", userText)
+        }))
+        alert.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
 }

@@ -134,3 +134,7 @@ async function ajaxInWeb({
   console.log(rsp);
   return Promise.resolve(rsp.text());
 }
+
+export function showActivity(post: Post): Promise<boolean> {
+  return sendMessage("activity", post);
+}

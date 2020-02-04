@@ -1,9 +1,10 @@
 import React, { useState, useEffect, FunctionComponent } from "react";
 import PubSub from "pubsub-js";
-import { postInfo, reply } from "../jsbridge";
+import { postInfo, reply, showActivity } from "../jsbridge";
 import { fetchPostGroup } from "./postUtils";
 import { Post } from "./types";
 import "./index.css";
+import { Json } from "..";
 
 const NOTIFICATION_TOTAL_PAGES_CHANGED = "NOTIFICATION_TOTAL_PAGES_CHANGED";
 const NOTIFICATION_FORCE_LOAD_PAGE = "NOTIFICATION_FORCE_LOAD_PAGE";
@@ -27,18 +28,29 @@ interface Page {
 }
 
 const PostComponent: FunctionComponent<{ post: Post }> = ({ post }) => {
-  function doReply() {
-    console.log(post);
-    const postForAction = { ...post };
-    postForAction.title = mainPost.title;
-    postForAction.content = post
+  function makeActionPost() {
+    let actionPost: Json = {};
+    actionPost.title = mainPost.title!;
+    actionPost.author = post.author!;
+    actionPost.nick = post.nick!;
+    actionPost.pid = post.pid!;
+    actionPost.board = {
+      name: mainPost.board!
+    };
+    actionPost.content = post
       .content!.replace(/<br\/?>/g, "\n")
       .replace(/<.*?>/g, "")
       .replace(/&nbsp;/g, " ")
       .replace(/&lt;/g, "<")
       .replace(/&gt;/g, ">")
       .replace(/&amp;/g, "&");
-    reply(postForAction);
+    return actionPost;
+  }
+  function doReply() {
+    reply(makeActionPost());
+  }
+  function doActivity() {
+    showActivity(makeActionPost());
   }
   return (
     <div className="post" key={post.pid}>
@@ -55,7 +67,9 @@ const PostComponent: FunctionComponent<{ post: Post }> = ({ post }) => {
           <div className="action replay" onClick={doReply}>
             回复
           </div>
-          <div className="action more">...</div>
+          <div className="action more" onClick={doActivity}>
+            ...
+          </div>
         </div>
       </div>
       <div dangerouslySetInnerHTML={{ __html: post.content || "" }}></div>

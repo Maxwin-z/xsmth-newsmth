@@ -16,3 +16,6 @@
 #import "SMWebLoaderOperation.h"
 #import "SMAccountManager.h"
 #import "SMWritePostViewController.h"
+
+
+#import "SMForwardActivity.h"
