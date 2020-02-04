@@ -5,7 +5,7 @@ export interface Post {
   pid?: number;
   title?: string;
   author?: string;
-  nickname?: string;
+  nick?: string;
   floor?: string;
   date?: number;
   dateString?: string;

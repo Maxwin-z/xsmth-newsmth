@@ -102,10 +102,10 @@ export function retrieveGroupPosts(html: string): PostGroup {
       const floor = (table.querySelector(".a-pos") as HTMLSpanElement)
         .innerText;
       const body = table.querySelector(".a-content > p")?.innerHTML || "";
-      const { date, dateString, nickname, content } = formatPost(body);
+      const { date, dateString, nick, content } = formatPost(body);
       return {
         author,
-        nickname,
+        nick,
         floor,
         pid,
         date,
@@ -129,7 +129,7 @@ function formatPost(
 ): {
   date: number;
   dateString: string;
-  nickname: string;
+  nick: string;
   content: string;
 } {
   const dateRegex = /^发信人:.+?<br> 标.+?<br> 发信站:.+?\([A-Z][a-z]{2} ([A-Z][a-z]{2}( |&nbsp;&nbsp;)\d+ \d{1,2}:\d{1,2}:\d{1,2} +\d{4})\)/;
@@ -141,9 +141,9 @@ function formatPost(
     date = Date.parse(dateString);
   }
 
-  // get nickname
+  // get nick
   matches = body.match(/^发信人: \w+? \((.*?)\), /);
-  const nickname = matches ? matches[1] : "";
+  const nick = matches ? matches[1] : "";
 
   // remove top 4 rows
   let content = body.replace(
@@ -166,7 +166,7 @@ function formatPost(
   return {
     date,
     dateString,
-    nickname,
+    nick,
     content
   };
 }

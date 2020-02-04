@@ -70,6 +70,10 @@ export function postInfo(): Promise<Post> {
   return sendMessage("postInfo");
 }
 
+export function reply(post: Post): Promise<boolean> {
+  return sendMessage("reply", post);
+}
+
 export function ajax({
   url,
   method = "GET",

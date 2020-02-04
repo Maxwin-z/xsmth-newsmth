@@ -24,6 +24,7 @@ struct SMBridgeError : Error {
 class SMPostViewControllerV4 : SMViewController, WKScriptMessageHandler {
 
     @objc var post:SMPost?
+    var postForAction: SMPost?
     var webView:WKWebView!
     
     var bridges: [String: (Any) -> Future<Any, SMBridgeError>] = [:]
@@ -34,6 +35,7 @@ class SMPostViewControllerV4 : SMViewController, WKScriptMessageHandler {
 
         bridges = ["ajax": self._ajax,
                    "postInfo": self._postInfo,
+                   "reply": self._reply,
                    "__nope": self._nope]
         
         let userContentController = WKUserContentController()
@@ -142,6 +144,36 @@ class SMPostViewControllerV4 : SMViewController, WKScriptMessageHandler {
                 }
             } else {
                 promise(.failure(SMBridgeError(code: -1, message: "错误的Bridge参数")))
+            }
+        }
+    }
+    
+    @objc
+    func reply() {
+       let writer = SMWritePostViewController()
+        writer.post = self.postForAction
+        writer.postTitle = self.postForAction?.title
+        writer.title = "回复-" + (self.postForAction?.title ?? "")
+        let nvc = P2PNavigationController(rootViewController: writer)
+        if (SMConfig.iPadMode()) {
+            SMIPadSplitViewController.instance()?.present(nvc, animated: true, completion: nil);
+        } else {
+            self.present(nvc, animated: true, completion: nil)
+        }
+    }
+    
+    func _reply(parameters: Any) -> Future<Any, SMBridgeError> {
+        return Future { promise in
+            if let _postForAction = parameters as? Dictionary<String, AnyObject> {
+                self.postForAction = SMPost.init(json: _postForAction)
+                if (!SMAccountManager.instance()!.isLogin) {
+                    self.performSelector(afterLogin: #selector(self.reply))
+                } else {
+                    self.reply()
+                }
+                promise(.success(true))
+            } else {
+                promise(.failure(SMBridgeError(code: -1, message: "无效的帖子信息")))
             }
         }
     }

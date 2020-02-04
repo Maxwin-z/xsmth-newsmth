@@ -1,6 +1,6 @@
 import React, { useState, useEffect, FunctionComponent } from "react";
 import PubSub from "pubsub-js";
-import { postInfo } from "../jsbridge";
+import { postInfo, reply } from "../jsbridge";
 import { fetchPostGroup } from "./postUtils";
 import { Post } from "./types";
 import "./index.css";
@@ -27,19 +27,34 @@ interface Page {
 }
 
 const PostComponent: FunctionComponent<{ post: Post }> = ({ post }) => {
+  function doReply() {
+    console.log(post);
+    const postForAction = { ...post };
+    postForAction.title = mainPost.title;
+    postForAction.content = post
+      .content!.replace(/<br\/?>/g, "\n")
+      .replace(/<.*?>/g, "")
+      .replace(/&nbsp;/g, " ")
+      .replace(/&lt;/g, "<")
+      .replace(/&gt;/g, ">")
+      .replace(/&amp;/g, "&");
+    reply(postForAction);
+  }
   return (
     <div className="post" key={post.pid}>
       <div className="post-title">
         <div>
           {post.author}
-          {post.nickname!.length > 0 ? `(${post.nickname})` : ``}
+          {post.nick!.length > 0 ? `(${post.nick})` : ``}
         </div>
         <div>
           <span className="floor">{post.floor}</span>
           <span className="date">{post.dateString}</span>
         </div>
         <div className="post-action">
-          <div className="action replay">回复</div>
+          <div className="action replay" onClick={doReply}>
+            回复
+          </div>
           <div className="action more">...</div>
         </div>
       </div>
