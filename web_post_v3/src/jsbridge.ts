@@ -157,3 +157,7 @@ async function ajaxInWeb({
 export function showActivity(post: Post): Promise<boolean> {
   return sendMessage("activity", post);
 }
+
+export function setTitle(title: string): Promise<boolean> {
+  return sendMessage("setTitle", title);
+}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, FunctionComponent } from "react";
 import PubSub from "pubsub-js";
-import { postInfo, reply, showActivity } from "../jsbridge";
+import { postInfo, reply, showActivity, setTitle } from "../jsbridge";
 import { fetchPostGroup } from "./postUtils";
 import { Post } from "./types";
 import "./index.css";
@@ -192,6 +192,7 @@ async function nextTask() {
   // load success
   if (p === 1) {
     mainPost.title = page.title;
+    setTitle(mainPost.title);
   }
   const totalPage = Math.ceil(page.total / postsPerPage);
   const totalPagesChanged = totalPage !== pages.length;
