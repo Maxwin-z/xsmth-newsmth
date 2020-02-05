@@ -37,7 +37,7 @@ class LeakAvoider : NSObject, WKScriptMessageHandler {
 
 let mmkvKey_forwardTarget = "forwardTarget"
 
-class SMPostViewControllerV4 : SMViewController, WKScriptMessageHandler {
+class SMPostViewControllerV4 : SMViewController, WKScriptMessageHandler, UIPickerViewDataSource, UIPickerViewDelegate {
 
     let mmkv = MMKV.default()
     
@@ -48,6 +48,13 @@ class SMPostViewControllerV4 : SMViewController, WKScriptMessageHandler {
     var cancellables: [Int: AnyCancellable] = [:]
     var promiseID:Int = 0
     var bridges:[String: ((Any) -> Future<Any, SMBridgeError>)] = [:]
+    
+    // button bar
+    let buttonHeight: CGFloat = 44.0
+    let pickerHeight: CGFloat = 180.0
+    var viewForBottomBar: UIView!
+    var buttonForPagination: UIButton!
+    var viewForPagePicker: UIView!
     
     override func viewDidLoad() {
         self.title = "Post"
@@ -71,11 +78,92 @@ class SMPostViewControllerV4 : SMViewController, WKScriptMessageHandler {
         // add refresh
         let refreshControl = UIRefreshControl()
         self.webView.scrollView.addSubview(refreshControl)
+        
+        self.viewForBottomBar = makeupViewForButtomBar()
+        self.viewForPagePicker = makeupPagePickerView()
+        self.view.addSubview(self.viewForBottomBar)
+        self.view.addSubview(self.viewForPagePicker)
     }
     
     deinit {
         self.webView.stopLoading()
         self.webView.configuration.userContentController.removeScriptMessageHandler(forName: "nativeBridge")
+    }
+    
+    override func viewSafeAreaInsetsDidChange() {
+        var frame = self.viewForBottomBar.frame
+        frame.size.height = buttonHeight + self.view.safeAreaInsets.bottom
+        frame.origin.y = self.view.bounds.height - frame.height
+        self.viewForBottomBar.frame = frame
+        
+        frame = self.viewForPagePicker.frame
+        frame.size.height = buttonHeight + pickerHeight + self.view.safeAreaInsets.bottom
+        frame.origin.y = self.view.bounds.height - frame.height
+        self.viewForPagePicker.frame = frame
+    }
+    
+    func makeupViewForButtomBar() -> UIView {
+        let width = self.view.bounds.width
+        let height = self.view.bounds.height
+        let vHeight = buttonHeight + self.view.safeAreaInsets.bottom
+        let v = UIView(frame: CGRect(x: 0.0, y: height - vHeight, width: width, height: vHeight))
+        v.autoresizingMask = [.flexibleWidth]
+        
+        let buttons = ["icon_back", "icon_gotop"].map { icon -> UIButton in
+            let button = UIButton(type: .system)
+            let image = UIImage(named: icon)?.withRenderingMode(.alwaysTemplate)
+            button.setImage(image, for: .normal)
+            button.sizeToFit()
+            button.center = CGPoint(x: button.frame.width / 2.0, y: buttonHeight / 2.0)
+            return button
+        }
+        let buttonForBack = buttons[0]
+        let buttonForTop = buttons[1]
+
+        var frame = buttonForTop.frame
+        frame.origin.x = width - frame.width
+        buttonForTop.frame = frame
+        buttonForTop.autoresizingMask = [.flexibleLeftMargin]
+        
+        buttonForPagination = UIButton(type: .system)
+        buttonForPagination.frame = CGRect(x: buttonForBack.frame.width, y: 0, width: width - buttonForBack.frame.width - buttonForTop.frame.width, height: buttonHeight)
+        buttonForPagination.setTitle("-/-", for: .normal)
+        buttonForPagination.autoresizingMask = [.flexibleWidth]
+        
+        v.addSubview(buttonForBack)
+        v.addSubview(buttonForTop)
+        v.addSubview(buttonForPagination)
+        
+        v.backgroundColor = .lightGray
+        return v
+    }
+    
+    func makeupPagePickerView() -> UIView {
+        let v = UIView(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.width, height: buttonHeight + pickerHeight))
+        let buttonForCancel = UIButton(type: .system)
+        buttonForCancel.setTitle("取消", for: .normal)
+        buttonForCancel.sizeToFit()
+
+        let buttonForConfirm = UIButton(type: .system)
+        buttonForConfirm.setTitle("确认", for: .normal)
+        buttonForConfirm.sizeToFit()
+        var frame = buttonForConfirm.frame
+        frame.origin.x = self.view.bounds.width - buttonForConfirm.frame.width
+        buttonForConfirm.frame = frame
+        buttonForConfirm.autoresizingMask = [.flexibleLeftMargin]
+
+        
+        let picker = UIPickerView(frame: CGRect(x: 0, y: buttonHeight, width: self.view.frame.width, height: pickerHeight))
+        v.addSubview(picker)
+        picker.dataSource = self
+        picker.delegate = self
+
+        v.addSubview(buttonForCancel)
+        v.addSubview(buttonForConfirm)
+        
+        v.backgroundColor = .red
+        
+        return v
     }
 
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
@@ -324,5 +412,21 @@ class SMPostViewControllerV4 : SMViewController, WKScriptMessageHandler {
         }))
         alert.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
+    }
+   
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return 10
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return String(format: "%d", row)
+    }
+   
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        debugPrint(row)
     }
 }
