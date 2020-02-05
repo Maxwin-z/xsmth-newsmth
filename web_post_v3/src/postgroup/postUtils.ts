@@ -152,9 +152,9 @@ function formatPost(
   );
   // replace images
   content = content.replace(/<img .+?>/gi, "");
-  // remove ※ 来源:·水木社区
+  // remove ※ 来源:·水木社区 <font class="f013">※ 来源:·水木社区 newsmth.net·[FROM: 183.253.30.*]</font>
   content = content.replace(
-    /<font class="f\w+">※ 来源:.+?\[FROM: .+?\]<\/font>/,
+    /<font class="f\w+">※ 来源:.+?\[FROM: .+?\]<\/font>/g,
     ""
   );
   // remove last <br>

@@ -67,6 +67,10 @@ class SMPostViewControllerV4 : SMViewController, WKScriptMessageHandler {
         let request = URLRequest(url: URL(string: urlString)!)
         self.webView.load(request)
         debugPrint("post: ", post ?? "nil");
+        
+        // add refresh
+        let refreshControl = UIRefreshControl()
+        self.webView.scrollView.addSubview(refreshControl)
     }
     
     deinit {
