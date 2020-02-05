@@ -20,6 +20,7 @@ interface AjaxOption {
 interface Window {
   webkit?: any;
   $xCallback: Function;
+  $x_parseForward: Function;
 }
 
 declare let window: Window;
@@ -31,6 +32,24 @@ window.$xCallback = function(callbackID: number, rsp: BridgeResult) {
     console.error(`callbackID ${callbackID} not exists`);
   }
   delete callbacks[callbackID];
+};
+
+window.$x_parseForward = function(html: string) {
+  const matches = html
+    .replace(/<script.*?<\/script>/g, "")
+    .match(/<body>(.*?)<\/body>/);
+  if (matches) {
+    const body = matches[1];
+    const div = document.createElement("div");
+    div.innerHTML = body;
+    const text = (div.querySelector(".menu.sp") as HTMLDivElement).innerText;
+    if (text && text.indexOf("发生错误")) {
+      const msg = (div.querySelector(".sp.hl.f") as HTMLDivElement).innerText;
+      return msg || "转寄失败";
+    }
+    return "转寄成功";
+  }
+  return "水木未返回是否成功";
 };
 
 function isBridgeAvaiable() {

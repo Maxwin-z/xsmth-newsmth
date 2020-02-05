@@ -21,8 +21,12 @@ struct SMBridgeError : Error {
     }
 }
 
+let mmkvKey_forwardTarget = "forwardTarget"
+
 class SMPostViewControllerV4 : SMViewController, WKScriptMessageHandler {
 
+    let mmkv = MMKV.default()
+    
     @objc var post:SMPost?
     var postForAction: SMPost?
     var webView:WKWebView!
@@ -230,15 +234,46 @@ class SMPostViewControllerV4 : SMViewController, WKScriptMessageHandler {
     }
     
     /// activity methods
+    @objc
     func forwardActivity() {
+        if (!SMAccountManager.instance()!.isLogin) {
+            self.performSelector(afterLogin: #selector(self.forwardActivity))
+            return
+        }
+        
         let alert = UIAlertController(title: "转寄", message: "", preferredStyle: .alert)
         alert.addTextField(configurationHandler: { textField in
             textField.placeholder = "请输入转寄地址"
+            var forwardTarget = self.mmkv.string(forKey: mmkvKey_forwardTarget) ?? ""
+            if (forwardTarget == "") {
+                forwardTarget = SMAccountManager.instance()?.name ?? ""
+            }
+            textField.text = forwardTarget
         })
         alert.addAction(UIAlertAction(title: "确定", style: .default, handler: { [weak alert] (_) in
             guard let textField = alert?.textFields?[0],
                 let userText = textField.text else { return }
             debugPrint("alert", userText)
+            self.mmkv.set(userText, forKey: mmkvKey_forwardTarget)
+            let url = "https://m.newsmth.net/article/\(self.postForAction!.board.name!)/forward/\(self.postForAction!.pid)"
+            AF.request(url, method: .post, parameters: ["target": userText]).response { response in
+                debugPrint(response)
+                do {
+                    if let data = try response.result.get() {
+                        var html = String(data: data, encoding: .utf8)!
+                        html = html.replacingOccurrences(of: "`", with: "\\`")
+                        self.webView.evaluateJavaScript("window.$x_parseForward(`\(html)`)") { (result, error) in
+                            if let msg = result as? String{
+                                self.toast(msg)
+                            } else {
+                                self.toast(error?.localizedDescription)
+                            }
+                        }
+                    }
+                }catch {
+                    self.toast("转寄失败，水木返回异常")
+                }
+            }
         }))
         alert.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
