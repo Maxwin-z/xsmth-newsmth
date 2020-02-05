@@ -43,11 +43,11 @@ window.$x_parseForward = function(html: string) {
     const div = document.createElement("div");
     div.innerHTML = body;
     const text = (div.querySelector(".menu.sp") as HTMLDivElement).innerText;
-    if (text && text.indexOf("发生错误")) {
+    if (text && text.indexOf("发生错误") !== -1) {
       const msg = (div.querySelector(".sp.hl.f") as HTMLDivElement).innerText;
-      return msg || "转寄失败";
+      return msg || "0";
     }
-    return "转寄成功";
+    return "1";
   }
   return "水木未返回是否成功";
 };

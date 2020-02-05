@@ -11,6 +11,7 @@ import Foundation
 import Combine
 import WebKit
 import Alamofire
+import Loaf
 
 struct SMBridgeError : Error {
     let code: Int
@@ -264,14 +265,18 @@ class SMPostViewControllerV4 : SMViewController, WKScriptMessageHandler {
                         html = html.replacingOccurrences(of: "`", with: "\\`")
                         self.webView.evaluateJavaScript("window.$x_parseForward(`\(html)`)") { (result, error) in
                             if let msg = result as? String{
-                                self.toast(msg)
+                                if (msg == "1") {
+                                    Loaf("转寄成功", state: .success, sender: self).show()
+                                } else {
+                                    Loaf(msg, state: .error, sender: self).show()
+                                }
                             } else {
-                                self.toast(error?.localizedDescription)
+                                Loaf(error?.localizedDescription ?? "未知错误", state: .error, sender: self).show()
                             }
                         }
                     }
                 }catch {
-                    self.toast("转寄失败，水木返回异常")
+                    Loaf("转寄失败，水木返回异常", state: .error, sender: self).show()
                 }
             }
         }))
