@@ -6,7 +6,8 @@ import {
   showActivity,
   setTitle,
   ajax,
-  toast
+  toast,
+  unloaded
 } from "../jsbridge";
 import { fetchPostGroup } from "./postUtils";
 import { Post } from "./types";
@@ -261,8 +262,8 @@ PubSub.subscribe("PAGE_CLOSE", async () => {
       a: 1
     }
   });
+  unloaded();
   console.log(html);
-  toast({ message: html, type: 0 });
 });
 
 export default function PostGroupPage() {
@@ -271,6 +272,7 @@ export default function PostGroupPage() {
   useEffect(() => {
     PubSub.subscribe(NOTIFICATION_TOTAL_PAGES_CHANGED, () => {
       console.log("get notify");
+      toast({ message: "page changed" });
       setFlag(!flag);
     });
     return () => {

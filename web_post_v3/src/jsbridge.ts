@@ -183,3 +183,7 @@ interface Toast {
 export function toast(toast: Toast): Promise<boolean> {
   return sendMessage("toast", toast);
 }
+
+export function unloaded(): Promise<boolean> {
+  return sendMessage("unloaded");
+}
