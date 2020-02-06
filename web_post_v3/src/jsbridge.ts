@@ -1,5 +1,6 @@
 import { Json } from "./index.d";
 import { Post } from "./postgroup/types.d";
+import PubSub from "pubsub-js";
 
 const callbacks: Array<Function> = [];
 
@@ -21,6 +22,8 @@ interface Window {
   webkit?: any;
   $xCallback: Function;
   $x_parseForward: Function;
+  $x_pageWillUnload: Function;
+  $x_publish: Function;
 }
 
 declare let window: Window;
@@ -40,6 +43,7 @@ window.$x_parseForward = function(html: string) {
     .match(/<body>(.*?)<\/body>/);
   if (matches) {
     const body = matches[1];
+
     const div = document.createElement("div");
     div.innerHTML = body;
     const text = (div.querySelector(".menu.sp") as HTMLDivElement).innerText;
@@ -50,6 +54,10 @@ window.$x_parseForward = function(html: string) {
     return "1";
   }
   return "水木未返回是否成功";
+};
+
+window.$x_publish = function(message: string, data: number | string | Json) {
+  PubSub.publish(message, data);
 };
 
 function isBridgeAvaiable() {
@@ -160,4 +168,18 @@ export function showActivity(post: Post): Promise<boolean> {
 
 export function setTitle(title: string): Promise<boolean> {
   return sendMessage("setTitle", title);
+}
+
+enum ToastType {
+  success = 0,
+  error = 1,
+  info = 4
+}
+
+interface Toast {
+  message: string;
+  type?: ToastType;
+}
+export function toast(toast: Toast): Promise<boolean> {
+  return sendMessage("toast", toast);
 }

@@ -1,6 +1,13 @@
 import React, { useState, useEffect, FunctionComponent } from "react";
 import PubSub from "pubsub-js";
-import { postInfo, reply, showActivity, setTitle } from "../jsbridge";
+import {
+  postInfo,
+  reply,
+  showActivity,
+  setTitle,
+  ajax,
+  toast
+} from "../jsbridge";
 import { fetchPostGroup } from "./postUtils";
 import { Post } from "./types";
 import "./index.css";
@@ -246,6 +253,17 @@ PubSub.subscribe(
     nextTask();
   }
 );
+
+PubSub.subscribe("PAGE_CLOSE", async () => {
+  const html = await ajax({
+    url: "https://httpbin.org/get",
+    data: {
+      a: 1
+    }
+  });
+  console.log(html);
+  toast({ message: html, type: 0 });
+});
 
 export default function PostGroupPage() {
   console.log("render , PostGroupPage");

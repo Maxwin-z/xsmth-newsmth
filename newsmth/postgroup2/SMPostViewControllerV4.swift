@@ -37,8 +37,11 @@ class LeakAvoider : NSObject, WKScriptMessageHandler {
 
 let mmkvKey_forwardTarget = "forwardTarget"
 
-class SMPostViewControllerV4 : SMViewController, WKScriptMessageHandler, UIPickerViewDataSource, UIPickerViewDelegate {
+class SMPostViewControllerV4 : SMViewController, WKUIDelegate, WKScriptMessageHandler, UIPickerViewDataSource, UIPickerViewDelegate {
 
+    // hold viewcontroller for webview to save states
+    var holdMyself: [String: ((Any) -> Future<Any, SMBridgeError>)] = [:]
+    
     let mmkv = MMKV.default()
     
     @objc var post:SMPost?
@@ -61,6 +64,7 @@ class SMPostViewControllerV4 : SMViewController, WKScriptMessageHandler, UIPicke
 
         
 //        bridges = ["ajax": self._ajax]    // will cause memory leak
+        holdMyself = ["nope": self._nope]
         
         let userContentController = WKUserContentController()
         userContentController.add(LeakAvoider(delegate:self), name: "nativeBridge")
@@ -83,6 +87,13 @@ class SMPostViewControllerV4 : SMViewController, WKScriptMessageHandler, UIPicke
         self.viewForPagePicker = makeupPagePickerView()
         self.view.addSubview(self.viewForBottomBar)
         self.view.addSubview(self.viewForPagePicker)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(_: animated)
+        if(self.isMovingFromParent) {
+            self.notificationToWeb(messageName: "PAGE_CLOSE", data: true);
+        }
     }
     
     deinit {
@@ -188,6 +199,8 @@ class SMPostViewControllerV4 : SMViewController, WKScriptMessageHandler, UIPicke
             if (methodName == "reply")  { fn = self._reply}
             if (methodName == "activity")  { fn = self._activity}
             if (methodName == "ajax")  { fn = self._ajax}
+            if (methodName == "unloaded")  { fn = self._unloaded}
+            if (methodName == "toast")  { fn = self._toast}
 
             if(fn == nil) {
                 sendMessageToWeb(callbackID: callbackID, code: -1, data: "", message: "不存在的Bridge方法[\(methodName)]")
@@ -220,6 +233,32 @@ class SMPostViewControllerV4 : SMViewController, WKScriptMessageHandler, UIPicke
                 self.cancellables.removeValue(forKey: index)
             }
         }
+    }
+    
+    func notificationToWeb(messageName: String, data: Any) {
+        var param: String? = nil
+        if (type(of: data) == String.self) {
+            if let data = data as? String {
+                param = "'\(data)'"
+            }
+        }
+        if (data is Int || data is Float || data is Double) {
+            param = String(describing: data)
+        }
+        if (data is [Any] || data is [String:Any]) {
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
+                param = String(data: jsonData, encoding: .utf8) ?? ""
+            } catch {
+                
+            }
+        }
+        if (param == nil) {
+            param = ""
+        }
+        
+        let js = "window.$x_publish('\(messageName)', \(param!))"
+        self.webView.evaluateJavaScript(js, completionHandler: nil)
     }
     
     func sendMessageToWeb(callbackID: Int, code: Int, data: Any, message: String) {
@@ -354,6 +393,38 @@ class SMPostViewControllerV4 : SMViewController, WKScriptMessageHandler, UIPicke
             promise(.success(true))
         }
 
+    }
+
+    func _unloaded(parameters: Any) -> Future<Any, SMBridgeError> {
+        return Future {[weak self] promise in
+            self?.holdMyself.removeAll()
+            promise(.success(true))
+        }
+    }
+    
+    /**
+     * [
+     *  "type": enum(success = 0, error = 1, info = 2,
+     *  "message": string
+     * ]
+     */
+    func _toast(parameters: Any) -> Future<Any, SMBridgeError> {
+        return Future { promise in
+            if let data = parameters as? [String: Any] {
+                if let type = data["type"] as? Int,
+                    let message = data["message"] as? String {
+                    var state: Loaf.State = .info
+                    if (type == 0) {
+                        state = .success
+                    } else if (type == 1) {
+                        state = .error
+                    }
+                    Loaf(message, state: state, sender: self).show()
+                    return promise(.success(true))
+                }
+            }
+            promise(.success(false))
+        }
     }
 
     func _nope(parameters: Any) -> Future<Any, SMBridgeError> {
