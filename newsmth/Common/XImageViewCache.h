@@ -13,10 +13,11 @@
 + (NSString *)escapeUrl:(NSString *)url;
 
 - (NSString *)pathForUrl:(NSString *)url;
-- (BOOL)isInCache:(NSString *)key;
-- (UIImage *)getImage:(NSString *)key;
-- (void)setImage:(UIImage *)image forUrl:(NSString *)key;
-- (void)setImageData:(NSData *)data forUrl:(NSString *)key;
+- (BOOL)isInCache:(NSString *)url;
+- (UIImage *)getImage:(NSString *)url;
+- (void)setImage:(UIImage *)image forUrl:(NSString *)url;
+- (void)setImageData:(NSData *)data forUrl:(NSString *)url;
+- (NSData *)getData:(NSString *)url;
 
 - (unsigned long long)cacheSize;
 - (void)clearCache;

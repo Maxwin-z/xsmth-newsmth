@@ -97,19 +97,19 @@ static XImageViewCache *instance;
     return [self.memoryCache objectForKey:key] != nil || [self isInLocalCache:key];
 }
 
-- (void)setImage:(UIImage *)image forUrl:(NSString *)key
+- (void)setImage:(UIImage *)image forUrl:(NSString *)url
 {
-    [self.memoryCache setObject:image forKey:key];
-    [self setImageData:UIImagePNGRepresentation(image) forUrl:key];
+    [self.memoryCache setObject:image forKey:url];
+    [self setImageData:UIImagePNGRepresentation(image) forUrl:url];
 }
 
-- (void)setImageData:(NSData *)data forUrl:(NSString *)key
+- (void)setImageData:(NSData *)data forUrl:(NSString *)url
 {
     UIImage *img = [UIImage imageWithData:data];
-    [self.memoryCache setObject:img forKey:key];
-    if (![self isInLocalCache:key]) {   // 不在本地缓存，写入新缓存
+    [self.memoryCache setObject:img forKey:url];
+    if (![self isInLocalCache:url]) {   // 不在本地缓存，写入新缓存
         NSError *error = nil;
-        NSString *localCachePath = [_cacheDir stringByAppendingPathComponent:[self escapeKey:key]];
+        NSString *localCachePath = [_cacheDir stringByAppendingPathComponent:[self escapeKey:url]];
         [data writeToFile:localCachePath options:NSDataWritingFileProtectionComplete error:&error];
         if (error != nil) {
             XLog_e(@"write cache error: %@", error);
@@ -117,11 +117,21 @@ static XImageViewCache *instance;
     }
 }
 
-- (UIImage *)getImage:(NSString *)key
+- (NSData *)getData:(NSString *)url
 {
-    UIImage *image = [self.memoryCache objectForKey:key];
-    if (image == nil && [self isInLocalCache:key]) {
-        NSString *localCachePath = [_cacheDir stringByAppendingPathComponent:[self escapeKey:key]];
+    if ([self isInLocalCache:url]) {
+        NSString *localCachePath = [_cacheDir stringByAppendingPathComponent:[self escapeKey:url]];
+        NSData *data = [NSData dataWithContentsOfFile:localCachePath];
+        return data;
+    }
+    return nil;
+}
+
+- (UIImage *)getImage:(NSString *)url
+{
+    UIImage *image = [self.memoryCache objectForKey:url];
+    if (image == nil && [self isInLocalCache:url]) {
+        NSString *localCachePath = [_cacheDir stringByAppendingPathComponent:[self escapeKey:url]];
         NSData *data = [NSData dataWithContentsOfFile:localCachePath];
         image = [UIImage imageWithData:data];
     }

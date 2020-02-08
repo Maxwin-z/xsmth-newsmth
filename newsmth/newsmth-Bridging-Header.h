@@ -19,3 +19,4 @@
 #import <MMKV/MMKV.h>
 
 #import "SMForwardActivity.h"
+#import "XImageViewCache.h"

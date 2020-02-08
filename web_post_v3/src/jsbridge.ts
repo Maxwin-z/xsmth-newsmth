@@ -188,3 +188,10 @@ export function toast(toast: Toast): Promise<boolean> {
 export function unloaded(): Promise<boolean> {
   return sendMessage("unloaded");
 }
+
+export function download(url: string, id: number = 0): Promise<string> {
+  return sendMessage("download", {
+    id,
+    url
+  });
+}

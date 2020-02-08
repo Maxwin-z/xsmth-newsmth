@@ -37,7 +37,7 @@ class LeakAvoider : NSObject, WKScriptMessageHandler {
 
 let mmkvKey_forwardTarget = "forwardTarget"
 
-class SMPostViewControllerV4 : SMViewController, WKUIDelegate, WKScriptMessageHandler, UIPickerViewDataSource, UIPickerViewDelegate {
+class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMessageHandler, UIPickerViewDataSource, UIPickerViewDelegate {
 
     // hold viewcontroller for webview to save states
     var holdMyself: [String: ((Any) -> Future<Any, SMBridgeError>)] = [:]
@@ -71,6 +71,7 @@ class SMPostViewControllerV4 : SMViewController, WKUIDelegate, WKScriptMessageHa
 
         let config = WKWebViewConfiguration()
         config.userContentController = userContentController
+        config.setURLSchemeHandler(self, forURLScheme: "ximg")
 
         self.webView = WKWebView(frame: self.view.bounds, configuration: config)
         self.view.addSubview(self.webView)
@@ -176,7 +177,29 @@ class SMPostViewControllerV4 : SMViewController, WKUIDelegate, WKScriptMessageHa
         
         return v
     }
-
+    
+    func webView(_ webView: WKWebView, start urlSchemeTask: WKURLSchemeTask) {
+        debugPrint(urlSchemeTask.request)
+        guard var urlString = urlSchemeTask.request.url?.absoluteString else { return }
+        urlString = urlString.replacingOccurrences(of: "ximg://_?url=", with: "")
+        guard let url = urlString.removingPercentEncoding else {
+            debugPrint("ximg src decode error")
+            return
+        }
+        
+        if let data = XImageViewCache.sharedInstance()?.getData(url) {
+            let urlResponse = URLResponse(url: urlSchemeTask.request.url!, mimeType: "image/png", expectedContentLength: data.count, textEncodingName: nil)
+            urlSchemeTask.didReceive(urlResponse)
+            urlSchemeTask.didReceive(data)
+            urlSchemeTask.didFinish()
+        } else {
+            debugPrint("ximg not exists", url)
+        }
+    }
+    
+    func webView(_ webView: WKWebView, stop urlSchemeTask: WKURLSchemeTask) {
+    }
+    
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         debugPrint("message: ", message.name, message.body)
         if(message.name != "nativeBridge") {
@@ -201,6 +224,7 @@ class SMPostViewControllerV4 : SMViewController, WKUIDelegate, WKScriptMessageHa
             if (methodName == "ajax")  { fn = self._ajax}
             if (methodName == "unloaded")  { fn = self._unloaded}
             if (methodName == "toast")  { fn = self._toast}
+            if (methodName == "download")  { fn = self._download}
 
             if(fn == nil) {
                 sendMessageToWeb(callbackID: callbackID, code: -1, data: "", message: "不存在的Bridge方法[\(methodName)]")
@@ -427,6 +451,41 @@ class SMPostViewControllerV4 : SMViewController, WKUIDelegate, WKScriptMessageHa
         }
     }
 
+    func _download(parameters: Any) -> Future<Any, SMBridgeError> {
+        return Future { [weak self] promise in
+            let weakSelf = self
+            if let data = parameters as? [String: Any] {
+                if let urlString = data["url"] as? String {
+                    if let url = URL(string: urlString) {
+                        let id = data["id"] as? Int ?? 0
+                        AF.download(url).downloadProgress(queue: .main, closure: { progrss in
+                            if (id > 0) {
+                                weakSelf?.notificationToWeb(messageName: "IMAGE_PROGRESS", data: ["id": id, "progress": progrss.fractionCompleted, "completed": progrss.completedUnitCount])
+                            }
+                        }).responseData(queue: .main, completionHandler: { (response) in
+                            guard let data = response.value else {
+                                guard case let .failure(error) = response.result else {
+                                    promise(.failure(SMBridgeError(code: -1, message: "下载失败")))
+                                    return
+                                }
+                                promise(.failure(SMBridgeError(code: -1, message: error.localizedDescription)))
+                                return
+                            }
+                            XImageViewCache.sharedInstance()?.setImageData(data, forUrl: urlString)
+                            promise(.success(true))
+                        })
+                    } else {
+                        promise(.failure(SMBridgeError(code: -1, message: "资源URL不正确")))
+                    }
+                } else {
+                    promise(.failure(SMBridgeError(code: -1, message: "参数错误，无URL")))
+                }
+            } else {
+                promise(.failure(SMBridgeError(code: -1, message: "参数错误")))
+            }
+        }
+    }
+    
     func _nope(parameters: Any) -> Future<Any, SMBridgeError> {
         return Future { promise in
             promise(.success(true))

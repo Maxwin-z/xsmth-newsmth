@@ -22,6 +22,11 @@ export default function BridgeTest() {
     },
     postInfo: async () => {
       return await $x.postInfo();
+    },
+    download: async () => {
+      return await $x.download(
+        "https://att.newsmth.net/nForum/att/Photo/1936720334/329/large"
+      );
     }
   };
   const test = fn => async () => {
