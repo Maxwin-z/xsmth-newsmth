@@ -1,3 +1,5 @@
+import { Json } from "..";
+
 export interface Post {
   url?: string;
   board?: string;
@@ -10,6 +12,7 @@ export interface Post {
   date?: number;
   dateString?: string;
   content?: string;
+  images?: Json[];
   isSingle?: boolean;
 }
 

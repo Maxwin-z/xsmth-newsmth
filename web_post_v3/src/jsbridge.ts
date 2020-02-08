@@ -137,7 +137,8 @@ export function ajax({
 }
 
 function postInfoInWeb(): Promise<Post> {
-  let post = { board: "Children", gid: 932484268 };
+  // let post = { board: "Children", gid: 932484268 };
+  let post = { board: "Photo", gid: 1936720334 };
   // let post = {board: 'DigiHome', gid: 941251}
   // let post = {board: 'WorkLife', gid: 2164300}
   return Promise.resolve(post);

@@ -3,6 +3,7 @@ import { Post, PostGroup } from "./types.d";
 import { ajax } from "../jsbridge";
 
 // import "./tests";
+let imageID = 0;
 
 export function parseUrl(urlString: string): Post {
   const url = new URL(urlString);
@@ -74,7 +75,7 @@ function cleanHtml(html: string): string {
     .replace(/<script.*?<\/script>/gi, "")
     .replace(/<style.*?<\/style>/gi, "")
     .replace(/<style.*?>/gi, "")
-    .replace(/<img .+?>/gi, "");
+    .replace(/<img/gi, "<ximg");
 }
 
 export function retrieveGroupPosts(html: string): PostGroup {
@@ -102,7 +103,7 @@ export function retrieveGroupPosts(html: string): PostGroup {
       const floor = (table.querySelector(".a-pos") as HTMLSpanElement)
         .innerText;
       const body = table.querySelector(".a-content > p")?.innerHTML || "";
-      const { date, dateString, nick, content } = formatPost(body);
+      const { date, dateString, nick, content, images } = formatPost(body);
       return {
         author,
         nick,
@@ -111,6 +112,7 @@ export function retrieveGroupPosts(html: string): PostGroup {
         date,
         dateString,
         content,
+        images,
         isSingle: false
       };
     });
@@ -131,11 +133,13 @@ function formatPost(
   dateString: string;
   nick: string;
   content: string;
+  images: Array<Json>;
 } {
   const dateRegex = /^发信人:.+?<br> 标.+?<br> 发信站:.+?\([A-Z][a-z]{2} ([A-Z][a-z]{2}( |&nbsp;&nbsp;)\d+ \d{1,2}:\d{1,2}:\d{1,2} +\d{4})\)/;
   let matches = body.match(dateRegex);
   let date = 0;
   let dateString = "";
+  const images: Array<Json> = [];
   if (matches) {
     dateString = matches[1].replace(/&nbsp;/g, " ");
     date = Date.parse(dateString);
@@ -150,8 +154,21 @@ function formatPost(
     /^发信人:.+?<br> 标.+?<br> 发信站:.+?站内 <br>&nbsp;&nbsp;<br>/i,
     ""
   );
+
+  // remove <a> around <img />
+  content = content.replace(/<a .*?>(<ximg.+?>)<\/a>/g, "$1");
   // replace images
-  content = content.replace(/<img .+?>/gi, "");
+  content = content.replace(
+    /<ximg.*? src="(.+?)".*?>/gi,
+    (_: string, src: string) => {
+      const id = ++imageID;
+      images.push({
+        id,
+        src
+      });
+      return `<img src="/logo192.png" data-src="${src}" id="ximg-${id}" alt="图片" />`;
+    }
+  );
   // remove ※ 来源:·水木社区 <font class="f013">※ 来源:·水木社区 newsmth.net·[FROM: 183.253.30.*]</font>
   content = content.replace(
     /<font class="f\w+">※ 来源:.+?\[FROM: .+?\]<\/font>/g,
@@ -167,7 +184,8 @@ function formatPost(
     date,
     dateString,
     nick,
-    content
+    content,
+    images
   };
 }
 
