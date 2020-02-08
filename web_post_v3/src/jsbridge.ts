@@ -189,7 +189,7 @@ export function unloaded(): Promise<boolean> {
   return sendMessage("unloaded");
 }
 
-export function download(url: string, id: number = 0): Promise<string> {
+export function download(url: string, id: number = 0): Promise<boolean> {
   return sendMessage("download", {
     id,
     url

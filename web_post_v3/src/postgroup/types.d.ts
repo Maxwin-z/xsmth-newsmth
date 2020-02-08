@@ -1,6 +1,15 @@
+export enum Status {
+  init = 0,
+  loading = 1,
+  success = 2,
+  incomplete = 3,
+  fail = 4
+}
+
 export interface XImage {
   id: number;
   src: string;
+  status: Status;
 }
 
 export interface Post {
@@ -24,14 +33,6 @@ export interface PostGroup {
   title?: string;
   total?: number;
   posts?: Post[];
-}
-
-export enum Status {
-  init = 0,
-  loading = 1,
-  success = 2,
-  incomplete = 3,
-  fail = 4
 }
 
 export interface Page {

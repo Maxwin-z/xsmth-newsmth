@@ -1,3 +1,7 @@
+.page-placeholder {
+  height: 120px;
+}
+
 .post {
   margin-left: 15px;
   padding: 5px 0;
@@ -28,4 +32,8 @@
 
 font.f006 {
   color: #878787;
+}
+
+.ximg {
+  max-width: 90vw;
 }

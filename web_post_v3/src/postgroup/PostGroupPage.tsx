@@ -6,7 +6,8 @@ import {
   showActivity,
   setTitle,
   toast,
-  unloaded
+  unloaded,
+  download
 } from "../jsbridge";
 import { fetchPostGroup } from "./postUtils";
 import { Post, Page, Status, XImage } from "./types.d";
@@ -100,9 +101,15 @@ const PageComponent: FunctionComponent<{ p: number }> = ({ p }) => {
       {page.status === Status.success || page.status === Status.incomplete ? (
         <PostList posts={page.posts} />
       ) : null}
-      {page.status === Status.fail ? <div>{page.errorMessage}</div> : null}
-      {page.status === Status.loading ? <div>Loading</div> : null}
-      {page.status === Status.init ? <div>Init: {page.p}</div> : null}
+      {page.status === Status.fail ? (
+        <div className="page-placeholder">{page.errorMessage}</div>
+      ) : null}
+      {page.status === Status.loading ? (
+        <div className="page-placeholder">Loading</div>
+      ) : null}
+      {page.status === Status.init ? (
+        <div className="page-placeholder">Init: {page.p}</div>
+      ) : null}
     </div>
   );
 };
@@ -121,6 +128,8 @@ const pages: Page[] = [
   }
 ];
 const xImages: XImage[] = [];
+const maxImageDownloader = 1;
+let currentDownloaders = 0;
 let mainPost: Post;
 let incompletePageNumber = 1;
 let pageLoading = false;
@@ -235,8 +244,30 @@ function orderTaskQueue(index: number) {
   return;
 }
 
-function loadXImage() {
+async function loadXImage() {
   console.log("xImage:", xImages);
+  if (currentDownloaders === maxImageDownloader) {
+    console.log("no downloders");
+    return;
+  }
+  const img = xImages.find(img => img.status === Status.init);
+  if (!img) {
+    console.log("no init images");
+    return;
+  }
+  img.status = Status.loading;
+  let { id, src } = img;
+  let ret = await download(src, id);
+  if (ret === true) {
+    (document.querySelector(
+      `#ximg-${id}`
+    ) as HTMLImageElement).src = `ximg://_?url=${encodeURIComponent(src)}`;
+    img.status = Status.success;
+  } else {
+    console.log(`load image fail: ${src}`);
+    img.status = Status.fail;
+  }
+  loadXImage();
 }
 
 initPage();

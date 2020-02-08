@@ -1,5 +1,5 @@
 import { Json } from "../index.d";
-import { Post, PostGroup, XImage } from "./types.d";
+import { Post, PostGroup, XImage, Status } from "./types.d";
 import { ajax } from "../jsbridge";
 
 // import "./tests";
@@ -165,9 +165,10 @@ function formatPost(
       src.indexOf("//") === 0 && (src = "https:" + src);
       images.push({
         id,
-        src
+        src,
+        status: Status.init
       });
-      return `<img src="/logo192.png" data-src="${src}" id="ximg-${id}" alt="图片" />`;
+      return `<img src="/logo192.png" data-src="${src}" class="ximg" id="ximg-${id}" alt="图片" />`;
     }
   );
   // remove ※ 来源:·水木社区 <font class="f013">※ 来源:·水木社区 newsmth.net·[FROM: 183.253.30.*]</font>
