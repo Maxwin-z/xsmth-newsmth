@@ -19,6 +19,7 @@
 #import "SMDBManager.h"
 #import "SMPostViewControllerV2.h"
 #import "ASIFormDataRequest.h"
+#import "newsmth-Swift.h"
 
 @interface SMBoardViewController ()<UITableViewDelegate, UITableViewDataSource, XPullRefreshTableViewDelegate, SMWebLoaderOperationDelegate, SMBoardCellDelegate, SMBoardViewTypeSelectorViewDelegate>
 @property (weak, nonatomic) IBOutlet XPullRefreshTableView *tableView;
@@ -329,11 +330,16 @@
     UIViewController *vc;
     if (_viewTypeSelector.viewType == SMBoardViewTypeTztSortByReply
         || _viewTypeSelector.viewType == SMBoardViewTypeTztSortByPost) {
-        
+
+        SMPostViewControllerV4 *postVc = [SMPostViewControllerV4 new];
+        postVc.post = post;
+        vc = postVc;
+        /*
         SMPostViewControllerV2 *groupPVC = [SMPostViewControllerV2 new];
         groupPVC.post = post;
         groupPVC.fromBoard = YES;
         vc = groupPVC;
+         */
     } else {
         SMPostViewController *singlePVC = [[SMPostViewController alloc] init];
         singlePVC.postUrl = [NSString stringWithFormat:URL_PROTOCOL @"//m.newsmth.net/article/%@/single/%d/0", _board.name, post.gid];

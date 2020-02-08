@@ -480,7 +480,13 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
                         let id = data["id"] as? Int ?? 0
                         AF.download(url).downloadProgress(queue: .main, closure: { progrss in
                             if (id > 0) {
-                                weakSelf?.notificationToWeb(messageName: "IMAGE_PROGRESS", data: ["id": id, "progress": progrss.fractionCompleted, "completed": progrss.completedUnitCount])
+                                let data: [String: Any] = [
+                                    "id": id,
+                                    "progress": progrss.fractionCompleted,
+                                    "completed": progrss.completedUnitCount,
+                                    "total": progrss.totalUnitCount
+                                ]
+                                weakSelf?.notificationToWeb(messageName: "DOWNLOAD_PROGRESS", data: data)
                             }
                         }).responseData(queue: .main, completionHandler: { (response) in
                             guard let data = response.value else {

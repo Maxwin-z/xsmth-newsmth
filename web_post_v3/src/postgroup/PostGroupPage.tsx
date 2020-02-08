@@ -290,6 +290,10 @@ PubSub.subscribe(
   }
 );
 
+PubSub.subscribe("DOWNLOAD_PROGRESS", (_: string, data: any) => {
+  console.log(data);
+});
+
 PubSub.subscribe("PAGE_CLOSE", async () => {
   console.log("page close");
   unloaded();
