@@ -182,6 +182,9 @@ interface Toast {
   type?: ToastType;
 }
 export function toast(toast: Toast): Promise<boolean> {
+  if (toast.type === undefined) {
+    toast.type = ToastType.info;
+  }
   return sendMessage("toast", toast);
 }
 

@@ -209,7 +209,7 @@ async function nextTask() {
     setTitle(mainPost.title);
   }
   const totalPage = Math.ceil(page.total / postsPerPage);
-  const totalPagesChanged = totalPage !== pages.length;
+  const totalPagesChanged = totalPage === 1 || totalPage !== pages.length;
   // put unloaded pages to queue
   for (let i = pages.length + 1; i <= totalPage; ++i) {
     taskQueue.push(i);
