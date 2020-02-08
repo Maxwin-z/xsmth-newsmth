@@ -1,4 +1,7 @@
-import { Json } from "..";
+export interface XImage {
+  id: number;
+  src: string;
+}
 
 export interface Post {
   url?: string;
@@ -12,7 +15,7 @@ export interface Post {
   date?: number;
   dateString?: string;
   content?: string;
-  images?: Json[];
+  images?: XImage[];
   isSingle?: boolean;
 }
 
@@ -21,4 +24,21 @@ export interface PostGroup {
   title?: string;
   total?: number;
   posts?: Post[];
+}
+
+export enum Status {
+  init = 0,
+  loading = 1,
+  success = 2,
+  incomplete = 3,
+  fail = 4
+}
+
+export interface Page {
+  title: string;
+  total: number;
+  p: number;
+  posts: Post[];
+  status: Status;
+  errorMessage?: string;
 }

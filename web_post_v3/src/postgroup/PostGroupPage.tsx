@@ -5,12 +5,11 @@ import {
   reply,
   showActivity,
   setTitle,
-  ajax,
   toast,
   unloaded
 } from "../jsbridge";
 import { fetchPostGroup } from "./postUtils";
-import { Post } from "./types";
+import { Post, Page, Status, XImage } from "./types.d";
 import "./index.css";
 import { Json } from "..";
 
@@ -18,22 +17,6 @@ const NOTIFICATION_TOTAL_PAGES_CHANGED = "NOTIFICATION_TOTAL_PAGES_CHANGED";
 const NOTIFICATION_FORCE_LOAD_PAGE = "NOTIFICATION_FORCE_LOAD_PAGE";
 const NOTIFICATION_PAGE_CHANGED = (p: number) =>
   `NOTIFICATION_PAGE_CHANGED_${p}`;
-enum Status {
-  init = 0,
-  loading = 1,
-  success = 2,
-  incomplete = 3,
-  fail = 4
-}
-
-interface Page {
-  title: string;
-  total: number;
-  p: number;
-  posts: Post[];
-  status: Status;
-  errorMessage?: string;
-}
 
 const PostComponent: FunctionComponent<{ post: Post }> = ({ post }) => {
   function makeActionPost() {
@@ -137,6 +120,7 @@ const pages: Page[] = [
     status: Status.init
   }
 ];
+const xImages: XImage[] = [];
 let mainPost: Post;
 let incompletePageNumber = 1;
 let pageLoading = false;
@@ -217,15 +201,20 @@ async function nextTask() {
   }
   pages[p! - 1] = page;
 
+  page.posts.forEach(({ images }) => {
+    xImages.push(...images!);
+  });
+  loadXImage();
+
   // set last page always incomplete, try to load new posts
   incompletePageNumber = totalPage;
   // remove current page, task done
   taskQueue.splice(taskQueue.indexOf(p), 1);
   pageLoading = false;
 
-  setTimeout(() => {
-    nextTask();
-  }, 3000);
+  // setTimeout(() => {
+  //   nextTask();
+  // }, 3000);
 
   if (totalPagesChanged) {
     PubSub.publish(NOTIFICATION_TOTAL_PAGES_CHANGED, {});
@@ -244,6 +233,10 @@ function orderTaskQueue(index: number) {
     .concat(prevTasks.sort((a, b) => a - b));
   console.log("reorder queue:", taskQueue);
   return;
+}
+
+function loadXImage() {
+  console.log("xImage:", xImages);
 }
 
 initPage();

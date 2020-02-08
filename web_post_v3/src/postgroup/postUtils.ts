@@ -1,5 +1,5 @@
 import { Json } from "../index.d";
-import { Post, PostGroup } from "./types.d";
+import { Post, PostGroup, XImage } from "./types.d";
 import { ajax } from "../jsbridge";
 
 // import "./tests";
@@ -133,13 +133,13 @@ function formatPost(
   dateString: string;
   nick: string;
   content: string;
-  images: Array<Json>;
+  images: XImage[];
 } {
   const dateRegex = /^发信人:.+?<br> 标.+?<br> 发信站:.+?\([A-Z][a-z]{2} ([A-Z][a-z]{2}( |&nbsp;&nbsp;)\d+ \d{1,2}:\d{1,2}:\d{1,2} +\d{4})\)/;
   let matches = body.match(dateRegex);
   let date = 0;
   let dateString = "";
-  const images: Array<Json> = [];
+  const images: XImage[] = [];
   if (matches) {
     dateString = matches[1].replace(/&nbsp;/g, " ");
     date = Date.parse(dateString);
@@ -162,6 +162,7 @@ function formatPost(
     /<ximg.*? src="(.+?)".*?>/gi,
     (_: string, src: string) => {
       const id = ++imageID;
+      src.indexOf("//") === 0 && (src = "https:" + src);
       images.push({
         id,
         src
@@ -189,12 +190,14 @@ function formatPost(
   };
 }
 
+/*
 function fill0(v: number, length: number = 2): string {
   const s = "" + v;
   return s.length > length
     ? s
     : new Array(s.length - length).fill("0").join("") + s;
 }
+
 function formatDate(timestamp: number) {
   const d = new Date(timestamp);
   const year = "" + d.getFullYear();
@@ -205,3 +208,4 @@ function formatDate(timestamp: number) {
   const secs = fill0(d.getSeconds());
   return `${hour}:${mins}:${secs} ${month}-${date}-${year}`;
 }
+*/
