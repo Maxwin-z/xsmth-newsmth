@@ -19,6 +19,8 @@ const NOTIFICATION_FORCE_LOAD_PAGE = "NOTIFICATION_FORCE_LOAD_PAGE";
 const NOTIFICATION_PAGE_CHANGED = (p: number) =>
   `NOTIFICATION_PAGE_CHANGED_${p}`;
 
+const delay = (t: number) => new Promise(rs => setTimeout(rs, t));
+
 const LoadingComponent: FunctionComponent = props => (
   <div className="loading-container">
     {props.children}
@@ -274,11 +276,26 @@ async function loadXImage() {
       `#ximg-${id}`
     ) as HTMLImageElement).src = `ximg://_?url=${encodeURIComponent(src)}`;
     img.status = Status.success;
+    const span = document.querySelector(`#ximg-info-${id}`) as HTMLSpanElement;
+    span.parentNode?.removeChild(span);
   } else {
     console.log(`load image fail: ${src}`);
     img.status = Status.fail;
   }
   loadXImage();
+}
+
+function formatSize(size: number): string {
+  if (size < 1000) {
+    return size + "B";
+  }
+  if (size < 1000 * 1000) {
+    return Math.floor(size / 1000) + "K";
+  }
+  if (size < 1000 * 1000 * 1000) {
+    return Math.floor(size / 1000 / 1000) + "M";
+  }
+  return "";
 }
 
 initPage();
@@ -292,6 +309,17 @@ PubSub.subscribe(
 
 PubSub.subscribe("DOWNLOAD_PROGRESS", (_: string, data: any) => {
   console.log(data);
+  const { id, progress, completed, total } = data;
+  let info = "";
+  if (total > 0) {
+    const p = Math.floor(progress * 100) + "%";
+    info = `正在加载${p}, ${formatSize(total)}`;
+  } else {
+    info = `正在加载${formatSize(completed)}`;
+  }
+  (document.querySelector(
+    `#ximg-info-${id}`
+  ) as HTMLSpanElement).innerHTML = info;
 });
 
 PubSub.subscribe("PAGE_CLOSE", async () => {

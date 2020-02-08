@@ -73,6 +73,18 @@ font.f006 {
   color: #878787;
 }
 
+.ximg-box {
+  position: relative;
+}
+.ximg-info {
+  position: absolute;
+  padding: 2px;
+  font-size: 12px;
+  background-color: rgba(199, 199, 199, 0.5);
+  top: 0;
+  left: 0;
+}
 .ximg {
   max-width: 90vw;
+  min-width: 200px;
 }

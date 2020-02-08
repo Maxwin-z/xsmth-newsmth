@@ -170,13 +170,18 @@ function formatPost(
     (_: string, src: string) => {
       const id = ++imageID;
       src.indexOf("//") === 0 && (src = "https:" + src);
+      src.indexOf("/nForum/att/") === 0 &&
+        (src = "https://www.newsmth.net" + src);
       src = src.replace(/\/(small|middle|large)$/, "");
       images.push({
         id,
         src,
         status: Status.init
       });
-      return `<img src="${src}/small" data-src="${src}" class="ximg" id="ximg-${id}" alt="图片" />`;
+      return `<div class="ximg-box">
+        <span class="ximg-info" id="ximg-info-${id}">正在加载</span>
+        <img src="${src}/middle" data-src="${src}" class="ximg" id="ximg-${id}" alt="图片" />
+      </div>`;
     }
   );
   // remove ※ 来源:·水木社区 <font class="f013">※ 来源:·水木社区 newsmth.net·[FROM: 183.253.30.*]</font>
