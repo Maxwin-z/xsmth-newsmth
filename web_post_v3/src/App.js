@@ -5,7 +5,7 @@ import DebugPage from "./DebugPage";
 
 function App() {
   const url = new URL(window.location.href);
-  const isDebug = 1 || !!url.searchParams.get("debug");
+  const isDebug = !!url.searchParams.get("debug");
   return (
     <div className="App">
       {isDebug ? <DebugPage /> : null}

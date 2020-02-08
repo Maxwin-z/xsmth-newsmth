@@ -246,7 +246,7 @@ function orderTaskQueue(index: number) {
   return;
 }
 
-// initPage();
+initPage();
 PubSub.subscribe(
   NOTIFICATION_FORCE_LOAD_PAGE,
   (_: string, msg: { p: number }) => {
@@ -256,14 +256,8 @@ PubSub.subscribe(
 );
 
 PubSub.subscribe("PAGE_CLOSE", async () => {
-  const html = await ajax({
-    url: "https://httpbin.org/get",
-    data: {
-      a: 1
-    }
-  });
+  console.log("page close");
   unloaded();
-  console.log(html);
 });
 
 export default function PostGroupPage() {
@@ -282,7 +276,7 @@ export default function PostGroupPage() {
   return (
     <div>
       <h1>{mainPost && mainPost.title}</h1>
-      <img src="ximg://_?url=https://att.newsmth.net/nForum/att/Photo/1936720334/329/large" />
+      {/* <img src="ximg://_?url=https://att.newsmth.net/nForum/att/Photo/1936720334/329/large" /> */}
       <div className="page-list">
         {pages.map(page => (
           <PageComponent key={`${page.p}-${page.status}`} p={page.p} />

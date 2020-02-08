@@ -22,16 +22,28 @@ struct SMBridgeError : Error {
     }
 }
 
-class LeakAvoider : NSObject, WKScriptMessageHandler {
-    weak var delegate : WKScriptMessageHandler?
-    init(delegate:WKScriptMessageHandler) {
-        self.delegate = delegate
+class LeakAvoider : NSObject, WKScriptMessageHandler, WKURLSchemeHandler {
+   
+    
+    weak var messageHandler: WKScriptMessageHandler?
+    weak var schemeHandler: WKURLSchemeHandler?
+    init(messageHandler:WKScriptMessageHandler, schemeHandler: WKURLSchemeHandler) {
+        self.messageHandler = messageHandler
+        self.schemeHandler = schemeHandler
         super.init()
     }
     func userContentController(_ userContentController: WKUserContentController,
                                didReceive message: WKScriptMessage) {
-        self.delegate?.userContentController(
+        self.messageHandler?.userContentController(
             userContentController, didReceive: message)
+    }
+    
+    func webView(_ webView: WKWebView, start urlSchemeTask: WKURLSchemeTask) {
+        self.schemeHandler?.webView(webView, start: urlSchemeTask)
+    }
+       
+    func webView(_ webView: WKWebView, stop urlSchemeTask: WKURLSchemeTask) {
+        self.schemeHandler?.webView(webView, stop: urlSchemeTask)
     }
 }
 
@@ -66,12 +78,13 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
 //        bridges = ["ajax": self._ajax]    // will cause memory leak
         holdMyself = ["nope": self._nope]
         
+        let leakAvioder = LeakAvoider(messageHandler: self, schemeHandler: self)
         let userContentController = WKUserContentController()
-        userContentController.add(LeakAvoider(delegate:self), name: "nativeBridge")
+        userContentController.add(leakAvioder, name: "nativeBridge")
 
         let config = WKWebViewConfiguration()
         config.userContentController = userContentController
-        config.setURLSchemeHandler(self, forURLScheme: "ximg")
+        config.setURLSchemeHandler(leakAvioder, forURLScheme: "ximg")
 
         self.webView = WKWebView(frame: self.view.bounds, configuration: config)
         self.view.addSubview(self.webView)
@@ -88,12 +101,19 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
         self.viewForPagePicker = makeupPagePickerView()
         self.view.addSubview(self.viewForBottomBar)
         self.view.addSubview(self.viewForPagePicker)
+        
+        self.viewForBottomBar.isHidden = true
+        self.viewForPagePicker.isHidden = true
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(_: animated)
         if(self.isMovingFromParent) {
             self.notificationToWeb(messageName: "PAGE_CLOSE", data: true);
+            weak var weakSelf = self
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) { // force to unload after 3s
+                weakSelf?.holdMyself.removeAll()
+            }
         }
     }
     
