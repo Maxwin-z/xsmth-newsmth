@@ -39,6 +39,12 @@ export function parseUrl(urlString: string): Post {
   };
 }
 
+function delay(t: number) {
+  return new Promise(rs => {
+    setTimeout(rs, t);
+  });
+}
+
 export async function fetchPostGroup(
   board: string,
   gid: number,
@@ -67,6 +73,7 @@ export async function fetchPostGroup(
   // if (page === 3) {
   //   throw "debug exception";
   // }
+  await delay(2000);
   return retrieveGroupPosts(html);
 }
 

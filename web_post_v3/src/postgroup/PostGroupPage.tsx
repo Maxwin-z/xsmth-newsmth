@@ -19,6 +19,13 @@ const NOTIFICATION_FORCE_LOAD_PAGE = "NOTIFICATION_FORCE_LOAD_PAGE";
 const NOTIFICATION_PAGE_CHANGED = (p: number) =>
   `NOTIFICATION_PAGE_CHANGED_${p}`;
 
+const LoadingComponent: FunctionComponent = props => (
+  <div className="loading-container">
+    {props.children}
+    <div className="loading-icon"></div>
+  </div>
+);
+
 const PostComponent: FunctionComponent<{ post: Post }> = ({ post }) => {
   function makeActionPost() {
     let actionPost: Json = {};
@@ -105,10 +112,14 @@ const PageComponent: FunctionComponent<{ p: number }> = ({ p }) => {
         <div className="page-placeholder">{page.errorMessage}</div>
       ) : null}
       {page.status === Status.loading ? (
-        <div className="page-placeholder">Loading</div>
+        <div className="page-placeholder">
+          <LoadingComponent>
+            <div className="page-loading">正在加载第{page.p}页</div>
+          </LoadingComponent>
+        </div>
       ) : null}
       {page.status === Status.init ? (
-        <div className="page-placeholder">Init: {page.p}</div>
+        <div className="page-placeholder page-init">{page.p}</div>
       ) : null}
     </div>
   );
@@ -298,7 +309,7 @@ export default function PostGroupPage() {
     };
   });
   return (
-    <div>
+    <div className="main">
       <h1>{mainPost && mainPost.title}</h1>
       {/* <img src="ximg://_?url=https://att.newsmth.net/nForum/att/Photo/1936720334/329/large" /> */}
       <div className="page-list">
@@ -306,7 +317,9 @@ export default function PostGroupPage() {
           <PageComponent key={`${page.p}-${page.status}`} p={page.p} />
         ))}
       </div>
-      <div>footer</div>
+      <div className="footer">
+        <LoadingComponent>loading</LoadingComponent>
+      </div>
     </div>
   );
 }
