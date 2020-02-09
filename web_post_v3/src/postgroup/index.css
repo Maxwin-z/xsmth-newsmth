@@ -88,3 +88,7 @@ font.f006 {
   max-width: 90vw;
   min-width: 200px;
 }
+
+.hidden {
+  display: none;
+}

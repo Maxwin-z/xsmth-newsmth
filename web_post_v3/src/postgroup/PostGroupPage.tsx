@@ -105,8 +105,10 @@ const PageComponent: FunctionComponent<{ p: number }> = ({ p }) => {
     };
   });
   const page = pages[p - 1];
+  const hidden =
+    page.posts.length === 0 && p > maxLoadedPageNumber ? "hidden" : "";
   return (
-    <div onClick={onClick}>
+    <div onClick={onClick} className={hidden}>
       {page.status === Status.success || page.status === Status.incomplete ? (
         <PostList posts={page.posts} />
       ) : null}
@@ -145,6 +147,8 @@ const maxImageDownloader = 1;
 let currentDownloaders = 0;
 let mainPost: Post;
 let incompletePageNumber = 1;
+let maxLoadedPageNumber = 0;
+let fullLoading = true; // the whole page is loading
 let pageLoading = false;
 
 async function initPage() {
@@ -204,6 +208,7 @@ async function nextTask() {
     return;
   }
   // load success
+  fullLoading = false;
   if (p === 1) {
     mainPost.title = page.title;
     setTitle(mainPost.title);
@@ -230,13 +235,14 @@ async function nextTask() {
 
   // set last page always incomplete, try to load new posts
   incompletePageNumber = totalPage;
+  maxLoadedPageNumber = Math.max(maxLoadedPageNumber, p);
   // remove current page, task done
   taskQueue.splice(taskQueue.indexOf(p), 1);
   pageLoading = false;
 
-  // setTimeout(() => {
-  //   nextTask();
-  // }, 3000);
+  setTimeout(() => {
+    nextTask();
+  }, 3000);
 
   if (totalPagesChanged) {
     PubSub.publish(NOTIFICATION_TOTAL_PAGES_CHANGED, {});
@@ -333,7 +339,7 @@ export default function PostGroupPage() {
   useEffect(() => {
     PubSub.subscribe(NOTIFICATION_TOTAL_PAGES_CHANGED, () => {
       console.log("get notify");
-      toast({ message: "page changed" });
+      // toast({ message: "page changed" });
       setFlag(!flag);
     });
     return () => {
@@ -343,15 +349,20 @@ export default function PostGroupPage() {
   return (
     <div className="main">
       <h1>{mainPost && mainPost.title}</h1>
-      {/* <img src="ximg://_?url=https://att.newsmth.net/nForum/att/Photo/1936720334/329/large" /> */}
-      <div className="page-list">
-        {pages.map(page => (
-          <PageComponent key={`${page.p}-${page.status}`} p={page.p} />
-        ))}
-      </div>
-      <div className="footer">
-        <LoadingComponent>loading</LoadingComponent>
-      </div>
+      {fullLoading ? (
+        <LoadingComponent>正在加载</LoadingComponent>
+      ) : (
+        <div>
+          <div className="page-list">
+            {pages.map(page => (
+              <PageComponent key={`${page.p}-${page.status}`} p={page.p} />
+            ))}
+          </div>
+          <div className="footer">
+            <LoadingComponent>loading</LoadingComponent>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
