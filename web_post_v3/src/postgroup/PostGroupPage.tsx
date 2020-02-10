@@ -129,6 +129,12 @@ const PageComponent: FunctionComponent<{ p: number }> = ({ p }) => {
   );
 };
 
+const FooterComponent: FunctionComponent = props => {
+  const isFirstPage = pages.length === 1; // hide self
+  const isAllPageLoaded = maxLoadedPageNumber === pages.length; // click to try fetch new page
+  return <div></div>;
+};
+
 ///////////////////////////////////////////////////////////////
 // page functions
 const postsPerPage = 10;
@@ -148,6 +154,7 @@ let currentDownloaders = 0;
 let mainPost: Post;
 let incompletePageNumber = 1;
 let maxLoadedPageNumber = 0;
+let currentLoadingPageNumber = 0;
 let fullLoading = true; // the whole page is loading
 let pageLoading = false;
 
