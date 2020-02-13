@@ -211,6 +211,9 @@ async function nextTask() {
     console.log("load page error", page);
     pages[p! - 1] = page;
     pageLoading = false;
+    toast({
+      message: page.errorMessage!
+    });
     PubSub.publish(NOTIFICATION_PAGE_CHANGED(p), {});
     return;
   }

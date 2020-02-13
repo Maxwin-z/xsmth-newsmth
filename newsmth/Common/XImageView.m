@@ -8,7 +8,8 @@
 
 #import "XImageView.h"
 #import "SMHttpRequest.h"
-#import "ASIHTTPRequestDelegate.h"
+//#import "ASIHTTPRequestDelegate.h"
+#import <ASIHTTPRequest/ASIFormDataRequest.h>
 #import "XImageViewCache.h"
 
 static NSOperationQueue *downloadQueue;

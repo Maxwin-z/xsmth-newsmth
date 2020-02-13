@@ -38,7 +38,8 @@
 #import "SMIPadSplitViewController.h"
 #import "SMImageViewerViewController.h"
 
-#import "Reachability.h"
+//#import "Reachability.h"
+#import <Reachability/Reachability.h>
 
 #import <WKVerticalScrollBar/WKVerticalScrollBar.h>
 #import <ActionSheetPicker-3.0/ActionSheetPicker.h>

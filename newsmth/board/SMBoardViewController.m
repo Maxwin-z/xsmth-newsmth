@@ -18,7 +18,8 @@
 #import "SMDiagnoseViewController.h"
 #import "SMDBManager.h"
 #import "SMPostViewControllerV2.h"
-#import "ASIFormDataRequest.h"
+//#import "ASIFormDataRequest.h"
+#import <ASIHTTPRequest/ASIFormDataRequest.h>
 #import "newsmth-Swift.h"
 
 @interface SMBoardViewController ()<UITableViewDelegate, UITableViewDataSource, XPullRefreshTableViewDelegate, SMWebLoaderOperationDelegate, SMBoardCellDelegate, SMBoardViewTypeSelectorViewDelegate>

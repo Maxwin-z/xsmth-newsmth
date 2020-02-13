@@ -8,6 +8,7 @@ target "newsmth" do
   pod 'ActionSheetPicker-3.0', '~> 1.3.10'
   pod 'TOWebViewController', '2.2.8'
   pod 'JPVideoPlayer'
+  pod 'ASIHTTPRequest'
   pod 'Alamofire', '~> 5.0.0-rc.3'
   pod 'MMKV'
   pod 'Loaf'

@@ -69,7 +69,14 @@ export async function fetchPostGroup(
     data,
     withXhr: true
   });
-  // console.log("get post html", html);
+
+  html.match(/.{1,100}/g)?.forEach(v => console.log(v));
+
+  const error = isErrorPage(html);
+  if (error) {
+    throw error;
+  }
+
   // if (page === 3) {
   //   throw "debug exception";
   // }
@@ -83,6 +90,21 @@ function cleanHtml(html: string): string {
     .replace(/<style.*?<\/style>/gi, "")
     .replace(/<style.*?>/gi, "")
     .replace(/<img/gi, "<ximg");
+}
+
+function isErrorPage(html: string) {
+  // 论坛信息错误
+  if (html.indexOf(`$.setTitle('水木社区-错误信息');;</script>`) !== -1) {
+    return retrieveErrorMessage(html);
+  }
+  return null;
+}
+
+function retrieveErrorMessage(html: string) {
+  html = cleanHtml(html);
+  const div = document.createElement("div");
+  div.innerHTML = html;
+  return (div.querySelector(".error li") as HTMLLIElement)?.innerText;
 }
 
 export function retrieveGroupPosts(html: string): PostGroup {

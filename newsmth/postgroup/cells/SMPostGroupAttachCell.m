@@ -9,7 +9,9 @@
 #import "SMPostGroupAttachCell.h"
 #import "XImageViewCache.h"
 #import "XImageView.h"
-#import "Reachability.h"
+//#import "Reachability.h"
+#import <Reachability/Reachability.h>
+
 
 @interface SMPostGroupAttachCell ()
 @property (strong, nonatomic) IBOutlet UIView *viewForCell;

@@ -8,7 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "SMBaseData.h"
-#import "ASIHTTPRequest.h"
+#import <ASIHTTPRequest/ASIHTTPRequest.h>
+// #import "ASIHTTPRequest.h"
 
 @class SMWebLoaderOperation;
 

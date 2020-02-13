@@ -8,7 +8,8 @@
 
 #import "SMImageUploader.h"
 #import "SMWebLoaderOperation.h"
-#import "ASIFormDataRequest.h"
+//#import "ASIFormDataRequest.h"
+#import <ASIHTTPRequest/ASIFormDataRequest.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "SMUtils.h"
 

@@ -7,7 +7,8 @@
 //
 
 #import "SMUpdater.h"
-#import "ASIHTTPRequest.h"
+//#import "ASIHTTPRequest.h"
+#import <ASIHTTPRequest/ASIHTTPRequest.h>
 #import "SSZipArchive.h"
 #import "SMAdViewController.h"
 #import <CoreText/CoreText.h>

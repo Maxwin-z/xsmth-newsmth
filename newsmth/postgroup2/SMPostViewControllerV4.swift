@@ -88,7 +88,7 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
 
         self.webView = WKWebView(frame: self.view.bounds, configuration: config)
         self.view.addSubview(self.webView)
-        let urlString = "http://10.0.0.11:3000/"
+        let urlString = "http://10.0.0.12:3000/"
         let request = URLRequest(url: URL(string: urlString)!)
         self.webView.load(request)
         debugPrint("post: ", post ?? "nil");
