@@ -159,7 +159,11 @@ let fullLoading = true; // the whole page is loading
 let pageLoading = false;
 
 async function initPage() {
-  mainPost = await postInfo();
+  // mainPost = await postInfo();
+  mainPost = {
+    board: "Anti2019nCoV",
+    gid: 406489
+  };
   console.log(mainPost);
   loadIncompletePage();
 }
@@ -286,14 +290,24 @@ async function loadXImage() {
   }
   img.status = Status.loading;
   let { id, src } = img;
-  let ret = await download(src, id);
+  let ret = false;
+  try {
+    ret = await download(src, id);
+  } catch (ignore) {}
+  if (ret === false) {
+    try {
+      src += "/large";
+      ret = await download(src, id);
+    } catch (ignore) {}
+  }
+
   if (ret === true) {
     (document.querySelector(
       `#ximg-${id}`
     ) as HTMLImageElement).src = `ximg://_?url=${encodeURIComponent(src)}`;
     img.status = Status.success;
     const span = document.querySelector(`#ximg-info-${id}`) as HTMLSpanElement;
-    span.parentNode?.removeChild(span);
+    span.style.display = "none";
   } else {
     console.log(`load image fail: ${src}`);
     img.status = Status.fail;

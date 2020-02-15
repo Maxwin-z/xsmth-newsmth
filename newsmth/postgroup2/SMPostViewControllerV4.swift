@@ -502,8 +502,12 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
                                 promise(.failure(SMBridgeError(code: -1, message: error.localizedDescription)))
                                 return
                             }
-                            XImageViewCache.sharedInstance()?.setImageData(data, forUrl: urlString)
-                            promise(.success(true))
+                            if let _ = UIImage(data: data) {
+                                XImageViewCache.sharedInstance()?.setImageData(data, forUrl: urlString)
+                                promise(.success(true))
+                            } else {
+                                promise(.failure(SMBridgeError(code: -2, message: "图片内容不正确")))
+                            }
                         })
                     } else {
                         promise(.failure(SMBridgeError(code: -1, message: "资源URL不正确")))
