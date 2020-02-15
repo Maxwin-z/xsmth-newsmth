@@ -21,14 +21,7 @@ final class SMURLProtocol : URLProtocol {
     
     @objc
     public static func doRegister() {
-        URLProtocol.registerClass(SMURLProtocol.self)
-        
-        let session = Alamofire.Session.default
-        if var classes = session.sessionConfiguration.protocolClasses {
-            classes.insert(SMURLProtocol.self, at: 0)
-        } else {
-            session.sessionConfiguration.protocolClasses = [SMURLProtocol.self]
-        }
+//        URLProtocol.registerClass(SMURLProtocol.self)
     }
 }
 
@@ -39,7 +32,15 @@ class SMSession : NSObject {
     override init() {
         let monitor = ClosureEventMonitor()
         monitor.requestDidFinish = { request in
-            debugPrint("31", request.response?.headers ?? "header is nil")
+            if let headers = request.response?.headers {
+                if let cookies = headers.value(for: "Set-Cookie") {
+                    debugPrint("4444444", cookies)
+                    if (cookies.contains("main[UTMPUSERID]")) {
+                        debugPrint("454545, login status changed")
+                        SMAccountManager.instance()?.refreshStatus()
+                    }
+                }
+            }
         }
         self.session = Session(eventMonitors: [monitor])
     }

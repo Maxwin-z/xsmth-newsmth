@@ -22,4 +22,5 @@
 
 + (SMAccountManager *)instance;
 - (void)setCookies:(NSArray *)cookies;
+- (void)refreshStatus;
 @end

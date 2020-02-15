@@ -79,6 +79,15 @@ static SMAccountManager *_instance;
 
 }
 
+- (void)refreshStatus
+{
+    NSURL *url = [NSURL URLWithString:URL_PROTOCOL @"//m.newsmth.net"];
+    NSArray *cookies =[[NSMutableArray alloc] initWithArray:[[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:url]];
+    if (cookies) {
+        [self setCookies:cookies];
+    }
+}
+
 - (void)setCookies:(NSArray *)cookies
 {
     NSString *name = nil;
