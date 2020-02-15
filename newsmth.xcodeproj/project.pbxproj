@@ -319,6 +319,7 @@
 		C1FF62B1179E6DF4001F7A15 /* SMPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FF62AF179E6DF4001F7A15 /* SMPostViewController.m */; };
 		C1FF62B2179E6DF4001F7A15 /* SMPostViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1FF62B0179E6DF4001F7A15 /* SMPostViewController.xib */; };
 		CBDFF1361F147346005EB0B9 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBDFF1351F147346005EB0B9 /* Photos.framework */; };
+		CF4FE6F423F537B600423142 /* SMNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4FE6F323F537B600423142 /* SMNetwork.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -825,6 +826,7 @@
 		C1FF62AF179E6DF4001F7A15 /* SMPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMPostViewController.m; sourceTree = "<group>"; };
 		C1FF62B0179E6DF4001F7A15 /* SMPostViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMPostViewController.xib; sourceTree = "<group>"; };
 		CBDFF1351F147346005EB0B9 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		CF4FE6F323F537B600423142 /* SMNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMNetwork.swift; sourceTree = "<group>"; };
 		D3810D26CEA5003BA313441D /* Pods-newsmth.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-newsmth.release.xcconfig"; path = "Pods/Target Support Files/Pods-newsmth/Pods-newsmth.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1419,6 +1421,7 @@
 				C1BFB8E3174F6A620092FD2E /* Supporting Files */,
 				C14505E31750787C00DC5431 /* SMAccountManager.h */,
 				C14505E41750787C00DC5431 /* SMAccountManager.m */,
+				CF4FE6F323F537B600423142 /* SMNetwork.swift */,
 				C10D16051755D552002D6FAD /* SMDefination.h */,
 				C10D160F1756059B002D6FAD /* SMViewController.h */,
 				C10D16101756059B002D6FAD /* SMViewController.m */,
@@ -2105,6 +2108,7 @@
 				C10206041AB438BA0096D210 /* SMEditActivity.m in Sources */,
 				C1C4C8811781B4FF0092E77C /* SMBaseBorardListViewController.m in Sources */,
 				C1CE10C018122D7B00B04E15 /* SMParserItem.m in Sources */,
+				CF4FE6F423F537B600423142 /* SMNetwork.swift in Sources */,
 				C1C4C8851781B6C00092E77C /* SMBoardList.m in Sources */,
 				C1F8107018E5B734001B3759 /* FMDatabase+InMemoryOnDiskIO.m in Sources */,
 				C1E7A19A1809A7F1002CAEEC /* SMFontSelectorViewController.m in Sources */,

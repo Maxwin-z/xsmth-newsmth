@@ -22,8 +22,9 @@ struct SMBridgeError : Error {
     }
 }
 
+
+
 class LeakAvoider : NSObject, WKScriptMessageHandler, WKURLSchemeHandler {
-   
     
     weak var messageHandler: WKScriptMessageHandler?
     weak var schemeHandler: WKURLSchemeHandler?
@@ -104,6 +105,10 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
         
         self.viewForBottomBar.isHidden = true
         self.viewForPagePicker.isHidden = true
+        
+        if var protocols = Alamofire.Session.default.sessionConfiguration.protocolClasses {
+            protocols.insert(SMURLProtocol.self, at: 0)
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -326,7 +331,7 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
             if let opts = parameters as? Dictionary<String, AnyObject> {
                 let headers = HTTPHeaders(opts["headers"] as? [String: String] ?? [:])
                 if let url = opts["url"] as? String {
-                    AF.request(url, headers: headers).response { rsp in
+                    SMAF.request(url, headers: headers).response { rsp in
                         if case let .failure(error) = rsp.result {
                             debugPrint(error.errorDescription ?? "")
                             promise(.failure(SMBridgeError(code: -1, message: "AFError:" + (error.errorDescription ?? "unknown error"))))
@@ -478,7 +483,7 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
                 if let urlString = data["url"] as? String {
                     if let url = URL(string: urlString) {
                         let id = data["id"] as? Int ?? 0
-                        AF.download(url).downloadProgress(queue: .main, closure: { progrss in
+                        SMAF.download(url).downloadProgress(queue: .main, closure: { progrss in
                             if (id > 0) {
                                 let data: [String: Any] = [
                                     "id": id,
@@ -543,7 +548,7 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
             debugPrint("alert", userText)
             weakSelf.mmkv.set(userText, forKey: mmkvKey_forwardTarget)
             let url = "https://m.newsmth.net/article/\(p.board.name!)/forward/\(p.pid)"
-            AF.request(url, method: .post, parameters: ["target": userText]).response { response in
+            SMAF.request(url, method: .post, parameters: ["target": userText]).response { response in
                 debugPrint(response)
                 do {
                     if let data = try response.result.get() {

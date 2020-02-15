@@ -23,6 +23,7 @@
 #import <CoreMotion/CoreMotion.h>
 #import "SMBoardViewController.h"
 #import "SMZanShangUtil.h"
+#import "newsmth-Swift.h"
 
 @interface AppDelegate ()<SMWebLoaderOperationDelegate>
 @property (strong, nonatomic) UINavigationController *nvc;
@@ -134,6 +135,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    [SMURLProtocol doRegister];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
 //    [self setupTheme];
