@@ -16,15 +16,16 @@ import { Json } from "..";
 
 const NOTIFICATION_TOTAL_PAGES_CHANGED = "NOTIFICATION_TOTAL_PAGES_CHANGED";
 const NOTIFICATION_FORCE_LOAD_PAGE = "NOTIFICATION_FORCE_LOAD_PAGE";
+const NOTIFICATION_LOADING_PAGE_CHANGED = "NOTIFICATION_LOADING_PAGE_CHANGED";
 const NOTIFICATION_PAGE_CHANGED = (p: number) =>
   `NOTIFICATION_PAGE_CHANGED_${p}`;
 
 const delay = (t: number) => new Promise(rs => setTimeout(rs, t));
 
-const LoadingComponent: FunctionComponent = props => (
+const LoadingComponent: FunctionComponent<{ hide?: boolean }> = props => (
   <div className="loading-container">
     {props.children}
-    <div className="loading-icon"></div>
+    <div className={"loading-icon " + (props.hide ? "hide" : "")}></div>
   </div>
 );
 
@@ -130,8 +131,98 @@ const PageComponent: FunctionComponent<{ p: number }> = ({ p }) => {
 };
 
 const FooterComponent: FunctionComponent = props => {
-  const isFirstPage = pages.length === 1; // hide self
-  const isAllPageLoaded = maxLoadedPageNumber === pages.length; // click to try fetch new page
+  const [flag, setFlag] = useState(false);
+  useEffect(() => {
+    PubSub.subscribe(NOTIFICATION_LOADING_PAGE_CHANGED, () => {
+      console.log("footer get notify");
+      setFlag(!flag);
+    });
+    return () => {
+      PubSub.unsubscribe(NOTIFICATION_LOADING_PAGE_CHANGED);
+    };
+  });
+
+  const loadMore = () => {
+    taskQueue.unshift(pages.length);
+    nextTask();
+  };
+
+  const loadNextPage = () => {
+    orderTaskQueue(maxLoadedPageNumber);
+    nextTask();
+  };
+
+  /**
+   * 几种状态
+   * 1. 首次进入，整页loading，隐藏
+   * 2. 正在加载下一页，显示loading x/total
+   * 3. 加载下一页失败，显示 x/total 点击重试
+   * 4. 加载中间页，显示 x/total 点击加载，点击后重排加载顺序
+   * 5. 全部加载完毕，显示 x/total 点击加载，点击后加载最后一页
+   */
+  enum Case {
+    InitPage,
+    LastPageLoading,
+    LastPageLoadFail,
+    MiddlePage,
+    AllLoaded
+  }
+  const lastLoadedPage = pages[maxLoadedPageNumber - 1];
+  debugger;
+
+  let _case;
+  if (pages.length === 1 && !isPageLoaded(pages[0])) {
+    _case = Case.InitPage;
+  } else if (taskQueue.length > 0) {
+    if (taskQueue[0] === maxLoadedPageNumber + 1 || taskQueue.length === 1) {
+      if (lastLoadedPage.status === Status.fail) {
+        _case = Case.LastPageLoadFail;
+      } else {
+        _case = Case.LastPageLoading;
+      }
+    } else {
+      _case = Case.MiddlePage;
+    }
+  } else if (lastLoadedPage && lastLoadedPage.status === Status.loading) {
+    _case = Case.LastPageLoading;
+  } else {
+    _case = Case.AllLoaded;
+  }
+
+  const pageHint = `${Math.min(maxLoadedPageNumber + 1, pages.length)}/${
+    pages.length
+  }`;
+  if (_case === Case.InitPage) {
+    return null;
+  }
+  if (_case === Case.LastPageLoading) {
+    return <LoadingComponent>正在加载 {pageHint} ...</LoadingComponent>;
+  }
+  if (_case === Case.LastPageLoadFail) {
+    return (
+      <div onClick={loadNextPage}>
+        <LoadingComponent hide={true}>
+          加载 {pageHint} 失败，点击重试
+        </LoadingComponent>
+      </div>
+    );
+  }
+  if (_case === Case.MiddlePage) {
+    return (
+      <div onClick={loadNextPage}>
+        <LoadingComponent hide={true}>点击加载 {pageHint}</LoadingComponent>
+      </div>
+    );
+  }
+  if (_case === Case.AllLoaded) {
+    return (
+      <div onClick={loadMore}>
+        <LoadingComponent hide={true}>
+          已加载 {pageHint}，点击尝试加载最新
+        </LoadingComponent>
+      </div>
+    );
+  }
   return <div></div>;
 };
 
@@ -154,16 +245,25 @@ let currentDownloaders = 0;
 let mainPost: Post;
 let incompletePageNumber = 1;
 let maxLoadedPageNumber = 0;
-let currentLoadingPageNumber = 0;
 let fullLoading = true; // the whole page is loading
 let pageLoading = false;
 
 async function initPage() {
-  // mainPost = await postInfo();
+  mainPost = await postInfo();
   mainPost = {
     board: "Anti2019nCoV",
-    gid: 406489
+    gid: 408945
   };
+
+  // mainPost = {
+  //   board: "AutoWorld",
+  //   gid: 1943048442
+  // };
+
+  // mainPost = {
+  //   board: "FamilyLife",
+  //   gid: 1762997577
+  // };
   console.log(mainPost);
   loadIncompletePage();
 }
@@ -201,16 +301,27 @@ async function loadPage(p: number = 1, author?: string): Promise<Page> {
   return page;
 }
 
+function pubPageChanged(p: number) {
+  PubSub.publish(NOTIFICATION_PAGE_CHANGED(p), {});
+  PubSub.publish(NOTIFICATION_LOADING_PAGE_CHANGED, {});
+}
+
 async function nextTask() {
   console.log("task queue:", taskQueue);
   if (taskQueue.length === 0 || pageLoading) return;
   pageLoading = true;
   const p = taskQueue[0];
-  pages[p! - 1]!.status = Status.loading;
+  let page = pages[p! - 1];
+  if (page.posts.length === 0) {
+    page.status = Status.loading;
+  }
 
-  PubSub.publish(NOTIFICATION_PAGE_CHANGED(p), {});
+  pubPageChanged(p);
 
-  const page = await loadPage(p);
+  page = await loadPage(p);
+  fullLoading = false;
+  maxLoadedPageNumber = Math.max(maxLoadedPageNumber, p);
+
   if (page.status === Status.fail) {
     console.log("load page error", page);
     pages[p! - 1] = page;
@@ -218,11 +329,13 @@ async function nextTask() {
     toast({
       message: page.errorMessage!
     });
-    PubSub.publish(NOTIFICATION_PAGE_CHANGED(p), {});
+    pubPageChanged(p);
+    if (p === 1) {
+      PubSub.publish(NOTIFICATION_TOTAL_PAGES_CHANGED, {});
+    }
     return;
   }
   // load success
-  fullLoading = false;
   if (p === 1) {
     mainPost.title = page.title;
     setTitle(mainPost.title);
@@ -249,19 +362,18 @@ async function nextTask() {
 
   // set last page always incomplete, try to load new posts
   incompletePageNumber = totalPage;
-  maxLoadedPageNumber = Math.max(maxLoadedPageNumber, p);
   // remove current page, task done
   taskQueue.splice(taskQueue.indexOf(p), 1);
   pageLoading = false;
 
   setTimeout(() => {
     nextTask();
-  }, 3000);
+  }, 500);
 
   if (totalPagesChanged) {
     PubSub.publish(NOTIFICATION_TOTAL_PAGES_CHANGED, {});
   }
-  PubSub.publish(NOTIFICATION_PAGE_CHANGED(p), {});
+  pubPageChanged(p);
 }
 
 function orderTaskQueue(index: number) {
@@ -313,6 +425,14 @@ async function loadXImage() {
     img.status = Status.fail;
   }
   loadXImage();
+}
+
+function isPageLoaded(page: Page) {
+  return (
+    page.status === Status.success ||
+    page.status === Status.fail ||
+    page.status === Status.incomplete
+  );
 }
 
 function formatSize(size: number): string {
@@ -370,6 +490,7 @@ export default function PostGroupPage() {
       PubSub.unsubscribe(NOTIFICATION_TOTAL_PAGES_CHANGED);
     };
   });
+
   return (
     <div className="main">
       <h1>{mainPost && mainPost.title}</h1>
@@ -383,7 +504,7 @@ export default function PostGroupPage() {
             ))}
           </div>
           <div className="footer">
-            <LoadingComponent>loading</LoadingComponent>
+            <FooterComponent />
           </div>
         </div>
       )}

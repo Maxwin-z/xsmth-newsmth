@@ -36,6 +36,10 @@
   animation: spin 2s linear infinite;
 }
 
+.loading-icon.hide {
+  background-image: none;
+}
+
 @keyframes spin {
   100% {
     transform: rotate(360deg);

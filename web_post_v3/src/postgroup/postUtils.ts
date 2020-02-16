@@ -51,8 +51,8 @@ export async function fetchPostGroup(
   page: number = 1,
   author?: string | null
 ): Promise<PostGroup> {
+  await delay(1000); // debug
   const data: Json = {};
-
   if (!board || !gid) {
     const error = `invalid boardd or gid: (${board}, ${gid})`;
     console.error(error);
