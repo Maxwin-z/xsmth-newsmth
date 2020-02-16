@@ -198,3 +198,7 @@ export function download(url: string, id: number = 0): Promise<boolean> {
     url
   });
 }
+
+export function login(): Promise<boolean> {
+  return sendMessage("login");
+}

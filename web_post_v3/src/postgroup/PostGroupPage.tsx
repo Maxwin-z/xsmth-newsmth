@@ -7,7 +7,8 @@ import {
   setTitle,
   toast,
   unloaded,
-  download
+  download,
+  login
 } from "../jsbridge";
 import { fetchPostGroup } from "./postUtils";
 import { Post, Page, Status, XImage } from "./types.d";
@@ -93,6 +94,14 @@ const PageComponent: FunctionComponent<{ p: number }> = ({ p }) => {
       p
     });
   }
+
+  async function loadAfterLogin() {
+    const ret = await login();
+    if (ret) {
+      load();
+    }
+  }
+
   const [flag, setFlag] = useState(false);
   useEffect(() => {
     console.log("sub", p);
@@ -117,7 +126,7 @@ const PageComponent: FunctionComponent<{ p: number }> = ({ p }) => {
         <div className="page-placeholder">
           <div>{page.errorMessage}</div>
           {page.errorMessage === "您未登录,请登录后继续操作" ? (
-            <button onClick={load} className="login-button">
+            <button onClick={loadAfterLogin} className="login-button">
               登录后重试
             </button>
           ) : null}
@@ -259,10 +268,10 @@ let pageLoading = false;
 
 async function initPage() {
   mainPost = await postInfo();
-  mainPost = {
-    board: "Anti2019nCoV",
-    gid: 408945
-  };
+  // mainPost = {
+  //   board: "Anti2019nCoV",
+  //   gid: 408945
+  // };
 
   // mainPost = {
   //   board: "AutoWorld",
@@ -335,9 +344,6 @@ async function nextTask() {
     console.log("load page error", page);
     pages[p! - 1] = page;
     pageLoading = false;
-    toast({
-      message: page.errorMessage!
-    });
     pubPageChanged(p);
     if (p === 1) {
       PubSub.publish(NOTIFICATION_TOTAL_PAGES_CHANGED, {});

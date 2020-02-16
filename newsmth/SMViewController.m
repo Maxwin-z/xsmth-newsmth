@@ -202,7 +202,20 @@
         [loginVc setAfterLoginTarget:self selector:aSelector];
         P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:loginVc];
         nvc.modalPresentationStyle = UIModalPresentationFormSheet;
-        [self presentModalViewController:nvc animated:YES];
+        [self presentViewController:nvc animated:YES completion:nil];
+    }
+}
+
+- (void)afterLoginSuccess:(void(^)())success fail:(void(^)())fail
+{
+    if ([SMAccountManager instance].isLogin) {
+        success();
+    } else {
+        SMLoginViewController *loginVc = [SMLoginViewController new];
+        [loginVc loginWithSuccess:success fail:fail];
+        P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:loginVc];
+        nvc.modalPresentationStyle = UIModalPresentationFormSheet;
+        [self presentViewController:nvc animated:YES completion:nil];
     }
 }
 

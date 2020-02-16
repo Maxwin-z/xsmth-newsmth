@@ -27,6 +27,10 @@
 @property (assign, nonatomic) SEL afterLoginSelector;
 
 @property (assign, nonatomic) NSInteger failTimes;
+
+@property (strong, nonatomic) void(^successBlock)();
+@property (strong, nonatomic) void(^failBlock)();
+
 @end
 
 @implementation SMLoginViewController
@@ -79,9 +83,18 @@
     _afterLoginSelector = aSelector;
 }
 
+- (void)loginWithSuccess:(void (^)())success fail:(void (^)())fail
+{
+    self.successBlock = success;
+    self.failBlock = fail;
+}
+
 - (void)dismiss
 {
-    [self.navigationController dismissModalViewControllerAnimated:YES];
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    if (self.failBlock) {
+        self.failBlock();
+    }
 }
 
 - (IBAction)onLoginButtonClick:(id)sender
@@ -139,6 +152,9 @@
         [self dismissViewControllerAnimated:YES completion:^{
             if (_afterLoginTarget != nil && _afterLoginSelector != NULL) {
                 SuppressPerformSelectorLeakWarning([_afterLoginTarget performSelector:_afterLoginSelector]);
+            }
+            if (self.successBlock) {
+                self.successBlock();
             }
         }];
         

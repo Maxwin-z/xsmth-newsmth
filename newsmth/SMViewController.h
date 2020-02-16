@@ -27,6 +27,7 @@
 - (void)showLogin;
 - (void)hideLogin;
 - (void)performSelectorAfterLogin:(SEL)aSelector;
+- (void)afterLoginSuccess:(void(^)())success fail:(void(^)())fail;
 
 - (void)onKeyboardDidShow:(NSNotification *)n;
 - (void)onKeyboardDidHide:(NSNotification *)n;

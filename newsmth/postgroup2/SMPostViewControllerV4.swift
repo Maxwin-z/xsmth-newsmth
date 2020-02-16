@@ -250,6 +250,7 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
             if (methodName == "unloaded")  { fn = self._unloaded}
             if (methodName == "toast")  { fn = self._toast}
             if (methodName == "download")  { fn = self._download}
+            if (methodName == "login")  { fn = self._login}
 
             if(fn == nil) {
                 sendMessageToWeb(callbackID: callbackID, code: -1, data: "", message: "不存在的Bridge方法[\(methodName)]")
@@ -517,6 +518,16 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
                 }
             } else {
                 promise(.failure(SMBridgeError(code: -1, message: "参数错误")))
+            }
+        }
+    }
+    
+    func _login(parameters: Any) -> Future<Any, SMBridgeError> {
+        return Future { promise in
+            self.afterLoginSuccess({
+                promise(.success(true))
+            }) {
+                promise(.success(false))
             }
         }
     }
