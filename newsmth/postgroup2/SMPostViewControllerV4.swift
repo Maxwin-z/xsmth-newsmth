@@ -550,8 +550,8 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
     }
     
     func _login(parameters: Any) -> Future<Any, SMBridgeError> {
-        return Future { promise in
-            self.afterLoginSuccess({
+        return Future { [weak self] promise in
+            self?.afterLoginSuccess({
                 promise(.success(true))
             }) {
                 promise(.success(false))
