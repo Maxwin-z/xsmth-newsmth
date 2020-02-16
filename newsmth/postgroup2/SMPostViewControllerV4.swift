@@ -58,6 +58,7 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
     let mmkv = MMKV.default()
     
     @objc var post:SMPost?
+    @objc var fromBoard:Bool = false
     var postForAction: SMPost?
     var webView:WKWebView!
     
@@ -73,9 +74,11 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
     var viewForPagePicker: UIView!
     
     override func viewDidLoad() {
-        self.title = "Post"
+        self.title = self.post?.title ?? "正在加载..."
+        if (!self.fromBoard) {
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(onRightBarButtonClick))
+        }
 
-        
 //        bridges = ["ajax": self._ajax]    // will cause memory leak
         holdMyself = ["nope": self._nope]
         
@@ -126,6 +129,18 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
         self.webView.stopLoading()
         self.webView.configuration.userContentController.removeScriptMessageHandler(forName: "nativeBridge")
     }
+    
+    @objc
+    func onRightBarButtonClick() {
+        let vc = SMBoardViewController()
+        vc.board = self.post?.board!
+        if (SMConfig.iPadMode()) {
+            SMMainViewController.instance()?.setRoot(vc)
+        } else {
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
     
     override func viewSafeAreaInsetsDidChange() {
         var frame = self.viewForBottomBar.frame

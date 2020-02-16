@@ -17,8 +17,6 @@
 #import "SMIPadSplitViewController.h"
 #import "SMDiagnoseViewController.h"
 #import "SMPostViewControllerV2.h"
-#import "SMPostViewControllerV3.h"
-//#import "SMPostViewControllerV4.h"
 #import "SMBoardHistoryViewController.h"
 #import "newsmth-Swift.h"
 

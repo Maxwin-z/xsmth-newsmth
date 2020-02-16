@@ -17,7 +17,7 @@
 #import "SMIPadSplitViewController.h"
 #import "SMDiagnoseViewController.h"
 #import "SMDBManager.h"
-#import "SMPostViewControllerV2.h"
+//#import "SMPostViewControllerV2.h"
 //#import "ASIFormDataRequest.h"
 #import <ASIHTTPRequest/ASIFormDataRequest.h>
 #import "newsmth-Swift.h"
@@ -334,13 +334,8 @@
 
         SMPostViewControllerV4 *postVc = [SMPostViewControllerV4 new];
         postVc.post = post;
+        postVc.fromBoard = YES;
         vc = postVc;
-        /*
-        SMPostViewControllerV2 *groupPVC = [SMPostViewControllerV2 new];
-        groupPVC.post = post;
-        groupPVC.fromBoard = YES;
-        vc = groupPVC;
-         */
     } else {
         SMPostViewController *singlePVC = [[SMPostViewController alloc] init];
         singlePVC.postUrl = [NSString stringWithFormat:URL_PROTOCOL @"//m.newsmth.net/article/%@/single/%d/0", _board.name, post.gid];

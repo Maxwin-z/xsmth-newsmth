@@ -16,6 +16,8 @@
 #import "SMWebLoaderOperation.h"
 #import "SMAccountManager.h"
 #import "SMWritePostViewController.h"
+#import "SMBoardViewController.h"
+#import "SMMainViewController.h"
 #import <MMKV/MMKV.h>
 
 #import "SMForwardActivity.h"
