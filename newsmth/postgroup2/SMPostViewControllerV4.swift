@@ -91,8 +91,9 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
         config.setURLSchemeHandler(leakAvioder, forURLScheme: "ximg")
 
         self.webView = WKWebView(frame: self.view.bounds, configuration: config)
+        self.webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.view.addSubview(self.webView)
-        let urlString = "http://10.0.0.12:3000/"
+        let urlString = "http://10.0.0.11:3000/"
         let request = URLRequest(url: URL(string: urlString)!)
         self.webView.load(request)
         debugPrint("post: ", post ?? "nil");
@@ -423,8 +424,9 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
     
     func _activity(parameters: Any) -> Future<Any, SMBridgeError> {
         return Future {[weak self] promise in
+            guard let weakSelf = self else { return }
             if let _postForAction = parameters as? Dictionary<String, AnyObject> {
-                self?.postForAction = SMPost.init(json: _postForAction)
+                weakSelf.postForAction = SMPost.init(json: _postForAction)
                 guard let p = self?.postForAction else {
                     promise(.failure(SMBridgeError(code: -1, message: "page unloaded")))
                     return
@@ -444,7 +446,17 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
                     }
                     debugPrint(activityType?.rawValue ?? "no activity")
                 }
-                self?.present(activity, animated: true, completion: nil)
+                if (SMUtils.isPad()) {
+                    activity.modalPresentationStyle = .popover
+//                    SMIPadSplitViewController.instance()?.present(activity, animated: true, completion: nil)
+                    weakSelf.present(activity, animated: true, completion: nil)
+                    if let popover = activity.popoverPresentationController {
+                        popover.sourceView = weakSelf.view
+                        popover.sourceRect = CGRect(x: weakSelf.view.bounds.width / 2, y: weakSelf.view.bounds.height, width: 0.0, height: 0.0)
+                    }
+                } else {
+                    weakSelf.present(activity, animated: true, completion: nil)
+                }
             }
             promise(.success(true))
         }
