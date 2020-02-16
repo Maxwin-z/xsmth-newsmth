@@ -7,7 +7,6 @@
 //
 
 #import "SMPostActivityItemProvider.h"
-#import "SMWeiXinSessionActivity.h"
 
 @implementation SMPostActivityItemProvider
 - (id)activityViewControllerPlaceholderItem:(UIActivityViewController *)activityViewController
@@ -22,15 +21,7 @@
     NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//m.newsmth.net/article/%@/single/%d/0",
                      post.board.name, post.pid];
     
-    if ([activityType isEqualToString:SMActivityTypePostToWXSession]
-        || [activityType isEqualToString:SMActivityTypePostToWXTimeline]) {
-        return @{
-                 @"url": url,
-                 @"post": post
-                 };
-    }
-    
-    return nil;
+    return url;
 }
 
 @end

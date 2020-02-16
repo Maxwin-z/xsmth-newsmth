@@ -141,7 +141,6 @@
 		C16C1098179A1CA200A14727 /* SMNotice.m in Sources */ = {isa = PBXBuildFile; fileRef = C16C1097179A1CA200A14727 /* SMNotice.m */; };
 		C16C109A179A238F00A14727 /* notice.js in Resources */ = {isa = PBXBuildFile; fileRef = C16C1099179A238F00A14727 /* notice.js */; };
 		C16CE53B19F2689B00B078A6 /* SMImageViewerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C16CE53A19F2689B00B078A6 /* SMImageViewerViewController.m */; };
-		C176AC1118C202FA00B024C7 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C176AC0E18C202FA00B024C7 /* libWeChatSDK.a */; };
 		C17F4B83178C0A21002F4934 /* SMImageUploadListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C17F4B81178C0A21002F4934 /* SMImageUploadListViewController.m */; };
 		C17F4B84178C0A21002F4934 /* SMImageUploadListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C17F4B82178C0A21002F4934 /* SMImageUploadListViewController.xib */; };
 		C17F4B89178C11CA002F4934 /* SMUpload.m in Sources */ = {isa = PBXBuildFile; fileRef = C17F4B86178C11CA002F4934 /* SMUpload.m */; };
@@ -280,10 +279,8 @@
 		C1E7A1A7180AA8C7002CAEEC /* util_notice.js in Resources */ = {isa = PBXBuildFile; fileRef = C1E7A1A6180AA8C7002CAEEC /* util_notice.js */; };
 		C1F0D27E1CA69D28006AD489 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1F0D27D1CA69D28006AD489 /* Images.xcassets */; };
 		C1F4671D18C2E766006BCE7A /* SMPostActivityItemProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F4671C18C2E766006BCE7A /* SMPostActivityItemProvider.m */; };
-		C1F4672018C2EDFA006BCE7A /* SMWeiXinSessionActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F4671F18C2EDFA006BCE7A /* SMWeiXinSessionActivity.m */; };
 		C1F4672318C2EFAB006BCE7A /* common_share_icon_weixin_friends@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1F4672118C2EFAB006BCE7A /* common_share_icon_weixin_friends@2x.png */; };
 		C1F4672418C2EFAB006BCE7A /* common_share_icon_weixin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1F4672218C2EFAB006BCE7A /* common_share_icon_weixin@2x.png */; };
-		C1F4672718C2F5ED006BCE7A /* SMWeiXinTimelineActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F4672618C2F5ED006BCE7A /* SMWeiXinTimelineActivity.m */; };
 		C1F4C5AC1806D4BD00E8A52D /* SMConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F4C5AB1806D4BD00E8A52D /* SMConfig.m */; };
 		C1F8107018E5B734001B3759 /* FMDatabase+InMemoryOnDiskIO.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F8104B18E5B734001B3759 /* FMDatabase+InMemoryOnDiskIO.m */; };
 		C1F8107118E5B734001B3759 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F8104E18E5B734001B3759 /* FMDatabase.m */; };
@@ -550,9 +547,6 @@
 		C16C1099179A238F00A14727 /* notice.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = notice.js; sourceTree = "<group>"; };
 		C16CE53919F2689B00B078A6 /* SMImageViewerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMImageViewerViewController.h; sourceTree = "<group>"; };
 		C16CE53A19F2689B00B078A6 /* SMImageViewerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMImageViewerViewController.m; sourceTree = "<group>"; };
-		C176AC0E18C202FA00B024C7 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
-		C176AC0F18C202FA00B024C7 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
-		C176AC1018C202FA00B024C7 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		C17F4B80178C0A21002F4934 /* SMImageUploadListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMImageUploadListViewController.h; sourceTree = "<group>"; };
 		C17F4B81178C0A21002F4934 /* SMImageUploadListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMImageUploadListViewController.m; sourceTree = "<group>"; };
 		C17F4B82178C0A21002F4934 /* SMImageUploadListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMImageUploadListViewController.xib; sourceTree = "<group>"; };
@@ -767,12 +761,8 @@
 		C1F0D27D1CA69D28006AD489 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C1F4671B18C2E766006BCE7A /* SMPostActivityItemProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMPostActivityItemProvider.h; sourceTree = "<group>"; };
 		C1F4671C18C2E766006BCE7A /* SMPostActivityItemProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMPostActivityItemProvider.m; sourceTree = "<group>"; };
-		C1F4671E18C2EDFA006BCE7A /* SMWeiXinSessionActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMWeiXinSessionActivity.h; sourceTree = "<group>"; };
-		C1F4671F18C2EDFA006BCE7A /* SMWeiXinSessionActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMWeiXinSessionActivity.m; sourceTree = "<group>"; };
 		C1F4672118C2EFAB006BCE7A /* common_share_icon_weixin_friends@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "common_share_icon_weixin_friends@2x.png"; sourceTree = "<group>"; };
 		C1F4672218C2EFAB006BCE7A /* common_share_icon_weixin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "common_share_icon_weixin@2x.png"; sourceTree = "<group>"; };
-		C1F4672518C2F5ED006BCE7A /* SMWeiXinTimelineActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMWeiXinTimelineActivity.h; sourceTree = "<group>"; };
-		C1F4672618C2F5ED006BCE7A /* SMWeiXinTimelineActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMWeiXinTimelineActivity.m; sourceTree = "<group>"; };
 		C1F4C5AA1806D4BD00E8A52D /* SMConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMConfig.h; sourceTree = "<group>"; };
 		C1F4C5AB1806D4BD00E8A52D /* SMConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMConfig.m; sourceTree = "<group>"; };
 		C1F8104A18E5B734001B3759 /* FMDatabase+InMemoryOnDiskIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FMDatabase+InMemoryOnDiskIO.h"; sourceTree = "<group>"; };
@@ -845,7 +835,6 @@
 				C1BFB8E1174F6A620092FD2E /* CoreGraphics.framework in Frameworks */,
 				C13CB6C318B0A089003F7407 /* AVFoundation.framework in Frameworks */,
 				C13CB6C118B0A07F003F7407 /* AudioToolbox.framework in Frameworks */,
-				C176AC1118C202FA00B024C7 /* libWeChatSDK.a in Frameworks */,
 				C1C07A78179686BD00906ED7 /* MessageUI.framework in Frameworks */,
 				C1C07A7C179686F600906ED7 /* Twitter.framework in Frameworks */,
 				C10080D6178598D900487A45 /* AssetsLibrary.framework in Frameworks */,
@@ -1111,16 +1100,6 @@
 				C167143C1766D02100F56535 /* XPullRefreshTableViewFooter.xib */,
 			);
 			path = XPullRefreshTableView;
-			sourceTree = "<group>";
-		};
-		C176AC0D18C202FA00B024C7 /* WeChatSDK */ = {
-			isa = PBXGroup;
-			children = (
-				C176AC0E18C202FA00B024C7 /* libWeChatSDK.a */,
-				C176AC0F18C202FA00B024C7 /* WXApi.h */,
-				C176AC1018C202FA00B024C7 /* WXApiObject.h */,
-			);
-			path = WeChatSDK;
 			sourceTree = "<group>";
 		};
 		C19FF0B01769A71B00EB6F7E /* images */ = {
@@ -1485,7 +1464,6 @@
 		C1BFB91F174F6F5B0092FD2E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C176AC0D18C202FA00B024C7 /* WeChatSDK */,
 				C13CB5D418B0A05F003F7407 /* GoogleAdMobAdsSdkiOS-6.8.0 */,
 				C1011D981779654900E0485D /* GoogleAnalytics */,
 			);
@@ -1641,10 +1619,6 @@
 			children = (
 				C1F4671B18C2E766006BCE7A /* SMPostActivityItemProvider.h */,
 				C1F4671C18C2E766006BCE7A /* SMPostActivityItemProvider.m */,
-				C1F4671E18C2EDFA006BCE7A /* SMWeiXinSessionActivity.h */,
-				C1F4671F18C2EDFA006BCE7A /* SMWeiXinSessionActivity.m */,
-				C1F4672518C2F5ED006BCE7A /* SMWeiXinTimelineActivity.h */,
-				C1F4672618C2F5ED006BCE7A /* SMWeiXinTimelineActivity.m */,
 				C10DC6D318C3011800FF95E8 /* SMMailToActivity.h */,
 				C10DC6D418C3011800FF95E8 /* SMMailToActivity.m */,
 				C10C49A018F05CED00DF946E /* SMViewLinkActivity.h */,
@@ -2123,7 +2097,6 @@
 				C1A182D5178ABB290080EEDB /* SMResult.m in Sources */,
 				C1D8546C1C8573160068C698 /* XWebViewController.m in Sources */,
 				C1FCFACC1860871500759793 /* SMBoardSearchViewController.m in Sources */,
-				C1F4672718C2F5ED006BCE7A /* SMWeiXinTimelineActivity.m in Sources */,
 				C17F4B83178C0A21002F4934 /* SMImageUploadListViewController.m in Sources */,
 				C17F4B89178C11CA002F4934 /* SMUpload.m in Sources */,
 				C17F4B8A178C11CA002F4934 /* SMUploadItem.m in Sources */,
@@ -2144,7 +2117,6 @@
 				C1F4C5AC1806D4BD00E8A52D /* SMConfig.m in Sources */,
 				C1C07A5E1796857900906ED7 /* OWFacebookActivity.m in Sources */,
 				C1C07A5F1796857900906ED7 /* OWMailActivity.m in Sources */,
-				C1F4672018C2EDFA006BCE7A /* SMWeiXinSessionActivity.m in Sources */,
 				C1CE10BC1812293900B04E15 /* SMUpdater.m in Sources */,
 				C1C07A601796857900906ED7 /* OWMapsActivity.m in Sources */,
 				C1C07A611796857900906ED7 /* OWMessageActivity.m in Sources */,

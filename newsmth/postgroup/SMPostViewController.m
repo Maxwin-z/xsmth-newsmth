@@ -22,11 +22,8 @@
 #import "SMMainViewController.h"
 #import "SMBoardSearchViewController.h"
 #import "SMMailComposeViewController.h"
-#import "WXApi.h"
 #import <Social/Social.h>
 #import "SMPostActivityItemProvider.h"
-#import "SMWeiXinSessionActivity.h"
-#import "SMWeiXinTimelineActivity.h"
 #import "SMMailToActivity.h"
 #import "SMViewLinkActivity.h"
 #import "SMDiagnoseViewController.h"
@@ -932,12 +929,10 @@
                          post.board.name, post.pid];
 
         SMPostActivityItemProvider *provider = [[SMPostActivityItemProvider alloc] initWithPlaceholderItem:post];
-        SMWeiXinSessionActivity *wxSessionActivity = [[SMWeiXinSessionActivity alloc] init];
-        SMWeiXinTimelineActivity *wxTimelineActivity = [[SMWeiXinTimelineActivity alloc] init];
         SMMailToActivity *mailtoActivity = [SMMailToActivity new];
         SMViewLinkActivity *viewLinkActivity = [SMViewLinkActivity new];
 
-        NSMutableArray *activites = [[NSMutableArray alloc] initWithArray:@[wxSessionActivity, wxTimelineActivity, mailtoActivity]];
+        NSMutableArray *activites = [[NSMutableArray alloc] initWithArray:@[mailtoActivity]];
         if (post.links.count > 0) {
             [activites addObject:viewLinkActivity];
         }
@@ -1022,14 +1017,6 @@
                 NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//m.newsmth.net/article/%@/single/%d/0",
                                  _board.name, post.pid];
 
-                if ([title isEqualToString:titleForWXSession] || [title isEqualToString:titleForWXTimeline]) {
-                    SendMessageToWXReq *req = [SendMessageToWXReq new];
-
-                    req.text = [NSString stringWithFormat:@"%@ (原文: %@)", post.content, url];
-                    req.bText = YES;
-                    req.scene = [title isEqualToString:titleForWXTimeline] ? WXSceneTimeline : WXSceneSession;
-                    [WXApi sendReq:req];
-                }
                 if ([title isEqualToString:titleForWeibo]
                     || [title isEqualToString:titleForTencentWeibo]
                     || [title isEqualToString:titleForTwitter]) {

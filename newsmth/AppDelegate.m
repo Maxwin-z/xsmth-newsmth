@@ -18,7 +18,6 @@
 #import "SMIPadSplitViewController.h"
 #import "SMIpadEmptyViewController.h"
 #import "SMAdViewController.h"
-#import "WXApi.h"
 #import "SMNoticeViewController.h"
 #import <CoreMotion/CoreMotion.h>
 #import "SMBoardViewController.h"
@@ -136,7 +135,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
-    [SMURLProtocol doRegister];
+//    [SMURLProtocol doRegister];
+    [ASIHTTPRequest setShouldUpdateNetworkActivityIndicator:NO];
+
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
 //    [self setupTheme];
@@ -162,9 +163,9 @@
     }
     
     [self.window makeKeyAndVisible];
-    
     [self setupGoogleAnalytics];
 //    [self setupShakeMotion];
+    
     
     NSString *latestVersion = [[NSUserDefaults standardUserDefaults] stringForKey:USERDEFAULTS_STAT_VERSION];
     if (![[SMUtils appVersionString] isEqualToString:latestVersion]) {
@@ -197,9 +198,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onDeviceShake:) name:NOTIFYCATION_SHAKE object:nil];
 
     [self showAdView];
-    
-    // weixin
-    [WXApi registerApp:@"wx52cf1b1257d16b1d" withDescription:@"xsmth"];
     
     if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]) {
         [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeSound categories:nil]];

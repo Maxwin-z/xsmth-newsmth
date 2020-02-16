@@ -19,8 +19,6 @@
 #import "SMMainViewController.h"
 
 #import "SMPostActivityItemProvider.h"
-#import "SMWeiXinSessionActivity.h"
-#import "SMWeiXinTimelineActivity.h"
 #import "SMMailToActivity.h"
 #import "SMViewLinkActivity.h"
 #import "SMReplyActivity.h"
@@ -979,9 +977,7 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
 {
     SMPost *post = self.postForAction;
     SMPostActivityItemProvider *provider = [[SMPostActivityItemProvider alloc] initWithPlaceholderItem:post];
-    SMWeiXinSessionActivity *wxSessionActivity = [[SMWeiXinSessionActivity alloc] init];
-    SMWeiXinTimelineActivity *wxTimelineActivity = [[SMWeiXinTimelineActivity alloc] init];
-    
+
     SMReplyActivity *replyActivity = [SMReplyActivity new];
     SMMailToActivity *mailtoActivity = [SMMailToActivity new];
     SMForwardActivity *forwordActivity = [SMForwardActivity new];
@@ -989,7 +985,7 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     SMSingleAuthorActivity *singleAuthorActivity = [SMSingleAuthorActivity new];
     TOActivitySafari *safariActivity = [TOActivitySafari new];
     
-    NSMutableArray *activites = [[NSMutableArray alloc] initWithArray:@[wxSessionActivity, wxTimelineActivity, replyActivity, singleAuthorActivity, mailtoActivity, safariActivity, forwordActivity, forwardAllActivity]];
+    NSMutableArray *activites = [[NSMutableArray alloc] initWithArray:@[replyActivity, singleAuthorActivity, mailtoActivity, safariActivity, forwordActivity, forwardAllActivity]];
     
     if ([self.postForAction.author isEqualToString:[SMAccountManager instance].name]) {
         SMEditActivity *editActivity = [SMEditActivity new];

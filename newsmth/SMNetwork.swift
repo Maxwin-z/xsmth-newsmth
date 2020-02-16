@@ -9,6 +9,7 @@
 import Foundation
 import Alamofire
 
+
 final class SMURLProtocol : URLProtocol {
 
     override public class func canInit(with request: URLRequest) -> Bool {
