@@ -80,15 +80,15 @@ const PostComponent: FunctionComponent<{ post: Post }> = ({ post }) => {
 };
 
 const PostList: FunctionComponent<{ posts: Post[] }> = ({ posts = [] }) => (
-  <div>
+  <>
     {posts.map(post => (
       <PostComponent key={post.pid} post={post} />
     ))}
-  </div>
+  </>
 );
 
 const PageComponent: FunctionComponent<{ p: number }> = ({ p }) => {
-  function onClick() {
+  function load() {
     PubSub.publish(NOTIFICATION_FORCE_LOAD_PAGE, {
       p
     });
@@ -107,14 +107,21 @@ const PageComponent: FunctionComponent<{ p: number }> = ({ p }) => {
   });
   const page = pages[p - 1];
   const hidden =
-    page.posts.length === 0 && p > maxLoadedPageNumber ? "hidden" : "";
+    page.posts.length === 0 && p > maxLoadedPageNumber ? "hidden page" : "page";
   return (
-    <div onClick={onClick} className={hidden}>
+    <div className={hidden}>
       {page.status === Status.success || page.status === Status.incomplete ? (
         <PostList posts={page.posts} />
       ) : null}
       {page.status === Status.fail ? (
-        <div className="page-placeholder">{page.errorMessage}</div>
+        <div className="page-placeholder">
+          <div>{page.errorMessage}</div>
+          {page.errorMessage === "您未登录,请登录后继续操作" ? (
+            <button onClick={load} className="login-button">
+              登录后重试
+            </button>
+          ) : null}
+        </div>
       ) : null}
       {page.status === Status.loading ? (
         <div className="page-placeholder">
@@ -124,7 +131,9 @@ const PageComponent: FunctionComponent<{ p: number }> = ({ p }) => {
         </div>
       ) : null}
       {page.status === Status.init ? (
-        <div className="page-placeholder page-init">{page.p}</div>
+        <div onClick={load} className="page-placeholder page-init">
+          {page.p}
+        </div>
       ) : null}
     </div>
   );
