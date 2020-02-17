@@ -105,13 +105,14 @@ const PageComponent: FunctionComponent<{ p: number }> = ({ p }) => {
   const [flag, setFlag] = useState(false);
   useEffect(() => {
     console.log("sub", p);
-    PubSub.subscribe(NOTIFICATION_PAGE_CHANGED(p), () => {
+    const token = PubSub.subscribe(NOTIFICATION_PAGE_CHANGED(p), () => {
       console.log("in sub", p);
       setFlag(!flag);
     });
     return () => {
       console.log("unsub", p);
-      PubSub.unsubscribe(NOTIFICATION_PAGE_CHANGED(p));
+      // PubSub.unsubscribe(NOTIFICATION_PAGE_CHANGED(p));
+      PubSub.unsubscribe(token);
     };
   });
   const page = pages[p - 1];
@@ -141,7 +142,7 @@ const PageComponent: FunctionComponent<{ p: number }> = ({ p }) => {
       ) : null}
       {page.status === Status.init ? (
         <div onClick={load} className="page-placeholder page-init">
-          {page.p}
+          <div>{page.p}</div>
         </div>
       ) : null}
     </div>
@@ -186,7 +187,6 @@ const FooterComponent: FunctionComponent = props => {
     AllLoaded
   }
   const lastLoadedPage = pages[maxLoadedPageNumber - 1];
-  debugger;
 
   let _case;
   if (pages.length === 1 && !isPageLoaded(pages[0])) {
@@ -268,6 +268,14 @@ let pageLoading = false;
 
 async function initPage() {
   mainPost = await postInfo();
+  mainPost = {
+    board: "Stock",
+    gid: 8626024
+  };
+  mainPost = {
+    board: "ITExpress",
+    gid: 2101997 // 2 pages
+  };
   // mainPost = {
   //   board: "Anti2019nCoV",
   //   gid: 408945
@@ -287,7 +295,8 @@ async function initPage() {
 }
 
 async function loadIncompletePage() {
-  taskQueue.unshift(incompletePageNumber);
+  // taskQueue.unshift(1);
+  taskQueue.unshift(1);
   nextTask();
 }
 
@@ -320,6 +329,10 @@ async function loadPage(p: number = 1, author?: string): Promise<Page> {
 }
 
 function pubPageChanged(p: number) {
+  console.log(331, "publish p", p);
+  if (p === 19 || p === 20) {
+    debugger;
+  }
   PubSub.publish(NOTIFICATION_PAGE_CHANGED(p), {});
   PubSub.publish(NOTIFICATION_LOADING_PAGE_CHANGED, {});
 }
@@ -329,6 +342,18 @@ async function nextTask() {
   if (taskQueue.length === 0 || pageLoading) return;
   pageLoading = true;
   const p = taskQueue[0];
+
+  // fill pages
+  for (let i = pages.length + 1; i <= p; ++i) {
+    pages.push({
+      title: "",
+      total: 0,
+      p: i,
+      posts: [],
+      status: Status.init
+    });
+  }
+
   let page = pages[p! - 1];
   if (page.posts.length === 0) {
     page.status = Status.loading;
@@ -355,6 +380,7 @@ async function nextTask() {
     mainPost.title = page.title;
     setTitle(mainPost.title);
   }
+  console.log(p, page);
   const totalPage = Math.ceil(page.total / postsPerPage);
   const totalPagesChanged = totalPage === 1 || totalPage !== pages.length;
   // put unloaded pages to queue
@@ -381,14 +407,14 @@ async function nextTask() {
   taskQueue.splice(taskQueue.indexOf(p), 1);
   pageLoading = false;
 
-  setTimeout(() => {
-    nextTask();
-  }, 500);
-
   if (totalPagesChanged) {
     PubSub.publish(NOTIFICATION_TOTAL_PAGES_CHANGED, {});
   }
   pubPageChanged(p);
+
+  setTimeout(() => {
+    nextTask();
+  }, 500);
 }
 
 function orderTaskQueue(index: number) {
@@ -482,9 +508,13 @@ PubSub.subscribe("DOWNLOAD_PROGRESS", (_: string, data: any) => {
   } else {
     info = `正在加载${formatSize(completed)}`;
   }
-  (document.querySelector(
-    `#ximg-info-${id}`
-  ) as HTMLSpanElement).innerHTML = info;
+  try {
+    (document.querySelector(
+      `#ximg-info-${id}`
+    ) as HTMLSpanElement).innerHTML = info;
+  } catch (e) {
+    console.log("image not found", id, e);
+  }
 });
 
 PubSub.subscribe("PAGE_CLOSE", async () => {

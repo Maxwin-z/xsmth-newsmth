@@ -70,7 +70,7 @@ export async function fetchPostGroup(
     withXhr: true
   });
 
-  html.match(/.{1,100}/g)?.forEach(v => console.log(v));
+  // html.match(/.{1,100}/g)?.forEach(v => console.log(v));
 
   const error = isErrorPage(html);
   if (error) {
