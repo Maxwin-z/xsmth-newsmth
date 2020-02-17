@@ -8,6 +8,7 @@
 
 #import "SMIPadSplitViewController.h"
 #import "UIView+Utils.h"
+#import "newsmth-Swift.h"
 
 static SMIPadSplitViewController *_instance;
 
@@ -76,6 +77,10 @@ static SMIPadSplitViewController *_instance;
 
 - (void)setDetailViewController:(UIViewController *)detailViewController
 {
+    if ([_detailViewController isKindOfClass:[SMPostViewControllerV4 class]]) {
+        SMPostViewControllerV4 *vc = (SMPostViewControllerV4 *)_detailViewController;
+        [vc removeMe];
+    }
     _detailViewController = detailViewController;
     [self.detailViewContainer removeAllSubviews];
     self.detailNavigationController = [[P2PNavigationController alloc] initWithRootViewController:_detailViewController];

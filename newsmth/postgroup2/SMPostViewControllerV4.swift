@@ -115,14 +115,19 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
         }
     }
     
+    @objc
+    public func removeMe() {
+        self.notificationToWeb(messageName: "PAGE_CLOSE", data: true);
+        weak var weakSelf = self
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) { // force to unload after 3s
+            weakSelf?.holdMyself.removeAll()
+        }
+    }
+
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(_: animated)
         if(self.isMovingFromParent) {
-            self.notificationToWeb(messageName: "PAGE_CLOSE", data: true);
-            weak var weakSelf = self
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) { // force to unload after 3s
-                weakSelf?.holdMyself.removeAll()
-            }
+            self.removeMe()
         }
     }
     
