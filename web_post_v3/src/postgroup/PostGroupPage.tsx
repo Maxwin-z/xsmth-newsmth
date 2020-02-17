@@ -541,7 +541,36 @@ PubSub.subscribe("PAGE_CLOSE", async () => {
   unloaded();
 });
 
-document.addEventListener("scroll", () => {});
+document.addEventListener("scroll", () => {
+  let shownPage = 1;
+  const ps = document.querySelectorAll(".page");
+  let lastY = Infinity;
+  for (let i = 0; i < ps.length; ++i) {
+    const p = ps[i];
+    const y = p.getBoundingClientRect().top;
+    if (y > 0) {
+      const page = parseInt(p.getAttribute("data-page") || "1", 10);
+      shownPage = y < (window.innerHeight * 2) / 3 ? page : page - 1;
+      break;
+    }
+  }
+  pageNumberChanged(shownPage, pages.length);
+});
+/*
+document.addEventListener("scroll", () => {
+  let post, top, y, el;
+  post = document.querySelector('[data-floor="6"]');
+  t = post.getBoundingClientRect().top + window.pageYOffset;
+  el = post;
+  y = 0;
+  while (el) {
+    y += el.offsetTop;
+    console.log(y)
+    el = el.offsetParent;
+  }
+  console.log(t ,y)
+});
+*/
 
 export default function PostGroupPage() {
   console.log("render , PostGroupPage");
