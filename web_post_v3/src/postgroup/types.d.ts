@@ -20,7 +20,7 @@ export interface Post {
   title?: string;
   author?: string;
   nick?: string;
-  floor?: string;
+  floor?: number;
   date?: number;
   dateString?: string;
   content?: string;

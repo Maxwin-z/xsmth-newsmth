@@ -129,8 +129,12 @@ export function retrieveGroupPosts(html: string): PostGroup {
           .pop() || "0",
         10
       );
-      const floor = (table.querySelector(".a-pos") as HTMLSpanElement)
+      const floorText = (table.querySelector(".a-pos") as HTMLSpanElement)
         .innerText;
+      const floor =
+        floorText === "楼主"
+          ? 0
+          : parseInt(floorText.replace(/(第|楼)/, ""), 10);
       const body = table.querySelector(".a-content > p")?.innerHTML || "";
       const { date, dateString, nick, content, images } = formatPost(body);
       return {

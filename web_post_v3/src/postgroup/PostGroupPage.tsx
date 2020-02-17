@@ -31,7 +31,10 @@ const LoadingComponent: FunctionComponent<{ hide?: boolean }> = props => (
   </div>
 );
 
-const PostComponent: FunctionComponent<{ post: Post }> = ({ post }) => {
+const PostComponent: FunctionComponent<{ post: Post; p: number }> = ({
+  post,
+  p
+}) => {
   function makeActionPost() {
     let actionPost: Json = {};
     actionPost.title = mainPost.title!;
@@ -57,14 +60,16 @@ const PostComponent: FunctionComponent<{ post: Post }> = ({ post }) => {
     showActivity(makeActionPost());
   }
   return (
-    <div className="post" key={post.pid}>
+    <div className="post" data-page={p} data-floor={post.floor}>
       <div className="post-title">
         <div>
           {post.author}
           {post.nick!.length > 0 ? `(${post.nick})` : ``}
         </div>
         <div>
-          <span className="floor">{post.floor}</span>
+          <span className="floor">
+            {post.floor === 0 ? "楼主" : `${post.floor}楼`}
+          </span>
           <span className="date">{post.dateString}</span>
         </div>
         <div className="post-action">
@@ -81,10 +86,10 @@ const PostComponent: FunctionComponent<{ post: Post }> = ({ post }) => {
   );
 };
 
-const PostList: FunctionComponent<{ posts: Post[] }> = ({ posts = [] }) => (
+const PostList: FunctionComponent<{ page: Page }> = ({ page }) => (
   <>
-    {posts.map(post => (
-      <PostComponent key={post.pid} post={post} />
+    {page.posts.map(post => (
+      <PostComponent key={post.pid} post={post} p={page.p} />
     ))}
   </>
 );
@@ -121,9 +126,9 @@ const PageComponent: FunctionComponent<{ p: number }> = ({ p }) => {
     page.posts.length === 0 && p > maxLoadedPageNumber ? "hidden page" : "page";
   console.log(122, hidden, p, maxLoadedPageNumber);
   return (
-    <div className={hidden}>
+    <div className={hidden} data-page={p}>
       {page.status === Status.success || page.status === Status.incomplete ? (
-        <PostList posts={page.posts} />
+        <PostList page={page} />
       ) : null}
       {page.status === Status.fail ? (
         <div className="page-placeholder">
@@ -274,10 +279,10 @@ async function initPage() {
   //   board: "Stock",
   //   gid: 8626024
   // };
-  // mainPost = {
-  //   board: "ITExpress",
-  //   gid: 2101997 // 2 pages
-  // };
+  mainPost = {
+    board: "ITExpress",
+    gid: 2101997 // 2 pages
+  };
   // mainPost = {
   //   board: "Anti2019nCoV",
   //   gid: 408945
@@ -496,7 +501,7 @@ function formatSize(size: number): string {
   }
   return "";
 }
-
+////// start //////
 initPage();
 PubSub.subscribe(
   NOTIFICATION_FORCE_LOAD_PAGE,
@@ -535,6 +540,8 @@ PubSub.subscribe("PAGE_CLOSE", async () => {
   console.log("page close");
   unloaded();
 });
+
+document.addEventListener("scroll", () => {});
 
 export default function PostGroupPage() {
   console.log("render , PostGroupPage");
