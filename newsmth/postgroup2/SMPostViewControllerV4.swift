@@ -22,6 +22,9 @@ struct SMBridgeError : Error {
     }
 }
 
+extension Notification.Name {
+    static let webNotification = Notification.Name("webNotification")
+}
 
 
 class LeakAvoider : NSObject, WKScriptMessageHandler, WKURLSchemeHandler {
@@ -50,7 +53,7 @@ class LeakAvoider : NSObject, WKScriptMessageHandler, WKURLSchemeHandler {
 
 let mmkvKey_forwardTarget = "forwardTarget"
 
-class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMessageHandler, UIPickerViewDataSource, UIPickerViewDelegate {
+class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMessageHandler {
 
     // hold viewcontroller for webview to save states
     var holdMyself: [String: ((Any) -> Future<Any, SMBridgeError>)] = [:]
@@ -72,6 +75,11 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
     var viewForBottomBar: UIView!
     var buttonForPagination: UIButton!
     var viewForPagePicker: UIView!
+    var pagePicker: UIPickerView!
+    
+    // page
+    var pageNumber: Int = 0
+    var totalPageNumber: Int = 0
     
     override func viewDidLoad() {
         self.title = self.post?.title ?? "正在加载..."
@@ -92,6 +100,7 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
 
         self.webView = WKWebView(frame: self.view.bounds, configuration: config)
         self.webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        self.webView.scrollView.delegate = self
         self.view.addSubview(self.webView)
         let urlString = "http://10.0.0.11:3000/"
         let request = URLRequest(url: URL(string: urlString)!)
@@ -110,14 +119,13 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
         self.viewForBottomBar.isHidden = true
         self.viewForPagePicker.isHidden = true
         
-        if var protocols = Alamofire.Session.default.sessionConfiguration.protocolClasses {
-            protocols.insert(SMURLProtocol.self, at: 0)
-        }
+        NotificationCenter.default.addObserver(self, selector: #selector(onWebNotification), name: .webNotification, object: nil)
     }
     
     @objc
     public func removeMe() {
         self.notificationToWeb(messageName: "PAGE_CLOSE", data: true);
+        NotificationCenter.default.removeObserver(self)
         weak var weakSelf = self
         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) { // force to unload after 3s
             weakSelf?.holdMyself.removeAll()
@@ -147,6 +155,37 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
         }
     }
     
+    @objc
+    func onPaginationButtonClick() {
+        showPagePicker()
+    }
+    
+    func showPagePicker() {
+        UIView.animate(withDuration: 0.5, animations: {
+            self.viewForPagePicker.isHidden = false
+            var frame = self.viewForPagePicker.frame
+            frame.origin.y = self.view.bounds.height - self.viewForPagePicker.frame.height
+            self.viewForPagePicker.frame = frame
+        }, completion: {_ in
+            self.pagePicker.selectRow(self.pageNumber, inComponent: 0, animated: true)
+        })
+    }
+    
+    @objc func hidePagePicker() {
+        UIView.animate(withDuration: 0.5, animations: {
+            var frame = self.viewForPagePicker.frame
+            frame.origin.y = self.view.bounds.height
+            self.viewForPagePicker.frame = frame
+        }, completion: { _ in
+            self.viewForPagePicker.isHidden = true
+        })
+    }
+    
+    @objc func onPagePickerConfirm() {
+        let page = self.pagePicker.selectedRow(inComponent: 0)
+        self.notificationToWeb(messageName: "PAGE_SELECTED", data: page)
+        self.hidePagePicker()
+    }
     
     override func viewSafeAreaInsetsDidChange() {
         var frame = self.viewForBottomBar.frame
@@ -187,6 +226,7 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
         buttonForPagination.frame = CGRect(x: buttonForBack.frame.width, y: 0, width: width - buttonForBack.frame.width - buttonForTop.frame.width, height: buttonHeight)
         buttonForPagination.setTitle("-/-", for: .normal)
         buttonForPagination.autoresizingMask = [.flexibleWidth]
+        buttonForPagination.addTarget(self, action: #selector(onPaginationButtonClick), for: .touchUpInside)
         
         v.addSubview(buttonForBack)
         v.addSubview(buttonForTop)
@@ -210,11 +250,14 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
         buttonForConfirm.frame = frame
         buttonForConfirm.autoresizingMask = [.flexibleLeftMargin]
 
+        buttonForCancel.addTarget(self, action: #selector(hidePagePicker), for: .touchUpInside)
+        buttonForConfirm.addTarget(self, action: #selector(onPagePickerConfirm), for: .touchUpInside)
         
         let picker = UIPickerView(frame: CGRect(x: 0, y: buttonHeight, width: self.view.frame.width, height: pickerHeight))
         v.addSubview(picker)
         picker.dataSource = self
         picker.delegate = self
+        self.pagePicker = picker
 
         v.addSubview(buttonForCancel)
         v.addSubview(buttonForConfirm)
@@ -246,6 +289,8 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
     func webView(_ webView: WKWebView, stop urlSchemeTask: WKURLSchemeTask) {
     }
     
+   
+    
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         debugPrint("message: ", message.name, message.body)
         if(message.name != "nativeBridge") {
@@ -272,6 +317,7 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
             if (methodName == "toast")  { fn = self._toast}
             if (methodName == "download")  { fn = self._download}
             if (methodName == "login")  { fn = self._login}
+            if (methodName == "pageNumberChanged") { fn = self._pageNumberChanged}
 
             if(fn == nil) {
                 sendMessageToWeb(callbackID: callbackID, code: -1, data: "", message: "不存在的Bridge方法[\(methodName)]")
@@ -330,6 +376,11 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
         
         let js = "window.$x_publish('\(messageName)', \(param!))"
         self.webView.evaluateJavaScript(js, completionHandler: nil)
+    }
+    
+    @objc
+    func onWebNotification(notification: Notification) {
+        debugPrint(343, notification.userInfo ?? "nil")
     }
     
     func sendMessageToWeb(callbackID: Int, code: Int, data: Any, message: String) {
@@ -564,6 +615,29 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
         }
     }
     
+    func _pageNumberChanged(parameters: Any) -> Future<Any, SMBridgeError> {
+        return Future { [weak self] promise in
+            guard let weakSelf = self else { return }
+            guard let parameters = parameters as? [String: Int] else {
+                promise(.failure(SMBridgeError(code: -1, message: "错误的参数列表")))
+                return
+            }
+            guard let page = parameters["page"],
+                let total = parameters["total"]
+            else {
+                promise(.failure(SMBridgeError(code: -1, message: "数据格式不正确")))
+                return
+            }
+            
+            weakSelf.pageNumber = page
+            weakSelf.totalPageNumber = total
+            
+            weakSelf.buttonForPagination.setTitle("\(page)/\(total)", for: .normal)
+            weakSelf.pagePicker.reloadAllComponents()
+            promise(.success(true))
+        }
+    }
+    
     func _nope(parameters: Any) -> Future<Any, SMBridgeError> {
         return Future { promise in
             promise(.success(true))
@@ -621,20 +695,63 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
         alert.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
-   
+  
+}
+
+// MARK: - UIPickerViewDelegate
+extension SMPostViewControllerV4: UIPickerViewDataSource, UIPickerViewDelegate {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
-    
+
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return 10
+        return self.totalPageNumber
     }
-    
+
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return String(format: "%d", row)
     }
-   
+
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         debugPrint(row)
+    }
+}
+
+// MARK: - ScrollViewDelegate
+extension SMPostViewControllerV4: UIScrollViewDelegate {
+    /// scrollView Delegate
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if (scrollView.contentOffset.y < 100) {
+            self.showBottomBar()
+        } else if (scrollView.panGestureRecognizer.translation(in: scrollView.superview).y < 0) {
+            self.hideBottomBar()
+        }
+    }
+
+    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+        let point = scrollView.panGestureRecognizer.translation(in: scrollView.superview)
+        debugPrint("252", point)
+        if (point.y > 0) {
+            self.showBottomBar()
+        }
+    }
+    
+    func hideBottomBar() {
+        UIView.animate(withDuration: 0.5, animations: {
+            var frame = self.viewForBottomBar.frame
+            frame.origin.y = self.view.bounds.height
+            self.viewForBottomBar.frame = frame
+        }) { (_) in
+            self.viewForBottomBar.isHidden = true
+        }
+    }
+
+    func showBottomBar() {
+        self.viewForBottomBar.isHidden = false
+        UIView.animate(withDuration: 0.5) {
+            var frame = self.viewForBottomBar.frame
+            frame.origin.y = self.view.bounds.height - self.viewForBottomBar.frame.height
+            self.viewForBottomBar.frame = frame
+        }
     }
 }

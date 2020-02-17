@@ -202,3 +202,13 @@ export function download(url: string, id: number = 0): Promise<boolean> {
 export function login(): Promise<boolean> {
   return sendMessage("login");
 }
+
+export function pageNumberChanged(
+  page: Number,
+  total: Number
+): Promise<boolean> {
+  return sendMessage("pageNumberChanged", {
+    page,
+    total
+  });
+}

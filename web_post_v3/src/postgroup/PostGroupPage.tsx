@@ -8,7 +8,8 @@ import {
   toast,
   unloaded,
   download,
-  login
+  login,
+  pageNumberChanged
 } from "../jsbridge";
 import { fetchPostGroup } from "./postUtils";
 import { Post, Page, Status, XImage } from "./types.d";
@@ -118,6 +119,7 @@ const PageComponent: FunctionComponent<{ p: number }> = ({ p }) => {
   const page = pages[p - 1];
   const hidden =
     page.posts.length === 0 && p > maxLoadedPageNumber ? "hidden page" : "page";
+  console.log(122, hidden, p, maxLoadedPageNumber);
   return (
     <div className={hidden}>
       {page.status === Status.success || page.status === Status.incomplete ? (
@@ -268,14 +270,14 @@ let pageLoading = false;
 
 async function initPage() {
   mainPost = await postInfo();
-  mainPost = {
-    board: "Stock",
-    gid: 8626024
-  };
-  mainPost = {
-    board: "ITExpress",
-    gid: 2101997 // 2 pages
-  };
+  // mainPost = {
+  //   board: "Stock",
+  //   gid: 8626024
+  // };
+  // mainPost = {
+  //   board: "ITExpress",
+  //   gid: 2101997 // 2 pages
+  // };
   // mainPost = {
   //   board: "Anti2019nCoV",
   //   gid: 408945
@@ -363,6 +365,11 @@ async function nextTask() {
 
   page = await loadPage(p);
   fullLoading = false;
+
+  // middle page status change
+  for (let i = maxLoadedPageNumber + 1; i < p; ++i) {
+    pubPageChanged(i);
+  }
   maxLoadedPageNumber = Math.max(maxLoadedPageNumber, p);
 
   if (page.status === Status.fail) {
@@ -409,6 +416,7 @@ async function nextTask() {
 
   if (totalPagesChanged) {
     PubSub.publish(NOTIFICATION_TOTAL_PAGES_CHANGED, {});
+    pageNumberChanged(p, totalPage);
   }
   pubPageChanged(p);
 
@@ -497,6 +505,12 @@ PubSub.subscribe(
     nextTask();
   }
 );
+
+PubSub.subscribe("PAGE_SELECTED", (_: string, p: number) => {
+  console.log(504, p);
+  orderTaskQueue(p);
+  nextTask();
+});
 
 PubSub.subscribe("DOWNLOAD_PROGRESS", (_: string, data: any) => {
   console.log(data);

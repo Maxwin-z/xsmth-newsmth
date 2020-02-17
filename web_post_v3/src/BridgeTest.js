@@ -27,6 +27,9 @@ export default function BridgeTest() {
       return await $x.download(
         "https://att.newsmth.net/nForum/att/Photo/1936720334/329/large"
       );
+    },
+    publish: async () => {
+      return await $x.pageNumberChanged(2, 20);
     }
   };
   const test = fn => async () => {
