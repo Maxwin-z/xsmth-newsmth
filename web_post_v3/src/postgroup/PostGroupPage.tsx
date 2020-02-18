@@ -110,9 +110,9 @@ const PageComponent: FunctionComponent<{ p: number }> = ({ p }) => {
 
   const [flag, setFlag] = useState(false);
   useEffect(() => {
-    console.log("sub", p);
+    // console.log("sub", p);
     const token = PubSub.subscribe(NOTIFICATION_PAGE_CHANGED(p), () => {
-      console.log("in sub", p);
+      // console.log("in sub", p);
       setFlag(!flag);
     });
     return () => {
@@ -123,17 +123,27 @@ const PageComponent: FunctionComponent<{ p: number }> = ({ p }) => {
   });
 
   const page = pages[p - 1];
-  const hidden =
-    page.posts.length === 0 && p > maxLoadedPageNumber ? "hidden page" : "page";
+  const hidden = page.posts.length === 0 && p > maxLoadedPageNumber;
+  const dom = document.querySelector(`[data-page="${p}"]`);
+  const lastHeight = dom ? dom.getBoundingClientRect().height : 0;
   useEffect(() => {
-    if (needScrollToPage > 0 && needScrollToPage === p) {
+    const dom = document.querySelector(`[data-page="${p}"]`);
+    const height = dom ? dom.getBoundingClientRect().height : 0;
+    console.log("height change", p, lastHeight, height);
+    if (height !== lastHeight && shownPage > p) {
+      window.scrollBy(0, height - lastHeight);
+    }
+    // if (needScrollToPage > 0) {
+    //   console.log("needscrolltopage", needScrollToPage, p, hidden);
+    // }
+    if (needScrollToPage > 0 && needScrollToPage === p && !hidden) {
       scrollToPage(needScrollToPage);
       needScrollToPage = 0;
     }
   });
 
   return (
-    <div className={hidden} data-page={p}>
+    <div className={hidden ? "hidden page" : "page"} data-page={p}>
       {page.status === Status.success || page.status === Status.incomplete ? (
         <PostList page={page} />
       ) : null}
@@ -288,10 +298,10 @@ async function initPage() {
   //   board: "Stock",
   //   gid: 8626024
   // };
-  mainPost = {
-    board: "ITExpress",
-    gid: 2101997 // 2 pages
-  };
+  // mainPost = {
+  //   board: "ITExpress",
+  //   gid: 2101997 // 2 pages
+  // };
   // mainPost = {
   //   board: "Anti2019nCoV",
   //   gid: 408945
@@ -345,10 +355,6 @@ async function loadPage(p: number = 1, author?: string): Promise<Page> {
 }
 
 function pubPageChanged(p: number) {
-  console.log(331, "publish p", p);
-  if (p === 19 || p === 20) {
-    debugger;
-  }
   PubSub.publish(NOTIFICATION_PAGE_CHANGED(p), {});
   PubSub.publish(NOTIFICATION_LOADING_PAGE_CHANGED, {});
 }
@@ -394,7 +400,7 @@ async function nextTask() {
   maxLoadedPageNumber = Math.max(maxLoadedPageNumber, p);
   // middle page status change
   batchPagesChanged(batchStart, batchEnd);
-  await delay(3000);
+  // await delay(3000);
   page = await loadPage(p);
   fullLoading = false;
   batchPagesChanged(batchStart, batchEnd);
@@ -448,7 +454,7 @@ async function nextTask() {
   pubPageChanged(p);
 
   setTimeout(() => {
-    // nextTask();
+    nextTask();
   }, 500);
 }
 
@@ -513,10 +519,15 @@ function isPageLoaded(page: Page) {
 
 function scrollToPage(p: number) {
   const el = document.querySelector(`[data-page="${p}"]`) as HTMLDivElement;
+  console.log("needScrollToPage el", el);
   if (el) {
-    const y = el.getBoundingClientRect().top + window.pageYOffset;
-    window.scrollTo(0, y);
+    const rect = el.getBoundingClientRect();
+    if (rect.height > 0) {
+      window.scrollTo(0, rect.top + window.pageYOffset);
+      return true;
+    }
   }
+  return false;
 }
 
 function formatSize(size: number): string {
@@ -543,8 +554,14 @@ PubSub.subscribe(
 
 PubSub.subscribe("PAGE_SELECTED", async (_: string, p: number) => {
   console.log(504, p);
+  if (!scrollToPage(p)) {
+    // page not ready
+    needScrollToPage = p;
+    console.log("needScrollToPage save", p);
+  } else {
+    console.log("needScrollToPage done");
+  }
   orderTaskQueue(p);
-  needScrollToPage = p;
   nextTask();
   // setTimeout(() => {
   //   scrollToPage((p - 1) * postsPerPage);

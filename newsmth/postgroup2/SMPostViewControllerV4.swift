@@ -72,6 +72,7 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
     // button bar
     let buttonHeight: CGFloat = 44.0
     let pickerHeight: CGFloat = 180.0
+    let padding: CGFloat = 10.0
     var viewForBottomBar: UIView!
     var buttonForPagination: UIButton!
     var viewForPagePicker: UIView!
@@ -122,6 +123,12 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
         NotificationCenter.default.addObserver(self, selector: #selector(onWebNotification), name: .webNotification, object: nil)
     }
     
+    override func setupTheme() {
+        super.setupTheme();
+        self.viewForPagePicker.backgroundColor = SMTheme.colorForHighlightBackground()
+        self.viewForBottomBar.backgroundColor = SMTheme.colorForHighlightBackground()
+    }
+    
     @objc
     public func removeMe() {
         self.notificationToWeb(messageName: "PAGE_CLOSE", data: true);
@@ -157,7 +164,9 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
     
     @objc
     func onPaginationButtonClick() {
-        showPagePicker()
+        if (self.totalPageNumber > 0) {
+            showPagePicker()
+        }
     }
     
     func showPagePicker() {
@@ -167,7 +176,7 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
             frame.origin.y = self.view.bounds.height - self.viewForPagePicker.frame.height
             self.viewForPagePicker.frame = frame
         }, completion: {_ in
-            self.pagePicker.selectRow(self.pageNumber - 1, inComponent: 0, animated: true)
+            self.pagePicker.selectRow(self.pageNumber - 1, inComponent: 0, animated: false)
         })
     }
     
@@ -232,21 +241,25 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
         v.addSubview(buttonForTop)
         v.addSubview(buttonForPagination)
         
-        v.backgroundColor = .lightGray
+        v.backgroundColor = SMTheme.colorForHighlightBackground()
         return v
     }
     
     func makeupPagePickerView() -> UIView {
         let v = UIView(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.width, height: buttonHeight + pickerHeight))
+        v.autoresizingMask = [.flexibleWidth]
         let buttonForCancel = UIButton(type: .system)
         buttonForCancel.setTitle("取消", for: .normal)
         buttonForCancel.sizeToFit()
+        var frame = buttonForCancel.frame
+        frame.origin.x = padding
+        buttonForCancel.frame = frame
 
         let buttonForConfirm = UIButton(type: .system)
         buttonForConfirm.setTitle("确认", for: .normal)
         buttonForConfirm.sizeToFit()
-        var frame = buttonForConfirm.frame
-        frame.origin.x = self.view.bounds.width - buttonForConfirm.frame.width
+        frame = buttonForConfirm.frame
+        frame.origin.x = self.view.bounds.width - buttonForConfirm.frame.width - padding
         buttonForConfirm.frame = frame
         buttonForConfirm.autoresizingMask = [.flexibleLeftMargin]
 
@@ -255,6 +268,7 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
         
         let picker = UIPickerView(frame: CGRect(x: 0, y: buttonHeight, width: self.view.frame.width, height: pickerHeight))
         v.addSubview(picker)
+        picker.autoresizingMask = [.flexibleWidth]
         picker.dataSource = self
         picker.delegate = self
         self.pagePicker = picker
@@ -262,7 +276,7 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
         v.addSubview(buttonForCancel)
         v.addSubview(buttonForConfirm)
         
-        v.backgroundColor = .red
+        v.backgroundColor = SMTheme.colorForHighlightBackground()
         
         return v
     }

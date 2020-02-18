@@ -9,6 +9,7 @@
 #import "SMData.h"
 #import "SMMessage.h"
 #import "SMConfig.h"
+#import "SMTheme.h"
 #import "GAITrackedViewController.h"
 #import "P2PViewController.h"
 #import "SMViewController.h"
