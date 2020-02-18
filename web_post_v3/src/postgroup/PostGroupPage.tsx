@@ -67,7 +67,7 @@ const PostComponent: FunctionComponent<{ post: Post; p: number }> = ({
           {post.author}
           {post.nick!.length > 0 ? `(${post.nick})` : ``}
         </div>
-        <div>
+        <div className="post-info">
           <span className="floor">
             {post.floor === 0 ? "楼主" : `${post.floor}楼`}
           </span>
@@ -78,7 +78,7 @@ const PostComponent: FunctionComponent<{ post: Post; p: number }> = ({
             回复
           </div>
           <div className="action more" onClick={doActivity}>
-            ...
+            ···
           </div>
         </div>
       </div>

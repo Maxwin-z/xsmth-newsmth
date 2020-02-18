@@ -3,25 +3,27 @@
   src: local("FZLTXHK"), url("xfont://LanTingXiHei_GBK.TTF") format("opentype");
 }
 
+html,
 body {
-  font-family: "FZLTXHK";
   font-size: 50px;
+  background-color: rgba(0, 0, 0, 0);
 }
+
 #title {
   font-size: 150%;
   line-height: 1.2em;
-  padding: 10px 0;
+  padding: 20px 0;
 }
 .main {
   margin-left: 15px;
 }
 .page-placeholder {
-  padding: 10px 15px 0 0;
-  height: 100px;
+  padding: 20px 30px 0 0;
+  height: 200px;
   border-top: 1px solid lightgrey;
   text-align: center;
-  line-height: 50px;
-  font-size: 20px;
+  line-height: 100px;
+  font-size: 80px;
 }
 
 .page-placeholder:first {
@@ -31,15 +33,15 @@ body {
 .login-button {
   border: 1px solid lightgray;
   background-color: #f0f0f0;
-  font-size: 16px;
-  width: 200px;
-  line-height: 30px;
+  font-size: 32px;
+  width: 400px;
+  line-height: 60px;
 }
 
 .page-init {
   text-align: center;
-  line-height: 100px;
-  font-size: 40px;
+  line-height: 200px;
+  font-size: 80px;
 }
 
 .footer {
@@ -72,19 +74,19 @@ body {
 }
 
 .post {
-  padding: 5px 5px 5px 0;
+  padding: 10px 10px 10px 0;
   border-top: 1px solid lightgrey;
   overflow-wrap: break-word;
 }
 .post-title {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   position: relative;
 }
 
 .post-action {
   position: absolute;
-  right: 10px;
-  top: 10px;
+  right: 20px;
+  top: 20px;
   display: flex;
 }
 
@@ -94,11 +96,16 @@ body {
   border-radius: 5px;
   padding: 0px 10px;
   margin-right: 20px;
-  font-size: 80%;
+  font-size: 30px;
+  line-height: 60px;
+}
+
+.post-info {
+  font-size: 30px;
 }
 
 .floor {
-  margin-right: 10px;
+  margin-right: 20px;
 }
 
 .ximg-box {
@@ -107,14 +114,15 @@ body {
 .ximg-info {
   position: absolute;
   padding: 2px;
-  font-size: 12px;
+  font-size: 24px;
+  line-height: 30px;
   background-color: rgba(199, 199, 199, 0.5);
   top: 0;
   left: 0;
 }
 .ximg {
   max-width: 90vw;
-  min-width: 200px;
+  min-width: 400px;
 }
 
 .hidden {

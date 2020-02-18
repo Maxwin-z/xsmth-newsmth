@@ -102,6 +102,9 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
 
         self.webView = WKWebView(frame: self.view.bounds, configuration: config)
         self.webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        self.webView.isOpaque = false
+        self.webView.backgroundColor = SMTheme.colorForBackground()
+        self.webView.scrollView.backgroundColor = SMTheme.colorForBackground()
         self.webView.scrollView.delegate = self
         self.view.addSubview(self.webView)
         let urlString = "http://10.0.0.11:3000/"
@@ -778,7 +781,6 @@ extension SMPostViewControllerV4: UIScrollViewDelegate {
     }
     
     func hideBottomBar() {
-        return ;
         UIView.animate(withDuration: 0.5, animations: {
             var frame = self.viewForBottomBar.frame
             frame.origin.y = self.view.bounds.height
@@ -799,39 +801,6 @@ extension SMPostViewControllerV4: UIScrollViewDelegate {
 }
 // MARK: - Theme
 extension SMPostViewControllerV4 {
-   /*- (NSDictionary *)makeupThemeCSS
-    {
-        UIFont *font = [SMConfig postFont];
-        
-        NSString *fontSize = [NSString stringWithFormat:@"%dpx", (int)(font.pointSize * 2)];
-        NSString *fontFamily = font.fontName;
-        NSString *lineHeight = [NSString stringWithFormat:@"%dpx", (int)(font.lineHeight * 1.2 * 2)];
-        NSString *backgroundColor = [self color2hex:[SMTheme colorForBackground]];
-        NSString *textColor = [self color2hex:[SMTheme colorForPrimary]];
-        NSString *tintColor = [self color2hex:[SMTheme colorForTintColor]];
-        NSString *quoteColor = [self color2hex:[SMTheme colorForQuote]];
-        
-        return @{@"fontSize": fontSize,
-                 @"fontFamily": fontFamily,
-                 @"lineHeight": lineHeight,
-                 @"backgroundColor": backgroundColor,
-                 @"textColor": textColor,
-                 @"tintColor": tintColor,
-                 @"quoteColor": quoteColor
-                 };
-    }
-
-    - (NSString *)color2hex:(UIColor *)color
-    {
-        CGFloat rf, gf, bf, af;
-        [color getRed:&rf green:&gf blue: &bf alpha: &af];
-        
-        int r = (int)(255.0 * rf);
-        int g = (int)(255.0 * gf);
-        int b = (int)(255.0 * bf);
-        
-        return [NSString stringWithFormat:@"#%02x%02x%02x",r,g,b];
-    }*/
     func themeConfig() -> [String:String] {
         let font = SMConfig.postFont() ?? UIFont.systemFont(ofSize: 14.0)
         let fontFamily = font.fontName
