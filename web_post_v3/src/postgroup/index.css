@@ -1,3 +1,17 @@
+@font-face {
+  font-family: "FZLTXHK";
+  src: local("FZLTXHK"), url("xfont://LanTingXiHei_GBK.TTF") format("opentype");
+}
+
+body {
+  font-family: "FZLTXHK";
+  font-size: 50px;
+}
+#title {
+  font-size: 150%;
+  line-height: 1.2em;
+  padding: 10px 0;
+}
 .main {
   margin-left: 15px;
 }
@@ -38,12 +52,12 @@
 }
 
 .loading-icon {
-  width: 32px;
-  height: 32px;
+  width: 64px;
+  height: 64px;
   margin: auto;
   background-image: url("./icon_loading.png");
   background-repeat: no-repeat;
-  background-size: 32px;
+  background-size: 64px;
   animation: spin 2s linear infinite;
 }
 
@@ -77,15 +91,14 @@
 .post-action .action {
   border: 1px solid blue;
   padding: 2px 3px;
-  margin: 3px;
+  border-radius: 5px;
+  padding: 0px 10px;
+  margin-right: 20px;
+  font-size: 80%;
 }
 
 .floor {
   margin-right: 10px;
-}
-
-font.f006 {
-  color: #878787;
 }
 
 .ximg-box {

@@ -43,3 +43,13 @@ export interface Page {
   status: Status;
   errorMessage?: string;
 }
+
+export interface Theme {
+  fontFamily: string;
+  fontSize: string;
+  lineHeight: string;
+  bgColor: string;
+  textColor: string;
+  tintColor: string;
+  quoteColor: string;
+}

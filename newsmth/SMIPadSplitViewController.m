@@ -84,6 +84,9 @@ static SMIPadSplitViewController *_instance;
     _detailViewController = detailViewController;
     [self.detailViewContainer removeAllSubviews];
     self.detailNavigationController = [[P2PNavigationController alloc] initWithRootViewController:_detailViewController];
+    [self.detailNavigationController.navigationBar setTitleTextAttributes:@{
+        NSForegroundColorAttributeName: [SMTheme colorForPrimary]
+    }];
     [self.detailViewContainer addSubview:self.detailNavigationController.view];
     CGRect frame = self.detailViewContainer.bounds;
     // fixme. for ios5,6

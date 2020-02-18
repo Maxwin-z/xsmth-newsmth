@@ -285,34 +285,35 @@
             [tableView reloadData];
         }
     }
-
-    if ([SMUtils systemVersion] >= 7) {
-        // status bar
-        if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
-            [self setNeedsStatusBarAppearanceUpdate];
+    
+    [self setNeedsStatusBarAppearanceUpdate];
+    
+    UIWindow *keyWindow = nil;
+    for (UIWindow *w in [UIApplication sharedApplication].windows) {
+        if (w.isKeyWindow) {
+            keyWindow = w;
+            break;
         }
-        
-        [[UIApplication sharedApplication] setStatusBarStyle:[self preferredStatusBarStyle]];
-        
-        if ([[UIApplication sharedApplication].keyWindow respondsToSelector:@selector(setTintColor:)]) {
-            [UIApplication sharedApplication].keyWindow.tintColor = [SMTheme colorForTintColor];
-        }
-
-        // navigation bar
-        if ([self.navigationController.navigationBar respondsToSelector:@selector(setBarTintColor:)]) {
-            self.navigationController.navigationBar.barTintColor = [SMTheme colorForBarTintColor];
-            [UINavigationBar appearance].barTintColor = [SMTheme colorForBarTintColor];
-        }
-        
-        [self.navigationController.navigationBar setTintColor:[SMTheme colorForTintColor]];
-        [UINavigationBar appearance].tintColor = [SMTheme colorForTintColor];
-        [self.navigationController.navigationBar setTitleTextAttributes:
-         @{
-           UITextAttributeTextColor: [SMTheme colorForPrimary],
-           UITextAttributeTextShadowColor: [UIColor clearColor]
-           }];
     }
+    if (keyWindow) {
+        keyWindow.tintColor = [SMTheme colorForTintColor];
+    }
+
+    self.navigationController.navigationBar.barTintColor = [SMTheme colorForBarTintColor];
+    [UINavigationBar appearance].barTintColor = [SMTheme colorForBarTintColor];
+
+    [self.navigationController.navigationBar setTintColor:[SMTheme colorForTintColor]];
+    [UINavigationBar appearance].tintColor = [SMTheme colorForTintColor];
+
+    NSShadow *shadow = [NSShadow new];
+    shadow.shadowColor = UIColor.clearColor;
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     @{
+         NSForegroundColorAttributeName: [SMTheme colorForPrimary],
+         NSShadowAttributeName: shadow
+     }];
 }
+
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
 {

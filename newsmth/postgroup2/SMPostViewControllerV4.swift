@@ -98,6 +98,7 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
         let config = WKWebViewConfiguration()
         config.userContentController = userContentController
         config.setURLSchemeHandler(leakAvioder, forURLScheme: "ximg")
+        config.setURLSchemeHandler(leakAvioder, forURLScheme: "xfont")
 
         self.webView = WKWebView(frame: self.view.bounds, configuration: config)
         self.webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -127,6 +128,7 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
         super.setupTheme();
         self.viewForPagePicker.backgroundColor = SMTheme.colorForHighlightBackground()
         self.viewForBottomBar.backgroundColor = SMTheme.colorForHighlightBackground()
+        notificationToWeb(messageName: "THEME_CHANGE", data: themeConfig())
     }
     
     @objc
@@ -284,6 +286,20 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
     func webView(_ webView: WKWebView, start urlSchemeTask: WKURLSchemeTask) {
         debugPrint(urlSchemeTask.request)
         guard var urlString = urlSchemeTask.request.url?.absoluteString else { return }
+        
+        if (urlString == "xfont://LanTingXiHei_GBK.TTF") {
+            guard let fontUrl = Bundle.main.url(forResource: "LanTingXiHei_GBK", withExtension: "TTF") else { return }
+            do {
+                let data = try Data(contentsOf: fontUrl)
+                let urlResponse = URLResponse(url: urlSchemeTask.request.url!, mimeType: "font/opentype", expectedContentLength: data.count, textEncodingName: nil)
+                urlSchemeTask.didReceive(urlResponse)
+                urlSchemeTask.didReceive(data)
+                urlSchemeTask.didFinish()
+            } catch {
+            }
+            return
+        }
+        
         urlString = urlString.replacingOccurrences(of: "ximg://_?url=", with: "")
         guard let url = urlString.removingPercentEncoding else {
             debugPrint("ximg src decode error")
@@ -332,6 +348,7 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
             if (methodName == "download")  { fn = self._download}
             if (methodName == "login")  { fn = self._login}
             if (methodName == "pageNumberChanged") { fn = self._pageNumberChanged}
+            if (methodName == "getThemeConfig") { fn = self._getThemeConfig}
 
             if(fn == nil) {
                 sendMessageToWeb(callbackID: callbackID, code: -1, data: "", message: "不存在的Bridge方法[\(methodName)]")
@@ -652,6 +669,16 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
         }
     }
     
+    func _getThemeConfig(parameters: Any) -> Future<Any, SMBridgeError> {
+        return Future { [weak self] promise in
+            if let weakSelf = self {
+                promise(.success(weakSelf.themeConfig()))
+                return
+            }
+            promise(.success(false))
+        }
+    }
+
     func _nope(parameters: Any) -> Future<Any, SMBridgeError> {
         return Future { promise in
             promise(.success(true))
@@ -768,5 +795,73 @@ extension SMPostViewControllerV4: UIScrollViewDelegate {
             frame.origin.y = self.view.bounds.height - self.viewForBottomBar.frame.height
             self.viewForBottomBar.frame = frame
         }
+    }
+}
+// MARK: - Theme
+extension SMPostViewControllerV4 {
+   /*- (NSDictionary *)makeupThemeCSS
+    {
+        UIFont *font = [SMConfig postFont];
+        
+        NSString *fontSize = [NSString stringWithFormat:@"%dpx", (int)(font.pointSize * 2)];
+        NSString *fontFamily = font.fontName;
+        NSString *lineHeight = [NSString stringWithFormat:@"%dpx", (int)(font.lineHeight * 1.2 * 2)];
+        NSString *backgroundColor = [self color2hex:[SMTheme colorForBackground]];
+        NSString *textColor = [self color2hex:[SMTheme colorForPrimary]];
+        NSString *tintColor = [self color2hex:[SMTheme colorForTintColor]];
+        NSString *quoteColor = [self color2hex:[SMTheme colorForQuote]];
+        
+        return @{@"fontSize": fontSize,
+                 @"fontFamily": fontFamily,
+                 @"lineHeight": lineHeight,
+                 @"backgroundColor": backgroundColor,
+                 @"textColor": textColor,
+                 @"tintColor": tintColor,
+                 @"quoteColor": quoteColor
+                 };
+    }
+
+    - (NSString *)color2hex:(UIColor *)color
+    {
+        CGFloat rf, gf, bf, af;
+        [color getRed:&rf green:&gf blue: &bf alpha: &af];
+        
+        int r = (int)(255.0 * rf);
+        int g = (int)(255.0 * gf);
+        int b = (int)(255.0 * bf);
+        
+        return [NSString stringWithFormat:@"#%02x%02x%02x",r,g,b];
+    }*/
+    func themeConfig() -> [String:String] {
+        let font = SMConfig.postFont() ?? UIFont.systemFont(ofSize: 14.0)
+        let fontFamily = font.fontName
+        let fontSize = String(format: "%dpx", (Int)(font.pointSize * 2))
+        let lineHeight = String(format: "%dpx", (Int)(font.lineHeight * 1.2 * 2))
+        let bgColor = color2hex(color: SMTheme.colorForBackground())
+        let textColor = color2hex(color: SMTheme.colorForPrimary())
+        let tintColor = color2hex(color: SMTheme.colorForTintColor())
+        let quoteColor = color2hex(color: SMTheme.colorForQuote())
+        return [
+            "fontFamily": fontFamily,
+            "fontSize": fontSize,
+            "lineHeight": lineHeight,
+            "bgColor": bgColor,
+            "textColor": textColor,
+            "tintColor": tintColor,
+            "quoteColor": quoteColor
+        ]
+    }
+    
+    func color2hex(color: UIColor) -> String {
+        var rf: CGFloat = 0.0
+        var gf: CGFloat = 0.0
+        var bf: CGFloat = 0.0
+        var af: CGFloat = 0.0
+        color.getRed(&rf, green: &gf, blue: &bf, alpha: &af)
+        let r = (Int)(255.0 * rf)
+        let g = (Int)(255.0 * gf)
+        let b = (Int)(255.0 * bf)
+        let a = (Int)(255.0 * af)
+        return String(format: "#%02x%02x%02x%02x", r, g, b, a)
     }
 }

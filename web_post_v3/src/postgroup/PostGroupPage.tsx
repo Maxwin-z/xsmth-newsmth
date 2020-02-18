@@ -9,10 +9,11 @@ import {
   unloaded,
   download,
   login,
-  pageNumberChanged
+  pageNumberChanged,
+  getThemeConfig
 } from "../jsbridge";
 import { fetchPostGroup } from "./postUtils";
-import { Post, Page, Status, XImage } from "./types.d";
+import { Post, Page, Status, XImage, Theme } from "./types.d";
 import "./index.css";
 import { Json } from "..";
 
@@ -293,6 +294,9 @@ let needScrollToPage = 0;
 let shownPage = 1;
 
 async function initPage() {
+  const theme = await getThemeConfig();
+  setupTheme(theme);
+
   mainPost = await postInfo();
   // mainPost = {
   //   board: "Stock",
@@ -310,6 +314,11 @@ async function initPage() {
   // mainPost = {
   //   board: "AutoWorld",
   //   gid: 1943048442
+  // };
+
+  // mainPost = {
+  //   board: "Picture",
+  //   gid: 2180428
   // };
 
   // mainPost = {
@@ -544,6 +553,11 @@ function formatSize(size: number): string {
 }
 ////// start //////
 initPage();
+
+PubSub.subscribe("THEME_CHANGE", (_: string, style: Theme) => {
+  setupTheme(style);
+});
+
 PubSub.subscribe(
   NOTIFICATION_FORCE_LOAD_PAGE,
   (_: string, msg: { p: number }) => {
@@ -609,6 +623,72 @@ document.addEventListener("scroll", () => {
     pageNumberChanged(shownPage, pages.length);
   }
 });
+
+function setupTheme(style: Theme) {
+  console.log("styles", style);
+  var sheet = document.styleSheets[0] as CSSStyleSheet;
+
+  for (let i = sheet.rules.length - 1; i >= 0; --i) {
+    sheet.deleteRule(i);
+  }
+
+  sheet.addRule(
+    "body.xsmth",
+    style2string({
+      "background-color": style.bgColor,
+      color: style.textColor,
+      "font-family": style.fontFamily,
+      "font-size": style.fontSize,
+      "line-height": style.lineHeight
+    }),
+    0
+  );
+
+  sheet.addRule(
+    ".f006",
+    style2string({
+      color: style.quoteColor
+    }),
+    0
+  );
+
+  sheet.addRule(
+    "a",
+    style2string({
+      color: style.tintColor
+    }),
+    0
+  );
+
+  sheet.addRule(
+    "div.post",
+    style2string({
+      "border-top": "1px solid " + style.textColor
+    }),
+    0
+  );
+
+  sheet.addRule(
+    "div.post .action",
+    style2string({
+      color: style.tintColor,
+      "border-color": style.tintColor,
+      "background-color": style.bgColor
+    }),
+    0
+  );
+
+  document.body.className = "xsmth";
+}
+
+function style2string(styles: Json) {
+  const res: string[] = [];
+  Object.keys(styles).forEach(key => {
+    const value = styles[key];
+    res.push(key + ":" + value + ";");
+  });
+  return res.join("");
+}
 /*
 document.addEventListener("scroll", () => {
   let post, top, y, el;
@@ -641,7 +721,7 @@ export default function PostGroupPage() {
 
   return (
     <div className="main">
-      <h1>{mainPost && mainPost.title}</h1>
+      <div id="title">{mainPost && mainPost.title}</div>
       {fullLoading ? (
         <LoadingComponent>正在加载</LoadingComponent>
       ) : (

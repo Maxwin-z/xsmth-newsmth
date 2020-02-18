@@ -1,5 +1,5 @@
 import { Json } from "./index.d";
-import { Post } from "./postgroup/types.d";
+import { Post, Theme } from "./postgroup/types.d";
 import PubSub from "pubsub-js";
 
 const callbacks: Array<Function> = [];
@@ -211,4 +211,8 @@ export function pageNumberChanged(
     page,
     total
   });
+}
+
+export function getThemeConfig(): Promise<Theme> {
+  return sendMessage("getThemeConfig");
 }
