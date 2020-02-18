@@ -594,7 +594,7 @@ PubSub.subscribe("PAGE_CLOSE", async () => {
 
 document.addEventListener("scroll", () => {
   const ps = document.querySelectorAll(".page");
-  let lastY = Infinity;
+  let last = shownPage;
   for (let i = 0; i < ps.length; ++i) {
     const p = ps[i];
     const y = p.getBoundingClientRect().top;
@@ -605,7 +605,9 @@ document.addEventListener("scroll", () => {
       break;
     }
   }
-  pageNumberChanged(shownPage, pages.length);
+  if (last !== shownPage) {
+    pageNumberChanged(shownPage, pages.length);
+  }
 });
 /*
 document.addEventListener("scroll", () => {
