@@ -167,7 +167,7 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
             frame.origin.y = self.view.bounds.height - self.viewForPagePicker.frame.height
             self.viewForPagePicker.frame = frame
         }, completion: {_ in
-            self.pagePicker.selectRow(self.pageNumber, inComponent: 0, animated: true)
+            self.pagePicker.selectRow(self.pageNumber - 1, inComponent: 0, animated: true)
         })
     }
     
@@ -182,7 +182,7 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
     }
     
     @objc func onPagePickerConfirm() {
-        let page = self.pagePicker.selectedRow(inComponent: 0)
+        let page = self.pagePicker.selectedRow(inComponent: 0) + 1
         self.notificationToWeb(messageName: "PAGE_SELECTED", data: page)
         self.hidePagePicker()
     }
@@ -709,7 +709,7 @@ extension SMPostViewControllerV4: UIPickerViewDataSource, UIPickerViewDelegate {
     }
 
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return String(format: "%d", row)
+        return String(format: "%d", row + 1)
     }
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
@@ -737,6 +737,7 @@ extension SMPostViewControllerV4: UIScrollViewDelegate {
     }
     
     func hideBottomBar() {
+        return ;
         UIView.animate(withDuration: 0.5, animations: {
             var frame = self.viewForBottomBar.frame
             frame.origin.y = self.view.bounds.height

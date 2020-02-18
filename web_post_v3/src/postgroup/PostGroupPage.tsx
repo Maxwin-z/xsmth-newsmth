@@ -121,10 +121,17 @@ const PageComponent: FunctionComponent<{ p: number }> = ({ p }) => {
       PubSub.unsubscribe(token);
     };
   });
+
   const page = pages[p - 1];
   const hidden =
     page.posts.length === 0 && p > maxLoadedPageNumber ? "hidden page" : "page";
-  console.log(122, hidden, p, maxLoadedPageNumber);
+  useEffect(() => {
+    if (needScrollToPage > 0 && needScrollToPage === p) {
+      scrollToPage(needScrollToPage);
+      needScrollToPage = 0;
+    }
+  });
+
   return (
     <div className={hidden} data-page={p}>
       {page.status === Status.success || page.status === Status.incomplete ? (
@@ -272,6 +279,8 @@ let incompletePageNumber = 1;
 let maxLoadedPageNumber = 0;
 let fullLoading = true; // the whole page is loading
 let pageLoading = false;
+let needScrollToPage = 0;
+let shownPage = 1;
 
 async function initPage() {
   mainPost = await postInfo();
@@ -344,6 +353,17 @@ function pubPageChanged(p: number) {
   PubSub.publish(NOTIFICATION_LOADING_PAGE_CHANGED, {});
 }
 
+function batchPagesChanged(start: number, end: number) {
+  console.log("batch", start, end);
+  for (let i = start; i <= end; ++i) {
+    pubPageChanged(i);
+  }
+  // only update last page
+  if (start > end) {
+    pubPageChanged(end);
+  }
+}
+
 async function nextTask() {
   console.log("task queue:", taskQueue);
   if (taskQueue.length === 0 || pageLoading) return;
@@ -351,14 +371,17 @@ async function nextTask() {
   const p = taskQueue[0];
 
   // fill pages
-  for (let i = pages.length + 1; i <= p; ++i) {
-    pages.push({
-      title: "",
-      total: 0,
-      p: i,
-      posts: [],
-      status: Status.init
-    });
+  if (p > pages.length) {
+    for (let i = pages.length + 1; i <= p; ++i) {
+      pages.push({
+        title: "",
+        total: 0,
+        p: i,
+        posts: [],
+        status: Status.init
+      });
+    }
+    PubSub.publish(NOTIFICATION_TOTAL_PAGES_CHANGED, {});
   }
 
   let page = pages[p! - 1];
@@ -366,16 +389,15 @@ async function nextTask() {
     page.status = Status.loading;
   }
 
-  pubPageChanged(p);
-
+  const batchStart = maxLoadedPageNumber + 1;
+  const batchEnd = p;
+  maxLoadedPageNumber = Math.max(maxLoadedPageNumber, p);
+  // middle page status change
+  batchPagesChanged(batchStart, batchEnd);
+  await delay(3000);
   page = await loadPage(p);
   fullLoading = false;
-
-  // middle page status change
-  for (let i = maxLoadedPageNumber + 1; i < p; ++i) {
-    pubPageChanged(i);
-  }
-  maxLoadedPageNumber = Math.max(maxLoadedPageNumber, p);
+  batchPagesChanged(batchStart, batchEnd);
 
   if (page.status === Status.fail) {
     console.log("load page error", page);
@@ -426,7 +448,7 @@ async function nextTask() {
   pubPageChanged(p);
 
   setTimeout(() => {
-    nextTask();
+    // nextTask();
   }, 500);
 }
 
@@ -489,6 +511,14 @@ function isPageLoaded(page: Page) {
   );
 }
 
+function scrollToPage(p: number) {
+  const el = document.querySelector(`[data-page="${p}"]`) as HTMLDivElement;
+  if (el) {
+    const y = el.getBoundingClientRect().top + window.pageYOffset;
+    window.scrollTo(0, y);
+  }
+}
+
 function formatSize(size: number): string {
   if (size < 1000) {
     return size + "B";
@@ -511,10 +541,14 @@ PubSub.subscribe(
   }
 );
 
-PubSub.subscribe("PAGE_SELECTED", (_: string, p: number) => {
+PubSub.subscribe("PAGE_SELECTED", async (_: string, p: number) => {
   console.log(504, p);
   orderTaskQueue(p);
+  needScrollToPage = p;
   nextTask();
+  // setTimeout(() => {
+  //   scrollToPage((p - 1) * postsPerPage);
+  // }, 0);
 });
 
 PubSub.subscribe("DOWNLOAD_PROGRESS", (_: string, data: any) => {
@@ -542,15 +576,15 @@ PubSub.subscribe("PAGE_CLOSE", async () => {
 });
 
 document.addEventListener("scroll", () => {
-  let shownPage = 1;
   const ps = document.querySelectorAll(".page");
   let lastY = Infinity;
   for (let i = 0; i < ps.length; ++i) {
     const p = ps[i];
     const y = p.getBoundingClientRect().top;
-    if (y > 0) {
+    if (y >= 0) {
+      // the hide page's y is 0
       const page = parseInt(p.getAttribute("data-page") || "1", 10);
-      shownPage = y < (window.innerHeight * 2) / 3 ? page : page - 1;
+      shownPage = y > 0 && y < (window.innerHeight * 2) / 3 ? page : page - 1;
       break;
     }
   }
