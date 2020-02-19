@@ -10,6 +10,7 @@
 #import "SMHttpRequest.h"
 #import "SMWebParser.h"
 #import "SMWebLoaderOperationQueue.h"
+#import "SMAccountManager.h"
 
 @interface SMWebLoaderOperation ()<ASIHTTPRequestDelegate, SMWebParserDelegate>
 @property (strong, nonatomic) NSString *parser;
@@ -101,16 +102,14 @@
         return;
     }
 
-    XLog_d(@"url[%@] response %@", _url, request.requestCookies);
+    [[SMAccountManager instance] refreshStatus];
+//    XLog_d(@"url[%@] response %@", _url, request.requestCookies);
     NSString *body;
     NSString *contentType = [request.responseHeaders objectForKey:@"Content-Type"];
     if ([[contentType lowercaseString] rangeOfString:@"charset=utf-8"].location != NSNotFound) {
         body = request.responseString;
     } else {
         // gb2312 -> utf8
-//        NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
-//        NSData *rspData = request.responseData;
-//        body = [[NSString alloc] initWithData:rspData encoding:enc];
         body = [SMUtils gb2312Data2String:request.responseData];
     }
 

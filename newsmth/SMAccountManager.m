@@ -180,7 +180,6 @@ static SMAccountManager *_instance;
 
 - (void)autoLogin
 {
-    return ;    // for debug
     if ([NSDate timeIntervalSinceReferenceDate] - self.lastAutoLoginTime < 10) {    // 每10s内重试一次
         XLog_d(@"autologin 重试时间较短，稍后重试");
         return ;
