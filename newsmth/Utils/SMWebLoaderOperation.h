@@ -28,6 +28,8 @@
 @property (strong, nonatomic, readonly) id data;
 @property (assign, nonatomic) BOOL highPriority;
 @property (assign, nonatomic, readonly) BOOL isDone;
+@property (strong, nonatomic) void(^onSuccess)(SMBaseData *data);
+@property (strong, nonatomic) void(^onFail)(SMMessage *error);
 
 - (void)loadUrl:(NSString *)url withParser:(NSString *)parser;
 - (void)loadRequest:(ASIHTTPRequest *)request withParser:(NSString *)parser;

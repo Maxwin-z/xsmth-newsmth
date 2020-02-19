@@ -91,7 +91,7 @@ static SMAccountManager *_instance;
 - (void)setCookies:(NSArray *)cookies
 {
     NSString *name = nil;
-    XLog_d(@"cookies: %@", cookies);
+//    XLog_d(@"cookies: %@", cookies);
 //    NSMutableDictionary *savedCookies = [NSMutableDictionary new];
     NSMutableArray *savedCookies = [NSMutableArray new];
     int loginStatus = 0;    // 1 login; 2 logout
@@ -148,7 +148,7 @@ static SMAccountManager *_instance;
     }
     
     if (loginStatus == 1) {
-        XLog_d(@"savedCookies: %@", savedCookies);
+//        XLog_d(@"savedCookies: %@", savedCookies);
         [[NSUserDefaults standardUserDefaults] setObject:savedCookies forKey:USERDEFAULTS_COOKIES];
     }
     if (loginStatus == 2) {

@@ -152,9 +152,15 @@
             _data = nil;
         }
         [_delegate webLoaderOperationFinished:self];
+        if (self.onSuccess) {
+            self.onSuccess(_data);
+        }
     } else {
         SMMessage *error = [[SMMessage alloc] initWithCode:code message:[json objectForKey:@"message"]];
         [_delegate webLoaderOperationFail:self error:error];
+        if (self.onFail) {
+            self.onFail(error);
+        }
     }
 }
 

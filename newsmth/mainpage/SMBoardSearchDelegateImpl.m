@@ -8,11 +8,13 @@
 
 #import "SMBoardSearchDelegateImpl.h"
 #import "SMBoardViewController.h"
+#import "SMWebLoaderOperation.h"
 
 @implementation SMBoardSearchDelegateImpl
 {
     NSArray *boards;
     NSArray *filters;
+    SMWebLoaderOperation *op;
 }
 
 - (id)init
@@ -29,10 +31,6 @@
 
 - (void)reload
 {
-//    if ([self.mainpage.searchDisplayController.searchBar.text isEqualToString:@" "]) {
-//        filters = [SMConfig historyBoards];
-//        [self.mainpage.searchDisplayController.searchResultsTableView reloadData];
-//    }
     [self.resultTableView reloadData];
 }
 
@@ -41,32 +39,17 @@
     return filters.count;
 }
 
--(BOOL)searchDisplayController:(UISearchDisplayController *)controller
-    shouldReloadTableForSearchString:(NSString *)searchString
-{
-    searchString = [searchString stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" "]];
-    if (searchString.length) {
-        NSPredicate *resultPredicate = [NSPredicate
-                                        predicateWithFormat:@"(name contains[cd] %@) or (cnName contains[cd] %@)",
-                                        searchString, searchString];
-        filters = [boards filteredArrayUsingPredicate:resultPredicate];
-    } else {
-        filters = [SMConfig historyBoards];
-    }
-    
-    return YES;
-}
-
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:nil];
-    NSDictionary *board = filters[indexPath.row];
-    cell.textLabel.text = board[@"name"];
-    cell.detailTextLabel.text = board[@"cnName"];
     cell.backgroundColor = [SMTheme colorForBackground];
     cell.textLabel.textColor = [SMTheme colorForPrimary];
     cell.detailTextLabel.textColor = [SMTheme colorForSecondary];
+    
+    NSDictionary *board = filters[indexPath.row];
+    cell.textLabel.text = board[@"name"];
+    cell.detailTextLabel.text = board[@"cnName"];
+
     return cell;
 }
 
@@ -78,26 +61,7 @@
     SMBoardViewController *vc = [[SMBoardViewController alloc] init];
     vc.board = board;
     [self.mainpage.navigationController pushViewController:vc animated:YES];
-    
-//    [SMUtils trackEventWithCategory:@"boardsearch" action:@"enterBoard" label:self.mainpage.searchDisplayController.searchBar.text];
 }
-
-//- (void)searchDisplayControllerDidEndSearch:(UISearchDisplayController *)controller
-//{
-//    controller.searchBar.hidden = YES;
-//}
-//
-//- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
-//{
-//    [self performSelector:@selector(showHis) withObject:nil afterDelay:0.1];
-//}
-//
-//- (void)showHis
-//{
-//    if (self.mainpage.searchDisplayController.searchBar.text.length == 0) {
-//        self.mainpage.searchDisplayController.searchBar.text = @" ";
-//    }
-//}
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
@@ -120,7 +84,40 @@
         NSPredicate *resultPredicate = [NSPredicate
                                         predicateWithFormat:@"(name contains[cd] %@) or (cnName contains[cd] %@)",
                                         searchString, searchString];
-        filters = [boards filteredArrayUsingPredicate:resultPredicate];
+        filters = [boards filteredArrayUsingPredicate:resultPredicate] ;
+        if (op) {
+            [op cancel];
+        }
+        op = [SMWebLoaderOperation new];
+        __block __typeof(self) weakSelf = self;
+        op.onSuccess = ^(SMBaseData *data) {
+            SMBoardList *bl = (SMBoardList *)data;
+
+            NSMutableArray *bs = [weakSelf->filters mutableCopy];
+            [bl.items enumerateObjectsUsingBlock:^(SMBoardListItem *item, NSUInteger idx, BOOL * _Nonnull stop) {
+                if(!item.isDir && [bs indexOfObjectPassingTest:^BOOL(NSDictionary *board, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if ([item.board.name isEqualToString:board[@"name"]]) {
+                        *stop = YES;
+                        return YES;
+                    }
+                    return NO;
+                }] == NSNotFound) {
+                    [bs addObject:@{
+                        @"name": item.board.name,
+                        @"cnName": item.board.cnName
+                    }];
+                }
+            }];
+            [bs sortUsingComparator:^NSComparisonResult(NSDictionary *b1, NSDictionary *b2) {
+                return [b1[@"name"] compare:b2[@"name"]];
+            }];
+            weakSelf->filters = bs;
+            [weakSelf.resultTableView reloadData];
+        };
+        
+        if (searchString.length >= 2) {
+            [op loadUrl:[NSString stringWithFormat:@"http://m.newsmth.net/go?name=%@", searchString] withParser:@"boardlist"];
+        }
     } else {
         filters = [SMConfig historyBoards];
     }
