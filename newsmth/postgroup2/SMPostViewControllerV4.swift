@@ -355,6 +355,8 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
             if (methodName == "setStorage") { fn = self._setStorage}
             if (methodName == "getStorage") { fn = self._getStorage}
             if (methodName == "removeStorage") { fn = self._removeStorage}
+            if (methodName == "scrollTo") { fn = self._scrollTo}
+            if (methodName == "scrollBy") { fn = self._scrollBy}
 
             if(fn == nil) {
                 sendMessageToWeb(callbackID: callbackID, code: -1, data: "", message: "不存在的Bridge方法[\(methodName)]")
@@ -753,6 +755,42 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
         }
     }
     
+    func _scrollTo(parameters: Any) -> Future<Any, SMBridgeError> {
+        return Future { [weak self] promise in
+            guard let point = parameters as? [String: Int] else {
+                promise(.failure(SMBridgeError(code: -1, message: "参数错误")))
+                return
+            }
+            if let x = point["x"], let y = point["y"] {
+                self?.webView.scrollView.setContentOffset(CGPoint(x: x, y: y - (Int)(self?.topbarHeight ?? 0)), animated: true)
+                promise(.success(true))
+            } else {
+                promise(.failure(SMBridgeError(code: -1, message: "参数错误: (x, y)")))
+            }
+        }
+    }
+    
+    var topbarHeight: CGFloat {
+        return (view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0.0) +
+            (self.navigationController?.navigationBar.frame.height ?? 0.0)
+    }
+    
+    func _scrollBy(parameters: Any) -> Future<Any, SMBridgeError> {
+        return Future { [weak self] promise in
+            guard let point = parameters as? [String: Int] else {
+                promise(.failure(SMBridgeError(code: -1, message: "参数错误")))
+                return
+            }
+            if let x = point["x"], let y = point["y"], let scrollView = self?.webView.scrollView {
+                let point = scrollView.contentOffset
+                scrollView.setContentOffset(CGPoint(x: (Int)(point.x) + x, y: (Int)(point.y) + y), animated: true)
+                promise(.success(true))
+            } else {
+                promise(.failure(SMBridgeError(code: -1, message: "参数错误: (x, y)")))
+            }
+        }
+    }
+
     /// activity methods
     @objc
     func forwardActivity() {

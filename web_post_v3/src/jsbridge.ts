@@ -231,3 +231,11 @@ export function getStorage(key: string): Promise<any> {
 export function removeStorage(key: string): Promise<boolean> {
   return sendMessage("removeStorage", key);
 }
+
+export function scrollTo(x: number, y: number): Promise<boolean> {
+  return sendMessage("scrollTo", { x, y });
+}
+
+export function scrollBy(x: number, y: number): Promise<boolean> {
+  return sendMessage("scrollBy", { x, y });
+}
