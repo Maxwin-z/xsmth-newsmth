@@ -130,6 +130,9 @@ const PageComponent: FunctionComponent<{ p: number }> = ({ p }) => {
   const dom = document.querySelector(`[data-page="${p}"]`);
   const lastHeight = dom ? dom.getBoundingClientRect().height : 0;
   useEffect(() => {
+    canHandleScrollEvent = true;
+    console.log("enable handlescroll", new Date().getTime());
+
     const dom = document.querySelector(`[data-page="${p}"]`);
     const height = dom ? dom.getBoundingClientRect().height : 0;
     console.log("height change", p, lastHeight, height);
@@ -144,7 +147,8 @@ const PageComponent: FunctionComponent<{ p: number }> = ({ p }) => {
       needScrollToPage = 0;
     }
   });
-
+  canHandleScrollEvent = false;
+  console.log("disable handlescroll", new Date().getTime());
   return (
     <div className={hidden ? "hidden page" : "page"} data-page={p}>
       {page.status === Status.success || page.status === Status.incomplete ? (
@@ -294,6 +298,7 @@ let pageLoading = false;
 let needScrollToPage = 0;
 let needScrollToPosition = -1;
 let shownPage = -1;
+let canHandleScrollEvent = true;
 
 async function initPage() {
   const theme = await getThemeConfig();
@@ -727,7 +732,12 @@ PubSub.subscribe("PAGE_CLOSE", async () => {
   unloaded();
 });
 
-document.addEventListener("scroll", () => {
+document.addEventListener("scroll", e => {
+  if (!canHandleScrollEvent) {
+    e.preventDefault();
+    e.stopPropagation();
+    return;
+  }
   const ps = document.querySelectorAll(".page");
   let last = shownPage;
   for (let i = 0; i < ps.length; ++i) {
@@ -749,13 +759,26 @@ document.addEventListener("scroll", () => {
   }
 });
 
+document.body.addEventListener("touchstart", (e: TouchEvent) => {
+  if (!canHandleScrollEvent) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+});
+
 document.body.addEventListener("click", (e: MouseEvent) => {
   console.log(e);
   const height = document.documentElement.clientHeight;
   if (e.clientY > height / 2) {
-    scrollBy(0, Math.ceil((height - 100) / 2));
+    // scroll up
+    const delta = Math.min(
+      height - 100,
+      document.documentElement.offsetHeight - window.scrollY - height
+    );
+    scrollBy(0, Math.ceil(delta / 2));
   } else {
-    scrollBy(0, Math.ceil((100 - height) / 2));
+    const delta = Math.min(height - 100, window.scrollY);
+    scrollBy(0, Math.ceil(-delta / 2));
   }
 });
 
