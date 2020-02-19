@@ -5,14 +5,14 @@ import {
   reply,
   showActivity,
   setTitle,
-  toast,
   unloaded,
   download,
   login,
   pageNumberChanged,
   getThemeConfig,
   scrollBy,
-  scrollTo
+  setStorage,
+  getStorage
 } from "../jsbridge";
 import { fetchPostGroup } from "./postUtils";
 import { Post, Page, Status, XImage, Theme } from "./types.d";
@@ -275,7 +275,7 @@ const FooterComponent: FunctionComponent = props => {
 // page functions
 const postsPerPage = 10;
 let taskQueue: number[] = [];
-const pages: Page[] = [
+let pages: Page[] = [
   {
     title: "",
     total: 0,
@@ -284,16 +284,16 @@ const pages: Page[] = [
     status: Status.init
   }
 ];
-const xImages: XImage[] = [];
+let xImages: XImage[] = [];
 const maxImageDownloader = 1;
 let currentDownloaders = 0;
 let mainPost: Post;
-let incompletePageNumber = 1;
 let maxLoadedPageNumber = 0;
 let fullLoading = true; // the whole page is loading
 let pageLoading = false;
 let needScrollToPage = 0;
-let shownPage = 1;
+let needScrollToPosition = -1;
+let shownPage = -1;
 
 async function initPage() {
   const theme = await getThemeConfig();
@@ -328,13 +328,12 @@ async function initPage() {
   //   gid: 1762997577
   // };
   console.log(mainPost);
-  loadIncompletePage();
-}
-
-async function loadIncompletePage() {
-  // taskQueue.unshift(1);
-  taskQueue.unshift(1);
-  nextTask();
+  if (!(await loadIntance(mainPost))) {
+    maxLoadedPageNumber = 0;
+    taskQueue = [1];
+    pages = [];
+    nextTask();
+  }
 }
 
 async function loadPage(p: number = 1, author?: string): Promise<Page> {
@@ -452,8 +451,6 @@ async function nextTask() {
   });
   loadXImage();
 
-  // set last page always incomplete, try to load new posts
-  incompletePageNumber = totalPage;
   // remove current page, task done
   taskQueue.splice(taskQueue.indexOf(p), 1);
   pageLoading = false;
@@ -619,6 +616,61 @@ function style2string(styles: Json) {
   return res.join("");
 }
 
+function storageKey(post: Post) {
+  return `post_${mainPost.board}_${mainPost.gid}`;
+}
+
+interface PageInstance {
+  maxLoadedPageNumber: number;
+  title: string;
+  taskQueue: number[];
+  xImages: XImage[];
+  pages: Page[];
+  scrollY: number;
+}
+
+async function saveInstance() {
+  await setStorage(storageKey(mainPost), {
+    maxLoadedPageNumber,
+    title: mainPost.title,
+    taskQueue,
+    xImages,
+    pages,
+    scrollY: window.scrollY
+  });
+}
+
+async function loadIntance(post: Post): Promise<boolean> {
+  let data: PageInstance;
+  try {
+    data = await getStorage(storageKey(post));
+    console.log("load page instance:", data);
+  } catch (e) {
+    console.log("no page instance", e);
+    return false;
+  }
+  maxLoadedPageNumber = data.maxLoadedPageNumber;
+  mainPost.title = data.title;
+  taskQueue = data.taskQueue;
+  xImages = data.xImages;
+  pages = data.pages;
+  if (!mainPost.title || !taskQueue || !pages) {
+    return false;
+  }
+
+  fullLoading = false;
+  PubSub.publish(NOTIFICATION_TOTAL_PAGES_CHANGED, {});
+
+  needScrollToPosition = data.scrollY;
+  if (document.documentElement.offsetHeight > needScrollToPosition) {
+    window.scrollTo(0, needScrollToPosition);
+    needScrollToPosition = -1;
+  }
+  nextTask();
+  loadXImage();
+  return true;
+}
+
 ////// start //////
 initPage();
 
@@ -671,6 +723,7 @@ PubSub.subscribe("DOWNLOAD_PROGRESS", (_: string, data: any) => {
 
 PubSub.subscribe("PAGE_CLOSE", async () => {
   console.log("page close");
+  await saveInstance();
   unloaded();
 });
 
@@ -679,14 +732,18 @@ document.addEventListener("scroll", () => {
   let last = shownPage;
   for (let i = 0; i < ps.length; ++i) {
     const p = ps[i];
-    const y = p.getBoundingClientRect().top;
-    if (y >= 0) {
+    const rect = p.getBoundingClientRect();
+    if (rect.top >= 0) {
       // the hide page's y is 0
       const page = parseInt(p.getAttribute("data-page") || "1", 10);
-      shownPage = y > 0 && y < (window.innerHeight * 2) / 3 ? page : page - 1;
+      shownPage =
+        rect.height > 0 && rect.top < (window.innerHeight * 2) / 3
+          ? page
+          : page - 1;
       break;
     }
   }
+  console.log("shown", shownPage);
   if (last !== shownPage) {
     pageNumberChanged(shownPage, pages.length);
   }
@@ -730,6 +787,13 @@ export default function PostGroupPage() {
     return () => {
       PubSub.unsubscribe(NOTIFICATION_TOTAL_PAGES_CHANGED);
     };
+  });
+
+  useEffect(() => {
+    if (needScrollToPosition > 0) {
+      window.scrollTo(0, needScrollToPosition);
+      needScrollToPosition = -1;
+    }
   });
 
   return (
