@@ -316,10 +316,10 @@ async function initPage() {
   //   gid: 1943048442
   // };
 
-  // mainPost = {
-  //   board: "Picture",
-  //   gid: 2180428
-  // };
+  mainPost = {
+    board: "Picture",
+    gid: 2180428
+  };
 
   // mainPost = {
   //   board: "FamilyLife",

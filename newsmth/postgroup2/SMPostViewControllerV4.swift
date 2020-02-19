@@ -352,6 +352,9 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
             if (methodName == "login")  { fn = self._login}
             if (methodName == "pageNumberChanged") { fn = self._pageNumberChanged}
             if (methodName == "getThemeConfig") { fn = self._getThemeConfig}
+            if (methodName == "setStorage") { fn = self._setStorage}
+            if (methodName == "getStorage") { fn = self._getStorage}
+            if (methodName == "removeStorage") { fn = self._removeStorage}
 
             if(fn == nil) {
                 sendMessageToWeb(callbackID: callbackID, code: -1, data: "", message: "不存在的Bridge方法[\(methodName)]")
@@ -679,6 +682,68 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
                 return
             }
             promise(.success(false))
+        }
+    }
+
+    func _setStorage(parameters: Any) -> Future<Any, SMBridgeError> {
+        return Future { [weak self] promise in
+            guard let parameters = parameters as? [String: Any] else {
+                promise(.failure(SMBridgeError(code: -1, message: "错误的参数")))
+                return
+            }
+            guard let key = parameters["key"] as? String else {
+                promise(.failure(SMBridgeError(code: -1, message: "错误的参数，缺少key")))
+                return
+            }
+            if let value = parameters["value"] {
+                do {
+                    let data = try JSONSerialization.data(withJSONObject: ["value": value], options: .prettyPrinted)
+                    self?.mmkv.set(data, forKey: key)
+                    promise(.success(true))
+                } catch {
+                    promise(.failure(SMBridgeError(code: -1, message: "序列化错误\(error.localizedDescription)")))
+                }
+            } else {
+                promise(.failure(SMBridgeError(code: -1, message: "错误的参数，缺少value")))
+            }
+        }
+    }
+    
+    func _getStorage(parameters: Any) -> Future<Any, SMBridgeError> {
+        return Future { [weak self] promise in
+            guard let weakSelf = self else {
+                promise(.success(false))
+               return
+            }
+            guard let key = parameters as? String else {
+                promise(.failure(SMBridgeError(code: -1, message: "错误的参数，缺少key")))
+                return
+            }
+            guard let data = weakSelf.mmkv.data(forKey: key) else {
+                promise(.failure(SMBridgeError(code: -1, message: "数据不存在")))
+                return
+            }
+            do {
+                let json = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
+                if let value = json["value"] {
+                    promise(.success(value))
+                } else {
+                    promise(.failure(SMBridgeError(code: -1, message: "数据格式不正确")))
+                }
+            } catch {
+                promise(.failure(SMBridgeError(code: -1, message: "解析错误\(error.localizedDescription)")))
+            }
+        }
+    }
+    
+    func _removeStorage(parameters: Any) -> Future<Any, SMBridgeError> {
+        return Future { [weak self] promise in
+            guard let key = parameters as? String else {
+                promise(.failure(SMBridgeError(code: -1, message: "错误的参数，缺少key")))
+                return
+            }
+            self?.mmkv.removeValue(forKey: key)
+            promise(.success(true))
         }
     }
 

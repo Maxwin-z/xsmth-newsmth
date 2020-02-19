@@ -30,6 +30,21 @@ export default function BridgeTest() {
     },
     publish: async () => {
       return await $x.pageNumberChanged(2, 20);
+    },
+    setStorage: async () => {
+      return await $x.setStorage("test", { a: 1 });
+    },
+    getStorage: async () => {
+      return await $x.getStorage("test");
+    },
+    setStorage0: async () => {
+      return await $x.setStorage("test0", 0);
+    },
+    getStorage0: async () => {
+      return await $x.getStorage("test0");
+    },
+    removeStorage: async () => {
+      return await $x.removeStorage("test");
     }
   };
   const test = fn => async () => {

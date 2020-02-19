@@ -216,3 +216,18 @@ export function pageNumberChanged(
 export function getThemeConfig(): Promise<Theme> {
   return sendMessage("getThemeConfig");
 }
+
+export function setStorage(key: string, value: any): Promise<boolean> {
+  return sendMessage("setStorage", {
+    key,
+    value
+  });
+}
+
+export function getStorage(key: string): Promise<any> {
+  return sendMessage("getStorage", key);
+}
+
+export function removeStorage(key: string): Promise<boolean> {
+  return sendMessage("removeStorage", key);
+}
