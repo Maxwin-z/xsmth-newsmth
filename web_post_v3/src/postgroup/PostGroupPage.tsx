@@ -639,7 +639,11 @@ async function saveInstance() {
     maxLoadedPageNumber,
     title: mainPost.title,
     taskQueue,
-    xImages,
+    xImages: xImages.map(img => {
+      const _img = { ...img };
+      _img.status = Status.init;
+      return _img;
+    }),
     pages,
     scrollY: window.scrollY
   });
