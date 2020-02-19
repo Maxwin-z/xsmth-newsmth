@@ -58,17 +58,10 @@
     
     self.currentOrientation = [UIDevice currentDevice].orientation;
 
+    self.overrideUserInterfaceStyle = [SMConfig enableDayMode] ? UIUserInterfaceStyleLight : UIUserInterfaceStyleDark;
     [self setupTheme];
 //    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background"]];
 //    self.contentInsetAdjustmentBehavior = NO;
-}
-
-- (UIStatusBarStyle)preferredStatusBarStyle
-{
-    if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark && [SMConfig enableDayMode]) {
-        return  UIStatusBarStyleDarkContent;
-    }
-    return [SMConfig enableDayMode] ? UIStatusBarStyleDefault : UIStatusBarStyleLightContent;
 }
 
 - (void)viewDidAppear:(BOOL)animated

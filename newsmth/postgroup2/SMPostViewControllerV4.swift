@@ -531,6 +531,7 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
                 let url = URL(string: urlString)
                 let activity = UIActivityViewController(activityItems: [
                     p.content!, url!], applicationActivities: [forward])
+                activity.overrideUserInterfaceStyle = SMConfig.enableDayMode() ? .light : .dark
                 activity.completionWithItemsHandler = {(activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
                     if !completed {
                         return

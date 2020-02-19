@@ -281,4 +281,9 @@
     _backImageView.image = image;
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return [SMConfig enableDayMode] ? UIStatusBarStyleDarkContent : UIStatusBarStyleLightContent;
+}
+
 @end
