@@ -768,6 +768,11 @@ document.body.addEventListener("touchstart", (e: TouchEvent) => {
 
 document.body.addEventListener("click", (e: MouseEvent) => {
   console.log(e);
+  const el = e.target as HTMLDivElement;
+  if (el && el.className.indexOf("action") !== -1) {
+    return;
+  }
+
   const height = document.documentElement.clientHeight;
   if (e.clientY > height / 2) {
     // scroll up
