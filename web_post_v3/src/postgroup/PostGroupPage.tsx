@@ -12,7 +12,8 @@ import {
   getThemeConfig,
   scrollBy,
   setStorage,
-  getStorage
+  getStorage,
+  removeStorage
 } from "../jsbridge";
 import { fetchPostGroup } from "./postUtils";
 import { Post, Page, Status, XImage, Theme } from "./types.d";
@@ -218,6 +219,10 @@ const FooterComponent: FunctionComponent = props => {
     AllLoaded
   }
   const lastLoadedPage = pages[maxLoadedPageNumber - 1];
+  if (!lastLoadedPage) {
+    // after refresh
+    return <div />;
+  }
 
   let _case;
   if (pages.length === 1 && !isPageLoaded(pages[0])) {
@@ -299,6 +304,8 @@ let needScrollToPage = 0;
 let needScrollToPosition = -1;
 let shownPage = -1;
 let canHandleScrollEvent = true;
+let taskTimer: NodeJS.Timeout;
+let cancel = false;
 
 async function initPage() {
   const theme = await getThemeConfig();
@@ -337,6 +344,8 @@ async function initPage() {
     maxLoadedPageNumber = 0;
     taskQueue = [1];
     pages = [];
+    xImages = [];
+    fullLoading = true;
     nextTask();
   }
 }
@@ -417,6 +426,12 @@ async function nextTask() {
   batchPagesChanged(batchStart, batchEnd);
   // await delay(3000);
   page = await loadPage(p);
+  if (cancel) {
+    cancel = false;
+    pageLoading = false;
+    nextTask();
+    return;
+  }
   fullLoading = false;
   batchPagesChanged(batchStart, batchEnd);
 
@@ -466,7 +481,7 @@ async function nextTask() {
   }
   pubPageChanged(p);
 
-  setTimeout(() => {
+  taskTimer = setTimeout(() => {
     nextTask();
   }, 500);
 }
@@ -728,6 +743,19 @@ PubSub.subscribe("DOWNLOAD_PROGRESS", (_: string, data: any) => {
   } catch (e) {
     console.log("image not found", id, e);
   }
+});
+
+PubSub.subscribe("PAGE_REFRESH", async () => {
+  await removeStorage(storageKey(mainPost));
+  console.log(752, pageLoading);
+  if (pageLoading) {
+    // there is task loading now
+    cancel = true;
+  } else if (taskTimer != null) {
+    cancel = false;
+    clearTimeout(taskTimer);
+  }
+  initPage();
 });
 
 PubSub.subscribe("PAGE_CLOSE", async () => {

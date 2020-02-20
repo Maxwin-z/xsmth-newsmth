@@ -64,6 +64,7 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
     @objc var fromBoard:Bool = false
     var postForAction: SMPost?
     var webView:WKWebView!
+    var refreshControl: UIRefreshControl!
     
     var cancellables: [Int: AnyCancellable] = [:]
     var promiseID:Int = 0
@@ -113,8 +114,10 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
         debugPrint("post: ", post ?? "nil");
         
         // add refresh
-        let refreshControl = UIRefreshControl()
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(onRefresh), for: .valueChanged)
         self.webView.scrollView.addSubview(refreshControl)
+        
         
         self.viewForBottomBar = makeupViewForButtomBar()
         self.viewForPagePicker = makeupPagePickerView()
@@ -154,6 +157,12 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
     deinit {
         self.webView.stopLoading()
         self.webView.configuration.userContentController.removeScriptMessageHandler(forName: "nativeBridge")
+    }
+    
+    @objc
+    func onRefresh() {
+        notificationToWeb(messageName: "PAGE_REFRESH", data: true)
+        self.refreshControl.endRefreshing()
     }
     
     @objc
