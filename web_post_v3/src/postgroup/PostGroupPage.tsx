@@ -19,6 +19,8 @@ import { fetchPostGroup } from "./postUtils";
 import { Post, Page, Status, XImage, Theme } from "./types.d";
 import "./index.css";
 import { Json } from "..";
+import LoadingComponent from "./LoadingComponent";
+import PostComponent from "./PostComponent";
 
 const NOTIFICATION_TOTAL_PAGES_CHANGED = "NOTIFICATION_TOTAL_PAGES_CHANGED";
 const NOTIFICATION_FORCE_LOAD_PAGE = "NOTIFICATION_FORCE_LOAD_PAGE";
@@ -26,74 +28,16 @@ const NOTIFICATION_LOADING_PAGE_CHANGED = "NOTIFICATION_LOADING_PAGE_CHANGED";
 const NOTIFICATION_PAGE_CHANGED = (p: number) =>
   `NOTIFICATION_PAGE_CHANGED_${p}`;
 
-const delay = (t: number) => new Promise(rs => setTimeout(rs, t));
-
-const LoadingComponent: FunctionComponent<{ hide?: boolean }> = props => (
-  <div className="loading-container">
-    {props.children}
-    <div className={"loading-icon " + (props.hide ? "hide" : "")}></div>
-  </div>
-);
-
-const PostComponent: FunctionComponent<{ post: Post; p: number }> = ({
-  post,
-  p
-}) => {
-  function makeActionPost() {
-    let actionPost: Json = {};
-    actionPost.title = mainPost.title!;
-    actionPost.author = post.author!;
-    actionPost.nick = post.nick!;
-    actionPost.pid = post.pid!;
-    actionPost.board = {
-      name: mainPost.board!
-    };
-    actionPost.content = post
-      .content!.replace(/<br\/?>/g, "\n")
-      .replace(/<.*?>/g, "")
-      .replace(/&nbsp;/g, " ")
-      .replace(/&lt;/g, "<")
-      .replace(/&gt;/g, ">")
-      .replace(/&amp;/g, "&");
-    return actionPost;
-  }
-  function doReply() {
-    reply(makeActionPost());
-  }
-  function doActivity() {
-    showActivity(makeActionPost());
-  }
-  return (
-    <div className="post" data-page={p} data-floor={post.floor}>
-      <div className="post-title">
-        <div>
-          {post.author}
-          {post.nick!.length > 0 ? `(${post.nick})` : ``}
-        </div>
-        <div className="post-info">
-          <span className="floor">
-            {post.floor === 0 ? "楼主" : `${post.floor}楼`}
-          </span>
-          <span className="date">{post.dateString}</span>
-        </div>
-        <div className="post-action">
-          <div className="action replay" onClick={doReply}>
-            回复
-          </div>
-          <div className="action more" onClick={doActivity}>
-            ···
-          </div>
-        </div>
-      </div>
-      <div dangerouslySetInnerHTML={{ __html: post.content || "" }}></div>
-    </div>
-  );
-};
-
 const PostList: FunctionComponent<{ page: Page }> = ({ page }) => (
   <>
     {page.posts.map(post => (
-      <PostComponent key={post.pid} post={post} p={page.p} />
+      <PostComponent
+        key={post.pid}
+        post={post}
+        p={page.p}
+        title={mainPost.title!}
+        board={mainPost.board!}
+      />
     ))}
   </>
 );
