@@ -1,7 +1,14 @@
 import React, { FunctionComponent } from "react";
 import { createStore, combineReducers } from "redux";
 import { Provider, useDispatch, connect } from "react-redux";
+import { createReducer } from "@reduxjs/toolkit";
+
 import "./test.css";
+
+interface Window {
+  __REDUX_DEVTOOLS_EXTENSION__?: Function | null;
+}
+declare let window: Window;
 
 const ACTION_ADD = "ACTION_ADD";
 const ACTION_MINUS = "ACTION_MINUS";
@@ -54,12 +61,25 @@ function todos(state: string[] = ["a", "b"], action: TotoActinTypes): string[] {
   }
 }
 
-const rootReducer = combineReducers({
-  counter,
-  todos
+const magicReducer = createReducer(["a", "b"], {
+  ACTION_ADD_TODO: (state: string[], action: AddTodoAction) => {
+    return [...state, new Date().toString()];
+  },
+  ACTION_TODO_UPDATE: (state: string[], action: UpdateTodoAction) => {
+    const { index, text } = action;
+    state[index] = text;
+  }
 });
 
-const store = createStore(rootReducer);
+const rootReducer = combineReducers({
+  counter,
+  todos: magicReducer
+});
+
+const store = createStore(
+  rootReducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 const Counter: FunctionComponent<{ n: number }> = ({ n }) => {
   const dispatch = useDispatch();
@@ -94,7 +114,7 @@ const WrappedTodoWithIndex = connect(
   }
 )(Todo);
 
-const Todos: FunctionComponent<{ todos: string[] }> = ({ todos = [] }) => {
+const Todos: FunctionComponent<{ count: number }> = ({ count = 0 }) => {
   const dispatch = useDispatch();
   function addTodo() {
     dispatch({
@@ -108,20 +128,21 @@ const Todos: FunctionComponent<{ todos: string[] }> = ({ todos = [] }) => {
       text: "updated" + new Date().toString()
     });
   }
+  console.log("todos render");
   return (
     <div>
-      {todos.map(text => (
-        <Todo key={text} text={text} />
+      {new Array(count).fill(0).map((_, i) => (
+        <WrappedTodoWithIndex key={i} index={i} />
       ))}
-      {todos.map((_, index) => (
+      {/* {todos.map((_, index) => (
         <TodoWithIndex key={index} index={index} />
       ))}
       {todos.map((_, index) => (
         <WrappedTodoWithIndex key={index} index={index} />
       ))}
-      {todos.map((_, _) => {
-        return;
-      })}
+      {todos.map((_, index) => {
+        return connect();
+      })} */}
 
       <button onClick={addTodo}>add todo</button>
       <button onClick={update1}>update 1</button>
@@ -133,7 +154,7 @@ const WrappedCounter = connect((state: { counter: number }) => ({
   n: state.counter
 }))(Counter);
 const WrappedTodos = connect((state: { todos: string[] }) => ({
-  todos: state.todos
+  count: state.todos.length
 }))(Todos);
 
 const App: FunctionComponent = () => {
