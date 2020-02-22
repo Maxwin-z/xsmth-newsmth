@@ -1,6 +1,6 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, memo } from "react";
 import { createStore, combineReducers } from "redux";
-import { Provider, useDispatch, connect } from "react-redux";
+import { Provider, useDispatch, useSelector, connect } from "react-redux";
 import { createReducer } from "@reduxjs/toolkit";
 
 import "./test.css";
@@ -36,6 +36,11 @@ interface UpdateTodoAction {
 }
 
 type TotoActinTypes = AddTodoAction | UpdateTodoAction;
+
+interface IStore {
+  counter: number;
+  todos: string[];
+}
 
 function counter(state: number = 0, action: CounterActionTypes): number {
   switch (action.type) {
@@ -97,16 +102,20 @@ const Counter: FunctionComponent<{ n: number }> = ({ n }) => {
   );
 };
 
-const Todo: FunctionComponent<{ text: string }> = ({ text }) => {
+const Todo: FunctionComponent<{ text: string }> = memo(({ text }) => {
   console.log("todo render", text);
   return <div style={{ color: "green" }}>{text}</div>;
-};
+});
 
-const TodoWithIndex: FunctionComponent<{ index: number }> = ({ index }) => {
-  console.log("todo with index render", index);
-  const text = store.getState().todos[index];
-  return <div style={{ color: "red" }}>{text}</div>;
-};
+const TodoWithIndex: FunctionComponent<{ index: number }> = React.memo(
+  ({ index }) => {
+    const text = useSelector((state: IStore) => {
+      return state.todos[index];
+    });
+    console.log("todo with index render", index);
+    return <div style={{ color: "red" }}>{text}</div>;
+  }
+);
 
 const WrappedTodoWithIndex = connect(
   (state: { todos: string[] }, ownProps: { index: number }) => {
@@ -114,7 +123,10 @@ const WrappedTodoWithIndex = connect(
   }
 )(Todo);
 
-const Todos: FunctionComponent<{ count: number }> = ({ count = 0 }) => {
+const Todos: FunctionComponent<{ count: number; todos: string[] }> = ({
+  count = 0,
+  todos = []
+}) => {
   const dispatch = useDispatch();
   function addTodo() {
     dispatch({
@@ -131,13 +143,16 @@ const Todos: FunctionComponent<{ count: number }> = ({ count = 0 }) => {
   console.log("todos render");
   return (
     <div>
-      {new Array(count).fill(0).map((_, i) => (
+      {/* {new Array(count).fill(0).map((_, i) => (
         <WrappedTodoWithIndex key={i} index={i} />
-      ))}
-      {/* {todos.map((_, index) => (
+      ))} */}
+      {/* {new Array(count).fill(0).map((_, index) => (
         <TodoWithIndex key={index} index={index} />
+      ))} */}
+      {todos.map(text => (
+        <Todo text={text} key={text} />
       ))}
-      {todos.map((_, index) => (
+      {/* todos.map((_, index) => (
         <WrappedTodoWithIndex key={index} index={index} />
       ))}
       {todos.map((_, index) => {
@@ -154,7 +169,8 @@ const WrappedCounter = connect((state: { counter: number }) => ({
   n: state.counter
 }))(Counter);
 const WrappedTodos = connect((state: { todos: string[] }) => ({
-  count: state.todos.length
+  count: state.todos.length,
+  todos: state.todos
 }))(Todos);
 
 const App: FunctionComponent = () => {
