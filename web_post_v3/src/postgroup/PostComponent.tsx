@@ -1,10 +1,10 @@
 import React, { FunctionComponent } from "react";
-import { Post } from "./types.d";
+import { IPost } from "./types";
 import { reply, showActivity } from "../jsbridge";
 import { Json } from "..";
 
 const PostComponent: FunctionComponent<{
-  post: Post;
+  post: IPost;
   p: number;
   title: string;
   board: string;

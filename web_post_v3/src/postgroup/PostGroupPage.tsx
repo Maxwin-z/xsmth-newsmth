@@ -16,7 +16,7 @@ import {
   removeStorage
 } from "../jsbridge";
 import { fetchPostGroup } from "./postUtils";
-import { Post, Page, Status, XImage, Theme } from "./types.d";
+import { IPost, IPage, IStatus, IXImage, Theme } from "./types";
 import "./index.css";
 import { Json } from "..";
 import LoadingComponent from "./LoadingComponent";
@@ -28,7 +28,7 @@ const NOTIFICATION_LOADING_PAGE_CHANGED = "NOTIFICATION_LOADING_PAGE_CHANGED";
 const NOTIFICATION_PAGE_CHANGED = (p: number) =>
   `NOTIFICATION_PAGE_CHANGED_${p}`;
 
-const PostList: FunctionComponent<{ page: Page }> = ({ page }) => (
+const PostList: FunctionComponent<{ page: IPage }> = ({ page }) => (
   <>
     {page.posts.map(post => (
       <PostComponent
@@ -96,10 +96,10 @@ const PageComponent: FunctionComponent<{ p: number }> = ({ p }) => {
   console.log("disable handlescroll", new Date().getTime());
   return (
     <div className={hidden ? "hidden page" : "page"} data-page={p}>
-      {page.status === Status.success || page.status === Status.incomplete ? (
+      {page.status === IStatus.success || page.status === IStatus.incomplete ? (
         <PostList page={page} />
       ) : null}
-      {page.status === Status.fail ? (
+      {page.status === IStatus.fail ? (
         <div className="page-placeholder">
           <div>{page.errorMessage}</div>
           {page.errorMessage === "您未登录,请登录后继续操作" ? (
@@ -109,14 +109,14 @@ const PageComponent: FunctionComponent<{ p: number }> = ({ p }) => {
           ) : null}
         </div>
       ) : null}
-      {page.status === Status.loading ? (
+      {page.status === IStatus.loading ? (
         <div className="page-placeholder">
           <LoadingComponent>
             <div className="page-loading">正在加载第{page.p}页</div>
           </LoadingComponent>
         </div>
       ) : null}
-      {page.status === Status.init ? (
+      {page.status === IStatus.init ? (
         <div onClick={load} className="page-placeholder page-init">
           <div>{page.p}</div>
         </div>
@@ -173,7 +173,7 @@ const FooterComponent: FunctionComponent = props => {
     _case = Case.InitPage;
   } else if (taskQueue.length > 0) {
     if (taskQueue[0] === maxLoadedPageNumber + 1 || taskQueue.length === 1) {
-      if (lastLoadedPage.status === Status.fail) {
+      if (lastLoadedPage.status === IStatus.fail) {
         _case = Case.LastPageLoadFail;
       } else {
         _case = Case.LastPageLoading;
@@ -181,7 +181,7 @@ const FooterComponent: FunctionComponent = props => {
     } else {
       _case = Case.MiddlePage;
     }
-  } else if (lastLoadedPage && lastLoadedPage.status === Status.loading) {
+  } else if (lastLoadedPage && lastLoadedPage.status === IStatus.loading) {
     _case = Case.LastPageLoading;
   } else {
     _case = Case.AllLoaded;
@@ -228,19 +228,19 @@ const FooterComponent: FunctionComponent = props => {
 // page functions
 const postsPerPage = 10;
 let taskQueue: number[] = [];
-let pages: Page[] = [
+let pages: IPage[] = [
   {
     title: "",
     total: 0,
     p: 1,
     posts: [],
-    status: Status.init
+    status: IStatus.init
   }
 ];
-let xImages: XImage[] = [];
+let xImages: IXImage[] = [];
 const maxImageDownloader = 1;
 let currentDownloaders = 0;
-let mainPost: Post;
+let mainPost: IPost;
 let maxLoadedPageNumber = 0;
 let fullLoading = true; // the whole page is loading
 let pageLoading = false;
@@ -294,13 +294,13 @@ async function initPage() {
   }
 }
 
-async function loadPage(p: number = 1, author?: string): Promise<Page> {
-  const page: Page = {
+async function loadPage(p: number = 1, author?: string): Promise<IPage> {
+  const page: IPage = {
     title: "",
     total: 0,
     p: p,
     posts: [],
-    status: Status.init,
+    status: IStatus.init,
     errorMessage: ""
   };
   try {
@@ -314,9 +314,9 @@ async function loadPage(p: number = 1, author?: string): Promise<Page> {
     page.total = postGroup.total!;
     page.title = postGroup.title!;
     page.status =
-      page.posts.length >= postsPerPage ? Status.success : Status.incomplete;
+      page.posts.length >= postsPerPage ? IStatus.success : IStatus.incomplete;
   } catch (e) {
-    page.status = Status.fail;
+    page.status = IStatus.fail;
     page.errorMessage = e.toString();
   }
   return page;
@@ -352,7 +352,7 @@ async function nextTask() {
         total: 0,
         p: i,
         posts: [],
-        status: Status.init
+        status: IStatus.init
       });
     }
     PubSub.publish(NOTIFICATION_TOTAL_PAGES_CHANGED, {});
@@ -360,7 +360,7 @@ async function nextTask() {
 
   let page = pages[p! - 1];
   if (page.posts.length === 0) {
-    page.status = Status.loading;
+    page.status = IStatus.loading;
   }
 
   const batchStart = maxLoadedPageNumber + 1;
@@ -379,7 +379,7 @@ async function nextTask() {
   fullLoading = false;
   batchPagesChanged(batchStart, batchEnd);
 
-  if (page.status === Status.fail) {
+  if (page.status === IStatus.fail) {
     console.log("load page error", page);
     pages[p! - 1] = page;
     pageLoading = false;
@@ -405,7 +405,7 @@ async function nextTask() {
       total: 0,
       p: i,
       posts: [],
-      status: Status.init
+      status: IStatus.init
     });
   }
   pages[p! - 1] = page;
@@ -449,12 +449,12 @@ async function loadXImage() {
     console.log("no downloders");
     return;
   }
-  const img = xImages.find(img => img.status === Status.init);
+  const img = xImages.find(img => img.status === IStatus.init);
   if (!img) {
     console.log("no init images");
     return;
   }
-  img.status = Status.loading;
+  img.status = IStatus.loading;
   let { id, src } = img;
   let ret = false;
   try {
@@ -471,21 +471,21 @@ async function loadXImage() {
     (document.querySelector(
       `#ximg-${id}`
     ) as HTMLImageElement).src = `ximg://_?url=${encodeURIComponent(src)}`;
-    img.status = Status.success;
+    img.status = IStatus.success;
     const span = document.querySelector(`#ximg-info-${id}`) as HTMLSpanElement;
     span.style.display = "none";
   } else {
     console.log(`load image fail: ${src}`);
-    img.status = Status.fail;
+    img.status = IStatus.fail;
   }
   loadXImage();
 }
 
-function isPageLoaded(page: Page) {
+function isPageLoaded(page: IPage) {
   return (
-    page.status === Status.success ||
-    page.status === Status.fail ||
-    page.status === Status.incomplete
+    page.status === IStatus.success ||
+    page.status === IStatus.fail ||
+    page.status === IStatus.incomplete
   );
 }
 
@@ -580,7 +580,7 @@ function style2string(styles: Json) {
   return res.join("");
 }
 
-function storageKey(post: Post) {
+function storageKey(post: IPost) {
   return `post_${mainPost.board}_${mainPost.gid}`;
 }
 
@@ -588,8 +588,8 @@ interface PageInstance {
   maxLoadedPageNumber: number;
   title: string;
   taskQueue: number[];
-  xImages: XImage[];
-  pages: Page[];
+  xImages: IXImage[];
+  pages: IPage[];
   scrollY: number;
 }
 
@@ -600,7 +600,7 @@ async function saveInstance() {
     taskQueue,
     xImages: xImages.map(img => {
       const _img = { ...img };
-      _img.status = Status.init;
+      _img.status = IStatus.init;
       return _img;
     }),
     pages,
@@ -608,7 +608,7 @@ async function saveInstance() {
   });
 }
 
-async function loadIntance(post: Post): Promise<boolean> {
+async function loadIntance(post: IPost): Promise<boolean> {
   let data: PageInstance;
   try {
     data = await getStorage(storageKey(post));

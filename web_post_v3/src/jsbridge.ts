@@ -1,5 +1,5 @@
 import { Json } from "./index.d";
-import { Post, Theme } from "./postgroup/types.d";
+import { IPost, Theme } from "./postgroup/types";
 import PubSub from "pubsub-js";
 
 const callbacks: Array<Function> = [];
@@ -90,14 +90,14 @@ function sendMessage(methodName: string, parameters?: any): Promise<any> {
   });
 }
 
-export function postInfo(): Promise<Post> {
+export function postInfo(): Promise<IPost> {
   if (!isBridgeAvaiable()) {
     return postInfoInWeb();
   }
   return sendMessage("postInfo");
 }
 
-export function reply(post: Post): Promise<boolean> {
+export function reply(post: IPost): Promise<boolean> {
   return sendMessage("reply", post);
 }
 
@@ -136,7 +136,7 @@ export function ajax({
   });
 }
 
-function postInfoInWeb(): Promise<Post> {
+function postInfoInWeb(): Promise<IPost> {
   // let post = { board: "Children", gid: 932484268 };
   let post = { board: "Photo", gid: 1936720334 };
   // let post = {board: 'DigiHome', gid: 941251}
@@ -163,7 +163,7 @@ async function ajaxInWeb({
   return Promise.resolve(rsp.text());
 }
 
-export function showActivity(post: Post): Promise<boolean> {
+export function showActivity(post: IPost): Promise<boolean> {
   return sendMessage("activity", post);
 }
 

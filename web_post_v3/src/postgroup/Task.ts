@@ -6,12 +6,12 @@ import {
   formatPost,
   cleanHtml
 } from "./postUtils";
-import { PostGroup, Post } from "./types";
+import { IGroup, IPost } from "./types";
 export class GroupTask {
   board: string;
   gid: number;
   page: number;
-  resolve?: ((value: PostGroup) => void) | null;
+  resolve?: ((value: IGroup) => void) | null;
   reject?: ((reason?: any) => void) | null;
   constructor(board: string, gid: number, page: number = 1) {
     this.board = board;
@@ -19,7 +19,7 @@ export class GroupTask {
     this.page = page;
   }
 
-  execute(): Promise<PostGroup> {
+  execute(): Promise<IGroup> {
     return new Promise(async (resolve, reject) => {
       this.reject = reject;
       // await delay(3000);
@@ -55,7 +55,7 @@ export class PostTask {
     this.pid = pid;
   }
 
-  execute(): Promise<Post> {
+  execute(): Promise<IPost> {
     return new Promise(async (resolve, reject) => {
       this.reject = reject;
       const html = await ajax({
@@ -67,7 +67,7 @@ export class PostTask {
       let data = JSON.parse(html);
       (data.content as string).match(/.{1,100}/g)?.forEach(v => console.log(v));
       data = { ...data, ...formatPost(cleanHtml(data.content)) };
-      const post: Post = {
+      const post: IPost = {
         board: data["board_name"],
         gid: data["group_id"],
         pid: data["id"],

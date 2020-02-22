@@ -1,11 +1,11 @@
 import { Json } from "../index.d";
-import { Post, PostGroup, XImage, Status } from "./types.d";
+import { IPost, IGroup, IXImage, IStatus } from "./types";
 import { ajax } from "../jsbridge";
 
 // import "./tests";
 let imageID = 0;
 
-export function parseUrl(urlString: string): Post {
+export function parseUrl(urlString: string): IPost {
   const url = new URL(urlString);
   const params = url.pathname.split("/");
   // shift first element ""
@@ -50,7 +50,7 @@ export async function fetchPostGroup(
   gid: number,
   page: number = 1,
   author?: string | null
-): Promise<PostGroup> {
+): Promise<IGroup> {
   await delay(1000); // debug
   const data: Json = {};
   if (!board || !gid) {
@@ -107,7 +107,7 @@ function retrieveErrorMessage(html: string) {
   return (div.querySelector(".error li") as HTMLLIElement)?.innerText;
 }
 
-export function retrieveGroupPosts(html: string): PostGroup {
+export function retrieveGroupPosts(html: string): IGroup {
   html = cleanHtml(html);
   const div = document.createElement("div");
   div.innerHTML = html;
@@ -166,13 +166,13 @@ export function formatPost(
   dateString: string;
   nick: string;
   content: string;
-  images: XImage[];
+  images: IXImage[];
 } {
   const dateRegex = /^发信人:.+?<br ?\/?> 标.+?<br ?\/?> 发信站:.+?\([A-Z][a-z]{2} ([A-Z][a-z]{2}( |&nbsp;&nbsp;)\d+ \d{1,2}:\d{1,2}:\d{1,2} +\d{4})\)/;
   let matches = body.match(dateRegex);
   let date = 0;
   let dateString = "";
-  const images: XImage[] = [];
+  const images: IXImage[] = [];
   if (matches) {
     dateString = matches[1].replace(/&nbsp;/g, " ");
     date = Date.parse(dateString);
@@ -202,7 +202,7 @@ export function formatPost(
       images.push({
         id,
         src,
-        status: Status.init
+        status: IStatus.init
       });
       return `<div class="ximg-box">
         <span class="ximg-info" id="ximg-info-${id}">正在加载</span>

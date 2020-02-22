@@ -1,4 +1,4 @@
-export enum Status {
+export enum IStatus {
   init = 0,
   loading = 1,
   success = 2,
@@ -6,13 +6,13 @@ export enum Status {
   fail = 4
 }
 
-export interface XImage {
+export interface IXImage {
   id: number;
   src: string;
-  status: Status;
+  status: IStatus;
 }
 
-export interface Post {
+export interface IPost {
   url?: string;
   board?: string;
   gid?: number;
@@ -24,23 +24,23 @@ export interface Post {
   date?: number;
   dateString?: string;
   content?: string;
-  images?: XImage[];
+  images?: IXImage[];
   isSingle?: boolean;
 }
 
-export interface PostGroup {
+export interface IGroup {
   board?: string;
   title?: string;
   total?: number;
-  posts?: Post[];
+  posts?: IPost[];
 }
 
-export interface Page {
+export interface IPage {
   title: string;
   total: number;
   p: number;
-  posts: Post[];
-  status: Status;
+  posts: IPost[];
+  status: IStatus;
   errorMessage?: string;
 }
 
