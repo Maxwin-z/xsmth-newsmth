@@ -1,12 +1,6 @@
-import { ajax } from "../jsbridge";
-import {
-  isErrorPage,
-  retrieveGroupPosts,
-  delay,
-  formatPost,
-  cleanHtml
-} from "./postUtils";
-import { IGroup, IPost } from "./types";
+import { isErrorPage, retrieveGroupPosts, formatPost, cleanHtml } from "./post";
+import { IPost, IGroup } from "../groupSlice";
+import { ajax } from "./jsapi";
 export class GroupTask {
   board: string;
   gid: number;

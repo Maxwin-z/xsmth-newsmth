@@ -1,5 +1,5 @@
 import React from "react";
-import { GroupTask, PostTask } from "../postgroup/Task";
+import { GroupTask, PostTask } from "../article/utils/Task";
 import "./test.css";
 export default function TaskTest() {
   let task: GroupTask;

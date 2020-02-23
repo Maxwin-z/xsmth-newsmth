@@ -1,25 +1,20 @@
 import React from "react";
-import { createStore, combineReducers } from "redux";
+import { combineReducers } from "redux";
 import { Provider } from "react-redux";
+import { configureStore } from "@reduxjs/toolkit";
 
-import { pages, IPagesState } from "./reducers/group";
+import groupReducer from "./groupSlice";
 import Group from "./components/Group";
 
-interface Window {
-  __REDUX_DEVTOOLS_EXTENSION__?: Function | null;
-}
-declare let window: Window;
+const rootReducer = combineReducers({
+  group: groupReducer
+});
 
-export interface IStore {
-  pages: IPagesState;
-}
+const store = configureStore({
+  reducer: rootReducer
+});
 
-const store = createStore(
-  combineReducers({
-    pages
-  }),
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
+export type RootState = ReturnType<typeof rootReducer>;
 
 function Article() {
   return (
