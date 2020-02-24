@@ -7,17 +7,21 @@ const server = http.createServer((req, res) => {
   req.on("data", chunk => data.push(chunk));
   req.on("end", () => {
     // console.log(JSON.parse(data));
-    const body = Buffer.concat(data).toString();
-    const { url, withXhr } = JSON.parse(body);
+    let url, headers;
+    try {
+      const body = Buffer.concat(data).toString();
+      const json = JSON.parse(body);
+      url = json.url;
+      headers = json.headers;
+    } catch (e) {
+      res.end(e.toString());
+      return;
+    }
     console.log("forward: ", url);
     https.get(
       url,
       {
-        headers: withXhr
-          ? {
-              "X-Requested-With": "XMLHttpRequest"
-            }
-          : {}
+        headers
       },
       smthRes => {
         const isGBK =

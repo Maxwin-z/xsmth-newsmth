@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getMainPost } from "../groupSlice";
+import { getMainPost, nextTask } from "../groupSlice";
 import { RootState } from "..";
 
 function Group() {
@@ -25,9 +25,13 @@ function Group() {
 
 function TaskQueue() {
   const queue = useSelector((state: RootState) => state.group.tasks);
+  const dispatch = useDispatch();
   useEffect(() => {
     console.log(queue);
-  }, [queue]);
+    if (queue.length > 0) {
+      dispatch(nextTask());
+    }
+  }, [queue, dispatch]);
   return <></>;
 }
 

@@ -1,8 +1,7 @@
-import { createSlice, PayloadAction, Action } from "@reduxjs/toolkit";
-import { ThunkAction } from "redux-thunk";
-
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { postInfo } from "./utils/jsapi";
 import { GroupTask } from "./utils/Task";
+import { AppThunk } from ".";
 export enum Status {
   init,
   loading,
@@ -42,6 +41,7 @@ export interface IPage {
   posts: IPost[];
   status: Status;
   p: number;
+  errorMessage?: string;
 }
 
 export interface IGroup {
@@ -61,8 +61,6 @@ export interface IGroupState {
   tasks: ITask[];
   taskCount: number;
 }
-
-export type AppThunk = ThunkAction<void, IGroupState, null, Action<string>>;
 
 const groupInitialState: IGroupState = {
   mainPost: { board: "", title: "", gid: 0 },
@@ -99,20 +97,36 @@ const group = createSlice({
       state.tasks = state.tasks.concat(newTasks);
       state.pages = state.pages.concat(newPages).sort((p1, p2) => p1.p - p2.p);
     },
+    dequeue(state, { payload }: PayloadAction<number>) {
+      const index = state.tasks.findIndex(task => task.p === payload);
+      state.tasks.splice(index, 1);
+    },
     taskCount(state, { payload }: PayloadAction<number>) {
       state.taskCount += payload;
     },
-    getPageSuccess(state, { payload }: PayloadAction<IPage>) {
-      const p = payload.p;
+    taskBegin(state, { payload }: PayloadAction<number>) {
+      state.tasks.find(task => task.p === payload)!.status = Status.loading;
+    },
+    getPageSuccess(state, { payload: { p }, payload }: PayloadAction<IPage>) {
       state.pages[p - 1] = payload;
+      state.tasks.find(task => task.p === p)!.status = Status.success;
+    },
+    getPageFail(state, { payload: { p, errorMessage } }: PayloadAction<IPage>) {
+      const page = state.pages[p - 1];
+      page.status = Status.fail;
+      page.errorMessage = errorMessage;
+      state.tasks.find(task => task.p === p)!.status = Status.fail;
     }
   }
 });
 export const {
   setMainPost,
   enqueue,
+  dequeue,
   taskCount,
-  getPageSuccess
+  taskBegin,
+  getPageSuccess,
+  getPageFail
 } = group.actions;
 export default group.reducer;
 
@@ -120,30 +134,32 @@ export const getMainPost = (): AppThunk => async dispatch => {
   const mainPost = await postInfo();
   dispatch(setMainPost(mainPost));
   dispatch(enqueue(1));
+  dispatch(nextTask());
 };
 
 export const nextTask = (): AppThunk => async (dispatch, getState) => {
   const taskCountLimit = 2;
-  const state = getState();
-  if (state.taskCount >= taskCountLimit) {
+  const { group } = getState();
+  if (group.taskCount >= taskCountLimit) {
     return;
   }
-  const next = getState().tasks.find(task => task.status === Status.init);
-  if (!next) {
-    // done
+  const task = group.tasks.find(task => task.status === Status.init);
+  if (!task) {
     return;
   }
-  const { p } = next;
-  const mainPost = getState().mainPost;
-  const task = new GroupTask(mainPost.board, mainPost.gid, p);
+  const { p } = task;
+  const mainPost = group.mainPost;
+  const groupTask = new GroupTask(mainPost.board, mainPost.gid, p);
   dispatch(taskCount(1));
-  const group = await task.execute();
+  dispatch(taskBegin(p));
+  const groupPost = await groupTask.execute();
   dispatch(
     getPageSuccess({
-      posts: group.posts,
+      posts: groupPost.posts,
       status: Status.success,
       p
     })
   );
+  dispatch(dequeue(p));
   dispatch(taskCount(-1));
 };
