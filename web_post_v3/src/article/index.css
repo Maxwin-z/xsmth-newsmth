@@ -1,0 +1,136 @@
+@font-face {
+  font-family: "FZLTXHK";
+  src: local("FZLTXHK"), url("xfont://LanTingXiHei_GBK.TTF") format("opentype");
+}
+
+html,
+body {
+  font-size: 50px;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+button,
+textarea {
+  font-size: 50px;
+}
+
+#title {
+  font-size: 150%;
+  line-height: 1.2em;
+  padding: 20px 0;
+}
+.main {
+  margin-left: 30px;
+}
+.page-placeholder {
+  padding: 20px 30px 0 0;
+  height: 200px;
+  border-top: 1px solid lightgrey;
+  text-align: center;
+  line-height: 100px;
+  font-size: 40px;
+}
+
+.page-placeholder:first {
+  border-top: none;
+}
+
+.login-button {
+  border: 1px solid lightgray;
+  background-color: #f0f0f0;
+  font-size: 32px;
+  width: 400px;
+  line-height: 60px;
+}
+
+.page-init {
+  text-align: center;
+  line-height: 200px;
+  font-size: 80px;
+}
+
+.footer {
+  text-align: center;
+  margin-bottom: 44px;
+}
+
+.loading-container {
+  font-size: 32px;
+  text-align: center;
+}
+
+.loading-icon {
+  width: 64px;
+  height: 64px;
+  margin: auto;
+  background-image: url("./assets/icon_loading.png");
+  background-repeat: no-repeat;
+  background-size: 64px;
+  animation: spin 2s linear infinite;
+}
+
+.loading-icon.hide {
+  background-image: none;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.post {
+  padding: 10px 10px 10px 0;
+  border-top: 1px solid lightgrey;
+  overflow-wrap: break-word;
+}
+.post-title {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.post-action {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  display: flex;
+}
+
+.post-action .action {
+  border: 1px solid blue;
+  padding: 2px 3px;
+  border-radius: 5px;
+  padding: 0px 10px;
+  margin-right: 20px;
+  font-size: 30px;
+  line-height: 60px;
+}
+
+.post-info {
+  font-size: 30px;
+}
+
+.floor {
+  margin-right: 20px;
+}
+
+.ximg-box {
+  position: relative;
+}
+.ximg-info {
+  position: absolute;
+  padding: 2px;
+  font-size: 24px;
+  line-height: 30px;
+  background-color: rgba(199, 199, 199, 0.5);
+  top: 0;
+  left: 0;
+}
+.ximg {
+  max-width: 90vw;
+  min-width: 400px;
+}
+
+.hidden {
+  display: none;
+}

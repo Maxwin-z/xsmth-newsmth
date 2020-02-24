@@ -5,6 +5,7 @@ import { configureStore, ThunkAction } from "@reduxjs/toolkit";
 
 import groupReducer from "./groupSlice";
 import Group from "./components/Group";
+import "./index.css";
 
 const rootReducer = combineReducers({
   group: groupReducer

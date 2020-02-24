@@ -2,7 +2,6 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { postInfo } from "./utils/jsapi";
 import { GroupTask } from "./utils/Task";
 import { AppThunk } from ".";
-import { _log } from "./utils/debug";
 export enum Status {
   init,
   loading,
@@ -26,15 +25,15 @@ export interface IPost {
   url?: string;
   board?: string;
   gid?: number;
-  pid?: number;
+  pid: number;
   title?: string;
-  author?: string;
-  nick?: string;
-  floor?: number;
-  date?: number;
-  dateString?: string;
-  content?: string;
-  images?: IXImage[];
+  author: string;
+  nick: string;
+  floor: number;
+  date: number;
+  dateString: string;
+  content: string;
+  images: IXImage[];
   isSingle?: boolean;
 }
 

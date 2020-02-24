@@ -1,5 +1,6 @@
 import PubSub from "pubsub-js";
 import { IMainPost } from "../groupSlice";
+import { IActionPost } from "../components/Post";
 
 export interface Json {
   [x: string]: string | number | boolean | Date | Json | JsonArray;
@@ -101,9 +102,9 @@ export function postInfo(): Promise<IMainPost> {
   return sendMessage("postInfo");
 }
 
-// export function reply(post: IPost): Promise<boolean> {
-//   return sendMessage("reply", post);
-// }
+export function reply(post: IActionPost): Promise<boolean> {
+  return sendMessage("reply", post);
+}
 
 export function ajax({
   url,
@@ -160,9 +161,9 @@ async function ajaxInWeb({ url, headers = {} }: AjaxOption): Promise<string> {
   return Promise.resolve(rsp.text());
 }
 
-// export function showActivity(post: IPost): Promise<boolean> {
-//   return sendMessage("activity", post);
-// }
+export function showActivity(post: IActionPost): Promise<boolean> {
+  return sendMessage("activity", post);
+}
 
 export function setTitle(title: string): Promise<boolean> {
   return sendMessage("setTitle", title);

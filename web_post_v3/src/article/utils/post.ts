@@ -1,41 +1,7 @@
-import { IGroup, IPost, IXImage, Status } from "../groupSlice";
+import { IGroup, IXImage, Status } from "../groupSlice";
 
 let imageID = 0;
 export const POST_PER_PAGE = 10;
-
-export function parseUrl(urlString: string): IPost {
-  const url = new URL(urlString);
-  const params = url.pathname.split("/");
-  // shift first element ""
-  params.shift();
-  if (params[0] === "nForum") {
-    params.shift();
-  }
-  if (params[0] !== "article") {
-    throw new Error(`invalid post url: ${url}`);
-  }
-
-  const board = params[1];
-  let isSingle = false;
-  let gid = 0;
-  let pid = 0;
-
-  if (params[2] === "single" || params[2] === "ajax_single") {
-    // single post
-    isSingle = true;
-    pid = parseInt(params[3].replace(".json", ""), 10);
-  } else {
-    gid = pid = parseInt(params[2], 10);
-  }
-
-  return {
-    url: urlString,
-    board,
-    gid,
-    pid,
-    isSingle
-  };
-}
 
 export function delay(t: number) {
   return new Promise(rs => {
