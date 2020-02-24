@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { postInfo } from "./utils/jsapi";
 import { GroupTask } from "./utils/Task";
 import { AppThunk } from ".";
+import { _log } from "./utils/debug";
 export enum Status {
   init,
   loading,
@@ -47,6 +48,7 @@ export interface IPage {
 export interface IGroup {
   title: string;
   posts: IPost[];
+  p: number;
   total: number;
 }
 
@@ -77,6 +79,7 @@ const group = createSlice({
       state.mainPost = payload;
     },
     enqueue(state, { payload }: PayloadAction<number[] | number>) {
+      console.log("enqueue", payload);
       const newTasks: ITask[] = [];
       const newPages: IPage[] = [];
       new Array<number>(0).concat(payload).forEach(p => {
@@ -111,10 +114,13 @@ const group = createSlice({
       state.pages[p - 1] = payload;
       state.tasks.find(task => task.p === p)!.status = Status.success;
     },
-    getPageFail(state, { payload: { p, errorMessage } }: PayloadAction<IPage>) {
+    getPageFail(
+      state,
+      { payload: { p, error } }: PayloadAction<{ p: number; error: string }>
+    ) {
       const page = state.pages[p - 1];
       page.status = Status.fail;
-      page.errorMessage = errorMessage;
+      page.errorMessage = error;
       state.tasks.find(task => task.p === p)!.status = Status.fail;
     }
   }
@@ -137,6 +143,27 @@ export const getMainPost = (): AppThunk => async dispatch => {
   dispatch(nextTask());
 };
 
+const handleGroupTask = (group: IGroup): AppThunk => (dispatch, getState) => {
+  console.log("handle group", group);
+  const {
+    group: { pages }
+  } = getState();
+  dispatch(
+    getPageSuccess({
+      posts: group.posts,
+      status: Status.success,
+      p: group.p
+    })
+  );
+  dispatch(
+    enqueue(
+      new Array(group.total - pages.length)
+        .fill(0)
+        .map((_, i) => i + pages.length + 1)
+    )
+  );
+};
+
 export const nextTask = (): AppThunk => async (dispatch, getState) => {
   const taskCountLimit = 2;
   const { group } = getState();
@@ -152,14 +179,17 @@ export const nextTask = (): AppThunk => async (dispatch, getState) => {
   const groupTask = new GroupTask(mainPost.board, mainPost.gid, p);
   dispatch(taskCount(1));
   dispatch(taskBegin(p));
-  const groupPost = await groupTask.execute();
-  dispatch(
-    getPageSuccess({
-      posts: groupPost.posts,
-      status: Status.success,
-      p
-    })
-  );
-  dispatch(dequeue(p));
+  try {
+    const groupPost = await groupTask.execute();
+    dispatch(handleGroupTask(groupPost));
+    dispatch(dequeue(p));
+  } catch (e) {
+    dispatch(
+      getPageFail({
+        p,
+        error: e.toString()
+      })
+    );
+  }
   dispatch(taskCount(-1));
 };

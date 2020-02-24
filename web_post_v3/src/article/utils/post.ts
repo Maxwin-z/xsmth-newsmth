@@ -1,6 +1,7 @@
 import { IGroup, IPost, IXImage, Status } from "../groupSlice";
 
 let imageID = 0;
+export const POST_PER_PAGE = 10;
 
 export function parseUrl(urlString: string): IPost {
   const url = new URL(urlString);
@@ -65,17 +66,18 @@ function retrieveErrorMessage(html: string) {
   return (div.querySelector(".error li") as HTMLLIElement)?.innerText;
 }
 
-export function retrieveGroupPosts(html: string): IGroup {
+export function retrieveGroupPosts(html: string, page: number): IGroup {
   html = cleanHtml(html);
   const div = document.createElement("div");
   div.innerHTML = html;
   const title = (div.querySelector(
     ".b-head .n-left"
   ) as HTMLSpanElement).innerText.replace("文章主题: ", "");
-  const total = parseInt(
+  const totalPosts = parseInt(
     (div.querySelector(".pagination i") as HTMLElement).innerText || "0",
     10
   );
+  const total = Math.ceil(totalPosts / 10);
   const posts = [].slice
     .call(div.querySelectorAll("table.article"))
     .map((table: HTMLTableElement) => {
@@ -111,6 +113,7 @@ export function retrieveGroupPosts(html: string): IGroup {
   return {
     title,
     total,
+    p: page,
     posts
   };
 }

@@ -28,7 +28,7 @@ export class GroupTask {
         reject(error);
         this.reject = null;
       }
-      resolve(retrieveGroupPosts(html));
+      resolve(retrieveGroupPosts(html, this.page));
     });
   }
 
