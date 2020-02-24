@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { postInfo } from "./utils/jsapi";
 import { GroupTask } from "./utils/Task";
 import { AppThunk } from ".";
+import { delay } from "./utils/post";
 export enum Status {
   init,
   loading,
@@ -81,7 +82,11 @@ const group = createSlice({
       console.log("enqueue", payload);
       const newTasks: ITask[] = [];
       const newPages: IPage[] = [];
-      new Array<number>(0).concat(payload).forEach(p => {
+      const ps = Array.isArray(payload) ? payload : [payload];
+      if (ps.length === 0) {
+        return;
+      }
+      ps.forEach(p => {
         if (!state.tasks.find(task => task.p === p)) {
           newTasks.push({
             status: Status.init,
@@ -136,7 +141,10 @@ export const {
 export default group.reducer;
 
 export const getMainPost = (): AppThunk => async dispatch => {
-  const mainPost = await postInfo();
+  let mainPost = await postInfo();
+  // debug
+  mainPost = { board: "WorkLife", gid: 2164300, title: "" }; // 20+ pages
+  mainPost = { board: "Tooooold", gid: 41831, title: "" }; // 4 pages
   dispatch(setMainPost(mainPost));
   dispatch(enqueue(1));
   dispatch(nextTask());
@@ -179,6 +187,8 @@ export const nextTask = (): AppThunk => async (dispatch, getState) => {
   dispatch(taskCount(1));
   dispatch(taskBegin(p));
   try {
+    // debug
+    await delay(3000);
     const groupPost = await groupTask.execute();
     dispatch(handleGroupTask(groupPost));
     dispatch(dequeue(p));
