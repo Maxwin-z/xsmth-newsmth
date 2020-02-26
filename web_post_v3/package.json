@@ -19,7 +19,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "mocha -r ts-node/register -r @babel/register -r esm ./src/tests/test-**.ts",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -39,7 +39,14 @@
   },
   "proxy": "http://localhost:3001",
   "devDependencies": {
+    "@babel/register": "^7.8.3",
+    "@types/chai": "^4.2.9",
+    "@types/mocha": "^7.0.1",
     "@types/react-redux": "^7.1.7",
-    "iconv-lite": "^0.5.1"
+    "chai": "^4.2.0",
+    "esm": "^3.2.25",
+    "iconv-lite": "^0.5.1",
+    "mocha": "^7.0.1",
+    "ts-node": "^8.6.2"
   }
 }

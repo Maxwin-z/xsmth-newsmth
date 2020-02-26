@@ -5,12 +5,10 @@ import { RootState } from "..";
 import Post from "./Post";
 
 const pageSelector = createSelector(
-  (state: RootState) => {
-    return {
-      pages: state.group.pages,
-      mainPost: state.group.mainPost
-    };
-  },
+  (state: RootState) => ({
+    pages: state.group.pages,
+    mainPost: state.group.mainPost
+  }),
   (_: RootState, p: number) => p,
   ({ pages, mainPost }, p) => {
     return {
