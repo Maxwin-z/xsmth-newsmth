@@ -1,14 +1,29 @@
 import React, { FC } from "react";
 import { useSelector } from "react-redux";
+import { createSelector } from "reselect";
 import { RootState } from "..";
 import Post from "./Post";
 
+const pageSelector = createSelector(
+  (state: RootState) => ({
+    pages: state.group.pages,
+    mainPost: state.group.mainPost
+  }),
+  (_: RootState, p: number) => p,
+  ({ pages, mainPost }, p) => {
+    // console.log("pageSelector", p);
+    return {
+      page: pages[p - 1],
+      title: mainPost.title,
+      board: mainPost.board
+    };
+  }
+);
+
 const Page: FC<{ p: number }> = ({ p }) => {
-  const { page, title, board } = useSelector((state: RootState) => ({
-    page: state.group.pages[p - 1],
-    title: state.group.mainPost.title,
-    board: state.group.mainPost.board
-  }));
+  const { page, title, board } = useSelector((state: RootState) =>
+    pageSelector(state, p)
+  );
   return (
     <div>
       Page {page.p}: {page.status}

@@ -116,6 +116,8 @@ const group = createSlice({
     },
     getPageSuccess(state, { payload: { p }, payload }: PayloadAction<IPage>) {
       state.pages[p - 1] = payload;
+      const task = state.tasks.find(task => task.p === p);
+      console.log("page success", task, p);
       state.tasks.find(task => task.p === p)!.status = Status.success;
     },
     getPageFail(
@@ -147,7 +149,6 @@ export const getMainPost = (): AppThunk => async dispatch => {
   mainPost = { board: "Tooooold", gid: 41831, title: "" }; // 4 pages
   dispatch(setMainPost(mainPost));
   dispatch(enqueue(1));
-  dispatch(nextTask());
 };
 
 const handleGroupTask = (group: IGroup): AppThunk => (dispatch, getState) => {
@@ -178,6 +179,7 @@ export const nextTask = (): AppThunk => async (dispatch, getState) => {
     return;
   }
   const task = group.tasks.find(task => task.status === Status.init);
+  console.log("find init task", task);
   if (!task) {
     return;
   }
@@ -188,7 +190,7 @@ export const nextTask = (): AppThunk => async (dispatch, getState) => {
   dispatch(taskBegin(p));
   try {
     // debug
-    await delay(3000);
+    // await delay(3000);
     const groupPost = await groupTask.execute();
     dispatch(handleGroupTask(groupPost));
     dispatch(dequeue(p));
