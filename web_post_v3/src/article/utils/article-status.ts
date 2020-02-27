@@ -22,16 +22,21 @@ export function articleStatus(ss: Status[]) {
     }
   }
 
-  console.log("firstLoading", firstLoading);
-  console.log("firstSuccess", firstSuccess);
-  console.log("firstFail", firstFail);
-  console.log("lastLoading", lastLoading);
-  console.log("lastSuccess", lastSuccess);
-  console.log("lastFail", lastFail);
+  // console.log("firstLoading", firstLoading);
+  // console.log("firstSuccess", firstSuccess);
+  // console.log("firstFail", firstFail);
+  // console.log("lastLoading", lastLoading);
+  // console.log("lastSuccess", lastSuccess);
+  // console.log("lastFail", lastFail);
   let articleStatus = ArticleStatus.allLoading;
   if (lastSuccess === -1 && lastFail === -1) {
     articleStatus = ArticleStatus.allLoading;
-  } else if (firstLoading < lastSuccess || firstLoading < lastFail) {
+  } else if (firstFail === 0 && firstSuccess === -1) {
+    articleStatus = ArticleStatus.allFail;
+  } else if (
+    firstLoading > 0 &&
+    (firstLoading < lastSuccess || firstLoading < lastFail)
+  ) {
     articleStatus = ArticleStatus.middlePageLoading;
   } else if (
     firstLoading === lastLoading &&

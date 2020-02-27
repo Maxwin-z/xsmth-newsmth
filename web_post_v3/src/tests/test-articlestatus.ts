@@ -25,7 +25,22 @@ export enum ArticleStatus {
 
 describe("ArticleStatus", () => {
   it("allLoading", () => {
+    test([L], ArticleStatus.allLoading);
+  });
+  it("allLoading", () => {
     test([L, I, I, I], ArticleStatus.allLoading);
+  });
+  it("middlePageLoading", () => {
+    test([S, S, L, S], ArticleStatus.middlePageLoading);
+  });
+  it("middlePageLoading", () => {
+    test([S, S, L, F], ArticleStatus.middlePageLoading);
+  });
+  it("middlePageLoading", () => {
+    test([S, S, I, L, I, S], ArticleStatus.middlePageLoading);
+  });
+  it("middlePageLoading", () => {
+    test([S, S, F, L, I, F], ArticleStatus.middlePageLoading);
   });
   it("middlePageLoading", () => {
     test([S, S, I, L, I, S, I], ArticleStatus.middlePageLoading);
@@ -39,7 +54,19 @@ describe("ArticleStatus", () => {
   it("footerFail", () => {
     test([S, S, F], ArticleStatus.footerFail);
   });
+  it("allSuccess", () => {
+    test([S, S, S, S], ArticleStatus.allSuccess);
+  });
+  it("allLoading", () => {
+    test([L, L, I, I], ArticleStatus.allLoading);
+  });
   it("allLoading", () => {
     test([L, I, I, I], ArticleStatus.allLoading);
+  });
+  it("allFail", () => {
+    test([F], ArticleStatus.allFail);
+  });
+  it("allFail", () => {
+    test([F, I, I, I], ArticleStatus.allFail);
   });
 });
