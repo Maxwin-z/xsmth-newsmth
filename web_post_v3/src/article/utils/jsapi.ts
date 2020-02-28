@@ -1,5 +1,5 @@
 import PubSub from "pubsub-js";
-import { IMainPost } from "../groupSlice";
+import { IMainPost } from "../types";
 import { IActionPost } from "../components/Post";
 
 export interface Json {

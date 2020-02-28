@@ -1,5 +1,5 @@
 import { isErrorPage, retrieveGroupPosts, formatPost, cleanHtml } from "./post";
-import { IPost, IGroup } from "../groupSlice";
+import { IPost, IGroup } from "../types";
 import { ajax } from "./jsapi";
 export class GroupTask {
   board: string;
