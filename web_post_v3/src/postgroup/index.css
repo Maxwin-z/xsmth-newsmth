@@ -5,30 +5,30 @@
 
 html,
 body {
-  font-size: 50px;
+  font-size: 16px;
   background-color: rgba(0, 0, 0, 0);
 }
 
 button,
 textarea {
-  font-size: 50px;
+  font-size: 16px;
 }
 
 #title {
   font-size: 150%;
   line-height: 1.2em;
-  padding: 20px 0;
+  padding: 10px 0;
 }
 .main {
-  margin-left: 30px;
+  margin-left: 15px;
 }
 .page-placeholder {
-  padding: 20px 30px 0 0;
-  height: 200px;
+  padding: 10px 15px 0 0;
+  height: 100px;
   border-top: 1px solid lightgrey;
   text-align: center;
-  line-height: 100px;
-  font-size: 40px;
+  line-height: 50px;
+  font-size: 20px;
 }
 
 .page-placeholder:first {
@@ -39,14 +39,14 @@ textarea {
   border: 1px solid lightgray;
   background-color: #f0f0f0;
   font-size: 32px;
-  width: 400px;
-  line-height: 60px;
+  width: 200px;
+  line-height: 30px;
 }
 
 .page-init {
   text-align: center;
-  line-height: 200px;
-  font-size: 80px;
+  line-height: 100px;
+  font-size: 40px;
 }
 
 .footer {
@@ -55,17 +55,17 @@ textarea {
 }
 
 .loading-container {
-  font-size: 32px;
+  font-size: 16px;
   text-align: center;
 }
 
 .loading-icon {
-  width: 64px;
-  height: 64px;
+  width: 32px;
+  height: 32px;
   margin: auto;
   background-image: url("./icon_loading.png");
   background-repeat: no-repeat;
-  background-size: 64px;
+  background-size: 32px;
   animation: spin 2s linear infinite;
 }
 
@@ -80,38 +80,38 @@ textarea {
 }
 
 .post {
-  padding: 10px 10px 10px 0;
+  padding: 5px 5px 5px 0;
   border-top: 1px solid lightgrey;
   overflow-wrap: break-word;
 }
 .post-title {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   position: relative;
 }
 
 .post-action {
   position: absolute;
-  right: 20px;
-  top: 20px;
+  right: 10px;
+  top: 10px;
   display: flex;
 }
 
 .post-action .action {
   border: 1px solid blue;
   padding: 2px 3px;
-  border-radius: 5px;
-  padding: 0px 10px;
-  margin-right: 20px;
-  font-size: 30px;
-  line-height: 60px;
+  border-radius: 2px;
+  padding: 0px 5x;
+  margin-right: 10px;
+  font-size: 12px;
+  line-height: 16px;
 }
 
 .post-info {
-  font-size: 30px;
+  font-size: 16px;
 }
 
 .floor {
-  margin-right: 20px;
+  margin-right: 10px;
 }
 
 .ximg-box {
@@ -120,15 +120,15 @@ textarea {
 .ximg-info {
   position: absolute;
   padding: 2px;
-  font-size: 24px;
-  line-height: 30px;
+  font-size: 12px;
+  line-height: 15px;
   background-color: rgba(199, 199, 199, 0.5);
   top: 0;
   left: 0;
 }
 .ximg {
   max-width: 90vw;
-  min-width: 400px;
+  min-width: 200px;
 }
 
 .hidden {

@@ -252,18 +252,18 @@ let taskTimer: NodeJS.Timeout;
 let cancel = false;
 
 async function initPage() {
-  const theme = await getThemeConfig();
-  setupTheme(theme);
+  // const theme = await getThemeConfig();
+  // setupTheme(theme);
 
   mainPost = await postInfo();
   // mainPost = {
   //   board: "Stock",
   //   gid: 8626024
   // };
-  // mainPost = {
-  //   board: "ITExpress",
-  //   gid: 2101997 // 2 pages
-  // };
+  mainPost = {
+    board: "ITExpress",
+    gid: 2101997 // 2 pages
+  };
   // mainPost = {
   //   board: "Anti2019nCoV",
   //   gid: 408945
@@ -615,6 +615,9 @@ async function loadIntance(post: IPost): Promise<boolean> {
     console.log("load page instance:", data);
   } catch (e) {
     console.log("no page instance", e);
+    return false;
+  }
+  if (!data) {
     return false;
   }
   maxLoadedPageNumber = data.maxLoadedPageNumber;
