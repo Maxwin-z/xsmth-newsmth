@@ -1,8 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getMainPost, nextTask } from "../groupSlice";
+import { getMainPost } from "../groupSlice";
 import { RootState } from "..";
 import Page from "./Page";
+
+const GroupTitle: FC<{ title: string }> = ({ title }) => <h1>{title}</h1>;
+const Pages: FC<{ count: number }> = ({ count }) => (
+  <div className="page-list">
+    {new Array(count).fill(0).map((_, p) => (
+      <Page key={p} p={p + 1} />
+    ))}
+  </div>
+);
 
 function Group() {
   const dispatch = useDispatch();
@@ -20,28 +29,10 @@ function Group() {
 
   return (
     <div>
-      <div>Group:</div>
-      board: {mainPost.board}
-      <div className="page-list">
-        {new Array(pageCount).fill(0).map((_, p) => (
-          <Page key={p} p={p + 1} />
-        ))}
-      </div>
-      <TaskQueue />
+      <GroupTitle title={mainPost.title} />
+      <Pages count={pageCount} />
     </div>
   );
-}
-
-function TaskQueue() {
-  const queue = useSelector((state: RootState) => state.group.tasks);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    console.log(queue);
-    if (queue.length > 0) {
-      dispatch(nextTask());
-    }
-  }, [queue, dispatch]);
-  return <></>;
 }
 
 export default Group;

@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect, FC, memo } from "react";
 import { combineReducers, Action } from "redux";
-import { Provider } from "react-redux";
+import { Provider, useSelector, useDispatch } from "react-redux";
 import { configureStore, ThunkAction } from "@reduxjs/toolkit";
 
-import groupReducer from "./groupSlice";
+import groupReducer, { nextTask } from "./groupSlice";
 import Group from "./components/Group";
 import "./index.css";
 
@@ -22,8 +22,22 @@ function Article() {
   return (
     <Provider store={store}>
       <Group />
+      <TaskQueue />
     </Provider>
   );
 }
+
+const TaskQueue: FC<{}> = memo(() => {
+  console.log("TaskQueue");
+  const queue = useSelector((state: RootState) => state.group.tasks);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    console.log(queue);
+    if (queue.length > 0) {
+      dispatch(nextTask());
+    }
+  }, [queue, dispatch]);
+  return <></>;
+});
 
 export default Article;

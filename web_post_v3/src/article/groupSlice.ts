@@ -3,13 +3,23 @@ import { postInfo } from "./utils/jsapi";
 import { GroupTask } from "./utils/Task";
 import { AppThunk } from ".";
 import { delay } from "./utils/post";
-import { IGroupState, IPage, ITask, Status, IMainPost, IGroup } from "./types";
+import {
+  IGroupState,
+  IPage,
+  ITask,
+  Status,
+  IMainPost,
+  IGroup,
+  ArticleStatus
+} from "./types";
+import { articleStatus } from "./utils/article-status";
 
 const groupInitialState: IGroupState = {
   mainPost: { board: "", title: "", gid: 0 },
   pages: [],
   tasks: [],
-  taskCount: 0
+  taskCount: 0,
+  articleStatus: ArticleStatus.allLoading
 };
 
 function updatePageStatus(
@@ -22,6 +32,12 @@ function updatePageStatus(
   pages[p - 1].status = status;
   pages[p - 1].errorMessage = errorMessage || "";
   tasks.find(task => task.p === p)!.status = status;
+  const aStatus = articleStatus(pages.map(page => page.status));
+  return {
+    pages,
+    tasks,
+    articleStatus: aStatus
+  };
 }
 
 const group = createSlice({
@@ -65,22 +81,29 @@ const group = createSlice({
       state.taskCount += payload;
     },
     taskBegin(state, { payload }: PayloadAction<number>) {
-      state.tasks.find(task => task.p === payload)!.status = Status.loading;
+      Object.assign(
+        state,
+        updatePageStatus(state.pages, state.tasks, payload, Status.loading)
+      );
+    },
+    getTitleSuccess(state, { payload }: PayloadAction<string>) {
+      state.mainPost.title = payload;
     },
     getPageSuccess(state, { payload: { p }, payload }: PayloadAction<IPage>) {
       state.pages[p - 1] = payload;
-      const task = state.tasks.find(task => task.p === p);
-      console.log("page success", task, p);
-      state.tasks.find(task => task.p === p)!.status = Status.success;
+      Object.assign(
+        state,
+        updatePageStatus(state.pages, state.tasks, p, Status.success)
+      );
     },
     getPageFail(
       state,
       { payload: { p, error } }: PayloadAction<{ p: number; error: string }>
     ) {
-      const page = state.pages[p - 1];
-      page.status = Status.fail;
-      page.errorMessage = error;
-      state.tasks.find(task => task.p === p)!.status = Status.fail;
+      Object.assign(
+        state,
+        updatePageStatus(state.pages, state.tasks, p, Status.fail, error)
+      );
     }
   }
 });
@@ -90,6 +113,7 @@ export const {
   dequeue,
   taskCount,
   taskBegin,
+  getTitleSuccess,
   getPageSuccess,
   getPageFail
 } = group.actions;
@@ -109,6 +133,7 @@ const handleGroupTask = (group: IGroup): AppThunk => (dispatch, getState) => {
   const {
     group: { pages }
   } = getState();
+  dispatch(getTitleSuccess(group.title));
   dispatch(
     getPageSuccess({
       posts: group.posts,
@@ -126,7 +151,7 @@ const handleGroupTask = (group: IGroup): AppThunk => (dispatch, getState) => {
 };
 
 export const nextTask = (): AppThunk => async (dispatch, getState) => {
-  const taskCountLimit = 2;
+  const taskCountLimit = 1;
   const { group } = getState();
   if (group.taskCount >= taskCountLimit) {
     return;
@@ -143,7 +168,7 @@ export const nextTask = (): AppThunk => async (dispatch, getState) => {
   dispatch(taskBegin(p));
   try {
     // debug
-    // await delay(3000);
+    await delay(3000);
     const groupPost = await groupTask.execute();
     dispatch(handleGroupTask(groupPost));
     dispatch(dequeue(p));

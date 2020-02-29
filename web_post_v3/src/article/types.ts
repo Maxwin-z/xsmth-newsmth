@@ -67,4 +67,5 @@ export interface IGroupState {
   pages: IPage[];
   tasks: ITask[];
   taskCount: number;
+  articleStatus: ArticleStatus;
 }
