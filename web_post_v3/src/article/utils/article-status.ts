@@ -1,12 +1,19 @@
 import { Status, ArticleStatus } from "../types";
 
-export function articleStatus(ss: Status[]) {
+export function getArticleStatus(
+  ss: Status[]
+): {
+  articleStatus: ArticleStatus;
+  maxLoaded: number;
+  lastLoading: number;
+} {
   let firstLoading = -1;
   let firstSuccess = -1;
   let firstFail = -1;
   let lastLoading = -1;
   let lastSuccess = -1;
   let lastFail = -1;
+  let maxLoaded = -1;
   for (let i = 0; i < ss.length; ++i) {
     if (ss[i] === Status.loading) {
       lastLoading = i;
@@ -20,6 +27,9 @@ export function articleStatus(ss: Status[]) {
       lastFail = i;
       firstFail === -1 && (firstFail = i);
     }
+    if (ss[i] !== Status.init) {
+      maxLoaded = i + 1; // page start with 1
+    }
   }
 
   // console.log("firstLoading", firstLoading);
@@ -28,7 +38,7 @@ export function articleStatus(ss: Status[]) {
   // console.log("lastLoading", lastLoading);
   // console.log("lastSuccess", lastSuccess);
   // console.log("lastFail", lastFail);
-  let articleStatus = ArticleStatus.allLoading;
+  let articleStatus: ArticleStatus = ArticleStatus.allLoading;
   if (lastSuccess === -1 && lastFail === -1) {
     articleStatus = ArticleStatus.allLoading;
   } else if (firstFail === 0 && firstSuccess === -1) {
@@ -53,7 +63,7 @@ export function articleStatus(ss: Status[]) {
   } else if (firstLoading === -1 && lastSuccess === ss.length - 1) {
     articleStatus = ArticleStatus.allSuccess;
   }
-  return articleStatus;
+  return { articleStatus, maxLoaded, lastLoading };
 
   /*
   allLoading,

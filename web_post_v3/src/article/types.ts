@@ -12,7 +12,8 @@ export enum ArticleStatus {
   footerLoading,
   footerFail,
   allSuccess,
-  allFail
+  allFail,
+  reloading
 }
 
 export interface IMainPost {
@@ -47,6 +48,7 @@ export interface IPage {
   posts: IPost[];
   status: Status;
   p: number;
+  hidden?: boolean;
   errorMessage?: string;
 }
 
@@ -68,4 +70,5 @@ export interface IGroupState {
   tasks: ITask[];
   taskCount: number;
   articleStatus: ArticleStatus;
+  lastLoading: number;
 }

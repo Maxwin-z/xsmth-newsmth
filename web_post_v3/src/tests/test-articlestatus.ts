@@ -1,10 +1,10 @@
 import { Status, ArticleStatus } from "../article/types";
 import { expect } from "chai";
 import "mocha";
-import { articleStatus } from "../article/utils/article-status";
+import { getArticleStatus } from "../article/utils/article-status";
 
 function test(ss: Status[], status: ArticleStatus) {
-  expect(articleStatus(ss)).to.equal(status);
+  expect(getArticleStatus(ss).articleStatus).to.equal(status);
 }
 
 const I = Status.init;

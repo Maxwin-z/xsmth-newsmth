@@ -12,14 +12,15 @@ import {
   IGroup,
   ArticleStatus
 } from "./types";
-import { articleStatus } from "./utils/article-status";
+import { getArticleStatus } from "./utils/article-status";
 
 const groupInitialState: IGroupState = {
   mainPost: { board: "", title: "", gid: 0 },
   pages: [],
   tasks: [],
   taskCount: 0,
-  articleStatus: ArticleStatus.allLoading
+  articleStatus: ArticleStatus.allLoading,
+  lastLoading: 0
 };
 
 function updatePageStatus(
@@ -32,11 +33,20 @@ function updatePageStatus(
   pages[p - 1].status = status;
   pages[p - 1].errorMessage = errorMessage || "";
   tasks.find(task => task.p === p)!.status = status;
-  const aStatus = articleStatus(pages.map(page => page.status));
+  let { articleStatus, maxLoaded, lastLoading } = getArticleStatus(
+    pages.map(page => page.status)
+  );
+  pages.forEach(page => {
+    page.hidden = page.p > maxLoaded;
+    if (page.posts.length > 0 && articleStatus === ArticleStatus.allLoading) {
+      articleStatus = ArticleStatus.reloading;
+    }
+  });
   return {
     pages,
     tasks,
-    articleStatus: aStatus
+    articleStatus,
+    lastLoading
   };
 }
 
