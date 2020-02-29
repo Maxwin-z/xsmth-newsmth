@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, memo } from "react";
 import { useSelector } from "react-redux";
 import { createSelector } from "reselect";
 import { RootState } from "..";
@@ -45,7 +45,7 @@ const SuccessPage: FC<{ posts: IPost[]; p: number }> = ({ posts, p }) => (
   </>
 );
 
-const Page: FC<{ p: number }> = ({ p }) => {
+const Page: FC<{ p: number }> = memo(({ p }) => {
   const page = useSelector((state: RootState) => state.group.pages[p - 1]);
   return (
     <div className={page.hidden ? "hidden page" : "page"} data-page={p}>
@@ -60,6 +60,6 @@ const Page: FC<{ p: number }> = ({ p }) => {
       ) : null}
     </div>
   );
-};
+});
 
 export default Page;

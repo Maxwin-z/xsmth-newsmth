@@ -1,4 +1,4 @@
-import React, { useEffect, FC } from "react";
+import React, { useEffect, FC, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getMainPost } from "../groupSlice";
 import { RootState } from "..";
@@ -8,13 +8,13 @@ import Loading from "./Loading";
 import Footer from "./Footer";
 
 const GroupTitle: FC<{ title: string }> = ({ title }) => <h1>{title}</h1>;
-const Pages: FC<{ count: number }> = ({ count }) => (
+const Pages: FC<{ count: number }> = memo(({ count }) => (
   <div className="page-list">
     {new Array(count).fill(0).map((_, p) => (
       <Page key={p} p={p + 1} />
     ))}
   </div>
-);
+));
 
 function Group() {
   const dispatch = useDispatch();
