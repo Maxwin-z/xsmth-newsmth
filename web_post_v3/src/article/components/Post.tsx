@@ -1,6 +1,6 @@
 import React, { FC } from "react";
-import { IPost } from "../groupSlice";
 import { reply, showActivity } from "../utils/jsapi";
+import { IPost } from "../types";
 
 export interface IActionPost {
   title: string;

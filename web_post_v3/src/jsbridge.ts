@@ -86,6 +86,8 @@ function sendMessage(methodName: string, parameters?: any): Promise<any> {
     };
     if (isBridgeAvaiable()) {
       window.webkit.messageHandlers.nativeBridge.postMessage(message);
+    } else {
+      resolve(null);
     }
   });
 }

@@ -1,4 +1,4 @@
-import { IGroup, IXImage, Status } from "../groupSlice";
+import { IGroup, IXImage, Status } from "../types";
 
 let imageID = 0;
 export const POST_PER_PAGE = 10;
