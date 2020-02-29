@@ -1,10 +1,10 @@
 import React from "react";
-import PostGroupPage from "./postgroup/PostGroupPage";
+// import PostGroupPage from "./postgroup/PostGroupPage";
 // import BridgeTest from "./BridgeTest";
 // import DebugPage from "./DebugPage";
 // import TaskTest from "./tests/Task.test";
 // import ReduxTest from "./tests/Redux.test";
-// import Article from "./article/index";
+import Article from "./article/index";
 
 function App() {
   // const url = new URL(window.location.href);
@@ -15,8 +15,8 @@ function App() {
       {/* {isDebug ? <BridgeTest /> : null} */}
       {/* <TaskTest /> */}
       {/* <ReduxTest /> */}
-      <PostGroupPage />
-      {/* <Article /> */}
+      {/* <PostGroupPage /> */}
+      <Article />
     </div>
   );
 }
