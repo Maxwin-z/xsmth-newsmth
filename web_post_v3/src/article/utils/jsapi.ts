@@ -34,6 +34,7 @@ interface Window {
 declare let window: Window;
 
 window.$xCallback = function(callbackID: number, rsp: BridgeResult) {
+  console.log("$xCallback", callbackID, rsp);
   if (callbacks[callbackID]) {
     callbacks[callbackID](rsp);
   } else {

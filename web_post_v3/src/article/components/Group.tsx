@@ -34,7 +34,7 @@ function Group() {
   console.log("Group render");
 
   return (
-    <div>
+    <div className="main">
       <GroupTitle title={mainPost.title} />
       {articleStatus === ArticleStatus.allLoading ? (
         <Loading>正在加载...</Loading>
