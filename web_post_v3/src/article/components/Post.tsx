@@ -16,22 +16,15 @@ export interface IActionPost {
 const Post: FC<{
   post: IPost;
   p: number;
-  title: string;
-  board: string;
-}> = ({
-  post: { author, nick, dateString, content, floor },
-  p,
-  title,
-  board
-}) => {
+}> = ({ post: { author, nick, dateString, content, floor }, p }) => {
   function makeActionPost() {
     const actionPost: IActionPost = {
-      title,
+      title: "",
       author,
       nick,
       pid: 0,
       board: {
-        name: board
+        name: ""
       },
       content: content!
         .replace(/<br\/?>/g, "\n")
