@@ -10,7 +10,9 @@ import {
   Status,
   IMainPost,
   IGroup,
-  ArticleStatus
+  ArticleStatus,
+  IXImage,
+  IPost
 } from "./types";
 import { getArticleStatus } from "./utils/article-status";
 
@@ -19,6 +21,7 @@ const groupInitialState: IGroupState = {
   pages: [],
   tasks: [],
   taskCount: 0,
+  images: [],
   articleStatus: ArticleStatus.allLoading,
   lastLoading: 0
 };
@@ -99,6 +102,12 @@ const group = createSlice({
     getTitleSuccess(state, { payload }: PayloadAction<string>) {
       state.mainPost.title = payload;
     },
+    getImages(state, { payload }: PayloadAction<IPost[]>) {
+      const images: IXImage[] = payload.map(({ images }) => images).flat();
+      if (images.length > 0) {
+        state.images = state.images.concat(images);
+      }
+    },
     getPageSuccess(state, { payload: { p }, payload }: PayloadAction<IPage>) {
       state.pages[p - 1] = payload;
       Object.assign(
@@ -124,6 +133,7 @@ export const {
   taskCount,
   taskBegin,
   getTitleSuccess,
+  getImages,
   getPageSuccess,
   getPageFail
 } = group.actions;
@@ -144,6 +154,7 @@ const handleGroupTask = (group: IGroup): AppThunk => (dispatch, getState) => {
     group: { pages }
   } = getState();
   dispatch(getTitleSuccess(group.title));
+  dispatch(getImages(group.posts));
   dispatch(
     getPageSuccess({
       posts: group.posts,

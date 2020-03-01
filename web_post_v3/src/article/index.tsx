@@ -10,6 +10,7 @@ import "./index.css";
 import { setupTheme } from "./handlers/theme";
 import { getThemeConfig } from "./utils/jsapi";
 import { ITheme } from "./types";
+import XImageQueue from "./components/XImageQueue";
 
 const rootReducer = combineReducers({
   group: groupReducer
@@ -36,6 +37,7 @@ function Article() {
     <Provider store={store}>
       <Group />
       <TaskQueue />
+      <XImageQueue />
     </Provider>
   );
 }
