@@ -1,5 +1,5 @@
 import PubSub from "pubsub-js";
-import { IMainPost } from "../types";
+import { IMainPost, ITheme } from "../types";
 import { IActionPost } from "../components/Post";
 
 export interface Json {
@@ -212,9 +212,9 @@ export function pageNumberChanged(
   });
 }
 
-// export function getThemeConfig(): Promise<Theme> {
-//   return sendMessage("getThemeConfig");
-// }
+export function getThemeConfig(): Promise<ITheme> {
+  return sendMessage("getThemeConfig");
+}
 
 export function setStorage(key: string, value: any): Promise<boolean> {
   return sendMessage("setStorage", {

@@ -132,8 +132,8 @@ export default group.reducer;
 export const getMainPost = (): AppThunk => async dispatch => {
   let mainPost = await postInfo();
   // debug
-  mainPost = { board: "WorkLife", gid: 2164300, title: "" }; // 20+ pages
-  mainPost = { board: "Tooooold", gid: 41831, title: "" }; // 4 pages
+  // mainPost = { board: "WorkLife", gid: 2164300, title: "" }; // 20+ pages
+  // mainPost = { board: "Tooooold", gid: 41831, title: "" }; // 4 pages
   dispatch(setMainPost(mainPost));
   dispatch(enqueue(1));
 };

@@ -72,3 +72,13 @@ export interface IGroupState {
   articleStatus: ArticleStatus;
   lastLoading: number;
 }
+
+export interface ITheme {
+  fontFamily: string;
+  fontSize: string;
+  lineHeight: string;
+  bgColor: string;
+  textColor: string;
+  tintColor: string;
+  quoteColor: string;
+}

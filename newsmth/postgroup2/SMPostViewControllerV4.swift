@@ -917,8 +917,8 @@ extension SMPostViewControllerV4 {
     func themeConfig() -> [String:String] {
         let font = SMConfig.postFont() ?? UIFont.systemFont(ofSize: 14.0)
         let fontFamily = font.fontName
-        let fontSize = String(format: "%dpx", (Int)(font.pointSize * 2))
-        let lineHeight = String(format: "%dpx", (Int)(font.lineHeight * 1.2 * 2))
+        let fontSize = String(format: "%dpx", (Int)(font.pointSize))
+        let lineHeight = String(format: "%dpx", (Int)(font.lineHeight * 1.2))
         let bgColor = color2hex(color: SMTheme.colorForBackground())
         let textColor = color2hex(color: SMTheme.colorForPrimary())
         let tintColor = color2hex(color: SMTheme.colorForTintColor())

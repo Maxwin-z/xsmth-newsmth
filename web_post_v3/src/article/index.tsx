@@ -5,7 +5,11 @@ import { configureStore, ThunkAction } from "@reduxjs/toolkit";
 
 import groupReducer, { nextTask } from "./groupSlice";
 import Group from "./components/Group";
+import "./handlers/theme";
 import "./index.css";
+import { setupTheme } from "./handlers/theme";
+import { getThemeConfig } from "./utils/jsapi";
+import { ITheme } from "./types";
 
 const rootReducer = combineReducers({
   group: groupReducer
@@ -14,6 +18,15 @@ const rootReducer = combineReducers({
 const store = configureStore({
   reducer: rootReducer
 });
+
+(async () => {
+  const theme = await getThemeConfig();
+  setupTheme(theme);
+
+  PubSub.subscribe("THEME_CHANGE", (_: string, style: ITheme) => {
+    setupTheme(style);
+  });
+})();
 
 export type RootState = ReturnType<typeof rootReducer>;
 export type AppThunk = ThunkAction<void, RootState, null, Action<string>>;
