@@ -98,12 +98,12 @@ textarea {
 
 .post-action .action {
   border: 1px solid blue;
-  padding: 2px 3px;
+  padding: 2px 0px;
   border-radius: 2px;
   padding: 0px 5px;
   margin-right: 10px;
   font-size: 12px;
-  line-height: 20px;
+  line-height: 24px;
 }
 
 .floor {

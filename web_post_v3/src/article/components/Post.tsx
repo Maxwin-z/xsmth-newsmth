@@ -1,6 +1,8 @@
-import React, { FC } from "react";
+import React, { FC, memo } from "react";
 import { reply, showActivity } from "../utils/jsapi";
 import { IPost } from "../types";
+import { useSelector } from "react-redux";
+import { RootState } from "..";
 
 export interface IActionPost {
   title: string;
@@ -16,15 +18,16 @@ export interface IActionPost {
 const Post: FC<{
   post: IPost;
   p: number;
-}> = ({ post: { author, nick, dateString, content, floor }, p }) => {
+}> = memo(({ post: { author, nick, dateString, content, floor, pid }, p }) => {
+  const mainPost = useSelector((state: RootState) => state.group.mainPost);
   function makeActionPost() {
     const actionPost: IActionPost = {
-      title: "",
+      title: mainPost.title,
       author,
       nick,
-      pid: 0,
+      pid,
       board: {
-        name: ""
+        name: mainPost.board
       },
       content: content!
         .replace(/<br\/?>/g, "\n")
@@ -34,7 +37,7 @@ const Post: FC<{
         .replace(/&gt;/g, ">")
         .replace(/&amp;/g, "&")
     };
-
+    console.log("actionPost", actionPost);
     return actionPost;
   }
   function doReply() {
@@ -66,6 +69,6 @@ const Post: FC<{
       <div dangerouslySetInnerHTML={{ __html: content || "" }}></div>
     </div>
   );
-};
+});
 
 export default Post;
