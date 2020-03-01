@@ -21,7 +21,6 @@ const groupInitialState: IGroupState = {
   pages: [],
   tasks: [],
   taskCount: 0,
-  images: [],
   articleStatus: ArticleStatus.allLoading,
   lastLoading: 0
 };

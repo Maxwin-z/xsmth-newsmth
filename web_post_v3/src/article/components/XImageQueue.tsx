@@ -6,11 +6,11 @@ import { loadImage } from "../slices/imageTask";
 
 const XImageQueue: FC<{}> = () => {
   const dispatch = useDispatch();
-  const images = useSelector((state: RootState) => state.group.images);
+  const count = useSelector((state: RootState) => state.imageTask.count);
   useEffect(() => {
-    console.log("load images");
+    // console.log("load images");
     dispatch(loadImage());
-  }, [images, dispatch]);
+  }, [count, dispatch]);
   return <></>;
 };
 

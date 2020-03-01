@@ -5,11 +5,13 @@ import { download } from "../utils/jsapi";
 
 interface IImagesState {
   images: IXImage[];
+  count: number;
   taskCount: number;
 }
 
 const initialState: IImagesState = {
   images: [],
+  count: 0,
   taskCount: 0
 };
 
@@ -18,9 +20,11 @@ const imageTask = createSlice({
   initialState,
   reducers: {
     enqueue(state, { payload }: PayloadAction<IPost[]>) {
+      // console.log("enqueue", payload);
       const images: IXImage[] = payload.map(({ images }) => images).flat();
       if (images.length > 0) {
         state.images = state.images.concat(images);
+        state.count = state.images.length;
       }
     },
     loadBegin(state, { payload }: PayloadAction<number>) {
@@ -87,6 +91,7 @@ export const loadImage = (): AppThunk => async (dispatch, getState) => {
     console.log(`load image fail: ${src}`);
     dispatch(loadFail(index));
   }
+  dispatch(loadImage());
 };
 
 export const handleImageDownloadProgress = (data: any) => {
