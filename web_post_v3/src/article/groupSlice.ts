@@ -39,7 +39,9 @@ function updatePageStatus(
     pages.map(page => page.status)
   );
   pages.forEach(page => {
-    page.hidden = page.posts.length === 0 && page.p >= maxLoaded;
+    page.hidden =
+      (page.status === Status.init || page.status === Status.loading) &&
+      page.p >= maxLoaded;
     if (page.posts.length > 0 && articleStatus === ArticleStatus.allLoading) {
       articleStatus = ArticleStatus.reloading;
     }

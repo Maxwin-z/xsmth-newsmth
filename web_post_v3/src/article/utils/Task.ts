@@ -27,6 +27,7 @@ export class GroupTask {
       if (error) {
         reject(error);
         this.reject = null;
+        return;
       }
       resolve(retrieveGroupPosts(html, this.page));
     });

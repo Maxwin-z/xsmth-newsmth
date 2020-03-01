@@ -1,6 +1,5 @@
 import React, { FC, memo } from "react";
 import { useSelector } from "react-redux";
-import { createSelector } from "reselect";
 import { RootState } from "..";
 import Post from "./Post";
 import Loading from "./Loading";
@@ -27,9 +26,7 @@ const LoadingPage: FC<{ p: number }> = ({ p }) => {
 const FailPage: FC<{ p: number; error: string }> = ({ p, error }) => {
   return (
     <div className="page-placeholder">
-      <div>
-        加载第{p}页失败：{error}
-      </div>
+      <div>加载失败：{error}</div>
       {error === "您未登录,请登录后继续操作" ? (
         <button className="login-button">登录后重试</button>
       ) : null}
