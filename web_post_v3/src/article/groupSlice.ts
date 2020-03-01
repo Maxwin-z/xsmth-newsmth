@@ -11,10 +11,10 @@ import {
   IMainPost,
   IGroup,
   ArticleStatus,
-  IXImage,
   IPost
 } from "./types";
 import { getArticleStatus } from "./utils/article-status";
+import { enqueue as imageTaskEnqueue } from "./slices/imageTask";
 
 const groupInitialState: IGroupState = {
   mainPost: { board: "", title: "", gid: 0 },
@@ -102,12 +102,6 @@ const group = createSlice({
     getTitleSuccess(state, { payload }: PayloadAction<string>) {
       state.mainPost.title = payload;
     },
-    getImages(state, { payload }: PayloadAction<IPost[]>) {
-      const images: IXImage[] = payload.map(({ images }) => images).flat();
-      if (images.length > 0) {
-        state.images = state.images.concat(images);
-      }
-    },
     getPageSuccess(state, { payload: { p }, payload }: PayloadAction<IPage>) {
       state.pages[p - 1] = payload;
       Object.assign(
@@ -133,7 +127,6 @@ export const {
   taskCount,
   taskBegin,
   getTitleSuccess,
-  getImages,
   getPageSuccess,
   getPageFail
 } = group.actions;
@@ -154,7 +147,7 @@ const handleGroupTask = (group: IGroup): AppThunk => (dispatch, getState) => {
     group: { pages }
   } = getState();
   dispatch(getTitleSuccess(group.title));
-  dispatch(getImages(group.posts));
+  dispatch(imageTaskEnqueue(group.posts));
   dispatch(
     getPageSuccess({
       posts: group.posts,
@@ -189,7 +182,7 @@ export const nextTask = (): AppThunk => async (dispatch, getState) => {
   dispatch(taskBegin(p));
   try {
     // debug
-    await delay(3000);
+    // await delay(3000);
     const groupPost = await groupTask.execute();
     dispatch(handleGroupTask(groupPost));
     dispatch(dequeue(p));

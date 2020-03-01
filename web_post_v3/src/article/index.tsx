@@ -4,6 +4,7 @@ import { Provider, useSelector, useDispatch } from "react-redux";
 import { configureStore, ThunkAction } from "@reduxjs/toolkit";
 
 import groupReducer, { nextTask } from "./groupSlice";
+import imageReducer, { handleImageDownloadProgress } from "./slices/imageTask";
 import Group from "./components/Group";
 import "./handlers/theme";
 import "./index.css";
@@ -13,7 +14,8 @@ import { ITheme } from "./types";
 import XImageQueue from "./components/XImageQueue";
 
 const rootReducer = combineReducers({
-  group: groupReducer
+  group: groupReducer,
+  imageTask: imageReducer
 });
 
 const store = configureStore({
@@ -27,6 +29,10 @@ const store = configureStore({
   PubSub.subscribe("THEME_CHANGE", (_: string, style: ITheme) => {
     setupTheme(style);
   });
+
+  PubSub.subscribe("DOWNLOAD_PROGRESS", (_: string, data: any) =>
+    handleImageDownloadProgress(data)
+  );
 })();
 
 export type RootState = ReturnType<typeof rootReducer>;
