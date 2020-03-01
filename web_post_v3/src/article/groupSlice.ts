@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { postInfo } from "./utils/jsapi";
+import { postInfo, pageNumberChanged } from "./utils/jsapi";
 import { GroupTask } from "./utils/Task";
 import { AppThunk } from ".";
 import { delay } from "./utils/post";
@@ -154,13 +154,16 @@ const handleGroupTask = (group: IGroup): AppThunk => (dispatch, getState) => {
       p: group.p
     })
   );
-  dispatch(
-    enqueue(
-      new Array(group.total - pages.length)
-        .fill(0)
-        .map((_, i) => i + pages.length + 1)
-    )
-  );
+  if (group.total > pages.length) {
+    pageNumberChanged(group.p, group.total);
+    dispatch(
+      enqueue(
+        new Array(group.total - pages.length)
+          .fill(0)
+          .map((_, i) => i + pages.length + 1)
+      )
+    );
+  }
 };
 
 export const nextTask = (): AppThunk => async (dispatch, getState) => {
