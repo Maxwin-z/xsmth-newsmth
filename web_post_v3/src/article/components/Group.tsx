@@ -7,7 +7,9 @@ import { ArticleStatus } from "../types";
 import Loading from "./Loading";
 import Footer from "./Footer";
 
-const GroupTitle: FC<{ title: string }> = ({ title }) => <h1>{title}</h1>;
+const GroupTitle: FC<{ title: string }> = ({ title }) => (
+  <div id="title">{title}</div>
+);
 const Pages: FC<{ count: number }> = memo(({ count }) => (
   <div className="page-list">
     {new Array(count).fill(0).map((_, p) => (
