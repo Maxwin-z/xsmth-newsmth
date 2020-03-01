@@ -679,9 +679,11 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
             }
             
             weakSelf.pageNumber = page
-            weakSelf.totalPageNumber = total
+            if (total > 0) {
+                weakSelf.totalPageNumber = total
+            }
             
-            weakSelf.buttonForPagination.setTitle("\(page)/\(total)", for: .normal)
+            weakSelf.buttonForPagination.setTitle("\(page)/\(weakSelf.totalPageNumber)", for: .normal)
             weakSelf.pagePicker.reloadAllComponents()
             promise(.success(true))
         }
