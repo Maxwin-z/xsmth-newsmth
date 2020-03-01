@@ -61,7 +61,7 @@ const group = createSlice({
       state.mainPost = payload;
     },
     enqueue(state, { payload }: PayloadAction<number[] | number>) {
-      console.log("enqueue", payload);
+      // console.log("enqueue", payload);
       const newTasks: ITask[] = [];
       const newPages: IPage[] = [];
       const ps = Array.isArray(payload) ? payload : [payload];
@@ -142,7 +142,7 @@ export const getMainPost = (): AppThunk => async dispatch => {
 };
 
 const handleGroupTask = (group: IGroup): AppThunk => (dispatch, getState) => {
-  console.log("handle group", group);
+  // console.log("handle group", group);
   const {
     group: { pages }
   } = getState();
@@ -171,7 +171,7 @@ export const nextTask = (): AppThunk => async (dispatch, getState) => {
     return;
   }
   const task = group.tasks.find(task => task.status === Status.init);
-  console.log("find init task", task);
+  // console.log("find init task", task);
   if (!task) {
     return;
   }

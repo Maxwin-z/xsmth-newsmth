@@ -49,11 +49,11 @@ function Article() {
 }
 
 const TaskQueue: FC<{}> = memo(() => {
-  console.log("TaskQueue");
+  // console.log("TaskQueue");
   const queue = useSelector((state: RootState) => state.group.tasks);
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log(queue);
+    // console.log(queue);
     if (queue.length > 0) {
       dispatch(nextTask());
     }

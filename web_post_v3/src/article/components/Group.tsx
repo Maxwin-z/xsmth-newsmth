@@ -27,13 +27,13 @@ function Group() {
       articleStatus: state.group.articleStatus
     })
   );
-  console.log("mainPost", mainPost);
+  // console.log("mainPost", mainPost);
 
   useEffect(() => {
     dispatch(getMainPost());
   }, [dispatch]);
 
-  console.log("Group render");
+  // console.log("Group render");
 
   return (
     <div className="main">
