@@ -29,21 +29,21 @@ const Footer: FC<{}> = () => {
   if (articleStatus === ArticleStatus.middlePageLoading) {
     return (
       <Loading hide={true}>
-        正在加载 {lastLoading}/{total}
+        正在加载 {lastLoading + 1}/{total}
       </Loading>
     );
   }
   if (articleStatus === ArticleStatus.footerLoading) {
     return (
       <Loading>
-        正在加载 {lastLoading}/{total}
+        正在加载 {lastLoading + 1}/{total}
       </Loading>
     );
   }
   if (articleStatus === ArticleStatus.footerFail) {
     return (
       <Loading hide={true}>
-        加载 {lastLoading}/{total} 失败，点击重试
+        加载 {lastLoading + 1}/{total} 失败，点击重试
       </Loading>
     );
   }

@@ -234,7 +234,19 @@ export const onSelectPage = (page: number): AppThunk => async (
   dispatch,
   getState
 ) => {
-  dispatch(setSelectedPage(page));
+  const pages = getState().group.pages;
+  let isLastLoading = true;
+  for (let i = page; i < pages.length; ++i) {
+    if (pages[i].status !== Status.init) {
+      isLastLoading = false;
+      break;
+    }
+  }
+  if (isLastLoading) {
+    window.scrollTo(0, document.body.clientHeight * 2);
+  } else {
+    dispatch(setSelectedPage(page));
+  }
   dispatch(sortQueue(page));
   dispatch(nextTask(true));
 };
