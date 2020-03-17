@@ -3,7 +3,7 @@ import { combineReducers, Action } from "redux";
 import { Provider, useSelector, useDispatch } from "react-redux";
 import { configureStore, ThunkAction } from "@reduxjs/toolkit";
 
-import groupReducer, { nextTask } from "./groupSlice";
+import groupReducer, { nextTask, onSelectPage } from "./groupSlice";
 import imageReducer, { handleImageDownloadProgress } from "./slices/imageTask";
 import Group from "./components/Group";
 import "./handlers/theme";
@@ -63,6 +63,16 @@ const TaskQueue: FC<{}> = memo(() => {
       dispatch(nextTask());
     }
   }, [queue, dispatch]);
+
+  useEffect(() => {
+    const handler = PubSub.subscribe(
+      "PAGE_SELECTED",
+      (_: string, page: number) => {
+        dispatch(onSelectPage(page));
+      }
+    );
+    return () => PubSub.subscribe("PAGE_SELECTED", handler);
+  }, [dispatch]);
   return <></>;
 });
 

@@ -10,8 +10,7 @@ import {
   Status,
   IMainPost,
   IGroup,
-  ArticleStatus,
-  IPost
+  ArticleStatus
 } from "./types";
 import { getArticleStatus } from "./utils/article-status";
 import { enqueue as imageTaskEnqueue } from "./slices/imageTask";
@@ -22,7 +21,8 @@ const groupInitialState: IGroupState = {
   tasks: [],
   taskCount: 0,
   articleStatus: ArticleStatus.allLoading,
-  lastLoading: 0
+  lastLoading: 0,
+  selectedPage: 0
 };
 
 function updatePageStatus(
@@ -46,6 +46,10 @@ function updatePageStatus(
       articleStatus = ArticleStatus.reloading;
     }
   });
+  console.log(
+    new Date(),
+    pages.map(page => [page.p, page.hidden])
+  );
   return {
     pages,
     tasks,
@@ -60,6 +64,9 @@ const group = createSlice({
   reducers: {
     setMainPost(state, { payload }: PayloadAction<IMainPost>) {
       state.mainPost = payload;
+    },
+    setSelectedPage(state, { payload }: PayloadAction<number>) {
+      state.selectedPage = payload;
     },
     enqueue(state, { payload }: PayloadAction<number[] | number>) {
       // console.log("enqueue", payload);
@@ -91,10 +98,22 @@ const group = createSlice({
       const index = state.tasks.findIndex(task => task.p === payload);
       state.tasks.splice(index, 1);
     },
+    sortQueue(state, { payload }: PayloadAction<number>) {
+      const nextTasks: ITask[] = [];
+      const prevTasks: ITask[] = [];
+      state.tasks.forEach(task => {
+        task.p < payload ? prevTasks.push(task) : nextTasks.push(task);
+      });
+      state.tasks = nextTasks
+        .sort((a, b) => a.p - b.p)
+        .concat(prevTasks.sort((a, b) => a.p - b.p));
+      console.log(state.tasks.map(t => t.p));
+    },
     taskCount(state, { payload }: PayloadAction<number>) {
       state.taskCount += payload;
     },
     taskBegin(state, { payload }: PayloadAction<number>) {
+      console.log(new Date(), "taskBegin");
       Object.assign(
         state,
         updatePageStatus(state.pages, state.tasks, payload, Status.loading)
@@ -104,6 +123,7 @@ const group = createSlice({
       state.mainPost.title = payload;
     },
     getPageSuccess(state, { payload: { p }, payload }: PayloadAction<IPage>) {
+      console.log("task success");
       state.pages[p - 1] = payload;
       Object.assign(
         state,
@@ -123,8 +143,10 @@ const group = createSlice({
 });
 export const {
   setMainPost,
+  setSelectedPage,
   enqueue,
   dequeue,
+  sortQueue,
   taskCount,
   taskBegin,
   getTitleSuccess,
@@ -138,6 +160,8 @@ export const getMainPost = (): AppThunk => async dispatch => {
   // debug
   // mainPost = { board: "WorkLife", gid: 2164300, title: "" }; // 20+ pages
   // mainPost = { board: "Tooooold", gid: 41831, title: "" }; // 4 pages
+  // https://www.newsmth.net/nForum/article/WorkLife/2199396?ajax=&p=1&_xsmth_disable_cache=1583767005666
+  mainPost = { board: "WorkLife", gid: 2199396, title: "" }; // 4 pages
   dispatch(setMainPost(mainPost));
   dispatch(enqueue(1));
 };
@@ -149,13 +173,7 @@ const handleGroupTask = (group: IGroup): AppThunk => (dispatch, getState) => {
   } = getState();
   dispatch(getTitleSuccess(group.title));
   dispatch(imageTaskEnqueue(group.posts));
-  dispatch(
-    getPageSuccess({
-      posts: group.posts,
-      status: Status.success,
-      p: group.p
-    })
-  );
+
   if (group.total > pages.length) {
     pageNumberChanged(group.p, group.total);
     dispatch(
@@ -166,16 +184,27 @@ const handleGroupTask = (group: IGroup): AppThunk => (dispatch, getState) => {
       )
     );
   }
+
+  dispatch(
+    getPageSuccess({
+      posts: group.posts,
+      status: Status.success,
+      p: group.p
+    })
+  );
 };
 
-export const nextTask = (): AppThunk => async (dispatch, getState) => {
+export const nextTask = (atonce = false): AppThunk => async (
+  dispatch,
+  getState
+) => {
   const taskCountLimit = 1;
   const { group } = getState();
-  if (group.taskCount >= taskCountLimit) {
+  if (!atonce && group.taskCount >= taskCountLimit) {
     return;
   }
   const task = group.tasks.find(task => task.status === Status.init);
-  // console.log("find init task", task);
+  console.log("find init task", task);
   if (!task) {
     return;
   }
@@ -186,7 +215,7 @@ export const nextTask = (): AppThunk => async (dispatch, getState) => {
   dispatch(taskBegin(p));
   try {
     // debug
-    // await delay(3000);
+    await delay(5000);
     const groupPost = await groupTask.execute();
     dispatch(handleGroupTask(groupPost));
     dispatch(dequeue(p));
@@ -199,4 +228,13 @@ export const nextTask = (): AppThunk => async (dispatch, getState) => {
     );
   }
   dispatch(taskCount(-1));
+};
+
+export const onSelectPage = (page: number): AppThunk => async (
+  dispatch,
+  getState
+) => {
+  dispatch(setSelectedPage(page));
+  dispatch(sortQueue(page));
+  dispatch(nextTask(true));
 };

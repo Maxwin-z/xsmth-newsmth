@@ -1,9 +1,10 @@
-import React, { FC, memo } from "react";
-import { useSelector } from "react-redux";
+import React, { FC, memo, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "..";
 import Post from "./Post";
 import Loading from "./Loading";
 import { IPost, Status } from "../types";
+import { setSelectedPage } from "../groupSlice";
 
 const InitPage: FC<{ p: number }> = ({ p }) => {
   return (
@@ -44,6 +45,28 @@ const SuccessPage: FC<{ posts: IPost[]; p: number }> = ({ posts, p }) => (
 
 const Page: FC<{ p: number }> = memo(({ p }) => {
   const page = useSelector((state: RootState) => state.group.pages[p - 1]);
+  const selectedPage = useSelector(
+    (state: RootState) => state.group.selectedPage
+  );
+  const { hidden } = page;
+  if (selectedPage === p) {
+    console.log("select p", selectedPage, p, hidden);
+  }
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (selectedPage === p && !hidden) {
+      const el = document.querySelector(`[data-page="${p}"]`) as HTMLDivElement;
+      console.log("needScrollToPage el", el);
+      if (el) {
+        const rect = el.getBoundingClientRect();
+        console.log("scroll rect", rect, page.hidden);
+        if (rect.height > 0) {
+          window.scrollTo(0, rect.top + window.pageYOffset);
+          dispatch(setSelectedPage(0));
+        }
+      }
+    }
+  }, [selectedPage, hidden, dispatch]);
   return (
     <div className={page.hidden ? "hidden page" : "page"} data-page={p}>
       Page {page.p}: {page.status}

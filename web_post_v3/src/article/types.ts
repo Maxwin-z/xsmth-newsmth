@@ -71,6 +71,7 @@ export interface IGroupState {
   taskCount: number;
   articleStatus: ArticleStatus;
   lastLoading: number;
+  selectedPage: number;
 }
 
 export interface ITheme {
