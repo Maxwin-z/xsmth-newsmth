@@ -161,7 +161,7 @@ export const getMainPost = (): AppThunk => async dispatch => {
   // mainPost = { board: "WorkLife", gid: 2164300, title: "" }; // 20+ pages
   // mainPost = { board: "Tooooold", gid: 41831, title: "" }; // 4 pages
   // https://www.newsmth.net/nForum/article/WorkLife/2199396?ajax=&p=1&_xsmth_disable_cache=1583767005666
-  mainPost = { board: "WorkLife", gid: 2199396, title: "" }; // 4 pages
+  // mainPost = { board: "WorkLife", gid: 2199396, title: "" }; // 4 pages
   dispatch(setMainPost(mainPost));
   dispatch(enqueue(1));
 };
