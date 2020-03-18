@@ -1,9 +1,10 @@
 import { FC } from "react";
 import { RootState } from "..";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { ArticleStatus } from "../types";
 import Loading from "./Loading";
 import React from "react";
+import { loadPage } from "../groupSlice";
 
 const Footer: FC<{}> = () => {
   const { articleStatus, lastLoading, total } = useSelector(
@@ -13,6 +14,12 @@ const Footer: FC<{}> = () => {
       total: state.group.pages.length
     })
   );
+
+  const dispatch = useDispatch();
+  const loadLatest = (e: React.MouseEvent) => {
+    dispatch(loadPage(total, true));
+  };
+
   if (
     articleStatus === ArticleStatus.allLoading ||
     articleStatus === ArticleStatus.allFail
@@ -21,7 +28,7 @@ const Footer: FC<{}> = () => {
   }
   if (articleStatus === ArticleStatus.allSuccess) {
     return (
-      <Loading hide={true}>
+      <Loading hide={true} onClick={loadLatest}>
         已加载 {total}/{total}，点击尝试加载最新
       </Loading>
     );

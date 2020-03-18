@@ -34,12 +34,14 @@ function updatePageStatus(
 ) {
   pages[p - 1].status = status;
   pages[p - 1].errorMessage = errorMessage || "";
-  tasks.find(task => task.p === p)!.status = status;
+  const task = tasks.find(task => task.p === p);
+  task && (task.status = status);
   let { articleStatus, maxLoaded, lastLoading } = getArticleStatus(
     pages.map(page => page.status)
   );
   pages.forEach(page => {
     page.hidden =
+      page.posts.length === 0 &&
       (page.status === Status.init || page.status === Status.loading) &&
       page.p >= maxLoaded;
     if (page.posts.length > 0 && articleStatus === ArticleStatus.allLoading) {
@@ -194,16 +196,22 @@ const handleGroupTask = (group: IGroup): AppThunk => (dispatch, getState) => {
   );
 };
 
-export const nextTask = (atonce = false): AppThunk => async (
-  dispatch,
-  getState
-) => {
+export const nextTask = (
+  atonce = false,
+  specifiedPage = -1
+): AppThunk => async (dispatch, getState) => {
   const taskCountLimit = 1;
   const { group } = getState();
   if (!atonce && group.taskCount >= taskCountLimit) {
     return;
   }
-  const task = group.tasks.find(task => task.status === Status.init);
+  const task =
+    specifiedPage > 0
+      ? {
+          p: specifiedPage,
+          status: Status.init
+        }
+      : group.tasks.find(task => task.status === Status.init);
   console.log("find init task", task);
   if (!task) {
     return;
@@ -247,6 +255,13 @@ export const onSelectPage = (page: number): AppThunk => async (
   } else {
     dispatch(setSelectedPage(page));
   }
+  dispatch(loadPage(page));
+};
+
+export const loadPage = (
+  page: number,
+  force: boolean = false
+): AppThunk => async dispatch => {
   dispatch(sortQueue(page));
-  dispatch(nextTask(true));
+  dispatch(nextTask(true, force ? page : -1));
 };

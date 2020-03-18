@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "..";
 import Post from "./Post";
 import Loading from "./Loading";
-import { IPost, Status } from "../types";
+import { IPost, Status, IPage } from "../types";
 import { setSelectedPage } from "../groupSlice";
 
 const InitPage: FC<{ p: number }> = ({ p }) => {
@@ -43,6 +43,19 @@ const SuccessPage: FC<{ posts: IPost[]; p: number }> = ({ posts, p }) => (
   </>
 );
 
+const _Page: FC<{ page: IPage }> = ({ page }) => {
+  const { p, posts, status } = page;
+  if (posts.length > 0) {
+    return <SuccessPage posts={posts} p={p} />;
+  } else if (status === Status.init) {
+    return <InitPage p={p} />;
+  } else if (status === Status.loading) {
+    return <LoadingPage p={p} />;
+  } else {
+    return <FailPage p={p} error={page.errorMessage!} />;
+  }
+};
+
 const Page: FC<{ p: number }> = memo(({ p }) => {
   const page = useSelector((state: RootState) => state.group.pages[p - 1]);
   const selectedPage = useSelector(
@@ -69,15 +82,7 @@ const Page: FC<{ p: number }> = memo(({ p }) => {
   }, [selectedPage, hidden, dispatch]);
   return (
     <div className={page.hidden ? "hidden page" : "page"} data-page={p}>
-      Page {page.p}: {page.status}
-      {page.status === Status.init ? <InitPage p={p} /> : null}
-      {page.status === Status.loading ? <LoadingPage p={p} /> : null}
-      {page.status === Status.success ? (
-        <SuccessPage posts={page.posts} p={p} />
-      ) : null}
-      {page.status === Status.fail ? (
-        <FailPage p={p} error={page.errorMessage!} />
-      ) : null}
+      <_Page page={page} />
     </div>
   );
 });
