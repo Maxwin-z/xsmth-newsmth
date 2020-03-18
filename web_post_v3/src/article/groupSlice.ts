@@ -176,7 +176,7 @@ const handleGroupTask = (group: IGroup): AppThunk => (dispatch, getState) => {
   dispatch(getTitleSuccess(group.title));
   dispatch(imageTaskEnqueue(group.posts));
 
-  if (group.total > pages.length) {
+  if (group.total > pages.length || group.total === 1) {
     pageNumberChanged(group.p, group.total);
     dispatch(
       enqueue(
