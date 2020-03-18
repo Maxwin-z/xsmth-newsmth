@@ -118,13 +118,14 @@ export function formatPost(
   // remove <a> around <img />
   content = content.replace(/<a .*?>(<ximg.+?>)<\/a>/g, "$1");
   // replace images
+  const imageProtocol = "http:";
   content = content.replace(
     /<ximg.*? src="(.+?)".*?>/gi,
     (_: string, src: string) => {
       const id = ++imageID;
-      src.indexOf("//") === 0 && (src = "https:" + src);
+      src.indexOf("//") === 0 && (src = imageProtocol + src);
       src.indexOf("/nForum/att/") === 0 &&
-        (src = "https://www.newsmth.net" + src);
+        (src = imageProtocol + "//www.newsmth.net" + src);
       src = src.replace(/\/(small|middle|large)$/, "");
       images.push({
         id,

@@ -215,7 +215,7 @@ export const nextTask = (atonce = false): AppThunk => async (
   dispatch(taskBegin(p));
   try {
     // debug
-    await delay(5000);
+    // await delay(5000);
     const groupPost = await groupTask.execute();
     dispatch(handleGroupTask(groupPost));
     dispatch(dequeue(p));

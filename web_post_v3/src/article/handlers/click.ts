@@ -5,16 +5,20 @@ export const clickHander = (e: MouseEvent) => {
     return;
   }
 
-  const height = document.documentElement.clientHeight;
-  if (e.clientY > height / 2) {
+  const { clientHeight, offsetHeight } = document.documentElement;
+  if (offsetHeight < clientHeight) {
+    // only 1 page
+    return;
+  }
+  if (e.clientY > clientHeight / 2) {
     // scroll up
     const delta = Math.min(
-      height - 100,
-      document.documentElement.offsetHeight - window.scrollY - height
+      clientHeight - 100,
+      offsetHeight - window.scrollY - clientHeight
     );
     scrollBy(0, Math.ceil(delta));
   } else {
-    const delta = Math.min(height - 100, window.scrollY);
+    const delta = Math.min(clientHeight - 100, window.scrollY);
     scrollBy(0, Math.ceil(-delta));
   }
 };
