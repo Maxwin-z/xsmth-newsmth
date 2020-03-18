@@ -127,6 +127,19 @@ textarea {
   min-width: 200px;
 }
 
+/* for ubb */
+.ximg-emoji {
+  display: inline;
+}
+.ximg-emoji .ximg-info {
+  display: none;
+}
+
+.ximg-emoji .ximg {
+  max-width: none;
+  min-width: 0;
+}
+
 .hidden {
   display: none;
 }

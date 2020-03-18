@@ -122,9 +122,12 @@ export function formatPost(
   content = content.replace(
     /<ximg.*? src="(.+?)".*?>/gi,
     (_: string, src: string) => {
+      // if (src.indexOf("/nForum/img/ubb") === 0) {
+      //   return `<img src="${imageProtocol}//www.newsmth.net${src}" />`;
+      // }
       const id = ++imageID;
       src.indexOf("//") === 0 && (src = imageProtocol + src);
-      src.indexOf("/nForum/att/") === 0 &&
+      src.indexOf("/nForum/") === 0 &&
         (src = imageProtocol + "//www.newsmth.net" + src);
       src = src.replace(/\/(small|middle|large)$/, "");
       images.push({
@@ -132,7 +135,9 @@ export function formatPost(
         src,
         status: Status.init
       });
-      return `<div class="ximg-box">
+      const isEmoji = src.indexOf("/nForum/img/ubb/") !== -1;
+      const className = isEmoji ? "ximg-emoji" : "ximg-box";
+      return `<div class="${className}">
         <span class="ximg-info" id="ximg-info-${id}">正在加载</span>
         <img src="${src}/middle" data-src="${src}" class="ximg" id="ximg-${id}" alt="图片" />
       </div>`;
