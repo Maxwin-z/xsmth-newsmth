@@ -640,6 +640,13 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
                                 promise(.failure(SMBridgeError(code: -1, message: error.localizedDescription)))
                                 return
                             }
+                            
+                            // this md5 is the pig.gif, show file download fail via www smth
+                            if (SMUtils.md5(data)  == "38740b15ae0d27bdc1a351179e15f25b") {
+                                promise(.failure(SMBridgeError(code: -2, message: "附件下载错误")))
+                                return
+                            }
+                            
                             if let _ = UIImage(data: data) {
                                 XImageViewCache.sharedInstance()?.setImageData(data, forUrl: urlString)
                                 promise(.success(true))
