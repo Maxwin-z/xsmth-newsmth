@@ -56,6 +56,21 @@ export const {
 
 export default imageTask.reducer;
 
+const imageTrys = async (urls: string[], id: number) => {
+  let ret = false;
+  for (let i = 0; i < urls.length; ++i) {
+    try {
+      ret = await download(urls[i], id);
+    } catch (e) {
+      console.error(`load image: ${urls[i]} fail, ${e}`);
+    }
+    if (ret === true) {
+      return true;
+    }
+  }
+  return false;
+};
+
 export const loadImage = (): AppThunk => async (dispatch, getState) => {
   const maxTaskCount = 2;
   const { images, taskCount } = getState().imageTask;
@@ -69,16 +84,7 @@ export const loadImage = (): AppThunk => async (dispatch, getState) => {
   }
   let { id, src } = images[index];
   dispatch(loadBegin(index));
-  let ret = false;
-  try {
-    ret = await download(src, id);
-  } catch (ignore) {}
-  if (ret === false) {
-    try {
-      src += "/large";
-      ret = await download(src, id);
-    } catch (ignore) {}
-  }
+  const ret = await imageTrys([src, src + "/large"], id);
 
   if (ret === true) {
     (document.querySelector(
