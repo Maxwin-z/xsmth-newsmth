@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IXImage, IPost, Status } from "../types";
 import { AppThunk } from "..";
 import { download } from "../utils/jsapi";
+import { getBoardID } from "../utils/post";
 
 interface IImagesState {
   images: IXImage[];
@@ -57,18 +58,20 @@ export const {
 export default imageTask.reducer;
 
 const imageTrys = async (urls: string[], id: number) => {
+  console.log("image trys", urls);
   let ret = false;
   for (let i = 0; i < urls.length; ++i) {
     try {
+      console.log("load", urls[i]);
       ret = await download(urls[i], id);
     } catch (e) {
       console.error(`load image: ${urls[i]} fail, ${e}`);
     }
     if (ret === true) {
-      return true;
+      return [true, urls[i]];
     }
   }
-  return false;
+  return [false, null];
 };
 
 export const loadImage = (): AppThunk => async (dispatch, getState) => {
@@ -82,14 +85,24 @@ export const loadImage = (): AppThunk => async (dispatch, getState) => {
     console.log("no init images");
     return;
   }
+
   let { id, src } = images[index];
-  dispatch(loadBegin(index));
-  const ret = await imageTrys([src, src + "/large"], id);
+  const urls = [src, src + "/large"];
+  const matchs = src.match(/\/nForum\/att\/\w+?\/(\d+)\/(\d+)/);
+  if (matchs) {
+    const [_, pid, aid] = matchs;
+    const board = getState().group.mainPost.board;
+    const bid = await getBoardID(board);
+    urls.push(`http://www.newsmth.net/att.php?n.${bid}.${pid}.${aid}.jpg`);
+  }
+  const [ret, url] = await imageTrys(urls, id);
 
   if (ret === true) {
     (document.querySelector(
       `#ximg-${id}`
-    ) as HTMLImageElement).src = `ximg://_?url=${encodeURIComponent(src)}`;
+    ) as HTMLImageElement).src = `ximg://_?url=${encodeURIComponent(
+      url || src
+    )}`;
     dispatch(loadSuccess(index));
     const span = document.querySelector(`#ximg-info-${id}`) as HTMLSpanElement;
     span.style.display = "none";

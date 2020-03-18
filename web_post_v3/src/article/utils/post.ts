@@ -1,4 +1,5 @@
 import { IGroup, IXImage, Status } from "../types";
+import { getStorage, ajax, setStorage } from "./jsapi";
 
 let imageID = 0;
 export const POST_PER_PAGE = 10;
@@ -161,6 +162,35 @@ export function formatPost(
     content,
     images
   };
+}
+
+export async function getBoardID(board: string): Promise<number> {
+  const key = `board_id_${board}`;
+  let bid: number = 0;
+  try {
+    bid = await getStorage(key);
+    return bid;
+  } catch (ignore) {}
+
+  const html = await ajax({
+    url: `https://www.newsmth.net/bbsdoc.php?board=${board}`,
+    encoding: "GBK"
+  });
+  const matches = html.match(/var c = new docWriter\('\w+?',(\d+),/);
+  if (matches) {
+    bid = parseInt(matches[1], 10);
+    console.log("get bid", board, bid);
+    await setStorage(key, bid);
+    return bid;
+  } else {
+    console.error(`get bid fail`);
+    logLongString(html);
+  }
+  return bid;
+}
+
+export function logLongString(str: string) {
+  str.match(/.{1,100}/g)?.forEach(v => console.log(v));
 }
 
 /*

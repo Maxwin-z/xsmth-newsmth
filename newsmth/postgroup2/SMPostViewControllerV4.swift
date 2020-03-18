@@ -460,7 +460,7 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
                         } else {
                             do {
                                 if let data = try rsp.result.get() {
-                                    let ct = rsp.response?.headers.value(for: "content-type")
+                                    let ct = opts["encoding"] as? String ?? rsp.response?.headers.value(for: "content-type")
                                     debugPrint("ct", ct!)
                                     var html: String = ""
                                     if ((ct?.uppercased().contains("GBK"))!) {

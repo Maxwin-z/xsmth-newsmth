@@ -21,6 +21,7 @@ interface AjaxOption {
   method?: string;
   data?: Json;
   headers?: Json;
+  encoding?: string | null;
 }
 
 interface Window {
@@ -111,14 +112,15 @@ export function ajax({
   url,
   method = "GET",
   data = {},
-  headers = {}
+  headers = {},
+  encoding = null
 }: AjaxOption): Promise<string> {
   const _url = new URL(url);
   Object.keys(data).forEach(key => {
     _url.searchParams.append(key, "" + data[key]);
   });
   // debug, disable cache
-  _url.searchParams.append("_xsmth_disable_cache", "" + new Date().getTime());
+  // _url.searchParams.append("_xsmth_disable_cache", "" + new Date().getTime());
 
   console.log(_url.toString());
 
@@ -133,7 +135,8 @@ export function ajax({
     url: _url.toString(),
     method,
     data,
-    headers
+    headers,
+    encoding
   });
 }
 
