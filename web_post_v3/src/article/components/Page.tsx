@@ -1,4 +1,4 @@
-import React, { FC, memo, useEffect } from "react";
+import React, { FC, memo, useEffect, useLayoutEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "..";
 import Post from "./Post";
@@ -56,30 +56,44 @@ const _Page: FC<{ page: IPage }> = ({ page }) => {
   }
 };
 
+let _id = 0;
 const Page: FC<{ p: number }> = memo(({ p }) => {
+  const batchID = ++_id;
   const page = useSelector((state: RootState) => state.group.pages[p - 1]);
   const selectedPage = useSelector(
     (state: RootState) => state.group.selectedPage
   );
   const { hidden } = page;
   if (selectedPage === p) {
-    console.log("select p", selectedPage, p, hidden);
+    console.log(batchID, p, "select p", selectedPage, p, hidden);
   }
   const dispatch = useDispatch();
   useEffect(() => {
     if (selectedPage === p && !hidden) {
       const el = document.querySelector(`[data-page="${p}"]`) as HTMLDivElement;
-      console.log("needScrollToPage el", el);
+      console.log(batchID, p, "needScrollToPage el", el);
       if (el) {
         const rect = el.getBoundingClientRect();
-        console.log("scroll rect", rect, page.hidden);
+        console.log("scroll rect", rect, hidden);
         if (rect.height > 0) {
           window.scrollTo(0, rect.top + window.pageYOffset);
           dispatch(setSelectedPage(0));
         }
       }
     }
-  }, [selectedPage, hidden, dispatch]);
+  }, [selectedPage, hidden, p, dispatch]);
+
+  const dom = document.querySelector(`[data-page="${p}"]`);
+  const lastHeight = dom ? dom.getBoundingClientRect().height : 0;
+  useLayoutEffect(() => {
+    const dom = document.querySelector(`[data-page="${p}"]`);
+    if (!dom) return;
+    const rect = dom.getBoundingClientRect();
+    if (lastHeight !== rect.height && rect.top < 0) {
+      window.scrollBy(0, rect.height - lastHeight);
+    }
+  });
+
   return (
     <div className={page.hidden ? "hidden page" : "page"} data-page={p}>
       <_Page page={page} />
