@@ -220,6 +220,10 @@ export function getThemeConfig(): Promise<ITheme> {
 }
 
 export function setStorage(key: string, value: any): Promise<boolean> {
+  if (!isBridgeAvaiable()) {
+    localStorage.setItem(key, JSON.stringify({ data: value }));
+    return Promise.resolve(true);
+  }
   return sendMessage("setStorage", {
     key,
     value
@@ -227,6 +231,13 @@ export function setStorage(key: string, value: any): Promise<boolean> {
 }
 
 export function getStorage(key: string): Promise<any> {
+  if (!isBridgeAvaiable()) {
+    try {
+      const json = JSON.parse(localStorage.getItem(key) || "{data: null}");
+      return Promise.resolve(json["data"]);
+    } catch (e) {}
+  }
+
   return sendMessage("getStorage", key);
 }
 

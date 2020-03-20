@@ -3,17 +3,22 @@ import { combineReducers, Action } from "redux";
 import { Provider, useSelector, useDispatch } from "react-redux";
 import { configureStore, ThunkAction } from "@reduxjs/toolkit";
 
-import groupReducer, { nextTask, onSelectPage } from "./groupSlice";
+import groupReducer, {
+  nextTask,
+  onSelectPage,
+  resetScrollY
+} from "./groupSlice";
 import imageReducer, { handleImageDownloadProgress } from "./slices/imageTask";
 import Group from "./components/Group";
 import "./handlers/theme";
 import "./index.css";
 import { setupTheme } from "./handlers/theme";
-import { getThemeConfig } from "./utils/jsapi";
+import { getThemeConfig, unloaded } from "./utils/jsapi";
 import { ITheme } from "./types";
 import XImageQueue from "./components/XImageQueue";
 import { scrollHander } from "./handlers/scroll";
 import { clickHander } from "./handlers/click";
+import { saveInstance } from "./handlers/pageState";
 
 const rootReducer = combineReducers({
   group: groupReducer,
@@ -65,13 +70,25 @@ const TaskQueue: FC<{}> = memo(() => {
   }, [queue, dispatch]);
 
   useEffect(() => {
-    const handler = PubSub.subscribe(
-      "PAGE_SELECTED",
-      (_: string, page: number) => {
-        dispatch(onSelectPage(page));
-      }
-    );
-    return () => PubSub.subscribe("PAGE_SELECTED", handler);
+    const h1 = PubSub.subscribe("PAGE_SELECTED", (_: string, page: number) => {
+      dispatch(onSelectPage(page));
+    });
+
+    const h2 = PubSub.subscribe("PAGE_CLOSE", async () => {
+      console.log("page close");
+      dispatch(saveInstance());
+    });
+
+    const h3 = () => {
+      dispatch(resetScrollY());
+    };
+    document.addEventListener("touchmove", h3);
+
+    return () => {
+      PubSub.subscribe("PAGE_SELECTED", h1);
+      PubSub.subscribe("PAGE_CLOSE", h2);
+      document.removeEventListener("touchmove", h3);
+    };
   }, [dispatch]);
   return <></>;
 });

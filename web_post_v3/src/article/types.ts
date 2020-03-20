@@ -1,3 +1,5 @@
+import { RootState } from ".";
+
 export enum Status {
   init,
   loading,
@@ -72,6 +74,7 @@ export interface IGroupState {
   articleStatus: ArticleStatus;
   lastLoading: number;
   selectedPage: number;
+  pageScrollY: number;
 }
 
 export interface ITheme {

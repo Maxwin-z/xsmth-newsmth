@@ -1,6 +1,6 @@
-import React, { useEffect, FC, memo } from "react";
+import React, { useEffect, FC, memo, useLayoutEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getMainPost } from "../groupSlice";
+import { getMainPost, resetScrollY } from "../groupSlice";
 import { RootState } from "..";
 import Page from "./Page";
 import { ArticleStatus } from "../types";
@@ -20,11 +20,12 @@ const Pages: FC<{ count: number }> = memo(({ count }) => (
 
 function Group() {
   const dispatch = useDispatch();
-  const { mainPost, pageCount, articleStatus } = useSelector(
+  const { mainPost, pageCount, articleStatus, pageScrollY } = useSelector(
     (state: RootState) => ({
       mainPost: state.group.mainPost,
       pageCount: state.group.pages.length,
-      articleStatus: state.group.articleStatus
+      articleStatus: state.group.articleStatus,
+      pageScrollY: state.group.pageScrollY
     })
   );
   // console.log("mainPost", mainPost);
@@ -33,7 +34,15 @@ function Group() {
     dispatch(getMainPost());
   }, [dispatch]);
 
-  // console.log("Group render");
+  useEffect(() => {
+    if (pageScrollY === -1) return;
+    const resize = () => {
+      console.log("scroll to ", pageScrollY);
+      window.scrollTo(0, pageScrollY);
+    };
+    window.addEventListener("resize", resize);
+    return () => window.removeEventListener("resize", resize);
+  }, [pageScrollY, dispatch]);
 
   return (
     <div className="main">

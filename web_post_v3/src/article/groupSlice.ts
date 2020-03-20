@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { postInfo, pageNumberChanged } from "./utils/jsapi";
 import { GroupTask } from "./utils/Task";
-import { AppThunk } from ".";
+import { AppThunk, RootState } from ".";
 import { delay } from "./utils/post";
 import {
   IGroupState,
@@ -14,6 +14,7 @@ import {
 } from "./types";
 import { getArticleStatus } from "./utils/article-status";
 import { enqueue as imageTaskEnqueue } from "./slices/imageTask";
+import { loadInstance } from "./handlers/pageState";
 
 const groupInitialState: IGroupState = {
   mainPost: { board: "", title: "", gid: 0 },
@@ -22,7 +23,8 @@ const groupInitialState: IGroupState = {
   taskCount: 0,
   articleStatus: ArticleStatus.allLoading,
   lastLoading: 0,
-  selectedPage: 0
+  selectedPage: 0,
+  pageScrollY: -1
 };
 
 function updatePageStatus(
@@ -32,6 +34,10 @@ function updatePageStatus(
   status: Status,
   errorMessage?: string
 ) {
+  console.log(
+    pages.map(page => page.p),
+    p
+  );
   pages[p - 1].status = status;
   pages[p - 1].errorMessage = errorMessage || "";
   const task = tasks.find(task => task.p === p);
@@ -66,6 +72,12 @@ const group = createSlice({
   reducers: {
     setMainPost(state, { payload }: PayloadAction<IMainPost>) {
       state.mainPost = payload;
+    },
+    restoreGroupState(state, { payload }: PayloadAction<IGroupState>) {
+      Object.assign(state, payload);
+    },
+    resetScrollY(state) {
+      state.pageScrollY = -1;
     },
     setSelectedPage(state, { payload }: PayloadAction<number>) {
       state.selectedPage = payload;
@@ -145,6 +157,8 @@ const group = createSlice({
 });
 export const {
   setMainPost,
+  restoreGroupState,
+  resetScrollY,
   setSelectedPage,
   enqueue,
   dequeue,
@@ -163,7 +177,8 @@ export const getMainPost = (): AppThunk => async dispatch => {
   // mainPost = { board: "WorkLife", gid: 2164300, title: "" }; // 20+ pages
   // mainPost = { board: "Tooooold", gid: 41831, title: "" }; // 4 pages
   // https://www.newsmth.net/nForum/article/WorkLife/2199396?ajax=&p=1&_xsmth_disable_cache=1583767005666
-  // mainPost = { board: "WorkLife", gid: 2199396, title: "" }; // 4 pages
+  // mainPost = { board: "WorkLife", gid: 2199396, title: "" }; // 46 pages
+  dispatch(loadInstance(mainPost));
   dispatch(setMainPost(mainPost));
   dispatch(enqueue(1));
 };
@@ -264,4 +279,14 @@ export const loadPage = (
 ): AppThunk => async dispatch => {
   dispatch(sortQueue(page));
   dispatch(nextTask(true, force ? page : -1));
+};
+
+export const restorePage = (state: RootState): AppThunk => async dispatch => {
+  dispatch(restoreGroupState(state.group));
+  dispatch(loadPage(1, true));
+  const lastPage = state.group.pages.length;
+  pageNumberChanged(1, lastPage);
+  if (lastPage > 1) {
+    dispatch(loadPage(lastPage, true));
+  }
 };
