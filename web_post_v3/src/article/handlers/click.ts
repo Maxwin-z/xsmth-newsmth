@@ -1,7 +1,7 @@
 import { scrollBy } from "../utils/jsapi";
 export const clickHander = (e: MouseEvent) => {
   const el = e.target as HTMLDivElement;
-  if (el && el.className.indexOf("action") !== -1) {
+  if (el && el.className.indexOf("skip-scroll") !== -1) {
     return;
   }
 

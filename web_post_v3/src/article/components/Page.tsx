@@ -4,12 +4,17 @@ import { RootState } from "..";
 import Post from "./Post";
 import Loading from "./Loading";
 import { IPost, Status, IPage } from "../types";
-import { setSelectedPage } from "../groupSlice";
+import { setSelectedPage, loadPage } from "../groupSlice";
 
 const InitPage: FC<{ p: number }> = ({ p }) => {
+  const dispatch = useDispatch();
+  const load = () => dispatch(loadPage(p, true));
+
   return (
-    <div className="page-placeholder page-init">
-      <div>{p}</div>
+    <div className="page-placeholder page-init skip-scroll">
+      <div className="skip-scroll" onClick={load}>
+        {p}
+      </div>
     </div>
   );
 };

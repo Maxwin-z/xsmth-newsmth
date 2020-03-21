@@ -58,10 +58,10 @@ const Post: FC<{
           <span className="date">{dateString}</span>
         </div>
         <div className="post-action">
-          <div className="action replay" onClick={doReply}>
+          <div className="action replay skip-scroll" onClick={doReply}>
             回复
           </div>
-          <div className="action more" onClick={doActivity}>
+          <div className="action more skip-scroll" onClick={doActivity}>
             ···
           </div>
         </div>
