@@ -404,7 +404,7 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
     
     func notificationToWeb(messageName: String, data: Any) {
         var param: String? = nil
-        if (type(of: data) == String.self) {
+        if (type(of: data) == String.self || type(of: data) == String?.self) {
             if let data = data as? String {
                 param = "'\(data)'"
             }
@@ -537,11 +537,21 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
                     promise(.failure(SMBridgeError(code: -1, message: "page unloaded")))
                     return
                 }
+                let singleAuthor = SMSingleAuthorActivity()
                 let forward = SMForwardActivity()
+                let forwardAll = SMForwardAllActivity()
+                let mailTo = SMMailToActivity()
                 let urlString = "https://m.newsmth.net/article/\(p.board.name!)/single/\(p.pid)/0"
                 let url = URL(string: urlString)
+                var activities = [singleAuthor, forward, forwardAll, mailTo]
+                if (p.author == SMAccountManager.instance()?.name) {
+                    let edit = SMEditActivity()
+                    let delete = SMDeleteActivity()
+                    activities.append(edit)
+                    activities.append(delete)
+                }
                 let activity = UIActivityViewController(activityItems: [
-                    p.content!, url!], applicationActivities: [forward])
+                    p.content!, url!], applicationActivities: activities)
                 activity.overrideUserInterfaceStyle = SMConfig.enableDayMode() ? .light : .dark
                 activity.completionWithItemsHandler = {(activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
                     if !completed {
@@ -549,7 +559,16 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
                     }
                     let at = activityType?.rawValue ?? ""
                     if (at == SMActivityForwardActivity) {
-                        self?.forwardActivity()
+                        weakSelf.forwardActivity(all: false)
+                    }
+                    if (at == SMActivityForwardAllActivity) {
+                        weakSelf.forwardActivity(all: true)
+                    }
+                    if (at == SMActivityTypeMailToAuthor) {
+                        weakSelf.mailtoWithPost()
+                    }
+                    if (at == SMActivitySingleAuthorActivity) {
+                        weakSelf.notificationToWeb(messageName: "SINGLE_AUTHOR", data: weakSelf.postForAction?.author ?? "")
                     }
                     debugPrint(activityType?.rawValue ?? "no activity")
                 }
@@ -818,56 +837,71 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
 
     /// activity methods
     @objc
-    func forwardActivity() {
-        if (!SMAccountManager.instance()!.isLogin) {
-            self.performSelector(afterLogin: #selector(self.forwardActivity))
-            return
-        }
-        
-        let alert = UIAlertController(title: "转寄", message: "", preferredStyle: .alert)
-        alert.addTextField(configurationHandler: {[weak self] textField in
-            textField.placeholder = "请输入转寄地址"
-            var forwardTarget = self?.mmkv.string(forKey: mmkvKey_forwardTarget) ?? ""
-            if (forwardTarget == "") {
-                forwardTarget = SMAccountManager.instance()?.name ?? ""
-            }
-            textField.text = forwardTarget
-        })
-        alert.addAction(UIAlertAction(title: "确定", style: .default, handler: { [weak alert, weak self]  (_) in
-            guard let textField = alert?.textFields?[0],
-                let userText = textField.text,
-            let p = self?.postForAction,
-            let weakSelf = self else { return }
-            debugPrint("alert", userText)
-            weakSelf.mmkv.set(userText, forKey: mmkvKey_forwardTarget)
-            let url = "https://m.newsmth.net/article/\(p.board.name!)/forward/\(p.pid)"
-            SMAF.request(url, method: .post, parameters: ["target": userText]).response { response in
-                debugPrint(response)
-                do {
-                    if let data = try response.result.get() {
-                        var html = String(data: data, encoding: .utf8)!
-                        html = html.replacingOccurrences(of: "`", with: "\\`")
-                        weakSelf.webView.evaluateJavaScript("window.$x_parseForward(`\(html)`)") { (result, error) in
-                            if let msg = result as? String{
-                                if (msg == "1") {
-                                    Loaf("转寄成功", state: .success, sender: weakSelf).show()
+    func forwardActivity(all: Bool) {
+        self.afterLoginSuccess({
+            let alert = UIAlertController(title: "转寄", message: "", preferredStyle: .alert)
+            alert.addTextField(configurationHandler: {[weak self] textField in
+                textField.placeholder = "请输入转寄地址"
+                var forwardTarget = self?.mmkv.string(forKey: mmkvKey_forwardTarget) ?? ""
+                if (forwardTarget == "") {
+                    forwardTarget = SMAccountManager.instance()?.name ?? ""
+                }
+                textField.text = forwardTarget
+            })
+            alert.addAction(UIAlertAction(title: "确定", style: .default, handler: { [weak alert, weak self]  (_) in
+                guard let textField = alert?.textFields?[0],
+                    let userText = textField.text,
+                let p = self?.postForAction,
+                let weakSelf = self else { return }
+                debugPrint("alert", userText)
+                weakSelf.mmkv.set(userText, forKey: mmkvKey_forwardTarget)
+                let url = "https://m.newsmth.net/article/\(p.board.name!)/forward/\(p.pid)"
+                SMAF.request(url, method: .post, parameters: ["target": userText, "threads": all ? "on" : ""]).response { response in
+                    debugPrint(response)
+                    do {
+                        if let data = try response.result.get() {
+                            var html = String(data: data, encoding: .utf8)!
+                            html = html.replacingOccurrences(of: "`", with: "\\`")
+                            weakSelf.webView.evaluateJavaScript("window.$x_parseForward(`\(html)`)") { (result, error) in
+                                if let msg = result as? String{
+                                    if (msg == "1") {
+                                        Loaf("转寄成功", state: .success, sender: weakSelf).show()
+                                    } else {
+                                        Loaf(msg, state: .error, sender: weakSelf).show()
+                                    }
                                 } else {
-                                    Loaf(msg, state: .error, sender: weakSelf).show()
+                                    Loaf(error?.localizedDescription ?? "未知错误", state: .error, sender: weakSelf).show()
                                 }
-                            } else {
-                                Loaf(error?.localizedDescription ?? "未知错误", state: .error, sender: weakSelf).show()
                             }
                         }
+                    }catch {
+                        Loaf("转寄失败，水木返回异常", state: .error, sender: weakSelf).show()
                     }
-                }catch {
-                    Loaf("转寄失败，水木返回异常", state: .error, sender: weakSelf).show()
                 }
-            }
-        }))
-        alert.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
-        self.present(alert, animated: true, completion: nil)
+            }))
+            alert.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }) {
+            
+        }
     }
-  
+    
+    @objc
+    func mailtoWithPost() {
+        self.afterLoginSuccess({
+            guard let p = self.postForAction else { return }
+            let vc = SMMailComposeViewController()
+            let mail = SMMailItem()
+            mail.title = "Re: " +  p.title
+            mail.content = p.content
+            mail.author = p.author
+            vc.mail = mail
+            let nvc = P2PNavigationController(rootViewController: vc)
+            self.view.window?.rootViewController?.present(nvc, animated: true, completion: nil)
+        }) {
+            //
+        }
+    }
 }
 
 // MARK: - UIPickerViewDelegate

@@ -1,6 +1,13 @@
-import { scrollBy } from "../utils/jsapi";
+import { xScrollBy } from "../utils/jsapi";
 export const clickHander = (e: MouseEvent) => {
-  const el = e.target as HTMLDivElement;
+  let el = e.target as HTMLElement;
+  while (
+    el &&
+    el.className !== "post" &&
+    el.className.indexOf("skip-scroll") === -1
+  ) {
+    el = el.parentNode as HTMLElement;
+  }
   if (el && el.className.indexOf("skip-scroll") !== -1) {
     return;
   }
@@ -16,9 +23,9 @@ export const clickHander = (e: MouseEvent) => {
       clientHeight - 100,
       offsetHeight - window.scrollY - clientHeight
     );
-    scrollBy(0, Math.ceil(delta));
+    xScrollBy(0, Math.ceil(delta));
   } else {
     const delta = Math.min(clientHeight - 100, window.scrollY);
-    scrollBy(0, Math.ceil(-delta));
+    xScrollBy(0, Math.ceil(-delta));
   }
 };

@@ -75,6 +75,7 @@ export interface IGroupState {
   lastLoading: number;
   selectedPage: number;
   pageScrollY: number;
+  author?: string | null;
 }
 
 export interface ITheme {

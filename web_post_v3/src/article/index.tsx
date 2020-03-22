@@ -6,7 +6,8 @@ import { configureStore, ThunkAction } from "@reduxjs/toolkit";
 import groupReducer, {
   nextTask,
   onSelectPage,
-  resetScrollY
+  resetScrollY,
+  singleAuthor
 } from "./groupSlice";
 import imageReducer, { handleImageDownloadProgress } from "./slices/imageTask";
 import Group from "./components/Group";
@@ -19,6 +20,7 @@ import XImageQueue from "./components/XImageQueue";
 import { scrollHander } from "./handlers/scroll";
 import { clickHander } from "./handlers/click";
 import { saveInstance } from "./handlers/pageState";
+import SingleAuthor from "./components/SingleAuthor";
 
 const rootReducer = combineReducers({
   group: groupReducer,
@@ -43,6 +45,11 @@ const store = configureStore({
   PubSub.subscribe("DOWNLOAD_PROGRESS", (_: string, data: any) =>
     handleImageDownloadProgress(data)
   );
+
+  PubSub.subscribe("SINGLE_AUTHOR", (_: string, data: string) => {
+    const author = data;
+    console.log("single author", author);
+  });
 })();
 
 export type RootState = ReturnType<typeof rootReducer>;
@@ -52,6 +59,7 @@ function Article() {
   return (
     <Provider store={store}>
       <Group />
+      <SingleAuthor />
       <TaskQueue />
       <XImageQueue />
     </Provider>
@@ -61,6 +69,9 @@ function Article() {
 const TaskQueue: FC<{}> = memo(() => {
   // console.log("TaskQueue");
   const queue = useSelector((state: RootState) => state.group.tasks);
+  const pageScrollY = useSelector(
+    (state: RootState) => state.group.pageScrollY
+  );
   const dispatch = useDispatch();
   useEffect(() => {
     // console.log(queue);
@@ -70,24 +81,39 @@ const TaskQueue: FC<{}> = memo(() => {
   }, [queue, dispatch]);
 
   useEffect(() => {
-    const h1 = PubSub.subscribe("PAGE_SELECTED", (_: string, page: number) => {
-      dispatch(onSelectPage(page));
-    });
-
-    const h2 = PubSub.subscribe("PAGE_CLOSE", async () => {
-      console.log("page close");
-      dispatch(saveInstance());
-    });
-
-    const h3 = () => {
+    if (pageScrollY === -1) return;
+    const handler = () => {
       dispatch(resetScrollY());
     };
-    document.addEventListener("touchmove", h3);
+    document.addEventListener("touchmove", handler);
+    return () => {
+      document.removeEventListener("touchmove", handler);
+    };
+  }, [pageScrollY, dispatch]);
+
+  useEffect(() => {
+    const actions: { [x: string]: Function } = {
+      PAGE_SELECTED: (_: string, page: number) => {
+        dispatch(onSelectPage(page));
+      },
+      PAGE_CLOSE: async () => {
+        console.log("page close");
+        dispatch(saveInstance());
+      },
+      SINGLE_AUTHOR: (_: string, author: string) => {
+        dispatch(singleAuthor(author));
+      }
+    };
+    const handlers: any[] = Object.keys(actions).map(event => {
+      const action = actions[event];
+      const handler = PubSub.subscribe(event, action);
+      return handler;
+    });
 
     return () => {
-      PubSub.subscribe("PAGE_SELECTED", h1);
-      PubSub.subscribe("PAGE_CLOSE", h2);
-      document.removeEventListener("touchmove", h3);
+      handlers.forEach(handler => {
+        PubSub.unsubscribe(handler);
+      });
     };
   }, [dispatch]);
   return <></>;

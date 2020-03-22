@@ -22,4 +22,10 @@
 #import <MMKV/MMKV.h>
 
 #import "SMForwardActivity.h"
+#import "SMMailToActivity.h"
+#import "SMForwardAllActivity.h"
+#import "SMSingleAuthorActivity.h"
+#import "SMEditActivity.h"
+#import "SMDeleteActivity.h"
+#import "SMMailComposeViewController.h"
 #import "XImageViewCache.h"

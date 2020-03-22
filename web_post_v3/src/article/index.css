@@ -143,3 +143,82 @@ textarea {
 .hidden {
   display: none;
 }
+
+.single-author-box {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  right: 10px;
+  bottom: 160px;
+  width: 40px;
+  font-size: 12px;
+  background-color: lightgray;
+  text-align: center;
+  border-radius: 20px;
+  color: black;
+  padding-bottom: 10px;
+}
+.single-author-box .btn {
+  flex: 1;
+  margin: auto;
+}
+.single-author-box .arrow {
+  margin: auto;
+}
+.single-author-box .arrow:after {
+  border-bottom-color: lightgray;
+}
+
+.arrow {
+  width: 0;
+  height: 0;
+  border: 14px solid transparent;
+  border-bottom: 15px solid black;
+  position: relative;
+}
+.arrow:after {
+  content: "";
+  position: absolute;
+  top: -13px;
+  left: -14px;
+  width: 0;
+  height: 0;
+  border: 14px solid transparent;
+  border-bottom: 14px solid white;
+}
+.arrow.down {
+  transform: rotate(180deg);
+}
+
+.del {
+  right: 0;
+  top: 0;
+  margin-top: -6px;
+  position: relative;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  overflow: hidden;
+  background: gray;
+  border-radius: 50%;
+}
+
+.del::before,
+.del::after {
+  content: "";
+  position: absolute;
+  height: 2px;
+  width: 70%;
+  top: 50%;
+  left: 3px;
+  margin-top: -1px;
+  background: #fff;
+}
+
+.del::before {
+  transform: rotate(45deg);
+}
+
+.del::after {
+  transform: rotate(-45deg);
+}
