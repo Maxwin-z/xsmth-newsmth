@@ -5,6 +5,7 @@ import Post from "./Post";
 import Loading from "./Loading";
 import { IPost, Status, IPage } from "../types";
 import { setSelectedPage, loadPage } from "../groupSlice";
+import { login } from "../utils/jsapi";
 
 const InitPage: FC<{ p: number }> = ({ p }) => {
   const dispatch = useDispatch();
@@ -30,11 +31,20 @@ const LoadingPage: FC<{ p: number }> = ({ p }) => {
 };
 
 const FailPage: FC<{ p: number; error: string }> = ({ p, error }) => {
+  const dispatch = useDispatch();
+  const load = async () => {
+    const ret = await login();
+    if (ret) {
+      dispatch(loadPage(p, true));
+    }
+  };
   return (
     <div className="page-placeholder">
       <div>加载失败：{error}</div>
       {error === "您未登录,请登录后继续操作" ? (
-        <button className="login-button">登录后重试</button>
+        <button className="login-button" onClick={load}>
+          登录后重试
+        </button>
       ) : null}
     </div>
   );
