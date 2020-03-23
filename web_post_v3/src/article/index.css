@@ -1,6 +1,7 @@
 @font-face {
   font-family: "FZLTXHK";
-  src: local("FZLTXHK"), url("xfont://LanTingXiHei_GBK.TTF") format("opentype");
+  src: url("https://public-1255362875.cos.ap-shanghai.myqcloud.com/xsmth/LanTingXiHei_GBK.TTF")
+    format("truetype");
 }
 
 html,

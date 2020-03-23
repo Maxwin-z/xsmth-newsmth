@@ -99,7 +99,7 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
         let config = WKWebViewConfiguration()
         config.userContentController = userContentController
         config.setURLSchemeHandler(leakAvioder, forURLScheme: "ximg")
-        config.setURLSchemeHandler(leakAvioder, forURLScheme: "xfont")
+//        config.setURLSchemeHandler(leakAvioder, forURLScheme: "xfont")
 
         self.webView = WKWebView(frame: self.view.bounds, configuration: config)
         self.webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -300,8 +300,8 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
     func webView(_ webView: WKWebView, start urlSchemeTask: WKURLSchemeTask) {
         debugPrint(urlSchemeTask.request)
         guard var urlString = urlSchemeTask.request.url?.absoluteString else { return }
-        
-        if (urlString == "xfont://LanTingXiHei_GBK.TTF") {
+        debugPrint("urlScheme:", urlString)
+        if (urlString == "ximg://LanTingXiHei_GBK.TTF") {
             guard let fontUrl = Bundle.main.url(forResource: "LanTingXiHei_GBK", withExtension: "TTF") else { return }
             do {
                 let data = try Data(contentsOf: fontUrl)
@@ -310,6 +310,7 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
                 urlSchemeTask.didReceive(data)
                 urlSchemeTask.didFinish()
             } catch {
+                debugPrint("xfont error", error)
             }
             return
         }
