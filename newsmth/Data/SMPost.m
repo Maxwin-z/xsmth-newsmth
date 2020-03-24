@@ -43,6 +43,8 @@
 
 	_isTop = [[dict objectForKey:@"isTop"] boolValue];
 
+	_hasAttach = [[dict objectForKey:@"hasAttach"] boolValue];
+
 	NSMutableArray *tmp_attaches = [[NSMutableArray alloc] init];
 	NSArray *attaches = [dict objectForKey:@"attaches"];
 	for (int i = 0; i != attaches.count; ++i) {
@@ -110,6 +112,8 @@
 	[dict setObject:@(_replyCount) forKey:@"replyCount"];
 
 	[dict setObject:@(_isTop) forKey:@"isTop"];
+
+	[dict setObject:@(_hasAttach) forKey:@"hasAttach"];
 
 	NSMutableArray *tmp_attaches = [[NSMutableArray alloc] init];
 	for (int i = 0; i != _attaches.count; ++i) {

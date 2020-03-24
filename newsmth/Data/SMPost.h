@@ -16,6 +16,7 @@
 @property (assign, nonatomic) long long replyDate;
 @property (assign, nonatomic) int replyCount;
 @property (assign, nonatomic) BOOL isTop;
+@property (assign, nonatomic) BOOL hasAttach;
 @property (strong, nonatomic) NSArray* attaches;
 @property (assign, nonatomic) BOOL hasNotice;
 @property (strong, nonatomic) SMNotice* notice;

@@ -5,6 +5,7 @@
 //  Created by Maxwin on 13-5-29.
 //  Copyright (c) 2013年 nju. All rights reserved.
 //
+#import <UIKit/UIKit.h>
 
 #ifndef newsmth_SMDefination_h
 #define newsmth_SMDefination_h
@@ -15,7 +16,7 @@
 #define SM_AD_DOMIN @"http://intely.cn"
 #define SM_AD_APPID @"8"
 
-#define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+#define IS_IPHONE (UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPhone)
 #define IS_IPHONE_X (IS_IPHONE && [[UIScreen mainScreen] bounds].size.height == 812.0f)
 #define IS_IPHONE_X_MAX (IS_IPHONE && [[UIScreen mainScreen] bounds].size.height == 896.0)
 

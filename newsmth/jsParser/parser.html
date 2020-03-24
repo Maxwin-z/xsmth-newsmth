@@ -1,28 +1,27 @@
 <html>
-<head>
-	<meta charset="utf-8" />
-	<style type="text/css">
-	textarea {
-		width: 80%;
-		min-height: 100px;
-	}
-	</style>
-</head>
-<body>
-<textarea id="input"></textarea>
-<input type="button" value="parse" id="btn_parse" />
-<textarea id="output"></textarea>
-<script type="text/javascript" src="utils.js"></script>
-<script type="text/javascript" src="bbstcon.js"></script>
-<script type="text/javascript">
+  <head>
+    <meta charset="utf-8" />
+    <style type="text/css">
+      textarea {
+        width: 80%;
+        min-height: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <textarea id="input"></textarea>
+    <input type="button" value="parse" id="btn_parse" />
+    <textarea id="output"></textarea>
+    <script type="text/javascript" src="utils.js"></script>
+    <script type="text/javascript" src="board.js"></script>
+    <script type="text/javascript">
+      function $(id) {
+        return document.getElementById(id);
+      }
 
-function $(id) {
-    return document.getElementById(id);
-}
-
-$('btn_parse').addEventListener('click', function () {
-    $('output').value = $parse($('input').value);
-});
-
-</script>
-</body>
+      $("btn_parse").addEventListener("click", function() {
+        $("output").value = $parse($("input").value);
+      });
+    </script>
+  </body>
+</html>

@@ -26,6 +26,7 @@ SMPost {
     long replyDate
     int replyCount
     bool isTop
+    bool hasAttach
 	SMAttach[] attaches
 	bool hasNotice
 	SMNotice notice

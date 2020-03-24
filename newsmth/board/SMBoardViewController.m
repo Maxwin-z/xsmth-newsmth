@@ -65,17 +65,6 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(writePost)];
     
     [SMConfig addBoardToHistory:_board];
-    
-    // ad static
-    if (_board.cnName.length > 0) {
-        NSString *url = [NSString stringWithFormat:@"%@/jebe-log", SM_AD_DOMIN];
-        ASIFormDataRequest *req = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:url]];
-        [req setPostValue:[SMUtils getSMUUID] forKey:@"userid"];
-        [req setPostValue:SM_AD_APPID forKey:@"appid"];
-        [req setPostValue:_board.name forKey:@"keyword"];
-        [req startAsynchronous];
-    }
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -227,7 +216,9 @@
     }
     NSString *url;
     if (_viewTypeSelector.viewType == SMBoardViewTypeTztSortByReply) {
-        url = [NSString stringWithFormat:URL_PROTOCOL @"//m.newsmth.net/board/%@?p=%d", _board.name, _page];
+//        url = [NSString stringWithFormat:URL_PROTOCOL @"//m.newsmth.net/board/%@?p=%d", _board.name, _page];
+        url = [NSString stringWithFormat:URL_PROTOCOL @"//www.newsmth.net/nForum/board/%@?ajax&p=%d", _board.name, _page];
+//        http://www.newsmth.net/nForum/board/Apple?ajax&p=2
     } else if (_viewTypeSelector.viewType == SMBoardViewTypeNormal) {
         url = [NSString stringWithFormat:URL_PROTOCOL @"//m.newsmth.net/board/%@/0?p=%d", _board.name, _page];
     } else {
@@ -240,7 +231,7 @@
     [_boardOp cancel];
     _boardOp = [[SMWebLoaderOperation alloc] init];
     _boardOp.delegate = self;
-    [_boardOp loadUrl:url withParser:@"board,util_notice"];
+    [_boardOp loadUrl:url withParser:@"board"];
     
 }
 
@@ -401,9 +392,9 @@
     }
     
     SMBoard *board = opt.data;
-    if (board.hasNotice) {
-        [SMAccountManager instance].notice = board.notice;
-    }
+//    if (board.hasNotice) {
+//        [SMAccountManager instance].notice = board.notice;
+//    }
     
     NSMutableArray *postsForReadCount = [[NSMutableArray alloc] init];
     [board.posts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
