@@ -572,6 +572,12 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
                     if (at == SMActivitySingleAuthorActivity) {
                         weakSelf.notificationToWeb(messageName: "SINGLE_AUTHOR", data: weakSelf.postForAction?.author ?? "")
                     }
+                    if (at == SMActivityEditActivity) {
+                        weakSelf.doEditPost()
+                    }
+                    if (at == SMActivityDeleteActivity) {
+                        weakSelf.notificationToWeb(messageName: "DELETE_POST", data: weakSelf.postForAction?.pid ?? 0)
+                    }
                     debugPrint(activityType?.rawValue ?? "no activity")
                 }
                 if (SMUtils.isPad()) {
@@ -902,6 +908,18 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
             self.view.window?.rootViewController?.present(nvc, animated: true, completion: nil)
         }) {
             //
+        }
+    }
+    
+    @objc
+    func doEditPost() {
+        let writer = SMWritePostViewController()
+        writer.editPost = self.postForAction
+        let nvc = P2PNavigationController.init(rootViewController: writer)
+        if (SMConfig.iPadMode()) {
+            SMIPadSplitViewController.instance()?.present(nvc, animated: true, completion: nil)
+        } else {
+            self.present(nvc, animated: true, completion: nil)
         }
     }
 }
