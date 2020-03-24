@@ -13,6 +13,7 @@
 #import "SMNoticeViewController.h"
 #import "SMDiagnoseViewController.h"
 #import "SMNoticeViewController.h"
+#import "newsmth-Swift.h"
 
 @interface SMReferMeCell : SMMainpageCell
 @end
@@ -81,7 +82,11 @@
         ++_page;
     }
     
+//    NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//www.newsmth.net/nForum/refer/%@?ajax&p=%@", _refer, @(_page)];
+    
+    // http://www.newsmth.net/nForum/refer/reply?ajax
     NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//www.newsmth.net/nForum/refer/%@?ajax&p=%@", _refer, @(_page)];
+
     
     [_op cancel];
     _op = [[SMWebLoaderOperation alloc] init];
@@ -129,9 +134,12 @@
     }
 
     SMPost *post = _posts[indexPath.row];
-    NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//m.newsmth.net/refer/%@/read?index=%d", _refer, post.gid];
-    SMPostViewController *vc = [[SMPostViewController alloc] init];
-    vc.postUrl = url;
+//    NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//m.newsmth.net/refer/%@/read?index=%d", _refer, post.gid];
+//    SMPostViewController *vc = [[SMPostViewController alloc] init];
+//    vc.postUrl = url;
+    SMPostViewControllerV4 *vc = [SMPostViewControllerV4 new];
+    vc.post = post;
+    vc.single = YES;
     if ([SMConfig iPadMode]) {
         [SMIPadSplitViewController instance].detailViewController = vc;
     } else {
