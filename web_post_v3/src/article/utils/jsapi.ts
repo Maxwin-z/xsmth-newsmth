@@ -143,7 +143,13 @@ export function ajax({
 function postInfoInWeb(): Promise<IMainPost> {
   // let post = { board: "Children", gid: 932484268 };
   // let post = { board: "Photo", gid: 1936720334, title: "" }; // 1 page
-  let post = { board: "Photo", gid: 1936720211, title: "" }; // 2 pages
+  let post = {
+    board: "Photo",
+    gid: 1936720211,
+    title: "",
+    pid: 0,
+    single: false
+  }; // 2 pages
   // let post = {board: 'DigiHome', gid: 941251}
   // let post = { board: "WorkLife", gid: 2164300 , title: ''}; // 20+ pages
   return Promise.resolve(post);

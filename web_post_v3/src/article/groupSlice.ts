@@ -17,7 +17,7 @@ import { enqueue as imageTaskEnqueue } from "./slices/imageTask";
 import { loadInstance } from "./handlers/pageState";
 
 const groupInitialState: IGroupState = {
-  mainPost: { board: "", title: "", gid: 0 },
+  mainPost: { board: "", title: "", gid: 0, pid: 0, single: false },
   pages: [],
   tasks: [],
   taskCount: 0,
@@ -183,9 +183,12 @@ export const getMainPost = (): AppThunk => async dispatch => {
   // https://www.newsmth.net/nForum/article/WorkLife/2199396?ajax=&p=1&_xsmth_disable_cache=1583767005666
   // mainPost = { board: "WorkLife", gid: 2199396, title: "" }; // 46 pages
   // mainPost = { board: "WorkLife", gid: 2211774, title: "" }; // 46 pages
-  dispatch(loadInstance(mainPost));
-  dispatch(setMainPost(mainPost));
-  dispatch(enqueue(1));
+  if (mainPost.single) {
+  } else {
+    dispatch(loadInstance(mainPost));
+    dispatch(setMainPost(mainPost));
+    dispatch(enqueue(1));
+  }
 };
 
 const handleGroupTask = (group: IGroup): AppThunk => (dispatch, getState) => {

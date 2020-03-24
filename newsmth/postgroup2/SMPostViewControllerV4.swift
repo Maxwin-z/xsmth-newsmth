@@ -522,10 +522,14 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
     
     func _postInfo(parameters: Any) -> Future<Any, SMBridgeError> {
         return Future {[weak self] promise in
+            guard let weakSelf = self else { return }
+            guard let post = weakSelf.post else { return }
             promise(.success([
-                              "pid": self?.post?.pid as Any,
-                              "gid": self?.post?.gid as Any,
-                              "board": self?.post?.board?.name as Any
+                    "pid": post.pid as Any,
+                    "gid": post.gid as Any,
+                    "board": post.board?.name as Any,
+                    "title": post.title as Any,
+                    "single": weakSelf.single as Bool
             ]))
         }
     }

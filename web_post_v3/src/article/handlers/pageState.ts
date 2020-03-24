@@ -1,6 +1,6 @@
 import { AppThunk, RootState } from "..";
-import { setStorage, getStorage, unloaded } from "../utils/jsapi";
-import { IMainPost, Status } from "../types";
+import { setStorage, getStorage, unloaded, ajax, Json } from "../utils/jsapi";
+import { IMainPost, Status, IPost } from "../types";
 import { restorePage } from "../groupSlice";
 
 function storageKey(post: IMainPost) {
@@ -42,4 +42,32 @@ export const loadInstance = (post: IMainPost): AppThunk => async dispatch => {
     // console.log("load instance", data);
     dispatch(restorePage(data));
   } catch (ignore) {}
+};
+
+export const loadSinglePost = ({
+  board,
+  pid
+}: IMainPost): AppThunk => async dispatch => {
+  const html = await ajax({
+    url: `http://www.newsmth.net/nForum/article/${board}/ajax_single/${pid}.json`,
+    headers: {
+      "X-Requested-With": "XMLHttpRequest"
+    }
+  });
+  const data = JSON.parse(html);
+  const user: Json = data.user;
+  const post: IPost = {
+    board,
+    pid,
+    gid: data.group_id as number,
+    title: data.title as string,
+    author: user.id as string,
+    nick: user.user_name as string,
+    date: (data.post_time as number) * 1000,
+    dateString: "",
+    content: data.content as string,
+    images: [],
+    floor: 0
+  };
+  return post;
 };

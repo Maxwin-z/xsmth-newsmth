@@ -22,6 +22,8 @@ export interface IMainPost {
   board: string;
   title: string;
   gid: number;
+  pid: number;
+  single: boolean;
 }
 
 export interface IXImage {
