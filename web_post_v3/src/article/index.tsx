@@ -21,6 +21,7 @@ import { scrollHander } from "./handlers/scroll";
 import { clickHander } from "./handlers/click";
 import { saveInstance } from "./handlers/pageState";
 import SingleAuthor from "./components/SingleAuthor";
+import SinglePost from "./components/SinglePost";
 
 const rootReducer = combineReducers({
   group: groupReducer,
@@ -59,6 +60,7 @@ function Article() {
   return (
     <Provider store={store}>
       <Group />
+      <SinglePost />
       <SingleAuthor />
       <TaskQueue />
       <XImageQueue />

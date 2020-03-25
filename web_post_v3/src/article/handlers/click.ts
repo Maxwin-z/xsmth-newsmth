@@ -3,6 +3,7 @@ export const clickHander = (e: MouseEvent) => {
   let el = e.target as HTMLElement;
   while (
     el &&
+    el !== document.body &&
     el.className !== "post" &&
     el.className.indexOf("skip-scroll") === -1
   ) {

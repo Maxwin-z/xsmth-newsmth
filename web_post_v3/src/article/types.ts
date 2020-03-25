@@ -78,6 +78,7 @@ export interface IGroupState {
   selectedPage: number;
   pageScrollY: number;
   author?: string | null;
+  singlePost?: IPost;
 }
 
 export interface ITheme {

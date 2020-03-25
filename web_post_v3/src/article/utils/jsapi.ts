@@ -164,7 +164,8 @@ async function ajaxInWeb({ url, headers = {} }: AjaxOption): Promise<string> {
       ...headers
     },
     body: JSON.stringify({
-      url
+      url,
+      headers
     })
   });
   console.log(rsp);

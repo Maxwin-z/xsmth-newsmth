@@ -220,7 +220,7 @@ function parse_nForum(html) {
     post.date = parseDate(
       tr.querySelector(".title_10").innerText.replace(/[^:\-\d]/g, "")
     );
-    post.replyAuthor = tr.querySelector(".title_12 a").innerText;
+    post.replyAuthor = tr.querySelectorAll(".title_12 a")[1].innerText;
     post.replyDate = parseDate(
       tr.querySelector(".title_10 a").innerText.replace(/[^:\-\d]/g, "")
     );

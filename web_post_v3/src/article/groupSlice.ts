@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { postInfo, pageNumberChanged } from "./utils/jsapi";
+import { postInfo, pageNumberChanged, ajax, Json } from "./utils/jsapi";
 import { GroupTask } from "./utils/Task";
 import { AppThunk, RootState } from ".";
 import { delay } from "./utils/post";
@@ -10,7 +10,8 @@ import {
   Status,
   IMainPost,
   IGroup,
-  ArticleStatus
+  ArticleStatus,
+  IPost
 } from "./types";
 import { getArticleStatus } from "./utils/article-status";
 import { enqueue as imageTaskEnqueue } from "./slices/imageTask";
@@ -155,6 +156,10 @@ const group = createSlice({
     },
     singleAuthor(state, { payload }: PayloadAction<string | null>) {
       state.author = payload;
+    },
+    singlePost(state, { payload }: PayloadAction<IPost>) {
+      state.singlePost = payload;
+      state.articleStatus = ArticleStatus.allSuccess;
     }
   }
 });
@@ -171,7 +176,8 @@ export const {
   getTitleSuccess,
   getPageSuccess,
   getPageFail,
-  singleAuthor
+  singleAuthor,
+  singlePost
 } = group.actions;
 export default group.reducer;
 
@@ -183,10 +189,19 @@ export const getMainPost = (): AppThunk => async dispatch => {
   // https://www.newsmth.net/nForum/article/WorkLife/2199396?ajax=&p=1&_xsmth_disable_cache=1583767005666
   // mainPost = { board: "WorkLife", gid: 2199396, title: "" }; // 46 pages
   // mainPost = { board: "WorkLife", gid: 2211774, title: "" }; // 46 pages
+  // mainPost = {
+  //   gid: 2805,
+  //   single: true,
+  //   board: "Apple",
+  //   pid: 1375582,
+  //   title: "[Apple]Re: xsmth怎么又有上下黑边框了？"
+  // };
+  console.log(mainPost);
+  dispatch(setMainPost(mainPost));
   if (mainPost.single) {
+    dispatch(loadSinglePost(mainPost));
   } else {
     dispatch(loadInstance(mainPost));
-    dispatch(setMainPost(mainPost));
     dispatch(enqueue(1));
   }
 };
@@ -297,4 +312,33 @@ export const restorePage = (state: RootState): AppThunk => async dispatch => {
   if (lastPage > 1) {
     dispatch(loadPage(lastPage, true));
   }
+};
+
+export const loadSinglePost = ({
+  board,
+  pid
+}: IMainPost): AppThunk => async dispatch => {
+  const html = await ajax({
+    url: `https://www.newsmth.net/nForum/article/${board}/ajax_single/${pid}.json`,
+    headers: {
+      "X-Requested-With": "XMLHttpRequest"
+    }
+  });
+  const data = JSON.parse(html);
+  const user: Json = data.user;
+  const post: IPost = {
+    board,
+    pid,
+    gid: data.group_id as number,
+    title: data.title as string,
+    author: user.id as string,
+    nick: user.user_name as string,
+    date: (data.post_time as number) * 1000,
+    dateString: "",
+    content: data.content as string,
+    images: [],
+    floor: 0
+  };
+  console.log(post);
+  dispatch(singlePost(post));
 };

@@ -44,6 +44,10 @@ function Group() {
     return () => window.removeEventListener("resize", resize);
   }, [pageScrollY, dispatch]);
 
+  if (mainPost.single) {
+    return null;
+  }
+
   return (
     <div className="main">
       <GroupTitle title={mainPost.title} />
