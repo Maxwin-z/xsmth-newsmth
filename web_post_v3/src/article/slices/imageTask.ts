@@ -28,6 +28,9 @@ const imageTask = createSlice({
         state.count = state.images.length;
       }
     },
+    restoreImagesState(state, { payload }: PayloadAction<IImagesState>) {
+      Object.assign(state, payload);
+    },
     loadBegin(state, { payload }: PayloadAction<number>) {
       state.images[payload].status = Status.loading;
       state.taskCount += 1;
@@ -49,6 +52,7 @@ const imageTask = createSlice({
 
 export const {
   enqueue,
+  restoreImagesState,
   loadBegin,
   loadSuccess,
   loadFail,

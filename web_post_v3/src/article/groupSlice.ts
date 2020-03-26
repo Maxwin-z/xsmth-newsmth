@@ -14,7 +14,10 @@ import {
   IPost
 } from "./types";
 import { getArticleStatus } from "./utils/article-status";
-import { enqueue as imageTaskEnqueue } from "./slices/imageTask";
+import {
+  enqueue as imageTaskEnqueue,
+  restoreImagesState
+} from "./slices/imageTask";
 import { loadInstance } from "./handlers/pageState";
 
 const groupInitialState: IGroupState = {
@@ -310,6 +313,7 @@ export const loadPage = (
 
 export const restorePage = (state: RootState): AppThunk => async dispatch => {
   dispatch(restoreGroupState(state.group));
+  dispatch(restoreImagesState(state.imageTask));
   dispatch(loadPage(1, true));
   const lastPage = state.group.pages.length;
   pageNumberChanged(1, lastPage);
