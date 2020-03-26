@@ -111,7 +111,10 @@ const group = createSlice({
     },
     dequeue(state, { payload }: PayloadAction<number>) {
       const index = state.tasks.findIndex(task => task.p === payload);
-      state.tasks.splice(index, 1);
+      console.log("dequeue", payload, index);
+      if (index !== -1) {
+        state.tasks.splice(index, 1);
+      }
     },
     sortQueue(state, { payload }: PayloadAction<number>) {
       const nextTasks: ITask[] = [];
@@ -125,6 +128,7 @@ const group = createSlice({
       console.log(state.tasks.map(t => t.p));
     },
     taskCount(state, { payload }: PayloadAction<number>) {
+      console.log("taskCount", state.taskCount, payload);
       state.taskCount += payload;
     },
     taskBegin(state, { payload }: PayloadAction<number>) {
@@ -189,13 +193,13 @@ export const getMainPost = (): AppThunk => async dispatch => {
   // https://www.newsmth.net/nForum/article/WorkLife/2199396?ajax=&p=1&_xsmth_disable_cache=1583767005666
   // mainPost = { board: "WorkLife", gid: 2199396, title: "" }; // 46 pages
   // mainPost = { board: "WorkLife", gid: 2211774, title: "" }; // 46 pages
-  // mainPost = {
-  //   gid: 2805,
-  //   single: true,
-  //   board: "Apple",
-  //   pid: 1375582,
-  //   title: "[Apple]Re: xsmth怎么又有上下黑边框了？"
-  // };
+  mainPost = {
+    gid: 1943009441,
+    single: true,
+    board: "AutoWorld",
+    pid: 1943009984,
+    title: "[Apple]Re: xsmth怎么又有上下黑边框了？"
+  };
   console.log(mainPost);
   dispatch(setMainPost(mainPost));
   if (mainPost.single) {
@@ -250,7 +254,7 @@ export const nextTask = (
           status: Status.init
         }
       : group.tasks.find(task => task.status === Status.init);
-  console.log("find init task", task);
+  console.log("find init task", group.tasks, task);
   if (!task) {
     return;
   }
@@ -341,7 +345,32 @@ export const loadSinglePost = ({
     images,
     floor: 0
   };
-  console.log(post);
+  // console.log(post);
   dispatch(singlePost(post));
   dispatch(imageTaskEnqueue([post]));
+};
+
+export const expandSinglePost = (): AppThunk => async (dispatch, getState) => {
+  console.log("expandSinglePost");
+  const post = getState().group.singlePost;
+  if (!post) return;
+  const html = await ajax({
+    url: `https://www.newsmth.net/nForum/article/${post.board}/${post.gid}?s=${post.pid}`,
+    headers: {
+      "X-Requested-With": "XMLHttpRequest"
+    }
+  });
+  console.log(html); // location:/article/Apple/1375368?p=1#a4
+  const mainPost: IMainPost = {
+    board: post.board!,
+    title: "",
+    gid: post.gid!,
+    pid: post.pid,
+    single: false
+  };
+  const p = parseInt(new URL(html).searchParams.get("p") || "1", 10);
+  dispatch(setMainPost(mainPost));
+  // dispatch(loadInstance(mainPost));
+  dispatch(enqueue(new Array(p).fill(0).map((_, i) => i + 1)));
+  dispatch(loadPage(p, true));
 };

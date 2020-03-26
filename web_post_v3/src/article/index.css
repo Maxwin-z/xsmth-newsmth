@@ -36,12 +36,15 @@ textarea {
   border-top: none;
 }
 
-.login-button {
+.login-button,
+.button {
   border: 1px solid lightgray;
   background-color: #f0f0f0;
   font-size: 16px;
   width: 200px;
   line-height: 30px;
+  text-align: center;
+  margin: auto;
 }
 
 .page-init {

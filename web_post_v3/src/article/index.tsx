@@ -62,26 +62,24 @@ function Article() {
       <Group />
       <SinglePost />
       <SingleAuthor />
-      <TaskQueue />
       <XImageQueue />
+      <ArticleHooks />
     </Provider>
   );
 }
 
-const TaskQueue: FC<{}> = memo(() => {
-  // console.log("TaskQueue");
-  const queue = useSelector((state: RootState) => state.group.tasks);
+const ArticleHooks: FC<{}> = () => {
+  useScrollHook();
+  usePubSubHook();
+  useTaskQueueHook();
+  return <></>;
+};
+
+function useScrollHook() {
   const pageScrollY = useSelector(
     (state: RootState) => state.group.pageScrollY
   );
   const dispatch = useDispatch();
-  useEffect(() => {
-    // console.log(queue);
-    if (queue.length > 0) {
-      dispatch(nextTask());
-    }
-  }, [queue, dispatch]);
-
   useEffect(() => {
     if (pageScrollY === -1) return;
     const handler = () => {
@@ -92,7 +90,10 @@ const TaskQueue: FC<{}> = memo(() => {
       document.removeEventListener("touchmove", handler);
     };
   }, [pageScrollY, dispatch]);
+}
 
+function usePubSubHook() {
+  const dispatch = useDispatch();
   useEffect(() => {
     const actions: { [x: string]: Function } = {
       PAGE_SELECTED: (_: string, page: number) => {
@@ -118,7 +119,21 @@ const TaskQueue: FC<{}> = memo(() => {
       });
     };
   }, [dispatch]);
-  return <></>;
-});
+}
+
+function useTaskQueueHook() {
+  const { queue, taskCount } = useSelector((state: RootState) => ({
+    queue: state.group.tasks,
+    taskCount: state.group.taskCount
+  }));
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log(132, queue, taskCount);
+    if (queue.length > 0) {
+      dispatch(nextTask());
+    }
+  }, [queue, taskCount, dispatch]);
+}
 
 export default Article;
