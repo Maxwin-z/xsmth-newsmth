@@ -193,13 +193,13 @@ export const getMainPost = (): AppThunk => async dispatch => {
   // https://www.newsmth.net/nForum/article/WorkLife/2199396?ajax=&p=1&_xsmth_disable_cache=1583767005666
   // mainPost = { board: "WorkLife", gid: 2199396, title: "" }; // 46 pages
   // mainPost = { board: "WorkLife", gid: 2211774, title: "" }; // 46 pages
-  mainPost = {
-    gid: 1943009441,
-    single: true,
-    board: "AutoWorld",
-    pid: 1943009984,
-    title: "[Apple]Re: xsmth怎么又有上下黑边框了？"
-  };
+  // mainPost = {
+  //   gid: 1943009441,
+  //   single: true,
+  //   board: "AutoWorld",
+  //   pid: 1943009984,
+  //   title: "[Apple]Re: xsmth怎么又有上下黑边框了？"
+  // };
   console.log(mainPost);
   dispatch(setMainPost(mainPost));
   if (mainPost.single) {
