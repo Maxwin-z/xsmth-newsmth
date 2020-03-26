@@ -7,19 +7,22 @@ import Loading from "./Loading";
 import Post from "./Post";
 
 const SinglePost: FC<{}> = () => {
-  const singlePost = useSelector((state: RootState) => state.group.singlePost);
+  const post = useSelector((state: RootState) => state.group.singlePost);
   const articleStatus = useSelector(
     (state: RootState) => state.group.articleStatus
   );
-  if (!singlePost) {
+  if (!post) {
     return null;
   }
   return (
-    <div>
+    <div className="main">
       {articleStatus === ArticleStatus.allLoading ? (
         <Loading>正在加载...</Loading>
       ) : (
-        <Post post={singlePost!} p={1} />
+        <>
+          <div id="title">{post!.title}</div>
+          <Post post={post!} p={1} />
+        </>
       )}
     </div>
   );

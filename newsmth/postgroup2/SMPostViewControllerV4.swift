@@ -109,9 +109,9 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
         self.webView.scrollView.backgroundColor = SMTheme.colorForBackground()
         self.webView.scrollView.delegate = self
         self.view.addSubview(self.webView)
-//        let urlString = "http://10.0.0.11:3000/"
+        let urlString = "http://10.0.0.11:3000/"
 //        let urlString = "http://172.16.232.34:3000/"
-        let urlString = "https://public-1255362875.cos.ap-shanghai.myqcloud.com/xsmth/build/index.html"
+//        let urlString = "https://public-1255362875.cos.ap-shanghai.myqcloud.com/xsmth/build/index.html"
         let request = URLRequest(url: URL(string: urlString)!)
         self.webView.load(request)
         debugPrint("post: ", post ?? "nil");

@@ -171,8 +171,8 @@
     // format title
     [postGroup.posts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         SMPost *post = obj;
-        post.title = [NSString stringWithFormat:@"[%@]%@", post.board.name, post.title];
-        post.board.cnName = [SMUtils formatDate:[NSDate dateWithTimeIntervalSince1970:post.date / 1000]];
+        NSString *dateString = [SMUtils formatDate:[NSDate dateWithTimeIntervalSince1970:post.date / 1000]];
+        post.board.cnName = [NSString stringWithFormat:@"[%@] %@", post.board.name, dateString];
     }];
     
     NSMutableArray *tmp;

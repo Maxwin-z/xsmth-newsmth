@@ -22,7 +22,7 @@ const Post: FC<{
   const mainPost = useSelector((state: RootState) => state.group.mainPost);
   function makeActionPost() {
     const actionPost: IActionPost = {
-      title: mainPost.title,
+      title: mainPost.title.replace(/^Re: /, ""),
       author,
       nick,
       pid,
@@ -30,7 +30,7 @@ const Post: FC<{
         name: mainPost.board
       },
       content: content!
-        .replace(/<br\/?>/g, "\n")
+        .replace(/<br\s*\/?>/g, "\n")
         .replace(/<.*?>/g, "")
         .replace(/&nbsp;/g, " ")
         .replace(/&lt;/g, "<")

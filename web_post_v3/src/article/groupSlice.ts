@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { postInfo, pageNumberChanged, ajax, Json } from "./utils/jsapi";
 import { GroupTask } from "./utils/Task";
 import { AppThunk, RootState } from ".";
-import { delay } from "./utils/post";
+import { delay, formatPost, cleanHtml } from "./utils/post";
 import {
   IGroupState,
   IPage,
@@ -326,6 +326,8 @@ export const loadSinglePost = ({
   });
   const data = JSON.parse(html);
   const user: Json = data.user;
+  const body = data.content as string;
+  const { dateString, content, images } = formatPost(cleanHtml(body));
   const post: IPost = {
     board,
     pid,
@@ -334,11 +336,12 @@ export const loadSinglePost = ({
     author: user.id as string,
     nick: user.user_name as string,
     date: (data.post_time as number) * 1000,
-    dateString: "",
-    content: data.content as string,
-    images: [],
+    dateString,
+    content,
+    images,
     floor: 0
   };
   console.log(post);
   dispatch(singlePost(post));
+  dispatch(imageTaskEnqueue([post]));
 };
