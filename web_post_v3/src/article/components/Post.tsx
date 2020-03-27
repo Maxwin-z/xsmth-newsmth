@@ -1,8 +1,9 @@
-import React, { FC, memo } from "react";
+import React, { FC, memo, useEffect, useLayoutEffect } from "react";
 import { reply, showActivity } from "../utils/jsapi";
 import { IPost } from "../types";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "..";
+import { setFloor } from "../groupSlice";
 
 export interface IActionPost {
   title: string;
@@ -20,6 +21,7 @@ const Post: FC<{
   p: number;
 }> = memo(({ post: { author, nick, dateString, content, floor, pid }, p }) => {
   const mainPost = useSelector((state: RootState) => state.group.mainPost);
+  const scrollToFloor = useSelector((state: RootState) => state.group.floor);
   function makeActionPost() {
     const actionPost: IActionPost = {
       title: mainPost.title.replace(/^Re: /, ""),
@@ -46,6 +48,18 @@ const Post: FC<{
   function doActivity() {
     showActivity(makeActionPost());
   }
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (scrollToFloor === floor) {
+      const el = document.querySelector(
+        `[data-floor="${floor}"]`
+      ) as HTMLDivElement;
+      const rect = el.getBoundingClientRect();
+      window.scrollBy(0, rect.top);
+      dispatch(setFloor(-1));
+    }
+  }, [scrollToFloor, floor, dispatch]);
   return (
     <div className="post" data-page={p} data-floor={floor}>
       <div className="post-title">

@@ -76,12 +76,13 @@ const ArticleHooks: FC<{}> = () => {
 };
 
 function useScrollHook() {
-  const pageScrollY = useSelector(
-    (state: RootState) => state.group.pageScrollY
-  );
+  const { floor, pageScrollY } = useSelector((state: RootState) => ({
+    floor: state.group.floor,
+    pageScrollY: state.group.pageScrollY
+  }));
   const dispatch = useDispatch();
   useEffect(() => {
-    if (pageScrollY === -1) return;
+    if (pageScrollY === -1 || typeof floor === "number") return;
     const handler = () => {
       dispatch(resetScrollY());
     };
@@ -89,7 +90,7 @@ function useScrollHook() {
     return () => {
       document.removeEventListener("touchmove", handler);
     };
-  }, [pageScrollY, dispatch]);
+  }, [pageScrollY, floor, dispatch]);
 }
 
 function usePubSubHook() {

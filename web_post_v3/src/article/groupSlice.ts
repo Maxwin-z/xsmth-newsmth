@@ -78,7 +78,7 @@ const group = createSlice({
       state.mainPost = payload;
     },
     restoreGroupState(state, { payload }: PayloadAction<IGroupState>) {
-      Object.assign(state, payload);
+      Object.assign({}, payload, { floor: state.floor });
     },
     resetScrollY(state) {
       state.pageScrollY = -1;
@@ -167,6 +167,10 @@ const group = createSlice({
     singlePost(state, { payload }: PayloadAction<IPost>) {
       state.singlePost = payload;
       state.articleStatus = ArticleStatus.allSuccess;
+    },
+    setFloor(state, { payload }: PayloadAction<number | null>) {
+      state.floor = payload;
+      state.pageScrollY = -1;
     }
   }
 });
@@ -184,7 +188,8 @@ export const {
   getPageSuccess,
   getPageFail,
   singleAuthor,
-  singlePost
+  singlePost,
+  setFloor
 } = group.actions;
 export default group.reducer;
 
@@ -196,13 +201,13 @@ export const getMainPost = (): AppThunk => async dispatch => {
   // https://www.newsmth.net/nForum/article/WorkLife/2199396?ajax=&p=1&_xsmth_disable_cache=1583767005666
   // mainPost = { board: "WorkLife", gid: 2199396, title: "" }; // 46 pages
   // mainPost = { board: "WorkLife", gid: 2211774, title: "" }; // 46 pages
-  // mainPost = {
-  //   gid: 1943009441,
-  //   single: true,
-  //   board: "AutoWorld",
-  //   pid: 1943009984,
-  //   title: "[Apple]Re: xsmth怎么又有上下黑边框了？"
-  // };
+  mainPost = {
+    gid: 1943009441,
+    single: true,
+    board: "AutoWorld",
+    pid: 1943009984,
+    title: "[Apple]Re: xsmth怎么又有上下黑边框了？"
+  };
   console.log(mainPost);
   dispatch(setMainPost(mainPost));
   if (mainPost.single) {
@@ -268,7 +273,7 @@ export const nextTask = (
   dispatch(taskBegin(p));
   try {
     // debug
-    // await delay(5000);
+    // await delay(1500);
     const groupPost = await groupTask.execute();
     dispatch(handleGroupTask(groupPost));
     dispatch(dequeue(p));
@@ -372,9 +377,12 @@ export const expandSinglePost = (): AppThunk => async (dispatch, getState) => {
     pid: post.pid,
     single: false
   };
-  const p = parseInt(new URL(html).searchParams.get("p") || "1", 10);
+  const url = new URL(html);
+  const p = parseInt(url.searchParams.get("p") || "1", 10);
+  const floor = parseInt(url.hash.replace("#a", ""), 10);
+  dispatch(setFloor(floor));
   dispatch(setMainPost(mainPost));
-  // dispatch(loadInstance(mainPost));
+  dispatch(loadInstance(mainPost));
   dispatch(enqueue(new Array(p).fill(0).map((_, i) => i + 1)));
   dispatch(loadPage(p, true));
 };
