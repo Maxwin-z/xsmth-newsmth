@@ -1,5 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { postInfo, pageNumberChanged, ajax, Json } from "./utils/jsapi";
+import {
+  postInfo,
+  pageNumberChanged,
+  ajax,
+  Json,
+  toast,
+  ToastType
+} from "./utils/jsapi";
 import { GroupTask } from "./utils/Task";
 import { AppThunk, RootState } from ".";
 import { delay, formatPost, cleanHtml } from "./utils/post";
@@ -201,14 +208,14 @@ export const getMainPost = (): AppThunk => async dispatch => {
   // https://www.newsmth.net/nForum/article/WorkLife/2199396?ajax=&p=1&_xsmth_disable_cache=1583767005666
   // mainPost = { board: "WorkLife", gid: 2199396, title: "" }; // 46 pages
   // mainPost = { board: "WorkLife", gid: 2211774, title: "" }; // 46 pages
-  mainPost = {
-    gid: 1943009441,
-    single: true,
-    board: "AutoWorld",
-    pid: 1943009984,
-    title: "[Apple]Re: xsmth怎么又有上下黑边框了？"
-  };
-  console.log(mainPost);
+  // mainPost = {
+  //   gid: 1943009441,
+  //   single: true,
+  //   board: "AutoWorld",
+  //   pid: 19430099,
+  //   title: "[Apple]Re: xsmth怎么又有上下黑边框了？"
+  // };
+  // console.log(mainPost);
   dispatch(setMainPost(mainPost));
   if (mainPost.single) {
     dispatch(loadSinglePost(mainPost));
@@ -338,6 +345,11 @@ export const loadSinglePost = ({
     }
   });
   const data = JSON.parse(html);
+  console.log(data);
+  if (data.ajax_msg) {
+    toast({ message: data.ajax_msg, type: ToastType.error });
+    return;
+  }
   const user: Json = data.user;
   const body = data.content as string;
   const { dateString, content, images } = formatPost(cleanHtml(body));

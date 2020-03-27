@@ -180,7 +180,7 @@ export function setTitle(title: string): Promise<boolean> {
   return sendMessage("setTitle", title);
 }
 
-enum ToastType {
+export enum ToastType {
   success = 0,
   error = 1,
   info = 4
