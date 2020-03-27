@@ -21,7 +21,7 @@ const imageTask = createSlice({
   initialState,
   reducers: {
     enqueue(state, { payload }: PayloadAction<IPost[]>) {
-      // console.log("enqueue", payload);
+      console.log("images enqueue", payload);
       const images: IXImage[] = payload.map(({ images }) => images).flat();
       if (images.length > 0) {
         state.images = state.images.concat(images);
@@ -104,14 +104,17 @@ export const loadImage = (): AppThunk => async (dispatch, getState) => {
   const [ret, url] = await imageTrys(urls, id);
 
   if (ret === true) {
-    (document.querySelector(
-      `#ximg-${id}`
-    ) as HTMLImageElement).src = `ximg://_?url=${encodeURIComponent(
-      url || src
-    )}`;
     dispatch(loadSuccess(index));
-    const span = document.querySelector(`#ximg-info-${id}`) as HTMLSpanElement;
-    span.style.display = "none";
+    const img = document.querySelector(`#ximg-${id}`) as HTMLImageElement;
+    if (!img) {
+      console.error("image", id, url, src, "not found");
+    } else {
+      img.src = `ximg://_?url=${encodeURIComponent(url || src)}`;
+      const span = document.querySelector(
+        `#ximg-info-${id}`
+      ) as HTMLSpanElement;
+      span.style.display = "none";
+    }
   } else {
     console.log(`load image fail: ${src}`);
     dispatch(loadFail(index));

@@ -43,7 +43,7 @@ export const saveInstance = (): AppThunk => async (dispatch, getState) => {
 export const loadInstance = (post: IMainPost): AppThunk => async dispatch => {
   try {
     let data: RootState = await getStorage(storageKey(post));
-    // console.log("load instance", data);
+    console.log("load instance", data);
     dispatch(restorePage(data));
   } catch (ignore) {}
 };
