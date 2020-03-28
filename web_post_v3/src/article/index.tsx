@@ -49,7 +49,7 @@ const store = configureStore({
 
   PubSub.subscribe("SINGLE_AUTHOR", (_: string, data: string) => {
     const author = data;
-    console.log("single author", author);
+    // console.log("single author", author);
   });
 })();
 
@@ -101,7 +101,7 @@ function usePubSubHook() {
         dispatch(onSelectPage(page));
       },
       PAGE_CLOSE: async () => {
-        console.log("page close");
+        // console.log("page close");
         dispatch(saveInstance());
       },
       SINGLE_AUTHOR: (_: string, author: string) => {
@@ -130,7 +130,7 @@ function useTaskQueueHook() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(132, queue, taskCount);
+    // console.log(132, queue, taskCount);
     if (queue.length > 0) {
       dispatch(nextTask());
     }

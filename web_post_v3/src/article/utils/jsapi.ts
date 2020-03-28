@@ -131,8 +131,12 @@ export function ajax({
     });
   }
 
+  let u = _url.toString();
+  // if (Math.random() < 0.5) {
+  //   u = "_";
+  // }
   return sendMessage("ajax", {
-    url: _url.toString(),
+    url: u,
     method,
     data,
     headers,

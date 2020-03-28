@@ -39,7 +39,7 @@ const Post: FC<{
         .replace(/&gt;/g, ">")
         .replace(/&amp;/g, "&")
     };
-    console.log("actionPost", actionPost);
+    // console.log("actionPost", actionPost);
     return actionPost;
   }
   function doReply() {

@@ -20,7 +20,7 @@ const SingleAuthor: FC<{}> = () => {
     .filter(post => post.author === author);
 
   useEffect(() => {
-    console.log(author, posts);
+    // console.log(author, posts);
 
     let _prev = -1;
     let _next = -1;

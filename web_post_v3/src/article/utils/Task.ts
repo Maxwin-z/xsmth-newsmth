@@ -17,19 +17,23 @@ export class GroupTask {
     return new Promise(async (resolve, reject) => {
       this.reject = reject;
       // await delay(3000);
-      const html = await ajax({
-        url: `https://www.newsmth.net/nForum/article/${this.board}/${this.gid}?ajax&p=${this.page}`,
-        headers: {
-          "X-Requested-With": "XMLHttpRequest"
+      try {
+        const html = await ajax({
+          url: `https://www.newsmth.net/nForum/article/${this.board}/${this.gid}?ajax&p=${this.page}`,
+          headers: {
+            "X-Requested-With": "XMLHttpRequest"
+          }
+        });
+        const error = isErrorPage(html);
+        if (error) {
+          reject(error);
+          this.reject = null;
+          return;
         }
-      });
-      const error = isErrorPage(html);
-      if (error) {
-        reject(error);
-        this.reject = null;
-        return;
+        resolve(retrieveGroupPosts(html, this.page));
+      } catch (e) {
+        reject(e);
       }
-      resolve(retrieveGroupPosts(html, this.page));
     });
   }
 

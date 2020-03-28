@@ -19,6 +19,9 @@ const Footer: FC<{}> = () => {
   const loadLatest = (e: React.MouseEvent) => {
     dispatch(loadPage(total, true));
   };
+  const loadLastPage = (e: React.MouseEvent) => {
+    dispatch(loadPage(lastLoading === -1 ? total : lastLoading + 1, true));
+  };
 
   if (
     articleStatus === ArticleStatus.allLoading ||
@@ -49,8 +52,9 @@ const Footer: FC<{}> = () => {
   }
   if (articleStatus === ArticleStatus.footerFail) {
     return (
-      <Loading hide={true}>
-        加载 {lastLoading + 1}/{total} 失败，点击重试
+      <Loading hide={true} onClick={loadLastPage}>
+        加载 {lastLoading === -1 ? total : lastLoading + 1}/{total}{" "}
+        失败，点击重试
       </Loading>
     );
   }

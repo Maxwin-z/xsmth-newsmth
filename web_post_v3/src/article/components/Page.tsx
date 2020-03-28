@@ -32,17 +32,22 @@ const LoadingPage: FC<{ p: number }> = ({ p }) => {
 
 const FailPage: FC<{ p: number; error: string }> = ({ p, error }) => {
   const dispatch = useDispatch();
-  const load = async () => {
+  const loadAfterLogin = async () => {
     const ret = await login();
     if (ret) {
       dispatch(loadPage(p, true));
     }
   };
+  const load = () => {
+    dispatch(loadPage(p, true));
+  };
   return (
-    <div className="page-placeholder">
-      <div>加载失败：{error}</div>
+    <div className="page-placeholder skip-scroll" onClick={load}>
+      <div>
+        加载失败 {p}：{error}
+      </div>
       {error === "您未登录,请登录后继续操作" ? (
-        <button className="login-button" onClick={load}>
+        <button className="login-button" onClick={loadAfterLogin}>
           登录后重试
         </button>
       ) : null}
@@ -79,17 +84,17 @@ const Page: FC<{ p: number }> = memo(({ p }) => {
     (state: RootState) => state.group.selectedPage
   );
   const { hidden } = page;
-  if (selectedPage === p) {
-    console.log(batchID, p, "select p", selectedPage, p, hidden);
-  }
+  // if (selectedPage === p) {
+  //   console.log(batchID, p, "select p", selectedPage, p, hidden);
+  // }
   const dispatch = useDispatch();
   useEffect(() => {
     if (selectedPage === p && !hidden) {
       const el = document.querySelector(`[data-page="${p}"]`) as HTMLDivElement;
-      console.log(batchID, p, "needScrollToPage el", el);
+      // console.log(batchID, p, "needScrollToPage el", el);
       if (el) {
         const rect = el.getBoundingClientRect();
-        console.log("scroll rect", rect, hidden);
+        // console.log("scroll rect", rect, hidden);
         if (rect.height > 0) {
           window.scrollTo(0, rect.top + window.pageYOffset);
           dispatch(setSelectedPage(0));

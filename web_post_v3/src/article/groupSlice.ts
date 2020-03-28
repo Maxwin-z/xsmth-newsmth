@@ -45,10 +45,14 @@ function updatePageStatus(
   status: Status,
   errorMessage?: string
 ) {
-  console.log(
-    pages.map(page => page.p),
-    p
-  );
+  // console.log(
+  //   pages.map(page => page.p),
+  //   p
+  // );
+  if (p > pages.length) {
+    console.error("outofbounds", p, pages);
+    return;
+  }
   pages[p - 1].status = status;
   pages[p - 1].errorMessage = errorMessage || "";
   const task = tasks.find(task => task.p === p);
@@ -65,10 +69,10 @@ function updatePageStatus(
       articleStatus = ArticleStatus.reloading;
     }
   });
-  console.log(
-    new Date(),
-    pages.map(page => [page.p, page.hidden])
-  );
+  // console.log(
+  //   new Date(),
+  //   pages.map(page => [page.p, page.hidden])
+  // );
   return {
     pages,
     tasks,
@@ -121,7 +125,7 @@ const group = createSlice({
     },
     dequeue(state, { payload }: PayloadAction<number>) {
       const index = state.tasks.findIndex(task => task.p === payload);
-      console.log("dequeue", payload, index);
+      // console.log("dequeue", payload, index);
       if (index !== -1) {
         state.tasks.splice(index, 1);
       }
@@ -135,14 +139,14 @@ const group = createSlice({
       state.tasks = nextTasks
         .sort((a, b) => a.p - b.p)
         .concat(prevTasks.sort((a, b) => a.p - b.p));
-      console.log(state.tasks.map(t => t.p));
+      // console.log(state.tasks.map(t => t.p));
     },
     taskCount(state, { payload }: PayloadAction<number>) {
-      console.log("taskCount", state.taskCount, payload);
+      // console.log("taskCount", state.taskCount, payload);
       state.taskCount += payload;
     },
     taskBegin(state, { payload }: PayloadAction<number>) {
-      console.log(new Date(), "taskBegin");
+      // console.log(new Date(), "taskBegin");
       Object.assign(
         state,
         updatePageStatus(state.pages, state.tasks, payload, Status.loading)
@@ -152,7 +156,7 @@ const group = createSlice({
       state.mainPost.title = payload;
     },
     getPageSuccess(state, { payload: { p }, payload }: PayloadAction<IPage>) {
-      console.log("task success");
+      // console.log("task success");
       state.pages[p - 1] = payload;
       Object.assign(
         state,
@@ -259,6 +263,7 @@ export const nextTask = (
 ): AppThunk => async (dispatch, getState) => {
   const taskCountLimit = 1;
   const { group } = getState();
+  // console.log("atonce", atonce);
   if (!atonce && group.taskCount >= taskCountLimit) {
     return;
   }
@@ -269,13 +274,14 @@ export const nextTask = (
           status: Status.init
         }
       : group.tasks.find(task => task.status === Status.init);
-  console.log("find init task", group.tasks, task);
+  // console.log("find init task", group.tasks, task);
   if (!task) {
     return;
   }
   const { p } = task;
   const mainPost = group.mainPost;
   const groupTask = new GroupTask(mainPost.board, mainPost.gid, p);
+  // console.log("task + 1", p);
   dispatch(taskCount(1));
   dispatch(taskBegin(p));
   try {
@@ -293,6 +299,7 @@ export const nextTask = (
     );
   }
   dispatch(taskCount(-1));
+  // console.log("task - 1", p);
 };
 
 export const onSelectPage = (page: number): AppThunk => async (
@@ -345,7 +352,7 @@ export const loadSinglePost = ({
     }
   });
   const data = JSON.parse(html);
-  console.log(data);
+  // console.log(data);
   if (data.ajax_msg) {
     toast({ message: data.ajax_msg, type: ToastType.error });
     return;
@@ -372,7 +379,7 @@ export const loadSinglePost = ({
 };
 
 export const expandSinglePost = (): AppThunk => async (dispatch, getState) => {
-  console.log("expandSinglePost");
+  // console.log("expandSinglePost");
   const post = getState().group.singlePost;
   if (!post) return;
   const html = await ajax({
@@ -381,7 +388,7 @@ export const expandSinglePost = (): AppThunk => async (dispatch, getState) => {
       "X-Requested-With": "XMLHttpRequest"
     }
   });
-  console.log(html); // location:/article/Apple/1375368?p=1#a4
+  // console.log(html); // location:/article/Apple/1375368?p=1#a4
   const mainPost: IMainPost = {
     board: post.board!,
     title: "",

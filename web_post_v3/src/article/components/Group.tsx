@@ -37,7 +37,7 @@ function Group() {
   useEffect(() => {
     if (pageScrollY === -1) return;
     const resize = () => {
-      console.log("scroll to ", pageScrollY);
+      // console.log("scroll to ", pageScrollY);
       window.scrollTo(0, pageScrollY);
     };
     window.addEventListener("resize", resize);
