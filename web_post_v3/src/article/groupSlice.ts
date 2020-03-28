@@ -7,7 +7,7 @@ import {
   toast,
   ToastType
 } from "./utils/jsapi";
-import { GroupTask } from "./utils/Task";
+import { GroupTask, PostTask } from "./utils/Task";
 import { AppThunk, RootState } from ".";
 import { delay, formatPost, cleanHtml } from "./utils/post";
 import {
@@ -25,7 +25,7 @@ import {
   enqueue as imageTaskEnqueue,
   restoreImagesState
 } from "./slices/imageTask";
-import { loadInstance } from "./handlers/pageState";
+import { loadInstance, cacheInstance } from "./handlers/pageState";
 
 const groupInitialState: IGroupState = {
   mainPost: { board: "", title: "", gid: 0, pid: 0, single: false },
@@ -89,7 +89,7 @@ const group = createSlice({
       state.mainPost = payload;
     },
     restoreGroupState(state, { payload }: PayloadAction<IGroupState>) {
-      Object.assign({}, payload, { floor: state.floor });
+      Object.assign(state, payload, { floor: state.floor });
     },
     resetScrollY(state) {
       state.pageScrollY = -1;
@@ -213,10 +213,10 @@ export const getMainPost = (): AppThunk => async dispatch => {
   // mainPost = { board: "WorkLife", gid: 2199396, title: "" }; // 46 pages
   // mainPost = { board: "WorkLife", gid: 2211774, title: "" }; // 46 pages
   // mainPost = {
-  //   gid: 1943009441,
+  //   gid: 1952208,
   //   single: true,
-  //   board: "AutoWorld",
-  //   pid: 19430099,
+  //   board: "History",
+  //   pid: 1952417,
   //   title: "[Apple]Re: xsmth怎么又有上下黑边框了？"
   // };
   // console.log(mainPost);
@@ -224,8 +224,12 @@ export const getMainPost = (): AppThunk => async dispatch => {
   if (mainPost.single) {
     dispatch(loadSinglePost(mainPost));
   } else {
-    dispatch(loadInstance(mainPost));
-    dispatch(enqueue(1));
+    const data = await cacheInstance(mainPost);
+    if (data) {
+      dispatch(restorePage(data));
+    } else {
+      dispatch(enqueue(1));
+    }
   }
 };
 
@@ -345,37 +349,15 @@ export const loadSinglePost = ({
   board,
   pid
 }: IMainPost): AppThunk => async dispatch => {
-  const html = await ajax({
-    url: `https://www.newsmth.net/nForum/article/${board}/ajax_single/${pid}.json`,
-    headers: {
-      "X-Requested-With": "XMLHttpRequest"
-    }
-  });
-  const data = JSON.parse(html);
-  // console.log(data);
-  if (data.ajax_msg) {
-    toast({ message: data.ajax_msg, type: ToastType.error });
-    return;
+  try {
+    // console.log(post);
+    const task = new PostTask(board, pid);
+    const post = await task.execute();
+    dispatch(singlePost(post));
+    dispatch(imageTaskEnqueue([post]));
+  } catch (e) {
+    toast({ message: e, type: ToastType.error });
   }
-  const user: Json = data.user;
-  const body = data.content as string;
-  const { dateString, content, images } = formatPost(cleanHtml(body));
-  const post: IPost = {
-    board,
-    pid,
-    gid: data.group_id as number,
-    title: data.title as string,
-    author: user.id as string,
-    nick: user.user_name as string,
-    date: (data.post_time as number) * 1000,
-    dateString,
-    content,
-    images,
-    floor: 0
-  };
-  // console.log(post);
-  dispatch(singlePost(post));
-  dispatch(imageTaskEnqueue([post]));
 };
 
 export const expandSinglePost = (): AppThunk => async (dispatch, getState) => {

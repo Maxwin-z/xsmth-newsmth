@@ -1,4 +1,10 @@
-import { isErrorPage, retrieveGroupPosts, formatPost, cleanHtml } from "./post";
+import {
+  isErrorPage,
+  retrieveGroupPosts,
+  formatPost,
+  cleanHtml,
+  logLongString
+} from "./post";
 import { IPost, IGroup } from "../types";
 import { ajax } from "./jsapi";
 export class GroupTask {
@@ -57,30 +63,38 @@ export class PostTask {
   execute(): Promise<IPost> {
     return new Promise(async (resolve, reject) => {
       this.reject = reject;
-      const html = await ajax({
-        url: `https://www.newsmth.net/nForum/article/${this.board}/ajax_single/${this.pid}.json`,
-        headers: {
-          "X-Requested-With": "XMLHttpRequest"
+      try {
+        const html = await ajax({
+          url: `https://www.newsmth.net/nForum/article/${this.board}/ajax_single/${this.pid}.json`,
+          headers: {
+            "X-Requested-With": "XMLHttpRequest"
+          }
+        });
+        let data = JSON.parse(html);
+        if (!data["id"] || !data["content"]) {
+          return reject(data["ajax_msg"]);
         }
-      });
-      let data = JSON.parse(html);
-      (data.content as string).match(/.{1,100}/g)?.forEach(v => console.log(v));
-      data = { ...data, ...formatPost(cleanHtml(data.content)) };
-      const post: IPost = {
-        board: data["board_name"],
-        gid: data["group_id"],
-        pid: data["id"],
-        title: data["title"],
-        author: data["user"]["id"],
-        nick: data["user"]["user_name"],
-        floor: -1,
-        date: data["date"],
-        dateString: data["dateString"],
-        content: data["content"],
-        images: data.images,
-        isSingle: true
-      };
-      resolve(post);
+        logLongString(data.content);
+        data = { ...data, ...formatPost(cleanHtml(data.content)) };
+        const post: IPost = {
+          board: data["board_name"],
+          gid: data["group_id"],
+          pid: data["id"],
+          title: data["title"],
+          author: data["user"]["id"],
+          nick: data["user"]["user_name"],
+          floor: -1,
+          date: data["date"],
+          dateString: data["dateString"],
+          content: data["content"],
+          images: data["images"],
+          isSingle: true
+        };
+        resolve(post);
+        this.reject = null;
+      } catch (e) {
+        reject(e);
+      }
     });
   }
 
