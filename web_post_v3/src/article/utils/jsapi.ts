@@ -201,6 +201,10 @@ export function toast(toast: Toast): Promise<boolean> {
   return sendMessage("toast", toast);
 }
 
+export function xLog(msg: string): Promise<boolean> {
+  return sendMessage("log", msg);
+}
+
 export function unloaded(): Promise<boolean> {
   return sendMessage("unloaded");
 }

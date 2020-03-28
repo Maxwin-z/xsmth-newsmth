@@ -57,6 +57,7 @@ const Post: FC<{
       ) as HTMLDivElement;
       const rect = el.getBoundingClientRect();
       window.scrollBy(0, rect.top);
+      console.log("scroll to ", rect.top);
       dispatch(setFloor(-1));
     }
   }, [scrollToFloor, floor, dispatch]);

@@ -6,6 +6,7 @@ import Page from "./Page";
 import { ArticleStatus } from "../types";
 import Loading from "./Loading";
 import Footer from "./Footer";
+import { toast, xLog } from "../utils/jsapi";
 
 const GroupTitle: FC<{ title: string }> = ({ title }) => (
   <div id="title">{title}</div>
@@ -20,14 +21,19 @@ const Pages: FC<{ count: number }> = memo(({ count }) => (
 
 function Group() {
   const dispatch = useDispatch();
-  const { mainPost, pageCount, articleStatus, pageScrollY } = useSelector(
-    (state: RootState) => ({
-      mainPost: state.group.mainPost,
-      pageCount: state.group.pages.length,
-      articleStatus: state.group.articleStatus,
-      pageScrollY: state.group.pageScrollY
-    })
-  );
+  const {
+    mainPost,
+    pageCount,
+    articleStatus,
+    pageScrollY,
+    floor
+  } = useSelector((state: RootState) => ({
+    mainPost: state.group.mainPost,
+    pageCount: state.group.pages.length,
+    articleStatus: state.group.articleStatus,
+    pageScrollY: state.group.pageScrollY,
+    floor: state.group.floor
+  }));
   // console.log("mainPost", mainPost);
 
   useEffect(() => {
@@ -35,14 +41,20 @@ function Group() {
   }, [dispatch]);
 
   useEffect(() => {
-    if (pageScrollY === -1) return;
+    // xLog("in Group effect");
+    if (pageScrollY === -1 || typeof floor === "number") return;
     const resize = () => {
-      // console.log("scroll to ", pageScrollY);
+      // xLog("scroll to " + pageScrollY);
       window.scrollTo(0, pageScrollY);
     };
-    window.addEventListener("resize", resize);
+
+    if (document.documentElement.offsetHeight > pageScrollY) {
+      window.scrollTo(0, pageScrollY);
+    } else {
+      window.addEventListener("resize", resize);
+    }
     return () => window.removeEventListener("resize", resize);
-  }, [pageScrollY, dispatch]);
+  }, [floor, pageScrollY, dispatch]);
 
   if (mainPost.single) {
     return null;

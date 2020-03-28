@@ -361,6 +361,7 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
             if (methodName == "ajax")  { fn = self._ajax}
             if (methodName == "unloaded")  { fn = self._unloaded}
             if (methodName == "toast")  { fn = self._toast}
+            if (methodName == "log")  { fn = self._log}
             if (methodName == "download")  { fn = self._download}
             if (methodName == "login")  { fn = self._login}
             if (methodName == "pageNumberChanged") { fn = self._pageNumberChanged}
@@ -624,7 +625,8 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
      * ]
      */
     func _toast(parameters: Any) -> Future<Any, SMBridgeError> {
-        return Future { promise in
+        return Future { [weak self] promise in
+            guard let weakSelf = self else { return }
             if let data = parameters as? [String: Any] {
                 if let type = data["type"] as? Int,
                     let message = data["message"] as? String {
@@ -634,14 +636,24 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
                     } else if (type == 1) {
                         state = .error
                     }
-                    Loaf(message, state: state, sender: self).show()
+                    Loaf(message, state: state, sender: weakSelf).show()
                     return promise(.success(true))
                 }
             }
             promise(.success(false))
         }
     }
-
+    
+    func _log(parameters: Any) -> Future<Any, SMBridgeError> {
+        return Future { promise in
+            if let msg = parameters as? String {
+                debugPrint("[WebView]: ", msg)
+                promise(.success(true))
+            }
+            promise(.success(false))
+        }
+    }
+    
     func _download(parameters: Any) -> Future<Any, SMBridgeError> {
         return Future { [weak self] promise in
             let weakSelf = self

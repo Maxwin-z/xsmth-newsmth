@@ -217,6 +217,14 @@ export const getMainPost = (): AppThunk => async dispatch => {
   //   pid: 1952417,
   //   title: "[Apple]Re: xsmth怎么又有上下黑边框了？"
   // };
+
+  mainPost = {
+    gid: 1952208,
+    single: true,
+    board: "AutoWorld",
+    pid: 1943009472,
+    title: "[Apple]Re: xsmth怎么又有上下黑边框了？"
+  };
   // console.log(mainPost);
   dispatch(setMainPost(mainPost));
   if (mainPost.single) {
