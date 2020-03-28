@@ -1,4 +1,4 @@
-import React, { FC, memo, useEffect, useLayoutEffect } from "react";
+import React, { FC, memo, useEffect } from "react";
 import { reply, showActivity } from "../utils/jsapi";
 import { IPost } from "../types";
 import { useSelector, useDispatch } from "react-redux";

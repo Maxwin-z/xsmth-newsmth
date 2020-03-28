@@ -73,5 +73,4 @@ export function getArticleStatus(
   allFail,
   
   */
-  const allLoading = ss.every(s => s === Status.init || s === Status.loading);
 }

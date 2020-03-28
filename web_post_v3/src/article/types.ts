@@ -1,5 +1,3 @@
-import { RootState } from ".";
-
 export enum Status {
   init,
   loading,

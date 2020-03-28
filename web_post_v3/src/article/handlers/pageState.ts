@@ -1,6 +1,6 @@
 import { AppThunk, RootState } from "..";
-import { setStorage, getStorage, unloaded, ajax, Json } from "../utils/jsapi";
-import { IMainPost, Status, IPost } from "../types";
+import { setStorage, getStorage, unloaded } from "../utils/jsapi";
+import { IMainPost, Status } from "../types";
 import { restorePage } from "../groupSlice";
 
 function storageKey(post: IMainPost) {
@@ -16,7 +16,7 @@ export const saveInstance = (): AppThunk => async (dispatch, getState) => {
   const group = { ...state.group };
   group.pageScrollY = window.scrollY;
   group.pages = group.pages.map(page => {
-    if (page.status != Status.success) {
+    if (page.status !== Status.success) {
       return Object.assign({}, page, {
         status: Status.init
       });

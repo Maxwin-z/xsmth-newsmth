@@ -63,7 +63,7 @@ const SuccessPage: FC<{ posts: IPost[]; p: number }> = ({ posts, p }) => (
   </>
 );
 
-const _Page: FC<{ page: IPage }> = ({ page }) => {
+const WrappedPage: FC<{ page: IPage }> = ({ page }) => {
   const { p, posts, status } = page;
   if (posts.length > 0) {
     return <SuccessPage posts={posts} p={p} />;
@@ -76,9 +76,9 @@ const _Page: FC<{ page: IPage }> = ({ page }) => {
   }
 };
 
-let _id = 0;
+// let _id = 0;
 const Page: FC<{ p: number }> = memo(({ p }) => {
-  const batchID = ++_id;
+  // const batchID = ++_id;
   const page = useSelector((state: RootState) => state.group.pages[p - 1]);
   const selectedPage = useSelector(
     (state: RootState) => state.group.selectedPage
@@ -116,7 +116,7 @@ const Page: FC<{ p: number }> = memo(({ p }) => {
 
   return (
     <div className={page.hidden ? "hidden page" : "page"} data-page={p}>
-      <_Page page={page} />
+      <WrappedPage page={page} />
     </div>
   );
 });

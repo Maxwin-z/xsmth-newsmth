@@ -1,4 +1,4 @@
-import React, { useEffect, FC, memo } from "react";
+import React, { useEffect, FC } from "react";
 import { combineReducers, Action } from "redux";
 import { Provider, useSelector, useDispatch } from "react-redux";
 import { configureStore, ThunkAction } from "@reduxjs/toolkit";
@@ -14,7 +14,7 @@ import Group from "./components/Group";
 import "./handlers/theme";
 import "./index.css";
 import { setupTheme } from "./handlers/theme";
-import { getThemeConfig, unloaded } from "./utils/jsapi";
+import { getThemeConfig } from "./utils/jsapi";
 import { ITheme } from "./types";
 import XImageQueue from "./components/XImageQueue";
 import { scrollHander } from "./handlers/scroll";
@@ -46,11 +46,6 @@ const store = configureStore({
   PubSub.subscribe("DOWNLOAD_PROGRESS", (_: string, data: any) =>
     handleImageDownloadProgress(data)
   );
-
-  PubSub.subscribe("SINGLE_AUTHOR", (_: string, data: string) => {
-    const author = data;
-    // console.log("single author", author);
-  });
 })();
 
 export type RootState = ReturnType<typeof rootReducer>;

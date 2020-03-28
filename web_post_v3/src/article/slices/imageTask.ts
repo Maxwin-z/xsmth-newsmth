@@ -21,7 +21,7 @@ const imageTask = createSlice({
   initialState,
   reducers: {
     enqueue(state, { payload }: PayloadAction<IPost[]>) {
-      console.log("images enqueue", payload);
+      // console.log("images enqueue", payload);
       const images: IXImage[] = payload.map(({ images }) => images).flat();
       if (images.length > 0) {
         state.images = state.images.concat(images);
@@ -62,11 +62,11 @@ export const {
 export default imageTask.reducer;
 
 const imageTrys = async (urls: string[], id: number) => {
-  console.log("image trys", urls);
+  // console.log("image trys", urls);
   let ret = false;
   for (let i = 0; i < urls.length; ++i) {
     try {
-      console.log("load", urls[i]);
+      // console.log("load", urls[i]);
       ret = await download(urls[i], id);
     } catch (e) {
       console.error(`load image: ${urls[i]} fail, ${e}`);
@@ -86,7 +86,7 @@ export const loadImage = (): AppThunk => async (dispatch, getState) => {
   }
   const index = images.findIndex(img => img.status === Status.init);
   if (index === -1) {
-    console.log("no init images");
+    // console.log("no init images");
     return;
   }
 
@@ -94,7 +94,7 @@ export const loadImage = (): AppThunk => async (dispatch, getState) => {
   const urls = [src, src + "/large"];
   const matchs = src.match(/\/nForum\/att\/\w+?\/(\d+)\/(\d+)/);
   if (matchs) {
-    const [_, pid, aid] = matchs;
+    const [, pid, aid] = matchs;
     const board = getState().group.mainPost.board;
     const bid = await getBoardID(board);
     ["jpg", "png", "gif"].forEach(ext => {

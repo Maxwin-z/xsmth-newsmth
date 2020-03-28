@@ -1,6 +1,6 @@
-import React, { useEffect, FC, memo, useLayoutEffect } from "react";
+import React, { useEffect, FC, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getMainPost, resetScrollY } from "../groupSlice";
+import { getMainPost } from "../groupSlice";
 import { RootState } from "..";
 import Page from "./Page";
 import { ArticleStatus } from "../types";

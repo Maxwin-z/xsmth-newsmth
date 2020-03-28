@@ -39,7 +39,7 @@ const SingleAuthor: FC<{}> = () => {
     setNext(_next);
     setCurrent(-1);
     setTotal(posts.length);
-  }, [author, pages]);
+  }, [author, pages, posts]);
 
   const toFloor = (floor: number) => {
     if (floor === -1) return;

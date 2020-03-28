@@ -2,7 +2,7 @@ import { Json } from "../utils/jsapi";
 import { ITheme } from "../types";
 
 export function setupTheme(style: ITheme) {
-  console.log("styles", style);
+  // console.log("styles", style);
   var sheet = document.styleSheets[0] as CSSStyleSheet;
 
   for (let i = sheet.rules.length - 1; i >= 0; --i) {
