@@ -218,13 +218,14 @@ export const getMainPost = (): AppThunk => async dispatch => {
   //   title: "[Apple]Re: xsmth怎么又有上下黑边框了？"
   // };
 
-  mainPost = {
-    gid: 1952208,
-    single: true,
-    board: "AutoWorld",
-    pid: 1943009472,
-    title: "[Apple]Re: xsmth怎么又有上下黑边框了？"
-  };
+  // mainPost = {
+  //   gid: 1952208,
+  //   single: true,
+  //   board: "AutoWorld",
+  //   pid: 1943009472,
+  //   title: "[Apple]Re: xsmth怎么又有上下黑边框了？"
+  // };
+
   // console.log(mainPost);
   dispatch(setMainPost(mainPost));
   if (mainPost.single) {
@@ -387,9 +388,13 @@ export const expandSinglePost = (): AppThunk => async (dispatch, getState) => {
   const url = new URL(html);
   const p = parseInt(url.searchParams.get("p") || "1", 10);
   const floor = parseInt(url.hash.replace("#a", ""), 10);
+  console.log(390, floor, p, mainPost);
+  const data = await cacheInstance(mainPost);
   dispatch(setFloor(floor));
   dispatch(setMainPost(mainPost));
-  dispatch(loadInstance(mainPost));
+  if (data) {
+    dispatch(restorePage(data));
+  }
   dispatch(enqueue(new Array(p).fill(0).map((_, i) => i + 1)));
   dispatch(loadPage(p, true));
 };

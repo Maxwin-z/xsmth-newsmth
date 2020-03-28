@@ -1,5 +1,10 @@
 import { AppThunk, RootState } from "..";
-import { setStorage, getStorage, unloaded } from "../utils/jsapi";
+import {
+  setStorage,
+  getStorage,
+  unloaded,
+  removeStorage
+} from "../utils/jsapi";
 import { IMainPost, Status } from "../types";
 import { restorePage } from "../groupSlice";
 
@@ -41,6 +46,7 @@ export const saveInstance = (): AppThunk => async (dispatch, getState) => {
 };
 
 export const cacheInstance = async (post: IMainPost) => {
+  // removeStorage(storageKey(post));
   try {
     let data: RootState = await getStorage(storageKey(post));
     console.log("load instance", data);

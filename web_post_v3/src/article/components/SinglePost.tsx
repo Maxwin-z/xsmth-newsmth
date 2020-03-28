@@ -22,6 +22,7 @@ const SinglePost: FC<{}> = () => {
   if (!post || !mainPost.single) {
     return null;
   }
+  // console.log(mainPost, post);
   return (
     <div className="main">
       {articleStatus === ArticleStatus.allLoading ? (
