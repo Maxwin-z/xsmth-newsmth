@@ -548,9 +548,10 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
                 let forward = SMForwardActivity()
                 let forwardAll = SMForwardAllActivity()
                 let mailTo = SMMailToActivity()
+                let spam = SMSpamActivity()
                 let urlString = "https://m.newsmth.net/article/\(p.board.name!)/single/\(p.pid)/0"
                 let url = URL(string: urlString)
-                var activities = [singleAuthor, forward, forwardAll, mailTo]
+                var activities = [singleAuthor, forward, forwardAll, mailTo, spam]
                 if (p.author == SMAccountManager.instance()?.name) {
                     let edit = SMEditActivity()
                     let delete = SMDeleteActivity()
@@ -573,6 +574,9 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
                     }
                     if (at == SMActivityTypeMailToAuthor) {
                         weakSelf.mailtoWithPost()
+                    }
+                    if (at == SMActivitySpamActivity) {
+                        Loaf.init("举报成功", state: .info, location: .bottom, presentingDirection: .vertical, dismissingDirection: .vertical, sender: weakSelf).show()
                     }
                     if (at == SMActivitySingleAuthorActivity) {
                         weakSelf.notificationToWeb(messageName: "SINGLE_AUTHOR", data: weakSelf.postForAction?.author ?? "")
