@@ -7,7 +7,8 @@ import groupReducer, {
   nextTask,
   onSelectPage,
   resetScrollY,
-  singleAuthor
+  singleAuthor,
+  refreshPage
 } from "./groupSlice";
 import imageReducer, { handleImageDownloadProgress } from "./slices/imageTask";
 import Group from "./components/Group";
@@ -105,6 +106,9 @@ function usePubSubHook() {
       },
       SINGLE_AUTHOR: (_: string, author: string) => {
         dispatch(singleAuthor(author));
+      },
+      PAGE_REFRESH: () => {
+        dispatch(refreshPage());
       }
     };
     const handlers: any[] = Object.keys(actions).map(event => {

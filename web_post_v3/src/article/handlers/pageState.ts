@@ -59,3 +59,7 @@ export const loadInstance = (post: IMainPost): AppThunk => async dispatch => {
   const data = await cacheInstance(post);
   data && dispatch(restorePage(data));
 };
+
+export const removeInstance = async (post: IMainPost) => {
+  await removeStorage(storageKey(post));
+};

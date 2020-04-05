@@ -4,7 +4,8 @@ import {
   pageNumberChanged,
   ajax,
   toast,
-  ToastType
+  ToastType,
+  removeStorage
 } from "./utils/jsapi";
 import { GroupTask, PostTask } from "./utils/Task";
 import { AppThunk, RootState } from ".";
@@ -23,7 +24,12 @@ import {
   enqueue as imageTaskEnqueue,
   restoreImagesState
 } from "./slices/imageTask";
-import { loadInstance, cacheInstance } from "./handlers/pageState";
+import {
+  loadInstance,
+  cacheInstance,
+  removeInstance
+} from "./handlers/pageState";
+import { delay } from "./utils/post";
 
 const groupInitialState: IGroupState = {
   mainPost: { board: "", title: "", gid: 0, pid: 0, single: false },
@@ -226,7 +232,7 @@ export const getMainPost = (): AppThunk => async dispatch => {
   //   title: "[Apple]Re: xsmth怎么又有上下黑边框了？"
   // };
 
-  // console.log(mainPost);
+  console.log(mainPost);
   dispatch(setMainPost(mainPost));
   if (mainPost.single) {
     dispatch(loadSinglePost(mainPost));
@@ -238,6 +244,27 @@ export const getMainPost = (): AppThunk => async dispatch => {
       dispatch(enqueue(1));
     }
   }
+};
+
+export const refreshPage = (): AppThunk => async dispatch => {
+  console.log("refresh page");
+  const mainPost = await postInfo();
+  if (!mainPost.single) {
+    await removeInstance(mainPost);
+  }
+  dispatch(
+    restoreGroupState({
+      mainPost,
+      pages: [],
+      tasks: [],
+      taskCount: 0,
+      articleStatus: ArticleStatus.allLoading,
+      lastLoading: 0,
+      selectedPage: 0,
+      pageScrollY: -1
+    })
+  );
+  dispatch(getMainPost());
 };
 
 const handleGroupTask = (group: IGroup): AppThunk => (dispatch, getState) => {
