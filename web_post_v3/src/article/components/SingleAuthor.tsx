@@ -22,6 +22,11 @@ const SingleAuthor: FC<{}> = () => {
   useEffect(() => {
     // console.log(author, posts);
 
+    const posts = pages
+      .map(page => page.posts)
+      .flat()
+      .filter(post => post.author === author);
+
     let _prev = -1;
     let _next = -1;
     posts.forEach(post => {
@@ -39,7 +44,7 @@ const SingleAuthor: FC<{}> = () => {
     setNext(_next);
     setCurrent(-1);
     setTotal(posts.length);
-  }, [author, pages, posts]);
+  }, [author, pages]);
 
   const toFloor = (floor: number) => {
     if (floor === -1) return;
@@ -60,7 +65,7 @@ const SingleAuthor: FC<{}> = () => {
   if (!author) {
     return null;
   }
-
+  console.log(prev, current, next);
   return (
     <div className="single-author-box skip-scroll">
       <div onClick={() => toFloor(prev)} className="arrow"></div>

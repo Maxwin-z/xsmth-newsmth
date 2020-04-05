@@ -30,6 +30,7 @@ interface Window {
   $x_parseForward: Function;
   $x_pageWillUnload: Function;
   $x_publish: Function;
+  scrollBy: Function;
 }
 
 declare let window: Window;
@@ -265,5 +266,8 @@ export function xScrollTo(x: number, y: number): Promise<boolean> {
 }
 
 export function xScrollBy(x: number, y: number): Promise<boolean> {
+  if (!isBridgeAvaiable()) {
+    return window.scrollBy(x, y);
+  }
   return sendMessage("scrollBy", { x, y });
 }
