@@ -6,7 +6,6 @@ import Page from "./Page";
 import { ArticleStatus } from "../types";
 import Loading from "./Loading";
 import Footer from "./Footer";
-import { toast, xLog } from "../utils/jsapi";
 
 const GroupTitle: FC<{ title: string }> = ({ title }) => (
   <div id="title">{title}</div>

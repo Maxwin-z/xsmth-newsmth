@@ -15,7 +15,7 @@ import Group from "./components/Group";
 import "./handlers/theme";
 import "./index.css";
 import { setupTheme } from "./handlers/theme";
-import { getThemeConfig, toast, xLog } from "./utils/jsapi";
+import { getThemeConfig } from "./utils/jsapi";
 import { ITheme } from "./types";
 import XImageQueue from "./components/XImageQueue";
 import { scrollHander } from "./handlers/scroll";
@@ -23,7 +23,6 @@ import { clickHander } from "./handlers/click";
 import { saveInstance } from "./handlers/pageState";
 import SingleAuthor from "./components/SingleAuthor";
 import SinglePost from "./components/SinglePost";
-import VConsole from "vconsole";
 
 // new VConsole();
 

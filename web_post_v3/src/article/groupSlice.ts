@@ -4,8 +4,7 @@ import {
   pageNumberChanged,
   ajax,
   toast,
-  ToastType,
-  removeStorage
+  ToastType
 } from "./utils/jsapi";
 import { GroupTask, PostTask } from "./utils/Task";
 import { AppThunk, RootState } from ".";
@@ -24,12 +23,7 @@ import {
   enqueue as imageTaskEnqueue,
   restoreImagesState
 } from "./slices/imageTask";
-import {
-  loadInstance,
-  cacheInstance,
-  removeInstance
-} from "./handlers/pageState";
-import { delay } from "./utils/post";
+import { cacheInstance, removeInstance } from "./handlers/pageState";
 
 const groupInitialState: IGroupState = {
   mainPost: { board: "", title: "", gid: 0, pid: 0, single: false },
