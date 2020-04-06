@@ -11,6 +11,7 @@
 #import "SMBoardCell.h"
 #import "SMPostViewController.h"
 #import "SMIPadSplitViewController.h"
+#import "newsmth-Swift.h"
 
 @interface SMBoardSearchResultViewController ()<SMWebLoaderOperationDelegate, XPullRefreshTableViewDelegate, UITableViewDataSource, UITableViewDelegate>
 @property (strong, nonatomic) SMWebLoaderOperation *op;
@@ -78,10 +79,12 @@
 {
     SMPost *post = _posts[indexPath.row];
 
-    SMPostViewController *vc = [[SMPostViewController alloc] init];
-    vc.postUrl = [NSString stringWithFormat:URL_PROTOCOL @"//m.newsmth.net/article/%@/single/%d/0", _board.name, post.gid];
-    vc.fromBoard = YES;
-    
+    SMPostViewControllerV4 *vc = [SMPostViewControllerV4 new];
+    vc.post = post;
+    vc.post.pid = post.gid;
+    vc.post.board = self.board;
+    vc.single = YES;
+
     if ([SMConfig iPadMode]) {
         [SMIPadSplitViewController instance].detailViewController = vc;
     } else {
