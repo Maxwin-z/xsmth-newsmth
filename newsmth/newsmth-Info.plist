@@ -66,7 +66,7 @@
 		<true/>
 	</dict>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>允许xsmth上传/保存图片</string>
+	<string>为发表带图帖子，是否允许xsmth需要读取您的相册？</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
