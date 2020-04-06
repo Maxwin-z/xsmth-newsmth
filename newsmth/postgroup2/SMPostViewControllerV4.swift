@@ -12,6 +12,7 @@ import Combine
 import WebKit
 import Alamofire
 import Loaf
+import SafariServices
 
 struct SMBridgeError : Error {
     let code: Int
@@ -53,7 +54,7 @@ class LeakAvoider : NSObject, WKScriptMessageHandler, WKURLSchemeHandler {
 
 let mmkvKey_forwardTarget = "forwardTarget"
 
-class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMessageHandler {
+class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMessageHandler, WKNavigationDelegate {
 
     // hold viewcontroller for webview to save states
     var holdMyself: [String: ((Any) -> Future<Any, SMBridgeError>)] = [:]
@@ -80,6 +81,8 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
     var viewForPagePicker: UIView!
     var pagePicker: UIPickerView!
     
+    var pageUrl = "http://public-1255362875.cos.ap-shanghai.myqcloud.com/xsmth/build/index.html"
+    
     // page
     var pageNumber: Int = 0
     var totalPageNumber: Int = 0
@@ -103,6 +106,7 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
 //        config.setURLSchemeHandler(leakAvioder, forURLScheme: "xfont")
 
         self.webView = WKWebView(frame: self.view.bounds, configuration: config)
+        self.webView.navigationDelegate = self;
         self.webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.webView.isOpaque = false
         self.webView.backgroundColor = SMTheme.colorForBackground()
@@ -111,8 +115,8 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
         self.view.addSubview(self.webView)
 //        let urlString = "http://10.0.0.11:3000/"
 //        let urlString = "http://172.16.232.34:3000/"
-        let urlString = "http://public-1255362875.cos.ap-shanghai.myqcloud.com/xsmth/build/index.html"
-        let request = URLRequest(url: URL(string: urlString)!)
+//        let urlString = "http://public-1255362875.cos.ap-shanghai.myqcloud.com/xsmth/build/index.html"
+        let request = URLRequest(url: URL(string: pageUrl)!)
         self.webView.load(request)
         debugPrint("post: ", post ?? "nil");
         
@@ -160,6 +164,19 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
     deinit {
         self.webView.stopLoading()
         self.webView.configuration.userContentController.removeScriptMessageHandler(forName: "nativeBridge")
+    }
+    
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        if let url = navigationAction.request.url {
+            if (url.absoluteString == pageUrl) {
+                decisionHandler(.allow)
+            } else {
+                decisionHandler(.cancel)
+                let safari = SFSafariViewController(url: url)
+                safari.modalPresentationStyle = .automatic
+                self.present(safari, animated: true, completion: nil)
+            }
+        }
     }
     
     @objc
