@@ -9,6 +9,7 @@
 #import "SMLoginViewController.h"
 #import "UIButton+Custom.h"
 #import "SMDiagnoseViewController.h"
+#import <SafariServices/SafariServices.h>
 
 @interface SMLoginViewController ()<SMWebLoaderOperationDelegate>
 
@@ -137,6 +138,17 @@
     self.textFieldForUsername.text = @"";
     self.textFieldForPassword.text = @"";
 }
+
+- (IBAction)onRegisterButtonClick:(id)sender
+{
+    NSURL *url = [NSURL URLWithString:@"https://www.newsmth.net/nForum/#!reg"];
+    SFSafariViewController *safari = [[SFSafariViewController alloc] initWithURL:url];
+//    [self.navigationController pushViewController:safari animated:YES];
+    safari.modalPresentationStyle = UIModalPresentationAutomatic;
+//    [self.view.window.rootViewController presentViewController:safari animated:YES completion:nil];
+    [self presentViewController:safari animated:YES completion:nil];
+}
+
 
 - (void)webLoaderOperationFinished:(SMWebLoaderOperation *)opt
 {
