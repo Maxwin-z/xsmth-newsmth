@@ -174,8 +174,11 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
             } else {
                 decisionHandler(.cancel)
                 let safari = SFSafariViewController(url: url)
-                safari.modalPresentationStyle = .automatic
-                self.present(safari, animated: true, completion: nil)
+                if(SMUtils.isPad()) {
+                    self.view.window?.rootViewController?.present(safari, animated: true, completion: nil)
+                } else {
+                    self.present(safari, animated: true, completion: nil)
+                }
             }
         }
     }
