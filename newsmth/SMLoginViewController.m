@@ -141,12 +141,14 @@
 
 - (IBAction)onRegisterButtonClick:(id)sender
 {
-    NSURL *url = [NSURL URLWithString:@"https://www.newsmth.net/nForum/#!reg"];
+    NSURL *url = [NSURL URLWithString:@"http://www.newsmth.net/nForum/#!reg"];
     SFSafariViewController *safari = [[SFSafariViewController alloc] initWithURL:url];
-//    [self.navigationController pushViewController:safari animated:YES];
     safari.modalPresentationStyle = UIModalPresentationAutomatic;
-//    [self.view.window.rootViewController presentViewController:safari animated:YES completion:nil];
-    [self presentViewController:safari animated:YES completion:nil];
+    if ([SMUtils isPad]) {
+        [self.view.window.rootViewController presentViewController:safari animated:YES completion:nil];
+    } else {
+        [self presentViewController:safari animated:YES completion:nil];
+    }
 }
 
 

@@ -82,6 +82,7 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
     var pagePicker: UIPickerView!
     
     var pageUrl = "http://public-1255362875.cos.ap-shanghai.myqcloud.com/xsmth/build/index.html"
+//    var pageUrl = "http://10.0.0.11:3000/"
     
     // page
     var pageNumber: Int = 0
