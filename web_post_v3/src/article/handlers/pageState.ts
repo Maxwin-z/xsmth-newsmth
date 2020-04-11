@@ -20,6 +20,7 @@ export const saveInstance = (): AppThunk => async (dispatch, getState) => {
   }
   const group = { ...state.group };
   group.pageScrollY = window.scrollY;
+  group.taskCount = 0;
   group.pages = group.pages.map(page => {
     if (page.status !== Status.success) {
       return Object.assign({}, page, {
@@ -40,7 +41,7 @@ export const saveInstance = (): AppThunk => async (dispatch, getState) => {
     Object.assign({}, img, { staus: Status.init })
   );
   const instance = { ...state, group, imageTask };
-  //   console.log("save instance", instance);
+  // console.log("save instance", instance);
   await setStorage(storageKey(post), instance);
   unloaded();
 };
