@@ -16,7 +16,7 @@ textarea {
 }
 
 #title {
-  font-size: 150%;
+  font-size: 120%;
   line-height: 1.2em;
   padding: 10px 0;
 }
@@ -85,7 +85,7 @@ textarea {
 
 .post {
   padding: 10px 10px 10px 0;
-  border-top: 1px solid lightgrey;
+  border-top: 1px solid lightgray;
   overflow-wrap: break-word;
 }
 .post-title {

@@ -40,7 +40,7 @@ export function setupTheme(style: ITheme) {
   sheet.addRule(
     "div.post",
     style2string({
-      "border-top": "1px solid " + style.textColor
+      // "border-top": "1px solid " + style.quoteColor
     }),
     0
   );
