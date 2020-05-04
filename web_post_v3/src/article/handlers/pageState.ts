@@ -19,6 +19,7 @@ export const saveInstance = (): AppThunk => async (dispatch, getState) => {
     return;
   }
   const group = { ...state.group };
+  const domHeights: { [x: number]: number } = {};
   group.pageScrollY = window.scrollY;
   group.taskCount = 0;
   group.pages = group.pages.map(page => {
@@ -27,13 +28,20 @@ export const saveInstance = (): AppThunk => async (dispatch, getState) => {
         status: Status.init
       });
     }
+    page.posts.forEach(post => {
+      const dom = document.querySelector(`[data-floor="${post.floor}"]`);
+      if (dom) {
+        domHeights[post.floor] = Math.ceil(dom.getBoundingClientRect().height);
+      }
+    });
     return page;
   });
+  group.domHeights = domHeights;
   group.tasks = group.tasks.map(task => {
     const t = Object.assign({}, task, {
       status: Status.init
     });
-    console.log(t);
+    // console.log(t);
     return t;
   });
   const imageTask = { ...state.imageTask };

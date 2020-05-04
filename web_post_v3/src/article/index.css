@@ -84,11 +84,12 @@ textarea {
 }
 
 .post {
-  padding: 10px 10px 10px 0;
+  padding-right: 10px;
   border-top: 1px solid lightgray;
   overflow-wrap: break-word;
 }
 .post-title {
+  margin-top: 6px;
   margin-bottom: 10px;
   position: relative;
 }

@@ -1,5 +1,5 @@
 import React, { FC, memo, useEffect } from "react";
-import { reply, showActivity } from "../utils/jsapi";
+import { reply, showActivity, xLog } from "../utils/jsapi";
 import { IPost } from "../types";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "..";
@@ -22,6 +22,7 @@ const Post: FC<{
 }> = memo(({ post: { author, nick, dateString, content, floor, pid }, p }) => {
   const mainPost = useSelector((state: RootState) => state.group.mainPost);
   const scrollToFloor = useSelector((state: RootState) => state.group.floor);
+  const domHeights = useSelector((state: RootState) => state.group.domHeights);
   function makeActionPost() {
     const actionPost: IActionPost = {
       title: mainPost.title.replace(/^Re: /, ""),
@@ -61,8 +62,18 @@ const Post: FC<{
       dispatch(setFloor(-1));
     }
   }, [scrollToFloor, floor, dispatch]);
+
+  const domHeight = domHeights && domHeights[floor];
+  // console.log(floor, domHeight);
   return (
-    <div className="post" data-page={p} data-floor={floor}>
+    <div
+      className="post"
+      style={{
+        minHeight: domHeight && Number.isInteger(domHeight) ? domHeight : 0
+      }}
+      data-page={p}
+      data-floor={floor}
+    >
       <div className="post-title">
         <div>
           {author}

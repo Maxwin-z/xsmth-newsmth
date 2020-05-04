@@ -78,6 +78,7 @@ export interface IGroupState {
   author?: string | null;
   singlePost?: IPost;
   floor?: number | null;
+  domHeights?: { [x: number]: number };
 }
 
 export interface ITheme {

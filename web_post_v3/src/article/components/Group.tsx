@@ -6,6 +6,7 @@ import Page from "./Page";
 import { ArticleStatus } from "../types";
 import Loading from "./Loading";
 import Footer from "./Footer";
+import { xLog } from "../utils/jsapi";
 
 const GroupTitle: FC<{ title: string }> = ({ title }) => (
   <div id="title">{title}</div>
@@ -35,6 +36,9 @@ function Group() {
   }));
   // console.log("mainPost", mainPost);
 
+  const start = () => {
+    dispatch(getMainPost());
+  };
   useEffect(() => {
     dispatch(getMainPost());
   }, [dispatch]);
@@ -48,8 +52,10 @@ function Group() {
     };
 
     if (document.documentElement.offsetHeight > pageScrollY) {
+      // xLog("try to scroll:" + pageScrollY);
       window.scrollTo(0, pageScrollY);
     } else {
+      // xLog("bind resize");
       window.addEventListener("resize", resize);
     }
     return () => window.removeEventListener("resize", resize);
@@ -62,6 +68,7 @@ function Group() {
   return (
     <div className="main">
       <GroupTitle title={mainPost.title} />
+      {/* <button onClick={start}>do load</button> */}
       {articleStatus === ArticleStatus.allLoading ? (
         <Loading>正在加载...</Loading>
       ) : null}

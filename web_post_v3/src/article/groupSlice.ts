@@ -33,7 +33,8 @@ const groupInitialState: IGroupState = {
   articleStatus: ArticleStatus.allLoading,
   lastLoading: 0,
   selectedPage: 0,
-  pageScrollY: -1
+  pageScrollY: -1,
+  domHeights: {}
 };
 
 function updatePageStatus(

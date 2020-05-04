@@ -35,7 +35,7 @@ interface Window {
 
 declare let window: Window;
 
-window.$xCallback = function(callbackID: number, rsp: BridgeResult) {
+window.$xCallback = function (callbackID: number, rsp: BridgeResult) {
   // console.log("$xCallback", callbackID, rsp);
   if (callbacks[callbackID]) {
     callbacks[callbackID](rsp);
@@ -45,7 +45,7 @@ window.$xCallback = function(callbackID: number, rsp: BridgeResult) {
   delete callbacks[callbackID];
 };
 
-window.$x_parseForward = function(html: string) {
+window.$x_parseForward = function (html: string) {
   const matches = html
     .replace(/<script.*?<\/script>/g, "")
     .match(/<body>(.*?)<\/body>/);
@@ -64,7 +64,7 @@ window.$x_parseForward = function(html: string) {
   return "水木未返回是否成功";
 };
 
-window.$x_publish = function(message: string, data: number | string | Json) {
+window.$x_publish = function (message: string, data: number | string | Json) {
   PubSub.publish(message, data);
 };
 
@@ -203,6 +203,7 @@ export function toast(toast: Toast): Promise<boolean> {
 }
 
 export function xLog(msg: string): Promise<boolean> {
+  console.log("xLog", msg);
   return sendMessage("log", msg);
 }
 
