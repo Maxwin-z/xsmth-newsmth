@@ -61,6 +61,7 @@
     SMBoardViewController *vc = [[SMBoardViewController alloc] init];
     vc.board = board;
     [self.mainpage.navigationController pushViewController:vc animated:YES];
+    [self.mainpage.navigationItem.searchController setActive:NO];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
