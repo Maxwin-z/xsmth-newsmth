@@ -81,8 +81,8 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
     var viewForPagePicker: UIView!
     var pagePicker: UIPickerView!
     
-    var pageUrl = "http://public-1255362875.cos.ap-shanghai.myqcloud.com/xsmth/build/index.html"
-//    var pageUrl = "http://10.0.0.11:3000/"
+//    var pageUrl = "http://public-1255362875.cos.ap-shanghai.myqcloud.com/xsmth/build/index.html"
+    var pageUrl = "http://10.0.0.11:3000/"
     
     // page
     var pageNumber: Int = 0
@@ -173,6 +173,9 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
                 decisionHandler(.allow)
             } else {
                 decisionHandler(.cancel)
+                if (url.absoluteString == "about:blank") {
+                    return
+                }
                 let safari = SFSafariViewController(url: url)
                 if(SMUtils.isPad()) {
                     self.view.window?.rootViewController?.present(safari, animated: true, completion: nil)
@@ -991,9 +994,7 @@ extension SMPostViewControllerV4: UIPickerViewDataSource, UIPickerViewDelegate {
 extension SMPostViewControllerV4: UIScrollViewDelegate {
     /// scrollView Delegate
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if (scrollView.contentOffset.y < 100) {
-            self.showBottomBar()
-        } else if (scrollView.panGestureRecognizer.translation(in: scrollView.superview).y < 0) {
+        if (scrollView.panGestureRecognizer.translation(in: scrollView.superview).y < 0) {
             self.hideBottomBar()
         }
     }
