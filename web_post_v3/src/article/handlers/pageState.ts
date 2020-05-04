@@ -46,7 +46,7 @@ export const saveInstance = (): AppThunk => async (dispatch, getState) => {
   });
   const imageTask = { ...state.imageTask };
   imageTask.images = imageTask.images.map(img =>
-    Object.assign({}, img, { staus: Status.init })
+    Object.assign({}, img, { status: Status.init })
   );
   const instance = { ...state, group, imageTask };
   // console.log("save instance", instance);
