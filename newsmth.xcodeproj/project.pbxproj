@@ -17,6 +17,7 @@
 		39C260081860A8DF00AEFE0E /* bbsbfind.js in Resources */ = {isa = PBXBuildFile; fileRef = 39C260071860A8DF00AEFE0E /* bbsbfind.js */; };
 		504F7B8C2352FEC200009940 /* SMBoardHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 504F7B8B2352FEC200009940 /* SMBoardHistoryViewController.m */; };
 		508BFA4820ED20BD005ACFD6 /* SMVideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 508BFA4720ED20BD005ACFD6 /* SMVideoPlayerViewController.m */; };
+		50A382FC2460608700098D23 /* XWebController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A382FB2460608700098D23 /* XWebController.swift */; };
 		50FE53C623DFFF5700C896E6 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50FE53C523DFFF5700C896E6 /* WebKit.framework */; };
 		50FE53C923E0238B00C896E6 /* SMPostViewControllerV4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FE53C823E0238B00C896E6 /* SMPostViewControllerV4.swift */; };
 		AC597B7F555449F0D8AD91C9 /* libPods-newsmth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5616CAAD5D6F6B14BA51241C /* libPods-newsmth.a */; };
@@ -344,6 +345,7 @@
 		504F7B8B2352FEC200009940 /* SMBoardHistoryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMBoardHistoryViewController.m; sourceTree = "<group>"; };
 		508BFA4620ED20BD005ACFD6 /* SMVideoPlayerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMVideoPlayerViewController.h; sourceTree = "<group>"; };
 		508BFA4720ED20BD005ACFD6 /* SMVideoPlayerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMVideoPlayerViewController.m; sourceTree = "<group>"; };
+		50A382FB2460608700098D23 /* XWebController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWebController.swift; sourceTree = "<group>"; };
 		50FE53C523DFFF5700C896E6 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		50FE53C723E0238B00C896E6 /* newsmth-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "newsmth-Bridging-Header.h"; sourceTree = "<group>"; };
 		50FE53C823E0238B00C896E6 /* SMPostViewControllerV4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMPostViewControllerV4.swift; sourceTree = "<group>"; };
@@ -930,6 +932,7 @@
 				C124CAED185D8BC500B9CEA3 /* SMTheme.m */,
 				C1D8546A1C8573160068C698 /* XWebViewController.h */,
 				C1D8546B1C8573160068C698 /* XWebViewController.m */,
+				50A382FB2460608700098D23 /* XWebController.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -2104,6 +2107,7 @@
 				C1BA92C917954EC300F76ACF /* PBWebViewController.m in Sources */,
 				C1C07A581796857900906ED7 /* OWActivity.m in Sources */,
 				C1CBC4B619CDAD3D0074E1B7 /* SMForwardActivity.m in Sources */,
+				50A382FC2460608700098D23 /* XWebController.swift in Sources */,
 				C1F8D81118D3313D0076A790 /* SMDiagnoseViewController.m in Sources */,
 				C14B230417FB189B00CF081A /* SMPageCell.m in Sources */,
 				C1C07A591796857900906ED7 /* OWActivityDelegateObject.m in Sources */,
