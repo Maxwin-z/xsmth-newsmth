@@ -50,5 +50,13 @@
     "mocha": "^7.0.1",
     "ts-node": "^8.6.2",
     "vconsole": "^3.3.4"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-react"
+    ],
+    "plugins": [
+      "@babel/plugin-syntax-dynamic-import"
+    ]
   }
 }

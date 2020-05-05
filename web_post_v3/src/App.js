@@ -5,19 +5,31 @@ import React from "react";
 // import TaskTest from "./tests/Task.test";
 // import ReduxTest from "./tests/Redux.test";
 import Article from "./article/index";
+import { HashRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Likes from "./likes/Likes";
 
 function App() {
   // const url = new URL(window.location.href);
   // const isDebug = !!url.searchParams.get("debug");
   return (
-    <div className="App">
-      {/* {isDebug ? <DebugPage /> : null} */}
-      {/* {isDebug ? <BridgeTest /> : null} */}
-      {/* <TaskTest /> */}
-      {/* <ReduxTest /> */}
-      {/* <PostGroupPage /> */}
-      <Article />
-    </div>
+    <Router>
+      <div className="App">
+        {/* {isDebug ? <DebugPage /> : null} */}
+        {/* {isDebug ? <BridgeTest /> : null} */}
+        {/* <TaskTest /> */}
+        {/* <ReduxTest /> */}
+        {/* <PostGroupPage /> */}
+        {/* <Article /> */}
+      </div>
+      <Switch>
+        <Route path="/likes">
+          <Likes />
+        </Route>
+        <Route path="/">
+          <Article />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
