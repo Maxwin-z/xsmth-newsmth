@@ -6,20 +6,20 @@
 //  Copyright © 2020 nju. All rights reserved.
 //
 
-import UIKit
-import Foundation
-import Combine
-import WebKit
 import Alamofire
+import Combine
+import Foundation
 import Loaf
 import SafariServices
+import UIKit
+import WebKit
 
 let mmkvKey_forwardTarget = "forwardTarget"
 
-class SMPostViewControllerV4 : XWebController  {
-    @objc var post:SMPost?
-    @objc var fromBoard:Bool = false
-    @objc var single:Bool = false
+class SMPostViewControllerV4: XWebController {
+    @objc var post: SMPost?
+    @objc var fromBoard: Bool = false
+    @objc var single: Bool = false
     var postForAction: SMPost?
 
     // button bar
@@ -30,65 +30,65 @@ class SMPostViewControllerV4 : XWebController  {
     var buttonForPagination: UIButton!
     var viewForPagePicker: UIView!
     var pagePicker: UIPickerView!
-    
+
 //    var pageUrl = "http://public-1255362875.cos.ap-shanghai.myqcloud.com/xsmth/build/index.html"
 //    override var pageUrl = "http://10.0.0.11:3000/"
-    
+
     // page
     var pageNumber: Int = 0
     var totalPageNumber: Int = 0
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = self.post?.title ?? "正在加载..."
-        if (!self.fromBoard) {
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(onRightBarButtonClick))
+        title = post?.title ?? "正在加载..."
+        if !fromBoard {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(onRightBarButtonClick))
         }
 
-        self.viewForBottomBar = makeupViewForButtomBar()
-        self.viewForPagePicker = makeupPagePickerView()
-        self.view.addSubview(self.viewForBottomBar)
-        self.view.addSubview(self.viewForPagePicker)
-        
-        self.viewForBottomBar.isHidden = true
-        self.viewForPagePicker.isHidden = true
-        self.regisgerBridges(bs: [
-            "postInfo": self._postInfo,
-            "reply": self._reply,
-            "activity": self._activity,
-            "pageNumberChanged": self._pageNumberChanged
+        viewForBottomBar = makeupViewForButtomBar()
+        viewForPagePicker = makeupPagePickerView()
+        view.addSubview(viewForBottomBar)
+        view.addSubview(viewForPagePicker)
+
+        viewForBottomBar.isHidden = true
+        viewForPagePicker.isHidden = true
+        regisgerBridges(bs: [
+            "postInfo": _postInfo,
+            "reply": _reply,
+            "activity": _activity,
+            "pageNumberChanged": _pageNumberChanged,
         ])
     }
-    
+
     @objc
     func onRightBarButtonClick() {
         let vc = SMBoardViewController()
-        vc.board = self.post?.board!
-        if (SMConfig.iPadMode()) {
+        vc.board = post?.board!
+        if SMConfig.iPadMode() {
             SMMainViewController.instance()?.setRoot(vc)
         } else {
-            self.navigationController?.pushViewController(vc, animated: true)
+            navigationController?.pushViewController(vc, animated: true)
         }
     }
-    
+
     @objc
     func onPaginationButtonClick() {
-        if (self.totalPageNumber > 0) {
+        if totalPageNumber > 0 {
             showPagePicker()
         }
     }
-    
+
     func showPagePicker() {
         UIView.animate(withDuration: 0.5, animations: {
             self.viewForPagePicker.isHidden = false
             var frame = self.viewForPagePicker.frame
             frame.origin.y = self.view.bounds.height - self.viewForPagePicker.frame.height
             self.viewForPagePicker.frame = frame
-        }, completion: {_ in
+        }, completion: { _ in
             self.pagePicker.selectRow(self.pageNumber - 1, inComponent: 0, animated: false)
         })
     }
-    
+
     @objc func hidePagePicker() {
         UIView.animate(withDuration: 0.5, animations: {
             var frame = self.viewForPagePicker.frame
@@ -98,32 +98,32 @@ class SMPostViewControllerV4 : XWebController  {
             self.viewForPagePicker.isHidden = true
         })
     }
-    
+
     @objc func onPagePickerConfirm() {
-        let page = self.pagePicker.selectedRow(inComponent: 0) + 1
-        self.notificationToWeb(messageName: "PAGE_SELECTED", data: page)
-        self.hidePagePicker()
+        let page = pagePicker.selectedRow(inComponent: 0) + 1
+        notificationToWeb(messageName: "PAGE_SELECTED", data: page)
+        hidePagePicker()
     }
-    
+
     override func viewSafeAreaInsetsDidChange() {
-        var frame = self.viewForBottomBar.frame
-        frame.size.height = buttonHeight + self.view.safeAreaInsets.bottom
-        frame.origin.y = self.view.bounds.height - frame.height
-        self.viewForBottomBar.frame = frame
-        
-        frame = self.viewForPagePicker.frame
-        frame.size.height = buttonHeight + pickerHeight + self.view.safeAreaInsets.bottom
-        frame.origin.y = self.view.bounds.height - frame.height
-        self.viewForPagePicker.frame = frame
+        var frame = viewForBottomBar.frame
+        frame.size.height = buttonHeight + view.safeAreaInsets.bottom
+        frame.origin.y = view.bounds.height - frame.height
+        viewForBottomBar.frame = frame
+
+        frame = viewForPagePicker.frame
+        frame.size.height = buttonHeight + pickerHeight + view.safeAreaInsets.bottom
+        frame.origin.y = view.bounds.height - frame.height
+        viewForPagePicker.frame = frame
     }
-    
+
     func makeupViewForButtomBar() -> UIView {
-        let width = self.view.bounds.width
-        let height = self.view.bounds.height
-        let vHeight = buttonHeight + self.view.safeAreaInsets.bottom
+        let width = view.bounds.width
+        let height = view.bounds.height
+        let vHeight = buttonHeight + view.safeAreaInsets.bottom
         let v = UIView(frame: CGRect(x: 0.0, y: height - vHeight, width: width, height: vHeight))
         v.autoresizingMask = [.flexibleWidth]
-        
+
         let buttons = ["icon_back", "icon_gotop"].map { icon -> UIButton in
             let button = UIButton(type: .system)
             let image = UIImage(named: icon)?.withRenderingMode(.alwaysTemplate)
@@ -139,23 +139,23 @@ class SMPostViewControllerV4 : XWebController  {
         frame.origin.x = width - frame.width
         buttonForTop.frame = frame
         buttonForTop.autoresizingMask = [.flexibleLeftMargin]
-        
+
         buttonForPagination = UIButton(type: .system)
         buttonForPagination.frame = CGRect(x: buttonForBack.frame.width, y: 0, width: width - buttonForBack.frame.width - buttonForTop.frame.width, height: buttonHeight)
         buttonForPagination.setTitle("-/-", for: .normal)
         buttonForPagination.autoresizingMask = [.flexibleWidth]
         buttonForPagination.addTarget(self, action: #selector(onPaginationButtonClick), for: .touchUpInside)
-        
+
         v.addSubview(buttonForBack)
         v.addSubview(buttonForTop)
         v.addSubview(buttonForPagination)
-        
+
         v.backgroundColor = SMTheme.colorForHighlightBackground()
         return v
     }
-    
+
     func makeupPagePickerView() -> UIView {
-        let v = UIView(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.width, height: buttonHeight + pickerHeight))
+        let v = UIView(frame: CGRect(x: 0.0, y: 0.0, width: view.frame.width, height: buttonHeight + pickerHeight))
         v.autoresizingMask = [.flexibleWidth]
         let buttonForCancel = UIButton(type: .system)
         buttonForCancel.setTitle("取消", for: .normal)
@@ -168,48 +168,48 @@ class SMPostViewControllerV4 : XWebController  {
         buttonForConfirm.setTitle("确认", for: .normal)
         buttonForConfirm.sizeToFit()
         frame = buttonForConfirm.frame
-        frame.origin.x = self.view.bounds.width - buttonForConfirm.frame.width - padding
+        frame.origin.x = view.bounds.width - buttonForConfirm.frame.width - padding
         buttonForConfirm.frame = frame
         buttonForConfirm.autoresizingMask = [.flexibleLeftMargin]
 
         buttonForCancel.addTarget(self, action: #selector(hidePagePicker), for: .touchUpInside)
         buttonForConfirm.addTarget(self, action: #selector(onPagePickerConfirm), for: .touchUpInside)
-        
-        let picker = UIPickerView(frame: CGRect(x: 0, y: buttonHeight, width: self.view.frame.width, height: pickerHeight))
+
+        let picker = UIPickerView(frame: CGRect(x: 0, y: buttonHeight, width: view.frame.width, height: pickerHeight))
         v.addSubview(picker)
         picker.autoresizingMask = [.flexibleWidth]
         picker.dataSource = self
         picker.delegate = self
-        self.pagePicker = picker
+        pagePicker = picker
 
         v.addSubview(buttonForCancel)
         v.addSubview(buttonForConfirm)
-        
+
         v.backgroundColor = SMTheme.colorForHighlightBackground()
-        
+
         return v
     }
-    
+
     @objc
     func reply() {
-       let writer = SMWritePostViewController()
-        writer.post = self.postForAction
-        writer.postTitle = self.postForAction?.title
-        writer.title = "回复-" + (self.postForAction?.title ?? "")
+        let writer = SMWritePostViewController()
+        writer.post = postForAction
+        writer.postTitle = postForAction?.title
+        writer.title = "回复-" + (postForAction?.title ?? "")
         let nvc = P2PNavigationController(rootViewController: writer)
-        if (SMConfig.iPadMode()) {
-            SMIPadSplitViewController.instance()?.present(nvc, animated: true, completion: nil);
+        if SMConfig.iPadMode() {
+            SMIPadSplitViewController.instance()?.present(nvc, animated: true, completion: nil)
         } else {
-            self.present(nvc, animated: true, completion: nil)
+            present(nvc, animated: true, completion: nil)
         }
     }
-    
+
     func _reply(parameters: Any) -> Future<Any, XBridgeError> {
-        return Future {[weak self] promise in
-            guard let weakSelf = self else {return}
-            if let _postForAction = parameters as? Dictionary<String, AnyObject> {
-                weakSelf.postForAction = SMPost.init(json: _postForAction)
-                if (!SMAccountManager.instance()!.isLogin) {
+        return Future { [weak self] promise in
+            guard let weakSelf = self else { return }
+            if let _postForAction = parameters as? [String: AnyObject] {
+                weakSelf.postForAction = SMPost(json: _postForAction)
+                if !SMAccountManager.instance()!.isLogin {
                     weakSelf.performSelector(afterLogin: #selector(weakSelf.reply))
                 } else {
                     weakSelf.reply()
@@ -220,26 +220,26 @@ class SMPostViewControllerV4 : XWebController  {
             }
         }
     }
-    
-    func _postInfo(parameters: Any) -> Future<Any, XBridgeError> {
-        return Future {[weak self] promise in
+
+    func _postInfo(parameters _: Any) -> Future<Any, XBridgeError> {
+        return Future { [weak self] promise in
             guard let weakSelf = self else { return }
             guard let post = weakSelf.post else { return }
             promise(.success([
-                    "pid": post.pid as Any,
-                    "gid": post.gid as Any,
-                    "board": post.board?.name as Any,
-                    "title": post.title as Any,
-                    "single": weakSelf.single as Bool
+                "pid": post.pid as Any,
+                "gid": post.gid as Any,
+                "board": post.board?.name as Any,
+                "title": post.title as Any,
+                "single": weakSelf.single as Bool,
             ]))
         }
     }
-    
+
     func _activity(parameters: Any) -> Future<Any, XBridgeError> {
-        return Future {[weak self] promise in
+        return Future { [weak self] promise in
             guard let weakSelf = self else { return }
-            if let _postForAction = parameters as? Dictionary<String, AnyObject> {
-                weakSelf.postForAction = SMPost.init(json: _postForAction)
+            if let _postForAction = parameters as? [String: AnyObject] {
+                weakSelf.postForAction = SMPost(json: _postForAction)
                 guard let p = self?.postForAction else {
                     promise(.failure(XBridgeError(code: -1, message: "page unloaded")))
                     return
@@ -252,44 +252,45 @@ class SMPostViewControllerV4 : XWebController  {
                 let urlString = "https://m.newsmth.net/article/\(p.board.name!)/single/\(p.pid)/0"
                 let url = URL(string: urlString)
                 var activities = [singleAuthor, forward, forwardAll, mailTo, spam]
-                if (p.author == SMAccountManager.instance()?.name) {
+                if p.author == SMAccountManager.instance()?.name {
                     let edit = SMEditActivity()
                     let delete = SMDeleteActivity()
                     activities.append(edit)
                     activities.append(delete)
                 }
                 let activity = UIActivityViewController(activityItems: [
-                    p.content!, url!], applicationActivities: activities)
+                    p.content!, url!,
+                ], applicationActivities: activities)
                 activity.overrideUserInterfaceStyle = SMConfig.enableDayMode() ? .light : .dark
-                activity.completionWithItemsHandler = {(activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
+                activity.completionWithItemsHandler = { (activityType: UIActivity.ActivityType?, completed: Bool, _: [Any]?, _: Error?) in
                     if !completed {
                         return
                     }
                     let at = activityType?.rawValue ?? ""
-                    if (at == SMActivityForwardActivity) {
+                    if at == SMActivityForwardActivity {
                         weakSelf.forwardActivity(all: false)
                     }
-                    if (at == SMActivityForwardAllActivity) {
+                    if at == SMActivityForwardAllActivity {
                         weakSelf.forwardActivity(all: true)
                     }
-                    if (at == SMActivityTypeMailToAuthor) {
+                    if at == SMActivityTypeMailToAuthor {
                         weakSelf.mailtoWithPost()
                     }
-                    if (at == SMActivitySpamActivity) {
-                        Loaf.init("举报成功", state: .info, location: .bottom, presentingDirection: .vertical, dismissingDirection: .vertical, sender: weakSelf).show()
+                    if at == SMActivitySpamActivity {
+                        Loaf("举报成功", state: .info, location: .bottom, presentingDirection: .vertical, dismissingDirection: .vertical, sender: weakSelf).show()
                     }
-                    if (at == SMActivitySingleAuthorActivity) {
+                    if at == SMActivitySingleAuthorActivity {
                         weakSelf.notificationToWeb(messageName: "SINGLE_AUTHOR", data: weakSelf.postForAction?.author ?? "")
                     }
-                    if (at == SMActivityEditActivity) {
+                    if at == SMActivityEditActivity {
                         weakSelf.doEditPost()
                     }
-                    if (at == SMActivityDeleteActivity) {
+                    if at == SMActivityDeleteActivity {
                         weakSelf.notificationToWeb(messageName: "DELETE_POST", data: weakSelf.postForAction?.pid ?? 0)
                     }
                     debugPrint(activityType?.rawValue ?? "no activity")
                 }
-                if (SMUtils.isPad()) {
+                if SMUtils.isPad() {
                     activity.modalPresentationStyle = .popover
 //                    SMIPadSplitViewController.instance()?.present(activity, animated: true, completion: nil)
                     weakSelf.present(activity, animated: true, completion: nil)
@@ -318,39 +319,39 @@ class SMPostViewControllerV4 : XWebController  {
                 promise(.failure(XBridgeError(code: -1, message: "数据格式不正确")))
                 return
             }
-            
+
             weakSelf.pageNumber = page
-            if (total > 0) {
+            if total > 0 {
                 weakSelf.totalPageNumber = total
             }
-            if (total == 1) {
+            if total == 1 {
                 weakSelf.hideBottomBar()
             }
-            
+
             weakSelf.buttonForPagination.setTitle("\(page)/\(weakSelf.totalPageNumber)", for: .normal)
             weakSelf.pagePicker.reloadAllComponents()
             promise(.success(true))
         }
     }
-    
+
     /// activity methods
     @objc
     func forwardActivity(all: Bool) {
-        self.afterLoginSuccess({
+        afterLoginSuccess({
             let alert = UIAlertController(title: "转寄", message: "", preferredStyle: .alert)
-            alert.addTextField(configurationHandler: {[weak self] textField in
+            alert.addTextField(configurationHandler: { [weak self] textField in
                 textField.placeholder = "请输入转寄地址"
                 var forwardTarget = self?.mmkv.string(forKey: mmkvKey_forwardTarget) ?? ""
-                if (forwardTarget == "") {
+                if forwardTarget == "" {
                     forwardTarget = SMAccountManager.instance()?.name ?? ""
                 }
                 textField.text = forwardTarget
             })
-            alert.addAction(UIAlertAction(title: "确定", style: .default, handler: { [weak alert, weak self]  (_) in
+            alert.addAction(UIAlertAction(title: "确定", style: .default, handler: { [weak alert, weak self] _ in
                 guard let textField = alert?.textFields?[0],
                     let userText = textField.text,
-                let p = self?.postForAction,
-                let weakSelf = self else { return }
+                    let p = self?.postForAction,
+                    let weakSelf = self else { return }
                 debugPrint("alert", userText)
                 weakSelf.mmkv.set(userText, forKey: mmkvKey_forwardTarget)
                 let url = "https://m.newsmth.net/article/\(p.board.name!)/forward/\(p.pid)"
@@ -360,9 +361,9 @@ class SMPostViewControllerV4 : XWebController  {
                         if let data = try response.result.get() {
                             var html = String(data: data, encoding: .utf8)!
                             html = html.replacingOccurrences(of: "`", with: "\\`")
-                            weakSelf.webView.evaluateJavaScript("window.$x_parseForward(`\(html)`)") { (result, error) in
-                                if let msg = result as? String{
-                                    if (msg == "1") {
+                            weakSelf.webView.evaluateJavaScript("window.$x_parseForward(`\(html)`)") { result, error in
+                                if let msg = result as? String {
+                                    if msg == "1" {
                                         Loaf("转寄成功", state: .success, sender: weakSelf).show()
                                     } else {
                                         Loaf(msg, state: .error, sender: weakSelf).show()
@@ -372,25 +373,23 @@ class SMPostViewControllerV4 : XWebController  {
                                 }
                             }
                         }
-                    }catch {
+                    } catch {
                         Loaf("转寄失败，水木返回异常", state: .error, sender: weakSelf).show()
                     }
                 }
             }))
             alert.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
             self.present(alert, animated: true, completion: nil)
-        }) {
-            
-        }
+        }) {}
     }
-    
+
     @objc
     func mailtoWithPost() {
-        self.afterLoginSuccess({
+        afterLoginSuccess({
             guard let p = self.postForAction else { return }
             let vc = SMMailComposeViewController()
             let mail = SMMailItem()
-            mail.title = "Re: " +  p.title
+            mail.title = "Re: " + p.title
             mail.content = p.content
             mail.author = p.author
             vc.mail = mail
@@ -400,68 +399,70 @@ class SMPostViewControllerV4 : XWebController  {
             //
         }
     }
-    
+
     @objc
     func doEditPost() {
         let writer = SMWritePostViewController()
-        writer.editPost = self.postForAction
-        let nvc = P2PNavigationController.init(rootViewController: writer)
-        if (SMConfig.iPadMode()) {
+        writer.editPost = postForAction
+        let nvc = P2PNavigationController(rootViewController: writer)
+        if SMConfig.iPadMode() {
             SMIPadSplitViewController.instance()?.present(nvc, animated: true, completion: nil)
         } else {
-            self.present(nvc, animated: true, completion: nil)
+            present(nvc, animated: true, completion: nil)
         }
     }
 }
 
 // MARK: - UIPickerViewDelegate
+
 extension SMPostViewControllerV4: UIPickerViewDataSource, UIPickerViewDelegate {
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in _: UIPickerView) -> Int {
         return 1
     }
 
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return self.totalPageNumber
+    func pickerView(_: UIPickerView, numberOfRowsInComponent _: Int) -> Int {
+        return totalPageNumber
     }
 
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_: UIPickerView, titleForRow row: Int, forComponent _: Int) -> String? {
         return String(format: "%d", row + 1)
     }
 
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(_: UIPickerView, didSelectRow row: Int, inComponent _: Int) {
         debugPrint(row)
     }
 }
 
 // MARK: - ScrollViewDelegate
+
 extension SMPostViewControllerV4: UIScrollViewDelegate {
     /// scrollView Delegate
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if (scrollView.panGestureRecognizer.translation(in: scrollView.superview).y < 0) {
-            self.hideBottomBar()
+        if scrollView.panGestureRecognizer.translation(in: scrollView.superview).y < 0 {
+            hideBottomBar()
         }
     }
 
     func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
         let point = scrollView.panGestureRecognizer.translation(in: scrollView.superview)
         debugPrint("252", point)
-        if (point.y > 0) {
-            self.showBottomBar()
+        if point.y > 0 {
+            showBottomBar()
         }
     }
-    
+
     func hideBottomBar() {
         UIView.animate(withDuration: 0.5, animations: {
             var frame = self.viewForBottomBar.frame
             frame.origin.y = self.view.bounds.height
             self.viewForBottomBar.frame = frame
-        }) { (_) in
+        }) { _ in
             self.viewForBottomBar.isHidden = true
         }
     }
 
     func showBottomBar() {
-        self.viewForBottomBar.isHidden = false
+        viewForBottomBar.isHidden = false
         UIView.animate(withDuration: 0.5) {
             var frame = self.viewForBottomBar.frame
             frame.origin.y = self.view.bounds.height - self.viewForBottomBar.frame.height
