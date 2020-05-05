@@ -52,6 +52,7 @@ class XLeakAvoider: NSObject, WKScriptMessageHandler, WKURLSchemeHandler {
 typealias XBridgeFunc = ((Any) -> Future<Any, XBridgeError>)
 
 class XWebController: SMViewController, WKURLSchemeHandler, WKScriptMessageHandler, WKNavigationDelegate {
+    @objc var url:URL?
     // hold viewcontroller for webview to save states
     var holdMyself: [String: XBridgeFunc] = [:]
 
@@ -65,7 +66,7 @@ class XWebController: SMViewController, WKURLSchemeHandler, WKScriptMessageHandl
     var bridges: [String: XBridgeFunc] = [:]
 
 //    var pageUrl = "http://public-1255362875.cos.ap-shanghai.myqcloud.com/xsmth/build/index.html"
-    var pageUrl = "http://10.0.0.11:3000/"
+//    var pageUrl = "http://10.0.0.11:3000/"
 
     func regisgerBridges(bs: [String: XBridgeFunc]) {
         bridges.merge(bs) { (_, new) -> XBridgeFunc in
@@ -96,8 +97,10 @@ class XWebController: SMViewController, WKURLSchemeHandler, WKScriptMessageHandl
 //        let urlString = "http://10.0.0.11:3000/"
 //        let urlString = "http://172.16.232.34:3000/"
 //        let urlString = "http://public-1255362875.cos.ap-shanghai.myqcloud.com/xsmth/build/index.html"
-        let request = URLRequest(url: URL(string: pageUrl)!)
-        webView.load(request)
+        if (url != nil) {
+            let request = URLRequest(url: url!)
+            webView.load(request)
+        }
 
         // add refresh
         refreshControl = UIRefreshControl()
@@ -156,7 +159,7 @@ class XWebController: SMViewController, WKURLSchemeHandler, WKScriptMessageHandl
 
     func webView(_: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         if let url = navigationAction.request.url {
-            if url.absoluteString == pageUrl {
+            if self.url != nil && url.absoluteString == self.url!.absoluteString {
                 decisionHandler(.allow)
             } else {
                 decisionHandler(.cancel)

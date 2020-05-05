@@ -33,17 +33,22 @@ class SMPostViewControllerV4: XWebController {
 
 //    var pageUrl = "http://public-1255362875.cos.ap-shanghai.myqcloud.com/xsmth/build/index.html"
 //    override var pageUrl = "http://10.0.0.11:3000/"
-
+    
     // page
     var pageNumber: Int = 0
     var totalPageNumber: Int = 0
 
     override func viewDidLoad() {
+//        url = URL(string: "http://10.0.0.11:3000/")
+        url = URL(string: "http://public-1255362875.cos.ap-shanghai.myqcloud.com/xsmth/build/index.html")
+        
         super.viewDidLoad()
         title = post?.title ?? "正在加载..."
         if !fromBoard {
             navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(onRightBarButtonClick))
         }
+        
+        self.webView.scrollView.delegate = self
 
         viewForBottomBar = makeupViewForButtomBar()
         viewForPagePicker = makeupPagePickerView()
@@ -70,12 +75,24 @@ class SMPostViewControllerV4: XWebController {
             navigationController?.pushViewController(vc, animated: true)
         }
     }
-
+    
+    @objc
+    func onBackButtonClick() {
+        if (!SMUtils.isPad()) {
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
+    
     @objc
     func onPaginationButtonClick() {
         if totalPageNumber > 0 {
             showPagePicker()
         }
+    }
+    
+    @objc
+    func onGotoTopButtonClick() {
+        self.webView.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
     }
 
     func showPagePicker() {
@@ -144,7 +161,11 @@ class SMPostViewControllerV4: XWebController {
         buttonForPagination.frame = CGRect(x: buttonForBack.frame.width, y: 0, width: width - buttonForBack.frame.width - buttonForTop.frame.width, height: buttonHeight)
         buttonForPagination.setTitle("-/-", for: .normal)
         buttonForPagination.autoresizingMask = [.flexibleWidth]
+        
+        buttonForBack.addTarget(self, action: #selector(onBackButtonClick), for: .touchUpInside)
         buttonForPagination.addTarget(self, action: #selector(onPaginationButtonClick), for: .touchUpInside)
+        buttonForTop.addTarget(self, action: #selector(onGotoTopButtonClick), for: .touchUpInside)
+        
 
         v.addSubview(buttonForBack)
         v.addSubview(buttonForTop)
