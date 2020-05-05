@@ -6,7 +6,7 @@ import {
   logLongString
 } from "./post";
 import { IPost, IGroup } from "../types";
-import { ajax } from "./jsapi";
+import { ajax } from "../../jsapi";
 export class GroupTask {
   board: string;
   gid: number;

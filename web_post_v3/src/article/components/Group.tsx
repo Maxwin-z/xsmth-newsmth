@@ -6,7 +6,7 @@ import Page from "./Page";
 import { ArticleStatus } from "../types";
 import Loading from "./Loading";
 import Footer from "./Footer";
-import { xLog } from "../utils/jsapi";
+import { xLog, xOpen } from "../../jsapi";
 
 const GroupTitle: FC<{ title: string }> = ({ title }) => (
   <div id="title">{title}</div>
@@ -37,7 +37,8 @@ function Group() {
   // console.log("mainPost", mainPost);
 
   const start = () => {
-    dispatch(getMainPost());
+    // dispatch(getMainPost());
+    xOpen("http://localhost:3000/#/bridgetest");
   };
   useEffect(() => {
     dispatch(getMainPost());
@@ -68,7 +69,7 @@ function Group() {
   return (
     <div className="main">
       <GroupTitle title={mainPost.title} />
-      {/* <button onClick={start}>do load</button> */}
+      <button onClick={start}>do load</button>
       {articleStatus === ArticleStatus.allLoading ? (
         <Loading>正在加载...</Loading>
       ) : null}

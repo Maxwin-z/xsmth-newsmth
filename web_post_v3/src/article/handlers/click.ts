@@ -1,4 +1,4 @@
-import { xScrollBy } from "../utils/jsapi";
+import { xScrollBy } from "../../jsapi";
 export const clickHander = (e: MouseEvent) => {
   let el = e.target as HTMLElement;
   if (el.nodeName === "IMG" || el.nodeName === "A") {

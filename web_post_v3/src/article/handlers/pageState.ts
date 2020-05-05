@@ -1,10 +1,5 @@
 import { AppThunk, RootState } from "..";
-import {
-  setStorage,
-  getStorage,
-  unloaded,
-  removeStorage
-} from "../utils/jsapi";
+import { setStorage, getStorage, unloaded, removeStorage } from "../../jsapi";
 import { IMainPost, Status } from "../types";
 import { restorePage } from "../groupSlice";
 

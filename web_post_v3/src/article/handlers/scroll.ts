@@ -1,4 +1,4 @@
-import { pageNumberChanged } from "../utils/jsapi";
+import { pageNumberChanged } from "../../jsapi";
 
 let shownPage = 0;
 export const scrollHander = (e: Event) => {

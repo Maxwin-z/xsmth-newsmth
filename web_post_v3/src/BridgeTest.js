@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import * as $x from "./jsbridge";
+import * as $x from "./jsapi";
 
 export default function BridgeTest() {
   const [log, setLog] = useState("");
@@ -45,6 +45,9 @@ export default function BridgeTest() {
     },
     removeStorage: async () => {
       return await $x.removeStorage("test");
+    },
+    open: async () => {
+      return await $x.xOpen("http://localhost:3000/#/bridgetest");
     }
   };
   const test = fn => async () => {

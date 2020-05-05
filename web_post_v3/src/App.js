@@ -7,6 +7,7 @@ const Article = loadable(() => import("./article/index"), {
   fallback: <Loading />
 });
 const Likes = loadable(() => import("./likes/Likes"));
+const BridgeTest = loadable(() => import("./BridgeTest"));
 
 function App() {
   // const url = new URL(window.location.href);
@@ -24,6 +25,9 @@ function App() {
       <Switch>
         <Route path="/likes">
           <Likes />
+        </Route>
+        <Route path="/bridgetest">
+          <BridgeTest />
         </Route>
         <Route path="/">
           <Article />

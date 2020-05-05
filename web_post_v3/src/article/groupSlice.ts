@@ -1,11 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import {
-  postInfo,
-  pageNumberChanged,
-  ajax,
-  toast,
-  ToastType
-} from "./utils/jsapi";
+import { postInfo, pageNumberChanged, ajax, toast, ToastType } from "../jsapi";
 import { GroupTask, PostTask } from "./utils/Task";
 import { AppThunk, RootState } from ".";
 import {

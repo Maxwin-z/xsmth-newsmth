@@ -1,5 +1,5 @@
 import { IGroup, IXImage, Status } from "../types";
-import { getStorage, ajax, setStorage } from "./jsapi";
+import { getStorage, ajax, setStorage } from "../../jsapi";
 
 let imageID = 0;
 export const POST_PER_PAGE = 10;

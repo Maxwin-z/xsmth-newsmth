@@ -1,7 +1,7 @@
 import React, { FC, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "..";
-import { xScrollBy } from "../utils/jsapi";
+import { xScrollBy } from "../../jsapi";
 import { singleAuthor } from "../groupSlice";
 
 const SingleAuthor: FC<{}> = () => {

@@ -121,6 +121,7 @@ class XWebController: SMViewController, WKURLSchemeHandler, WKScriptMessageHandl
             "removeStorage": _removeStorage,
             "scrollTo": _scrollTo,
             "scrollBy": _scrollBy,
+            "open": _open,
         ])
     }
 
@@ -545,6 +546,38 @@ class XWebController: SMViewController, WKURLSchemeHandler, WKScriptMessageHandl
     func _nope(parameters _: Any) -> Future<Any, XBridgeError> {
         return Future { promise in
             promise(.success(true))
+        }
+    }
+    
+    
+    func _open(parameters: Any) -> Future<Any, XBridgeError> {
+        return Future {[weak self] promise in
+            guard let parameters = parameters as? [String: Any] else {
+                promise(.failure(XBridgeError(code: -1, message: "参数错误")))
+                return
+            }
+            guard let urlString = parameters["url"] as? String else {
+                promise(.failure(XBridgeError(code: -1, message: "url不能为空")))
+                return
+            }
+            guard let url = URL(string: urlString) else {
+                promise(.failure(XBridgeError(code: -1, message: "非法的url")))
+                return
+            }
+            let type = parameters["type"] as? Int ?? 0
+            let vc = XWebController()
+            vc.url = url
+            if (type == 0) {
+                self?.navigationController?.pushViewController(vc, animated: true)
+            } else {
+                vc.modalPresentationStyle = .automatic
+                if SMUtils.isPad() {
+                    self?.view.window?.rootViewController?.present(vc, animated: true, completion: nil)
+                } else {
+                    self?.present(vc, animated: true, completion: nil)
+                }
+                promise(.success(true))
+            }
         }
     }
 

@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IXImage, IPost, Status } from "../types";
 import { AppThunk } from "..";
-import { download } from "../utils/jsapi";
+import { download } from "../../jsapi";
 import { getBoardID } from "../utils/post";
 
 interface IImagesState {

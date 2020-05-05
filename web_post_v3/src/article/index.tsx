@@ -15,7 +15,7 @@ import Group from "./components/Group";
 import "./handlers/theme";
 import "./index.css";
 import { setupTheme } from "./handlers/theme";
-import { getThemeConfig } from "./utils/jsapi";
+import { getThemeConfig } from "../jsapi";
 import { ITheme } from "./types";
 import XImageQueue from "./components/XImageQueue";
 import { scrollHander } from "./handlers/scroll";

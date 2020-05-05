@@ -1,5 +1,5 @@
 import React, { FC, memo, useEffect } from "react";
-import { reply, showActivity, xLog } from "../utils/jsapi";
+import { reply, showActivity, xLog } from "../../jsapi";
 import { IPost } from "../types";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "..";

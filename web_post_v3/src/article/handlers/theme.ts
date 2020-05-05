@@ -1,4 +1,4 @@
-import { Json } from "../utils/jsapi";
+import { Json } from "../../jsapi";
 import { ITheme } from "../types";
 
 export function setupTheme(style: ITheme) {
