@@ -1,12 +1,12 @@
 import React from "react";
-// import PostGroupPage from "./postgroup/PostGroupPage";
-// import BridgeTest from "./BridgeTest";
-// import DebugPage from "./DebugPage";
-// import TaskTest from "./tests/Task.test";
-// import ReduxTest from "./tests/Redux.test";
-import Article from "./article/index";
-import { HashRouter as Router, Switch, Route, Link } from "react-router-dom";
-import Likes from "./likes/Likes";
+import loadable from "@loadable/component";
+import { HashRouter as Router, Switch, Route } from "react-router-dom";
+import Loading from "./article/components/Loading";
+
+const Article = loadable(() => import("./article/index"), {
+  fallback: <Loading />
+});
+const Likes = loadable(() => import("./likes/Likes"));
 
 function App() {
   // const url = new URL(window.location.href);

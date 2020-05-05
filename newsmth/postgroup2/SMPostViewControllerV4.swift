@@ -39,8 +39,8 @@ class SMPostViewControllerV4: XWebController {
     var totalPageNumber: Int = 0
 
     override func viewDidLoad() {
-//        url = URL(string: "http://10.0.0.11:3000/")
-        url = URL(string: "http://public-1255362875.cos.ap-shanghai.myqcloud.com/xsmth/build/index.html")
+        url = URL(string: "http://10.0.0.11:3000/#/")
+//        url = URL(string: "http://public-1255362875.cos.ap-shanghai.myqcloud.com/xsmth/build/index.html/#/")
         
         super.viewDidLoad()
         title = post?.title ?? "正在加载..."
