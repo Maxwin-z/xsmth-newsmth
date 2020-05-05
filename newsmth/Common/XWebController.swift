@@ -122,7 +122,20 @@ class XWebController: SMViewController, WKURLSchemeHandler, WKScriptMessageHandl
             "scrollTo": _scrollTo,
             "scrollBy": _scrollBy,
             "open": _open,
+            "close": _close,
         ])
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        if(self.navigationController != nil && self.navigationController?.viewControllers.count == 1 && self.navigationController?.presentingViewController?.presentedViewController == self.navigationController) {
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(onDoneButtonClick))
+        }
+    }
+    
+    @objc
+    func onDoneButtonClick() {
+        self.dismiss(animated: true, completion: nil)
     }
 
 //    func methodPointer<T: AnyObject>(obj: T, m: @escaping(T) -> XBridgeFunc, parameters: Any) -> XBridgeFunc {
@@ -567,17 +580,30 @@ class XWebController: SMViewController, WKURLSchemeHandler, WKScriptMessageHandl
             let type = parameters["type"] as? Int ?? 0
             let vc = XWebController()
             vc.url = url
+            vc.bridges = [:]
             if (type == 0) {
                 self?.navigationController?.pushViewController(vc, animated: true)
             } else {
                 vc.modalPresentationStyle = .automatic
+                let nvc = P2PNavigationController.init(rootViewController: vc)
                 if SMUtils.isPad() {
-                    self?.view.window?.rootViewController?.present(vc, animated: true, completion: nil)
+                    self?.view.window?.rootViewController?.present(nvc, animated: true, completion: nil)
                 } else {
-                    self?.present(vc, animated: true, completion: nil)
+                    self?.present(nvc, animated: true, completion: nil)
                 }
                 promise(.success(true))
             }
+        }
+    }
+    
+    func _close(parameters: Any) -> Future<Any, XBridgeError> {
+        return Future { promise in
+            if(self.navigationController?.presentingViewController?.presentedViewController == self.navigationController) {
+                self.dismiss(animated: true, completion: nil)
+            } else {
+                self.navigationController?.popViewController(animated: true)
+            }
+            promise(.success(true))
         }
     }
 

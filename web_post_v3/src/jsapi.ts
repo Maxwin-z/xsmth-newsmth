@@ -273,8 +273,8 @@ export function xScrollBy(x: number, y: number): Promise<boolean> {
   return sendMessage("scrollBy", { x, y });
 }
 export enum ModalStyle {
-  automatic,
-  formSheet
+  push,
+  modal
 }
 export function xOpen(
   opts: string | { url: string; type: ModalStyle }
@@ -283,7 +283,7 @@ export function xOpen(
 
   if (typeof opts === "string") {
     url = opts;
-    type = ModalStyle.automatic;
+    type = ModalStyle.push;
   } else {
     url = opts.url;
     type = opts.type;
@@ -292,4 +292,8 @@ export function xOpen(
     url,
     type
   });
+}
+
+export function xClose(): Promise<boolean> {
+  return sendMessage("close");
 }

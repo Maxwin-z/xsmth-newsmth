@@ -46,8 +46,17 @@ export default function BridgeTest() {
     removeStorage: async () => {
       return await $x.removeStorage("test");
     },
-    open: async () => {
+    openPush: async () => {
       return await $x.xOpen("http://localhost:3000/#/bridgetest");
+    },
+    openModal: async () => {
+      return await $x.xOpen({
+        url: "http://localhost:3000/#/bridgetest",
+        type: $x.ModalStyle.modal
+      });
+    },
+    close: async () => {
+      return await $x.xClose();
     }
   };
   const test = fn => async () => {
