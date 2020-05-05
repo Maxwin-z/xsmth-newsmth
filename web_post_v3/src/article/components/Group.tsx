@@ -69,7 +69,7 @@ function Group() {
   return (
     <div className="main">
       <GroupTitle title={mainPost.title} />
-      <button onClick={start}>do load</button>
+      {/* <button onClick={start}>do load</button> */}
       {articleStatus === ArticleStatus.allLoading ? (
         <Loading>正在加载...</Loading>
       ) : null}

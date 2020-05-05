@@ -76,7 +76,7 @@ class XWebController: SMViewController, WKURLSchemeHandler, WKScriptMessageHandl
 
     override func viewDidLoad() {
         title = "正在加载..."
-//        holdMyself = ["nope": self._nope]
+        holdMyself = ["nope": self._nope]
 
         let leakAvioder = XLeakAvoider(messageHandler: self, schemeHandler: self)
         let userContentController = WKUserContentController()
@@ -124,6 +124,8 @@ class XWebController: SMViewController, WKURLSchemeHandler, WKScriptMessageHandl
             "open": _open,
             "close": _close,
         ])
+        
+        self.navigationController?.presentationController?.delegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -135,7 +137,9 @@ class XWebController: SMViewController, WKURLSchemeHandler, WKScriptMessageHandl
     
     @objc
     func onDoneButtonClick() {
-        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.dismiss(animated: true, completion: nil)
+        dismiss(animated: false, completion: nil)
+        removeMe()
     }
 
 //    func methodPointer<T: AnyObject>(obj: T, m: @escaping(T) -> XBridgeFunc, parameters: Any) -> XBridgeFunc {
@@ -597,11 +601,11 @@ class XWebController: SMViewController, WKURLSchemeHandler, WKScriptMessageHandl
     }
     
     func _close(parameters: Any) -> Future<Any, XBridgeError> {
-        return Future { promise in
-            if(self.navigationController?.presentingViewController?.presentedViewController == self.navigationController) {
-                self.dismiss(animated: true, completion: nil)
+        return Future {[weak self] promise in
+            if(self?.navigationController?.presentingViewController?.presentedViewController == self?.navigationController) {
+                self?.dismiss(animated: true, completion: nil)
             } else {
-                self.navigationController?.popViewController(animated: true)
+                self?.navigationController?.popViewController(animated: true)
             }
             promise(.success(true))
         }
@@ -678,5 +682,11 @@ extension XWebController {
         let b = (Int)(255.0 * bf)
         let a = (Int)(255.0 * af)
         return String(format: "#%02x%02x%02x%02x", r, g, b, a)
+    }
+}
+
+extension XWebController: UIAdaptivePresentationControllerDelegate {
+    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        removeMe()
     }
 }

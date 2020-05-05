@@ -84,6 +84,34 @@ export default function BridgeTest() {
           </li>
         ))}
       </ul>
+      <div
+        style={{
+          fontSize: "10px",
+          fontFamily: "Menlo"
+        }}
+      >
+        <span
+          style={{
+            color: "red"
+          }}
+        >
+          █
+        </span>
+        <span
+          style={{
+            color: "blue"
+          }}
+        >
+          █
+        </span>
+        <span
+          style={{
+            color: "green"
+          }}
+        >
+          █
+        </span>
+      </div>
     </div>
   );
 }
