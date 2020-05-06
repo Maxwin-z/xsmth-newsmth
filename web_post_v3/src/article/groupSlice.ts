@@ -1,5 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { postInfo, pageNumberChanged, ajax, toast, ToastType } from "../jsapi";
+import {
+  postInfo,
+  pageNumberChanged,
+  ajax,
+  toast,
+  ToastType,
+  openPostPage,
+  setTitle
+} from "../jsapi";
 import { GroupTask, PostTask } from "./utils/Task";
 import { AppThunk, RootState } from ".";
 import {
@@ -197,8 +205,36 @@ export const {
 } = group.actions;
 export default group.reducer;
 
+const getPostInfo = async () => {
+  let mainPost: IMainPost;
+
+  try {
+    mainPost = await postInfo();
+  } catch (ignore) {
+    const hash = window.location.hash;
+    const queryString = hash.split("?")[1] || "";
+    const query: { [x: string]: any } = {};
+    queryString.split("&").forEach(item => {
+      const [k, v] = item.split("=");
+      if (k) {
+        query[k] = decodeURIComponent(v || "");
+      }
+    });
+
+    mainPost = {
+      board: query.board as string,
+      gid: parseInt(query.gid, 10),
+      pid: 0,
+      author: (query.author as string) || "",
+      title: (query.title as string) || "",
+      single: false
+    };
+    setTitle(`${mainPost.author} - ${mainPost.title}`);
+  }
+  return mainPost;
+};
+
 export const getMainPost = (): AppThunk => async dispatch => {
-  let mainPost = await postInfo();
   // debug
   // mainPost = { board: "WorkLife", gid: 2164300, title: "" }; // 20+ pages
   // mainPost = { board: "Tooooold", gid: 41831, title: "" }; // 4 pages
@@ -220,7 +256,7 @@ export const getMainPost = (): AppThunk => async dispatch => {
   //   pid: 1943009472,
   //   title: "[Apple]Re: xsmth怎么又有上下黑边框了？"
   // };
-
+  const mainPost = await getPostInfo();
   console.log(mainPost);
   dispatch(setMainPost(mainPost));
   if (mainPost.single) {
@@ -237,7 +273,7 @@ export const getMainPost = (): AppThunk => async dispatch => {
 
 export const refreshPage = (): AppThunk => async dispatch => {
   console.log("refresh page");
-  const mainPost = await postInfo();
+  const mainPost = await getPostInfo();
   if (!mainPost.single) {
     await removeInstance(mainPost);
   }
@@ -307,7 +343,12 @@ export const nextTask = (
   }
   const { p } = task;
   const mainPost = group.mainPost;
-  const groupTask = new GroupTask(mainPost.board, mainPost.gid, p);
+  const groupTask = new GroupTask(
+    mainPost.board,
+    mainPost.gid,
+    p,
+    mainPost.author
+  );
   // console.log("task + 1", p);
   dispatch(taskCount(1));
   dispatch(taskBegin(p));
@@ -413,4 +454,16 @@ export const expandSinglePost = (): AppThunk => async (dispatch, getState) => {
   }
   dispatch(enqueue(new Array(p).fill(0).map((_, i) => i + 1)));
   dispatch(loadPage(p, true));
+};
+
+export const openSingleAuthorPage = (author: string): AppThunk => async (
+  dispatch,
+  getState
+) => {
+  const post = getState().group.mainPost;
+  const { origin, pathname } = window.location;
+  const url = `${origin}${pathname}#/?board=${post.board}&gid=${
+    post.gid
+  }&author=${author}&title=${encodeURIComponent(post.title)}`;
+  openPostPage(url);
 };

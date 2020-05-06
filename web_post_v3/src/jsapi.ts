@@ -297,3 +297,7 @@ export function xOpen(
 export function xClose(): Promise<boolean> {
   return sendMessage("close");
 }
+
+export function openPostPage(url: string): Promise<boolean> {
+  return sendMessage("openPostPage", url);
+}

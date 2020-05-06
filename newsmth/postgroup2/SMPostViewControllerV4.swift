@@ -39,9 +39,11 @@ class SMPostViewControllerV4: XWebController {
     var totalPageNumber: Int = 0
 
     override func viewDidLoad() {
-        url = URL(string: "http://10.0.0.11:3000/#/")
-//        url = URL(string: "http://public-1255362875.cos.ap-shanghai.myqcloud.com/xsmth/build/index.html/#/")
-        
+        if (post != nil) {
+            url = URL(string: "http://10.0.0.11:3000/#/")
+//            url = URL(string: "http://public-1255362875.cos.ap-shanghai.myqcloud.com/xsmth/build/index.html/#/")
+        }
+
         super.viewDidLoad()
         title = post?.title ?? "正在加载..."
         if !fromBoard {
@@ -62,6 +64,7 @@ class SMPostViewControllerV4: XWebController {
             "reply": _reply,
             "activity": _activity,
             "pageNumberChanged": _pageNumberChanged,
+            "openPostPage": _openPostPage,
         ])
     }
 
@@ -244,8 +247,13 @@ class SMPostViewControllerV4: XWebController {
 
     func _postInfo(parameters _: Any) -> Future<Any, XBridgeError> {
         return Future { [weak self] promise in
-            guard let weakSelf = self else { return }
-            guard let post = weakSelf.post else { return }
+            guard let weakSelf = self else {
+                return
+            }
+            guard let post = weakSelf.post else {
+                promise(.failure(XBridgeError(code: -1, message: "无帖子信息")))
+                return
+            }
             promise(.success([
                 "pid": post.pid as Any,
                 "gid": post.gid as Any,
@@ -351,6 +359,23 @@ class SMPostViewControllerV4: XWebController {
 
             weakSelf.buttonForPagination.setTitle("\(page)/\(weakSelf.totalPageNumber)", for: .normal)
             weakSelf.pagePicker.reloadAllComponents()
+            promise(.success(true))
+        }
+    }
+    
+    func _openPostPage(parameters: Any) -> Future<Any, XBridgeError> {
+        return Future { [weak self] promise in
+            guard let urlString = parameters as? String else {
+                promise(.failure(XBridgeError(code: -1, message: "url不能为空")))
+                return
+            }
+            guard let url = URL(string: urlString) else {
+                promise(.failure(XBridgeError(code: -1, message: "非法的url")))
+                return
+            }
+            let vc = SMPostViewControllerV4()
+            vc.url = url
+            self?.navigationController?.pushViewController(vc, animated: true)
             promise(.success(true))
         }
     }

@@ -6,17 +6,24 @@ import {
   logLongString
 } from "./post";
 import { IPost, IGroup } from "../types";
-import { ajax } from "../../jsapi";
+import { ajax, Json } from "../../jsapi";
 export class GroupTask {
   board: string;
   gid: number;
   page: number;
+  author: string | null;
   resolve?: ((value: IGroup) => void) | null;
   reject?: ((reason?: any) => void) | null;
-  constructor(board: string, gid: number, page: number = 1) {
+  constructor(
+    board: string,
+    gid: number,
+    page: number = 1,
+    author: string = ""
+  ) {
     this.board = board;
     this.gid = gid;
     this.page = page;
+    this.author = author;
   }
 
   execute(): Promise<IGroup> {
@@ -24,8 +31,15 @@ export class GroupTask {
       this.reject = reject;
       // await delay(3000);
       try {
+        const data: Json = {
+          p: this.page
+        };
+        if (this.author) {
+          data["au"] = this.author;
+        }
         const html = await ajax({
-          url: `https://www.newsmth.net/nForum/article/${this.board}/${this.gid}?ajax&p=${this.page}`,
+          url: `https://www.newsmth.net/nForum/article/${this.board}/${this.gid}?ajax`,
+          data,
           headers: {
             "X-Requested-With": "XMLHttpRequest"
           }

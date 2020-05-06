@@ -22,6 +22,7 @@ export interface IMainPost {
   gid: number;
   pid: number;
   single: boolean;
+  author?: string;
 }
 
 export interface IXImage {

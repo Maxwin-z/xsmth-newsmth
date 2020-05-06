@@ -4,7 +4,7 @@ import { IMainPost, Status } from "../types";
 import { restorePage } from "../groupSlice";
 
 function storageKey(post: IMainPost) {
-  return `post_${post.board}_${post.gid}`;
+  return `post_${post.board}_${post.gid}_${post.author || ""}`;
 }
 
 export const saveInstance = (): AppThunk => async (dispatch, getState) => {

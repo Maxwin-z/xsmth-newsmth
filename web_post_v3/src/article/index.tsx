@@ -8,7 +8,8 @@ import groupReducer, {
   onSelectPage,
   resetScrollY,
   singleAuthor,
-  refreshPage
+  refreshPage,
+  openSingleAuthorPage
 } from "./groupSlice";
 import imageReducer, { handleImageDownloadProgress } from "./slices/imageTask";
 import Group from "./components/Group";
@@ -104,7 +105,8 @@ function usePubSubHook() {
         dispatch(saveInstance());
       },
       SINGLE_AUTHOR: (_: string, author: string) => {
-        dispatch(singleAuthor(author));
+        dispatch(openSingleAuthorPage(author));
+        // dispatch(singleAuthor(author));
       },
       PAGE_REFRESH: () => {
         dispatch(refreshPage());
