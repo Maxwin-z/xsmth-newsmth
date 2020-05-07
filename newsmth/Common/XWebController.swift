@@ -162,6 +162,11 @@ class XWebController: SMViewController, WKURLSchemeHandler, WKScriptMessageHandl
             weakSelf?.bridges.removeAll()
         }
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        notificationToWeb(messageName: "PAGE_WILL_DISAPPEAR", data: true)
+    }
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(_: animated)

@@ -8,6 +8,7 @@ const Article = loadable(() => import("./article/index"), {
 });
 const Likes = loadable(() => import("./likes/Likes"));
 const BridgeTest = loadable(() => import("./BridgeTest"));
+const Experimental = loadable(() => import("./experimental/Experimental"));
 
 function App() {
   // const url = new URL(window.location.href);
@@ -25,6 +26,9 @@ function App() {
       <Switch>
         <Route path="/likes">
           <Likes />
+        </Route>
+        <Route path="/experimental">
+          <Experimental />
         </Route>
         <Route path="/bridgetest">
           <BridgeTest />

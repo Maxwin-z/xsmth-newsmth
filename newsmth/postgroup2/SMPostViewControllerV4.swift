@@ -46,8 +46,10 @@ class SMPostViewControllerV4: XWebController {
 
         super.viewDidLoad()
         title = post?.title ?? "正在加载..."
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(onRightBarButtonClick))
-
+        if (self.post != nil) {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(onRightBarButtonClick))
+        }
+        
         webView.scrollView.delegate = self
 
         viewForBottomBar = makeupViewForButtomBar()
@@ -69,15 +71,18 @@ class SMPostViewControllerV4: XWebController {
     @objc
     func onRightBarButtonClick() {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "进入版面", style: .default, handler: { _ in
-            let vc = SMBoardViewController()
-            vc.board = self.post?.board!
-            if SMConfig.iPadMode() {
-                SMMainViewController.instance()?.setRoot(vc)
-            } else {
-                self.navigationController?.pushViewController(vc, animated: true)
-            }
-        }))
+        if (!self.fromBoard) {
+            alert.addAction(UIAlertAction(title: "进入版面", style: .default, handler: { _ in
+                let vc = SMBoardViewController()
+                vc.board = self.post?.board!
+                if SMConfig.iPadMode() {
+                    SMMainViewController.instance()?.setRoot(vc)
+                } else {
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            }))
+        }
+        
         alert.addAction(UIAlertAction(title: "查看Likes", style: .default, handler: { _ in
             var urlString = self.url?.absoluteString ?? ""
             urlString += "likes?board=\(self.post?.board.name ?? "")&gid=\(self.post?.gid ?? 0)"
@@ -85,14 +90,17 @@ class SMPostViewControllerV4: XWebController {
             vc.url = URL(string: urlString)
             self.navigationController?.pushViewController(vc, animated: true)
         }))
+        
         alert.addAction(UIAlertAction(title: "🍀Experimental", style: .default, handler: { _ in
             var urlString = self.url?.absoluteString ?? ""
-            urlString += "likes?board=\(self.post?.board.name ?? "")&gid=\(self.post?.gid ?? 0)"
+            urlString += "experimental?board=\(self.post?.board.name ?? "")&gid=\(self.post?.gid ?? 0)"
             let vc = XWebController()
             vc.url = URL(string: urlString)
             self.navigationController?.pushViewController(vc, animated: true)
         }))
+        
         alert.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+        
         present(alert, animated: true, completion: nil)
     }
 

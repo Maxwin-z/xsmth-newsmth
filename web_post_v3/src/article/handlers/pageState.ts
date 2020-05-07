@@ -7,7 +7,10 @@ function storageKey(post: IMainPost) {
   return `post_${post.board}_${post.gid}_${post.author || ""}`;
 }
 
-export const saveInstance = (): AppThunk => async (dispatch, getState) => {
+export const saveInstance = (andUnload: boolean): AppThunk => async (
+  dispatch,
+  getState
+) => {
   const state = getState();
   const post = state.group.mainPost;
   if (!post) {
@@ -46,7 +49,7 @@ export const saveInstance = (): AppThunk => async (dispatch, getState) => {
   const instance = { ...state, group, imageTask };
   // console.log("save instance", instance);
   await setStorage(storageKey(post), instance);
-  unloaded();
+  if (andUnload) unloaded();
 };
 
 export const cacheInstance = async (post: IMainPost) => {

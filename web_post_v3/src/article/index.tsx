@@ -102,7 +102,10 @@ function usePubSubHook() {
       },
       PAGE_CLOSE: async () => {
         // console.log("page close");
-        dispatch(saveInstance());
+        dispatch(saveInstance(true));
+      },
+      PAGE_WILL_DISAPPEAR: async () => {
+        dispatch(saveInstance(false));
       },
       SINGLE_AUTHOR: (_: string, author: string) => {
         dispatch(openSingleAuthorPage(author));
