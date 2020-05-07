@@ -290,6 +290,7 @@
     }
     if (keyWindow) {
         keyWindow.tintColor = [SMTheme colorForTintColor];
+        keyWindow.overrideUserInterfaceStyle = [SMConfig enableDayMode] ? UIUserInterfaceStyleLight : UIUserInterfaceStyleDark;
     }
 
     self.navigationController.navigationBar.barTintColor = [SMTheme colorForBarTintColor];

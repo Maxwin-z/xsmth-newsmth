@@ -150,6 +150,8 @@ class XWebController: SMViewController, WKURLSchemeHandler, WKScriptMessageHandl
     override func setupTheme() {
         super.setupTheme()
         notificationToWeb(messageName: "THEME_CHANGE", data: themeConfig())
+        webView.backgroundColor = SMTheme.colorForBackground()
+        webView.scrollView.backgroundColor = SMTheme.colorForBackground()
     }
 
     @objc
