@@ -62,11 +62,25 @@ export function retrieveGroupPosts(html: string, page: number): IGroup {
         floorText === "楼主"
           ? 0
           : parseInt(floorText.replace(/(第|楼)/, ""), 10);
+      let postCount = -1;
+      let score = -1;
+      const dts = table.querySelectorAll(".a-u-info dt");
+      const dds = table.querySelectorAll(".a-u-info dd");
+      for (let i = 0; i < dts.length; ++i) {
+        if ((dts[i] as HTMLDataElement).innerText === "文章") {
+          postCount = parseInt((dds[i] as HTMLDetailsElement).innerText, 10);
+        }
+        if ((dts[i] as HTMLDataElement).innerText === "积分") {
+          score = parseInt((dds[i] as HTMLDetailsElement).innerText, 10);
+        }
+      }
       const body = table.querySelector(".a-content > p")?.innerHTML || "";
       const { date, dateString, nick, content, images } = formatPost(body);
       return {
         author,
         nick,
+        postCount,
+        score,
         floor,
         pid,
         date,

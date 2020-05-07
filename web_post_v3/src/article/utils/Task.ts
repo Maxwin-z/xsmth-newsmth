@@ -97,6 +97,8 @@ export class PostTask {
           title: data["title"],
           author: data["user"]["id"],
           nick: data["user"]["user_name"],
+          postCount: data["user"]["post_count"],
+          score: data["user"]["score_user"],
           floor: -1,
           date: data["date"],
           dateString: data["dateString"],

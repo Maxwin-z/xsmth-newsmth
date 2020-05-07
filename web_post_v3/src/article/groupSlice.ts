@@ -356,6 +356,7 @@ export const nextTask = (
     // debug
     // await delay(1500);
     const groupPost = await groupTask.execute();
+    // console.log(groupPost);
     dispatch(handleGroupTask(groupPost));
     dispatch(dequeue(p));
   } catch (e) {

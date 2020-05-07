@@ -39,6 +39,8 @@ export interface IPost {
   title?: string;
   author: string;
   nick: string;
+  postCount: number;
+  score: number;
   floor: number;
   date: number;
   dateString: string;
