@@ -250,9 +250,12 @@ export function setStorage(key: string, value: any): Promise<boolean> {
 export function getStorage(key: string): Promise<any> {
   if (!isBridgeAvaiable()) {
     try {
-      const json = JSON.parse(localStorage.getItem(key) || "{data: null}");
+      const json = JSON.parse(localStorage.getItem(key) || '{"data": null}');
       return Promise.resolve(json["data"]);
-    } catch (e) {}
+    } catch (e) {
+      console.log(e);
+      return Promise.resolve(null);
+    }
   }
 
   return sendMessage("getStorage", key);

@@ -52,7 +52,7 @@ class XLeakAvoider: NSObject, WKScriptMessageHandler, WKURLSchemeHandler {
 typealias XBridgeFunc = ((Any) -> Future<Any, XBridgeError>)
 
 class XWebController: SMViewController, WKURLSchemeHandler, WKScriptMessageHandler, WKNavigationDelegate {
-    @objc var url:URL?
+    @objc var url: URL?
     // hold viewcontroller for webview to save states
     var holdMyself: [String: XBridgeFunc] = [:]
 
@@ -76,7 +76,7 @@ class XWebController: SMViewController, WKURLSchemeHandler, WKScriptMessageHandl
 
     override func viewDidLoad() {
         title = "正在加载..."
-        holdMyself = ["nope": self._nope]
+        holdMyself = ["nope": _nope]
 
         let leakAvioder = XLeakAvoider(messageHandler: self, schemeHandler: self)
         let userContentController = WKUserContentController()
@@ -97,7 +97,7 @@ class XWebController: SMViewController, WKURLSchemeHandler, WKScriptMessageHandl
 //        let urlString = "http://10.0.0.11:3000/"
 //        let urlString = "http://172.16.232.34:3000/"
 //        let urlString = "http://public-1255362875.cos.ap-shanghai.myqcloud.com/xsmth/build/index.html"
-        if (url != nil) {
+        if url != nil {
             let request = URLRequest(url: url!)
             webView.load(request)
         }
@@ -124,20 +124,20 @@ class XWebController: SMViewController, WKURLSchemeHandler, WKScriptMessageHandl
             "open": _open,
             "close": _close,
         ])
-        
-        self.navigationController?.presentationController?.delegate = self
+
+        navigationController?.presentationController?.delegate = self
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        if(self.navigationController != nil && self.navigationController?.viewControllers.count == 1 && self.navigationController?.presentingViewController?.presentedViewController == self.navigationController) {
-            self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(onDoneButtonClick))
+        if navigationController != nil, navigationController?.viewControllers.count == 1, navigationController?.presentingViewController?.presentedViewController == navigationController {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(onDoneButtonClick))
         }
     }
-    
+
     @objc
     func onDoneButtonClick() {
-        self.navigationController?.dismiss(animated: true, completion: nil)
+        navigationController?.dismiss(animated: true, completion: nil)
         dismiss(animated: false, completion: nil)
         removeMe()
     }
@@ -177,7 +177,7 @@ class XWebController: SMViewController, WKURLSchemeHandler, WKScriptMessageHandl
 
     func webView(_: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         if let url = navigationAction.request.url {
-            if self.url != nil && url.absoluteString == self.url!.absoluteString {
+            if self.url != nil, url.absoluteString == self.url!.absoluteString {
                 decisionHandler(.allow)
             } else {
                 decisionHandler(.cancel)
@@ -565,10 +565,9 @@ class XWebController: SMViewController, WKURLSchemeHandler, WKScriptMessageHandl
             promise(.success(true))
         }
     }
-    
-    
+
     func _open(parameters: Any) -> Future<Any, XBridgeError> {
-        return Future {[weak self] promise in
+        return Future { [weak self] promise in
             guard let parameters = parameters as? [String: Any] else {
                 promise(.failure(XBridgeError(code: -1, message: "参数错误")))
                 return
@@ -585,11 +584,11 @@ class XWebController: SMViewController, WKURLSchemeHandler, WKScriptMessageHandl
             let vc = XWebController()
             vc.url = url
             vc.bridges = [:]
-            if (type == 0) {
+            if type == 0 {
                 self?.navigationController?.pushViewController(vc, animated: true)
             } else {
                 vc.modalPresentationStyle = .automatic
-                let nvc = P2PNavigationController.init(rootViewController: vc)
+                let nvc = P2PNavigationController(rootViewController: vc)
                 if SMUtils.isPad() {
                     self?.view.window?.rootViewController?.present(nvc, animated: true, completion: nil)
                 } else {
@@ -599,10 +598,10 @@ class XWebController: SMViewController, WKURLSchemeHandler, WKScriptMessageHandl
             }
         }
     }
-    
-    func _close(parameters: Any) -> Future<Any, XBridgeError> {
-        return Future {[weak self] promise in
-            if(self?.navigationController?.presentingViewController?.presentedViewController == self?.navigationController) {
+
+    func _close(parameters _: Any) -> Future<Any, XBridgeError> {
+        return Future { [weak self] promise in
+            if self?.navigationController?.presentingViewController?.presentedViewController == self?.navigationController {
                 self?.dismiss(animated: true, completion: nil)
             } else {
                 self?.navigationController?.popViewController(animated: true)
@@ -686,7 +685,7 @@ extension XWebController {
 }
 
 extension XWebController: UIAdaptivePresentationControllerDelegate {
-    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+    func presentationControllerDidDismiss(_: UIPresentationController) {
         removeMe()
     }
 }

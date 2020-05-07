@@ -33,24 +33,22 @@ class SMPostViewControllerV4: XWebController {
 
 //    var pageUrl = "http://public-1255362875.cos.ap-shanghai.myqcloud.com/xsmth/build/index.html"
 //    override var pageUrl = "http://10.0.0.11:3000/"
-    
+
     // page
     var pageNumber: Int = 0
     var totalPageNumber: Int = 0
 
     override func viewDidLoad() {
-        if (post != nil) {
+        if post != nil {
             url = URL(string: "http://10.0.0.11:3000/#/")
 //            url = URL(string: "http://public-1255362875.cos.ap-shanghai.myqcloud.com/xsmth/build/index.html/#/")
         }
 
         super.viewDidLoad()
         title = post?.title ?? "正在加载..."
-        if !fromBoard {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(onRightBarButtonClick))
-        }
-        
-        self.webView.scrollView.delegate = self
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(onRightBarButtonClick))
+
+        webView.scrollView.delegate = self
 
         viewForBottomBar = makeupViewForButtomBar()
         viewForPagePicker = makeupPagePickerView()
@@ -70,32 +68,51 @@ class SMPostViewControllerV4: XWebController {
 
     @objc
     func onRightBarButtonClick() {
-        let vc = SMBoardViewController()
-        vc.board = post?.board!
-        if SMConfig.iPadMode() {
-            SMMainViewController.instance()?.setRoot(vc)
-        } else {
-            navigationController?.pushViewController(vc, animated: true)
-        }
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "进入版面", style: .default, handler: { _ in
+            let vc = SMBoardViewController()
+            vc.board = self.post?.board!
+            if SMConfig.iPadMode() {
+                SMMainViewController.instance()?.setRoot(vc)
+            } else {
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }))
+        alert.addAction(UIAlertAction(title: "查看Likes", style: .default, handler: { _ in
+            var urlString = self.url?.absoluteString ?? ""
+            urlString += "likes?board=\(self.post?.board.name ?? "")&gid=\(self.post?.gid ?? 0)"
+            let vc = XWebController()
+            vc.url = URL(string: urlString)
+            self.navigationController?.pushViewController(vc, animated: true)
+        }))
+        alert.addAction(UIAlertAction(title: "🍀Experimental", style: .default, handler: { _ in
+            var urlString = self.url?.absoluteString ?? ""
+            urlString += "likes?board=\(self.post?.board.name ?? "")&gid=\(self.post?.gid ?? 0)"
+            let vc = XWebController()
+            vc.url = URL(string: urlString)
+            self.navigationController?.pushViewController(vc, animated: true)
+        }))
+        alert.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
-    
+
     @objc
     func onBackButtonClick() {
-        if (!SMUtils.isPad()) {
-            self.navigationController?.popViewController(animated: true)
+        if !SMUtils.isPad() {
+            navigationController?.popViewController(animated: true)
         }
     }
-    
+
     @objc
     func onPaginationButtonClick() {
         if totalPageNumber > 0 {
             showPagePicker()
         }
     }
-    
+
     @objc
     func onGotoTopButtonClick() {
-        self.webView.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
+        webView.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
     }
 
     func showPagePicker() {
@@ -164,11 +181,10 @@ class SMPostViewControllerV4: XWebController {
         buttonForPagination.frame = CGRect(x: buttonForBack.frame.width, y: 0, width: width - buttonForBack.frame.width - buttonForTop.frame.width, height: buttonHeight)
         buttonForPagination.setTitle("-/-", for: .normal)
         buttonForPagination.autoresizingMask = [.flexibleWidth]
-        
+
         buttonForBack.addTarget(self, action: #selector(onBackButtonClick), for: .touchUpInside)
         buttonForPagination.addTarget(self, action: #selector(onPaginationButtonClick), for: .touchUpInside)
         buttonForTop.addTarget(self, action: #selector(onGotoTopButtonClick), for: .touchUpInside)
-        
 
         v.addSubview(buttonForBack)
         v.addSubview(buttonForTop)
@@ -362,7 +378,7 @@ class SMPostViewControllerV4: XWebController {
             promise(.success(true))
         }
     }
-    
+
     func _openPostPage(parameters: Any) -> Future<Any, XBridgeError> {
         return Future { [weak self] promise in
             guard let urlString = parameters as? String else {
