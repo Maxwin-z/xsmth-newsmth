@@ -303,6 +303,7 @@ class SMPostViewControllerV4: XWebController {
                     promise(.failure(XBridgeError(code: -1, message: "page unloaded")))
                     return
                 }
+                let viewAuthor = SMAuthorActivity(author: self?.postForAction?.author ?? "")
                 let singleAuthor = SMSingleAuthorActivity()
                 let forward = SMForwardActivity()
                 let forwardAll = SMForwardAllActivity()
@@ -310,7 +311,7 @@ class SMPostViewControllerV4: XWebController {
                 let spam = SMSpamActivity()
                 let urlString = "https://m.newsmth.net/article/\(p.board.name!)/single/\(p.pid)/0"
                 let url = URL(string: urlString)
-                var activities = [singleAuthor, forward, forwardAll, mailTo, spam]
+                var activities = [viewAuthor, singleAuthor, forward, forwardAll, mailTo, spam]
                 if p.author == SMAccountManager.instance()?.name {
                     let edit = SMEditActivity()
                     let delete = SMDeleteActivity()
@@ -319,13 +320,16 @@ class SMPostViewControllerV4: XWebController {
                 }
                 let activity = UIActivityViewController(activityItems: [
                     p.content!, url!,
-                ], applicationActivities: activities)
+                ], applicationActivities: activities as? [UIActivity])
                 activity.overrideUserInterfaceStyle = SMConfig.enableDayMode() ? .light : .dark
                 activity.completionWithItemsHandler = { (activityType: UIActivity.ActivityType?, completed: Bool, _: [Any]?, _: Error?) in
                     if !completed {
                         return
                     }
                     let at = activityType?.rawValue ?? ""
+                    if (at == SMActivityAuthorActivity) {
+                       weakSelf.notificationToWeb(messageName: "VIEW_AUTHOR", data: weakSelf.postForAction?.author ?? "")
+                    }
                     if at == SMActivityForwardActivity {
                         weakSelf.forwardActivity(all: false)
                     }

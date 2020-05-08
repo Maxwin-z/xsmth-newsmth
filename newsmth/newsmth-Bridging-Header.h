@@ -28,5 +28,6 @@
 #import "SMEditActivity.h"
 #import "SMDeleteActivity.h"
 #import "SMSpamActivity.h"
+#import "SMAuthorActivity.h"
 #import "SMMailComposeViewController.h"
 #import "XImageViewCache.h"

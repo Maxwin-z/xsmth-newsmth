@@ -15,6 +15,7 @@
 		39C260051860A0E400AEFE0E /* SMBoardSearchResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 39C260031860A0E400AEFE0E /* SMBoardSearchResultViewController.m */; };
 		39C260061860A0E400AEFE0E /* SMBoardSearchResultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 39C260041860A0E400AEFE0E /* SMBoardSearchResultViewController.xib */; };
 		39C260081860A8DF00AEFE0E /* bbsbfind.js in Resources */ = {isa = PBXBuildFile; fileRef = 39C260071860A8DF00AEFE0E /* bbsbfind.js */; };
+		5000D84024659DEF00DED5DE /* SMAuthorActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 5000D83E24659DEF00DED5DE /* SMAuthorActivity.m */; };
 		504F7B8C2352FEC200009940 /* SMBoardHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 504F7B8B2352FEC200009940 /* SMBoardHistoryViewController.m */; };
 		508BFA4820ED20BD005ACFD6 /* SMVideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 508BFA4720ED20BD005ACFD6 /* SMVideoPlayerViewController.m */; };
 		50A382FC2460608700098D23 /* XWebController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A382FB2460608700098D23 /* XWebController.swift */; };
@@ -341,6 +342,8 @@
 		39C260031860A0E400AEFE0E /* SMBoardSearchResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMBoardSearchResultViewController.m; sourceTree = "<group>"; };
 		39C260041860A0E400AEFE0E /* SMBoardSearchResultViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMBoardSearchResultViewController.xib; sourceTree = "<group>"; };
 		39C260071860A8DF00AEFE0E /* bbsbfind.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = bbsbfind.js; sourceTree = "<group>"; };
+		5000D83E24659DEF00DED5DE /* SMAuthorActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMAuthorActivity.m; sourceTree = "<group>"; };
+		5000D83F24659DEF00DED5DE /* SMAuthorActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMAuthorActivity.h; sourceTree = "<group>"; };
 		504F7B8A2352FEC200009940 /* SMBoardHistoryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMBoardHistoryViewController.h; sourceTree = "<group>"; };
 		504F7B8B2352FEC200009940 /* SMBoardHistoryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMBoardHistoryViewController.m; sourceTree = "<group>"; };
 		508BFA4620ED20BD005ACFD6 /* SMVideoPlayerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMVideoPlayerViewController.h; sourceTree = "<group>"; };
@@ -1620,6 +1623,8 @@
 		C1F4671118C2E732006BCE7A /* activity */ = {
 			isa = PBXGroup;
 			children = (
+				5000D83F24659DEF00DED5DE /* SMAuthorActivity.h */,
+				5000D83E24659DEF00DED5DE /* SMAuthorActivity.m */,
 				C1F4671B18C2E766006BCE7A /* SMPostActivityItemProvider.h */,
 				C1F4671C18C2E766006BCE7A /* SMPostActivityItemProvider.m */,
 				C10DC6D318C3011800FF95E8 /* SMMailToActivity.h */,
@@ -2074,6 +2079,7 @@
 				C1F8107318E5B734001B3759 /* FMDatabasePool.m in Sources */,
 				C14B22F917FAC65700CF081A /* SMMailComposeViewController.m in Sources */,
 				C1F8109618E5BA3B001B3759 /* SMPostWebLoaderOperation.m in Sources */,
+				5000D84024659DEF00DED5DE /* SMAuthorActivity.m in Sources */,
 				C1F8109918E5BAA0001B3759 /* SMDBManager.m in Sources */,
 				C1FD13C217817AAA006A6061 /* SMUser.m in Sources */,
 				39C260051860A0E400AEFE0E /* SMBoardSearchResultViewController.m in Sources */,
