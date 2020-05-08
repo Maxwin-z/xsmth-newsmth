@@ -31,3 +31,4 @@
 #import "SMAuthorActivity.h"
 #import "SMMailComposeViewController.h"
 #import "XImageViewCache.h"
+#import "SMImageViewerViewController.h"

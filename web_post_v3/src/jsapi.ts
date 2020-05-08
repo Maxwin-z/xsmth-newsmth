@@ -304,3 +304,7 @@ export function xClose(): Promise<boolean> {
 export function openPostPage(url: string): Promise<boolean> {
   return sendMessage("openPostPage", url);
 }
+
+export function tapImage(url: string): Promise<boolean> {
+  return sendMessage("tapImage", url);
+}

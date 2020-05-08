@@ -40,8 +40,8 @@ class SMPostViewControllerV4: XWebController {
 
     override func viewDidLoad() {
         if post != nil {
-//            url = URL(string: "http://10.0.0.11:3000/#/")
-            url = URL(string: "http://public-1255362875.cos.ap-shanghai.myqcloud.com/xsmth/v4.1.0/index.html#/")
+            url = URL(string: "http://10.0.0.11:3000/#/")
+//            url = URL(string: "http://public-1255362875.cos.ap-shanghai.myqcloud.com/xsmth/v4.1.0/index.html#/")
         }
 
         super.viewDidLoad()
@@ -65,6 +65,7 @@ class SMPostViewControllerV4: XWebController {
             "activity": _activity,
             "pageNumberChanged": _pageNumberChanged,
             "openPostPage": _openPostPage,
+            "tapImage": _tapImage,
         ])
     }
     
@@ -340,7 +341,7 @@ class SMPostViewControllerV4: XWebController {
                         weakSelf.mailtoWithPost()
                     }
                     if at == SMActivitySpamActivity {
-                        Loaf("举报成功", state: .info, location: .bottom, presentingDirection: .vertical, dismissingDirection: .vertical, sender: weakSelf).show()
+                        Loaf("举报成功", state: .info, location: .bottom, presentingDirection: .vertical, dismissingDirection: .vertical, sender: weakSelf).show(.custom(1.6), completionHandler: nil)
                     }
                     if at == SMActivitySingleAuthorActivity {
                         weakSelf.notificationToWeb(messageName: "SINGLE_AUTHOR", data: weakSelf.postForAction?.author ?? "")
@@ -413,7 +414,41 @@ class SMPostViewControllerV4: XWebController {
             promise(.success(true))
         }
     }
+    
+    func _tapImage(parameters: Any) -> Future<Any, XBridgeError> {
+        return Future { [weak self] promise in
+            guard let url = parameters as? String else {
+                promise(.failure(XBridgeError(code: -1, message: "url不能为空")))
+                return
+            }
+            guard let weakSelf = self else {
+                return
+            }
+            let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            alert.addAction(UIAlertAction(title: "保存", style: .default, handler: { (_) in
+                if let data = XImageViewCache.sharedInstance()?.getData(url) {
+                    SMUtils.savePhoto(data) { (success, error) in
+                        if (success) {
+                            Loaf.init("保存成功", state: .success, location: .bottom, presentingDirection: .vertical, dismissingDirection: .vertical, sender: weakSelf).show(.custom(1.6), completionHandler: nil)
+                        } else {
+                            Loaf.init(error?.localizedDescription ?? "", state: .error, location: .bottom, presentingDirection: .vertical, dismissingDirection: .vertical, sender: weakSelf).show(.custom(1.6), completionHandler: nil)
+                        }
 
+                    }
+                } else {
+                    Loaf.init("图片尚未下载成功", state: .error, location: .bottom, presentingDirection: .vertical, dismissingDirection: .vertical, sender: weakSelf).show(.custom(1.6), completionHandler: nil)
+                }
+            }))
+            alert.addAction(UIAlertAction(title: "查看大图", style: .default, handler: { (_) in
+                let vc = SMImageViewerViewController()
+                vc.imageUrl = url
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }))
+            alert.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+            weakSelf.present(alert, animated: true, completion: nil)
+        }
+    }
+    
     /// activity methods
     @objc
     func forwardActivity(all: Bool) {
@@ -444,17 +479,17 @@ class SMPostViewControllerV4: XWebController {
                             weakSelf.webView.evaluateJavaScript("window.$x_parseForward(`\(html)`)") { result, error in
                                 if let msg = result as? String {
                                     if msg == "1" {
-                                        Loaf("转寄成功", state: .success, sender: weakSelf).show()
+                                        Loaf("转寄成功", state: .success, sender: weakSelf).show(.custom(1.6), completionHandler: nil)
                                     } else {
-                                        Loaf(msg, state: .error, sender: weakSelf).show()
+                                        Loaf(msg, state: .error, sender: weakSelf).show(.custom(1.6), completionHandler: nil)
                                     }
                                 } else {
-                                    Loaf(error?.localizedDescription ?? "未知错误", state: .error, sender: weakSelf).show()
+                                    Loaf(error?.localizedDescription ?? "未知错误", state: .error, sender: weakSelf).show(.custom(1.6), completionHandler: nil)
                                 }
                             }
                         }
                     } catch {
-                        Loaf("转寄失败，水木返回异常", state: .error, sender: weakSelf).show()
+                        Loaf("转寄失败，水木返回异常", state: .error, sender: weakSelf).show(.custom(1.6), completionHandler: nil)
                     }
                 }
             }))
