@@ -40,8 +40,8 @@ class SMPostViewControllerV4: XWebController {
 
     override func viewDidLoad() {
         if post != nil {
-            url = URL(string: "http://10.0.0.11:3000/#/")
-//            url = URL(string: "http://public-1255362875.cos.ap-shanghai.myqcloud.com/xsmth/v4.1.0/index.html#/")
+//            url = URL(string: "http://10.0.0.11:3000/#/")
+            url = URL(string: "http://public-1255362875.cos.ap-shanghai.myqcloud.com/xsmth/v4.1.0/index.html#/")
         }
 
         super.viewDidLoad()
