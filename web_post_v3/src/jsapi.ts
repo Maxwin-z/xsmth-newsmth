@@ -94,6 +94,12 @@ function sendMessage(methodName: string, parameters?: any): Promise<any> {
     };
     if (isBridgeAvaiable()) {
       window.webkit.messageHandlers.nativeBridge.postMessage(message);
+    } else {
+      cb({
+        code: -1,
+        data: null,
+        message: `web method [${methodName}] not implemented]`
+      });
     }
   });
 }

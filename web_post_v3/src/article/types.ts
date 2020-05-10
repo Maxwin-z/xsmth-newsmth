@@ -47,6 +47,7 @@ export interface IPost {
   content: string;
   images: IXImage[];
   isSingle?: boolean;
+  likes?: ILike[];
 }
 
 export interface IPage {
@@ -92,4 +93,11 @@ export interface ITheme {
   textColor: string;
   tintColor: string;
   quoteColor: string;
+}
+
+export interface ILike {
+  score: number;
+  user: string;
+  message: string;
+  dateString: string;
 }

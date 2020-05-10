@@ -1,4 +1,4 @@
-import { IGroup, IXImage, Status } from "../types";
+import { IGroup, IXImage, Status, ILike } from "../types";
 import { getStorage, ajax, setStorage } from "../../jsapi";
 
 let imageID = 0;
@@ -76,6 +76,8 @@ export function retrieveGroupPosts(html: string, page: number): IGroup {
       }
       const body = table.querySelector(".a-content > p")?.innerHTML || "";
       const { date, dateString, nick, content, images } = formatPost(body);
+      const likesDom = table.querySelector(".likes") as HTMLElement;
+      const likes = formatLikes(likesDom);
       return {
         author,
         nick,
@@ -87,7 +89,8 @@ export function retrieveGroupPosts(html: string, page: number): IGroup {
         dateString,
         content,
         images,
-        isSingle: false
+        isSingle: false,
+        likes
       };
     });
 
@@ -176,6 +179,35 @@ export function formatPost(
     content,
     images
   };
+}
+
+function formatLikes(dom: HTMLElement): Array<ILike> {
+  if (!dom) {
+    return [];
+  }
+  const likes = [].slice.call(dom.querySelectorAll("ul li")).map(
+    (li: HTMLLIElement): ILike => {
+      const score = parseInt(
+        li
+          .querySelector("span")!
+          .innerText.replace(/[\[\]]/g, "")
+          .trim() || "0",
+        10
+      );
+      const user = li.querySelector("span.like_user")!.innerHTML;
+      const message = li.querySelector("span.like_msg")!.innerHTML;
+      const dateString = li
+        .querySelector("span.like_time")!
+        .innerHTML.replace(/(^\(|\)$)/g, "");
+      return {
+        score,
+        user,
+        message,
+        dateString
+      };
+    }
+  );
+  return likes;
 }
 
 export async function getBoardID(board: string): Promise<number> {
