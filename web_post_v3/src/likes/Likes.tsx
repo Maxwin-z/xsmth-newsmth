@@ -1,10 +1,5 @@
 import { FC, useEffect, useState } from "react";
 import React from "react";
-import { getThemeConfig, ajax } from "../jsapi";
-import { ITheme, IPost } from "../article/types";
-import "./likes.css";
-import { getQuery } from "../article/utils/urlHelper";
-import { GroupTask } from "../article/utils/Task";
 import Post from "../article/components/Post";
 import { combineReducers, Action } from "redux";
 
@@ -12,6 +7,8 @@ import likesReducer, { loadLikes } from "./likesSlice";
 import { configureStore, ThunkAction } from "@reduxjs/toolkit";
 import { Provider, useDispatch, useSelector } from "react-redux";
 
+import "./likes.css";
+import "../article/index.css";
 const rootReducer = combineReducers({
   group: likesReducer
 });
@@ -27,6 +24,9 @@ export type LikesThunk = ThunkAction<
 >;
 
 const Likes: FC<{}> = () => {
+  const title = useSelector(
+    (state: LikesRootState) => state.group.mainPost.title
+  );
   const post = useSelector((state: LikesRootState) => state.group.post);
   const error = useSelector((state: LikesRootState) => state.group.error);
   const dispatch = useDispatch();
@@ -35,6 +35,7 @@ const Likes: FC<{}> = () => {
   }, [dispatch]);
   return (
     <div className="main">
+      <div id="title">{title}</div>
       {post && <Post post={post} p={1} />}
       <div>{error}</div>
     </div>

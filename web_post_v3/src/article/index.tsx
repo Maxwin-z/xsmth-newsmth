@@ -7,7 +7,6 @@ import groupReducer, {
   nextTask,
   onSelectPage,
   resetScrollY,
-  singleAuthor,
   refreshPage,
   openSingleAuthorPage
 } from "./groupSlice";
@@ -15,9 +14,6 @@ import imageReducer, { handleImageDownloadProgress } from "./slices/imageTask";
 import Group from "./components/Group";
 import "./handlers/theme";
 import "./index.css";
-import { setupTheme } from "./handlers/theme";
-import { getThemeConfig } from "../jsapi";
-import { ITheme } from "./types";
 import XImageQueue from "./components/XImageQueue";
 import { scrollHander } from "./handlers/scroll";
 import { clickHander } from "./handlers/click";
@@ -37,15 +33,8 @@ const store = configureStore({
 });
 
 (async () => {
-  const theme = await getThemeConfig();
-  setupTheme(theme);
-
   document.addEventListener("scroll", scrollHander);
   document.addEventListener("click", clickHander);
-
-  PubSub.subscribe("THEME_CHANGE", (_: string, style: ITheme) => {
-    setupTheme(style);
-  });
 
   PubSub.subscribe("DOWNLOAD_PROGRESS", (_: string, data: any) =>
     handleImageDownloadProgress(data)
