@@ -27,6 +27,8 @@ import {
 } from "./slices/imageTask";
 import { cacheInstance, removeInstance } from "./handlers/pageState";
 
+const isLike = window.location.hash.indexOf("#/likes") === 0;
+
 const groupInitialState: IGroupState = {
   mainPost: { board: "", title: "", gid: 0, pid: 0, single: false },
   pages: [],
@@ -221,13 +223,15 @@ const getPostInfo = async () => {
       }
     });
 
+    const gid = parseInt(query.gid, 10);
+
     mainPost = {
       board: query.board as string,
-      gid: parseInt(query.gid, 10),
-      pid: 0,
+      gid,
+      pid: gid,
       author: (query.author as string) || "",
       title: (query.title as string) || "",
-      single: false
+      single: isLike
     };
     setTitle(`${mainPost.author} - ${mainPost.title}`);
   }
@@ -257,9 +261,12 @@ export const getMainPost = (): AppThunk => async dispatch => {
   //   title: "[Apple]Re: xsmth怎么又有上下黑边框了？"
   // };
   const mainPost = await getPostInfo();
+
   console.log(mainPost);
   dispatch(setMainPost(mainPost));
-  if (mainPost.single) {
+  if (isLike) {
+    dispatch(loadLikePost(mainPost));
+  } else if (mainPost.single) {
     dispatch(loadSinglePost(mainPost));
   } else {
     const data = await cacheInstance(mainPost);
@@ -407,6 +414,24 @@ export const restorePage = (state: RootState): AppThunk => async dispatch => {
   pageNumberChanged(1, lastPage);
   if (lastPage > 1) {
     dispatch(loadPage(lastPage, true));
+  }
+};
+
+export const loadLikePost = ({
+  board,
+  gid
+}: IMainPost): AppThunk => async dispatch => {
+  const task = new GroupTask(board, gid, 1);
+  try {
+    const group = await task.execute();
+    setTitle(group.title);
+    const post = group.posts[0];
+    post.title = group.title;
+    dispatch(singlePost(post));
+    dispatch(imageTaskEnqueue([post]));
+    console.log(post);
+  } catch (e) {
+    toast({ message: e, type: ToastType.error });
   }
 };
 

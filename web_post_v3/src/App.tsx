@@ -7,7 +7,7 @@ import PubSub from "pubsub-js";
 import { ITheme } from "./article/types";
 
 const Article = loadable(() => import("./article/index"));
-const Likes = loadable(() => import("./likes/Likes"));
+const Likes = loadable(() => import("./likes/index"));
 const BridgeTest = loadable(() => import("./BridgeTest"));
 const Experimental = loadable(() => import("./experimental/Experimental"));
 
