@@ -228,13 +228,13 @@ textarea {
   transform: rotate(-45deg);
 }
 
-.likes,
-.likes li {
+.likes-list,
+.likes-list li {
   margin-top: 0;
   padding: 0;
   list-style: none;
 }
-.likes {
+.likes-list {
   margin-right: 10px;
   word-break: break-all;
 }
@@ -245,4 +245,19 @@ textarea {
 
 .likes .score_2 {
   color: green;
+}
+
+.like-compose {
+  display: flex;
+  flex-direction: column;
+}
+.like-compose select,
+.like-compose button,
+.like-compose textarea {
+  display: block;
+  font-size: inherit;
+}
+
+.like-compose textarea {
+  flex: 1;
 }

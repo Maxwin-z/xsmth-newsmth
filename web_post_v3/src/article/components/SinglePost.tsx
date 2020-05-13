@@ -6,25 +6,47 @@ import { ArticleStatus, IPost } from "../types";
 import Loading from "./Loading";
 import Post from "./Post";
 import { expandSinglePost } from "../groupSlice";
+import { toast } from "../../jsapi";
 
 const Likes: FC<{ post: IPost }> = ({ post }) => {
+  const doLike = () => {
+    toast({
+      message: "Coming soon"
+    });
+  };
   return (
-    <ul className="likes">
-      {post.likes?.map(like => (
-        <li key={like.user}>
-          <span
-            className={
-              like.score == 0 ? "" : like.score > 0 ? "score_1" : "score_2"
-            }
-          >
-            [{like.score == 0 ? "  " : like.score}]
-          </span>
-          <strong>{like.user}</strong>
-          {like.message}
-          <span className="f006">({like.dateString})</span>
-        </li>
-      ))}
-    </ul>
+    <div className="likes">
+      <ul className="likes-list">
+        {post.likes?.map(like => (
+          <li key={like.user}>
+            <span
+              className={
+                like.score == 0 ? "" : like.score > 0 ? "score_1" : "score_2"
+              }
+            >
+              [{like.score == 0 ? "  " : like.score}]
+            </span>
+            <strong>{like.user}</strong>
+            {like.message}
+            <span className="f006">({like.dateString})</span>
+          </li>
+        ))}
+      </ul>
+      <div className="like-compose">
+        <textarea
+          rows={2}
+          placeholder="请输入您的短评，不超过30个字"
+        ></textarea>
+        <select>
+          {new Array(11).fill(0).map((_, i) => (
+            <option value={i - 5} key={i} selected={i - 5 == 0}>
+              {i - 5}
+            </option>
+          ))}
+        </select>
+        <button onClick={doLike}>我要Like</button>
+      </div>
+    </div>
   );
 };
 
