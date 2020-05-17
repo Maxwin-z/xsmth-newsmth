@@ -1,12 +1,13 @@
 import { FC, useEffect, useState } from "react";
 import React from "react";
 import { getQuery } from "../article/utils/urlHelper";
-import { getStorage, setTitle } from "../jsapi";
+import { getStorage, setTitle, openPostPage } from "../jsapi";
 import { RootState } from "../article";
 
 import { YAxis, CartesianGrid, AreaChart, Area, Legend } from "recharts";
 
 import "./experimental.css";
+import { IMainPost } from "../article/types";
 
 interface IUser {
   author: string;
@@ -26,6 +27,7 @@ const Experimental: FC<{}> = () => {
   type UserKeys = "floor" | "count" | "postCount" | "score";
 
   const [title, setTitle] = useState("");
+  const [mainPost, setMainPost] = useState<IMainPost>();
   const [author, setAuthor] = useState("");
   const [authorPostCount, setAuthorPostCount] = useState(0);
   const [postsCount, setPostsCount] = useState(0);
@@ -40,8 +42,8 @@ const Experimental: FC<{}> = () => {
       const gid = query.gid as string;
       const storeKey = `post_${board}_${gid}_`;
       const data: RootState = await getStorage(storeKey);
-      console.log(data);
       setTitle(data.group.mainPost.title);
+      setMainPost(data.group.mainPost);
 
       const users: IUser[] = [];
       let postsCount = 0;
@@ -95,6 +97,17 @@ const Experimental: FC<{}> = () => {
   const anchor = (key: UserKeys) => {
     return lastSortKey === key ? (lastSortMethod == 1 ? "🔼" : "🔽") : "";
   };
+
+  const openAuthor = (author: string) => {
+    const post = mainPost;
+    if (!post) return;
+    const { origin, pathname } = window.location;
+    const url = `${origin}${pathname}#/?board=${post.board}&gid=${
+      post.gid
+    }&author=${author}&title=${encodeURIComponent(post.title)}`;
+    openPostPage(url);
+  };
+
   // const data:Json = await
   return (
     <div className="main">
@@ -119,7 +132,17 @@ const Experimental: FC<{}> = () => {
             </linearGradient>
           </defs>
           <YAxis />
-          <Legend />
+          <Legend
+            content={() => (
+              <div
+                style={{
+                  textAlign: "center"
+                }}
+              >
+                回复数
+              </div>
+            )}
+          />
           <CartesianGrid strokeDasharray="3 3" />
           <Area
             type="monotone"
@@ -149,7 +172,7 @@ const Experimental: FC<{}> = () => {
                   <td>{user.author}</td>
                   <td>{user.postCount}</td>
                   <td>{user.score}</td>
-                  <td>{user.count}</td>
+                  <td onClick={() => openAuthor(user.author)}>{user.count}</td>
                 </tr>
               );
             })}
