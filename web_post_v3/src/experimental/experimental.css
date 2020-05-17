@@ -10,6 +10,10 @@ body {
   word-break: break-all;
 }
 
+.chart {
+  font-size: 16px;
+}
+
 table,
 th,
 td {
