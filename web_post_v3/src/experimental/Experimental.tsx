@@ -120,7 +120,7 @@ const Experimental: FC<{}> = () => {
       </div>
       <div className="chart">
         <AreaChart
-          width={400}
+          width={window.innerWidth - 10}
           height={100}
           data={users}
           margin={{ top: 10, right: 0, left: 0, bottom: 10 }}
