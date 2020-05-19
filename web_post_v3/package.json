@@ -4,6 +4,7 @@
   "private": true,
   "homepage": ".",
   "dependencies": {
+    "@loadable/component": "^5.12.0",
     "@reduxjs/toolkit": "^1.2.5",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -14,6 +15,7 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-redux": "^7.2.0",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.0",
     "recharts": "^1.8.5",
     "redux": "^4.0.5",
@@ -22,6 +24,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "chrome": "node ./chrome.js",
     "test": "mocha -r ts-node/register -r @babel/register -r esm ./src/tests/test-**.ts",
     "eject": "react-scripts eject"
   },
@@ -44,6 +47,7 @@
   "devDependencies": {
     "@babel/register": "^7.8.3",
     "@types/chai": "^4.2.9",
+    "@types/loadable__component": "^5.10.0",
     "@types/mocha": "^7.0.1",
     "@types/react-redux": "^7.1.7",
     "@types/react-router-dom": "^5.1.5",
