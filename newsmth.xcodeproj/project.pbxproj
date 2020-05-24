@@ -16,6 +16,7 @@
 		39C260061860A0E400AEFE0E /* SMBoardSearchResultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 39C260041860A0E400AEFE0E /* SMBoardSearchResultViewController.xib */; };
 		39C260081860A8DF00AEFE0E /* bbsbfind.js in Resources */ = {isa = PBXBuildFile; fileRef = 39C260071860A8DF00AEFE0E /* bbsbfind.js */; };
 		5000D84024659DEF00DED5DE /* SMAuthorActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 5000D83E24659DEF00DED5DE /* SMAuthorActivity.m */; };
+		50457F98247A770400F74CA0 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50457F97247A770400F74CA0 /* StoreKit.framework */; };
 		504F7B8C2352FEC200009940 /* SMBoardHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 504F7B8B2352FEC200009940 /* SMBoardHistoryViewController.m */; };
 		508BFA4820ED20BD005ACFD6 /* SMVideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 508BFA4720ED20BD005ACFD6 /* SMVideoPlayerViewController.m */; };
 		50A382FC2460608700098D23 /* XWebController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A382FB2460608700098D23 /* XWebController.swift */; };
@@ -344,6 +345,7 @@
 		39C260071860A8DF00AEFE0E /* bbsbfind.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = bbsbfind.js; sourceTree = "<group>"; };
 		5000D83E24659DEF00DED5DE /* SMAuthorActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMAuthorActivity.m; sourceTree = "<group>"; };
 		5000D83F24659DEF00DED5DE /* SMAuthorActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMAuthorActivity.h; sourceTree = "<group>"; };
+		50457F97247A770400F74CA0 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		504F7B8A2352FEC200009940 /* SMBoardHistoryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMBoardHistoryViewController.h; sourceTree = "<group>"; };
 		504F7B8B2352FEC200009940 /* SMBoardHistoryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMBoardHistoryViewController.m; sourceTree = "<group>"; };
 		508BFA4620ED20BD005ACFD6 /* SMVideoPlayerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMVideoPlayerViewController.h; sourceTree = "<group>"; };
@@ -845,6 +847,7 @@
 				C10080D6178598D900487A45 /* AssetsLibrary.framework in Frameworks */,
 				C1011DA31779657000E0485D /* CoreData.framework in Frameworks */,
 				C10D16BB1756276D002D6FAD /* QuartzCore.framework in Frameworks */,
+				50457F98247A770400F74CA0 /* StoreKit.framework in Frameworks */,
 				C1BFB91E174F6F390092FD2E /* libz.dylib in Frameworks */,
 				C15489C01888CA580046190C /* libGoogleAnalyticsServices.a in Frameworks */,
 				C1BFB91C174F6F2A0092FD2E /* MobileCoreServices.framework in Frameworks */,
@@ -1340,6 +1343,7 @@
 		C1BFB8DB174F6A620092FD2E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				50457F97247A770400F74CA0 /* StoreKit.framework */,
 				50FE53C523DFFF5700C896E6 /* WebKit.framework */,
 				C12F79D421A28BA400016605 /* SafariServices.framework */,
 				C1B33DFF20ECE2AD00404E45 /* AVKit.framework */,
