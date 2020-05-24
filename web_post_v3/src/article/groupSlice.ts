@@ -417,13 +417,15 @@ export const restorePage = (state: RootState): AppThunk => async dispatch => {
   }
 };
 
-export const loadLikePost = ({
-  board,
-  gid
-}: IMainPost): AppThunk => async dispatch => {
+export const loadLikePost = ({ board, gid }: IMainPost): AppThunk => async (
+  dispatch,
+  getState
+) => {
   const task = new GroupTask(board, gid, 1);
   try {
     const group = await task.execute();
+    const mainPost = { ...getState().group.mainPost, title: group.title };
+    dispatch(setMainPost(mainPost));
     setTitle(group.title);
     const post = group.posts[0];
     post.title = group.title;

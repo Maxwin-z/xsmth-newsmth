@@ -93,7 +93,7 @@ class SMPostViewControllerV4: XWebController {
         alert.addAction(UIAlertAction(title: "查看Likes", style: .default, handler: { _ in
             var urlString = self.url?.absoluteString ?? ""
             urlString += "likes?board=\(self.post?.board.name ?? "")&gid=\(self.post?.gid ?? 0)"
-            let vc = XWebController()
+            let vc = SMPostViewControllerV4()
             vc.url = URL(string: urlString)
             self.navigationController?.pushViewController(vc, animated: true)
         }))
@@ -101,7 +101,7 @@ class SMPostViewControllerV4: XWebController {
         alert.addAction(UIAlertAction(title: "🍀Experimental", style: .default, handler: { _ in
             var urlString = self.url?.absoluteString ?? ""
             urlString += "experimental?board=\(self.post?.board.name ?? "")&gid=\(self.post?.gid ?? 0)"
-            let vc = XWebController()
+            let vc = SMPostViewControllerV4()
             vc.url = URL(string: urlString)
             self.navigationController?.pushViewController(vc, animated: true)
         }))
