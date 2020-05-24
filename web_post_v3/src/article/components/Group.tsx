@@ -48,18 +48,33 @@ function Group() {
     // xLog("in Group effect");
     if (pageScrollY === -1 || typeof floor === "number") return;
     const resize = () => {
-      // xLog("scroll to " + pageScrollY);
+      // xLog("resize scroll to " + pageScrollY);
+      // console.log(
+      //   "before scrollY:",
+      //   window.scrollY,
+      //   document.documentElement.offsetHeight
+      // );
       window.scrollTo(0, pageScrollY);
+      // console.log(
+      //   "after scrollY:",
+      //   window.scrollY,
+      //   document.documentElement.offsetHeight
+      // );
     };
 
     if (document.documentElement.offsetHeight > pageScrollY) {
       // xLog("try to scroll:" + pageScrollY);
       window.scrollTo(0, pageScrollY);
-    } else {
-      // xLog("bind resize");
-      window.addEventListener("resize", resize);
     }
-    return () => window.removeEventListener("resize", resize);
+    // xLog("bind resize");
+    window.addEventListener("resize", resize);
+    document.body.addEventListener("resize", resize);
+    const timer = setInterval(resize, 100);
+    return () => {
+      window.removeEventListener("resize", resize);
+      document.body.removeEventListener("resize", resize);
+      clearInterval(timer);
+    };
   }, [floor, pageScrollY, dispatch]);
 
   if (mainPost.single) {
