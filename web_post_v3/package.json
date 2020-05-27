@@ -4,6 +4,7 @@
   "private": true,
   "homepage": ".",
   "dependencies": {
+    "@analytics/google-analytics": "^0.4.0",
     "@loadable/component": "^5.12.0",
     "@reduxjs/toolkit": "^1.2.5",
     "@testing-library/jest-dom": "^4.2.4",
@@ -11,6 +12,7 @@
     "@testing-library/user-event": "^7.1.2",
     "@types/pubsub-js": "^1.5.18",
     "@types/recharts": "^1.8.10",
+    "analytics": "^0.4.0",
     "pubsub-js": "^1.8.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",

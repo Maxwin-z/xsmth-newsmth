@@ -262,6 +262,10 @@ export const getMainPost = (): AppThunk => async dispatch => {
   // };
   const mainPost = await getPostInfo();
 
+  (<any>window).analytics.track("viewpost", {
+    board: mainPost.board
+  });
+
   console.log(mainPost);
   dispatch(setMainPost(mainPost));
   if (isLike) {

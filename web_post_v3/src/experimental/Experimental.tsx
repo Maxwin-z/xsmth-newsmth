@@ -45,6 +45,10 @@ const Experimental: FC<{}> = () => {
       setTitle(data.group.mainPost.title);
       setMainPost(data.group.mainPost);
 
+      (window as any).analytics.track("experimental", {
+        board: data.group.mainPost.board
+      });
+
       const users: IUser[] = [];
       let postsCount = 0;
       let postAuthor = "";
