@@ -1,0 +1,58 @@
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+.flex1 {
+  flex: 1;
+}
+.flex2 {
+  flex: 2;
+}
+
+.header {
+  margin-top: 20px;
+  margin-left: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+}
+.avatar {
+  width: 100px;
+  height: 100px;
+}
+.userinfo {
+  margin-left: 10px;
+}
+.username {
+  font-size: 120%;
+}
+.online {
+  color: green;
+}
+.offline {
+  color: gray;
+}
+.cell {
+  margin-left: 20px;
+  padding: 10px 10px 10px 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.tag-section {
+  font-weight: bold;
+  font-size: 120%;
+  margin-left: 20px;
+  padding: 20px 0 10px 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.tag {
+  color: red;
+}
+
+.delete {
+  padding: 0 10px;
+}

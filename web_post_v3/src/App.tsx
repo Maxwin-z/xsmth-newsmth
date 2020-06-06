@@ -10,6 +10,7 @@ const Article = loadable(() => import("./article/index"));
 const Likes = loadable(() => import("./likes/index"));
 const BridgeTest = loadable(() => import("./BridgeTest"));
 const Experimental = loadable(() => import("./experimental/Experimental"));
+const Profile = loadable(() => import("./profile/index"));
 
 (async () => {
   const theme = await getThemeConfig();
@@ -34,6 +35,9 @@ function App() {
         </Route>
         <Route path="/bridgetest">
           <BridgeTest />
+        </Route>
+        <Route path="/profile">
+          <Profile />
         </Route>
         <Route path="/">
           <Article />
