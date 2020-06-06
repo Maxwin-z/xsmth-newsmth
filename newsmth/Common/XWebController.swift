@@ -132,13 +132,20 @@ class XWebController: SMViewController, WKURLSchemeHandler, WKScriptMessageHandl
         //
 //        fetchProducts()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        notificationToWeb(messageName: "willAppear", data: true)
+    }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        notificationToWeb(messageName: "didAppear", data: true)
         if navigationController != nil, navigationController?.viewControllers.count == 1, navigationController?.presentingViewController?.presentedViewController == navigationController {
             navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(onDoneButtonClick))
         }
     }
+    
 
     @objc
     func onDoneButtonClick() {
@@ -172,7 +179,7 @@ class XWebController: SMViewController, WKURLSchemeHandler, WKScriptMessageHandl
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        notificationToWeb(messageName: "PAGE_WILL_DISAPPEAR", data: true)
+        notificationToWeb(messageName: "willDisappear", data: true)
     }
 
     override func viewDidDisappear(_ animated: Bool) {

@@ -93,7 +93,7 @@ function usePubSubHook() {
         // console.log("page close");
         dispatch(saveInstance(true));
       },
-      PAGE_WILL_DISAPPEAR: async () => {
+      willDisappear: async () => {
         dispatch(saveInstance(false));
       },
       SINGLE_AUTHOR: (_: string, author: string) => {
