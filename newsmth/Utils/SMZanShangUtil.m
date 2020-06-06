@@ -76,6 +76,8 @@
 - (void)addViewCount
 {
     ++self.viewCount;
+    // disable taobao
+    return ;
 
     if (!self.didZanShang
         && self.openCount > OPEN_COUNT_THRESHOLD

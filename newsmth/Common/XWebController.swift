@@ -13,6 +13,8 @@ import Loaf
 import SafariServices
 import UIKit
 import WebKit
+import StoreKit
+
 
 struct XBridgeError: Error {
     let code: Int
@@ -126,6 +128,9 @@ class XWebController: SMViewController, WKURLSchemeHandler, WKScriptMessageHandl
         ])
 
         navigationController?.presentationController?.delegate = self
+        
+        //
+//        fetchProducts()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -699,4 +704,46 @@ extension XWebController: UIAdaptivePresentationControllerDelegate {
 
 // MARK: - IAP
 
+extension XWebController: SKProductsRequestDelegate, SKPaymentTransactionObserver {
+    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+        for t in transactions {
+            debugPrint("SK updatedTransactions", t.payment.productIdentifier, t.transactionState == .purchased,
+                       t.transactionState == .restored)
+            SKPaymentQueue.default().finishTransaction(t)
+        }
+    }
+    
+    func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
+        guard response.products.count > 0 else {
+            debugPrint("SK product empty")
+            return
+        }
+        let product = response.products[0]
+        let payment = SKPayment(product: product)
+        SKPaymentQueue.default().add(payment)
+        debugPrint("SK pay")
+    }
+    
+    func fetchProducts() {
+        SKPaymentQueue.default().add(self)
+        SKPaymentQueue.default().restoreCompletedTransactions()
+
+//        guard let receiptURL = Bundle.main.appStoreReceiptURL else {
+//            debugPrint("SK No store receipt url")
+//            return ;
+//        }
+//        do {
+//            let receiptData = try Data(contentsOf: receiptURL)
+//            // Custom method to work with receipts
+//            let receiptString = receiptData.base64EncodedString(options: [])
+//            debugPrint(receiptString)
+//        } catch {
+//            debugPrint(error)
+//        }
+        
+//        let req = SKProductsRequest(productIdentifiers: ["me.maxwin.newsmth.proplus"])
+//        req.delegate = self
+//        req.start()
+    }
+}
 
