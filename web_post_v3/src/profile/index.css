@@ -56,3 +56,9 @@
 .delete {
   padding: 0 10px;
 }
+.color-picker {
+  background-color: red;
+  margin: auto;
+  position: absolute;
+  right: 0;
+}

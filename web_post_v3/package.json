@@ -7,6 +7,7 @@
     "@analytics/google-analytics": "^0.4.0",
     "@loadable/component": "^5.12.0",
     "@reduxjs/toolkit": "^1.2.5",
+    "@simonwep/pickr": "^1.6.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
