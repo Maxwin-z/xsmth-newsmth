@@ -12,7 +12,7 @@ function App() {
   const addTags = () => {
     const { origin, pathname } = window.location;
     xOpen({
-      url: origin + pathname + "#/addtags",
+      url: origin + pathname + "#/addtag",
       type: ModalStyle.modal
     });
   };
