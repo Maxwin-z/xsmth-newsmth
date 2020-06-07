@@ -20,6 +20,7 @@ import { clickHander } from "./handlers/click";
 import { saveInstance } from "./handlers/pageState";
 import SingleAuthor from "./components/SingleAuthor";
 import SinglePost from "./components/SinglePost";
+import { xOpen } from "../jsapi";
 
 // new VConsole();
 
@@ -99,6 +100,11 @@ function usePubSubHook() {
       SINGLE_AUTHOR: (_: string, author: string) => {
         dispatch(openSingleAuthorPage(author));
         // dispatch(singleAuthor(author));
+      },
+      VIEW_AUTHOR: (_: string, author: string) => {
+        console.log("view author", author);
+        const { origin, pathname } = window.location;
+        xOpen(origin + pathname + "#/profile?author=" + author);
       },
       PAGE_REFRESH: () => {
         dispatch(refreshPage());

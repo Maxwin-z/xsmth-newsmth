@@ -6,8 +6,16 @@ import Pickr from "@simonwep/pickr";
 // import Pickr from "@simonwep/pickr/dist/pickr.es5.min";
 
 import "./index.css";
+import { xOpen, ModalStyle } from "../jsapi";
 
 function App() {
+  const addTags = () => {
+    const { origin, pathname } = window.location;
+    xOpen({
+      url: origin + pathname + "#/addtags",
+      type: ModalStyle.modal
+    });
+  };
   const showPicker = () => {
     const picker = Pickr.create({
       el: ".color-picker",
@@ -53,7 +61,7 @@ function App() {
   };
 
   return (
-    <div>
+    <div className="main">
       <div className="header flex-row">
         <img
           className="avatar"
@@ -104,7 +112,7 @@ function App() {
         </div>
         <div className="delete">➕</div>
       </div>
-      <div className="cell" onClick={showPicker}>
+      <div className="cell" onClick={addTags}>
         ➕添加Tag
       </div>
       <div
