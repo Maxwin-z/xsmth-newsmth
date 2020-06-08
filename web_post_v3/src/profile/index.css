@@ -17,6 +17,19 @@
 .flex2 {
   flex: 2;
 }
+.flex-center {
+  align-items: center;
+  justify-content: center;
+}
+
+.section-header {
+  font-size: 120%;
+  font-weight: bold;
+  margin-left: 20px;
+  margin-top: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+}
 
 .header {
   margin-top: 20px;
@@ -61,9 +74,52 @@
 .delete {
   padding: 0 10px;
 }
-.color-picker {
-  background-color: red;
-  margin: auto;
-  position: absolute;
-  right: 0;
+
+a.btn {
+  padding: 6px 10px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-manager-tags {
+  margin-top: 10px;
+  min-width: 200px;
+  text-align: center;
+}
+
+.color-panel {
+  margin-left: 20px;
+  margin-top: 10px;
+}
+
+.color {
+  display: inline-block;
+  padding: 1px;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 3px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.box {
+  width: 30px;
+  height: 30px;
+  border-radius: 2px;
+}
+
+.add-tag-container {
+  margin-left: 20px;
+  align-items: center;
+}
+.tag-input {
+  border: 1px solid #ccc;
+  border-radius: 0;
+  font-size: 16px;
+  font-family: "Helvetica New";
+  appearance: none;
+}
+.btn-addtag {
+  margin: 0 5px;
+  padding: 2px 6px;
 }

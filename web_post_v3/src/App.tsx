@@ -11,7 +11,7 @@ const Likes = loadable(() => import("./likes/index"));
 const BridgeTest = loadable(() => import("./BridgeTest"));
 const Experimental = loadable(() => import("./experimental/Experimental"));
 const Profile = loadable(() => import("./profile/index"));
-const AddTag = loadable(() => import("./profile/AddTag"));
+const TagManager = loadable(() => import("./profile/TagManager"));
 
 (async () => {
   const theme = await getThemeConfig();
@@ -41,7 +41,7 @@ function App() {
           <Profile />
         </Route>
         <Route path="/addtag">
-          <AddTag />
+          <TagManager />
         </Route>
         <Route path="/">
           <Article />
