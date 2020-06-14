@@ -60,7 +60,7 @@ static SMBoardCell *_instance;
 }
 
 - (NSString *)keyForUser:(NSString *)username {
-    return [NSString stringWithFormat:@"xsmth_%@", username];
+    return [NSString stringWithFormat:@"tags_%@", username];
 }
 
 - (void)setPost:(SMPost *)post
@@ -87,12 +87,11 @@ static SMBoardCell *_instance;
         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:[userString dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
         if (json == nil) break;
         NSDictionary *info = json[@"value"];
-        if (info == nil) break;
-        NSArray *tags = info[@"tags"];
-        if (![tags isKindOfClass:[NSArray class]]) break;
-        [tags enumerateObjectsUsingBlock:^(id  _Nonnull tag, NSUInteger idx, BOOL * _Nonnull stop) {
-           if ([tag isKindOfClass:[NSDictionary class]]) {
-               NSString *hex = tag[@"color"];
+        @try {
+            SMUserTag *userTag = [[SMUserTag alloc] initWithJSON:info];
+            XLog_d(@"%@", userTag);
+            [userTag.tags enumerateObjectsUsingBlock:^(SMTag* tag, NSUInteger idx, BOOL * _Nonnull stop) {
+               NSString *hex = tag.color;
                if (hex.length == 7) {
                    UIColor *color = [SMUtils colorFromHexString:hex];
                    [authorTitle appendAttributedString:[[NSAttributedString alloc] initWithString:@"■" attributes:@{
@@ -100,8 +99,8 @@ static SMBoardCell *_instance;
                        NSFontAttributeName: [UIFont systemFontOfSize:10]
                    }]];
                }
-           }
-        }];
+            }];
+        } @catch (NSException *exception) {} @finally {}
         break;
     }
     

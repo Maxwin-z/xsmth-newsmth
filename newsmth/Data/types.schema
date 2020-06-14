@@ -143,10 +143,11 @@ SMParserItem {
 }
 
 SMTag {
-	string tag
+	string text 
 	string color
 }
 
 SMUserTag {
+	string user
 	SMTag[] tags
 }

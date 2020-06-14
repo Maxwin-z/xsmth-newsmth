@@ -2,15 +2,15 @@ import React, { useEffect, useState } from "react";
 import "./index.css";
 import { xOpen, ModalStyle, ajax, Json, download, setTitle } from "../jsapi";
 import { getQuery } from "../article/utils/urlHelper";
-import { Tag, loadUserTags, loadTags, saveUserTags } from "./tagUtil";
+import { ITag, loadUserTag, loadTags, saveUserTag, IUserTag } from "./tagUtil";
 
 function App() {
   const { author } = getQuery();
   setTitle(`查看用户 - ${author}`);
   const [user, setUser] = useState<Json>({});
   const [avatar, setAvatar] = useState("");
-  const [userTags, setUserTags] = useState<Tag[]>([]);
-  const [tags, setTags] = useState<Tag[]>([]);
+  const [userTag, setUserTag] = useState<IUserTag>();
+  const [tags, setTags] = useState<ITag[]>([]);
   useEffect(() => {
     async function main() {
       const text = await ajax({
@@ -21,7 +21,7 @@ function App() {
       });
       const user = JSON.parse(text);
       setUser(user);
-      setUserTags(await loadUserTags(author));
+      setUserTag(await loadUserTag(author));
       setTags(await loadTags());
       const url = `https:${user.face_url}`;
       download(url).then(ret => {
@@ -33,22 +33,25 @@ function App() {
   }, []);
 
   const removeUserTag = (i: number) => {
-    const ts = [...userTags];
-    console.log(ts);
-    console.log(ts.splice(i, 1));
-    setUserTags(ts);
-    saveUserTags(author, ts);
+    userTag?.tags.splice(i, 1);
+    setUserTag(Object.assign({}, userTag));
+    saveUserTag(author, userTag!);
   };
   const addUserTag = (i: number) => {
-    const ts = [...userTags];
+    const ts = [...userTag!.tags];
     const tag = tags[i];
     if (
-      ts.findIndex((t: Tag) => t.color === t.color && t.text === t.text) === -1
+      ts.findIndex(
+        (t: ITag) => t.color === tag.color && t.text === tag.text
+      ) === -1
     ) {
       ts.push(tag);
     }
-    setUserTags(ts);
-    saveUserTags(author, ts);
+    const ut: IUserTag = Object.assign({}, userTag, {
+      tags: ts
+    });
+    setUserTag(ut);
+    saveUserTag(author, ut);
   };
 
   const addTags = () => {
@@ -93,7 +96,7 @@ function App() {
         <div className="">{user.score_user}</div>
       </div>
       <div className="tag-section">Tags</div>
-      {userTags.map((tag, i) => (
+      {userTag?.tags.map((tag, i) => (
         <div className="cell flex-row" key={`${tag.text}_${tag.color}`}>
           <div className="flex1">
             <span

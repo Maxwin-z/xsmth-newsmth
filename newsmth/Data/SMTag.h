@@ -2,6 +2,6 @@
 
 
 @interface SMTag : SMBaseData
-@property (strong, nonatomic) NSString* tag;
+@property (strong, nonatomic) NSString* text;
 @property (strong, nonatomic) NSString* color;
 @end

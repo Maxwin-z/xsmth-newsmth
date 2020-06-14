@@ -4,9 +4,9 @@
 - (void)decode:(id)json
 {
 	NSDictionary *dict = json;
-	id tag = [dict objectForKey:@"tag"];
-	if (tag != [NSNull null]) {
-		_tag = tag;
+	id text = [dict objectForKey:@"text"];
+	if (text != [NSNull null]) {
+		_text = text;
 	}
 
 	id color = [dict objectForKey:@"color"];
@@ -18,8 +18,8 @@
 - (id)encode
 {
 	NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-	if (_tag != nil) {
-		[dict setObject:_tag forKey:@"tag"];
+	if (_text != nil) {
+		[dict setObject:_text forKey:@"text"];
 	}
 
 	if (_color != nil) {

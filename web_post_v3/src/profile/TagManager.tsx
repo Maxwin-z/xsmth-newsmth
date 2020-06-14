@@ -1,13 +1,13 @@
 import React, { useEffect, useState, ChangeEvent, useRef } from "react";
 import { setTitle, toast, ToastType } from "../jsapi";
 import "./index.css";
-import { loadTags, Tag, saveTags } from "./tagUtil";
+import { loadTags, ITag, saveTags } from "./tagUtil";
 
 setTitle("管理Tags");
 
 export default function AddTag() {
   const [selectedColor, setSelectedColor] = useState("#F44336");
-  const [tags, setTags] = useState<Tag[]>([]);
+  const [tags, setTags] = useState<ITag[]>([]);
   const transparent = "#ffffff00";
   const colors = [
     "#F44336",

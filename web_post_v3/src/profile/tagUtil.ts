@@ -1,29 +1,38 @@
 import { getStorage, setStorage } from "../jsapi";
 
-export interface Tag {
+export interface ITag {
   color: string;
   text: string;
 }
+
+export interface IUserTag {
+  user: string;
+  tags: ITag[];
+}
+
 const tagsKey = "tags";
 export async function loadTags() {
-  let tags: Tag[] = [];
+  let tags: ITag[] = [];
   try {
     tags = await getStorage(tagsKey);
   } catch (_) {}
   return tags;
 }
-export async function saveTags(tags: Tag[]) {
+export async function saveTags(tags: ITag[]) {
   return await setStorage(tagsKey, tags);
 }
 
-export async function loadUserTags(user: string) {
-  let tags: Tag[] = [];
+export async function loadUserTag(user: string) {
+  let userTag: IUserTag = {
+    user,
+    tags: []
+  };
   try {
-    tags = await getStorage(`${tagsKey}_${user}`);
+    userTag = await getStorage(`${tagsKey}_${user}`);
   } catch (_) {}
-  return tags;
+  return userTag;
 }
 
-export async function saveUserTags(user: string, tags: Tag[]) {
-  return await setStorage(`${tagsKey}_${user}`, tags);
+export async function saveUserTag(user: string, userTag: IUserTag) {
+  return await setStorage(`${tagsKey}_${user}`, userTag);
 }
