@@ -17,3 +17,5 @@
 #import "SMMailList.h"
 #import "SMVersion.h"
 #import "SMParserItem.h"
+#import "SMTag.h"
+#import "SMUserTag.h"

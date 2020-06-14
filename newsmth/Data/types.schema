@@ -142,3 +142,11 @@ SMParserItem {
     string md5
 }
 
+SMTag {
+	string tag
+	string color
+}
+
+SMUserTag {
+	SMTag[] tags
+}

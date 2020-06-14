@@ -18,6 +18,8 @@
 		5000D84024659DEF00DED5DE /* SMAuthorActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 5000D83E24659DEF00DED5DE /* SMAuthorActivity.m */; };
 		50457F98247A770400F74CA0 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50457F97247A770400F74CA0 /* StoreKit.framework */; };
 		504F7B8C2352FEC200009940 /* SMBoardHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 504F7B8B2352FEC200009940 /* SMBoardHistoryViewController.m */; };
+		507B91A024952EF6005D4CA4 /* SMUserTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 507B919C24952EF5005D4CA4 /* SMUserTag.m */; };
+		507B91A124952EF6005D4CA4 /* SMTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 507B919D24952EF5005D4CA4 /* SMTag.m */; };
 		508BFA4820ED20BD005ACFD6 /* SMVideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 508BFA4720ED20BD005ACFD6 /* SMVideoPlayerViewController.m */; };
 		50A382FC2460608700098D23 /* XWebController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A382FB2460608700098D23 /* XWebController.swift */; };
 		50FE53C623DFFF5700C896E6 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50FE53C523DFFF5700C896E6 /* WebKit.framework */; };
@@ -348,6 +350,10 @@
 		50457F97247A770400F74CA0 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		504F7B8A2352FEC200009940 /* SMBoardHistoryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMBoardHistoryViewController.h; sourceTree = "<group>"; };
 		504F7B8B2352FEC200009940 /* SMBoardHistoryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMBoardHistoryViewController.m; sourceTree = "<group>"; };
+		507B919C24952EF5005D4CA4 /* SMUserTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMUserTag.m; sourceTree = "<group>"; };
+		507B919D24952EF5005D4CA4 /* SMTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMTag.m; sourceTree = "<group>"; };
+		507B919E24952EF6005D4CA4 /* SMUserTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMUserTag.h; sourceTree = "<group>"; };
+		507B919F24952EF6005D4CA4 /* SMTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMTag.h; sourceTree = "<group>"; };
 		508BFA4620ED20BD005ACFD6 /* SMVideoPlayerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMVideoPlayerViewController.h; sourceTree = "<group>"; };
 		508BFA4720ED20BD005ACFD6 /* SMVideoPlayerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMVideoPlayerViewController.m; sourceTree = "<group>"; };
 		50A382FB2460608700098D23 /* XWebController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWebController.swift; sourceTree = "<group>"; };
@@ -1575,6 +1581,10 @@
 		C1E628931764BAD4007ACF2A /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				507B919F24952EF6005D4CA4 /* SMTag.h */,
+				507B919D24952EF5005D4CA4 /* SMTag.m */,
+				507B919E24952EF6005D4CA4 /* SMUserTag.h */,
+				507B919C24952EF5005D4CA4 /* SMUserTag.m */,
 				C1CE10BD18122D7B00B04E15 /* SMParserItem.h */,
 				C1CE10BE18122D7B00B04E15 /* SMParserItem.m */,
 				C1CE10BF18122D7B00B04E15 /* SMVersion.h */,
@@ -2051,6 +2061,7 @@
 				C1E628AC1764C594007ACF2A /* SMSection.m in Sources */,
 				C1ABAB111766107A007DE168 /* SMMainpageCell.m in Sources */,
 				C1BBFD9E1902986E008460B5 /* UIWindow+SMShakeListener.m in Sources */,
+				507B91A024952EF6005D4CA4 /* SMUserTag.m in Sources */,
 				C10F2F7717E5621800F83206 /* SMMailItem.m in Sources */,
 				C1ABAB131766107A007DE168 /* SMMainpageViewController.m in Sources */,
 				C1B68848180824160085DC69 /* SMBoardSearchDelegateImpl.m in Sources */,
@@ -2081,6 +2092,7 @@
 				C1011DAC1779946600E0485D /* UIButton+Custom.m in Sources */,
 				C1E3A22A1780600900994CE6 /* SMUserViewController.m in Sources */,
 				C1F8107318E5B734001B3759 /* FMDatabasePool.m in Sources */,
+				507B91A124952EF6005D4CA4 /* SMTag.m in Sources */,
 				C14B22F917FAC65700CF081A /* SMMailComposeViewController.m in Sources */,
 				C1F8109618E5BA3B001B3759 /* SMPostWebLoaderOperation.m in Sources */,
 				5000D84024659DEF00DED5DE /* SMAuthorActivity.m in Sources */,

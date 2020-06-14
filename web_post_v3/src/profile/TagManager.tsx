@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { setTitle } from "../jsapi";
+import React, { useEffect, useState, ChangeEvent, useRef } from "react";
+import { setTitle, toast, ToastType } from "../jsapi";
 import "./index.css";
+import { loadTags, Tag, saveTags } from "./tagUtil";
 
 setTitle("管理Tags");
 
 export default function AddTag() {
   const [selectedColor, setSelectedColor] = useState("#F44336");
+  const [tags, setTags] = useState<Tag[]>([]);
   const transparent = "#ffffff00";
   const colors = [
     "#F44336",
@@ -23,16 +25,47 @@ export default function AddTag() {
     "#FFEB3B",
     "#FFC107"
   ];
+  const textInput = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    loadTags().then(tags => setTags(tags));
+  }, []);
+  const onAddTagClick = () => {
+    const color = selectedColor;
+    const text = textInput.current?.value;
+    if (!text || text.trim().length === 0) {
+      toast({ type: ToastType.error, message: "请输入Tag" });
+      return;
+    }
+    const ts = [
+      ...tags,
+      {
+        color,
+        text
+      }
+    ];
+    setTags(ts);
+    saveTags(ts);
+  };
   return (
     <div className="main">
       <div className="section-header">管理Tags</div>
-      <div className="cell flex-row">
-        <div className="flex1">
-          <span className="tag">■</span>
-          车迷
+      {tags.map(tag => (
+        <div className="cell flex-row" key={tag.text}>
+          <div className="flex1">
+            <span
+              className="tag"
+              style={{
+                color: tag.color
+              }}
+            >
+              ■
+            </span>
+            {tag.text}
+          </div>
+          <div className="delete">⛔️</div>
         </div>
-        <div className="delete">⛔️</div>
-      </div>
+      ))}
+
       <div className="color-panel">
         {colors.map(color => (
           <div
@@ -59,8 +92,10 @@ export default function AddTag() {
             backgroundColor: selectedColor
           }}
         ></div>
-        <input className="tag-input" placeholder="Tag内容" />
-        <a className="btn-addtag">新增</a>
+        <input className="tag-input" ref={textInput} placeholder="Tag内容" />
+        <a className="btn-addtag" onClick={onAddTagClick}>
+          新增
+        </a>
       </div>
     </div>
   );
