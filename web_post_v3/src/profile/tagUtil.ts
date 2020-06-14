@@ -15,3 +15,15 @@ export async function loadTags() {
 export async function saveTags(tags: Tag[]) {
   return await setStorage(tagsKey, tags);
 }
+
+export async function loadUserTags(user: string) {
+  let tags: Tag[] = [];
+  try {
+    tags = await getStorage(`${tagsKey}_${user}`);
+  } catch (_) {}
+  return tags;
+}
+
+export async function saveUserTags(user: string, tags: Tag[]) {
+  return await setStorage(`${tagsKey}_${user}`, tags);
+}

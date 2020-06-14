@@ -1,5 +1,3 @@
-import { Json } from "../../jsapi";
-
 export function getQuery() {
   const hash = window.location.hash;
   const queryString = hash.split("?")[1] || "";
