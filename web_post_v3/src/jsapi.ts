@@ -288,20 +288,23 @@ export enum ModalStyle {
   modal
 }
 export function xOpen(
-  opts: string | { url: string; type: ModalStyle }
+  opts: string | { url: string; type?: ModalStyle; title?: string }
 ): Promise<boolean> {
-  let url, type;
+  let url, type, title;
 
   if (typeof opts === "string") {
     url = opts;
     type = ModalStyle.push;
+    title = "";
   } else {
     url = opts.url;
-    type = opts.type;
+    type = opts.type || ModalStyle.push;
+    title = opts.title || "";
   }
   return sendMessage("open", {
     url,
-    type
+    type,
+    title
   });
 }
 

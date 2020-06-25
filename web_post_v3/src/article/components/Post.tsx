@@ -57,7 +57,10 @@ const Post: FC<{
 
     function viewAuthor(id: string) {
       const { origin, pathname } = window.location;
-      xOpen(origin + pathname + "#/profile?author=" + (id || author));
+      xOpen({
+        url: origin + pathname + "#/profile?author=" + id,
+        title: `查看用户 - ${id}`
+      });
     }
 
     const dispatch = useDispatch();
@@ -85,11 +88,13 @@ const Post: FC<{
         data-floor={floor}
       >
         <div className="post-title">
-          <div
-            className="tint-color skip-scroll"
-            onClick={() => viewAuthor(author)}
-          >
-            {author}
+          <div>
+            <span
+              className="tint-color skip-scroll"
+              onClick={() => viewAuthor(author)}
+            >
+              {author}
+            </span>
             {nick!.length > 0 ? `(${nick})` : ``}
           </div>
           <div className="post-info">
@@ -130,7 +135,7 @@ const Post: FC<{
                   >
                     &#xe800;
                   </span>
-                  {like.score == 0 ? "  " : like.score}
+                  {like.score == 0 ? "" : like.score}
                 </span>
                 <span
                   className="tint-color skip-scroll"

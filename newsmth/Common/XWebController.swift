@@ -77,7 +77,7 @@ class XWebController: SMViewController, WKURLSchemeHandler, WKScriptMessageHandl
     }
 
     override func viewDidLoad() {
-        title = "正在加载..."
+//        title = title?.count == 0 ? "正在加载..." : title
         holdMyself = ["nope": _nope]
 
         let leakAvioder = XLeakAvoider(messageHandler: self, schemeHandler: self)
@@ -602,9 +602,11 @@ class XWebController: SMViewController, WKURLSchemeHandler, WKScriptMessageHandl
                 return
             }
             let type = parameters["type"] as? Int ?? 0
+            let title = parameters["title"] as? String ?? "正在加载..."
             let vc = XWebController()
             vc.url = url
-            vc.bridges = [:]
+            vc.title = title
+//            vc.bridges = [:]
             if type == 0 {
                 self?.navigationController?.pushViewController(vc, animated: true)
             } else {
