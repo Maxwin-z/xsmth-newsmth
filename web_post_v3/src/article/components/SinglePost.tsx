@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useReducer, useRef } from "react";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "..";
@@ -6,45 +6,70 @@ import { ArticleStatus, IPost } from "../types";
 import Loading from "./Loading";
 import Post from "./Post";
 import { expandSinglePost } from "../groupSlice";
-import { toast } from "../../jsapi";
+import { toast, ajax, ToastType } from "../../jsapi";
 
 const Likes: FC<{ post: IPost }> = ({ post }) => {
-  const doLike = () => {
-    toast({
-      message: "Coming soon"
+  console.log(post);
+  const scoreRef = useRef<HTMLSelectElement>(null);
+  const msgRef = useRef<HTMLTextAreaElement>(null);
+  const doLike = async () => {
+    const msg = (msgRef.current?.value || "").trim();
+    if (msg.length === 0) {
+      toast({
+        type: ToastType.error,
+        message: "请输入短评" + msg
+      });
+      return;
+    }
+    const html = await ajax({
+      url: `http://www.newsmth.net/nForum/article/${post.board}/ajax_add_like/${post.pid}.json`,
+      headers: {
+        "X-Requested-With": "XMLHttpRequest"
+      },
+      method: "POST",
+      data: {
+        score: scoreRef.current?.value || 0,
+        msg
+      }
     });
+    try {
+      const json = JSON.parse(html);
+      toast({
+        type: json.ajax_code === "1801" ? ToastType.success : ToastType.error,
+        message: json.ajax_msg
+      });
+      window.location.reload();
+    } catch (e) {
+      toast({
+        type: ToastType.error,
+        message: e.toString()
+      });
+    }
+    console.log(html);
   };
   return (
     <div className="likes">
-      <ul className="likes-list">
-        {post.likes?.map(like => (
-          <li key={like.user}>
-            <span
-              className={
-                like.score == 0 ? "" : like.score > 0 ? "score_1" : "score_2"
-              }
-            >
-              [{like.score == 0 ? "  " : like.score}]
-            </span>
-            <strong>{like.user}</strong>
-            {like.message}
-            <span className="f006">({like.dateString})</span>
-          </li>
-        ))}
-      </ul>
       <div className="like-compose">
         <textarea
           rows={2}
+          maxLength={30}
           placeholder="请输入您的短评，不超过30个字"
+          ref={msgRef}
         ></textarea>
-        <select>
-          {new Array(11).fill(0).map((_, i) => (
-            <option value={i - 5} key={i} selected={i - 5 == 0}>
-              {i - 5}
-            </option>
-          ))}
-        </select>
-        <button onClick={doLike}>我要Like</button>
+        <div className="like-op">
+          积分
+          <select defaultValue={0} ref={scoreRef}>
+            {new Array(11).fill(0).map((_, i) => (
+              <option value={i - 5} key={i}>
+                {i - 5}
+              </option>
+            ))}
+          </select>
+          <div style={{ flex: 1 }}></div>
+          <button className="btn-like action tint-color" onClick={doLike}>
+            我要Like
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -53,6 +78,7 @@ const Likes: FC<{ post: IPost }> = ({ post }) => {
 const SinglePost: FC<{}> = () => {
   const post = useSelector((state: RootState) => state.group.singlePost);
   const mainPost = useSelector((state: RootState) => state.group.mainPost);
+
   const articleStatus = useSelector(
     (state: RootState) => state.group.articleStatus
   );
@@ -80,7 +106,7 @@ const SinglePost: FC<{}> = () => {
               展开
             </div>
           ) : (
-            <Likes post={post} />
+            <Likes post={{ ...post, board: mainPost.board }} />
           )}
           <div style={{ marginBottom: 100 }}></div>
         </>

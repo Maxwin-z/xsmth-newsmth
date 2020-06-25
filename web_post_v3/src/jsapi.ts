@@ -123,9 +123,11 @@ export function ajax({
   encoding = null
 }: AjaxOption): Promise<string> {
   const _url = new URL(url);
-  Object.keys(data).forEach(key => {
-    _url.searchParams.append(key, "" + data[key]);
-  });
+  if (method === "GET") {
+    Object.keys(data).forEach(key => {
+      _url.searchParams.append(key, "" + data[key]);
+    });
+  }
   // debug, disable cache
   // _url.searchParams.append("_xsmth_disable_cache", "" + new Date().getTime());
 

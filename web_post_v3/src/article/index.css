@@ -256,8 +256,18 @@ textarea {
 .like-compose textarea {
   display: block;
   font-size: inherit;
+  appearance: none;
 }
 
 .like-compose textarea {
   flex: 1;
+  border: 1px solid #ccc;
+  appearance: none;
+  border-radius: 0;
+}
+
+.like-op {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
