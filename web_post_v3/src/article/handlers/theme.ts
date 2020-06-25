@@ -46,6 +46,14 @@ export function setupTheme(style: ITheme) {
   );
 
   sheet.addRule(
+    ".tint-color",
+    style2string({
+      color: style.tintColor
+    }),
+    0
+  );
+
+  sheet.addRule(
     "div.post .action",
     style2string({
       color: style.tintColor,

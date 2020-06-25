@@ -1,9 +1,11 @@
 import React, { FC, memo, useEffect } from "react";
-import { reply, showActivity, xLog } from "../../jsapi";
+import { reply, showActivity, xLog, xOpen } from "../../jsapi";
 import { IPost } from "../types";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "..";
 import { setFloor } from "../groupSlice";
+
+import "../assets/iconfont/css/fontello.css";
 
 export interface IActionPost {
   title: string;
@@ -53,6 +55,11 @@ const Post: FC<{
       showActivity(makeActionPost());
     }
 
+    function viewAuthor(id: string) {
+      const { origin, pathname } = window.location;
+      xOpen(origin + pathname + "#/profile?author=" + (id || author));
+    }
+
     const dispatch = useDispatch();
     useEffect(() => {
       if (scrollToFloor === floor) {
@@ -78,7 +85,10 @@ const Post: FC<{
         data-floor={floor}
       >
         <div className="post-title">
-          <div>
+          <div
+            className="tint-color skip-scroll"
+            onClick={() => viewAuthor(author)}
+          >
             {author}
             {nick!.length > 0 ? `(${nick})` : ``}
           </div>
@@ -109,9 +119,25 @@ const Post: FC<{
                       : "score_2"
                   }
                 >
-                  [{like.score == 0 ? "  " : like.score}]
+                  <span
+                    className={
+                      like.score === 0
+                        ? ""
+                        : like.score > 0
+                        ? "icon-thumbs-up"
+                        : "icon-thumbs-down"
+                    }
+                  >
+                    &#xe800;
+                  </span>
+                  {like.score == 0 ? "  " : like.score}
                 </span>
-                <strong>{like.user}</strong>
+                <span
+                  className="tint-color skip-scroll"
+                  onClick={() => viewAuthor(like.user)}
+                >
+                  {like.user}:
+                </span>
                 {like.message}
                 <span className="f006">({like.dateString})</span>
               </li>

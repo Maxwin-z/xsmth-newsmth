@@ -194,7 +194,7 @@ function formatLikes(dom: HTMLElement): Array<ILike> {
           .trim() || "0",
         10
       );
-      const user = li.querySelector("span.like_user")!.innerHTML;
+      const user = li.querySelector("span.like_user")!.innerHTML.slice(0, -1);
       const message = li.querySelector("span.like_msg")!.innerHTML;
       const dateString = li
         .querySelector("span.like_time")!
