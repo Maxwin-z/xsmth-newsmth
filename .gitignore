@@ -84,3 +84,4 @@ typings/
 # Serverless directories
 .serverless
 
+tools/
