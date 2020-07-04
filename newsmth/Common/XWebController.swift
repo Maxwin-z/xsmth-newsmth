@@ -125,6 +125,7 @@ class XWebController: SMViewController, WKURLSchemeHandler, WKScriptMessageHandl
             "scrollBy": _scrollBy,
             "open": _open,
             "close": _close,
+            "ipInfo": _ipInfo
         ])
 
         navigationController?.presentationController?.delegate = self
@@ -665,6 +666,16 @@ class XWebController: SMViewController, WKURLSchemeHandler, WKScriptMessageHandl
                 promise(.success(true))
             } else {
                 promise(.failure(XBridgeError(code: -1, message: "参数错误: (x, y)")))
+            }
+        }
+    }
+    
+    func _ipInfo(parameters: Any) -> Future<Any, XBridgeError> {
+        return Future { promise in
+            if let ip = parameters as? String {
+                promise(.success(XIPHelper.shared.query(ip: ip)))
+            } else {
+                promise(.failure(XBridgeError(code: -1, message: "参数错误")))
             }
         }
     }

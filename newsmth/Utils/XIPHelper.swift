@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct XIPInfo {
+struct XIPInfo: Codable {
     var country: String
     var province: String
     var city: String
@@ -19,13 +19,36 @@ class XIPHelper {
     static let shared = XIPHelper()
     
     var entry: ip2region_entry = ip2region_entry()
+    private var hasDB = false
     
     private init() {
-        let dbFile = SMUtils.documentPath() + "/remoteresource/ip2region"
-        ip2region_create(&entry, dbFile)
-   }
+        loadDB()
+    }
     
-    func query(ip: String) -> XIPInfo {
+    private func loadDB() {
+        let dbFile =  "/remoteresource/ip2region"
+        if (SMUtils.fileExists(inDocumentFolder: dbFile)) {
+            ip2region_create(&entry, SMUtils.documentPath() + dbFile)
+            hasDB = true
+        }
+    }
+    
+    private func info2json(info: XIPInfo) -> [String: String] {
+        return [
+            "country": info.country,
+            "province": info.province,
+            "city": info.city,
+            "ISP": info.ISP
+        ]
+    }
+
+    func query(ip: String) -> [String: String] {
+        if (!hasDB) {
+            loadDB()
+        }
+        if (!hasDB) {
+            return info2json(info: XIPInfo(country: "", province: "", city: "", ISP: ""))
+        }
         var result: datablock_entry = datablock_entry()
         ip2region_memory_search_string(&entry, ip, &result)
         let info = withUnsafePointer(to: result.region) {
@@ -34,6 +57,6 @@ class XIPHelper {
             }
         }
         let comps = info.components(separatedBy: "|")
-        return XIPInfo(country: comps[0], province: comps[2], city: comps[3], ISP: comps[4])
+        return info2json(info: XIPInfo(country: comps[0], province: comps[2], city: comps[3], ISP: comps[4]))
     }
 }

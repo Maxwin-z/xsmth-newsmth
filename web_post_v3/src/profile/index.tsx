@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from "react";
 import "./index.css";
-import { xOpen, ModalStyle, ajax, Json, download, setTitle } from "../jsapi";
+import {
+  xOpen,
+  ModalStyle,
+  ajax,
+  Json,
+  download,
+  setTitle,
+  ipInfo
+} from "../jsapi";
 import { getQuery } from "../article/utils/urlHelper";
 import { ITag, loadUserTag, loadTags, saveUserTag, IUserTag } from "./tagUtil";
 
@@ -12,6 +20,32 @@ function App() {
   const [userTag, setUserTag] = useState<IUserTag>();
   const [tags, setTags] = useState<ITag[]>([]);
   useEffect(() => {
+    async function getLocation(ip: string) {
+      const matches = ip.match(/^(\d{0,3}\.\d{0,3}\.\d{0,3}\.).*/);
+      if (matches) {
+        let ipStr = matches[1] + "8";
+        let info = null;
+        try {
+          info = await ipInfo(ipStr);
+        } catch (e) {
+          return "";
+        }
+        let location = "";
+        if (info.country !== "中国") {
+          location = info.country;
+        }
+        if (info.city.length > 0 && info.city.indexOf(info.province) === -1) {
+          location += info.province;
+        }
+        location += info.city;
+        if (info.ISP.length > 0) {
+          location += "(" + info.ISP + ")";
+        }
+        return location;
+      }
+      return "";
+    }
+
     async function main() {
       const text = await ajax({
         url: `http://www.newsmth.net/nForum/user/query/${author}.json`,
@@ -19,7 +53,10 @@ function App() {
           "X-Requested-With": "XMLHttpRequest"
         }
       });
+
       const user = JSON.parse(text);
+      user.location = await getLocation(user.last_login_ip);
+
       setUser(user);
       setUserTag(await loadUserTag(author));
       setTags(await loadTags());
@@ -75,7 +112,9 @@ function App() {
             ) : (
               <span className="offline">●离线</span>
             )}{" "}
-            <span className="location">{user.last_login_ip}</span>
+            <span className="location">
+              {user.location || user.last_login_ip}
+            </span>
           </div>
         </div>
       </div>

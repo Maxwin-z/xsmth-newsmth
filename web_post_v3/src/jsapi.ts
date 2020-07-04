@@ -319,3 +319,13 @@ export function openPostPage(url: string): Promise<boolean> {
 export function tapImage(url: string): Promise<boolean> {
   return sendMessage("tapImage", url);
 }
+
+export interface IIPInfo {
+  country: string;
+  province: string;
+  city: string;
+  ISP: string;
+}
+export function ipInfo(ip: string): Promise<IIPInfo> {
+  return sendMessage("ipInfo", ip);
+}
