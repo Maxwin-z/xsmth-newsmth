@@ -32,3 +32,5 @@
 #import "SMMailComposeViewController.h"
 #import "XImageViewCache.h"
 #import "SMImageViewerViewController.h"
+
+#import "ip2region.h"
