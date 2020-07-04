@@ -136,7 +136,7 @@ export function formatPost(
   // remove <a> around <img />
   content = content.replace(/<a .*?>(<ximg.+?>)<\/a>/g, "$1");
   // replace images
-  const imageProtocol = "http:";
+  const imageProtocol = "https:";
   content = content.replace(
     /<ximg.*? src="(.+?)".*?>/gi,
     (_: string, src: string) => {
