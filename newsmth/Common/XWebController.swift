@@ -358,7 +358,10 @@ class XWebController: SMViewController, WKURLSchemeHandler, WKScriptMessageHandl
                 let method = opts["method"] as? String == "POST" ? HTTPMethod.post: HTTPMethod.get
                 let parameters = opts["data"] as? Parameters
                 if let url = opts["url"] as? String {
-                    SMAF.request(url, method: method, parameters: parameters, headers: headers).response { rsp in
+                    SMAF.request(url,
+                                 method: method,
+                                 parameters: parameters,
+                                 headers: headers).response { rsp in
                         if case let .failure(error) = rsp.result {
                             debugPrint(error.errorDescription ?? "")
                             promise(.failure(XBridgeError(code: -1, message: "AFError:" + (error.errorDescription ?? "unknown error"))))

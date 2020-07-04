@@ -32,9 +32,7 @@ class SMSession: NSObject {
         monitor.requestDidFinish = { request in
             if let headers = request.response?.headers {
                 if let cookies = headers.value(for: "Set-Cookie") {
-                    debugPrint("4444444", cookies)
                     if cookies.contains("main[UTMPUSERID]") {
-                        debugPrint("454545, login status changed")
                         SMAccountManager.instance()?.refreshStatus()
                     }
                 }

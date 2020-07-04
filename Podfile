@@ -9,7 +9,7 @@ target "newsmth" do
   pod 'TOWebViewController', '2.2.8'
   pod 'JPVideoPlayer'
   pod 'ASIHTTPRequest'
-  pod 'Alamofire', '~> 5.0.0-rc.3'
+  pod 'Alamofire', '~> 5.2'
   pod 'MMKV'
   pod 'Loaf'
 end

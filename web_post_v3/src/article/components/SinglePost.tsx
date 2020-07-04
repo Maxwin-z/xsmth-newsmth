@@ -22,9 +22,11 @@ const Likes: FC<{ post: IPost }> = ({ post }) => {
       return;
     }
     const html = await ajax({
-      url: `http://www.newsmth.net/nForum/article/${post.board}/ajax_add_like/${post.pid}.json`,
+      url: `https://www.newsmth.net/nForum/article/${post.board}/ajax_add_like/${post.pid}.json`,
       headers: {
-        "X-Requested-With": "XMLHttpRequest"
+        "X-Requested-With": "XMLHttpRequest",
+        "Content-Type": "application/x-www-form-urlencoded",
+        referer: "https://www.newsmth.net/nForum/"
       },
       method: "POST",
       data: {
