@@ -40,8 +40,8 @@ class SMPostViewControllerV4: XWebController {
 
     override func viewDidLoad() {
         if post != nil {
-            url = URL(string: "http://10.0.0.11:3000/#/")
-//            url = URL(string: "http://public-1255362875.cos.ap-shanghai.myqcloud.com/xsmth/v4.2.0/index.html#/")
+//            url = URL(string: "http://10.0.0.11:3000/#/")
+            url = URL(string: "http://public-1255362875.cos.ap-shanghai.myqcloud.com/xsmth/v4.2.0/index.html#/")
         }
 
         super.viewDidLoad()
@@ -108,6 +108,10 @@ class SMPostViewControllerV4: XWebController {
         
         alert.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
         
+        if SMConfig.iPadMode() {
+            alert.popoverPresentationController?.sourceView = self.view
+            alert.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.size.width / 2, y: self.view.bounds.size.height / 2, width: 1, height: 1)
+        }
         present(alert, animated: true, completion: nil)
     }
 
@@ -445,6 +449,11 @@ class SMPostViewControllerV4: XWebController {
                 self?.navigationController?.pushViewController(vc, animated: true)
             }))
             alert.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+
+            if SMConfig.iPadMode() {
+                alert.popoverPresentationController?.sourceView = weakSelf.view
+                alert.popoverPresentationController?.sourceRect = CGRect(x: weakSelf.view.bounds.size.width / 2, y: weakSelf.view.bounds.size.height / 2, width: 1, height: 1)
+            }
             weakSelf.present(alert, animated: true, completion: nil)
         }
     }
@@ -494,6 +503,10 @@ class SMPostViewControllerV4: XWebController {
                 }
             }))
             alert.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+            if SMConfig.iPadMode() {
+                alert.popoverPresentationController?.sourceView = self.view
+                alert.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.size.width / 2, y: self.view.bounds.size.height / 2, width: 1, height: 1)
+            }
             self.present(alert, animated: true, completion: nil)
         }) {}
     }
