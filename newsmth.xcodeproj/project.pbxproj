@@ -18,6 +18,7 @@
 		5000D84024659DEF00DED5DE /* SMAuthorActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 5000D83E24659DEF00DED5DE /* SMAuthorActivity.m */; };
 		50457F98247A770400F74CA0 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50457F97247A770400F74CA0 /* StoreKit.framework */; };
 		504F7B8C2352FEC200009940 /* SMBoardHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 504F7B8B2352FEC200009940 /* SMBoardHistoryViewController.m */; };
+		505352CA24DFD20B0059F2A6 /* SMLoginViewControllerV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505352C924DFD20B0059F2A6 /* SMLoginViewControllerV2.swift */; };
 		507B91A024952EF6005D4CA4 /* SMUserTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 507B919C24952EF5005D4CA4 /* SMUserTag.m */; };
 		507B91A124952EF6005D4CA4 /* SMTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 507B919D24952EF5005D4CA4 /* SMTag.m */; };
 		508BFA4820ED20BD005ACFD6 /* SMVideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 508BFA4720ED20BD005ACFD6 /* SMVideoPlayerViewController.m */; };
@@ -353,6 +354,7 @@
 		50457F97247A770400F74CA0 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		504F7B8A2352FEC200009940 /* SMBoardHistoryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMBoardHistoryViewController.h; sourceTree = "<group>"; };
 		504F7B8B2352FEC200009940 /* SMBoardHistoryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMBoardHistoryViewController.m; sourceTree = "<group>"; };
+		505352C924DFD20B0059F2A6 /* SMLoginViewControllerV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMLoginViewControllerV2.swift; sourceTree = "<group>"; };
 		507B919C24952EF5005D4CA4 /* SMUserTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMUserTag.m; sourceTree = "<group>"; };
 		507B919D24952EF5005D4CA4 /* SMTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMTag.m; sourceTree = "<group>"; };
 		507B919E24952EF6005D4CA4 /* SMUserTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMUserTag.h; sourceTree = "<group>"; };
@@ -1441,6 +1443,7 @@
 				C1B9D5851BB7DC5F00AE4699 /* SMOfflineFavorTableViewController.m */,
 				C115816A17685606008A421A /* SMLoginViewController.h */,
 				C115816B17685606008A421A /* SMLoginViewController.m */,
+				505352C924DFD20B0059F2A6 /* SMLoginViewControllerV2.swift */,
 				C115816C17685606008A421A /* SMLoginViewController.xib */,
 				C19FF0B31769A7A700EB6F7E /* SMViewControllerPopover.xib */,
 				C1FD13BA17815BD1006A6061 /* SMViewControllerNeedLogin.xib */,
@@ -2143,6 +2146,7 @@
 				C1BA92C917954EC300F76ACF /* PBWebViewController.m in Sources */,
 				C1C07A581796857900906ED7 /* OWActivity.m in Sources */,
 				C1CBC4B619CDAD3D0074E1B7 /* SMForwardActivity.m in Sources */,
+				505352CA24DFD20B0059F2A6 /* SMLoginViewControllerV2.swift in Sources */,
 				50A382FC2460608700098D23 /* XWebController.swift in Sources */,
 				C1F8D81118D3313D0076A790 /* SMDiagnoseViewController.m in Sources */,
 				C14B230417FB189B00CF081A /* SMPageCell.m in Sources */,
