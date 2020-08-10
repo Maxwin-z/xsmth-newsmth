@@ -20,24 +20,52 @@ class SMLoginViewControllerV2: XWebController{
     override func viewDidLoad() {
         self.url = URL(string: "https://m.newsmth.net/index")
         super.viewDidLoad()
+        self.title = "登录"
     }
     
     override func webView(_: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        webView.configuration.websiteDataStore.httpCookieStore.getAllCookies { [weak self] cookies in
-            cookies.forEach { cookie in
-                debugPrint(2222, cookie)
-                HTTPCookieStorage.shared.setCookie(cookie)
-            }
-            SMAccountManager.instance()?.setCookies(cookies)
-            if (SMAccountManager.instance()?.isLogin == true) {
-                self?.loginSuccess()
+        if (navigationAction.request.url?.host == "m.newsmth.net") {
+            debugPrint(navigationAction.request.url?.absoluteString ?? "")
+            webView.configuration.websiteDataStore.httpCookieStore.getAllCookies { [weak self] cookies in
+                cookies.forEach { cookie in
+                    if (cookie.domain == ".newsmth.net") {
+                        debugPrint(2222, cookie)
+                        HTTPCookieStorage.shared.setCookie(cookie)
+                    }
+                }
+                SMAccountManager.instance()?.setCookies(cookies)
+                if (SMAccountManager.instance()?.isLogin == true) {
+                    self?.loginSuccess()
+                }
             }
         }
         decisionHandler(.allow)
     }
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        
+        let js = """
+            const selectors = [
+              "#ad_container",
+              ".slist.sec",
+              ".logo.sp",
+              ".menu.sp",
+              ".menu.nav"
+            ];
+            selectors.forEach(sel => {
+              [...document.querySelectorAll(sel)].forEach(dom => (dom.hidden = true));
+            });
+
+            const enlarges = ["#u_login", "#u_login input"];
+            enlarges.forEach(sel => {
+              [...document.querySelectorAll(sel)].forEach(dom => {
+                dom.style = dom.style || {};
+                dom.style.fontSize = "120%";
+              });
+            });
+        document.body.style.color = "\(SMUtils.hex(from: SMTheme.colorForPrimary()) ?? "#666")"
+        """
+        debugPrint(js)
+        webView.evaluateJavaScript(js, completionHandler: nil)
     }
     
     func loginSuccess() {

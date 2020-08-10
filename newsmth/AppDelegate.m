@@ -281,25 +281,8 @@
         _completionHandler = completionHandler;
         [_keepLoginOp loadUrl:URL_PROTOCOL @"//m.newsmth.net/user/query/" withParser:@"notice,util_notice"];
     } else {
-        NSString *user = [[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_USERNAME];
-        NSString *passwd =  [[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_PASSWORD];
-        if (user && passwd) {
-            SMHttpRequest *request = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:URL_PROTOCOL @"//m.newsmth.net/user/login"]];
-            NSString *postBody = [NSString stringWithFormat:@"id=%@&passwd=%@&save=on", user, passwd];
-            [request setRequestMethod:@"POST"];
-            [request addRequestHeader:@"Content-type" value:@"application/x-www-form-urlencoded"];
-            [request setPostBody:[[postBody dataUsingEncoding:NSUTF8StringEncoding] mutableCopy]];
-            
-            [_loginOp cancel];
-            _loginOp = [[SMWebLoaderOperation alloc] init];
-            _loginOp.delegate = self;
-            _completionHandler = completionHandler;
-            [_loginOp loadRequest:request withParser:@"notice,util_notice"];
-        } else {
-//            [self showNotification:@"no account, stop bg fetch"];
-            [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalNever];
+        [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalNever];
             completionHandler(UIBackgroundFetchResultNoData);
-        }
     }
 
 //    NSURL *url = [NSURL URLWithString:URL_PROTOCOL @"//m.newsmth.net/user/query/"];
