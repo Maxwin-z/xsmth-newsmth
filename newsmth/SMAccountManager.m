@@ -8,6 +8,7 @@
 
 #import "SMAccountManager.h"
 #import "SMWebLoaderOperation.h"
+#import <WebKit/WebKit.h>
 
 #define COOKIE_USERID   @"main[UTMPUSERID]"
 
@@ -102,13 +103,17 @@ static SMAccountManager *_instance;
             if ([name isEqualToString:@"guest"] || isExpired) {    // login status
                 name = nil;
                 self.notice = nil;
+                NSSet *websiteDataTypes = [NSSet setWithArray:@[WKWebsiteDataTypeCookies]];
+                NSDate *dateFrom = [NSDate dateWithTimeIntervalSince1970:0];
+                [[WKWebsiteDataStore defaultDataStore] removeDataOfTypes:websiteDataTypes modifiedSince:dateFrom completionHandler:^{
+                }];
             }
             
             // notify account changed.
             XLog_d(@"account: %@ -> %@", _name, name);
             if ((name != nil || _name != nil) && ![name isEqualToString:_name]) {
                 _name = name;
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ACCOUT object:nil];
                 });
             }

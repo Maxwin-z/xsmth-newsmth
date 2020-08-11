@@ -16,3 +16,26 @@ enlarges.forEach(sel => {
     dom.style.fontSize = "120%";
   });
 });
+
+const idEl = document.querySelector('[name="id"]');
+const passwdEl = document.querySelector('[name="passwd"]');
+const saveEl = document.querySelector('[name="save"]');
+saveEl.checked = true;
+const key = "_xsmth_userinfo";
+const userinfo = window.localStorage.getItem(key);
+if (userinfo) {
+  try {
+    const { id, passwd } = JSON.parse(userinfo);
+    idEl.value = id;
+    passwdEl.value = passwd;
+  } catch (ignore) {
+    console.log(ignore);
+  }
+}
+
+document.getElementById("TencentCaptcha").addEventListener("click", () => {
+  window.localStorage.setItem(
+    key,
+    JSON.stringify({ id: idEl.value, passwd: passwdEl.value })
+  );
+});

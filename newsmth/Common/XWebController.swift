@@ -150,9 +150,7 @@ class XWebController: SMViewController, WKURLSchemeHandler, WKScriptMessageHandl
 
     @objc
     func onDoneButtonClick() {
-        navigationController?.dismiss(animated: true, completion: nil)
-        dismiss(animated: false, completion: nil)
-        removeMe()
+       close()
     }
 
 //    func methodPointer<T: AnyObject>(obj: T, m: @escaping(T) -> XBridgeFunc, parameters: Any) -> XBridgeFunc {
@@ -176,6 +174,12 @@ class XWebController: SMViewController, WKURLSchemeHandler, WKScriptMessageHandl
             weakSelf?.holdMyself.removeAll()
             weakSelf?.bridges.removeAll()
         }
+    }
+    
+    func close() {
+        navigationController?.dismiss(animated: true, completion: nil)
+        dismiss(animated: false, completion: nil)
+        removeMe()
     }
     
     override func viewWillDisappear(_ animated: Bool) {

@@ -12,7 +12,7 @@ import WebKit
 class SMLoginViewControllerV2: XWebController{
     typealias fn = () -> Void
     
-    var target: NSObject?
+    weak var target: NSObject?
     var selector: Selector?
     var successFunc: fn?
     var failFunc: fn?
@@ -24,6 +24,14 @@ class SMLoginViewControllerV2: XWebController{
     }
     
     override func webView(_: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        debugPrint("request: ", navigationAction.request.url ?? "")
+
+        if ((navigationAction.request.url?.host ?? "").contains("google")) {
+            debugPrint("cancel ", navigationAction.request.url ?? "")
+            decisionHandler(.cancel)
+            return
+        }
+        
         if (navigationAction.request.url?.host == "m.newsmth.net") {
             debugPrint(navigationAction.request.url?.absoluteString ?? "")
             webView.configuration.websiteDataStore.httpCookieStore.getAllCookies { [weak self] cookies in
@@ -44,7 +52,7 @@ class SMLoginViewControllerV2: XWebController{
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         let js = """
-            const selectors = [
+           const selectors = [
               "#ad_container",
               ".slist.sec",
               ".logo.sp",
@@ -62,7 +70,32 @@ class SMLoginViewControllerV2: XWebController{
                 dom.style.fontSize = "120%";
               });
             });
-        document.body.style.color = "\(SMUtils.hex(from: SMTheme.colorForPrimary()) ?? "#666")"
+            
+            const idEl = document.querySelector('[name="id"]');
+            const passwdEl = document.querySelector('[name="passwd"]');
+            const saveEl = document.querySelector('[name="save"]');
+            saveEl.checked = true;
+            const key = "_xsmth_userinfo";
+            const userinfo = window.localStorage.getItem(key);
+            if (userinfo) {
+              try {
+                const { id, passwd } = JSON.parse(userinfo);
+                idEl.value = id;
+                passwdEl.value = passwd;
+              } catch (ignore) {
+                console.log(ignore);
+              }
+            }
+
+            document.getElementById("TencentCaptcha").addEventListener("click", () => {
+              window.localStorage.setItem(
+                key,
+                JSON.stringify({ id: idEl.value, passwd: passwdEl.value })
+              );
+            });
+
+
+            document.body.style.color = "\(SMUtils.hex(from: SMTheme.colorForPrimary()) ?? "#666")"
         """
         debugPrint(js)
         webView.evaluateJavaScript(js, completionHandler: nil)
@@ -75,7 +108,10 @@ class SMLoginViewControllerV2: XWebController{
         if (self.successFunc != nil) {
             self.successFunc!()
         }
-        self.dismiss(animated: true, completion: nil)
+        self.close()
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+//            self?.navigationController?.dismiss(animated: true, completion: nil)
+//        }
     }
     
     /*
