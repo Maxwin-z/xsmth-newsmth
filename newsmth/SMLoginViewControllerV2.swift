@@ -18,9 +18,49 @@ class SMLoginViewControllerV2: XWebController{
     var failFunc: fn?
     
     override func viewDidLoad() {
-        self.url = URL(string: "https://m.newsmth.net/index")
+//        self.url = URL(string: "https://m.newsmth.net/index")
+        self.url = nil
         super.viewDidLoad()
         self.title = "登录"
+        let blockRules = """
+           [{
+               "trigger": {
+                   "url-filter": ".*google.*",
+                   "resource-type": ["script"]
+               },
+               "action": {
+                   "type": "block"
+               }
+           }, {
+               "trigger": {
+                   "url-filter": ".*hm.baidu.*",
+                   "resource-type": ["script"]
+               },
+               "action": {
+                   "type": "block"
+               }
+           }, {
+               "trigger": {
+                   "url-filter": ".*mysmth.net.*",
+                   "resource-type": ["script"]
+               },
+               "action": {
+                   "type": "block"
+               }
+           }]
+        """
+        WKContentRuleListStore.default().compileContentRuleList(
+            forIdentifier: "ContentBlockingRules",
+            encodedContentRuleList: blockRules) { (contentRuleList, error) in
+                if error != nil {
+                    return
+                }
+
+                let configuration = self.webView.configuration
+                configuration.userContentController.add(contentRuleList!)
+                let request = URLRequest(url: URL(string: "https://m.newsmth.net/index")!)
+                self.webView.load(request)
+        }
     }
     
     override func webView(_: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
