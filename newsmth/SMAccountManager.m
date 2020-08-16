@@ -9,6 +9,7 @@
 #import "SMAccountManager.h"
 #import "SMWebLoaderOperation.h"
 #import <WebKit/WebKit.h>
+#import <MMKV/MMKV.h>
 
 #define COOKIE_USERID   @"main[UTMPUSERID]"
 
@@ -107,6 +108,7 @@ static SMAccountManager *_instance;
                 NSDate *dateFrom = [NSDate dateWithTimeIntervalSince1970:0];
                 [[WKWebsiteDataStore defaultDataStore] removeDataOfTypes:websiteDataTypes modifiedSince:dateFrom completionHandler:^{
                 }];
+                [self autoLogin];
             }
             
             // notify account changed.
@@ -132,10 +134,21 @@ static SMAccountManager *_instance;
         XLog_d(@"autologin 重试时间较短，稍后重试");
         return ;
     }
-    NSString *user = [[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_USERNAME];
-    NSString *passwd =  [[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_PASSWORD];
-    BOOL autoLogin = [[NSUserDefaults standardUserDefaults] boolForKey:USERDEFAULTS_AUTOLOGIN];
-    if (autoLogin && user && passwd) {
+    NSString *user = nil;
+    NSString *passwd = nil;
+    NSString *data = [[MMKV defaultMMKV] getStringForKey:@"_xsmth_userinfo"];
+    if (data != nil) {
+        NSDictionary *json = [SMUtils string2json:data];
+        if (json != nil) {
+            NSDictionary *value = json[@"value"];
+            if (value != nil) {
+                user = value[@"id"];
+                passwd = value[@"passwd"];
+            }
+        }
+    }
+//    BOOL autoLogin = [[NSUserDefaults standardUserDefaults] boolForKey:USERDEFAULTS_AUTOLOGIN];
+    if (user && passwd) {
         self.lastAutoLoginTime = [NSDate timeIntervalSinceReferenceDate];
         XLog_d(@"try autologin");
         SMHttpRequest *request = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:URL_PROTOCOL @"//m.newsmth.net/user/login"]];

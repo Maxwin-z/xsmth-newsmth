@@ -128,12 +128,20 @@ class SMLoginViewControllerV2: XWebController{
             }
 
             document.getElementById("TencentCaptcha").addEventListener("click", () => {
-              window.localStorage.setItem(
-                key,
-                JSON.stringify({ id: idEl.value, passwd: passwdEl.value })
-              );
+              const userinfo = {
+                id: idEl.value,
+                passwd: passwdEl.value
+              };
+              window.localStorage.setItem(key, JSON.stringify(userinfo));
+              window.webkit.messageHandlers.nativeBridge.postMessage({
+                methodName: "setStorage",
+                parameters: {
+                  key: "_xsmth_userinfo",
+                  value: userinfo
+                },
+                callbackID: 0
+              });
             });
-
 
             document.body.style.color = "\(SMUtils.hex(from: SMTheme.colorForPrimary()) ?? "#666")"
         """
