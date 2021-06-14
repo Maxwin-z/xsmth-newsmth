@@ -64,7 +64,7 @@ typedef NS_ENUM(NSInteger, CellType) {
     _tableView.scrollsToTop = NO;
     
     frame = _viewForSetting.frame;
-    frame.origin.y = IS_IPHONE_X ? 44.0f : 20.0f;
+    frame.origin.y = SM_STATUS_BAR_HEIGHT;//IS_IPHONE_X ? 44.0f : 20.0f;
     _viewForSetting.frame = frame;
     [self.view addSubview:_viewForSetting];
 
