@@ -48,7 +48,7 @@ static SMFavorListViewController *_instance;
         self.title = @"收藏";
     }
     if (self.url == nil) {
-        self.url = URL_PROTOCOL @"//m.newsmth.net/favor";
+        self.url = URL_PROTOCOL @"//m.mysmth.net/favor";
     }
     [self accountChanged];
 }

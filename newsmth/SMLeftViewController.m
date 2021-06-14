@@ -135,7 +135,7 @@ typedef NS_ENUM(NSInteger, CellType) {
         [_keepLoginOp cancel];
         _keepLoginOp = [[SMWebLoaderOperation alloc] init];
         _keepLoginOp.delegate = self;
-        [_keepLoginOp loadUrl:URL_PROTOCOL @"//m.newsmth.net/user/query/" withParser:@"notice,util_notice"];
+        [_keepLoginOp loadUrl:URL_PROTOCOL @"//m.mysmth.net/user/query/" withParser:@"notice,util_notice"];
     }
 }
 
@@ -232,7 +232,7 @@ typedef NS_ENUM(NSInteger, CellType) {
         evt = @"user";
     } else if (cellType == CellTypeSections) {
         SMSectionViewController *tvc = [SMSectionViewController instance];
-        tvc.url = URL_PROTOCOL @"//m.newsmth.net/section";
+        tvc.url = URL_PROTOCOL @"//m.mysmth.net/section";
         vc = tvc;
         evt = @"section";
     } else if (cellType == CellTypeSetting) {

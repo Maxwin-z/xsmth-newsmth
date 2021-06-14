@@ -42,7 +42,7 @@ DEPENDENCIES:
   - WKVerticalScrollBar
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - ActionSheetPicker-3.0
     - Alamofire
     - ASIHTTPRequest
@@ -68,4 +68,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: c846f288607b60d830eae2778913e6e2625f69e2
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.10.1

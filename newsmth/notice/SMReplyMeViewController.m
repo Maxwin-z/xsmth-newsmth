@@ -68,7 +68,7 @@
 
 - (void)onRightBarButtonItemClick:(UIBarButtonItem *)item
 {
-    NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//m.newsmth.net/refer/%@/read?index=all", _refer];
+    NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//m.mysmth.net/refer/%@/read?index=all", _refer];
     self.allReadOp = [[SMWebLoaderOperation alloc] init];
     self.allReadOp.delegate = self;
     [self.allReadOp loadUrl:url withParser:nil];
@@ -82,10 +82,10 @@
         ++_page;
     }
     
-//    NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//www.newsmth.net/nForum/refer/%@?ajax&p=%@", _refer, @(_page)];
+//    NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//www.mysmth.net/nForum/refer/%@?ajax&p=%@", _refer, @(_page)];
     
-    // http://www.newsmth.net/nForum/refer/reply?ajax
-    NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//www.newsmth.net/nForum/refer/%@?ajax&p=%@", _refer, @(_page)];
+    // http://www.mysmth.net/nForum/refer/reply?ajax
+    NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//www.mysmth.net/nForum/refer/%@?ajax&p=%@", _refer, @(_page)];
 
     
     [_op cancel];
@@ -134,7 +134,7 @@
     }
 
     SMPost *post = _posts[indexPath.row];
-//    NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//m.newsmth.net/refer/%@/read?index=%d", _refer, post.gid];
+//    NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//m.mysmth.net/refer/%@/read?index=%d", _refer, post.gid];
 //    SMPostViewController *vc = [[SMPostViewController alloc] init];
 //    vc.postUrl = url;
     SMPostViewControllerV4 *vc = [SMPostViewControllerV4 new];

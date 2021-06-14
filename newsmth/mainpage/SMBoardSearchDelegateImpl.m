@@ -116,7 +116,7 @@
         };
         
         if (searchString.length >= 2) {
-            [op loadUrl:[NSString stringWithFormat:@"http://m.newsmth.net/go?name=%@", searchString] withParser:@"boardlist"];
+            [op loadUrl:[NSString stringWithFormat:@"http://m.mysmth.net/go?name=%@", searchString] withParser:@"boardlist"];
         }
     } else {
         filters = [SMConfig historyBoards];

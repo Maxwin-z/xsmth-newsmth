@@ -100,7 +100,7 @@
 
 - (IBAction)onLoginButtonClick:(id)sender
 {
-    SMHttpRequest *request = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:URL_PROTOCOL @"//m.newsmth.net/user/login"]];
+    SMHttpRequest *request = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:URL_PROTOCOL @"//m.mysmth.net/user/login"]];
     NSString *username = [SMUtils encodeurl:_textFieldForUsername.text];
     NSString *password = [SMUtils encodeurl:_textFieldForPassword.text];
     
@@ -141,7 +141,7 @@
 
 - (IBAction)onRegisterButtonClick:(id)sender
 {
-    NSURL *url = [NSURL URLWithString:@"http://www.newsmth.net/nForum/#!reg"];
+    NSURL *url = [NSURL URLWithString:@"http://www.mysmth.net/nForum/#!reg"];
     SFSafariViewController *safari = [[SFSafariViewController alloc] initWithURL:url];
     safari.modalPresentationStyle = UIModalPresentationAutomatic;
     if ([SMUtils isPad]) {
@@ -184,7 +184,7 @@
     
     if (++self.failTimes > 1) {
         self.failTimes = 0;
-        [SMDiagnoseViewController diagnose:URL_PROTOCOL @"//m.newsmth.net" rootViewController:self];
+        [SMDiagnoseViewController diagnose:URL_PROTOCOL @"//m.mysmth.net" rootViewController:self];
     }
 }
 

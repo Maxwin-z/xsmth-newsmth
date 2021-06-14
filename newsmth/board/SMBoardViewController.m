@@ -216,13 +216,13 @@
     }
     NSString *url;
     if (_viewTypeSelector.viewType == SMBoardViewTypeTztSortByReply) {
-//        url = [NSString stringWithFormat:URL_PROTOCOL @"//m.newsmth.net/board/%@?p=%d", _board.name, _page];
-        url = [NSString stringWithFormat:URL_PROTOCOL @"//www.newsmth.net/nForum/board/%@?ajax&p=%d", _board.name, _page];
-//        http://www.newsmth.net/nForum/board/Apple?ajax&p=2
+//        url = [NSString stringWithFormat:URL_PROTOCOL @"//m.mysmth.net/board/%@?p=%d", _board.name, _page];
+        url = [NSString stringWithFormat:URL_PROTOCOL @"//www.mysmth.net/nForum/board/%@?ajax&p=%d", _board.name, _page];
+//        http://www.mysmth.net/nForum/board/Apple?ajax&p=2
     } else if (_viewTypeSelector.viewType == SMBoardViewTypeNormal) {
-        url = [NSString stringWithFormat:URL_PROTOCOL @"//m.newsmth.net/board/%@/0?p=%d", _board.name, _page];
+        url = [NSString stringWithFormat:URL_PROTOCOL @"//m.mysmth.net/board/%@/0?p=%d", _board.name, _page];
     } else {
-        url = [NSString stringWithFormat:URL_PROTOCOL @"//www.newsmth.net/bbsdoc.php?board=%@&ftype=6", _board.name];
+        url = [NSString stringWithFormat:URL_PROTOCOL @"//www.mysmth.net/bbsdoc.php?board=%@&ftype=6", _board.name];
         if (more) {
             url = [NSString stringWithFormat:@"%@&page=%d", url, _currentPage - 1];
         }
@@ -329,7 +329,7 @@
         vc = postVc;
     } else {
         SMPostViewController *singlePVC = [[SMPostViewController alloc] init];
-        singlePVC.postUrl = [NSString stringWithFormat:URL_PROTOCOL @"//m.newsmth.net/article/%@/single/%d/0", _board.name, post.gid];
+        singlePVC.postUrl = [NSString stringWithFormat:URL_PROTOCOL @"//m.mysmth.net/article/%@/single/%d/0", _board.name, post.gid];
         singlePVC.fromBoard = YES;
         vc = singlePVC;
     }
@@ -459,7 +459,7 @@
 - (void)doAddFavor
 {
     SMWebLoaderOperation *favorOp = [SMWebLoaderOperation new];
-    NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//www.newsmth.net/bbsfav.php?bname=%@&select=0", _board.name];
+    NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//www.mysmth.net/bbsfav.php?bname=%@&select=0", _board.name];
     [favorOp loadUrl:url withParser:nil];
     
     [SMUtils trackEventWithCategory:@"board" action:@"favor" label:_board.name];
