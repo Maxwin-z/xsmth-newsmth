@@ -570,7 +570,7 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
                 let forwardAll = SMForwardAllActivity()
                 let mailTo = SMMailToActivity()
                 let spam = SMSpamActivity()
-                let urlString = "https://m.newsmth.net/article/\(p.board.name!)/single/\(p.pid)/0"
+                let urlString = "https://m.mysmth.net/article/\(p.board.name!)/single/\(p.pid)/0"
                 let url = URL(string: urlString)
                 var activities = [singleAuthor, forward, forwardAll, mailTo, spam]
                 if (p.author == SMAccountManager.instance()?.name) {
@@ -907,7 +907,7 @@ class SMPostViewControllerV4 : SMViewController, WKURLSchemeHandler, WKScriptMes
                 let weakSelf = self else { return }
                 debugPrint("alert", userText)
                 weakSelf.mmkv.set(userText, forKey: mmkvKey_forwardTarget)
-                let url = "https://m.newsmth.net/article/\(p.board.name!)/forward/\(p.pid)"
+                let url = "https://m.mysmth.net/article/\(p.board.name!)/forward/\(p.pid)"
                 SMAF.request(url, method: .post, parameters: ["target": userText, "threads": all ? "on" : ""]).response { response in
                     debugPrint(response)
                     do {

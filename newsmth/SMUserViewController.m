@@ -91,7 +91,7 @@
                     [NSCharacterSet whitespaceCharacterSet]];
         self.title = username;
         
-        NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//www.newsmth.net/bbsqry.php?userid=%@", username];
+        NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//www.mysmth.net/bbsqry.php?userid=%@", username];
         [_userInfoOp loadUrl:url withParser:@"bbsqry"];
     }
     
@@ -112,7 +112,7 @@
 {
     [_logoutOp cancel];
     _logoutOp = [[SMWebLoaderOperation alloc] init];
-    [_logoutOp loadUrl:URL_PROTOCOL @"//m.newsmth.net/user/logout" withParser:nil];
+    [_logoutOp loadUrl:URL_PROTOCOL @"//m.mysmth.net/user/logout" withParser:nil];
     
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:USERDEFAULTS_AUTOLOGIN];
     
