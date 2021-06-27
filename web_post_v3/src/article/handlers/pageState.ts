@@ -1,48 +1,55 @@
 import { AppThunk, RootState } from "..";
-import {
-  setStorage,
-  getStorage,
-  unloaded,
-  removeStorage
-} from "../utils/jsapi";
+import { setStorage, getStorage, unloaded, removeStorage } from "../../jsapi";
 import { IMainPost, Status } from "../types";
 import { restorePage } from "../groupSlice";
 
 function storageKey(post: IMainPost) {
-  return `post_${post.board}_${post.gid}`;
+  return `post_${post.board}_${post.gid}_${post.author || ""}`;
 }
 
-export const saveInstance = (): AppThunk => async (dispatch, getState) => {
+export const saveInstance = (andUnload: boolean): AppThunk => async (
+  dispatch,
+  getState
+) => {
   const state = getState();
   const post = state.group.mainPost;
   if (!post) {
     return;
   }
   const group = { ...state.group };
+  const domHeights: { [x: number]: number } = {};
   group.pageScrollY = window.scrollY;
+  group.taskCount = 0;
   group.pages = group.pages.map(page => {
     if (page.status !== Status.success) {
       return Object.assign({}, page, {
         status: Status.init
       });
     }
+    page.posts.forEach(post => {
+      const dom = document.querySelector(`[data-floor="${post.floor}"]`);
+      if (dom) {
+        domHeights[post.floor] = Math.ceil(dom.getBoundingClientRect().height);
+      }
+    });
     return page;
   });
+  group.domHeights = domHeights;
   group.tasks = group.tasks.map(task => {
     const t = Object.assign({}, task, {
       status: Status.init
     });
-    console.log(t);
+    // console.log(t);
     return t;
   });
   const imageTask = { ...state.imageTask };
   imageTask.images = imageTask.images.map(img =>
-    Object.assign({}, img, { staus: Status.init })
+    Object.assign({}, img, { status: Status.init })
   );
   const instance = { ...state, group, imageTask };
-  //   console.log("save instance", instance);
+  // console.log("save instance", instance);
   await setStorage(storageKey(post), instance);
-  unloaded();
+  if (andUnload) unloaded();
 };
 
 export const cacheInstance = async (post: IMainPost) => {

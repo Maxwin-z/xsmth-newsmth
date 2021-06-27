@@ -22,6 +22,7 @@ export interface IMainPost {
   gid: number;
   pid: number;
   single: boolean;
+  author?: string;
 }
 
 export interface IXImage {
@@ -38,12 +39,15 @@ export interface IPost {
   title?: string;
   author: string;
   nick: string;
+  postCount: number;
+  score: number;
   floor: number;
   date: number;
   dateString: string;
   content: string;
   images: IXImage[];
   isSingle?: boolean;
+  likes?: ILike[];
 }
 
 export interface IPage {
@@ -78,6 +82,7 @@ export interface IGroupState {
   author?: string | null;
   singlePost?: IPost;
   floor?: number | null;
+  domHeights?: { [x: number]: number };
 }
 
 export interface ITheme {
@@ -88,4 +93,11 @@ export interface ITheme {
   textColor: string;
   tintColor: string;
   quoteColor: string;
+}
+
+export interface ILike {
+  score: number;
+  user: string;
+  message: string;
+  dateString: string;
 }

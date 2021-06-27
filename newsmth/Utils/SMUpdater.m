@@ -12,6 +12,7 @@
 #import "SSZipArchive.h"
 #import "SMAdViewController.h"
 #import <CoreText/CoreText.h>
+#import "newsmth-Swift.h"
 
 #define API_PREFIX @"https://maxwin-z.github.io/xsmth/service/"
 // #define API_PREFIX @"http://10.0.0.3:8080/"
@@ -21,7 +22,7 @@
 #define USERDEFAULTS_UPDATE_TEMPLATE @"updater_template"
 
 @interface SMUpdater ()<ASIHTTPRequestDelegate, UIAlertViewDelegate>
-
+@property (strong, nonatomic) XRemoteResourceManager* rrm;
 @end
 
 @implementation SMUpdater
@@ -51,6 +52,10 @@
     [self setupPostsTemplate];
 //    [self downloadPostPage];
     [self checkTemplate];
+    
+    // download remote resource
+    self.rrm = [[XRemoteResourceManager alloc] init];
+    [self.rrm start];
 }
 
 - (void)handleNewVersion

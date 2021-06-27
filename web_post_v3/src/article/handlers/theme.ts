@@ -1,4 +1,4 @@
-import { Json } from "../utils/jsapi";
+import { Json } from "../../jsapi";
 import { ITheme } from "../types";
 
 export function setupTheme(style: ITheme) {
@@ -40,7 +40,15 @@ export function setupTheme(style: ITheme) {
   sheet.addRule(
     "div.post",
     style2string({
-      "border-top": "1px solid " + style.textColor
+      // "border-top": "1px solid " + style.quoteColor
+    }),
+    0
+  );
+
+  sheet.addRule(
+    ".tint-color",
+    style2string({
+      color: style.tintColor
     }),
     0
   );

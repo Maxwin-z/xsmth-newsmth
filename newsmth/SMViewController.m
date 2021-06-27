@@ -9,6 +9,7 @@
 #import "SMViewController.h"
 #import "SMLoginViewController.h"
 #import "UIButton+Custom.h"
+#import "newsmth-Swift.h"
 
 @interface SMViewController ()
 @property (assign, nonatomic) SEL selectorAfterLogin;
@@ -191,9 +192,9 @@
     if ([SMAccountManager instance].isLogin) {
         [self performSelector:aSelector withObject:nil afterDelay:0];
     } else {
-        SMLoginViewController *loginVc = [[SMLoginViewController alloc] init];
-        [loginVc setAfterLoginTarget:self selector:aSelector];
-        P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:loginVc];
+        SMLoginViewControllerV2 *vc = [SMLoginViewControllerV2 new];
+        [vc afterLoginWithTarget:self selector:aSelector];
+        P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:vc];
         nvc.modalPresentationStyle = UIModalPresentationFormSheet;
         [self presentViewController:nvc animated:YES completion:nil];
     }
@@ -204,7 +205,7 @@
     if ([SMAccountManager instance].isLogin) {
         success();
     } else {
-        SMLoginViewController *loginVc = [SMLoginViewController new];
+        SMLoginViewControllerV2 *loginVc = [SMLoginViewControllerV2 new];
         [loginVc loginWithSuccess:success fail:fail];
         P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:loginVc];
         nvc.modalPresentationStyle = UIModalPresentationFormSheet;
@@ -290,6 +291,7 @@
     }
     if (keyWindow) {
         keyWindow.tintColor = [SMTheme colorForTintColor];
+        keyWindow.overrideUserInterfaceStyle = [SMConfig enableDayMode] ? UIUserInterfaceStyleLight : UIUserInterfaceStyleDark;
     }
 
     self.navigationController.navigationBar.barTintColor = [SMTheme colorForBarTintColor];

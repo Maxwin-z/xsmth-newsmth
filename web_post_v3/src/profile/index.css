@@ -1,0 +1,125 @@
+.main {
+  font-size: 16px;
+  font-family: "Helvetica Neue";
+  line-height: normal;
+}
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+.flex1 {
+  flex: 1;
+}
+.flex2 {
+  flex: 2;
+}
+.flex-center {
+  align-items: center;
+  justify-content: center;
+}
+
+.section-header {
+  font-size: 120%;
+  font-weight: bold;
+  margin-left: 20px;
+  margin-top: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.header {
+  margin-top: 20px;
+  margin-left: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+}
+.avatar {
+  width: 100px;
+  height: 100px;
+}
+.userinfo {
+  margin-left: 10px;
+}
+.username {
+  font-size: 120%;
+}
+.online {
+  color: green;
+}
+.offline {
+  color: gray;
+}
+.cell {
+  margin-left: 20px;
+  padding: 10px 10px 10px 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.tag-section {
+  font-weight: bold;
+  font-size: 120%;
+  margin-left: 20px;
+  padding: 20px 0 10px 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.tag {
+  color: red;
+}
+
+.delete {
+  padding: 0 10px;
+}
+
+a.btn {
+  padding: 6px 10px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-manager-tags {
+  margin-top: 10px;
+  min-width: 200px;
+  text-align: center;
+}
+
+.color-panel {
+  margin-left: 20px;
+  margin-top: 10px;
+}
+
+.color {
+  display: inline-block;
+  padding: 1px;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 3px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.box {
+  width: 30px;
+  height: 30px;
+  border-radius: 2px;
+}
+
+.add-tag-container {
+  margin-left: 20px;
+  align-items: center;
+}
+.tag-input {
+  border: 1px solid #ccc;
+  border-radius: 0;
+  font-size: 16px;
+  font-family: "Helvetica New";
+  appearance: none;
+}
+.btn-addtag {
+  margin: 0 5px;
+  padding: 2px 6px;
+}

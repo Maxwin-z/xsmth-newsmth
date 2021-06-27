@@ -26,6 +26,8 @@
 + (UIImage *)stretchedImage:(UIImage *)image;
 
 + (UIColor *)reverseColor:(UIColor *)color;
++ (UIColor *)colorFromHexString:(NSString *)hexString;
++ (NSString *)hexFromUIColor:(UIColor *)color;
 
 + (NSString *)formatSize:(unsigned long long)size;
 

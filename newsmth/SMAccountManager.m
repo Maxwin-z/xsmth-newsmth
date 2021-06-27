@@ -8,6 +8,8 @@
 
 #import "SMAccountManager.h"
 #import "SMWebLoaderOperation.h"
+#import <WebKit/WebKit.h>
+#import <MMKV/MMKV.h>
 
 #define COOKIE_USERID   @"main[UTMPUSERID]"
 
@@ -91,86 +93,34 @@ static SMAccountManager *_instance;
 - (void)setCookies:(NSArray *)cookies
 {
     NSString *name = nil;
-//    XLog_d(@"cookies: %@", cookies);
-//    NSMutableDictionary *savedCookies = [NSMutableDictionary new];
-    NSMutableArray *savedCookies = [NSMutableArray new];
-    int loginStatus = 0;    // 1 login; 2 logout
     for (int i = 0; i != cookies.count; ++i) {
         NSHTTPCookie *cookie = cookies[i];
-        
-        if ([@[@"main[UTMPKEY]", @"main[UTMPNUM]", COOKIE_USERID] containsObject:cookie.name]) {
-//            [savedCookies setObject:(cookie.value ?: @"") forKey:cookie.name];
-            NSDateFormatter *formatter = [NSDateFormatter new];
-            [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-            NSMutableDictionary *obj = [[NSMutableDictionary alloc] initWithDictionary:@{
-                                      NSHTTPCookieValue:cookie.value ?: @"",
-                                      NSHTTPCookieName: cookie.name,
-                                      NSHTTPCookieDomain: cookie.domain,
-                                      NSHTTPCookiePath: cookie.path,
-                                      NSHTTPCookieVersion: @(cookie.version),
-                                      NSHTTPCookieSecure: @(cookie.secure)
-                                      }];
-            if (cookie.expiresDate) {
-                [obj setObject:[formatter stringFromDate:cookie.expiresDate] forKey:NSHTTPCookieExpires];
-            }
-            [savedCookies addObject:obj];
-        }
-        
         if ([cookie.name isEqualToString:COOKIE_USERID]) {
+            XLog_d(@"cookie: %@", cookie);
             name = cookie.value;
 
             BOOL isExpired = cookie.expiresDate != nil && cookie.expiresDate.timeIntervalSince1970 < [[NSDate alloc] init].timeIntervalSince1970;
 
             if ([name isEqualToString:@"guest"] || isExpired) {    // login status
-                if (loginStatus == 0) { // guest & uid 会同时出现在cookie里，判断是否已经有uid
-                    name = nil;
-                    self.notice = nil;
-                    loginStatus = 2;
-                }
-            } else {
-                loginStatus = 1;
+                name = nil;
+                self.notice = nil;
+                NSSet *websiteDataTypes = [NSSet setWithArray:@[WKWebsiteDataTypeCookies]];
+                NSDate *dateFrom = [NSDate dateWithTimeIntervalSince1970:0];
+                [[WKWebsiteDataStore defaultDataStore] removeDataOfTypes:websiteDataTypes modifiedSince:dateFrom completionHandler:^{
+                }];
+                [self autoLogin];
             }
             
             // notify account changed.
             XLog_d(@"account: %@ -> %@", _name, name);
             if ((name != nil || _name != nil) && ![name isEqualToString:_name]) {
                 _name = name;
-                
-                if ([SMConfig enableBackgroundFetch]) {
-                    [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
-                    XLog_v(@"enable bg fetch: %@", _name);
-                }
-                dispatch_async(dispatch_get_main_queue(), ^{
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ACCOUT object:nil];
                 });
             }
         }
     }
-    
-    if (loginStatus == 1) {
-//        XLog_d(@"savedCookies: %@", savedCookies);
-        [[NSUserDefaults standardUserDefaults] setObject:savedCookies forKey:USERDEFAULTS_COOKIES];
-    }
-    if (loginStatus == 2) {
-        XLog_d(@"clear savedCookies: %@", savedCookies);
-        [[NSHTTPCookieStorage sharedHTTPCookieStorage] removeCookiesSinceDate:[NSDate dateWithTimeIntervalSince1970:0]];
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:USERDEFAULTS_COOKIES];
-        [self autoLogin];   // 尝试自动登录
-    }
-    
-    // 2018.11.17; fix newsmth.net cookie expired time
-//    if (savedCookies[COOKIE_USERID] && [savedCookies[COOKIE_USERID] isEqualToString:@"guest"]) {
-//        [[NSUserDefaults standardUserDefaults] removeObjectForKey:USERDEFAULTS_COOKIES];
-//    } else if([savedCookies count] == 3) {
-//        [[NSUserDefaults standardUserDefaults] setObject:savedCookies forKey:USERDEFAULTS_COOKIES];
-//    }
-//    XLog_d(@"savedCookies: %@", savedCookies);
-//
-//    if (loginStatus == 1 && savedCookies.count == 3) {
-//        [[NSUserDefaults standardUserDefaults] setObject:savedCookies forKey:USERDEFAULTS_COOKIES];
-//    } else if (loginStatus == 2) {
-//        [[NSUserDefaults standardUserDefaults] removeObjectForKey:USERDEFAULTS_COOKIES];
-//    }
 }
 
 - (BOOL)isLogin
@@ -184,10 +134,21 @@ static SMAccountManager *_instance;
         XLog_d(@"autologin 重试时间较短，稍后重试");
         return ;
     }
-    NSString *user = [[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_USERNAME];
-    NSString *passwd =  [[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_PASSWORD];
-    BOOL autoLogin = [[NSUserDefaults standardUserDefaults] boolForKey:USERDEFAULTS_AUTOLOGIN];
-    if (autoLogin && user && passwd) {
+    NSString *user = nil;
+    NSString *passwd = nil;
+    NSString *data = [[MMKV defaultMMKV] getStringForKey:@"_xsmth_userinfo"];
+    if (data != nil) {
+        NSDictionary *json = [SMUtils string2json:data];
+        if (json != nil) {
+            NSDictionary *value = json[@"value"];
+            if (value != nil) {
+                user = value[@"id"];
+                passwd = value[@"passwd"];
+            }
+        }
+    }
+//    BOOL autoLogin = [[NSUserDefaults standardUserDefaults] boolForKey:USERDEFAULTS_AUTOLOGIN];
+    if (user && passwd) {
         self.lastAutoLoginTime = [NSDate timeIntervalSinceReferenceDate];
         XLog_d(@"try autologin");
         SMHttpRequest *request = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:URL_PROTOCOL @"//m.mysmth.net/user/login"]];

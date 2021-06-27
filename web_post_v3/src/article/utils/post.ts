@@ -1,5 +1,5 @@
-import { IGroup, IXImage, Status } from "../types";
-import { getStorage, ajax, setStorage } from "./jsapi";
+import { IGroup, IXImage, Status, ILike } from "../types";
+import { getStorage, ajax, setStorage } from "../../jsapi";
 
 let imageID = 0;
 export const POST_PER_PAGE = 10;
@@ -62,18 +62,35 @@ export function retrieveGroupPosts(html: string, page: number): IGroup {
         floorText === "楼主"
           ? 0
           : parseInt(floorText.replace(/(第|楼)/, ""), 10);
+      let postCount = -1;
+      let score = -1;
+      const dts = table.querySelectorAll(".a-u-info dt");
+      const dds = table.querySelectorAll(".a-u-info dd");
+      for (let i = 0; i < dts.length; ++i) {
+        if ((dts[i] as HTMLDataElement).innerText === "文章") {
+          postCount = parseInt((dds[i] as HTMLDetailsElement).innerText, 10);
+        }
+        if ((dts[i] as HTMLDataElement).innerText === "积分") {
+          score = parseInt((dds[i] as HTMLDetailsElement).innerText, 10);
+        }
+      }
       const body = table.querySelector(".a-content > p")?.innerHTML || "";
       const { date, dateString, nick, content, images } = formatPost(body);
+      const likesDom = table.querySelector(".likes") as HTMLElement;
+      const likes = formatLikes(likesDom);
       return {
         author,
         nick,
+        postCount,
+        score,
         floor,
         pid,
         date,
         dateString,
         content,
         images,
-        isSingle: false
+        isSingle: false,
+        likes
       };
     });
 
@@ -119,7 +136,7 @@ export function formatPost(
   // remove <a> around <img />
   content = content.replace(/<a .*?>(<ximg.+?>)<\/a>/g, "$1");
   // replace images
-  const imageProtocol = "http:";
+  const imageProtocol = "https:";
   content = content.replace(
     /<ximg.*? src="(.+?)".*?>/gi,
     (_: string, src: string) => {
@@ -162,6 +179,35 @@ export function formatPost(
     content,
     images
   };
+}
+
+function formatLikes(dom: HTMLElement): Array<ILike> {
+  if (!dom) {
+    return [];
+  }
+  const likes = [].slice.call(dom.querySelectorAll("ul li")).map(
+    (li: HTMLLIElement): ILike => {
+      const score = parseInt(
+        li
+          .querySelector("span")!
+          .innerText.replace(/[\[\]]/g, "")
+          .trim() || "0",
+        10
+      );
+      const user = li.querySelector("span.like_user")!.innerHTML.slice(0, -1);
+      const message = li.querySelector("span.like_msg")!.innerHTML;
+      const dateString = li
+        .querySelector("span.like_time")!
+        .innerHTML.replace(/(^\(|\)$)/g, "");
+      return {
+        score,
+        user,
+        message,
+        dateString
+      };
+    }
+  );
+  return likes;
 }
 
 export async function getBoardID(board: string): Promise<number> {

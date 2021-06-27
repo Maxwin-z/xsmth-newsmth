@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import * as $x from "./jsbridge";
+import * as $x from "./jsapi";
 
 export default function BridgeTest() {
   const [log, setLog] = useState("");
@@ -45,6 +45,18 @@ export default function BridgeTest() {
     },
     removeStorage: async () => {
       return await $x.removeStorage("test");
+    },
+    openPush: async () => {
+      return await $x.xOpen("http://localhost:3000/#/bridgetest");
+    },
+    openModal: async () => {
+      return await $x.xOpen({
+        url: "http://localhost:3000/#/bridgetest",
+        type: $x.ModalStyle.modal
+      });
+    },
+    close: async () => {
+      return await $x.xClose();
     }
   };
   const test = fn => async () => {
@@ -72,6 +84,34 @@ export default function BridgeTest() {
           </li>
         ))}
       </ul>
+      <div
+        style={{
+          fontSize: "10px",
+          fontFamily: "Menlo"
+        }}
+      >
+        <span
+          style={{
+            color: "red"
+          }}
+        >
+          █
+        </span>
+        <span
+          style={{
+            color: "blue"
+          }}
+        >
+          █
+        </span>
+        <span
+          style={{
+            color: "green"
+          }}
+        >
+          █
+        </span>
+      </div>
     </div>
   );
 }

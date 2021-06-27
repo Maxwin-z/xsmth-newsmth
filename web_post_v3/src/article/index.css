@@ -16,7 +16,7 @@ textarea {
 }
 
 #title {
-  font-size: 150%;
+  font-size: 120%;
   line-height: 1.2em;
   padding: 10px 0;
 }
@@ -84,11 +84,12 @@ textarea {
 }
 
 .post {
-  padding: 10px 10px 10px 0;
-  border-top: 1px solid lightgrey;
+  padding-right: 10px;
+  border-top: 1px solid lightgray;
   overflow-wrap: break-word;
 }
 .post-title {
+  margin-top: 6px;
   margin-bottom: 10px;
   position: relative;
 }
@@ -225,4 +226,48 @@ textarea {
 
 .del::after {
   transform: rotate(-45deg);
+}
+
+.likes-list,
+.likes-list li {
+  margin-top: 0;
+  padding: 0;
+  list-style: none;
+}
+.likes-list {
+  margin-right: 10px;
+  word-break: break-all;
+}
+
+.likes .score_1 {
+  color: red;
+}
+
+.likes .score_2 {
+  color: green;
+}
+
+.like-compose {
+  display: flex;
+  flex-direction: column;
+}
+.like-compose select,
+.like-compose button,
+.like-compose textarea {
+  display: block;
+  font-size: inherit;
+  appearance: none;
+}
+
+.like-compose textarea {
+  flex: 1;
+  border: 1px solid #ccc;
+  appearance: none;
+  border-radius: 0;
+}
+
+.like-op {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }

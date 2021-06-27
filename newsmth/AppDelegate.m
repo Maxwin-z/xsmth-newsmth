@@ -298,8 +298,8 @@
         } else {
 //            [self showNotification:@"no account, stop bg fetch"];
             [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalNever];
+
             completionHandler(UIBackgroundFetchResultNoData);
-        }
     }
 
 //    NSURL *url = [NSURL URLWithString:URL_PROTOCOL @"//m.mysmth.net/user/query/"];

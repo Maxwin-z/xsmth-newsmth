@@ -8,6 +8,7 @@
 
 #import "SMBoardCell.h"
 #import "SMUtils.h"
+#import <MMKV/MMKV.h>
 
 static SMBoardCell *_instance;
 
@@ -58,6 +59,10 @@ static SMBoardCell *_instance;
     return self;
 }
 
+- (NSString *)keyForUser:(NSString *)username {
+    return [NSString stringWithFormat:@"tags_%@", username];
+}
+
 - (void)setPost:(SMPost *)post
 {
     _post = post;
@@ -70,7 +75,36 @@ static SMBoardCell *_instance;
     _labelForPostTime.text = [SMUtils formatDate:[NSDate dateWithTimeIntervalSince1970:_post.date / 1000]];
     
     _labelForReplyTime.text = [SMUtils formatDate:[NSDate dateWithTimeIntervalSince1970:_post.replyDate / 1000]];
-    [_buttonForAuthor setTitle:_post.author forState:UIControlStateNormal];
+//    [_buttonForAuthor setTitle:_post.author forState:UIControlStateNormal];
+    NSMutableAttributedString *authorTitle = [[NSMutableAttributedString alloc] init];
+    [authorTitle appendAttributedString: [[NSAttributedString alloc] initWithString:_post.author attributes:@{
+           NSForegroundColorAttributeName: [SMTheme colorForSecondary]
+    }]];
+    // load author
+    NSString *userString = [[MMKV defaultMMKV] getStringForKey:[self keyForUser:_post.author]];
+    while (true) {
+        if (userString == nil) break;
+        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:[userString dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
+        if (json == nil) break;
+        NSDictionary *info = json[@"value"];
+        @try {
+            SMUserTag *userTag = [[SMUserTag alloc] initWithJSON:info];
+            XLog_d(@"%@", userTag);
+            [userTag.tags enumerateObjectsUsingBlock:^(SMTag* tag, NSUInteger idx, BOOL * _Nonnull stop) {
+               NSString *hex = tag.color;
+               if (hex.length == 7) {
+                   UIColor *color = [SMUtils colorFromHexString:hex];
+                   [authorTitle appendAttributedString:[[NSAttributedString alloc] initWithString:@"■" attributes:@{
+                       NSForegroundColorAttributeName: color,
+                       NSFontAttributeName: [UIFont systemFontOfSize:10]
+                   }]];
+               }
+            }];
+        } @catch (NSException *exception) {} @finally {}
+        break;
+    }
+    
+    [_buttonForAuthor setAttributedTitle:authorTitle forState:UIControlStateNormal];
     if (_post.replyAuthor) {
         [_buttonForReplyAuthor setTitle:_post.replyAuthor forState:UIControlStateNormal];
     }
@@ -87,7 +121,7 @@ static SMBoardCell *_instance;
     _labelForTitle.textColor = [SMTheme colorForPrimary];
     _labelForPostTime.textColor = _labelForReplyTime.textColor = [SMTheme colorForSecondary];
     
-    [_buttonForAuthor setTitleColor:[SMTheme colorForTintColor] forState:UIControlStateNormal];
+//    [_buttonForAuthor setTitleColor:[SMTheme colorForTintColor] forState:UIControlStateNormal];
     [_buttonForReplyAuthor setTitleColor:[SMTheme colorForTintColor] forState:UIControlStateNormal];
     [_buttonForAuthor setTitleColor:[SMTheme colorForSecondary] forState:UIControlStateDisabled];
     [_buttonForReplyAuthor setTitleColor:[SMTheme colorForSecondary] forState:UIControlStateDisabled];

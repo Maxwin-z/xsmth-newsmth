@@ -5,7 +5,7 @@ import Post from "./Post";
 import Loading from "./Loading";
 import { IPost, Status, IPage } from "../types";
 import { setSelectedPage, loadPage } from "../groupSlice";
-import { login } from "../utils/jsapi";
+import { login } from "../../jsapi";
 
 const InitPage: FC<{ p: number }> = ({ p }) => {
   const dispatch = useDispatch();

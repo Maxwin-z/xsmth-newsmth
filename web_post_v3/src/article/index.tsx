@@ -7,22 +7,20 @@ import groupReducer, {
   nextTask,
   onSelectPage,
   resetScrollY,
-  singleAuthor,
-  refreshPage
+  refreshPage,
+  openSingleAuthorPage
 } from "./groupSlice";
 import imageReducer, { handleImageDownloadProgress } from "./slices/imageTask";
 import Group from "./components/Group";
 import "./handlers/theme";
 import "./index.css";
-import { setupTheme } from "./handlers/theme";
-import { getThemeConfig } from "./utils/jsapi";
-import { ITheme } from "./types";
 import XImageQueue from "./components/XImageQueue";
 import { scrollHander } from "./handlers/scroll";
 import { clickHander } from "./handlers/click";
 import { saveInstance } from "./handlers/pageState";
 import SingleAuthor from "./components/SingleAuthor";
 import SinglePost from "./components/SinglePost";
+import { xOpen } from "../jsapi";
 
 // new VConsole();
 
@@ -36,15 +34,8 @@ const store = configureStore({
 });
 
 (async () => {
-  const theme = await getThemeConfig();
-  setupTheme(theme);
-
   document.addEventListener("scroll", scrollHander);
   document.addEventListener("click", clickHander);
-
-  PubSub.subscribe("THEME_CHANGE", (_: string, style: ITheme) => {
-    setupTheme(style);
-  });
 
   PubSub.subscribe("DOWNLOAD_PROGRESS", (_: string, data: any) =>
     handleImageDownloadProgress(data)
@@ -101,10 +92,19 @@ function usePubSubHook() {
       },
       PAGE_CLOSE: async () => {
         // console.log("page close");
-        dispatch(saveInstance());
+        dispatch(saveInstance(true));
+      },
+      willDisappear: async () => {
+        dispatch(saveInstance(false));
       },
       SINGLE_AUTHOR: (_: string, author: string) => {
-        dispatch(singleAuthor(author));
+        dispatch(openSingleAuthorPage(author));
+        // dispatch(singleAuthor(author));
+      },
+      VIEW_AUTHOR: (_: string, author: string) => {
+        console.log("view author", author);
+        const { origin, pathname } = window.location;
+        xOpen(origin + pathname + "#/profile?author=" + author);
       },
       PAGE_REFRESH: () => {
         dispatch(refreshPage());
