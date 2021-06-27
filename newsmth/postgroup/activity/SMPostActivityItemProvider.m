@@ -18,7 +18,7 @@
 {
     SMPost *post = self.placeholderItem;
     
-    NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//m.newsmth.net/article/%@/single/%d/0",
+    NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//m.mysmth.net/article/%@/single/%d/0",
                      post.board.name, post.pid];
     
     return url;

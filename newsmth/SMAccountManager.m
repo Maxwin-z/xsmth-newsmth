@@ -53,7 +53,7 @@ static SMAccountManager *_instance;
 
 - (void)loadCookie
 {
-    NSURL *url = [NSURL URLWithString:URL_PROTOCOL @"//m.newsmth.net"];
+    NSURL *url = [NSURL URLWithString:URL_PROTOCOL @"//m.mysmth.net"];
     NSMutableArray *cookies =[[NSMutableArray alloc] initWithArray:[[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:url]];
     XLog_d(@"load cookies: %@", cookies);
     
@@ -83,7 +83,7 @@ static SMAccountManager *_instance;
 
 - (void)refreshStatus
 {
-    NSURL *url = [NSURL URLWithString:URL_PROTOCOL @"//m.newsmth.net"];
+    NSURL *url = [NSURL URLWithString:URL_PROTOCOL @"//m.mysmth.net"];
     NSArray *cookies =[[NSMutableArray alloc] initWithArray:[[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:url]];
     if (cookies) {
         [self setCookies:cookies];
@@ -151,7 +151,7 @@ static SMAccountManager *_instance;
     if (user && passwd) {
         self.lastAutoLoginTime = [NSDate timeIntervalSinceReferenceDate];
         XLog_d(@"try autologin");
-        SMHttpRequest *request = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:URL_PROTOCOL @"//m.newsmth.net/user/login"]];
+        SMHttpRequest *request = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:URL_PROTOCOL @"//m.mysmth.net/user/login"]];
         NSString *postBody = [NSString stringWithFormat:@"id=%@&passwd=%@&save=on", user, passwd];
         [request setRequestMethod:@"POST"];
         [request addRequestHeader:@"Content-type" value:@"application/x-www-form-urlencoded"];

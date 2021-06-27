@@ -1,4 +1,4 @@
-// 从m.newsmth.net获取 notice
+// 从m.mysmth.net获取 notice
 
 function getNotice(html) {
 	var notice = {
