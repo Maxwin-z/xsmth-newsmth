@@ -242,7 +242,7 @@ export const getMainPost = (): AppThunk => async dispatch => {
   // debug
   // mainPost = { board: "WorkLife", gid: 2164300, title: "" }; // 20+ pages
   // mainPost = { board: "Tooooold", gid: 41831, title: "" }; // 4 pages
-  // https://www.newsmth.net/nForum/article/WorkLife/2199396?ajax=&p=1&_xsmth_disable_cache=1583767005666
+  // https://www.mysmth.net/nForum/article/WorkLife/2199396?ajax=&p=1&_xsmth_disable_cache=1583767005666
   // mainPost = { board: "WorkLife", gid: 2199396, title: "" }; // 46 pages
   // mainPost = { board: "WorkLife", gid: 2211774, title: "" }; // 46 pages
   // mainPost = {
@@ -461,7 +461,7 @@ export const expandSinglePost = (): AppThunk => async (dispatch, getState) => {
   const post = getState().group.singlePost;
   if (!post) return;
   const html = await ajax({
-    url: `https://www.newsmth.net/nForum/article/${post.board}/${post.gid}?s=${post.pid}`,
+    url: `https://www.mysmth.net/nForum/article/${post.board}/${post.gid}?s=${post.pid}`,
     headers: {
       "X-Requested-With": "XMLHttpRequest"
     }

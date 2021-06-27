@@ -38,7 +38,7 @@ export class GroupTask {
           data["au"] = this.author;
         }
         const html = await ajax({
-          url: `https://www.newsmth.net/nForum/article/${this.board}/${this.gid}?ajax`,
+          url: `https://www.mysmth.net/nForum/article/${this.board}/${this.gid}?ajax`,
           data,
           headers: {
             "X-Requested-With": "XMLHttpRequest"
@@ -79,7 +79,7 @@ export class PostTask {
       this.reject = reject;
       try {
         const html = await ajax({
-          url: `https://www.newsmth.net/nForum/article/${this.board}/ajax_single/${this.pid}.json`,
+          url: `https://www.mysmth.net/nForum/article/${this.board}/ajax_single/${this.pid}.json`,
           headers: {
             "X-Requested-With": "XMLHttpRequest"
           }

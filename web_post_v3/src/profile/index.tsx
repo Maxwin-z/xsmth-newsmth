@@ -48,7 +48,7 @@ function App() {
 
     async function main() {
       const text = await ajax({
-        url: `https://www.newsmth.net/nForum/user/query/${author}.json`,
+        url: `https://www.mysmth.net/nForum/user/query/${author}.json`,
         headers: {
           "X-Requested-With": "XMLHttpRequest"
         }

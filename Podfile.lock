@@ -1,6 +1,6 @@
 PODS:
   - ActionSheetPicker-3.0 (1.3.10)
-  - Alamofire (5.0.0-rc.3)
+  - Alamofire (5.4.3)
   - ASIHTTPRequest (1.8.2):
     - ASIHTTPRequest/ASIWebPageRequest (= 1.8.2)
     - ASIHTTPRequest/CloudFiles (= 1.8.2)
@@ -32,7 +32,7 @@ PODS:
 
 DEPENDENCIES:
   - ActionSheetPicker-3.0 (~> 1.3.10)
-  - Alamofire (~> 5.0.0-rc.3)
+  - Alamofire (~> 5.2)
   - ASIHTTPRequest
   - JPVideoPlayer
   - Loaf
@@ -42,7 +42,7 @@ DEPENDENCIES:
   - WKVerticalScrollBar
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - ActionSheetPicker-3.0
     - Alamofire
     - ASIHTTPRequest
@@ -56,7 +56,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   ActionSheetPicker-3.0: 75337b784ebaae74e72c4ca8365bd1d3f41da810
-  Alamofire: ca8c0de6906873be89d6deec5c8de279e00bf872
+  Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
   ASIHTTPRequest: ec013992946676b7978dcbde6396d57312d21db4
   JPVideoPlayer: 02b6d95e9dd2c8a8dcc5bdb111014957848b73b1
   Loaf: 0800b444431366bc395d54267975d4ad4ad5c99c
@@ -66,6 +66,6 @@ SPEC CHECKSUMS:
   TOWebViewController: 953a24619d32f7aa1d9d4098a74885a9236f7348
   WKVerticalScrollBar: 555c3473ada57433e7d891ba73d1fc9de8ab848f
 
-PODFILE CHECKSUM: c846f288607b60d830eae2778913e6e2625f69e2
+PODFILE CHECKSUM: 69f51e59e9ede60f83a0428913c6ef3199ffa5ad
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.9.3

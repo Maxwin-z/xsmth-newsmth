@@ -99,7 +99,7 @@ export const loadImage = (): AppThunk => async (dispatch, getState) => {
     const bid = await getBoardID(board);
     ["jpg", "jpeg", "png", "gif"].forEach(ext => {
       urls.push(
-        `https://www.newsmth.net/att.php?n.${bid}.${pid}.${aid}.${ext}`
+        `https://www.mysmth.net/att.php?n.${bid}.${pid}.${aid}.${ext}`
       );
     });
   }
