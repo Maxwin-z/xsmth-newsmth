@@ -2281,7 +2281,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 4.2.2.1;
+				CURRENT_PROJECT_VERSION = 4.3.1.0;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 4K4MS8S6B8;
 				ENABLE_BITCODE = NO;
@@ -2300,7 +2300,7 @@
 					"$(SRCROOT)/newsmth/Frameworks/**",
 					"$(SDKROOT)/usr/lib/system",
 				);
-				MARKETING_VERSION = 4.2.2;
+				MARKETING_VERSION = 4.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = me.maxwin.newsmth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2401,7 +2401,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 4.2.2.1;
+				CURRENT_PROJECT_VERSION = 4.3.1.0;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 4K4MS8S6B8;
 				ENABLE_BITCODE = NO;
@@ -2420,7 +2420,7 @@
 					"$(SRCROOT)/newsmth/Frameworks/**",
 					"$(SDKROOT)/usr/lib/system",
 				);
-				MARKETING_VERSION = 4.2.2;
+				MARKETING_VERSION = 4.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = me.maxwin.newsmth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2443,7 +2443,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 4.2.2.1;
+				CURRENT_PROJECT_VERSION = 4.3.1.0;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 4K4MS8S6B8;
 				ENABLE_BITCODE = NO;
@@ -2462,7 +2462,7 @@
 					"$(SRCROOT)/newsmth/Frameworks/**",
 					"$(SDKROOT)/usr/lib/system",
 				);
-				MARKETING_VERSION = 4.2.2;
+				MARKETING_VERSION = 4.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = me.maxwin.newsmth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
