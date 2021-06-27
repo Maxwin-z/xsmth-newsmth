@@ -135,7 +135,7 @@
 
     SMPost *post = _posts[indexPath.row];
 
-    NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//m.newsmth.net/refer/%@/read?index=%d", _refer, post.gid];
+    NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//m.mysmth.net/refer/%@/read?index=%d", _refer, post.gid];
     SMWebLoaderOperation *op = [[SMWebLoaderOperation alloc] init];
     [op loadUrl:url withParser:@""];
 //    SMPostViewController *vc = [[SMPostViewController alloc] init];
