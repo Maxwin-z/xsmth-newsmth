@@ -13,7 +13,7 @@
 
 const CGFloat ADVIEW_HEIGHT = 50.0f;
 
-@interface SMPostGroupHeaderCell ()<ADBannerViewDelegate, GADBannerViewDelegate>
+@interface SMPostGroupHeaderCell ()
 @property (strong, nonatomic) IBOutlet UIView *viewForCell;
 @property (weak, nonatomic) IBOutlet UIButton *buttonForAuthor;
 @property (weak, nonatomic) IBOutlet UILabel *labelForIndex;
@@ -125,18 +125,6 @@ const CGFloat ADVIEW_HEIGHT = 50.0f;
     if ([_delegate respondsToSelector:@selector(postGroupHeaderCellOnUsernameClick:)]) {
         [_delegate postGroupHeaderCellOnUsernameClick:_item.post.author];
     }
-}
-
-#pragma mark - ADBannerViewDelegate, GADBannerViewDelegate
-- (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave
-{
-    [SMUtils trackEventWithCategory:@"ad" action:@"apple_show" label:nil];
-    return YES;
-}
-
-- (void)adViewWillPresentScreen:(GADBannerView *)adView
-{
-    [SMUtils trackEventWithCategory:@"ad" action:@"admob_show" label:nil];
 }
 
 
