@@ -18,13 +18,7 @@ PODS:
   - Loaf (0.5.0)
   - MMKV (1.0.24)
   - Reachability (3.2)
-  - ReactiveCocoa (2.3.1):
-    - ReactiveCocoa/UI (= 2.3.1)
-  - ReactiveCocoa/Core (2.3.1):
-    - ReactiveCocoa/no-arc
-  - ReactiveCocoa/no-arc (2.3.1)
-  - ReactiveCocoa/UI (2.3.1):
-    - ReactiveCocoa/Core
+  - ReactiveObjC (2.1.2)
   - TOWebViewController (2.2.8):
     - TOWebViewController/Core (= 2.2.8)
   - TOWebViewController/Core (2.2.8)
@@ -37,12 +31,12 @@ DEPENDENCIES:
   - JPVideoPlayer
   - Loaf
   - MMKV
-  - ReactiveCocoa
+  - ReactiveObjC (~> 2.1.2)
   - TOWebViewController (= 2.2.8)
   - WKVerticalScrollBar
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/Specs.git:
     - ActionSheetPicker-3.0
     - Alamofire
     - ASIHTTPRequest
@@ -50,7 +44,7 @@ SPEC REPOS:
     - Loaf
     - MMKV
     - Reachability
-    - ReactiveCocoa
+    - ReactiveObjC
     - TOWebViewController
     - WKVerticalScrollBar
 
@@ -62,10 +56,10 @@ SPEC CHECKSUMS:
   Loaf: 0800b444431366bc395d54267975d4ad4ad5c99c
   MMKV: 758b2edee46b08bdd958db4169191afb9a6d4ebd
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
-  ReactiveCocoa: 3fe9b233ca6db810e86681b5749488564c1179a1
+  ReactiveObjC: 7b6782ae39f9ac0f57205c3b0c0b69b9dd7048c0
   TOWebViewController: 953a24619d32f7aa1d9d4098a74885a9236f7348
   WKVerticalScrollBar: 555c3473ada57433e7d891ba73d1fc9de8ab848f
 
-PODFILE CHECKSUM: 69f51e59e9ede60f83a0428913c6ef3199ffa5ad
+PODFILE CHECKSUM: 7a56c9608f0961165d9e2e32637a4692e4de4743
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.11.2
