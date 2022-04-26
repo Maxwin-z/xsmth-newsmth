@@ -39,14 +39,6 @@ class SMLoginViewControllerV2: XWebController{
                "action": {
                    "type": "block"
                }
-           }, {
-               "trigger": {
-                   "url-filter": ".*mysmth.net.*",
-                   "resource-type": ["script"]
-               },
-               "action": {
-                   "type": "block"
-               }
            }]
         """
         WKContentRuleListStore.default().compileContentRuleList(
@@ -99,10 +91,12 @@ class SMLoginViewControllerV2: XWebController{
               ".menu.sp",
               ".menu.nav"
             ];
+            /*
             selectors.forEach(sel => {
               [...document.querySelectorAll(sel)].forEach(dom => (dom.hidden = true));
             });
-
+           
+        
             const enlarges = ["#u_login", "#u_login input"];
             enlarges.forEach(sel => {
               [...document.querySelectorAll(sel)].forEach(dom => {
@@ -110,7 +104,8 @@ class SMLoginViewControllerV2: XWebController{
                 dom.style.fontSize = "120%";
               });
             });
-            
+            */
+        
             const idEl = document.querySelector('[name="id"]');
             const passwdEl = document.querySelector('[name="passwd"]');
             const saveEl = document.querySelector('[name="save"]');

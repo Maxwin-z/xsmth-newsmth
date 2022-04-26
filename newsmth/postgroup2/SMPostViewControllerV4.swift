@@ -77,7 +77,12 @@ class SMPostViewControllerV4: XWebController {
 
     @objc
     func onRightBarButtonClick() {
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        var alertStyle = UIAlertController.Style.actionSheet
+        if (UIDevice.current.userInterfaceIdiom == .pad) {
+          alertStyle = UIAlertController.Style.alert
+        }
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: alertStyle)
+
         if (!self.fromBoard) {
             alert.addAction(UIAlertAction(title: "进入版面", style: .default, handler: { _ in
                 let vc = SMBoardViewController()
