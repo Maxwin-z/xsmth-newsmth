@@ -66,16 +66,19 @@ class SMLoginViewControllerV2: XWebController{
         
         if (navigationAction.request.url?.host == "m.mysmth.net") {
             debugPrint(navigationAction.request.url?.absoluteString ?? "")
-            webView.configuration.websiteDataStore.httpCookieStore.getAllCookies { [weak self] cookies in
-                cookies.forEach { cookie in
-                    if (cookie.domain == ".mysmth.net") {
-                        debugPrint(2222, cookie)
-                        HTTPCookieStorage.shared.setCookie(cookie)
+            weak var weakSelf = self
+            DispatchQueue.main.asyncAfter(deadline:  .now() + 1.0) {
+                weakSelf?.webView.configuration.websiteDataStore.httpCookieStore.getAllCookies { cookies in
+                    cookies.forEach { cookie in
+                        if (cookie.domain == ".mysmth.net") {
+                            debugPrint(2222, cookie)
+                            HTTPCookieStorage.shared.setCookie(cookie)
+                        }
                     }
-                }
-                SMAccountManager.instance()?.setCookies(cookies)
-                if (SMAccountManager.instance()?.isLogin == true) {
-                    self?.loginSuccess()
+                    SMAccountManager.instance()?.setCookies(cookies)
+                    if (SMAccountManager.instance()?.isLogin == true) {
+                        weakSelf?.loginSuccess()
+                    }
                 }
             }
         }
