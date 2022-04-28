@@ -8,7 +8,6 @@
 
 #import "SMPostGroupHeaderCell.h"
 #import "UIButton+Custom.h"
-#import "GADBannerView.h"
 #import <iAd/iAd.h>
 
 const CGFloat ADVIEW_HEIGHT = 50.0f;

@@ -55,7 +55,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.screenName = NSStringFromClass([self class]);
+//    self.screenName = NSStringFromClass([self class]);
     
     self.currentOrientation = [UIDevice currentDevice].orientation;
 

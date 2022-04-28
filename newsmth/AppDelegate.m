@@ -6,7 +6,6 @@
 //  Copyright (c) 2013年 nju. All rights reserved.
 //
 
-#import "GAI.h"
 #import "AppDelegate.h"
 #import "SMAccountManager.h"
 
@@ -74,13 +73,13 @@
 - (void)setupGoogleAnalytics
 {
     // Optional: automatically send uncaught exceptions to Google Analytics.
-    [GAI sharedInstance].trackUncaughtExceptions = YES;
-    // Optional: set Google Analytics dispatch interval to e.g. 20 seconds.
-    [GAI sharedInstance].dispatchInterval = 20;
-    // Optional: set debug to YES for extra debugging information.
-//    [GAI sharedInstance].debug = NO;
-    // Create tracker instance.
-    [[GAI sharedInstance] trackerWithTrackingId:@"UA-41978299-1"];
+//    [GAI sharedInstance].trackUncaughtExceptions = YES;
+//    // Optional: set Google Analytics dispatch interval to e.g. 20 seconds.
+//    [GAI sharedInstance].dispatchInterval = 20;
+//    // Optional: set debug to YES for extra debugging information.
+////    [GAI sharedInstance].debug = NO;
+//    // Create tracker instance.
+//    [[GAI sharedInstance] trackerWithTrackingId:@"UA-41978299-1"];
 }
 
 //- (void)setupTheme

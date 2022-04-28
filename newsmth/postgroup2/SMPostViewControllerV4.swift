@@ -361,7 +361,6 @@ class SMPostViewControllerV4: XWebController {
                     if at == SMActivityDeleteActivity {
                         weakSelf.notificationToWeb(messageName: "DELETE_POST", data: weakSelf.postForAction?.pid ?? 0)
                     }
-                    debugPrint(activityType?.rawValue ?? "no activity")
                 }
                 if SMUtils.isPad() {
                     activity.modalPresentationStyle = .popover
@@ -499,7 +498,7 @@ class SMPostViewControllerV4: XWebController {
                 weakSelf.mmkv.set(userText, forKey: mmkvKey_forwardTarget)
                 let url = "https://m.mysmth.net/article/\(p.board.name!)/forward/\(p.pid)"
                 SMAF.request(url, method: .post, parameters: ["target": userText, "threads": all ? "on" : ""]).response { response in
-                    debugPrint(response)
+//                    debugPrint(response)
                     do {
                         if let data = try response.result.get() {
                             var html = String(data: data, encoding: .utf8)!
@@ -592,7 +591,6 @@ extension SMPostViewControllerV4: UIScrollViewDelegate {
 
     func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
         let point = scrollView.panGestureRecognizer.translation(in: scrollView.superview)
-        debugPrint("252", point)
         if point.y > 0 {
             showBottomBar()
         }

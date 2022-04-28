@@ -47,8 +47,10 @@
 {
 //    XLog_d(@"%@", request_.responseCookies);
     // handle response header. update account status
-    XLog_d(@"refresh cookie: %@", request_.url);
-    [[SMAccountManager instance] setCookies:request_.responseCookies];
+    if ([request_.url.host containsString:@"mysmth.net"]) {
+        XLog_d(@"refresh cookie: %@", request_.url);
+        [[SMAccountManager instance] setCookies:request_.responseCookies];
+    }
     
     if ([_originalDelegate respondsToSelector:@selector(request:didReceiveResponseHeaders:)]) {
         [_originalDelegate request:request_ didReceiveResponseHeaders:responseHeaders_];

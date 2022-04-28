@@ -7,8 +7,6 @@
 //
 
 #import "SMUtils.h"
-#import "GAI.h"
-#import "GAIDictionaryBuilder.h"
 #import <Photos/Photos.h>
 #import <AssetsLibrary/ALAssetsLibrary.h>
 #import <CommonCrypto/CommonDigest.h>
@@ -154,14 +152,14 @@
                         action:(NSString *)action
                          label:(NSString *)label
 {
-    NSMutableDictionary *event =
-    [[GAIDictionaryBuilder createEventWithCategory:category
-                                            action:action
-                                             label:label
-                                             value:nil] build];
-
-    [[GAI sharedInstance].defaultTracker send:event];
-    XLog_d(@"track category:" _XLOG_COLOR_RED @"[%@], action[%@], label[%@]" _XLOG_COLOR_RESET, category, action, label);
+//    NSMutableDictionary *event =
+//    [[GAIDictionaryBuilder createEventWithCategory:category
+//                                            action:action
+//                                             label:label
+//                                             value:nil] build];
+//
+//    [[GAI sharedInstance].defaultTracker send:event];
+//    XLog_d(@"track category:" _XLOG_COLOR_RED @"[%@], action[%@], label[%@]" _XLOG_COLOR_RESET, category, action, label);
 }
 
 + (BOOL)writeData:(NSData *)data toDocumentFolder:(NSString *)path
