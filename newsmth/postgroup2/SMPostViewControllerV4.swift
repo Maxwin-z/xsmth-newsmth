@@ -463,6 +463,20 @@ class SMPostViewControllerV4: XWebController {
         }
     }
     
+    func _getUserTags(parameters: Any) -> Future<Any, XBridgeError> {
+        return Future { promise in
+            guard let name = parameters as? String else {
+                promise(.failure(XBridgeError(code: -1, message: "name不能为空")))
+                return
+            }
+            guard let tags = MMKV.default().string(forKey: "tags_" + name) else {
+                promise(.success(""))
+                return
+            }
+            promise(.success(tags))
+        }
+    }
+    
     /// activity methods
     @objc
     func forwardActivity(all: Bool) {

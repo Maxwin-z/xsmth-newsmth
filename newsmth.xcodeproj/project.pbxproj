@@ -16,7 +16,9 @@
 		39C260061860A0E400AEFE0E /* SMBoardSearchResultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 39C260041860A0E400AEFE0E /* SMBoardSearchResultViewController.xib */; };
 		39C260081860A8DF00AEFE0E /* bbsbfind.js in Resources */ = {isa = PBXBuildFile; fileRef = 39C260071860A8DF00AEFE0E /* bbsbfind.js */; };
 		5000D84024659DEF00DED5DE /* SMAuthorActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 5000D83E24659DEF00DED5DE /* SMAuthorActivity.m */; };
+		501D069428191B68008AF400 /* XDonateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501D069328191B68008AF400 /* XDonateViewController.swift */; };
 		50457F98247A770400F74CA0 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50457F97247A770400F74CA0 /* StoreKit.framework */; };
+		50488EE0281A54A60090EE18 /* m.user.js in Resources */ = {isa = PBXBuildFile; fileRef = 50488EDF281A54A60090EE18 /* m.user.js */; };
 		504F7B8C2352FEC200009940 /* SMBoardHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 504F7B8B2352FEC200009940 /* SMBoardHistoryViewController.m */; };
 		505352CA24DFD20B0059F2A6 /* SMLoginViewControllerV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505352C924DFD20B0059F2A6 /* SMLoginViewControllerV2.swift */; };
 		507B91A024952EF6005D4CA4 /* SMUserTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 507B919C24952EF5005D4CA4 /* SMUserTag.m */; };
@@ -351,7 +353,9 @@
 		39C260071860A8DF00AEFE0E /* bbsbfind.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = bbsbfind.js; sourceTree = "<group>"; };
 		5000D83E24659DEF00DED5DE /* SMAuthorActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMAuthorActivity.m; sourceTree = "<group>"; };
 		5000D83F24659DEF00DED5DE /* SMAuthorActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMAuthorActivity.h; sourceTree = "<group>"; };
+		501D069328191B68008AF400 /* XDonateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XDonateViewController.swift; sourceTree = "<group>"; };
 		50457F97247A770400F74CA0 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		50488EDF281A54A60090EE18 /* m.user.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = m.user.js; sourceTree = "<group>"; };
 		504F7B8A2352FEC200009940 /* SMBoardHistoryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMBoardHistoryViewController.h; sourceTree = "<group>"; };
 		504F7B8B2352FEC200009940 /* SMBoardHistoryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMBoardHistoryViewController.m; sourceTree = "<group>"; };
 		505352C924DFD20B0059F2A6 /* SMLoginViewControllerV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMLoginViewControllerV2.swift; sourceTree = "<group>"; };
@@ -980,6 +984,7 @@
 		C121F2991750EE790081FD87 /* jsParser */ = {
 			isa = PBXGroup;
 			children = (
+				50488EDF281A54A60090EE18 /* m.user.js */,
 				C13FBE4C1CA962BD0099FCA6 /* mainpage2.js */,
 				C1300A71187C0A30006ACA5C /* bbsfwd.js */,
 				39C260071860A8DF00AEFE0E /* bbsbfind.js */,
@@ -1114,6 +1119,7 @@
 				C1F8D80E18D3313D0076A790 /* SMDiagnoseViewController.h */,
 				C1F8D80F18D3313D0076A790 /* SMDiagnoseViewController.m */,
 				C1F8D81018D3313D0076A790 /* SMDiagnoseViewController.xib */,
+				501D069328191B68008AF400 /* XDonateViewController.swift */,
 			);
 			path = more;
 			sourceTree = "<group>";
@@ -1825,6 +1831,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50488EE0281A54A60090EE18 /* m.user.js in Resources */,
 				C1300A73187C0A50006ACA5C /* bbsfwd.js in Resources */,
 				39C260081860A8DF00AEFE0E /* bbsbfind.js in Resources */,
 				C1E7A1A7180AA8C7002CAEEC /* util_notice.js in Resources */,
@@ -2142,6 +2149,7 @@
 				C17F4B83178C0A21002F4934 /* SMImageUploadListViewController.m in Sources */,
 				C17F4B89178C11CA002F4934 /* SMUpload.m in Sources */,
 				C17F4B8A178C11CA002F4934 /* SMUploadItem.m in Sources */,
+				501D069428191B68008AF400 /* XDonateViewController.swift in Sources */,
 				C10F2F7817E5621800F83206 /* SMMailList.m in Sources */,
 				C1BA92C917954EC300F76ACF /* PBWebViewController.m in Sources */,
 				C1C07A581796857900906ED7 /* OWActivity.m in Sources */,
@@ -2281,7 +2289,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 4.3.2.0;
+				CURRENT_PROJECT_VERSION = 4.3.2.1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 4K4MS8S6B8;
 				ENABLE_BITCODE = NO;
@@ -2401,7 +2409,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 4.3.2.0;
+				CURRENT_PROJECT_VERSION = 4.3.2.1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 4K4MS8S6B8;
 				ENABLE_BITCODE = NO;
@@ -2443,7 +2451,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 4.3.2.0;
+				CURRENT_PROJECT_VERSION = 4.3.2.1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 4K4MS8S6B8;
 				ENABLE_BITCODE = NO;

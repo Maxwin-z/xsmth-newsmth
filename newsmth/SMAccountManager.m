@@ -113,6 +113,9 @@ static SMAccountManager *_instance;
             
             // notify account changed.
             XLog_d(@"account: %@ -> %@", _name, name);
+            if ([_name isEqualToString:@"Maxwin"] && name == nil) {
+                NSLog(@"logout");
+            }
             if ((name != nil || _name != nil) && ![name isEqualToString:_name]) {
                 _name = name;
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

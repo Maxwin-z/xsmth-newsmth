@@ -47,6 +47,7 @@
 {
 //    XLog_d(@"%@", request_.responseCookies);
     // handle response header. update account status
+    XLog_d(@"refresh cookie: %@", request_.url);
     [[SMAccountManager instance] setCookies:request_.responseCookies];
     
     if ([_originalDelegate respondsToSelector:@selector(request:didReceiveResponseHeaders:)]) {
