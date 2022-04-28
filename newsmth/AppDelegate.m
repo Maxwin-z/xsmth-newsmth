@@ -29,7 +29,6 @@
 @property (strong, nonatomic) ViewController *viewController;
 @property (strong, nonatomic) SMMainViewController *mainViewController;
 @property (strong, nonatomic) SMIPadSplitViewController *ipadSplitViewController;
-@property (strong, nonatomic) SMAdViewController *adViewController;
 
 @property (strong, nonatomic) SMWebLoaderOperation *keepLoginOp;
 @property (strong, nonatomic) SMWebLoaderOperation *loginOp;
@@ -38,16 +37,18 @@
 
 @property (strong, nonatomic) SMUpdater *updater;
 
-@property (assign, nonatomic) BOOL isNewLaunching;
-
 @property (strong, nonatomic) CMMotionManager *motionManager;
 @property (strong, nonatomic) UIApplicationShortcutItem *launchedShortcutItem;
+
+@property (strong, nonatomic) XBackground *bg;
+
 @end
 
 @implementation AppDelegate
 
 - (void)showNotification:(NSString *)notice
 {
+    
     UIApplication *app = [UIApplication sharedApplication];
     NSArray *oldNotifications = [app scheduledLocalNotifications];
     
@@ -69,39 +70,6 @@
     }
 }
 
-
-- (void)setupGoogleAnalytics
-{
-    // Optional: automatically send uncaught exceptions to Google Analytics.
-//    [GAI sharedInstance].trackUncaughtExceptions = YES;
-//    // Optional: set Google Analytics dispatch interval to e.g. 20 seconds.
-//    [GAI sharedInstance].dispatchInterval = 20;
-//    // Optional: set debug to YES for extra debugging information.
-////    [GAI sharedInstance].debug = NO;
-//    // Create tracker instance.
-//    [[GAI sharedInstance] trackerWithTrackingId:@"UA-41978299-1"];
-}
-
-//- (void)setupTheme
-//{
-//    if ([self.window respondsToSelector:@selector(setTintColor:)]) {
-//        self.window.tintColor = [SMTheme colorForTintColor];
-//    }
-//    [[UIBarButtonItem appearance] setTintColor:[SMTheme colorForTintColor]];
-//    [[UINavigationBar appearance] setTitleTextAttributes:
-//     @{
-//       UITextAttributeTextColor: [SMTheme colorForPrimary],
-//       UITextAttributeTextShadowColor: [UIColor clearColor]
-//       }];
-//
-//    if ([SMUtils systemVersion] < 7) {
-//        [[UINavigationBar appearance] setBackgroundImage:[[UIImage imageNamed:@"bg_navigationbar"] stretchableImageWithLeftCapWidth:1 topCapHeight:1] forBarMetrics:UIBarMetricsDefault];
-////        [[UIBarButtonItem appearance] setBackgroundImage:[[UIImage imageNamed:@"bg_barbuttonitem"] stretchableImageWithLeftCapWidth:2 topCapHeight:2] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-//        
-//    } else {
-//        [[UINavigationBar appearance] setBarTintColor:[SMTheme colorForBarTintColor]];
-//    }
-//}
 
 - (void)onDeviceShake:(NSNotification *)n
 {
@@ -138,15 +106,8 @@
     [ASIHTTPRequest setShouldUpdateNetworkActivityIndicator:NO];
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-//    [self setupTheme];
-    // fix iOS11 ScrollView
-    if (@available(iOS 11.0, *)){
-        [[UIScrollView appearance] setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];
-    }
-    
-    self.isNewLaunching = YES;
-    
+    [[UIScrollView appearance] setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];
+        
     [SMAccountManager instance];
     
     _mainViewController = [[SMMainViewController alloc] init];
@@ -162,9 +123,8 @@
     }
     
     [self.window makeKeyAndVisible];
-    [self setupGoogleAnalytics];
-//    [self setupShakeMotion];
-    
+
+    self.bg = [[XBackground alloc] initWithApplication:application];
     
     NSString *latestVersion = [[NSUserDefaults standardUserDefaults] stringForKey:USERDEFAULTS_STAT_VERSION];
     if (![[SMUtils appVersionString] isEqualToString:latestVersion]) {
@@ -195,18 +155,9 @@
     XLog_d(@"%@", NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES));
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onDeviceShake:) name:NOTIFYCATION_SHAKE object:nil];
-
-    [self showAdView];
-    
-    if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]) {
-        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeSound categories:nil]];
-    }
     
     // ios9 add shortcuts
     [self makeupShortcuts];
-    
-    // zanshang
-    [[SMZanShangUtil sharedInstance] addOpenCount];
     
     // handle shortcuts
     BOOL shouldPerformAdditionalDelegateHandling = true;
@@ -245,13 +196,6 @@
 -(void)applicationDidBecomeActive:(UIApplication *)application
 {
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
-    if (self.isNewLaunching) {
-        [self hideAdViewDelay];
-    } else {
-        [self hideAdView];
-    }
-    self.isNewLaunching = NO;
-    
     if (self.launchedShortcutItem) {
         [self handleShortCutItem:self.launchedShortcutItem];
         self.launchedShortcutItem = nil;
@@ -261,17 +205,12 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
     [self makeupShortcuts];
+    [self.bg start];
 }
 
-- (void)applicationWillResignActive:(UIApplication *)application
-{
-    [self showAdView];
-}
 
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
-    [self showAdView];
-    
     if ([SMAccountManager instance].isLogin) {
         XLog_d(@"load notice");
         [_keepLoginOp cancel];
@@ -279,43 +218,9 @@
         _keepLoginOp.delegate = self;
         _completionHandler = completionHandler;
         [_keepLoginOp loadUrl:URL_PROTOCOL @"//m.mysmth.net/user/query/" withParser:@"notice,util_notice"];
-    } else {
-        NSString *user = [[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_USERNAME];
-        NSString *passwd =  [[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_PASSWORD];
-        if (user && passwd) {
-            SMHttpRequest *request = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:URL_PROTOCOL @"//m.mysmth.net/user/login"]];
-            NSString *postBody = [NSString stringWithFormat:@"id=%@&passwd=%@&save=on", user, passwd];
-            [request setRequestMethod:@"POST"];
-            [request addRequestHeader:@"Content-type" value:@"application/x-www-form-urlencoded"];
-            [request setPostBody:[[postBody dataUsingEncoding:NSUTF8StringEncoding] mutableCopy]];
-            
-            [_loginOp cancel];
-            _loginOp = [[SMWebLoaderOperation alloc] init];
-            _loginOp.delegate = self;
-            _completionHandler = completionHandler;
-            [_loginOp loadRequest:request withParser:@"notice,util_notice"];
-        } else {
-//            [self showNotification:@"no account, stop bg fetch"];
-            [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalNever];
-            completionHandler(UIBackgroundFetchResultNoData);
-        }
     }
-
-//    NSURL *url = [NSURL URLWithString:URL_PROTOCOL @"//m.mysmth.net/user/query/"];
-//    NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-//        NSString *content = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-//        XLog_d(@"%@", content);
-//        [self showNotification:@"got it"];
-//        completionHandler(UIBackgroundFetchResultNewData);
-//    }];
-//    [task resume];
 }
 
-- (void)application:(UIApplication *)application handleEventsForBackgroundURLSession:(NSString *)identifier completionHandler:(void (^)())completionHandler
-{
-    XLog_d(@"");
-    completionHandler(UIBackgroundFetchResultNewData);
-}
 
 - (void)webLoaderOperationFinished:(SMWebLoaderOperation *)opt
 {
@@ -350,7 +255,7 @@
             [self showNotification:message];
             [SMUtils trackEventWithCategory:@"user" action:@"localnotify" label:nil];
         }
-//        [self showNotification:@"notice change, reset fetch time"];
+        [self showNotification:@"notice change, reset fetch time"];
     }
 
     [self scheduleNextBackgroundFetch];
@@ -376,54 +281,10 @@
 
 - (void)scheduleNextBackgroundFetch
 {
-    NSInteger mins = [SMConfig nextFetchTime];
-    [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:mins * 60];
-//    NSString *msg = [NSString stringWithFormat:@"fetch after %dmin", mins];
-//    [self showNotification:msg];
+//    NSInteger mins = [SMConfig nextFetchTime];
+//    mins = 3;   // 3分钟保持当前web登录状态
+//    [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:mins * 60];
 }
-
-#pragma mark - Ad
-- (void)showAdView
-{
-//    if (![SMAdViewController hasAd]) return ;
-  /* do nth
-    if (self.adViewController == nil) {
-        self.adViewController = [SMAdViewController new];
-    }
-    
-    CGFloat angle = 0;
-    CGRect frame = self.window.bounds;
-    
-    UIDeviceOrientation o = [UIDevice currentDevice].orientation;
-    if (o == UIDeviceOrientationUnknown) {
-        o = (UIDeviceOrientation) [[UIApplication sharedApplication] statusBarOrientation];
-    }
-    
-    if (o == UIDeviceOrientationLandscapeLeft) {
-        angle = M_PI_2;
-    }
-    if (o == UIDeviceOrientationLandscapeRight){
-        angle = -M_PI_2;
-    }
-    
-    self.adViewController.view.transform = CGAffineTransformMakeRotation(angle);
-    self.adViewController.view.frame = frame;
-
-    self.adViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [self.window addSubview:self.adViewController.view];
-   */
-}
-
-- (void)hideAdView
-{
-    [self.adViewController.view removeFromSuperview];
-}
-
-- (void)hideAdViewDelay
-{
-    [self performSelector:@selector(hideAdView) withObject:nil afterDelay:2];
-}
-
 
 - (void)makeupShortcuts
 {

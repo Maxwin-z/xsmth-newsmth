@@ -19,6 +19,8 @@
 		501D069428191B68008AF400 /* XDonateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501D069328191B68008AF400 /* XDonateViewController.swift */; };
 		50457F98247A770400F74CA0 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50457F97247A770400F74CA0 /* StoreKit.framework */; };
 		50488EE0281A54A60090EE18 /* m.user.js in Resources */ = {isa = PBXBuildFile; fileRef = 50488EDF281A54A60090EE18 /* m.user.js */; };
+		50488EE3281A80450090EE18 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50488EE2281A80450090EE18 /* UserNotifications.framework */; };
+		50488EE5281A80C20090EE18 /* XBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50488EE4281A80C20090EE18 /* XBackground.swift */; };
 		504F7B8C2352FEC200009940 /* SMBoardHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 504F7B8B2352FEC200009940 /* SMBoardHistoryViewController.m */; };
 		505352CA24DFD20B0059F2A6 /* SMLoginViewControllerV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505352C924DFD20B0059F2A6 /* SMLoginViewControllerV2.swift */; };
 		507B91A024952EF6005D4CA4 /* SMUserTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 507B919C24952EF5005D4CA4 /* SMUserTag.m */; };
@@ -354,6 +356,8 @@
 		501D069328191B68008AF400 /* XDonateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XDonateViewController.swift; sourceTree = "<group>"; };
 		50457F97247A770400F74CA0 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		50488EDF281A54A60090EE18 /* m.user.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = m.user.js; sourceTree = "<group>"; };
+		50488EE2281A80450090EE18 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		50488EE4281A80C20090EE18 /* XBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XBackground.swift; sourceTree = "<group>"; };
 		504F7B8A2352FEC200009940 /* SMBoardHistoryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMBoardHistoryViewController.h; sourceTree = "<group>"; };
 		504F7B8B2352FEC200009940 /* SMBoardHistoryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMBoardHistoryViewController.m; sourceTree = "<group>"; };
 		505352C924DFD20B0059F2A6 /* SMLoginViewControllerV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMLoginViewControllerV2.swift; sourceTree = "<group>"; };
@@ -826,6 +830,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50488EE3281A80450090EE18 /* UserNotifications.framework in Frameworks */,
 				50FE53C623DFFF5700C896E6 /* WebKit.framework in Frameworks */,
 				C12F79D521A28BA400016605 /* SafariServices.framework in Frameworks */,
 				C1B33E0020ECE2AE00404E45 /* AVKit.framework in Frameworks */,
@@ -1311,6 +1316,7 @@
 		C1BFB8DB174F6A620092FD2E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				50488EE2281A80450090EE18 /* UserNotifications.framework */,
 				50457F97247A770400F74CA0 /* StoreKit.framework */,
 				50FE53C523DFFF5700C896E6 /* WebKit.framework */,
 				C12F79D421A28BA400016605 /* SafariServices.framework */,
@@ -1366,6 +1372,7 @@
 				C14505EA17507DD400DC5431 /* Utils */,
 				C1BFB8EB174F6A620092FD2E /* AppDelegate.h */,
 				C1BFB8EC174F6A620092FD2E /* AppDelegate.m */,
+				50488EE4281A80C20090EE18 /* XBackground.swift */,
 				C1BFB8F4174F6A620092FD2E /* ViewController.h */,
 				C1BFB8F5174F6A620092FD2E /* ViewController.m */,
 				C1BFB8F7174F6A620092FD2E /* ViewController.xib */,
@@ -2003,6 +2010,7 @@
 				C10C499F18F04F3400DF946E /* UIDeviceHardware.m in Sources */,
 				C14505ED17507DD400DC5431 /* XLogUtil.m in Sources */,
 				C121F29E175106A00081FD87 /* SMWebParser.m in Sources */,
+				50488EE5281A80C20090EE18 /* XBackground.swift in Sources */,
 				C10D16081755E7A0002D6FAD /* SMWebLoaderOperation.m in Sources */,
 				C10D160B1755EFEE002D6FAD /* SMWebLoaderOperationQueue.m in Sources */,
 				C10D16111756059B002D6FAD /* SMViewController.m in Sources */,

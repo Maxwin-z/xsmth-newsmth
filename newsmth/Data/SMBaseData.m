@@ -10,7 +10,7 @@
 
 @implementation SMBaseData
 
-+ (SMBaseData *)dataWithJSON:(id)json
++ (instancetype)dataWithJSON2:(id)json
 {
     Class clz = [SMBaseData class];
     NSString *clzName = [json objectForKey:@"__type"];
@@ -20,7 +20,7 @@
     return [[clz alloc] initWithJSON:json];
 }
 
-+ (SMBaseData *)dataWithJSON:(id)json type:(NSString *)className
++ (instancetype)dataWithJSON2:(id)json type:(NSString *)className
 {
     Class clz = [SMBaseData class];
     if (className != nil) {

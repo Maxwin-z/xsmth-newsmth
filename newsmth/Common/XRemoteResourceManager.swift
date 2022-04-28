@@ -38,6 +38,9 @@ class XRemoteResourceManager: NSObject {
         if let url = URL(string: config.url) {
             AF.request(url).responseData { response in
                 do {
+                    if (response.value == nil) {
+                        return
+                    }
                     let list = try JSONDecoder().decode(XRRMList.self, from: response.value!)
                     list.items.forEach { item in
                         debugPrint(item)
