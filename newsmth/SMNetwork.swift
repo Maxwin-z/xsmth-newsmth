@@ -72,7 +72,7 @@ class SMSession: NSObject {
             for f in files {
                 js += self.loadJS(f) ?? ""
             }
-            debugPrint(js)
+//            debugPrint(js)
             
             if (js.isEmpty) {
                 promise(.failure(XParseError("解析器不存在")))

@@ -99,7 +99,7 @@ typedef NS_ENUM(NSInteger, CellType) {
     if ([SMConfig isPro]) return ;
     CGRect frame = self.donateVC.view.frame;
     frame.origin.x = 0;
-    frame.origin.y = 100;
+    frame.origin.y = 150;
     frame.size.width =  self.view.size.width;
     frame.size.height = self.view.frame.size.height - 400;
     self.donateVC.view.autoresizingMask =  UIViewAutoresizingFlexibleHeight;

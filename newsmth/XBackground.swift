@@ -9,10 +9,14 @@
 import Foundation
 import UserNotifications
 import Combine
+import BackgroundTasks
+import StoreKit
 
 class XBackground: NSObject {
     var keep: AnyCancellable?;
-    
+    let bgTaskID: String = "me.maxwin.xsmth.keeplogin"
+    var count = 0
+
     @objc init(application: UIApplication) {
         let center = UNUserNotificationCenter.current()
         let options: UNAuthorizationOptions = [.alert, .badge, .sound]
@@ -23,14 +27,47 @@ class XBackground: NSObject {
                 }
             }
         }
+        
+       
     }
     
     @objc func start() {
-        debugPrint("start bg fetch")
-        self.keepLogin()
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-//            self.showNotification(notice: "jaja")
-//        }
+        self.setupBgTasks()
+    }
+    
+    @objc func setupBackgroundTask() {
+        print("[BGTASK] setupBackgroundTask")
+        BGTaskScheduler.shared.register(forTaskWithIdentifier: self.bgTaskID, using: nil) { task in
+            print("[BGTASK] execute bg task")
+            self.count += 1
+            self.showNotification(body: "", badge: NSNumber(value: self.count))
+            task.setTaskCompleted(success: true)
+            URLSession.shared.dataTask(with: URL(string: "https://m.mysmth.net/user/query/")!) { data, rsp, error in
+                if (SMAccountManager.instance().isLogin) {
+                    self.scheduleBackgroundTask()
+                }
+            }
+        }
+    }
+    
+    @objc func scheduleBackgroundTask() {
+        print("[BGTASK] scheduleBackgroundTask")
+        let request = BGProcessingTaskRequest(identifier: self.bgTaskID)
+        request.requiresNetworkConnectivity = true
+
+        request.earliestBeginDate = Date(timeIntervalSinceNow: 5 * 60)
+        do {
+           try BGTaskScheduler.shared.submit(request)
+            print("[BGTASK] scheduleBackgroundTask success")
+        } catch {
+           print("[BGTASK] Could not schedule bg task", error)
+        }
+    }
+    
+    
+    func setupBgTasks() {
+//        debugPrint("start bg fetch")
+//        self.keepLogin()
     }
     
     func keepLogin() {
@@ -39,15 +76,22 @@ class XBackground: NSObject {
             convertible: URL(string: "https://m.mysmth.net/user/query/")!)
         .sink { _ in
         } receiveValue: { data in
-            print(data)
+            if let notice = data as? SMNotice {
+                let badge = notice.mail + notice.at + notice.reply
+                let body = "新的消息(\(badge))"
+                if (badge > 0) {
+                    self.showNotification(body: body, badge: NSNumber(value: badge))
+                }
+            }
         }
     }
     
-    func showNotification(notice: String) {
-        debugPrint("notice", notice)
+    func showNotification(body: String, badge: NSNumber) {
+        debugPrint("notice", body)
         let content = UNMutableNotificationContent()
-        content.body = notice
+        content.body = body
         content.sound = UNNotificationSound.default
+        content.badge = badge
 
         guard let nextTriggerDate = Calendar.current.date(
             byAdding: .second,

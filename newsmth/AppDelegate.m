@@ -23,7 +23,7 @@
 #import "SMZanShangUtil.h"
 #import "newsmth-Swift.h"
 
-@interface AppDelegate ()<SMWebLoaderOperationDelegate>
+@interface AppDelegate ()
 @property (strong, nonatomic) UINavigationController *nvc;
 @property (strong, nonatomic) SMMainpageViewController *mainpageViewController;
 @property (strong, nonatomic) ViewController *viewController;
@@ -45,31 +45,6 @@
 @end
 
 @implementation AppDelegate
-
-- (void)showNotification:(NSString *)notice
-{
-    
-    UIApplication *app = [UIApplication sharedApplication];
-    NSArray *oldNotifications = [app scheduledLocalNotifications];
-    
-    // Clear out the old notification before scheduling a new one.
-    if ([oldNotifications count] > 0)
-        [app cancelAllLocalNotifications];
-    
-    // Create a new notification.
-    UILocalNotification* alarm = [[UILocalNotification alloc] init];
-    if (alarm)
-    {
-        alarm.fireDate = [NSDate date];
-        //        alarm.timeZone = [NSTimeZone defaultTimeZone];
-        alarm.repeatInterval = 0;
-        alarm.soundName = UILocalNotificationDefaultSoundName;
-        alarm.alertBody = notice;
-        
-        [app scheduleLocalNotification:alarm];
-    }
-}
-
 
 - (void)onDeviceShake:(NSNotification *)n
 {
@@ -101,8 +76,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    
-//    [SMURLProtocol doRegister];
     [ASIHTTPRequest setShouldUpdateNetworkActivityIndicator:NO];
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -125,6 +98,7 @@
     [self.window makeKeyAndVisible];
 
     self.bg = [[XBackground alloc] initWithApplication:application];
+    [self.bg setupBackgroundTask];
     
     NSString *latestVersion = [[NSUserDefaults standardUserDefaults] stringForKey:USERDEFAULTS_STAT_VERSION];
     if (![[SMUtils appVersionString] isEqualToString:latestVersion]) {
@@ -205,85 +179,7 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
     [self makeupShortcuts];
-    [self.bg start];
-}
-
-
-- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
-{
-    if ([SMAccountManager instance].isLogin) {
-        XLog_d(@"load notice");
-        [_keepLoginOp cancel];
-        _keepLoginOp = [[SMWebLoaderOperation alloc] init];
-        _keepLoginOp.delegate = self;
-        _completionHandler = completionHandler;
-        [_keepLoginOp loadUrl:URL_PROTOCOL @"//m.mysmth.net/user/query/" withParser:@"notice,util_notice"];
-    }
-}
-
-
-- (void)webLoaderOperationFinished:(SMWebLoaderOperation *)opt
-{
-    XLog_d(@"%@", opt.data);
-    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-    SMNotice *oldNotice = [[SMNotice alloc] initWithJSON:[def objectForKey:USERDEFAULTS_NOTICE]];
-    SMNotice *lastFetchNotice = [[SMNotice alloc] initWithJSON:[def objectForKey:USERDEFAULTS_NOTICE_FETCH]];
-    
-    SMNotice *newNotice = opt.data;
-    [SMAccountManager instance].notice = newNotice;
-    NSMutableArray *res = [[NSMutableArray alloc] init];
-    int badge = 0;
-    if (newNotice.mail > oldNotice.mail) {
-        [res addObject:@"邮件"];
-        badge += newNotice.mail - oldNotice.mail;
-    }
-    if (newNotice.reply > oldNotice.reply) {
-        [res addObject:[NSString stringWithFormat:@"%d条回复", newNotice.reply - oldNotice.reply]];
-        badge += newNotice.reply - oldNotice.reply;
-    }
-    if (newNotice.at > oldNotice.at) {
-        [res addObject:[NSString stringWithFormat:@"%d条@", newNotice.at - oldNotice.at]];
-        badge += newNotice.at - oldNotice.at;
-    }
-    
-    if (newNotice.mail > lastFetchNotice.mail || newNotice.at > lastFetchNotice.at || newNotice.reply > lastFetchNotice.reply) {
-        [SMConfig resetFetchTime];
-
-        if (res.count > 0) {
-            NSString *message = [NSString stringWithFormat:@"%@ 新的消息：%@", opt == _loginOp ? @"登录" : @"", [res componentsJoinedByString:@", "]];
-            [UIApplication sharedApplication].applicationIconBadgeNumber = badge;
-            [self showNotification:message];
-            [SMUtils trackEventWithCategory:@"user" action:@"localnotify" label:nil];
-        }
-        [self showNotification:@"notice change, reset fetch time"];
-    }
-
-    [self scheduleNextBackgroundFetch];
-    // save new fetched notice
-    [def setObject:[newNotice encode] forKey:USERDEFAULTS_NOTICE_FETCH];
-
-    _completionHandler(UIBackgroundFetchResultNewData);
-    _completionHandler = nil;
-    
-    
-    // add notice
-    [self makeupShortcuts];
-}
-
-- (void)webLoaderOperationFail:(SMWebLoaderOperation *)opt error:(SMMessage *)error
-{
-    XLog_d(@"%@", error);
-//    [self showNotification:[NSString stringWithFormat:@"%@", error]];
-    _completionHandler(UIBackgroundFetchResultFailed);
-    _completionHandler = nil;
-    [self scheduleNextBackgroundFetch];
-}
-
-- (void)scheduleNextBackgroundFetch
-{
-//    NSInteger mins = [SMConfig nextFetchTime];
-//    mins = 3;   // 3分钟保持当前web登录状态
-//    [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:mins * 60];
+    [self.bg scheduleBackgroundTask];
 }
 
 - (void)makeupShortcuts
@@ -322,5 +218,6 @@
         app.shortcutItems = items;
     }
 }
+
 
 @end

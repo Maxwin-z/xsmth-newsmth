@@ -27,6 +27,7 @@
 		507B91A124952EF6005D4CA4 /* SMTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 507B919D24952EF5005D4CA4 /* SMTag.m */; };
 		508BFA4820ED20BD005ACFD6 /* SMVideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 508BFA4720ED20BD005ACFD6 /* SMVideoPlayerViewController.m */; };
 		50A382FC2460608700098D23 /* XWebController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A382FB2460608700098D23 /* XWebController.swift */; };
+		50D55875281B872000AADC48 /* BackgroundTasks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50D55874281B871F00AADC48 /* BackgroundTasks.framework */; };
 		50DA3CF124B0761B00493014 /* ip2region.c in Sources */ = {isa = PBXBuildFile; fileRef = 50DA3CF024B0761B00493014 /* ip2region.c */; };
 		50DA3CF324B077DE00493014 /* XIPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DA3CF224B077DE00493014 /* XIPHelper.swift */; };
 		50F0F41F24A58CA000946C17 /* XRemoteResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F0F41E24A58CA000946C17 /* XRemoteResourceManager.swift */; };
@@ -368,6 +369,7 @@
 		508BFA4620ED20BD005ACFD6 /* SMVideoPlayerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMVideoPlayerViewController.h; sourceTree = "<group>"; };
 		508BFA4720ED20BD005ACFD6 /* SMVideoPlayerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMVideoPlayerViewController.m; sourceTree = "<group>"; };
 		50A382FB2460608700098D23 /* XWebController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWebController.swift; sourceTree = "<group>"; };
+		50D55874281B871F00AADC48 /* BackgroundTasks.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BackgroundTasks.framework; path = System/Library/Frameworks/BackgroundTasks.framework; sourceTree = SDKROOT; };
 		50DA3CEF24B0761B00493014 /* ip2region.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ip2region.h; sourceTree = "<group>"; };
 		50DA3CF024B0761B00493014 /* ip2region.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ip2region.c; sourceTree = "<group>"; };
 		50DA3CF224B077DE00493014 /* XIPHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XIPHelper.swift; sourceTree = "<group>"; };
@@ -830,6 +832,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50D55875281B872000AADC48 /* BackgroundTasks.framework in Frameworks */,
 				50488EE3281A80450090EE18 /* UserNotifications.framework in Frameworks */,
 				50FE53C623DFFF5700C896E6 /* WebKit.framework in Frameworks */,
 				C12F79D521A28BA400016605 /* SafariServices.framework in Frameworks */,
@@ -1316,6 +1319,7 @@
 		C1BFB8DB174F6A620092FD2E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				50D55874281B871F00AADC48 /* BackgroundTasks.framework */,
 				50488EE2281A80450090EE18 /* UserNotifications.framework */,
 				50457F97247A770400F74CA0 /* StoreKit.framework */,
 				50FE53C523DFFF5700C896E6 /* WebKit.framework */,

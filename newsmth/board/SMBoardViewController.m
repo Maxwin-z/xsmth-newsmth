@@ -283,9 +283,9 @@
     if (post.isTop && [SMConfig disableShowTopPost]) {
         return 0;
     }
-//    else if (post.isTop && !_showTop) {
-//        return 10;
-//    }
+    else if (post.isTop && !_showTop) {
+        return 10;
+    }
     
     return [SMBoardCell cellHeight:_posts[indexPath.row] withWidth:self.tableView.frame.size.width];
 }
