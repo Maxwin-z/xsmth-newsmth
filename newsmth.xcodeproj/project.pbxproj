@@ -28,6 +28,7 @@
 		508BFA4820ED20BD005ACFD6 /* SMVideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 508BFA4720ED20BD005ACFD6 /* SMVideoPlayerViewController.m */; };
 		50A382FC2460608700098D23 /* XWebController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A382FB2460608700098D23 /* XWebController.swift */; };
 		50D55875281B872000AADC48 /* BackgroundTasks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50D55874281B871F00AADC48 /* BackgroundTasks.framework */; };
+		50D55879281CD4FD00AADC48 /* template_post_v3.zip in Resources */ = {isa = PBXBuildFile; fileRef = 50D55878281CD4FD00AADC48 /* template_post_v3.zip */; };
 		50DA3CF124B0761B00493014 /* ip2region.c in Sources */ = {isa = PBXBuildFile; fileRef = 50DA3CF024B0761B00493014 /* ip2region.c */; };
 		50DA3CF324B077DE00493014 /* XIPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DA3CF224B077DE00493014 /* XIPHelper.swift */; };
 		50F0F41F24A58CA000946C17 /* XRemoteResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F0F41E24A58CA000946C17 /* XRemoteResourceManager.swift */; };
@@ -370,6 +371,7 @@
 		508BFA4720ED20BD005ACFD6 /* SMVideoPlayerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMVideoPlayerViewController.m; sourceTree = "<group>"; };
 		50A382FB2460608700098D23 /* XWebController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWebController.swift; sourceTree = "<group>"; };
 		50D55874281B871F00AADC48 /* BackgroundTasks.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BackgroundTasks.framework; path = System/Library/Frameworks/BackgroundTasks.framework; sourceTree = SDKROOT; };
+		50D55878281CD4FD00AADC48 /* template_post_v3.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; name = template_post_v3.zip; path = web_post_v3/template_post_v3.zip; sourceTree = SOURCE_ROOT; };
 		50DA3CEF24B0761B00493014 /* ip2region.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ip2region.h; sourceTree = "<group>"; };
 		50DA3CF024B0761B00493014 /* ip2region.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ip2region.c; sourceTree = "<group>"; };
 		50DA3CF224B077DE00493014 /* XIPHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XIPHelper.swift; sourceTree = "<group>"; };
@@ -1251,6 +1253,7 @@
 				508BFA4620ED20BD005ACFD6 /* SMVideoPlayerViewController.h */,
 				508BFA4720ED20BD005ACFD6 /* SMVideoPlayerViewController.m */,
 				50FE53C823E0238B00C896E6 /* SMPostViewControllerV4.swift */,
+				50D55878281CD4FD00AADC48 /* template_post_v3.zip */,
 			);
 			path = postgroup2;
 			sourceTree = "<group>";
@@ -1839,6 +1842,7 @@
 				C197FC0A1A4D88670097BC06 /* SMPostViewBottomBar.xib in Resources */,
 				C167143B1766D01700F56535 /* XPullRefreshTableViewHeader.xib in Resources */,
 				C167143D1766D02100F56535 /* XPullRefreshTableViewFooter.xib in Resources */,
+				50D55879281CD4FD00AADC48 /* template_post_v3.zip in Resources */,
 				C11581621768285C008A421A /* SMLeftViewController.xib in Resources */,
 				C115816E17685606008A421A /* SMLoginViewController.xib in Resources */,
 				C19FF0B21769A71C00EB6F7E /* popup_bg@2x.png in Resources */,

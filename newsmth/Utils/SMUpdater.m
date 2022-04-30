@@ -144,7 +144,7 @@
     if ([SMUtils fileExistsInDocumentFolder:filepath] && [currentTemplate isEqualToString:md5]) {
         filepath = [NSString stringWithFormat:@"%@/%@", docPath, filepath];
     } else {
-        filepath = [[NSBundle mainBundle] pathForResource:@"template_posts" ofType:@"zip"];
+        filepath = [[NSBundle mainBundle] pathForResource:@"template_post_v3" ofType:@"zip"];
     }
     
     NSString *destPath = [NSString stringWithFormat:@"%@/post/", docPath];
