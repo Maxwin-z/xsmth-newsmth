@@ -201,7 +201,8 @@ class XWebController: SMViewController, WKURLSchemeHandler, WKScriptMessageHandl
 
     func webView(_: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         if let url = navigationAction.request.url {
-            if self.url != nil, url.absoluteString == self.url!.absoluteString {
+            debugPrint(self.url?.absoluteString ?? "", url.absoluteString)
+            if self.url != nil, url.absoluteString.range(of: self.url!.absoluteString) != nil {
                 decisionHandler(.allow)
             } else {
                 decisionHandler(.cancel)

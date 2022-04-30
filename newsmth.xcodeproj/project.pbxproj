@@ -2264,7 +2264,7 @@
 					"$(SRCROOT)/newsmth/Frameworks/**",
 					"$(SDKROOT)/usr/lib/system",
 				);
-				MARKETING_VERSION = 4.3.3;
+				MARKETING_VERSION = 4.3.4;
 				PRODUCT_BUNDLE_IDENTIFIER = me.maxwin.newsmth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2384,7 +2384,7 @@
 					"$(SRCROOT)/newsmth/Frameworks/**",
 					"$(SDKROOT)/usr/lib/system",
 				);
-				MARKETING_VERSION = 4.3.3;
+				MARKETING_VERSION = 4.3.4;
 				PRODUCT_BUNDLE_IDENTIFIER = me.maxwin.newsmth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2426,7 +2426,7 @@
 					"$(SRCROOT)/newsmth/Frameworks/**",
 					"$(SDKROOT)/usr/lib/system",
 				);
-				MARKETING_VERSION = 4.3.3;
+				MARKETING_VERSION = 4.3.4;
 				PRODUCT_BUNDLE_IDENTIFIER = me.maxwin.newsmth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

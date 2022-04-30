@@ -188,6 +188,7 @@
         NSError *error;
         NSString *rsp = [NSString stringWithContentsOfURL:[NSURL URLWithString:url] encoding:NSUTF8StringEncoding error:&error];
         if (error) {
+            XLog_d(@"download template error: %@", error);
             return ;
         }
         NSDictionary *templateConfig = [SMUtils string2json:rsp];
