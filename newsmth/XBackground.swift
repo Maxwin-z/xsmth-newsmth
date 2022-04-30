@@ -39,8 +39,8 @@ class XBackground: NSObject {
         print("[BGTASK] setupBackgroundTask")
         BGTaskScheduler.shared.register(forTaskWithIdentifier: self.bgTaskID, using: nil) { task in
             print("[BGTASK] execute bg task")
-            self.count += 1
-            self.showNotification(body: "", badge: NSNumber(value: self.count))
+//            self.count += 1
+//            self.showNotification(body: "", badge: NSNumber(value: self.count))
             task.setTaskCompleted(success: true)
             URLSession.shared.dataTask(with: URL(string: "https://m.mysmth.net/user/query/")!) { data, rsp, error in
                 if (SMAccountManager.instance().isLogin) {

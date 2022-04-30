@@ -16,7 +16,7 @@ class XDonateViewController: SMViewController, SKProductsRequestDelegate, SKPaym
     let liteProID = "me.maxwin.xsmth.litepro"
     let proID = "me.maxwin.xsmth.pro"
     var products: [SKProduct] = []
-    var payButton: UIButton!
+    var ai: UIActivityIndicatorView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +33,9 @@ class XDonateViewController: SMViewController, SKProductsRequestDelegate, SKPaym
     func paySuccess() {
         UserDefaults.standard.set(true, forKey: "ispro")
         NotificationCenter.default.post(name:  Notification.Name("iap_update_pro_success"), object: nil)
+        for v in self.view.subviews {
+            v.removeFromSuperview()
+        }
     }
     
     func loadConfig() {
@@ -68,7 +71,7 @@ class XDonateViewController: SMViewController, SKProductsRequestDelegate, SKPaym
                 break
             case .failed:
                 SKPaymentQueue.default().finishTransaction(tran)
-                print("iap fail")
+                self.ai?.removeFromSuperview()
                 break
             default:
                 break
@@ -99,7 +102,7 @@ class XDonateViewController: SMViewController, SKProductsRequestDelegate, SKPaym
         let donate = UserDefaults.standard.integer(forKey: self.keyOfDonate) == 1
         
         let label = UILabel()
-        let text = NSMutableAttributedString(string: donate ? "9年xsmth\n1000+次代码变更\n作者的坚持，希望能得到大家的支持😁" : "Minecraft Python编程")
+        let text = NSMutableAttributedString(string: donate ? "9年xsmth\n1000+次代码变更\n作者的坚持，希望能得到大家的支持😁" : "Minecraft Python编程(广告)")
         if (donate) {
             let font = UIFont.systemFont(ofSize: 30)
             let attributes: [NSAttributedString.Key: Any] = [
@@ -114,7 +117,10 @@ class XDonateViewController: SMViewController, SKProductsRequestDelegate, SKPaym
                 .font: font,
                 .foregroundColor: UIColor.red,
             ]
-            text.addAttributes(attributes, range: NSRange(location: 0, length: text.length))
+            text.addAttributes(attributes, range: NSRange(location: 0, length: 18))
+            text.addAttributes([
+                .font: UIFont.systemFont(ofSize: 12)
+            ], range: NSRange(location: 18, length: 4))
         }
         label.numberOfLines = 0
         label.attributedText = text
@@ -125,7 +131,7 @@ class XDonateViewController: SMViewController, SKProductsRequestDelegate, SKPaym
         restoreButton.backgroundColor = UIColor(red: 24 / 255, green: 144 / 255, blue: 1, alpha: 1)
         restoreButton.setTitle("恢复购买", for: .normal)
         restoreButton.sizeToFit()
-        restoreButton.addTarget(self, action: #selector(onRestoreClick), for: .touchUpInside)
+        restoreButton.addTarget(self, action: #selector(onRestoreClick(_:)), for: .touchUpInside)
         var frame = restoreButton.frame
         frame.origin.y = label.frame.origin.y + label.frame.size.height + 10
         frame.size.width += 10
@@ -163,15 +169,34 @@ class XDonateViewController: SMViewController, SKProductsRequestDelegate, SKPaym
         }
     }
     
-    @objc func onPayClick(_ sender: UIButton) {
-        let product = self.products[sender.tag]
+    func createActivityIndicator() -> UIActivityIndicatorView {
+        if (self.ai != nil) {
+            return self.ai!
+        }
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.color = .gray
+        activityIndicator.startAnimating()
+        activityIndicator.sizeToFit()
+        self.ai = activityIndicator
+        return activityIndicator
+    }
+    
+    @objc func onPayClick(_ button: UIButton) {
+        let product = self.products[button.tag]
         let payment = SKMutablePayment.init(product: product)
         payment.quantity = 1
         SKPaymentQueue.default().add(payment)
+        let ai = self.createActivityIndicator()
+        ai.sizeToFit()
+        ai.center = CGPoint(x: button.frame.width / 2, y: button.frame.height / 2)
+        button.addSubview(ai)
     }
     
-    @objc func onRestoreClick() {
+    @objc func onRestoreClick(_ button: UIButton) {
         SKPaymentQueue.default().restoreCompletedTransactions()
+        let ai = self.createActivityIndicator()
+        ai.center = CGPoint(x: button.frame.width / 2, y: button.frame.height / 2)
+        button.addSubview(ai)
     }
     
 }

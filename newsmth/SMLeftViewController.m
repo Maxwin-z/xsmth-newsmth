@@ -101,7 +101,7 @@ typedef NS_ENUM(NSInteger, CellType) {
     frame.origin.x = 0;
     frame.origin.y = 150;
     frame.size.width =  self.view.size.width;
-    frame.size.height = self.view.frame.size.height - 400;
+    frame.size.height = self.view.frame.size.height - 500;
     self.donateVC.view.autoresizingMask =  UIViewAutoresizingFlexibleHeight;
     self.donateVC.view.frame = frame;
 }
