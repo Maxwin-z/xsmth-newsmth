@@ -731,9 +731,9 @@ static SectionData sections[] = {
     }
 
     if (cellType == CellTypeClearCache) {
+        _activityIndicatorForClearCache.hidden = YES;
+        _cellForClearCache.detailTextLabel.text = @"清理中...";
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-            _activityIndicatorForClearCache.hidden = YES;
-            _cellForClearCache.detailTextLabel.text = @"";
             [[XImageViewCache sharedInstance] clearCache];
             dispatch_async(dispatch_get_main_queue(), ^{
                 _cellForClearCache.detailTextLabel.text = @"0";
