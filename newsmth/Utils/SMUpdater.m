@@ -201,8 +201,18 @@
             }
         }];
         [[NSUserDefaults standardUserDefaults] setObject:templateMD5 forKey:USERDEFAULTS_UPDATE_TEMPLATE];
+        
+        if (templateMD5 == nil) {
+            if (currentTemplate != nil) {
+                NSString *path = [NSString stringWithFormat:@"%@/template.%@.zip", [SMUtils documentPath], currentTemplate];
+                NSError *error;
+                [[NSFileManager defaultManager] removeItemAtPath:path error:&error];
+            }
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:USERDEFAULTS_UPDATE_TEMPLATE];
+            return;
+        }
 
-        if (templateMD5 == nil || [templateMD5 isEqualToString:currentTemplate]) {
+        if ([templateMD5 isEqualToString:currentTemplate]) {
             return;
         }
         NSString *downloadUrl = [NSString stringWithFormat:API_PREFIX @"template.%@.zip", templateMD5];
