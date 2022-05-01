@@ -94,6 +94,9 @@ class XDonateViewController: SMViewController, SKProductsRequestDelegate, SKPaym
     }
     
     func setupViews() {
+        if (self.products.count == 0) {
+            return ;
+        }
         // clear
         for v in self.view.subviews {
             v.removeFromSuperview()
@@ -138,7 +141,7 @@ class XDonateViewController: SMViewController, SKProductsRequestDelegate, SKPaym
         restoreButton.frame = frame
         frame.origin.x += 10
         self.view.addSubview(restoreButton)
-        
+                
         let donateIcons = ["🧋", "🥤"]
         for i in 0...(self.products.count - 1) {
             let product = self.products[i]
