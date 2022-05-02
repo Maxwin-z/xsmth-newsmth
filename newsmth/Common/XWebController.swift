@@ -201,7 +201,7 @@ class XWebController: SMViewController, WKURLSchemeHandler, WKScriptMessageHandl
 
     func webView(_: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         if let url = navigationAction.request.url {
-            debugPrint(self.url?.absoluteString ?? "", url.absoluteString)
+//            debugPrint(self.url?.absoluteString ?? "", url.absoluteString)
             if self.url != nil, url.absoluteString.range(of: self.url!.absoluteString) != nil {
                 decisionHandler(.allow)
             } else {
@@ -374,7 +374,7 @@ class XWebController: SMViewController, WKURLSchemeHandler, WKScriptMessageHandl
                             do {
                                 if let data = try rsp.result.get() {
                                     let ct = opts["encoding"] as? String ?? rsp.response?.headers.value(for: "content-type")
-                                    debugPrint("ct", ct!)
+//                                    debugPrint("ct", ct!)
                                     var html: String = ""
                                     if (ct?.uppercased().contains("GBK"))! {
                                         html = SMUtils.gb2312Data2String(data)

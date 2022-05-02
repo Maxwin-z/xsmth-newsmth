@@ -58,7 +58,7 @@ function Article() {
 }
 
 const ArticleHooks: FC<{}> = () => {
-  useScrollHook();
+  // useScrollHook();
   usePubSubHook();
   useTaskQueueHook();
   return <></>;

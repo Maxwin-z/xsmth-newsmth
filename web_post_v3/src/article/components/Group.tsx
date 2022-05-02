@@ -21,19 +21,14 @@ const Pages: FC<{ count: number }> = memo(({ count }) => (
 
 function Group() {
   const dispatch = useDispatch();
-  const {
-    mainPost,
-    pageCount,
-    articleStatus,
-    pageScrollY,
-    floor
-  } = useSelector((state: RootState) => ({
-    mainPost: state.group.mainPost,
-    pageCount: state.group.pages.length,
-    articleStatus: state.group.articleStatus,
-    pageScrollY: state.group.pageScrollY,
-    floor: state.group.floor
-  }));
+  const { mainPost, pageCount, articleStatus, pageScrollY, floor } =
+    useSelector((state: RootState) => ({
+      mainPost: state.group.mainPost,
+      pageCount: state.group.pages.length,
+      articleStatus: state.group.articleStatus,
+      pageScrollY: state.group.pageScrollY,
+      floor: state.group.floor,
+    }));
   // console.log("mainPost", mainPost);
 
   const start = () => {
@@ -45,37 +40,14 @@ function Group() {
   }, [dispatch]);
 
   useEffect(() => {
-    // xLog("in Group effect");
     if (pageScrollY === -1 || typeof floor === "number") return;
-    const resize = () => {
-      // xLog("resize scroll to " + pageScrollY);
-      // console.log(
-      //   "before scrollY:",
-      //   window.scrollY,
-      //   document.documentElement.offsetHeight
-      // );
-      window.scrollTo(0, pageScrollY);
-      // console.log(
-      //   "after scrollY:",
-      //   window.scrollY,
-      //   document.documentElement.offsetHeight
-      // );
-    };
 
+    xLog(`scroll to  ${pageScrollY}, ${document.documentElement.offsetHeight}`);
     if (document.documentElement.offsetHeight > pageScrollY) {
-      // xLog("try to scroll:" + pageScrollY);
       window.scrollTo(0, pageScrollY);
     }
-    // xLog("bind resize");
-    window.addEventListener("resize", resize);
-    document.body.addEventListener("resize", resize);
-    const timer = setInterval(resize, 100);
-    return () => {
-      window.removeEventListener("resize", resize);
-      document.body.removeEventListener("resize", resize);
-      clearInterval(timer);
-    };
-  }, [floor, pageScrollY, dispatch]);
+    return () => {};
+  }, [pageScrollY, document.documentElement.offsetHeight]);
 
   if (mainPost.single) {
     return null;
