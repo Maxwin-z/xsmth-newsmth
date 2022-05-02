@@ -46,7 +46,12 @@ export default function AddTag() {
     setTags(ts);
     saveTags(ts);
   };
-  const onDeleteTagClick = (index: number) => {};
+  const onDeleteTagClick = (index: number) => {
+    const ts = [...tags];
+    ts.splice(index, 1);
+    setTags(ts);
+    saveTags(ts);
+  };
   return (
     <div className="main">
       <div className="section-header">管理Tags</div>
