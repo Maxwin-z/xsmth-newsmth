@@ -40,10 +40,10 @@ class SMPostViewControllerV4: XWebController {
 
     override func viewDidLoad() {
         if post != nil {
-//            url = URL(string: "http://10.0.0.209:3000/#/")
+            url = URL(string: "http://10.0.0.209:3000/#/")
 //            url = URL(string: "http://public-1255362875.cos.ap-shanghai.myqcloud.com/xsmth/v4.3.0/index.html#/")
-            url = URL(fileURLWithPath: SMUtils.documentPath() + "/post/build/index.html")
-            debugPrint(url)
+//            url = URL(fileURLWithPath: SMUtils.documentPath() + "/post/build/index.html")
+            debugPrint(url ?? "")
         }
 
         super.viewDidLoad()
@@ -69,6 +69,9 @@ class SMPostViewControllerV4: XWebController {
             "openPostPage": _openPostPage,
             "tapImage": _tapImage,
             "userTags": _getUserTags,
+            "savePost": _savePost,
+            "getPost": _getPosts,
+            "removePost": _removePost
         ])
     }
     
@@ -477,6 +480,64 @@ class SMPostViewControllerV4: XWebController {
             }
 //            debugPrint(tags)
             promise(.success(tags))
+        }
+    }
+    
+    func _savePost(parameters: Any) -> Future<Any, XBridgeError> {
+        return Future { promise in
+            guard let parameters = parameters as? [String: Any] else {
+                promise(.failure(XBridgeError(code: -1, message: "错误的参数")))
+                return
+            }
+            guard let key = parameters["key"] as? String else {
+                promise(.failure(XBridgeError(code: -1, message: "错误的参数，缺少key")))
+                return
+            }
+            if let value = parameters["value"] {
+                do {
+                    let data = try JSONSerialization.data(withJSONObject: ["value": value], options: .prettyPrinted)
+                    MMKV.init(mmapID: "mmkv.posts")?.set(data, forKey: key)
+                    promise(.success(true))
+                } catch {
+                    promise(.failure(XBridgeError(code: -1, message: "序列化错误\(error.localizedDescription)")))
+                }
+            } else {
+                promise(.failure(XBridgeError(code: -1, message: "错误的参数，缺少value")))
+            }
+        }
+    }
+
+    func _getPosts(parameters: Any) -> Future<Any, XBridgeError> {
+        return Future { promise in
+            guard let key = parameters as? String else {
+                promise(.failure(XBridgeError(code: -1, message: "错误的参数，缺少key")))
+                return
+            }
+            guard let data = MMKV.init(mmapID: "mmkv.posts")?.data(forKey: key) else {
+                promise(.failure(XBridgeError(code: -11, message: "数据不存在")))
+                return
+            }
+            do {
+                let json = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
+                if let value = json["value"] {
+                    promise(.success(value))
+                } else {
+                    promise(.failure(XBridgeError(code: -1, message: "数据格式不正确")))
+                }
+            } catch {
+                promise(.failure(XBridgeError(code: -1, message: "解析错误\(error.localizedDescription)")))
+            }
+        }
+    }
+    
+    func _removePost(parameters: Any) -> Future<Any, XBridgeError> {
+        return Future { promise in
+            guard let key = parameters as? String else {
+                promise(.failure(XBridgeError(code: -1, message: "错误的参数，缺少key")))
+                return
+            }
+            MMKV.init(mmapID: "mmkv.posts")?.removeValue(forKey: key)
+            promise(.success(true))
         }
     }
     

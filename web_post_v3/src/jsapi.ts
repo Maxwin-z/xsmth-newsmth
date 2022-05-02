@@ -277,6 +277,35 @@ export function getStorage(key: string): Promise<any> {
   return sendMessage("getStorage", key);
 }
 
+export function savePost(key: string, value: any): Promise<boolean> {
+  if (!isBridgeAvaiable()) {
+    localStorage.setItem(key, JSON.stringify({ data: value }));
+    return Promise.resolve(true);
+  }
+  return sendMessage("savePost", {
+    key,
+    value,
+  });
+}
+
+export function removePost(key: string): Promise<boolean> {
+  return sendMessage("removePost", key);
+}
+
+export function getPost(key: string): Promise<any> {
+  if (!isBridgeAvaiable()) {
+    try {
+      const json = JSON.parse(localStorage.getItem(key) || '{"data": null}');
+      return Promise.resolve(json["data"]);
+    } catch (e) {
+      console.log(e);
+      return Promise.resolve(null);
+    }
+  }
+
+  return sendMessage("getPost", key);
+}
+
 export function removeStorage(key: string): Promise<boolean> {
   return sendMessage("removeStorage", key);
 }
