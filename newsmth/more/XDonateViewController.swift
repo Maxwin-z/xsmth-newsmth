@@ -17,6 +17,7 @@ class XDonateViewController: SMViewController, SKProductsRequestDelegate, SKPaym
     let proID = "me.maxwin.xsmth.pro"
     var products: [SKProduct] = []
     var ai: UIActivityIndicatorView?
+    let version = 2
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,14 +40,14 @@ class XDonateViewController: SMViewController, SKProductsRequestDelegate, SKPaym
     }
     
     func loadConfig() {
-        if (UserDefaults.standard.integer(forKey: keyOfDonate) != 1) {
+        if (UserDefaults.standard.integer(forKey: keyOfDonate) != version) {
             SMAF.request("https://maxwin-z.github.io/xsmth/donate.json").response { rsp in
                 do {
                     if let data = try rsp.result.get() {
                         if let flag = String(data: data, encoding: .utf8) {
                             debugPrint("donate", flag)
-                            if (flag.range(of: "1") != nil) {
-                                UserDefaults.standard.set(1, forKey: self.keyOfDonate)
+                            if (flag.range(of: "\(self.version)") != nil) {
+                                UserDefaults.standard.set(self.version, forKey: self.keyOfDonate)
                                 self.setupViews()
                             }
                         }
@@ -102,7 +103,7 @@ class XDonateViewController: SMViewController, SKProductsRequestDelegate, SKPaym
             v.removeFromSuperview()
         }
         
-        let donate = UserDefaults.standard.integer(forKey: self.keyOfDonate) == 1
+        let donate = UserDefaults.standard.integer(forKey: self.keyOfDonate) == version
         
         let label = UILabel()
         let text = NSMutableAttributedString(string: donate ? "9年xsmth\n1000+次代码变更\n作者的坚持，希望能得到大家的支持😁" : "Minecraft Python编程(广告)")
