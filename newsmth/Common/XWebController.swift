@@ -293,15 +293,18 @@ class XWebController: SMViewController, WKURLSchemeHandler, WKScriptMessageHandl
 
                 switch ret {
                 case .finished:
-                    debugPrint("success")
+//                    debugPrint("success")
+                    break;
                 case let .failure(error):
                     weakSelf.sendMessageToWeb(callbackID: callbackID, code: error.code, data: [:], message: error.message)
-                    debugPrint("failure", error)
+                    if (error.code != -11) {
+                        debugPrint("failure", error)
+                    }
                 }
                 if weakSelf.cancellables.removeValue(forKey: index) == nil {
                     tryToRemoveSync = true
                 }
-                debugPrint(weakSelf.cancellables)
+//                debugPrint(weakSelf.cancellables)
             }, receiveValue: { [weak self] data in
                 self?.sendMessageToWeb(callbackID: callbackID, code: 0, data: data, message: "")
             })
@@ -563,7 +566,7 @@ class XWebController: SMViewController, WKURLSchemeHandler, WKScriptMessageHandl
                 return
             }
             guard let data = weakSelf.mmkv.data(forKey: key) else {
-                promise(.failure(XBridgeError(code: -1, message: "数据不存在")))
+                promise(.failure(XBridgeError(code: -11, message: "数据不存在")))
                 return
             }
             do {

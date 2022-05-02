@@ -42,7 +42,7 @@ function Group() {
   useEffect(() => {
     if (pageScrollY === -1 || typeof floor === "number") return;
 
-    xLog(`scroll to  ${pageScrollY}, ${document.documentElement.offsetHeight}`);
+    // xLog(`scroll to  ${pageScrollY}, ${document.documentElement.offsetHeight}`);
     if (document.documentElement.offsetHeight > pageScrollY) {
       window.scrollTo(0, pageScrollY);
     }

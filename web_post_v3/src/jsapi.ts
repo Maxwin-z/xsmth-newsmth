@@ -86,6 +86,8 @@ function sendMessage(methodName: string, parameters?: any): Promise<any> {
   return new Promise((resolve, reject) => {
     parameters = parameters || {};
     const cb = ({ code, data, message }: BridgeResult) => {
+      // console.log(`${methodName}, ${parameters}, ${code}, ${message}`);
+
       if (code === 0) {
         resolve(data);
       } else {
