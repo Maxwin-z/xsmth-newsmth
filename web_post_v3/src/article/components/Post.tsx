@@ -1,11 +1,12 @@
 import React, { FC, memo, useEffect, useState } from "react";
-import { reply, showActivity, SMTag, userTag, xLog, xOpen } from "../../jsapi";
+import { reply, showActivity, userTag, xLog, xOpen } from "../../jsapi";
 import { IPost } from "../types";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "..";
 import { setFloor } from "../groupSlice";
 
 import "../assets/iconfont/css/fontello.css";
+import { ITag } from "../../profile/tagUtil";
 
 export interface IActionPost {
   title: string;
@@ -28,7 +29,7 @@ const Post: FC<{
     const domHeights = useSelector(
       (state: RootState) => state.group.domHeights
     );
-    const [tags, setTags] = useState<SMTag[]>([]);
+    const [tags, setTags] = useState<ITag[]>([]);
     function makeActionPost() {
       const actionPost: IActionPost = {
         title: mainPost.title.replace(/^Re: /, ""),

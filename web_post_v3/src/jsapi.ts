@@ -1,6 +1,7 @@
 import PubSub from "pubsub-js";
 import { IMainPost, ITheme } from "./article/types";
 import { IActionPost } from "./article/components/Post";
+import { IUserTag, loadUserTag } from "./profile/tagUtil";
 
 export interface Json {
   [x: string]: string | number | boolean | Date | Json | JsonArray;
@@ -32,17 +33,8 @@ interface Window {
   $x_publish: Function;
   scrollBy: Function;
   cachedTags: {
-    [name: string]: SMUserTag;
+    [name: string]: IUserTag;
   };
-}
-
-export interface SMTag {
-  color: string;
-  text: string;
-}
-export interface SMUserTag {
-  user: string;
-  tags: SMTag[];
 }
 
 declare let window: Window;
@@ -344,22 +336,12 @@ export function ipInfo(ip: string): Promise<IIPInfo> {
   return sendMessage("ipInfo", ip);
 }
 
-export async function userTag(name: string): Promise<SMUserTag> {
+export async function userTag(name: string): Promise<IUserTag> {
   if (window.cachedTags[name]) {
     return window.cachedTags[name];
   }
-  const ret = await sendMessage("userTags", name);
-  let tag: SMUserTag = {
-    user: name,
-    tags: [],
-  };
-  try {
-    const d = JSON.parse(ret).value;
-    if (d.user == name && Array.isArray(d.tags)) {
-      tag = d;
-    }
-  } catch (e) {}
-  // console.log("save cache", name, tag);
+  // const ret = await sendMessage("userTags", name);
+  const tag = await loadUserTag(name);
   window.cachedTags[name] = tag;
   return tag;
 }
