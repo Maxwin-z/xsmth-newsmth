@@ -1,5 +1,5 @@
-import React, { FC, memo, useEffect } from "react";
-import { reply, showActivity, xLog, xOpen } from "../../jsapi";
+import React, { FC, memo, useEffect, useState } from "react";
+import { reply, showActivity, SMTag, userTag, xLog, xOpen } from "../../jsapi";
 import { IPost } from "../types";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "..";
@@ -28,6 +28,7 @@ const Post: FC<{
     const domHeights = useSelector(
       (state: RootState) => state.group.domHeights
     );
+    const [tags, setTags] = useState<SMTag[]>([]);
     function makeActionPost() {
       const actionPost: IActionPost = {
         title: mainPost.title.replace(/^Re: /, ""),
@@ -35,7 +36,7 @@ const Post: FC<{
         nick,
         pid,
         board: {
-          name: mainPost.board
+          name: mainPost.board,
         },
         content: content!
           .replace(/<br\s*\/?>/g, "\n")
@@ -43,7 +44,7 @@ const Post: FC<{
           .replace(/&nbsp;/g, " ")
           .replace(/&lt;/g, "<")
           .replace(/&gt;/g, ">")
-          .replace(/&amp;/g, "&")
+          .replace(/&amp;/g, "&"),
       };
       // console.log("actionPost", actionPost);
       return actionPost;
@@ -59,7 +60,7 @@ const Post: FC<{
       const { origin, pathname } = window.location;
       xOpen({
         url: origin + pathname + "#/profile?author=" + id,
-        title: `查看用户 - ${id}`
+        title: `查看用户 - ${id}`,
       });
     }
 
@@ -76,13 +77,24 @@ const Post: FC<{
       }
     }, [scrollToFloor, floor, dispatch]);
 
+    useEffect(() => {
+      async function getTag() {
+        const tag = await userTag(author);
+        if (tag != null) {
+          // console.log("user tags", tag);
+          setTags(tag.tags);
+        }
+      }
+      getTag();
+    }, [author]);
+
     const domHeight = domHeights && domHeights[floor];
     // console.log(floor, domHeight);
     return (
       <div
         className="post"
         style={{
-          minHeight: domHeight && Number.isInteger(domHeight) ? domHeight : 0
+          minHeight: domHeight && Number.isInteger(domHeight) ? domHeight : 0,
         }}
         data-page={p}
         data-floor={floor}
@@ -96,6 +108,13 @@ const Post: FC<{
               {author}
             </span>
             {nick!.length > 0 ? `(${nick})` : ``}
+          </div>
+          <div className="user-tags">
+            {(tags || []).map((tag) => (
+              <span key={tag.text} style={{ color: tag.color }}>
+                {tag.text}
+              </span>
+            ))}
           </div>
           <div className="post-info">
             <span className="floor">{floor === 0 ? "楼主" : `${floor}楼`}</span>
@@ -113,7 +132,7 @@ const Post: FC<{
         <div dangerouslySetInnerHTML={{ __html: content || "" }}></div>
         <div className="likes">
           <ul className="likes-list">
-            {likes?.map(like => (
+            {likes?.map((like) => (
               <li key={like.user}>
                 <span
                   className={

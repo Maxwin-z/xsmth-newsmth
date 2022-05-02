@@ -226,9 +226,9 @@ class XWebController: SMViewController, WKURLSchemeHandler, WKScriptMessageHandl
     }
 
     func webView(_: WKWebView, start urlSchemeTask: WKURLSchemeTask) {
-        debugPrint(urlSchemeTask.request)
+//        debugPrint(urlSchemeTask.request)
         guard var urlString = urlSchemeTask.request.url?.absoluteString else { return }
-        debugPrint("urlScheme:", urlString)
+//        debugPrint("urlScheme:", urlString)
         if urlString == "ximg://LanTingXiHei_GBK.TTF" {
             guard let fontUrl = Bundle.main.url(forResource: "LanTingXiHei_GBK", withExtension: "TTF") else { return }
             do {
@@ -262,7 +262,7 @@ class XWebController: SMViewController, WKURLSchemeHandler, WKScriptMessageHandl
     func webView(_: WKWebView, stop _: WKURLSchemeTask) {}
 
     func userContentController(_: WKUserContentController, didReceive message: WKScriptMessage) {
-        debugPrint("message: ", message.name, message.body)
+//        debugPrint("message: ", message.name, message.body)
         if message.name != "nativeBridge" {
             // unexpected message
             return
@@ -337,7 +337,7 @@ class XWebController: SMViewController, WKURLSchemeHandler, WKScriptMessageHandl
 
     @objc
     func onWebNotification(notification: Notification) {
-        debugPrint(343, notification.userInfo ?? "nil")
+//        debugPrint(343, notification.userInfo ?? "nil")
     }
 
     func sendMessageToWeb(callbackID: Int, code: Int, data: Any, message: String) {
@@ -347,7 +347,7 @@ class XWebController: SMViewController, WKURLSchemeHandler, WKScriptMessageHandl
             let rspData = try JSONSerialization.data(withJSONObject: ["code": code, "data": data, "message": message], options: .prettyPrinted)
             let rspString = String(data: rspData, encoding: .utf8) ?? "{code:1, message: 'JSON转换异常'}"
             let js = "window.$xCallback(\(callbackID), \(rspString))"
-            wealSelf?.webView.evaluateJavaScript(js) { debugPrint($0 ?? "", $1 ?? "") }
+            wealSelf?.webView.evaluateJavaScript(js) {_, _ in }
 //            debugPrint("js: \(js)")
         } catch {
             let js = "window.$xCallback(\(callbackID), {code: -1, message: '序列化Bridge返回值异常'})"

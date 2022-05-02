@@ -31,9 +31,23 @@ interface Window {
   $x_pageWillUnload: Function;
   $x_publish: Function;
   scrollBy: Function;
+  cachedTags: {
+    [name: string]: SMUserTag;
+  };
+}
+
+export interface SMTag {
+  color: string;
+  text: string;
+}
+export interface SMUserTag {
+  user: string;
+  tags: SMTag[];
 }
 
 declare let window: Window;
+
+window.cachedTags = {};
 
 window.$xCallback = function (callbackID: number, rsp: BridgeResult) {
   // console.log("$xCallback", callbackID, rsp);
@@ -90,7 +104,7 @@ function sendMessage(methodName: string, parameters?: any): Promise<any> {
     const message = {
       methodName,
       parameters,
-      callbackID: callbacks.length - 1
+      callbackID: callbacks.length - 1,
     };
     if (isBridgeAvaiable()) {
       window.webkit.messageHandlers.nativeBridge.postMessage(message);
@@ -98,7 +112,7 @@ function sendMessage(methodName: string, parameters?: any): Promise<any> {
       cb({
         code: -1,
         data: null,
-        message: `web method [${methodName}] not implemented]`
+        message: `web method [${methodName}] not implemented]`,
       });
     }
   });
@@ -120,11 +134,11 @@ export function ajax({
   method = "GET",
   data = {},
   headers = {},
-  encoding = null
+  encoding = null,
 }: AjaxOption): Promise<string> {
   const _url = new URL(url);
   if (method === "GET") {
-    Object.keys(data).forEach(key => {
+    Object.keys(data).forEach((key) => {
       _url.searchParams.append(key, "" + data[key]);
     });
   }
@@ -136,7 +150,7 @@ export function ajax({
   if (!isBridgeAvaiable()) {
     return ajaxInWeb({
       url: _url.toString(),
-      headers
+      headers,
     });
   }
 
@@ -149,7 +163,7 @@ export function ajax({
     method,
     data,
     headers,
-    encoding
+    encoding,
   });
 }
 
@@ -161,7 +175,7 @@ function postInfoInWeb(): Promise<IMainPost> {
     gid: 1936720211,
     title: "",
     pid: 0,
-    single: false
+    single: false,
   }; // 2 pages
   // let post = {board: 'DigiHome', gid: 941251}
   // let post = { board: "WorkLife", gid: 2164300 , title: ''}; // 20+ pages
@@ -174,12 +188,12 @@ async function ajaxInWeb({ url, headers = {} }: AjaxOption): Promise<string> {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      ...headers
+      ...headers,
     },
     body: JSON.stringify({
       url,
-      headers
-    })
+      headers,
+    }),
   });
   console.log(rsp);
   return Promise.resolve(rsp.text());
@@ -196,7 +210,7 @@ export function setTitle(title: string): Promise<boolean> {
 export enum ToastType {
   success = 0,
   error = 1,
-  info = 4
+  info = 4,
 }
 
 interface Toast {
@@ -222,7 +236,7 @@ export function unloaded(): Promise<boolean> {
 export function download(url: string, id: number = 0): Promise<boolean> {
   return sendMessage("download", {
     id,
-    url
+    url,
   });
 }
 
@@ -236,7 +250,7 @@ export function pageNumberChanged(
 ): Promise<boolean> {
   return sendMessage("pageNumberChanged", {
     page,
-    total
+    total,
   });
 }
 
@@ -251,7 +265,7 @@ export function setStorage(key: string, value: any): Promise<boolean> {
   }
   return sendMessage("setStorage", {
     key,
-    value
+    value,
   });
 }
 
@@ -285,7 +299,7 @@ export function xScrollBy(x: number, y: number): Promise<boolean> {
 }
 export enum ModalStyle {
   push,
-  modal
+  modal,
 }
 export function xOpen(
   opts: string | { url: string; type?: ModalStyle; title?: string }
@@ -304,7 +318,7 @@ export function xOpen(
   return sendMessage("open", {
     url,
     type,
-    title
+    title,
   });
 }
 
@@ -328,4 +342,24 @@ export interface IIPInfo {
 }
 export function ipInfo(ip: string): Promise<IIPInfo> {
   return sendMessage("ipInfo", ip);
+}
+
+export async function userTag(name: string): Promise<SMUserTag> {
+  if (window.cachedTags[name]) {
+    return window.cachedTags[name];
+  }
+  const ret = await sendMessage("userTags", name);
+  let tag: SMUserTag = {
+    user: name,
+    tags: [],
+  };
+  try {
+    const d = JSON.parse(ret).value;
+    if (d.user == name && Array.isArray(d.tags)) {
+      tag = d;
+    }
+  } catch (e) {}
+  // console.log("save cache", name, tag);
+  window.cachedTags[name] = tag;
+  return tag;
 }

@@ -94,6 +94,11 @@ textarea {
   position: relative;
 }
 
+.user-tags span {
+  margin-right: 10px;
+  font-size: 80%;
+}
+
 .post-action {
   position: absolute;
   right: 10px;

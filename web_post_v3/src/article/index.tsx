@@ -8,7 +8,7 @@ import groupReducer, {
   onSelectPage,
   resetScrollY,
   refreshPage,
-  openSingleAuthorPage
+  openSingleAuthorPage,
 } from "./groupSlice";
 import imageReducer, { handleImageDownloadProgress } from "./slices/imageTask";
 import Group from "./components/Group";
@@ -26,11 +26,11 @@ import { xOpen } from "../jsapi";
 
 const rootReducer = combineReducers({
   group: groupReducer,
-  imageTask: imageReducer
+  imageTask: imageReducer,
 });
 
 const store = configureStore({
-  reducer: rootReducer
+  reducer: rootReducer,
 });
 
 (async () => {
@@ -67,7 +67,7 @@ const ArticleHooks: FC<{}> = () => {
 function useScrollHook() {
   const { floor, pageScrollY } = useSelector((state: RootState) => ({
     floor: state.group.floor,
-    pageScrollY: state.group.pageScrollY
+    pageScrollY: state.group.pageScrollY,
   }));
   const dispatch = useDispatch();
   useEffect(() => {
@@ -108,16 +108,16 @@ function usePubSubHook() {
       },
       PAGE_REFRESH: () => {
         dispatch(refreshPage());
-      }
+      },
     };
-    const handlers: any[] = Object.keys(actions).map(event => {
+    const handlers: any[] = Object.keys(actions).map((event) => {
       const action = actions[event];
       const handler = PubSub.subscribe(event, action);
       return handler;
     });
 
     return () => {
-      handlers.forEach(handler => {
+      handlers.forEach((handler) => {
         PubSub.unsubscribe(handler);
       });
     };
@@ -127,7 +127,7 @@ function usePubSubHook() {
 function useTaskQueueHook() {
   const { queue, taskCount } = useSelector((state: RootState) => ({
     queue: state.group.tasks,
-    taskCount: state.group.taskCount
+    taskCount: state.group.taskCount,
   }));
   const dispatch = useDispatch();
 
