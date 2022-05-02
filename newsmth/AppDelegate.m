@@ -11,7 +11,6 @@
 
 #import "ViewController.h"
 #import "SMMainViewController.h"
-#import "SMMainpageViewController.h"
 #import "SMUtils.h"
 #import "SMUpdater.h"
 #import "SMIPadSplitViewController.h"
@@ -25,7 +24,6 @@
 
 @interface AppDelegate ()
 @property (strong, nonatomic) UINavigationController *nvc;
-@property (strong, nonatomic) SMMainpageViewController *mainpageViewController;
 @property (strong, nonatomic) ViewController *viewController;
 @property (strong, nonatomic) SMMainViewController *mainViewController;
 @property (strong, nonatomic) SMIPadSplitViewController *ipadSplitViewController;
