@@ -86,6 +86,7 @@ class SMLoginViewControllerV2: XWebController{
     }
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        let forceLogin = SMConfig.enableForceLogin() ? "true" : "false"
         let js = """
            const selectors = [
               "#ad_container",
@@ -98,7 +99,8 @@ class SMLoginViewControllerV2: XWebController{
             selectors.forEach(sel => {
               [...document.querySelectorAll(sel)].forEach(dom => (dom.hidden = true));
             });
-           
+            */
+
         
             const enlarges = ["#u_login", "#u_login input"];
             enlarges.forEach(sel => {
@@ -107,7 +109,6 @@ class SMLoginViewControllerV2: XWebController{
                 dom.style.fontSize = "120%";
               });
             });
-            */
         
             const idEl = document.querySelector('[name="id"]');
             const passwdEl = document.querySelector('[name="passwd"]');
@@ -120,6 +121,9 @@ class SMLoginViewControllerV2: XWebController{
                 const { id, passwd } = JSON.parse(userinfo);
                 idEl.value = id;
                 passwdEl.value = passwd;
+                if (\(forceLogin)) {
+                    document.querySelector('#TencentCaptcha').click()
+                }
               } catch (ignore) {
                 console.log(ignore);
               }
