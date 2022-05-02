@@ -73,9 +73,11 @@ function useResetScrollHook() {
     };
     window.addEventListener("scroll", handler);
     document.addEventListener("touchmove", handler);
+    document.addEventListener("click", handler);
     return () => {
       window.removeEventListener("scroll", handler);
       document.removeEventListener("touchmove", handler);
+      document.removeEventListener("click", handler);
     };
   });
 }
