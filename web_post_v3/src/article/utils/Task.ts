@@ -3,7 +3,8 @@ import {
   retrieveGroupPosts,
   formatPost,
   cleanHtml,
-  logLongString
+  logLongString,
+  delay,
 } from "./post";
 import { IPost, IGroup } from "../types";
 import { ajax, Json } from "../../jsapi";
@@ -32,7 +33,7 @@ export class GroupTask {
       // await delay(3000);
       try {
         const data: Json = {
-          p: this.page
+          p: this.page,
         };
         if (this.author) {
           data["au"] = this.author;
@@ -41,8 +42,8 @@ export class GroupTask {
           url: `https://www.mysmth.net/nForum/article/${this.board}/${this.gid}?ajax`,
           data,
           headers: {
-            "X-Requested-With": "XMLHttpRequest"
-          }
+            "X-Requested-With": "XMLHttpRequest",
+          },
         });
         const error = isErrorPage(html);
         if (error) {
@@ -81,8 +82,8 @@ export class PostTask {
         const html = await ajax({
           url: `https://www.mysmth.net/nForum/article/${this.board}/ajax_single/${this.pid}.json`,
           headers: {
-            "X-Requested-With": "XMLHttpRequest"
-          }
+            "X-Requested-With": "XMLHttpRequest",
+          },
         });
         let data = JSON.parse(html);
         if (!data["id"] || !data["content"]) {
@@ -104,7 +105,7 @@ export class PostTask {
           dateString: data["dateString"],
           content: data["content"],
           images: data["images"],
-          isSingle: true
+          isSingle: true,
         };
         resolve(post);
         this.reject = null;

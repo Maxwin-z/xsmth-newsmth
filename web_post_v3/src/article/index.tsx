@@ -59,10 +59,26 @@ function Article() {
 
 const ArticleHooks: FC<{}> = () => {
   // useScrollHook();
+  useResetScrollHook();
   usePubSubHook();
   useTaskQueueHook();
   return <></>;
 };
+
+function useResetScrollHook() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const handler = () => {
+      dispatch(resetScrollY());
+    };
+    window.addEventListener("scroll", handler);
+    document.addEventListener("touchmove", handler);
+    return () => {
+      window.removeEventListener("scroll", handler);
+      document.removeEventListener("touchmove", handler);
+    };
+  });
+}
 
 function useScrollHook() {
   const { floor, pageScrollY } = useSelector((state: RootState) => ({

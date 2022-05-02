@@ -6,7 +6,7 @@ import {
   toast,
   ToastType,
   openPostPage,
-  setTitle
+  setTitle,
 } from "../jsapi";
 import { GroupTask, PostTask } from "./utils/Task";
 import { AppThunk, RootState } from ".";
@@ -18,12 +18,12 @@ import {
   IMainPost,
   IGroup,
   ArticleStatus,
-  IPost
+  IPost,
 } from "./types";
 import { getArticleStatus } from "./utils/article-status";
 import {
   enqueue as imageTaskEnqueue,
-  restoreImagesState
+  restoreImagesState,
 } from "./slices/imageTask";
 import { cacheInstance, removeInstance } from "./handlers/pageState";
 
@@ -38,7 +38,7 @@ const groupInitialState: IGroupState = {
   lastLoading: 0,
   selectedPage: 0,
   pageScrollY: -1,
-  domHeights: {}
+  domHeights: {},
 };
 
 function updatePageStatus(
@@ -58,12 +58,12 @@ function updatePageStatus(
   }
   pages[p - 1].status = status;
   pages[p - 1].errorMessage = errorMessage || "";
-  const task = tasks.find(task => task.p === p);
+  const task = tasks.find((task) => task.p === p);
   task && (task.status = status);
   let { articleStatus, maxLoaded, lastLoading } = getArticleStatus(
-    pages.map(page => page.status)
+    pages.map((page) => page.status)
   );
-  pages.forEach(page => {
+  pages.forEach((page) => {
     page.hidden =
       page.posts.length === 0 &&
       (page.status === Status.init || page.status === Status.loading) &&
@@ -80,7 +80,7 @@ function updatePageStatus(
     pages,
     tasks,
     articleStatus,
-    lastLoading
+    lastLoading,
   };
 }
 
@@ -108,18 +108,18 @@ const group = createSlice({
       if (ps.length === 0) {
         return;
       }
-      ps.forEach(p => {
-        if (!state.tasks.find(task => task.p === p)) {
+      ps.forEach((p) => {
+        if (!state.tasks.find((task) => task.p === p)) {
           newTasks.push({
             status: Status.init,
-            p
+            p,
           });
         }
-        if (!state.pages.find(page => page.p === p)) {
+        if (!state.pages.find((page) => page.p === p)) {
           newPages.push({
             posts: [],
             status: Status.init,
-            p
+            p,
           });
         }
       });
@@ -127,7 +127,7 @@ const group = createSlice({
       state.pages = state.pages.concat(newPages).sort((p1, p2) => p1.p - p2.p);
     },
     dequeue(state, { payload }: PayloadAction<number>) {
-      const index = state.tasks.findIndex(task => task.p === payload);
+      const index = state.tasks.findIndex((task) => task.p === payload);
       // console.log("dequeue", payload, index);
       if (index !== -1) {
         state.tasks.splice(index, 1);
@@ -136,7 +136,7 @@ const group = createSlice({
     sortQueue(state, { payload }: PayloadAction<number>) {
       const nextTasks: ITask[] = [];
       const prevTasks: ITask[] = [];
-      state.tasks.forEach(task => {
+      state.tasks.forEach((task) => {
         task.p < payload ? prevTasks.push(task) : nextTasks.push(task);
       });
       state.tasks = nextTasks
@@ -185,8 +185,8 @@ const group = createSlice({
     setFloor(state, { payload }: PayloadAction<number | null>) {
       state.floor = payload;
       state.pageScrollY = -1;
-    }
-  }
+    },
+  },
 });
 export const {
   setMainPost,
@@ -203,7 +203,7 @@ export const {
   getPageFail,
   singleAuthor,
   singlePost,
-  setFloor
+  setFloor,
 } = group.actions;
 export default group.reducer;
 
@@ -216,7 +216,7 @@ const getPostInfo = async () => {
     const hash = window.location.hash;
     const queryString = hash.split("?")[1] || "";
     const query: { [x: string]: any } = {};
-    queryString.split("&").forEach(item => {
+    queryString.split("&").forEach((item) => {
       const [k, v] = item.split("=");
       if (k) {
         query[k] = decodeURIComponent(v || "");
@@ -231,14 +231,14 @@ const getPostInfo = async () => {
       pid: gid,
       author: (query.author as string) || "",
       title: (query.title as string) || "",
-      single: isLike
+      single: isLike,
     };
     setTitle(`${mainPost.author} - ${mainPost.title}`);
   }
   return mainPost;
 };
 
-export const getMainPost = (): AppThunk => async dispatch => {
+export const getMainPost = (): AppThunk => async (dispatch) => {
   // debug
   // mainPost = { board: "WorkLife", gid: 2164300, title: "" }; // 20+ pages
   // mainPost = { board: "Tooooold", gid: 41831, title: "" }; // 4 pages
@@ -263,7 +263,7 @@ export const getMainPost = (): AppThunk => async dispatch => {
   const mainPost = await getPostInfo();
 
   (<any>window).analytics.track("viewpost", {
-    board: mainPost.board
+    board: mainPost.board,
   });
 
   console.log(mainPost);
@@ -282,7 +282,7 @@ export const getMainPost = (): AppThunk => async dispatch => {
   }
 };
 
-export const refreshPage = (): AppThunk => async dispatch => {
+export const refreshPage = (): AppThunk => async (dispatch) => {
   console.log("refresh page");
   const mainPost = await getPostInfo();
   if (!mainPost.single) {
@@ -297,164 +297,163 @@ export const refreshPage = (): AppThunk => async dispatch => {
       articleStatus: ArticleStatus.allLoading,
       lastLoading: 0,
       selectedPage: 0,
-      pageScrollY: -1
+      pageScrollY: -1,
     })
   );
   dispatch(getMainPost());
 };
 
-const handleGroupTask = (group: IGroup): AppThunk => (dispatch, getState) => {
-  // console.log("handle group", group);
-  const {
-    group: { pages }
-  } = getState();
-  dispatch(getTitleSuccess(group.title));
-  dispatch(imageTaskEnqueue(group.posts));
+const handleGroupTask =
+  (group: IGroup): AppThunk =>
+  (dispatch, getState) => {
+    // console.log("handle group", group);
+    const {
+      group: { pages },
+    } = getState();
+    dispatch(getTitleSuccess(group.title));
+    dispatch(imageTaskEnqueue(group.posts));
 
-  if (group.total > pages.length || group.total === 1) {
-    pageNumberChanged(group.p, group.total);
+    if (group.total > pages.length || group.total === 1) {
+      pageNumberChanged(group.p, group.total);
+      dispatch(
+        enqueue(
+          new Array(group.total - pages.length)
+            .fill(0)
+            .map((_, i) => i + pages.length + 1)
+        )
+      );
+    }
+
     dispatch(
-      enqueue(
-        new Array(group.total - pages.length)
-          .fill(0)
-          .map((_, i) => i + pages.length + 1)
-      )
-    );
-  }
-
-  dispatch(
-    getPageSuccess({
-      posts: group.posts,
-      status: Status.success,
-      p: group.p
-    })
-  );
-};
-
-export const nextTask = (
-  atonce = false,
-  specifiedPage = -1
-): AppThunk => async (dispatch, getState) => {
-  const taskCountLimit = 1;
-  const { group } = getState();
-  // console.log("atonce", atonce);
-  if (!atonce && group.taskCount >= taskCountLimit) {
-    return;
-  }
-  const task =
-    specifiedPage > 0
-      ? {
-          p: specifiedPage,
-          status: Status.init
-        }
-      : group.tasks.find(task => task.status === Status.init);
-  // console.log("find init task", group.tasks, task);
-  if (!task) {
-    return;
-  }
-  const { p } = task;
-  const mainPost = group.mainPost;
-  const groupTask = new GroupTask(
-    mainPost.board,
-    mainPost.gid,
-    p,
-    mainPost.author
-  );
-  // console.log("task + 1", p);
-  dispatch(taskCount(1));
-  dispatch(taskBegin(p));
-  try {
-    // debug
-    // await delay(1500);
-    const groupPost = await groupTask.execute();
-    // console.log(groupPost);
-    dispatch(handleGroupTask(groupPost));
-    dispatch(dequeue(p));
-  } catch (e) {
-    dispatch(
-      getPageFail({
-        p,
-        error: e.toString()
+      getPageSuccess({
+        posts: group.posts,
+        status: Status.success,
+        p: group.p,
       })
     );
-  }
-  dispatch(taskCount(-1));
-  // console.log("task - 1", p);
-};
+  };
 
-export const onSelectPage = (page: number): AppThunk => async (
-  dispatch,
-  getState
-) => {
-  const pages = getState().group.pages;
-  let isLastLoading = true;
-  for (let i = page; i < pages.length; ++i) {
-    if (pages[i].status !== Status.init) {
-      isLastLoading = false;
-      break;
+export const nextTask =
+  (atonce = false, specifiedPage = -1): AppThunk =>
+  async (dispatch, getState) => {
+    const taskCountLimit = 1;
+    const { group } = getState();
+    // console.log("atonce", atonce);
+    if (!atonce && group.taskCount >= taskCountLimit) {
+      return;
     }
-  }
-  if (isLastLoading) {
-    window.scrollTo(0, document.body.clientHeight * 2);
-  } else {
-    dispatch(setSelectedPage(page));
-  }
-  dispatch(loadPage(page));
-};
+    const task =
+      specifiedPage > 0
+        ? {
+            p: specifiedPage,
+            status: Status.init,
+          }
+        : group.tasks.find((task) => task.status === Status.init);
+    // console.log("find init task", group.tasks, task);
+    if (!task) {
+      return;
+    }
+    const { p } = task;
+    const mainPost = group.mainPost;
+    const groupTask = new GroupTask(
+      mainPost.board,
+      mainPost.gid,
+      p,
+      mainPost.author
+    );
+    // console.log("task + 1", p);
+    dispatch(taskCount(1));
+    dispatch(taskBegin(p));
+    try {
+      // debug
+      // await delay(1500);
+      const groupPost = await groupTask.execute();
+      // console.log(groupPost);
+      dispatch(handleGroupTask(groupPost));
+      dispatch(dequeue(p));
+    } catch (e) {
+      dispatch(
+        getPageFail({
+          p,
+          error: e.toString(),
+        })
+      );
+    }
+    dispatch(taskCount(-1));
+    // console.log("task - 1", p);
+  };
 
-export const loadPage = (
-  page: number,
-  force: boolean = false
-): AppThunk => async dispatch => {
-  dispatch(sortQueue(page));
-  dispatch(nextTask(true, force ? page : -1));
-};
+export const onSelectPage =
+  (page: number): AppThunk =>
+  async (dispatch, getState) => {
+    const pages = getState().group.pages;
+    let isLastLoading = true;
+    for (let i = page; i < pages.length; ++i) {
+      if (pages[i].status !== Status.init) {
+        isLastLoading = false;
+        break;
+      }
+    }
+    if (isLastLoading) {
+      window.scrollTo(0, document.body.clientHeight * 2);
+    } else {
+      dispatch(setSelectedPage(page));
+    }
+    dispatch(loadPage(page));
+  };
 
-export const restorePage = (state: RootState): AppThunk => async dispatch => {
-  dispatch(restoreGroupState(state.group));
-  dispatch(restoreImagesState(state.imageTask));
-  dispatch(loadPage(1, true));
-  const lastPage = state.group.pages.length;
-  pageNumberChanged(1, lastPage);
-  if (lastPage > 1) {
-    dispatch(loadPage(lastPage, true));
-  }
-};
+export const loadPage =
+  (page: number, force: boolean = false): AppThunk =>
+  async (dispatch) => {
+    dispatch(sortQueue(page));
+    dispatch(nextTask(true, force ? page : -1));
+  };
 
-export const loadLikePost = ({ board, gid }: IMainPost): AppThunk => async (
-  dispatch,
-  getState
-) => {
-  const task = new GroupTask(board, gid, 1);
-  try {
-    const group = await task.execute();
-    const mainPost = { ...getState().group.mainPost, title: group.title };
-    dispatch(setMainPost(mainPost));
-    setTitle(group.title);
-    const post = group.posts[0];
-    post.title = group.title;
-    dispatch(singlePost(post));
-    dispatch(imageTaskEnqueue([post]));
-    console.log(post);
-  } catch (e) {
-    toast({ message: e, type: ToastType.error });
-  }
-};
+export const restorePage =
+  (state: RootState): AppThunk =>
+  async (dispatch) => {
+    dispatch(restoreGroupState(state.group));
+    dispatch(restoreImagesState(state.imageTask));
+    dispatch(loadPage(1, true));
+    const lastPage = state.group.pages.length;
+    pageNumberChanged(1, lastPage);
+    if (lastPage > 1) {
+      dispatch(loadPage(lastPage, true));
+    }
+  };
 
-export const loadSinglePost = ({
-  board,
-  pid
-}: IMainPost): AppThunk => async dispatch => {
-  try {
-    // console.log(post);
-    const task = new PostTask(board, pid);
-    const post = await task.execute();
-    dispatch(singlePost(post));
-    dispatch(imageTaskEnqueue([post]));
-  } catch (e) {
-    toast({ message: e, type: ToastType.error });
-  }
-};
+export const loadLikePost =
+  ({ board, gid }: IMainPost): AppThunk =>
+  async (dispatch, getState) => {
+    const task = new GroupTask(board, gid, 1);
+    try {
+      const group = await task.execute();
+      const mainPost = { ...getState().group.mainPost, title: group.title };
+      dispatch(setMainPost(mainPost));
+      setTitle(group.title);
+      const post = group.posts[0];
+      post.title = group.title;
+      dispatch(singlePost(post));
+      dispatch(imageTaskEnqueue([post]));
+      console.log(post);
+    } catch (e) {
+      toast({ message: e.toString(), type: ToastType.error });
+    }
+  };
+
+export const loadSinglePost =
+  ({ board, pid }: IMainPost): AppThunk =>
+  async (dispatch) => {
+    try {
+      // console.log(post);
+      const task = new PostTask(board, pid);
+      const post = await task.execute();
+      dispatch(singlePost(post));
+      dispatch(imageTaskEnqueue([post]));
+    } catch (e) {
+      toast({ message: e.toString(), type: ToastType.error });
+    }
+  };
 
 export const expandSinglePost = (): AppThunk => async (dispatch, getState) => {
   // console.log("expandSinglePost");
@@ -463,8 +462,8 @@ export const expandSinglePost = (): AppThunk => async (dispatch, getState) => {
   const html = await ajax({
     url: `https://www.mysmth.net/nForum/article/${post.board}/${post.gid}?s=${post.pid}`,
     headers: {
-      "X-Requested-With": "XMLHttpRequest"
-    }
+      "X-Requested-With": "XMLHttpRequest",
+    },
   });
   // console.log(html); // location:/article/Apple/1375368?p=1#a4
   const mainPost: IMainPost = {
@@ -472,7 +471,7 @@ export const expandSinglePost = (): AppThunk => async (dispatch, getState) => {
     title: "",
     gid: post.gid!,
     pid: post.pid,
-    single: false
+    single: false,
   };
   const url = new URL(html);
   const p = parseInt(url.searchParams.get("p") || "1", 10);
@@ -488,14 +487,13 @@ export const expandSinglePost = (): AppThunk => async (dispatch, getState) => {
   dispatch(loadPage(p, true));
 };
 
-export const openSingleAuthorPage = (author: string): AppThunk => async (
-  dispatch,
-  getState
-) => {
-  const post = getState().group.mainPost;
-  const { origin, pathname } = window.location;
-  const url = `${origin}${pathname}#/?board=${post.board}&gid=${
-    post.gid
-  }&author=${author}&title=${encodeURIComponent(post.title)}`;
-  openPostPage(url);
-};
+export const openSingleAuthorPage =
+  (author: string): AppThunk =>
+  async (dispatch, getState) => {
+    const post = getState().group.mainPost;
+    const { origin, pathname } = window.location;
+    const url = `${origin}${pathname}#/?board=${post.board}&gid=${
+      post.gid
+    }&author=${author}&title=${encodeURIComponent(post.title)}`;
+    openPostPage(url);
+  };
