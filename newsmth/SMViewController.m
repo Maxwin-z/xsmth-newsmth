@@ -25,6 +25,7 @@
 @property (strong, nonatomic) IBOutlet UIView *viewForLogin;
 @property (weak, nonatomic) IBOutlet UIButton *buttonForLogin;
 @property (weak, nonatomic) IBOutlet UILabel *labelForLoginHint;
+@property (weak, nonatomic) IBOutlet UISwitch *switchForLogin;
 
 @end
 
@@ -177,6 +178,7 @@
     if (_viewForLogin == nil) {
         [[NSBundle mainBundle] loadNibNamed:@"SMViewControllerNeedLogin" owner:self options:nil];
         [_buttonForLogin setButtonSMType:SMButtonTypeGray];
+        [_switchForLogin setOn:[SMConfig enableForceLogin]];
     }
     _viewForLogin.frame = self.view.bounds;
     [self.view addSubview:_viewForLogin];
@@ -221,6 +223,11 @@
 - (IBAction)onLoginButtonClick:(id)sender
 {
     [self performSelectorAfterLogin:NULL];
+}
+
+- (IBAction)onLoginSwitchChange:(UISwitch *)sender
+{
+    [[NSUserDefaults standardUserDefaults] setBool:sender.on forKey:USERDEFAULTS_CONFIG_ENABLE_FORCE_LOGIN];
 }
 
 - (void)dealloc

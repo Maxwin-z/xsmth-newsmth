@@ -65,6 +65,10 @@ class XBackground: NSObject {
     }
     
     
+    @objc func appEnterForground() {
+        self.keepLogin()
+    }
+    
     func setupBgTasks() {
 //        debugPrint("start bg fetch")
 //        self.keepLogin()

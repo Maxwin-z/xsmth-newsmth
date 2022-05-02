@@ -180,6 +180,11 @@
     [self.bg scheduleBackgroundTask];
 }
 
+- (void)applicationWillEnterForeground:(UIApplication *)application
+{
+    [self.bg appEnterForground];
+}
+
 - (void)makeupShortcuts
 {
     if ([SMUtils systemVersion] >= 9
