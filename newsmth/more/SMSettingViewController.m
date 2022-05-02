@@ -744,9 +744,9 @@ static SectionData sections[] = {
     }
     
     if (cellType == CellTypeClearPostCache) {
+        _activityIndicatorForClearPostCache.hidden = YES;
+        _cellForClearPostCache.detailTextLabel.text = @"清理中...";
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-            _activityIndicatorForClearPostCache.hidden = YES;
-            _cellForClearPostCache.detailTextLabel.text = @"";
             [self clearPostCache];
             dispatch_async(dispatch_get_main_queue(), ^{
                 _cellForClearPostCache.detailTextLabel.text = @"0";
