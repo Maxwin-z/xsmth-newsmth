@@ -117,7 +117,7 @@ typedef NS_ENUM(NSInteger, CellType) {
 - (void)onAccountNotification
 {
     if ([SMAccountManager instance].isLogin) {
-        XLog_d(@"%@", [SMAccountManager instance].name);
+//        XLog_d(@"%@", [SMAccountManager instance].name);
         [self.buttonForSetting setTitle:[SMAccountManager instance].name forState:UIControlStateNormal];
     } else {
         [self.buttonForSetting setTitle:@"登录" forState:UIControlStateNormal];

@@ -95,8 +95,15 @@ static SMAccountManager *_instance;
     NSString *name = nil;
     for (int i = 0; i != cookies.count; ++i) {
         NSHTTPCookie *cookie = cookies[i];
+//        if (
+//            [cookie.name isEqualToString:@"main[UTMPKEY]"] ||
+//            [cookie.name isEqualToString:@"main[UTMPUSERID]"] ||
+//            [cookie.name isEqualToString:@"main[UTMPNUM]"]
+//            ) {
+//                XLog_d(@"[COOKIE]: %@", cookie);
+//            }
+        
         if ([cookie.name isEqualToString:COOKIE_USERID]) {
-//            XLog_d(@"cookie: %@", cookie);
             name = cookie.value;
 
             BOOL isExpired = cookie.expiresDate != nil && cookie.expiresDate.timeIntervalSince1970 < [[NSDate alloc] init].timeIntervalSince1970;

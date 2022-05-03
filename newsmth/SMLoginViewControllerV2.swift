@@ -71,8 +71,19 @@ class SMLoginViewControllerV2: XWebController{
             self.webView.configuration.websiteDataStore.httpCookieStore.getAllCookies { [weak self] cookies in
                 cookies.forEach { cookie in
                     if (cookie.domain == ".mysmth.net") {
-                        debugPrint(2222, cookie)
-                        HTTPCookieStorage.shared.setCookie(cookie)
+//                        debugPrint(2222, cookie)
+                        let expires = Date(timeIntervalSinceNow: 7 * 24 * 3600)
+                        if (cookie.name == "main[UTMPNUM]" || cookie.name == "main[UTMPKEY]" || cookie.name == "main[UTMPUSERID]") {
+                            let c = HTTPCookie(properties: [
+                                .domain: cookie.domain,
+                                .path: cookie.path,
+                                .name: cookie.name,
+                                .value: cookie.value,
+                                .secure: cookie.isSecure,
+                                .expires: (cookie.expiresDate != nil && cookie.expiresDate! > expires) ? cookie.expiresDate! : expires
+                            ])
+                            HTTPCookieStorage.shared.setCookie(c!)
+                        }
                     }
                 }
                 SMAccountManager.instance()?.setCookies(cookies)
@@ -147,7 +158,7 @@ class SMLoginViewControllerV2: XWebController{
 
             document.body.style.color = "\(SMUtils.hex(from: SMTheme.colorForPrimary()) ?? "#666")"
         """
-        debugPrint(js)
+//        debugPrint(js)
         webView.evaluateJavaScript(js, completionHandler: nil)
     }
     
