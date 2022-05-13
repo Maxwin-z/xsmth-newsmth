@@ -17,7 +17,7 @@ class XDonateViewController: SMViewController, SKProductsRequestDelegate, SKPaym
     let proID = "me.maxwin.xsmth.pro"
     var products: [SKProduct] = []
     var ai: UIActivityIndicatorView?
-    let version = 2
+    let version = 3
     
     override func viewDidLoad() {
         super.viewDidLoad()
