@@ -165,8 +165,8 @@ function postInfoInWeb(): Promise<IMainPost> {
   // let post = { board: "Children", gid: 932484268 };
   // let post = { board: "Photo", gid: 1936720334, title: "" }; // 1 page
   let post = {
-    board: "Photo",
-    gid: 1936720211,
+    board: "AutoWorld",
+    gid: 1944224880,
     title: "",
     pid: 0,
     single: false,
