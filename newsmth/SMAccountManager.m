@@ -55,10 +55,10 @@ static SMAccountManager *_instance;
 {
     NSURL *url = [NSURL URLWithString:URL_PROTOCOL @"//m.mysmth.net"];
     NSMutableArray *cookies =[[NSMutableArray alloc] initWithArray:[[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:url]];
-    XLog_d(@"load cookies: %@", cookies);
+//    XLog_d(@"load cookies: %@", cookies);
     
     NSArray *savedCookies = [[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_COOKIES];
-    XLog_d(@"saved cookies: %@", savedCookies);
+//    XLog_d(@"saved cookies: %@", savedCookies);
     if (savedCookies) {
         NSDateFormatter *formatter = [NSDateFormatter new];
         [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
@@ -72,7 +72,7 @@ static SMAccountManager *_instance;
             [cookies addObject:cookie];
             [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookie];
         }];
-        XLog_d(@"debug cookie: %@", [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:url]);
+//        XLog_d(@"debug cookie: %@", [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:url]);
     }
     
     if (cookies) {
@@ -95,8 +95,15 @@ static SMAccountManager *_instance;
     NSString *name = nil;
     for (int i = 0; i != cookies.count; ++i) {
         NSHTTPCookie *cookie = cookies[i];
+//        if (
+//            [cookie.name isEqualToString:@"main[UTMPKEY]"] ||
+//            [cookie.name isEqualToString:@"main[UTMPUSERID]"] ||
+//            [cookie.name isEqualToString:@"main[UTMPNUM]"]
+//            ) {
+//                XLog_d(@"[COOKIE]: %@", cookie);
+//            }
+        
         if ([cookie.name isEqualToString:COOKIE_USERID]) {
-            XLog_d(@"cookie: %@", cookie);
             name = cookie.value;
 
             BOOL isExpired = cookie.expiresDate != nil && cookie.expiresDate.timeIntervalSince1970 < [[NSDate alloc] init].timeIntervalSince1970;
@@ -113,6 +120,9 @@ static SMAccountManager *_instance;
             
             // notify account changed.
             XLog_d(@"account: %@ -> %@", _name, name);
+            if ([_name isEqualToString:@"Maxwin"] && name == nil) {
+                NSLog(@"logout");
+            }
             if ((name != nil || _name != nil) && ![name isEqualToString:_name]) {
                 _name = name;
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -130,6 +140,7 @@ static SMAccountManager *_instance;
 
 - (void)autoLogin
 {
+    return;
     if ([NSDate timeIntervalSinceReferenceDate] - self.lastAutoLoginTime < 10) {    // 每10s内重试一次
         XLog_d(@"autologin 重试时间较短，稍后重试");
         return ;

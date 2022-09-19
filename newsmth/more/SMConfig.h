@@ -20,6 +20,7 @@
 + (BOOL)enableShowQMD;
 + (BOOL)enableDayMode;
 + (BOOL)enableShakeSwitchDayMode;
++ (BOOL)enableForceLogin;
 + (BOOL)disableTail;
 + (BOOL)disableAd;
 + (BOOL)isPro;

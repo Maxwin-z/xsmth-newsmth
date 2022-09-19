@@ -12,9 +12,7 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
 
-#import <ReactiveCocoa/ReactiveCocoa.h>
-#import <ReactiveCocoa/RACEXTScope.h>
-//#import <ReactiveCocoa/EXTScope.h>
+#import <ReactiveObjc/ReactiveObjc.h>
 //#import "EXTScope.h"
 
 #import "XLogUtil.h"

@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import React from "react";
 import { getQuery } from "../article/utils/urlHelper";
-import { getStorage, setTitle, openPostPage } from "../jsapi";
+import { setTitle, openPostPage, getPost } from "../jsapi";
 import { RootState } from "../article";
 
 import { YAxis, CartesianGrid, AreaChart, Area, Legend } from "recharts";
@@ -41,19 +41,19 @@ const Experimental: FC<{}> = () => {
       const board = query.board as string;
       const gid = query.gid as string;
       const storeKey = `post_${board}_${gid}_`;
-      const data: RootState = await getStorage(storeKey);
+      const data: RootState = await getPost(storeKey);
       setTitle(data.group.mainPost.title);
       setMainPost(data.group.mainPost);
 
       (window as any).analytics.track("experimental", {
-        board: data.group.mainPost.board
+        board: data.group.mainPost.board,
       });
 
       const users: IUser[] = [];
       let postsCount = 0;
       let postAuthor = "";
       const userMap: { [author: string]: IUser } = {};
-      data.group.pages.forEach(page => {
+      data.group.pages.forEach((page) => {
         page.posts.forEach(({ postCount, author, score, floor }) => {
           if (!userMap[author]) {
             const user = {
@@ -61,7 +61,7 @@ const Experimental: FC<{}> = () => {
               postCount,
               score,
               floor,
-              count: 1
+              count: 1,
             };
             users.push(user);
             userMap[author] = user;
@@ -140,7 +140,7 @@ const Experimental: FC<{}> = () => {
             content={() => (
               <div
                 style={{
-                  textAlign: "center"
+                  textAlign: "center",
                 }}
               >
                 回复数
@@ -170,7 +170,7 @@ const Experimental: FC<{}> = () => {
             </tr>
           </thead>
           <tbody>
-            {users.map(user => {
+            {users.map((user) => {
               return (
                 <tr key={user.author}>
                   <td>{user.author}</td>

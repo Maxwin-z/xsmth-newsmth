@@ -177,6 +177,16 @@ static XImageViewCache *instance;
     } else {
         XLog_e(@"%@", error);
     }
+    
+    NSArray *appDataDirs = NSSearchPathForDirectoriesInDomains(NSApplicationDirectory, NSUserDomainMask, YES);
+    if (appDataDirs.firstObject) {
+        NSURL *url = [[NSURL alloc] initFileURLWithPath:appDataDirs.firstObject];
+        url = [url URLByDeletingLastPathComponent];
+        url = [url URLByAppendingPathComponent:@"tmp"];
+        NSError *error = nil;
+        [[NSFileManager defaultManager] removeItemAtURL:url error:&error];
+        XLog_d(@"remove appdata tmp files:%@, ret: %@", url.absoluteString, error);
+    }
 }
 
 @end

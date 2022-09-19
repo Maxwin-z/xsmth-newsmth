@@ -16,6 +16,8 @@
 #import "XWebViewController.h"
 #import "SMNoticeViewController.h"
 #import "SMSettingViewController.h"
+#import "newsmth-Swift.h"
+
 
 typedef NS_ENUM(NSInteger, CellType) {
     CellTypeTop,
@@ -33,6 +35,7 @@ typedef NS_ENUM(NSInteger, CellType) {
 @property (strong, nonatomic) NSArray *cellTypes;
 
 @property (strong, nonatomic) SMWebLoaderOperation *keepLoginOp;
+@property (strong, nonatomic) XDonateViewController *donateVC;
 @end
 
 @implementation SMLeftViewController
@@ -74,6 +77,10 @@ typedef NS_ENUM(NSInteger, CellType) {
     }
     [_buttonForSetting setImage:image forState:UIControlStateNormal];
     
+    if (![SMConfig isPro]) {
+        self.donateVC = [XDonateViewController new];
+        [self.view addSubview:self.donateVC.view];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -84,6 +91,19 @@ typedef NS_ENUM(NSInteger, CellType) {
         NSLog(@"%@", NSStringFromUIEdgeInsets(inset));
         self.tableView.contentInset = UIApplication.sharedApplication.keyWindow.safeAreaInsets;
     }
+}
+
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    if ([SMConfig isPro]) return ;
+    CGRect frame = self.donateVC.view.frame;
+    frame.origin.x = 0;
+    frame.origin.y = 150;
+    frame.size.width =  self.view.size.width;
+    frame.size.height = self.view.frame.size.height - 500;
+    self.donateVC.view.autoresizingMask =  UIViewAutoresizingFlexibleHeight;
+    self.donateVC.view.frame = frame;
 }
 
 - (void)setupTheme
@@ -97,7 +117,7 @@ typedef NS_ENUM(NSInteger, CellType) {
 - (void)onAccountNotification
 {
     if ([SMAccountManager instance].isLogin) {
-        XLog_d(@"%@", [SMAccountManager instance].name);
+//        XLog_d(@"%@", [SMAccountManager instance].name);
         [self.buttonForSetting setTitle:[SMAccountManager instance].name forState:UIControlStateNormal];
     } else {
         [self.buttonForSetting setTitle:@"登录" forState:UIControlStateNormal];

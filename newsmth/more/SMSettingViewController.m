@@ -17,6 +17,7 @@
 #import "SMEULAViewController.h"
 #import "XImageView.h"
 #import <SafariServices/SafariServices.h>
+#import <MMKV/MMKV.h>
 
 #define MAX_CELL_COUNT  6
 
@@ -276,7 +277,8 @@ static SectionData sections[] = {
     });
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        __block unsigned long long postsSize = [self postCacheSize];
+        //        __block unsigned long long postsSize = [self postCacheSize];
+        __block size_t postsSize = [[MMKV mmkvWithID:@"mmkv.posts"] totalSize];
         dispatch_async(dispatch_get_main_queue(), ^{
             _cellForClearPostCache.detailTextLabel.text = [SMUtils formatSize:postsSize];
             _activityIndicatorForClearPostCache.hidden = YES;
@@ -731,9 +733,9 @@ static SectionData sections[] = {
     }
 
     if (cellType == CellTypeClearCache) {
+        _activityIndicatorForClearCache.hidden = YES;
+        _cellForClearCache.detailTextLabel.text = @"清理中...";
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-            _activityIndicatorForClearCache.hidden = YES;
-            _cellForClearCache.detailTextLabel.text = @"";
             [[XImageViewCache sharedInstance] clearCache];
             dispatch_async(dispatch_get_main_queue(), ^{
                 _cellForClearCache.detailTextLabel.text = @"0";
@@ -744,12 +746,20 @@ static SectionData sections[] = {
     }
     
     if (cellType == CellTypeClearPostCache) {
+        _activityIndicatorForClearPostCache.hidden = YES;
+        _cellForClearPostCache.detailTextLabel.text = @"清理中...";
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-            _activityIndicatorForClearPostCache.hidden = YES;
-            _cellForClearPostCache.detailTextLabel.text = @"";
-            [self clearPostCache];
+//            [self clearPostCache];
+            [[MMKV defaultMMKV] enumerateKeys:^(NSString * _Nonnull key, BOOL * _Nonnull stop) {
+                if ([key rangeOfString:@"post_"].location == 0) {
+                    [[MMKV defaultMMKV] removeValueForKey:key];
+                    XLog_d(@"clear old posts");
+                }
+            }];
+            MMKV *mmkv = [MMKV mmkvWithID:@"mmkv.posts"];
+            [mmkv clearAll];
             dispatch_async(dispatch_get_main_queue(), ^{
-                _cellForClearPostCache.detailTextLabel.text = @"0";
+                _cellForClearPostCache.detailTextLabel.text = [SMUtils formatSize:[mmkv totalSize]];
                 _activityIndicatorForClearPostCache.hidden = YES;
             });
         });

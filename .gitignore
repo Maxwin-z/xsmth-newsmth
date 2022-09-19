@@ -85,3 +85,4 @@ typings/
 .serverless
 
 tools/
+template\.*.zip

@@ -144,7 +144,7 @@
     if ([SMUtils fileExistsInDocumentFolder:filepath] && [currentTemplate isEqualToString:md5]) {
         filepath = [NSString stringWithFormat:@"%@/%@", docPath, filepath];
     } else {
-        filepath = [[NSBundle mainBundle] pathForResource:@"template_posts" ofType:@"zip"];
+        filepath = [[NSBundle mainBundle] pathForResource:@"template_post_v3" ofType:@"zip"];
     }
     
     NSString *destPath = [NSString stringWithFormat:@"%@/post/", docPath];
@@ -188,6 +188,7 @@
         NSError *error;
         NSString *rsp = [NSString stringWithContentsOfURL:[NSURL URLWithString:url] encoding:NSUTF8StringEncoding error:&error];
         if (error) {
+            XLog_d(@"download template error: %@", error);
             return ;
         }
         NSDictionary *templateConfig = [SMUtils string2json:rsp];
@@ -200,8 +201,18 @@
             }
         }];
         [[NSUserDefaults standardUserDefaults] setObject:templateMD5 forKey:USERDEFAULTS_UPDATE_TEMPLATE];
+        
+        if (templateMD5 == nil) {
+            if (currentTemplate != nil) {
+                NSString *path = [NSString stringWithFormat:@"%@/template.%@.zip", [SMUtils documentPath], currentTemplate];
+                NSError *error;
+                [[NSFileManager defaultManager] removeItemAtPath:path error:&error];
+            }
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:USERDEFAULTS_UPDATE_TEMPLATE];
+            return;
+        }
 
-        if (templateMD5 == nil || [templateMD5 isEqualToString:currentTemplate]) {
+        if ([templateMD5 isEqualToString:currentTemplate]) {
             return;
         }
         NSString *downloadUrl = [NSString stringWithFormat:API_PREFIX @"template.%@.zip", templateMD5];

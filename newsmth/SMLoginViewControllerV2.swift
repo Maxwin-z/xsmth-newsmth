@@ -39,14 +39,6 @@ class SMLoginViewControllerV2: XWebController{
                "action": {
                    "type": "block"
                }
-           }, {
-               "trigger": {
-                   "url-filter": ".*mysmth.net.*",
-                   "resource-type": ["script"]
-               },
-               "action": {
-                   "type": "block"
-               }
            }]
         """
         WKContentRuleListStore.default().compileContentRuleList(
@@ -74,11 +66,24 @@ class SMLoginViewControllerV2: XWebController{
         
         if (navigationAction.request.url?.host == "m.mysmth.net") {
             debugPrint(navigationAction.request.url?.absoluteString ?? "")
-            webView.configuration.websiteDataStore.httpCookieStore.getAllCookies { [weak self] cookies in
+//            weak var weakSelf = self
+//            DispatchQueue.main.asyncAfter(deadline:  .now() + 1.0) {
+            self.webView.configuration.websiteDataStore.httpCookieStore.getAllCookies { [weak self] cookies in
                 cookies.forEach { cookie in
                     if (cookie.domain == ".mysmth.net") {
-                        debugPrint(2222, cookie)
-                        HTTPCookieStorage.shared.setCookie(cookie)
+//                        debugPrint(2222, cookie)
+                        let expires = Date(timeIntervalSinceNow: 7 * 24 * 3600)
+                        if (cookie.name == "main[UTMPNUM]" || cookie.name == "main[UTMPKEY]" || cookie.name == "main[UTMPUSERID]") {
+                            let c = HTTPCookie(properties: [
+                                .domain: cookie.domain,
+                                .path: cookie.path,
+                                .name: cookie.name,
+                                .value: cookie.value,
+                                .secure: cookie.isSecure,
+                                .expires: (cookie.expiresDate != nil && cookie.expiresDate! > expires) ? cookie.expiresDate! : expires
+                            ])
+                            HTTPCookieStorage.shared.setCookie(c!)
+                        }
                     }
                 }
                 SMAccountManager.instance()?.setCookies(cookies)
@@ -87,10 +92,12 @@ class SMLoginViewControllerV2: XWebController{
                 }
             }
         }
+//        }
         decisionHandler(.allow)
     }
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        let forceLogin = SMConfig.enableForceLogin() ? "true" : "false"
         let js = """
            const selectors = [
               "#ad_container",
@@ -99,10 +106,13 @@ class SMLoginViewControllerV2: XWebController{
               ".menu.sp",
               ".menu.nav"
             ];
+            /*
             selectors.forEach(sel => {
               [...document.querySelectorAll(sel)].forEach(dom => (dom.hidden = true));
             });
+            */
 
+        
             const enlarges = ["#u_login", "#u_login input"];
             enlarges.forEach(sel => {
               [...document.querySelectorAll(sel)].forEach(dom => {
@@ -110,7 +120,7 @@ class SMLoginViewControllerV2: XWebController{
                 dom.style.fontSize = "120%";
               });
             });
-            
+        
             const idEl = document.querySelector('[name="id"]');
             const passwdEl = document.querySelector('[name="passwd"]');
             const saveEl = document.querySelector('[name="save"]');
@@ -122,6 +132,9 @@ class SMLoginViewControllerV2: XWebController{
                 const { id, passwd } = JSON.parse(userinfo);
                 idEl.value = id;
                 passwdEl.value = passwd;
+                if (\(forceLogin)) {
+                    document.querySelector('#TencentCaptcha').click()
+                }
               } catch (ignore) {
                 console.log(ignore);
               }
@@ -145,7 +158,7 @@ class SMLoginViewControllerV2: XWebController{
 
             document.body.style.color = "\(SMUtils.hex(from: SMTheme.colorForPrimary()) ?? "#666")"
         """
-        debugPrint(js)
+//        debugPrint(js)
         webView.evaluateJavaScript(js, completionHandler: nil)
     }
     

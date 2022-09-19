@@ -25,6 +25,7 @@
 @property (strong, nonatomic) IBOutlet UIView *viewForLogin;
 @property (weak, nonatomic) IBOutlet UIButton *buttonForLogin;
 @property (weak, nonatomic) IBOutlet UILabel *labelForLoginHint;
+@property (weak, nonatomic) IBOutlet UISwitch *switchForLogin;
 
 @end
 
@@ -55,7 +56,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.screenName = NSStringFromClass([self class]);
+//    self.screenName = NSStringFromClass([self class]);
     
     self.currentOrientation = [UIDevice currentDevice].orientation;
 
@@ -177,6 +178,7 @@
     if (_viewForLogin == nil) {
         [[NSBundle mainBundle] loadNibNamed:@"SMViewControllerNeedLogin" owner:self options:nil];
         [_buttonForLogin setButtonSMType:SMButtonTypeGray];
+        [_switchForLogin setOn:[SMConfig enableForceLogin]];
     }
     _viewForLogin.frame = self.view.bounds;
     [self.view addSubview:_viewForLogin];
@@ -192,11 +194,11 @@
     if ([SMAccountManager instance].isLogin) {
         [self performSelector:aSelector withObject:nil afterDelay:0];
     } else {
-//        SMLoginViewControllerV2 *vc = [SMLoginViewControllerV2 new];
-//        [vc afterLoginWithTarget:self selector:aSelector];
+        SMLoginViewControllerV2 *vc = [SMLoginViewControllerV2 new];
+        [vc afterLoginWithTarget:self selector:aSelector];
 
-        SMLoginViewController *vc = [SMLoginViewController new];
-        [vc setAfterLoginTarget:self selector:aSelector];
+//        SMLoginViewController *vc = [SMLoginViewController new];
+//        [vc setAfterLoginTarget:self selector:aSelector];
 
         P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:vc];
         nvc.modalPresentationStyle = UIModalPresentationFormSheet;
@@ -209,8 +211,8 @@
     if ([SMAccountManager instance].isLogin) {
         success();
     } else {
-//        SMLoginViewControllerV2 *loginVc = [SMLoginViewControllerV2 new];
-        SMLoginViewController *loginVc = [SMLoginViewController new];
+        SMLoginViewControllerV2 *loginVc = [SMLoginViewControllerV2 new];
+//        SMLoginViewController *loginVc = [SMLoginViewController new];
         [loginVc loginWithSuccess:success fail:fail];
         P2PNavigationController *nvc = [[P2PNavigationController alloc] initWithRootViewController:loginVc];
         nvc.modalPresentationStyle = UIModalPresentationFormSheet;
@@ -221,6 +223,11 @@
 - (IBAction)onLoginButtonClick:(id)sender
 {
     [self performSelectorAfterLogin:NULL];
+}
+
+- (IBAction)onLoginSwitchChange:(UISwitch *)sender
+{
+    [[NSUserDefaults standardUserDefaults] setBool:sender.on forKey:USERDEFAULTS_CONFIG_ENABLE_FORCE_LOGIN];
 }
 
 - (void)dealloc

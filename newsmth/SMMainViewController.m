@@ -57,6 +57,8 @@ static SMMainViewController *_instance;
         _instance = [super init];
         [self makeupMenuBarButtonItem];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onNoticeNofitication) name:NOTIFICATION_NOTICE object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onAccountNotification) name:NOTIFICATION_ACCOUT object:nil];
+
     }
     return _instance;
 }
@@ -90,6 +92,9 @@ static SMMainViewController *_instance;
 {
     [super viewDidAppear:animated];
     [self showEndUserLicenseAgreements];
+    if ([SMConfig enableForceLogin] && ![SMAccountManager instance].isLogin) {
+        [self performSelectorAfterLogin:nil];
+    }
 }
 
 - (UIViewController *)childViewControllerForStatusBarHidden
@@ -132,6 +137,13 @@ static SMMainViewController *_instance;
         [self setBadgeVisiable:YES];
     } else {
         [self setBadgeVisiable:NO];
+    }
+}
+
+- (void)onAccountNotification
+{
+    if ([SMConfig enableForceLogin] && ![SMAccountManager instance].isLogin) {
+        [self performSelectorAfterLogin:nil];
     }
 }
 

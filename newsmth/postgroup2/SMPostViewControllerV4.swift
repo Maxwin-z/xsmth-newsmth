@@ -40,8 +40,10 @@ class SMPostViewControllerV4: XWebController {
 
     override func viewDidLoad() {
         if post != nil {
-//            url = URL(string: "http://10.0.0.15:3000/#/")
-            url = URL(string: "http://public-1255362875.cos.ap-shanghai.myqcloud.com/xsmth/v4.3.0/index.html#/")
+//            url = URL(string: "http://10.0.0.209:3000/")
+//            url = URL(string: "http://public-1255362875.cos.ap-shanghai.myqcloud.com/xsmth/v4.3.0/index.html#/")
+            url = URL(fileURLWithPath: SMUtils.documentPath() + "/post/build/index.html")
+            debugPrint(url ?? "")
         }
 
         super.viewDidLoad()
@@ -66,6 +68,10 @@ class SMPostViewControllerV4: XWebController {
             "pageNumberChanged": _pageNumberChanged,
             "openPostPage": _openPostPage,
             "tapImage": _tapImage,
+            "userTags": _getUserTags,
+            "savePost": _savePost,
+            "getPost": _getPosts,
+            "removePost": _removePost
         ])
     }
     
@@ -77,7 +83,12 @@ class SMPostViewControllerV4: XWebController {
 
     @objc
     func onRightBarButtonClick() {
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        var alertStyle = UIAlertController.Style.actionSheet
+        if (UIDevice.current.userInterfaceIdiom == .pad) {
+          alertStyle = UIAlertController.Style.alert
+        }
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: alertStyle)
+
         if (!self.fromBoard) {
             alert.addAction(UIAlertAction(title: "进入版面", style: .default, handler: { _ in
                 let vc = SMBoardViewController()
@@ -92,7 +103,7 @@ class SMPostViewControllerV4: XWebController {
         
         alert.addAction(UIAlertAction(title: "查看Likes", style: .default, handler: { _ in
             var urlString = self.url?.absoluteString ?? ""
-            urlString += "likes?board=\(self.post?.board.name ?? "")&gid=\(self.post?.gid ?? 0)"
+            urlString += "#/likes?board=\(self.post?.board.name ?? "")&gid=\(self.post?.gid ?? 0)"
             let vc = SMPostViewControllerV4()
             vc.url = URL(string: urlString)
             self.navigationController?.pushViewController(vc, animated: true)
@@ -100,7 +111,7 @@ class SMPostViewControllerV4: XWebController {
         
         alert.addAction(UIAlertAction(title: "🍀Experimental", style: .default, handler: { _ in
             var urlString = self.url?.absoluteString ?? ""
-            urlString += "experimental?board=\(self.post?.board.name ?? "")&gid=\(self.post?.gid ?? 0)"
+            urlString += "#/experimental?board=\(self.post?.board.name ?? "")&gid=\(self.post?.gid ?? 0)"
             let vc = SMPostViewControllerV4()
             vc.url = URL(string: urlString)
             self.navigationController?.pushViewController(vc, animated: true)
@@ -356,7 +367,6 @@ class SMPostViewControllerV4: XWebController {
                     if at == SMActivityDeleteActivity {
                         weakSelf.notificationToWeb(messageName: "DELETE_POST", data: weakSelf.postForAction?.pid ?? 0)
                     }
-                    debugPrint(activityType?.rawValue ?? "no activity")
                 }
                 if SMUtils.isPad() {
                     activity.modalPresentationStyle = .popover
@@ -458,6 +468,79 @@ class SMPostViewControllerV4: XWebController {
         }
     }
     
+    func _getUserTags(parameters: Any) -> Future<Any, XBridgeError> {
+        return Future { promise in
+            guard let name = parameters as? String else {
+                promise(.failure(XBridgeError(code: -1, message: "name不能为空")))
+                return
+            }
+            guard let tags = MMKV.default().string(forKey: "tags_" + name) else {
+                promise(.success(""))
+                return
+            }
+//            debugPrint(tags)
+            promise(.success(tags))
+        }
+    }
+    
+    func _savePost(parameters: Any) -> Future<Any, XBridgeError> {
+        return Future { promise in
+            guard let parameters = parameters as? [String: Any] else {
+                promise(.failure(XBridgeError(code: -1, message: "错误的参数")))
+                return
+            }
+            guard let key = parameters["key"] as? String else {
+                promise(.failure(XBridgeError(code: -1, message: "错误的参数，缺少key")))
+                return
+            }
+            if let value = parameters["value"] {
+                do {
+                    let data = try JSONSerialization.data(withJSONObject: ["value": value], options: .prettyPrinted)
+                    MMKV.init(mmapID: "mmkv.posts")?.set(data, forKey: key)
+                    promise(.success(true))
+                } catch {
+                    promise(.failure(XBridgeError(code: -1, message: "序列化错误\(error.localizedDescription)")))
+                }
+            } else {
+                promise(.failure(XBridgeError(code: -1, message: "错误的参数，缺少value")))
+            }
+        }
+    }
+
+    func _getPosts(parameters: Any) -> Future<Any, XBridgeError> {
+        return Future { promise in
+            guard let key = parameters as? String else {
+                promise(.failure(XBridgeError(code: -1, message: "错误的参数，缺少key")))
+                return
+            }
+            guard let data = MMKV.init(mmapID: "mmkv.posts")?.data(forKey: key) else {
+                promise(.failure(XBridgeError(code: -11, message: "数据不存在")))
+                return
+            }
+            do {
+                let json = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
+                if let value = json["value"] {
+                    promise(.success(value))
+                } else {
+                    promise(.failure(XBridgeError(code: -1, message: "数据格式不正确")))
+                }
+            } catch {
+                promise(.failure(XBridgeError(code: -1, message: "解析错误\(error.localizedDescription)")))
+            }
+        }
+    }
+    
+    func _removePost(parameters: Any) -> Future<Any, XBridgeError> {
+        return Future { promise in
+            guard let key = parameters as? String else {
+                promise(.failure(XBridgeError(code: -1, message: "错误的参数，缺少key")))
+                return
+            }
+            MMKV.init(mmapID: "mmkv.posts")?.removeValue(forKey: key)
+            promise(.success(true))
+        }
+    }
+    
     /// activity methods
     @objc
     func forwardActivity(all: Bool) {
@@ -476,11 +559,11 @@ class SMPostViewControllerV4: XWebController {
                     let userText = textField.text,
                     let p = self?.postForAction,
                     let weakSelf = self else { return }
-                debugPrint("alert", userText)
+//                debugPrint("alert", userText)
                 weakSelf.mmkv.set(userText, forKey: mmkvKey_forwardTarget)
                 let url = "https://m.mysmth.net/article/\(p.board.name!)/forward/\(p.pid)"
                 SMAF.request(url, method: .post, parameters: ["target": userText, "threads": all ? "on" : ""]).response { response in
-                    debugPrint(response)
+//                    debugPrint(response)
                     do {
                         if let data = try response.result.get() {
                             var html = String(data: data, encoding: .utf8)!
@@ -573,7 +656,6 @@ extension SMPostViewControllerV4: UIScrollViewDelegate {
 
     func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
         let point = scrollView.panGestureRecognizer.translation(in: scrollView.superview)
-        debugPrint("252", point)
         if point.y > 0 {
             showBottomBar()
         }

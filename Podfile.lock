@@ -20,9 +20,13 @@ PODS:
     - MMKVCore (~> 1.2.12)
   - MMKVCore (1.2.12)
   - Reachability (3.2)
+<<<<<<< HEAD
   - ReactiveCocoa (12.0.0):
     - ReactiveSwift (~> 7.0)
   - ReactiveSwift (7.0.0)
+=======
+  - ReactiveObjC (2.1.2)
+>>>>>>> 7bca9a639053237f025ec00a0e13035bce66ff28
   - TOWebViewController (2.2.8):
     - TOWebViewController/Core (= 2.2.8)
   - TOWebViewController/Core (2.2.8)
@@ -35,7 +39,7 @@ DEPENDENCIES:
   - JPVideoPlayer
   - Loaf
   - MMKV
-  - ReactiveCocoa
+  - ReactiveObjC (~> 2.1.2)
   - TOWebViewController (= 2.2.8)
   - WKVerticalScrollBar
 
@@ -49,8 +53,12 @@ SPEC REPOS:
     - MMKV
     - MMKVCore
     - Reachability
+<<<<<<< HEAD
     - ReactiveCocoa
     - ReactiveSwift
+=======
+    - ReactiveObjC
+>>>>>>> 7bca9a639053237f025ec00a0e13035bce66ff28
     - TOWebViewController
     - WKVerticalScrollBar
 
@@ -63,11 +71,19 @@ SPEC CHECKSUMS:
   MMKV: f281020c9d9be5eb7a03ae746dc4deb570e46c23
   MMKVCore: df0565f6b58463604731a68ba6cd89bc0b2d1d55
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
+<<<<<<< HEAD
   ReactiveCocoa: 5d10386f0ce09f922006efbf784881c5fade27c5
   ReactiveSwift: 48c4b9d3b497e8dd20b10300bb1a28ff93550f13
   TOWebViewController: 953a24619d32f7aa1d9d4098a74885a9236f7348
   WKVerticalScrollBar: 555c3473ada57433e7d891ba73d1fc9de8ab848f
 
 PODFILE CHECKSUM: 71646a0f2d7a72421cd1140af9d052ac9792b4de
+=======
+  ReactiveObjC: 7b6782ae39f9ac0f57205c3b0c0b69b9dd7048c0
+  TOWebViewController: 953a24619d32f7aa1d9d4098a74885a9236f7348
+  WKVerticalScrollBar: 555c3473ada57433e7d891ba73d1fc9de8ab848f
+
+PODFILE CHECKSUM: 7a56c9608f0961165d9e2e32637a4692e4de4743
+>>>>>>> 7bca9a639053237f025ec00a0e13035bce66ff28
 
 COCOAPODS: 1.11.3

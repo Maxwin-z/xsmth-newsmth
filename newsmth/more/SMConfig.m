@@ -87,6 +87,11 @@
     return [SMConfig configForKey:USERDEFUALTS_CONFIG_ENABLE_SHAKE_SWITCH_DAY_MODE defaults:YES];
 }
 
++ (BOOL)enableForceLogin
+{
+    return [SMConfig configForKey:USERDEFAULTS_CONFIG_ENABLE_FORCE_LOGIN defaults:NO];
+}
+
 + (BOOL)disableTail
 {
     return [SMConfig configForKey:USERDEFAULTS_CONFIG_ENABLE_DISABLE_TAIL defaults:NO];

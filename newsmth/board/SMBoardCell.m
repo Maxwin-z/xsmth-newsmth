@@ -33,6 +33,19 @@ static SMBoardCell *_instance;
         _instance = [[SMBoardCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
     }
     
+    __block BOOL blacklist = NO;
+    NSArray *tags = [SMBoardCell userTags:post];
+    [tags enumerateObjectsUsingBlock:^(SMTag *tag, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([tag.text isEqualToString:@"blacklist"]) {
+            blacklist = YES;
+            *stop = YES;
+        }
+    }];
+    if (blacklist) {
+        XLog_d(@"block %@", post.author);
+        return 0.1;
+    }
+    
     CGRect frame = _instance.frame;
     frame.size.width = width;
     _instance.frame = frame;
@@ -43,6 +56,24 @@ static SMBoardCell *_instance;
     CGFloat titleHeight = [title smSizeWithFont:[SMConfig listFont] constrainedToSize:CGSizeMake(_instance.labelForTitle.frame.size.width, CGFLOAT_MAX) lineBreakMode:_instance.labelForTitle.lineBreakMode].height;
 
     return titleHeight + heightExpectTitle + 1;
+}
+
++ (NSArray *)userTags:(SMPost *)post
+{
+    NSString *userString = [[MMKV defaultMMKV] getStringForKey:[[self class] keyForUser:post.author]];
+    while (true) {
+        if (userString == nil) break;
+        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:[userString dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
+        if (json == nil) break;
+        NSDictionary *info = json[@"value"];
+        @try {
+            SMUserTag *userTag = [[SMUserTag alloc] initWithJSON:info];
+            return userTag.tags;
+            XLog_d(@"%@", userTag);
+        } @catch (NSException *exception) {} @finally {}
+        break;
+    }
+    return @[];
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -59,7 +90,7 @@ static SMBoardCell *_instance;
     return self;
 }
 
-- (NSString *)keyForUser:(NSString *)username {
++ (NSString *)keyForUser:(NSString *)username {
     return [NSString stringWithFormat:@"tags_%@", username];
 }
 
@@ -81,28 +112,17 @@ static SMBoardCell *_instance;
            NSForegroundColorAttributeName: [SMTheme colorForSecondary]
     }]];
     // load author
-    NSString *userString = [[MMKV defaultMMKV] getStringForKey:[self keyForUser:_post.author]];
-    while (true) {
-        if (userString == nil) break;
-        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:[userString dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
-        if (json == nil) break;
-        NSDictionary *info = json[@"value"];
-        @try {
-            SMUserTag *userTag = [[SMUserTag alloc] initWithJSON:info];
-            XLog_d(@"%@", userTag);
-            [userTag.tags enumerateObjectsUsingBlock:^(SMTag* tag, NSUInteger idx, BOOL * _Nonnull stop) {
-               NSString *hex = tag.color;
-               if (hex.length == 7) {
-                   UIColor *color = [SMUtils colorFromHexString:hex];
-                   [authorTitle appendAttributedString:[[NSAttributedString alloc] initWithString:@"■" attributes:@{
-                       NSForegroundColorAttributeName: color,
-                       NSFontAttributeName: [UIFont systemFontOfSize:10]
-                   }]];
-               }
-            }];
-        } @catch (NSException *exception) {} @finally {}
-        break;
-    }
+    NSArray *tags = [[self class] userTags:self.post];
+    [tags enumerateObjectsUsingBlock:^(SMTag* tag, NSUInteger idx, BOOL * _Nonnull stop) {
+       NSString *hex = tag.color;
+       if (hex.length == 7) {
+           UIColor *color = [SMUtils colorFromHexString:hex];
+           [authorTitle appendAttributedString:[[NSAttributedString alloc] initWithString:@"■" attributes:@{
+               NSForegroundColorAttributeName: color,
+               NSFontAttributeName: [UIFont systemFontOfSize:10]
+           }]];
+       }
+    }];
     
     [_buttonForAuthor setAttributedTitle:authorTitle forState:UIControlStateNormal];
     if (_post.replyAuthor) {

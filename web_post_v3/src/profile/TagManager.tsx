@@ -23,11 +23,11 @@ export default function AddTag() {
     "#8BC34A",
     "#CDDC39",
     "#FFEB3B",
-    "#FFC107"
+    "#FFC107",
   ];
   const textInput = useRef<HTMLInputElement>(null);
   useEffect(() => {
-    loadTags().then(tags => setTags(tags));
+    loadTags().then((tags) => setTags(tags));
   }, []);
   const onAddTagClick = () => {
     const color = selectedColor;
@@ -40,46 +40,54 @@ export default function AddTag() {
       ...tags,
       {
         color,
-        text
-      }
+        text,
+      },
     ];
+    setTags(ts);
+    saveTags(ts);
+  };
+  const onDeleteTagClick = (index: number) => {
+    const ts = [...tags];
+    ts.splice(index, 1);
     setTags(ts);
     saveTags(ts);
   };
   return (
     <div className="main">
       <div className="section-header">管理Tags</div>
-      {tags.map(tag => (
+      {tags.map((tag, i) => (
         <div className="cell flex-row" key={tag.text}>
           <div className="flex1">
             <span
               className="tag"
               style={{
-                color: tag.color
+                color: tag.color,
               }}
             >
               ■
             </span>
             {tag.text}
           </div>
-          <div className="delete">⛔️</div>
+          <div className="delete" onClick={() => onDeleteTagClick(i)}>
+            ⛔️
+          </div>
         </div>
       ))}
 
       <div className="color-panel">
-        {colors.map(color => (
+        {colors.map((color) => (
           <div
             key={color}
             className="color"
             style={{
-              borderColor: selectedColor === color ? color : transparent
+              borderColor: selectedColor === color ? color : transparent,
             }}
             onClick={() => setSelectedColor(color)}
           >
             <div
               className="box"
               style={{
-                backgroundColor: color
+                backgroundColor: color,
               }}
             ></div>
           </div>
@@ -89,7 +97,7 @@ export default function AddTag() {
         <div
           className="box"
           style={{
-            backgroundColor: selectedColor
+            backgroundColor: selectedColor,
           }}
         ></div>
         <input className="tag-input" ref={textInput} placeholder="Tag内容" />

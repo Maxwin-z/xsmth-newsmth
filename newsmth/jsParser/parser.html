@@ -13,14 +13,18 @@
     <input type="button" value="parse" id="btn_parse" />
     <textarea id="output"></textarea>
     <script type="text/javascript" src="utils.js"></script>
-    <script type="text/javascript" src="board.js"></script>
+    <script type="text/javascript" src="m.user.js"></script>
     <script type="text/javascript">
       function $(id) {
         return document.getElementById(id);
       }
 
-      $("btn_parse").addEventListener("click", function() {
-        $("output").value = $parse($("input").value);
+      $("input").value = localStorage["input"] || "";
+
+      $("btn_parse").addEventListener("click", function () {
+        var input = $("input").value;
+        localStorage["input"] = input;
+        $("output").value = JSON.stringify($parse(input), true, 2);
       });
     </script>
   </body>

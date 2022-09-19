@@ -146,7 +146,7 @@
     if (code == 0) {
         id rspData = [json objectForKey:@"data"];
         if (rspData != nil && ![rspData isKindOfClass:[NSNull class]]) {
-            SMBaseData *tmp = [SMBaseData dataWithJSON:[json objectForKey:@"data"]];
+            SMBaseData *tmp = [SMBaseData dataWithJSON2:[json objectForKey:@"data"]];
             _data = tmp;
         } else {
             _data = nil;

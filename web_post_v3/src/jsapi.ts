@@ -1,6 +1,7 @@
 import PubSub from "pubsub-js";
 import { IMainPost, ITheme } from "./article/types";
 import { IActionPost } from "./article/components/Post";
+import { IUserTag, loadUserTag } from "./profile/tagUtil";
 
 export interface Json {
   [x: string]: string | number | boolean | Date | Json | JsonArray;
@@ -31,9 +32,14 @@ interface Window {
   $x_pageWillUnload: Function;
   $x_publish: Function;
   scrollBy: Function;
+  cachedTags: {
+    [name: string]: IUserTag;
+  };
 }
 
 declare let window: Window;
+
+window.cachedTags = {};
 
 window.$xCallback = function (callbackID: number, rsp: BridgeResult) {
   // console.log("$xCallback", callbackID, rsp);
@@ -80,6 +86,8 @@ function sendMessage(methodName: string, parameters?: any): Promise<any> {
   return new Promise((resolve, reject) => {
     parameters = parameters || {};
     const cb = ({ code, data, message }: BridgeResult) => {
+      // console.log(`${methodName}, ${parameters}, ${code}, ${message}`);
+
       if (code === 0) {
         resolve(data);
       } else {
@@ -90,7 +98,7 @@ function sendMessage(methodName: string, parameters?: any): Promise<any> {
     const message = {
       methodName,
       parameters,
-      callbackID: callbacks.length - 1
+      callbackID: callbacks.length - 1,
     };
     if (isBridgeAvaiable()) {
       window.webkit.messageHandlers.nativeBridge.postMessage(message);
@@ -98,7 +106,7 @@ function sendMessage(methodName: string, parameters?: any): Promise<any> {
       cb({
         code: -1,
         data: null,
-        message: `web method [${methodName}] not implemented]`
+        message: `web method [${methodName}] not implemented]`,
       });
     }
   });
@@ -120,11 +128,11 @@ export function ajax({
   method = "GET",
   data = {},
   headers = {},
-  encoding = null
+  encoding = null,
 }: AjaxOption): Promise<string> {
   const _url = new URL(url);
   if (method === "GET") {
-    Object.keys(data).forEach(key => {
+    Object.keys(data).forEach((key) => {
       _url.searchParams.append(key, "" + data[key]);
     });
   }
@@ -136,7 +144,7 @@ export function ajax({
   if (!isBridgeAvaiable()) {
     return ajaxInWeb({
       url: _url.toString(),
-      headers
+      headers,
     });
   }
 
@@ -149,7 +157,7 @@ export function ajax({
     method,
     data,
     headers,
-    encoding
+    encoding,
   });
 }
 
@@ -157,11 +165,11 @@ function postInfoInWeb(): Promise<IMainPost> {
   // let post = { board: "Children", gid: 932484268 };
   // let post = { board: "Photo", gid: 1936720334, title: "" }; // 1 page
   let post = {
-    board: "Photo",
-    gid: 1936720211,
+    board: "AutoWorld",
+    gid: 1944224880,
     title: "",
     pid: 0,
-    single: false
+    single: false,
   }; // 2 pages
   // let post = {board: 'DigiHome', gid: 941251}
   // let post = { board: "WorkLife", gid: 2164300 , title: ''}; // 20+ pages
@@ -174,12 +182,12 @@ async function ajaxInWeb({ url, headers = {} }: AjaxOption): Promise<string> {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      ...headers
+      ...headers,
     },
     body: JSON.stringify({
       url,
-      headers
-    })
+      headers,
+    }),
   });
   console.log(rsp);
   return Promise.resolve(rsp.text());
@@ -196,7 +204,7 @@ export function setTitle(title: string): Promise<boolean> {
 export enum ToastType {
   success = 0,
   error = 1,
-  info = 4
+  info = 4,
 }
 
 interface Toast {
@@ -222,7 +230,7 @@ export function unloaded(): Promise<boolean> {
 export function download(url: string, id: number = 0): Promise<boolean> {
   return sendMessage("download", {
     id,
-    url
+    url,
   });
 }
 
@@ -236,7 +244,7 @@ export function pageNumberChanged(
 ): Promise<boolean> {
   return sendMessage("pageNumberChanged", {
     page,
-    total
+    total,
   });
 }
 
@@ -251,7 +259,7 @@ export function setStorage(key: string, value: any): Promise<boolean> {
   }
   return sendMessage("setStorage", {
     key,
-    value
+    value,
   });
 }
 
@@ -267,6 +275,35 @@ export function getStorage(key: string): Promise<any> {
   }
 
   return sendMessage("getStorage", key);
+}
+
+export function savePost(key: string, value: any): Promise<boolean> {
+  if (!isBridgeAvaiable()) {
+    localStorage.setItem(key, JSON.stringify({ data: value }));
+    return Promise.resolve(true);
+  }
+  return sendMessage("savePost", {
+    key,
+    value,
+  });
+}
+
+export function removePost(key: string): Promise<boolean> {
+  return sendMessage("removePost", key);
+}
+
+export function getPost(key: string): Promise<any> {
+  if (!isBridgeAvaiable()) {
+    try {
+      const json = JSON.parse(localStorage.getItem(key) || '{"data": null}');
+      return Promise.resolve(json["data"]);
+    } catch (e) {
+      console.log(e);
+      return Promise.resolve(null);
+    }
+  }
+
+  return sendMessage("getPost", key);
 }
 
 export function removeStorage(key: string): Promise<boolean> {
@@ -285,7 +322,7 @@ export function xScrollBy(x: number, y: number): Promise<boolean> {
 }
 export enum ModalStyle {
   push,
-  modal
+  modal,
 }
 export function xOpen(
   opts: string | { url: string; type?: ModalStyle; title?: string }
@@ -304,7 +341,7 @@ export function xOpen(
   return sendMessage("open", {
     url,
     type,
-    title
+    title,
   });
 }
 
@@ -328,4 +365,14 @@ export interface IIPInfo {
 }
 export function ipInfo(ip: string): Promise<IIPInfo> {
   return sendMessage("ipInfo", ip);
+}
+
+export async function userTag(name: string): Promise<IUserTag> {
+  if (window.cachedTags[name]) {
+    return window.cachedTags[name];
+  }
+  // const ret = await sendMessage("userTags", name);
+  const tag = await loadUserTag(name);
+  window.cachedTags[name] = tag;
+  return tag;
 }

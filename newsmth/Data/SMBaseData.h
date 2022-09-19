@@ -10,8 +10,8 @@
 
 @interface SMBaseData : NSObject
 
-+ (SMBaseData *)dataWithJSON:(id)json;
-+ (SMBaseData *)dataWithJSON:(id)json type:(NSString *)className;
++ (instancetype)dataWithJSON2:(id)json;
++ (instancetype)dataWithJSON2:(id)json type:(NSString *)className;
 
 - (id)initWithJSON:(id)json;
 - (void)decode:(id)json;

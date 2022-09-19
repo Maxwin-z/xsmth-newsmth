@@ -91,8 +91,11 @@
                     [NSCharacterSet whitespaceCharacterSet]];
         self.title = username;
         
-        NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//www.mysmth.net/bbsqry.php?userid=%@", username];
-        [_userInfoOp loadUrl:url withParser:@"bbsqry"];
+//        NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//www.mysmth.net/bbsqry.php?userid=%@", username];
+//        [_userInfoOp loadUrl:url withParser:@"bbsqry"];
+        NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//m.mysmth.net/user/query/%@", username];
+        [_userInfoOp loadUrl:url withParser:@"m.user"];
+
     }
     
 }
