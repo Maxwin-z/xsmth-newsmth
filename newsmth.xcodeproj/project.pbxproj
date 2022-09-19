@@ -28,7 +28,6 @@
 		50F0F41F24A58CA000946C17 /* XRemoteResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F0F41E24A58CA000946C17 /* XRemoteResourceManager.swift */; };
 		50FE53C623DFFF5700C896E6 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50FE53C523DFFF5700C896E6 /* WebKit.framework */; };
 		50FE53C923E0238B00C896E6 /* SMPostViewControllerV4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FE53C823E0238B00C896E6 /* SMPostViewControllerV4.swift */; };
-		AC597B7F555449F0D8AD91C9 /* libPods-newsmth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5616CAAD5D6F6B14BA51241C /* libPods-newsmth.a */; };
 		C10080D31785984700487A45 /* SMImagePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C10080D11785984700487A45 /* SMImagePickerViewController.m */; };
 		C10080D41785984700487A45 /* SMImagePickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C10080D21785984700487A45 /* SMImagePickerViewController.xib */; };
 		C10080D6178598D900487A45 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C10080D5178598D900487A45 /* AssetsLibrary.framework */; };
@@ -325,6 +324,7 @@
 		C1FF62B2179E6DF4001F7A15 /* SMPostViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1FF62B0179E6DF4001F7A15 /* SMPostViewController.xib */; };
 		CBDFF1361F147346005EB0B9 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBDFF1351F147346005EB0B9 /* Photos.framework */; };
 		CF4FE6F423F537B600423142 /* SMNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4FE6F323F537B600423142 /* SMNetwork.swift */; };
+		F6B9276F4DE5D8220CBBC183 /* libPods-newsmth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C4347CCC33830354226BA01 /* libPods-newsmth.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -338,7 +338,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		130FD45B1F0D570A63E2AA19 /* Pods-newsmth.distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-newsmth.distribution.xcconfig"; path = "Pods/Target Support Files/Pods-newsmth/Pods-newsmth.distribution.xcconfig"; sourceTree = "<group>"; };
 		392417D5187C6A7100558725 /* icon_72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_72.png; sourceTree = "<group>"; };
 		392417D6187C6A7100558725 /* icon_76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_76.png; sourceTree = "<group>"; };
 		392417D7187C6A7100558725 /* icon_114@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_114@2x.png"; sourceTree = "<group>"; };
@@ -349,6 +348,7 @@
 		39C260031860A0E400AEFE0E /* SMBoardSearchResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMBoardSearchResultViewController.m; sourceTree = "<group>"; };
 		39C260041860A0E400AEFE0E /* SMBoardSearchResultViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMBoardSearchResultViewController.xib; sourceTree = "<group>"; };
 		39C260071860A8DF00AEFE0E /* bbsbfind.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = bbsbfind.js; sourceTree = "<group>"; };
+		3C4347CCC33830354226BA01 /* libPods-newsmth.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-newsmth.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5000D83E24659DEF00DED5DE /* SMAuthorActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMAuthorActivity.m; sourceTree = "<group>"; };
 		5000D83F24659DEF00DED5DE /* SMAuthorActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMAuthorActivity.h; sourceTree = "<group>"; };
 		50457F97247A770400F74CA0 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -369,8 +369,9 @@
 		50FE53C523DFFF5700C896E6 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		50FE53C723E0238B00C896E6 /* newsmth-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "newsmth-Bridging-Header.h"; sourceTree = "<group>"; };
 		50FE53C823E0238B00C896E6 /* SMPostViewControllerV4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMPostViewControllerV4.swift; sourceTree = "<group>"; };
-		5616CAAD5D6F6B14BA51241C /* libPods-newsmth.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-newsmth.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B916E7AB0910121F565E1DC2 /* Pods-newsmth.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-newsmth.debug.xcconfig"; path = "Pods/Target Support Files/Pods-newsmth/Pods-newsmth.debug.xcconfig"; sourceTree = "<group>"; };
+		95361C994FEFF9850A83D10D /* Pods-newsmth.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-newsmth.debug.xcconfig"; path = "Target Support Files/Pods-newsmth/Pods-newsmth.debug.xcconfig"; sourceTree = "<group>"; };
+		B401D68664E4268C3169FF1C /* Pods-newsmth.distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-newsmth.distribution.xcconfig"; path = "Target Support Files/Pods-newsmth/Pods-newsmth.distribution.xcconfig"; sourceTree = "<group>"; };
+		BE176AEF0248110513837AF4 /* Pods-newsmth.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-newsmth.release.xcconfig"; path = "Target Support Files/Pods-newsmth/Pods-newsmth.release.xcconfig"; sourceTree = "<group>"; };
 		C10080D01785984700487A45 /* SMImagePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMImagePickerViewController.h; sourceTree = "<group>"; };
 		C10080D11785984700487A45 /* SMImagePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMImagePickerViewController.m; sourceTree = "<group>"; };
 		C10080D21785984700487A45 /* SMImagePickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMImagePickerViewController.xib; sourceTree = "<group>"; };
@@ -836,7 +837,6 @@
 		C1FF62B0179E6DF4001F7A15 /* SMPostViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMPostViewController.xib; sourceTree = "<group>"; };
 		CBDFF1351F147346005EB0B9 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		CF4FE6F323F537B600423142 /* SMNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMNetwork.swift; sourceTree = "<group>"; };
-		D3810D26CEA5003BA313441D /* Pods-newsmth.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-newsmth.release.xcconfig"; path = "Pods/Target Support Files/Pods-newsmth/Pods-newsmth.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -870,7 +870,7 @@
 				C1BFB918174F6F200092FD2E /* CFNetwork.framework in Frameworks */,
 				C1BFB8DD174F6A620092FD2E /* UIKit.framework in Frameworks */,
 				C1BFB8DF174F6A620092FD2E /* Foundation.framework in Frameworks */,
-				AC597B7F555449F0D8AD91C9 /* libPods-newsmth.a in Frameworks */,
+				F6B9276F4DE5D8220CBBC183 /* libPods-newsmth.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -886,14 +886,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		72F3D4C75A7AE545FC72DAC7 /* Pods */ = {
+		61E5BC900BCF1ECF42B076C4 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				B916E7AB0910121F565E1DC2 /* Pods-newsmth.debug.xcconfig */,
-				D3810D26CEA5003BA313441D /* Pods-newsmth.release.xcconfig */,
-				130FD45B1F0D570A63E2AA19 /* Pods-newsmth.distribution.xcconfig */,
+				95361C994FEFF9850A83D10D /* Pods-newsmth.debug.xcconfig */,
+				BE176AEF0248110513837AF4 /* Pods-newsmth.release.xcconfig */,
+				B401D68664E4268C3169FF1C /* Pods-newsmth.distribution.xcconfig */,
 			);
 			name = Pods;
+			path = Pods;
 			sourceTree = "<group>";
 		};
 		C10080CF1785983800487A45 /* XImagePicker */ = {
@@ -1346,7 +1347,7 @@
 				C1BFB906174F6A620092FD2E /* newsmthTests */,
 				C1BFB8DB174F6A620092FD2E /* Frameworks */,
 				C1BFB8DA174F6A620092FD2E /* Products */,
-				72F3D4C75A7AE545FC72DAC7 /* Pods */,
+				61E5BC900BCF1ECF42B076C4 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1390,7 +1391,7 @@
 				C1BFB919174F6F260092FD2E /* SystemConfiguration.framework */,
 				C1C07A7B179686F600906ED7 /* Twitter.framework */,
 				C1BFB8DC174F6A620092FD2E /* UIKit.framework */,
-				5616CAAD5D6F6B14BA51241C /* libPods-newsmth.a */,
+				3C4347CCC33830354226BA01 /* libPods-newsmth.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1737,11 +1738,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C1BFB911174F6A620092FD2E /* Build configuration list for PBXNativeTarget "newsmth" */;
 			buildPhases = (
-				E25FC9FE20C6CFF7F022A76C /* [CP] Check Pods Manifest.lock */,
+				CC581BE9C6035B1690A08D84 /* [CP] Check Pods Manifest.lock */,
 				C1BFB8D5174F6A620092FD2E /* Sources */,
 				C1BFB8D6174F6A620092FD2E /* Frameworks */,
 				C1BFB8D7174F6A620092FD2E /* Resources */,
-				F48D2A28511FBEF34C9694E0 /* [CP] Copy Pods Resources */,
+				6A278F1F1A9546110F753E41 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1778,7 +1779,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastTestingUpgradeCheck = 0700;
-				LastUpgradeCheck = 0600;
+				LastUpgradeCheck = 1320;
 				ORGANIZATIONNAME = nju;
 				TargetAttributes = {
 					C1BFB8D8174F6A620092FD2E = {
@@ -1980,6 +1981,26 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		6A278F1F1A9546110F753E41 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-newsmth/Pods-newsmth-resources.sh",
+				"${PODS_ROOT}/JPVideoPlayer/JPVideoPlayer/JPVideoPlayer.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/TOWebViewController/TOWebViewControllerLocalizable.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/JPVideoPlayer.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TOWebViewControllerLocalizable.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-newsmth/Pods-newsmth-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		C1BFB8FD174F6A620092FD2E /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1993,40 +2014,26 @@
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
-		E25FC9FE20C6CFF7F022A76C /* [CP] Check Pods Manifest.lock */ = {
+		CC581BE9C6035B1690A08D84 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			inputFileListPaths = (
 			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-newsmth-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F48D2A28511FBEF34C9694E0 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-newsmth/Pods-newsmth-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/TOWebViewController/TOWebViewControllerLocalizable.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TOWebViewControllerLocalizable.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-newsmth/Pods-newsmth-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -2248,20 +2255,39 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
@@ -2274,8 +2300,9 @@
 		};
 		C102B8C11782D2E0000E2EEB /* Distribution */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 130FD45B1F0D570A63E2AA19 /* Pods-newsmth.distribution.xcconfig */;
+			baseConfigurationReference = B401D68664E4268C3169FF1C /* Pods-newsmth.distribution.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CLANG_ENABLE_MODULES = YES;
@@ -2326,6 +2353,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "newsmth/newsmth-Prefix.pch";
 				INFOPLIST_FILE = "newsmthTests/newsmthTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "me.maxwin.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 			};
@@ -2335,27 +2363,47 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				ONLY_ACTIVE_ARCH = YES;
@@ -2369,33 +2417,54 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = "-objC";
 				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
 		C1BFB912174F6A620092FD2E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B916E7AB0910121F565E1DC2 /* Pods-newsmth.debug.xcconfig */;
+			baseConfigurationReference = 95361C994FEFF9850A83D10D /* Pods-newsmth.debug.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CLANG_ENABLE_MODULES = YES;
@@ -2436,8 +2505,9 @@
 		};
 		C1BFB913174F6A620092FD2E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D3810D26CEA5003BA313441D /* Pods-newsmth.release.xcconfig */;
+			baseConfigurationReference = BE176AEF0248110513837AF4 /* Pods-newsmth.release.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CLANG_ENABLE_MODULES = YES;
@@ -2487,6 +2557,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "newsmth/newsmth-Prefix.pch";
 				INFOPLIST_FILE = "newsmthTests/newsmthTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "me.maxwin.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 			};
@@ -2505,6 +2576,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "newsmth/newsmth-Prefix.pch";
 				INFOPLIST_FILE = "newsmthTests/newsmthTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "me.maxwin.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 			};
