@@ -884,7 +884,6 @@
 				BE176AEF0248110513837AF4 /* Pods-newsmth.release.xcconfig */,
 				B401D68664E4268C3169FF1C /* Pods-newsmth.distribution.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -2291,7 +2290,7 @@
 					"$(SRCROOT)/newsmth/Frameworks/**",
 					"$(SDKROOT)/usr/lib/system",
 				);
-				MARKETING_VERSION = 4.3.6;
+				MARKETING_VERSION = 4.3.7;
 				PRODUCT_BUNDLE_IDENTIFIER = me.maxwin.newsmth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2453,7 +2452,7 @@
 					"$(SRCROOT)/newsmth/Frameworks/**",
 					"$(SDKROOT)/usr/lib/system",
 				);
-				MARKETING_VERSION = 4.3.6;
+				MARKETING_VERSION = 4.3.7;
 				PRODUCT_BUNDLE_IDENTIFIER = me.maxwin.newsmth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2496,7 +2495,7 @@
 					"$(SRCROOT)/newsmth/Frameworks/**",
 					"$(SDKROOT)/usr/lib/system",
 				);
-				MARKETING_VERSION = 4.3.6;
+				MARKETING_VERSION = 4.3.7;
 				PRODUCT_BUNDLE_IDENTIFIER = me.maxwin.newsmth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

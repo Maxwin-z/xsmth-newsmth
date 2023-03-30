@@ -1,6 +1,6 @@
 PODS:
   - ActionSheetPicker-3.0 (1.3.12)
-  - Alamofire (5.5.0)
+  - Alamofire (5.6.2)
   - ASIHTTPRequest (1.8.2):
     - ASIHTTPRequest/ASIWebPageRequest (= 1.8.2)
     - ASIHTTPRequest/CloudFiles (= 1.8.2)
@@ -16,17 +16,11 @@ PODS:
     - ASIHTTPRequest/Core
   - JPVideoPlayer (3.1.1)
   - Loaf (0.7.0)
-  - MMKV (1.2.12):
-    - MMKVCore (~> 1.2.12)
-  - MMKVCore (1.2.12)
+  - MMKV (1.2.14):
+    - MMKVCore (~> 1.2.14)
+  - MMKVCore (1.2.14)
   - Reachability (3.2)
-<<<<<<< HEAD
-  - ReactiveCocoa (12.0.0):
-    - ReactiveSwift (~> 7.0)
-  - ReactiveSwift (7.0.0)
-=======
   - ReactiveObjC (2.1.2)
->>>>>>> 7bca9a639053237f025ec00a0e13035bce66ff28
   - TOWebViewController (2.2.8):
     - TOWebViewController/Core (= 2.2.8)
   - TOWebViewController/Core (2.2.8)
@@ -53,37 +47,23 @@ SPEC REPOS:
     - MMKV
     - MMKVCore
     - Reachability
-<<<<<<< HEAD
-    - ReactiveCocoa
-    - ReactiveSwift
-=======
     - ReactiveObjC
->>>>>>> 7bca9a639053237f025ec00a0e13035bce66ff28
     - TOWebViewController
     - WKVerticalScrollBar
 
 SPEC CHECKSUMS:
   ActionSheetPicker-3.0: 9fd0713777fad3a3f3b89ea58c75d59ccdef28f4
-  Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
+  Alamofire: d368e1ff8a298e6dde360e35a3e68e6c610e7204
   ASIHTTPRequest: ec013992946676b7978dcbde6396d57312d21db4
   JPVideoPlayer: 234c2fc5c9dfd67b969a5dd8233815eb872472c6
   Loaf: d69937cd00649f3fa260beb8b7aef0a1feb861ef
-  MMKV: f281020c9d9be5eb7a03ae746dc4deb570e46c23
-  MMKVCore: df0565f6b58463604731a68ba6cd89bc0b2d1d55
+  MMKV: 9c4663aa7ca255d478ff10f2f5cb7d17c1651ccd
+  MMKVCore: 89f5c8a66bba2dcd551779dea4d412eeec8ff5bb
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
-<<<<<<< HEAD
-  ReactiveCocoa: 5d10386f0ce09f922006efbf784881c5fade27c5
-  ReactiveSwift: 48c4b9d3b497e8dd20b10300bb1a28ff93550f13
-  TOWebViewController: 953a24619d32f7aa1d9d4098a74885a9236f7348
-  WKVerticalScrollBar: 555c3473ada57433e7d891ba73d1fc9de8ab848f
-
-PODFILE CHECKSUM: 71646a0f2d7a72421cd1140af9d052ac9792b4de
-=======
   ReactiveObjC: 7b6782ae39f9ac0f57205c3b0c0b69b9dd7048c0
   TOWebViewController: 953a24619d32f7aa1d9d4098a74885a9236f7348
   WKVerticalScrollBar: 555c3473ada57433e7d891ba73d1fc9de8ab848f
 
-PODFILE CHECKSUM: 7a56c9608f0961165d9e2e32637a4692e4de4743
->>>>>>> 7bca9a639053237f025ec00a0e13035bce66ff28
+PODFILE CHECKSUM: 7ace335ccbb3183d4a804d618e764ca68965570e
 
 COCOAPODS: 1.11.3

@@ -44,7 +44,7 @@ function $parse(html) {
 				item.isDir = true;
 				var a = li.querySelector('a');
 				item.title = a.innerHTML;
-				item.url = 'https://m.mysmth.net/' + a.pathname; 
+				item.url = 'https://m.newsmth.net/' + a.pathname; 
 
 				rsp.data.items.push(item);
 

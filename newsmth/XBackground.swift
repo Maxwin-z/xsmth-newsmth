@@ -42,7 +42,7 @@ class XBackground: NSObject {
 //            self.count += 1
 //            self.showNotification(body: "", badge: NSNumber(value: self.count))
             task.setTaskCompleted(success: true)
-            URLSession.shared.dataTask(with: URL(string: "https://m.mysmth.net/user/query/")!) { data, rsp, error in
+            URLSession.shared.dataTask(with: URL(string: "https://m.newsmth.net/user/query/")!) { data, rsp, error in
                 if (SMAccountManager.instance().isLogin) {
                     self.scheduleBackgroundTask()
                 }
@@ -77,7 +77,7 @@ class XBackground: NSObject {
     func keepLogin() {
         self.keep = SMSession.shared.loadUrl(
             "util_notice,notice",
-            convertible: URL(string: "https://m.mysmth.net/user/query/")!)
+            convertible: URL(string: "https://m.newsmth.net/user/query/")!)
         .sink { _ in
         } receiveValue: { data in
             if let notice = data as? SMNotice {

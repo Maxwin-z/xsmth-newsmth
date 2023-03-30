@@ -123,7 +123,7 @@ typedef NS_ENUM(NSInteger, SectionType) {
         } else { // delete uploaded
             SMUploadItem *item = _lastUploads[indexPath.row];
 
-            NSString *deleteUrl = [NSString stringWithFormat:URL_PROTOCOL @"//www.mysmth.net/bbsupload.php?act=delete&attachname=%@", item.key];
+            NSString *deleteUrl = [NSString stringWithFormat:URL_PROTOCOL @"//www.newsmth.net/bbsupload.php?act=delete&attachname=%@", item.key];
             _deleteOp = [[SMWebLoaderOperation alloc] init];
             _deleteOp.delegate = self;
             [_deleteOp loadUrl:deleteUrl withParser:@"upload"];

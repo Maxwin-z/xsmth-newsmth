@@ -113,7 +113,7 @@ function parse_m(html) {
         rsp.message = errDiv ? errDiv.innerHTML : '发生错误';
         rsp.code = 1;
     } else {
-        // http://m.mysmth.net/article/AdvancedEdu/31066?s=31071
+        // http://m.newsmth.net/article/AdvancedEdu/31066?s=31071
         var as = div.querySelectorAll('#m_main .sec.nav a');
         var a = as[0].innerHTML == '展开' ? as[0] : as[1];
         var matchs = a.href.match(/\/([\w\.]+)\/(\d+)\?s=(\d+)/);

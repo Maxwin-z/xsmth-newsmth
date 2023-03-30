@@ -325,7 +325,7 @@ class SMPostViewControllerV4: XWebController {
                 let forwardAll = SMForwardAllActivity()
                 let mailTo = SMMailToActivity()
                 let spam = SMSpamActivity()
-                let urlString = "https://m.mysmth.net/article/\(p.board.name!)/single/\(p.pid)/0"
+                let urlString = "https://m.newsmth.net/article/\(p.board.name!)/single/\(p.pid)/0"
                 let url = URL(string: urlString)
                 var activities = [viewAuthor, singleAuthor, forward, forwardAll, mailTo, spam]
                 if p.author == SMAccountManager.instance()?.name {
@@ -474,7 +474,7 @@ class SMPostViewControllerV4: XWebController {
                 promise(.failure(XBridgeError(code: -1, message: "name不能为空")))
                 return
             }
-            guard let tags = MMKV.default().string(forKey: "tags_" + name) else {
+            guard let tags = MMKV.default()?.string(forKey: "tags_" + name) else {
                 promise(.success(""))
                 return
             }
@@ -548,7 +548,7 @@ class SMPostViewControllerV4: XWebController {
             let alert = UIAlertController(title: "转寄", message: "", preferredStyle: .alert)
             alert.addTextField(configurationHandler: { [weak self] textField in
                 textField.placeholder = "请输入转寄地址"
-                var forwardTarget = self?.mmkv.string(forKey: mmkvKey_forwardTarget) ?? ""
+                var forwardTarget = self?.mmkv?.string(forKey: mmkvKey_forwardTarget) ?? ""
                 if forwardTarget == "" {
                     forwardTarget = SMAccountManager.instance()?.name ?? ""
                 }
@@ -560,8 +560,8 @@ class SMPostViewControllerV4: XWebController {
                     let p = self?.postForAction,
                     let weakSelf = self else { return }
 //                debugPrint("alert", userText)
-                weakSelf.mmkv.set(userText, forKey: mmkvKey_forwardTarget)
-                let url = "https://m.mysmth.net/article/\(p.board.name!)/forward/\(p.pid)"
+                weakSelf.mmkv?.set(userText, forKey: mmkvKey_forwardTarget)
+                let url = "https://m.newsmth.net/article/\(p.board.name!)/forward/\(p.pid)"
                 SMAF.request(url, method: .post, parameters: ["target": userText, "threads": all ? "on" : ""]).response { response in
 //                    debugPrint(response)
                     do {

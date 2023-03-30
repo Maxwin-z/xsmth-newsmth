@@ -169,10 +169,10 @@ static NSOperationQueue *downloadQueue;
 {
     if (request.responseData.length != request.contentLength) {
         
-        NSRange range = [request.url.absoluteString rangeOfString:@"att.mysmth.net"];
+        NSRange range = [request.url.absoluteString rangeOfString:@"att.newsmth.net"];
         if (range.location != NSNotFound) {
             NSString *alternate_url = [
-            self.url stringByReplacingOccurrencesOfString:@"att.mysmth.net"
+            self.url stringByReplacingOccurrencesOfString:@"att.newsmth.net"
                                        withString:@"newsmth.net"];
             // 替换域名后重试
             [_downloadRequest clearDelegatesAndCancel];

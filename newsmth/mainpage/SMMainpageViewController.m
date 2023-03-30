@@ -162,8 +162,8 @@ static SMMainpageViewController *_instance;
 
 - (NSString *)dataUrl
 {
-//    return [NSString stringWithFormat:URL_PROTOCOL @"//www.mysmth.net/mainpage.html?t=%@", @([NSDate timeIntervalSinceReferenceDate])];
-    return URL_PROTOCOL @"//www.mysmth.net/nForum/mainpage?ajax";
+//    return [NSString stringWithFormat:URL_PROTOCOL @"//www.newsmth.net/mainpage.html?t=%@", @([NSDate timeIntervalSinceReferenceDate])];
+    return URL_PROTOCOL @"//www.newsmth.net/nForum/mainpage?ajax";
 }
 
 - (void)loadData:(BOOL)more

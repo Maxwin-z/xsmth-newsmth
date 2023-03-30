@@ -247,7 +247,7 @@
 
     [_currentPageItem.op cancel];
     [_pageOp cancel];
-    NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//www.mysmth.net/bbstcon.php?board=%@&gid=%@&start=%@&pno=%@", _board.name, @(_gid), @(_currentPageItem.start), @(_currentPageItem.pno)];
+    NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//www.newsmth.net/bbstcon.php?board=%@&gid=%@&start=%@&pno=%@", _board.name, @(_gid), @(_currentPageItem.start), @(_currentPageItem.pno)];
     _pageOp = [[SMWebLoaderOperation alloc] init];
     _pageOp.highPriority = YES;
     _pageOp.delegate = self;
@@ -583,12 +583,12 @@
 - (NSString *)getAttachUrl:(SMAttach *)attach
 {
     NSString *type = @"large";
-    return [NSString stringWithFormat:URL_PROTOCOL @"//att.mysmth.net/nForum/att/%@/%d/%d/%@", attach.boardName, attach.pid, attach.pos, type];
+    return [NSString stringWithFormat:URL_PROTOCOL @"//att.newsmth.net/nForum/att/%@/%d/%d/%@", attach.boardName, attach.pid, attach.pos, type];
 }
 
 - (NSString *)getAttachOriginalUrl:(SMAttach *)attach
 {
-    return [NSString stringWithFormat:URL_PROTOCOL @"//att.mysmth.net/nForum/att/%@/%d/%d", attach.boardName, attach.pid, attach.pos];
+    return [NSString stringWithFormat:URL_PROTOCOL @"//att.newsmth.net/nForum/att/%@/%d/%d", attach.boardName, attach.pid, attach.pos];
 }
 
 #pragma mark - SMWebLoaderOperationDelegate
@@ -631,9 +631,9 @@
                 }
             }
             
-            NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//www.mysmth.net/bbscon.php?bid=%@&id=%@", @(_bid), @(post.pid)];
+            NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//www.newsmth.net/bbscon.php?bid=%@&id=%@", @(_bid), @(post.pid)];
             if (![SMConfig enableShowQMD]) {
-                url = [NSString stringWithFormat:URL_PROTOCOL @"//m.mysmth.net/article/%@/single/%d/0",
+                url = [NSString stringWithFormat:URL_PROTOCOL @"//m.newsmth.net/article/%@/single/%d/0",
                              _board.name, post.pid];
             }
 
@@ -925,7 +925,7 @@
         SMPost *post = cell.post;
         post.board = self.board;
         
-        NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//m.mysmth.net/article/%@/single/%d/0",
+        NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//m.newsmth.net/article/%@/single/%d/0",
                          post.board.name, post.pid];
 
         SMPostActivityItemProvider *provider = [[SMPostActivityItemProvider alloc] initWithPlaceholderItem:post];
@@ -1014,7 +1014,7 @@
                 NSString *title = [shareActionSheet buttonTitleAtIndex:[buttonIndex integerValue]];
                 
                 SMPost *post = cell.post;
-                NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//m.mysmth.net/article/%@/single/%d/0",
+                NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//m.newsmth.net/article/%@/single/%d/0",
                                  _board.name, post.pid];
 
                 if ([title isEqualToString:titleForWeibo]
@@ -1072,7 +1072,7 @@
 {
     SMPostItem *item = cell.item;
     SMPost *post = item.post;
-    NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//m.mysmth.net/article/%@/single/%d/0", _board.name, post.pid];
+    NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//m.newsmth.net/article/%@/single/%d/0", _board.name, post.pid];
 
     [item.op cancel];
 
@@ -1142,7 +1142,7 @@
         if (text.length != 0) {
             _forwardOp = [[SMWebLoaderOperation alloc] init];
 
-            NSString *formUrl = URL_PROTOCOL @"//www.mysmth.net/bbsfwd.php?do";
+            NSString *formUrl = URL_PROTOCOL @"//www.newsmth.net/bbsfwd.php?do";
             SMHttpRequest *request = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:formUrl]];
             
             NSString *postBody = [NSString stringWithFormat:@"board=%@&id=%d&target=%@&noansi=1", self.board.name, _replyPost.pid, [SMUtils encodeurl:text]];

@@ -113,7 +113,7 @@
     // 加载已上传的文件 （上次未发表的）
     _attachListOp = [[SMWebLoaderOperation alloc] init];
     _attachListOp.delegate = self;
-    [_attachListOp loadUrl:URL_PROTOCOL @"//www.mysmth.net/bbsupload.php" withParser:@"upload"];
+    [_attachListOp loadUrl:URL_PROTOCOL @"//www.newsmth.net/bbsupload.php" withParser:@"upload"];
     
     UIImage *image = [_buttonForUploadImage imageForState:UIControlStateNormal];
     if ([image respondsToSelector:@selector(imageWithRenderingMode:)]) {
@@ -199,16 +199,16 @@
 
     NSString *postBody = [NSString stringWithFormat:@"subject=%@&content=%@", title, text];
     
-//    NSString *formUrl = [NSString stringWithFormat:URL_PROTOCOL @"//www.mysmth.net/bbssnd.php?board=%@&reid=%d", _post.board.name, _post.pid];
+//    NSString *formUrl = [NSString stringWithFormat:URL_PROTOCOL @"//www.newsmth.net/bbssnd.php?board=%@&reid=%d", _post.board.name, _post.pid];
     NSString *formUrl;
     if (_post.pid == 0) {
-        formUrl = [NSString stringWithFormat:URL_PROTOCOL @"//m.mysmth.net/article/%@/post", _post.board.name];
+        formUrl = [NSString stringWithFormat:URL_PROTOCOL @"//m.newsmth.net/article/%@/post", _post.board.name];
     } else {
-        formUrl = [NSString stringWithFormat:URL_PROTOCOL @"//m.mysmth.net/article/%@/post/%d", _post.board.name, _post.pid];
+        formUrl = [NSString stringWithFormat:URL_PROTOCOL @"//m.newsmth.net/article/%@/post/%d", _post.board.name, _post.pid];
     }
     
     if (self.editPost) {
-        formUrl = [NSString stringWithFormat:URL_PROTOCOL @"//m.mysmth.net/article/%@/edit/%d", self.editPost.board.name, self.editPost.pid];
+        formUrl = [NSString stringWithFormat:URL_PROTOCOL @"//m.newsmth.net/article/%@/edit/%d", self.editPost.board.name, self.editPost.pid];
     }
     
     SMHttpRequest *request = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:formUrl]];

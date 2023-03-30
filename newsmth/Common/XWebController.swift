@@ -544,7 +544,7 @@ class XWebController: SMViewController, WKURLSchemeHandler, WKScriptMessageHandl
             if let value = parameters["value"] {
                 do {
                     let data = try JSONSerialization.data(withJSONObject: ["value": value], options: .prettyPrinted)
-                    self?.mmkv.set(data, forKey: key)
+                    self?.mmkv?.set(data, forKey: key)
                     promise(.success(true))
                 } catch {
                     promise(.failure(XBridgeError(code: -1, message: "序列化错误\(error.localizedDescription)")))
@@ -565,7 +565,7 @@ class XWebController: SMViewController, WKURLSchemeHandler, WKScriptMessageHandl
                 promise(.failure(XBridgeError(code: -1, message: "错误的参数，缺少key")))
                 return
             }
-            guard let data = weakSelf.mmkv.data(forKey: key) else {
+            guard let data = weakSelf.mmkv?.data(forKey: key) else {
                 promise(.failure(XBridgeError(code: -11, message: "数据不存在")))
                 return
             }
@@ -588,7 +588,7 @@ class XWebController: SMViewController, WKURLSchemeHandler, WKScriptMessageHandl
                 promise(.failure(XBridgeError(code: -1, message: "错误的参数，缺少key")))
                 return
             }
-            self?.mmkv.removeValue(forKey: key)
+            self?.mmkv?.removeValue(forKey: key)
             promise(.success(true))
         }
     }

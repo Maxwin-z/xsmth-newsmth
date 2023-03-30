@@ -67,7 +67,7 @@
         _request = [[SMHttpRequest alloc] initWithURL:url];
     }
     
-    if ([_url hasPrefix:URL_PROTOCOL @"//www.mysmth.net/nForum/"]) {
+    if ([_url hasPrefix:URL_PROTOCOL @"//www.newsmth.net/nForum/"]) {
         [_request addRequestHeader:@"X-Requested-With" value:@"XMLHttpRequest"];
     }
     

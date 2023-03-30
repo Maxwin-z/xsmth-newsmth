@@ -754,7 +754,7 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     XLog_d(@"load url: %@", url);
     req = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:url]];
     
-    if ([url hasPrefix:URL_PROTOCOL @"//www.mysmth.net/nForum/"]) {
+    if ([url hasPrefix:URL_PROTOCOL @"//www.newsmth.net/nForum/"]) {
         [req addRequestHeader:@"X-Requested-With" value:@"XMLHttpRequest"];
     }
     
@@ -998,7 +998,7 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
     [activites addObject:spamActivity];
     
     
-    NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//m.mysmth.net/article/%@/single/%d/0",
+    NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//m.newsmth.net/article/%@/single/%d/0",
                      post.board.name, post.pid];
     
     NSInteger kTwitterLength = 140;
@@ -1110,7 +1110,7 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
 {
     self.deleteOp = [SMWebLoaderOperation new];
     self.deleteOp.delegate = self;
-    NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//m.mysmth.net/article/%@/delete/%@", self.postForAction.board.name, @(self.postForAction.pid)];
+    NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//m.newsmth.net/article/%@/delete/%@", self.postForAction.board.name, @(self.postForAction.pid)];
     [self.deleteOp loadUrl:url withParser:nil];
 }
 
@@ -1163,12 +1163,12 @@ typedef NS_ENUM(NSInteger, ScrollDirection) {
             if (text.length != 0) {
                 _forwardOp = [[SMWebLoaderOperation alloc] init];
                 
-                NSString *formUrl = URL_PROTOCOL @"//www.mysmth.net/bbsfwd.php?do";
+                NSString *formUrl = URL_PROTOCOL @"//www.newsmth.net/bbsfwd.php?do";
                 SMHttpRequest *request = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:formUrl]];
                 
                 NSString *postBody = [NSString stringWithFormat:@"board=%@&id=%d&target=%@&noansi=1", self.post.board.name, self.postForAction.pid, [SMUtils encodeurl:text]];
                 if (self.forwardAll) {
-                    formUrl = URL_PROTOCOL @"//www.mysmth.net/bbstfwd.php?do";
+                    formUrl = URL_PROTOCOL @"//www.newsmth.net/bbstfwd.php?do";
                     request = [[SMHttpRequest alloc] initWithURL:[NSURL URLWithString:formUrl]];
                     postBody = [NSString stringWithFormat:@"board=%@&gid=%@&start=%@&target=%@", self.post.board.name, @(self.post.gid), @(self.postForAction.pid), [SMUtils encodeurl:text]];
                 }
