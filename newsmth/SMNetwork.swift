@@ -11,6 +11,27 @@ import Foundation
 import WebKit
 import Combine
 
+extension String {
+    init?(gbkData: Data) {
+        //获取GBK编码, 使用GB18030是因为它向下兼容GBK
+        let cfEncoding = CFStringEncodings.GB_18030_2000
+        let encoding = CFStringConvertEncodingToNSStringEncoding(CFStringEncoding(cfEncoding.rawValue))
+        //从GBK编码的Data里初始化NSString, 返回的NSString是UTF-16编码
+        if let str = NSString(data: gbkData, encoding: encoding) {
+            self = str as String
+        } else {
+            return nil
+        }
+    }
+    
+    var gbkData: Data {
+        let cfEncoding = CFStringEncodings.GB_18030_2000
+        let encoding = CFStringConvertEncodingToNSStringEncoding(CFStringEncoding(cfEncoding.rawValue))
+        let gbkData = (self as NSString).data(using: encoding)!
+        return gbkData
+    }
+    
+}
 
 final class SMURLProtocol: URLProtocol {
     public override class func canInit(with request: URLRequest) -> Bool {
@@ -35,10 +56,12 @@ struct XParseError: Error {
 }
 
 
+@objcMembers
 class SMSession: NSObject {
     static let shared = SMSession()
     var session: Session
     var webView: WKWebView!
+    var keep: AnyCancellable?;
     
     override init() {
         let monitor = ClosureEventMonitor()
@@ -58,6 +81,69 @@ class SMSession: NSObject {
         config.userContentController = userContentController
         webView = WKWebView(frame: CGRect(x: 0, y: 0, width: 1, height: 1), configuration: config)
     }
+    
+    @objc
+    func loadUrl_oc(_ parser: String,
+                    url: URL,
+                    method: String,
+                    success: @escaping(Any) -> Void,
+                 parameters: Parameters? = nil,
+                 headers: [String: String]? = nil) {
+        var _headers = HTTPHeaders()
+        headers?.forEach({ (key: String, value: String) in
+            _headers.add(name: key, value: value)
+        })
+        self.keep = self.loadUrl(parser, convertible: url, method: method == "GET" ? .get : .post, headers: _headers)
+            .sink { _ in
+            } receiveValue: { data in
+                success(data)
+                self.keep = nil
+            }
+    }
+    
+    @objc
+    func loadJSON(_ url: URL, method: String, success: @escaping(NSDictionary?) -> Void, parameters: Parameters? = nil, headers: [String: String]? = nil) {
+        var _headers = HTTPHeaders()
+        headers?.forEach({ (key: String, value: String) in
+            _headers.add(name: key, value: value)
+        })
+        _headers.add(name: "content-type", value: "application/x-www-form-urlencoded; charset=UTF-8")
+        self.session.request(url,
+                             method: method == "GET" ? .get : .post,
+                             parameters: parameters,
+                             headers: _headers
+        )
+        .response { response in
+            do {
+                if let data = try response.result.get() {
+                    if let text = String(gbkData: data) {
+                        let jsonData = text.data(using: .utf8)
+                        if let json = try JSONSerialization.jsonObject(with: jsonData!, options: .allowFragments) as? NSDictionary {
+                            success(json)
+                        }
+                    }
+                }
+            } catch {
+                success(nil)
+            }
+        }
+//        .responseString(completionHandler: { html in
+//            print(html)
+//        })
+//        .responseJSON { response in
+//            print(response)
+//            switch response.result {
+//            case .success:
+//                let data = response.value as! NSDictionary;
+//                success(data)
+//            case .failure(let error):
+//                print(error)
+//                break
+//            }
+//        }
+        
+    }
+    
     
     func loadUrl(_ parser: String, convertible: URLConvertible,
                  method: HTTPMethod = .get,
