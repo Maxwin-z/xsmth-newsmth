@@ -32,7 +32,7 @@ class SMPostViewControllerV4: XWebController {
     var pagePicker: UIPickerView!
 
 //    var pageUrl = "http://public-1255362875.cos.ap-shanghai.myqcloud.com/xsmth/build/index.html"
-    var pageUrl = "http://10.0.0.209:3000/"
+//    var pageUrl = "http://10.0.0.209:3000/"
 
     // page
     var pageNumber: Int = 0
@@ -365,7 +365,10 @@ class SMPostViewControllerV4: XWebController {
                         weakSelf.doEditPost()
                     }
                     if at == SMActivityDeleteActivity {
-                        weakSelf.notificationToWeb(messageName: "DELETE_POST", data: weakSelf.postForAction?.pid ?? 0)
+                        weakSelf.notificationToWeb(messageName: "DELETE_POST", data: [
+                            "board": weakSelf.postForAction?.board.name ?? "",
+                            "pid": String(weakSelf.postForAction?.pid ?? 0)
+                        ])
                     }
                 }
                 if SMUtils.isPad() {

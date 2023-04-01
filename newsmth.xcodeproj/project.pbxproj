@@ -34,6 +34,7 @@
 		50F0F41F24A58CA000946C17 /* XRemoteResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F0F41E24A58CA000946C17 /* XRemoteResourceManager.swift */; };
 		50FE53C623DFFF5700C896E6 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50FE53C523DFFF5700C896E6 /* WebKit.framework */; };
 		50FE53C923E0238B00C896E6 /* SMPostViewControllerV4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FE53C823E0238B00C896E6 /* SMPostViewControllerV4.swift */; };
+		AF77D31229D88AE3003A4DB4 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = AF77D31129D88AE3003A4DB4 /* Podfile */; };
 		C10080D31785984700487A45 /* SMImagePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C10080D11785984700487A45 /* SMImagePickerViewController.m */; };
 		C10080D41785984700487A45 /* SMImagePickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C10080D21785984700487A45 /* SMImagePickerViewController.xib */; };
 		C10080D6178598D900487A45 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C10080D5178598D900487A45 /* AssetsLibrary.framework */; };
@@ -380,6 +381,7 @@
 		50FE53C723E0238B00C896E6 /* newsmth-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "newsmth-Bridging-Header.h"; sourceTree = "<group>"; };
 		50FE53C823E0238B00C896E6 /* SMPostViewControllerV4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMPostViewControllerV4.swift; sourceTree = "<group>"; };
 		95361C994FEFF9850A83D10D /* Pods-newsmth.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-newsmth.debug.xcconfig"; path = "Target Support Files/Pods-newsmth/Pods-newsmth.debug.xcconfig"; sourceTree = "<group>"; };
+		AF77D31129D88AE3003A4DB4 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
 		B401D68664E4268C3169FF1C /* Pods-newsmth.distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-newsmth.distribution.xcconfig"; path = "Target Support Files/Pods-newsmth/Pods-newsmth.distribution.xcconfig"; sourceTree = "<group>"; };
 		BE176AEF0248110513837AF4 /* Pods-newsmth.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-newsmth.release.xcconfig"; path = "Target Support Files/Pods-newsmth/Pods-newsmth.release.xcconfig"; sourceTree = "<group>"; };
 		C10080D01785984700487A45 /* SMImagePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMImagePickerViewController.h; sourceTree = "<group>"; };
@@ -1289,6 +1291,7 @@
 		C1BFB8D0174F6A620092FD2E = {
 			isa = PBXGroup;
 			children = (
+				AF77D31129D88AE3003A4DB4 /* Podfile */,
 				C189E91E1C899C4800154F49 /* icon_167.png */,
 				C111D62B19CF0F2F00D4DC71 /* template_posts.zip */,
 				C1178C0C187D605F00A80B91 /* icon@2x.png */,
@@ -1873,6 +1876,7 @@
 				C189E91F1C899C4800154F49 /* icon_167.png in Resources */,
 				C147EC5217EB368C00530E86 /* unread@2x.png in Resources */,
 				C1FD13CF178182E3006A6061 /* button_blue_default@2x.png in Resources */,
+				AF77D31229D88AE3003A4DB4 /* Podfile in Resources */,
 				C1300A7D187D5FAD006ACA5C /* icon_57.png in Resources */,
 				C1E1CAFC1870268000324EAF /* SMIPadSplitViewController.xib in Resources */,
 				C13CB6C918B0FE17003F7407 /* icon_search_64@2x.png in Resources */,

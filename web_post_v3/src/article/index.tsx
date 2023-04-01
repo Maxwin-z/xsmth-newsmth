@@ -20,7 +20,7 @@ import { clickHander } from "./handlers/click";
 import { saveInstance } from "./handlers/pageState";
 import SingleAuthor from "./components/SingleAuthor";
 import SinglePost from "./components/SinglePost";
-import { toast, ToastType, xOpen } from "../jsapi";
+import { ajax, toast, ToastType, xLog, xOpen } from "../jsapi";
 
 // new VConsole();
 
@@ -127,8 +127,24 @@ function usePubSubHook() {
       PAGE_REFRESH: () => {
         dispatch(refreshPage());
       },
-      DELETE_POST: (pid: string) => {
-        toast({ message: pid, type: ToastType.info });
+      DELETE_POST: async (
+        _: string,
+        { board, pid }: { board: string; pid: string }
+      ) => {
+        const rsp = await ajax({
+          url: `https://www.newsmth.net/nForum/article/${board}/ajax_delete/${pid}.json`,
+          method: "POST",
+          headers: {
+            "x-requested-with": "XMLHttpRequest",
+          },
+        });
+        xLog(rsp);
+        const data = JSON.parse(rsp);
+        if (data.ajax_code === "0307") {
+          toast({ message: data.ajax_msg, type: ToastType.success });
+        } else {
+          toast({ message: data.ajax_msg, type: ToastType.error });
+        }
       },
     };
     const handlers: any[] = Object.keys(actions).map((event) => {
