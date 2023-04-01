@@ -199,38 +199,43 @@
     NSString *text = _textViewForText.text;
     
     NSString *url = [NSString stringWithFormat:URL_PROTOCOL @"//www.newsmth.net/nForum/article/%@/ajax_post.json", _post.board.name];
-
+    
+    if (self.editPost) {
+        url = [NSString stringWithFormat:URL_PROTOCOL @"//www.newsmth.net/nForum/article/%@/ajax_edit/%@.json", self.editPost.board.name, @(self.editPost.pid)];
+    }
+    __weak SMWritePostViewController *weakSelf = self;
     [self showLoading:@"正在发表..."];
-
     [SMSession.shared loadJSON:[NSURL URLWithString:url]
                         method:@"POST"
                        success:^(NSDictionary *data) {
-                        [self hideLoading];
-                        NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-                        if ([data[@"ajax_code"] isEqualToString:@"0406"]) {
-                            [self toast:@"发表成功"];
-                            [def removeObjectForKey:USER_DEF_LAST_POST_TITLE];
-                            [def removeObjectForKey:USER_DEF_LAST_POST_CONTENT];
+        [weakSelf hideLoading];
+        XLog_d(@"%@", data);
+        NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+        if ([data[@"ajax_code"] isEqualToString:@"0406"]
+            || [data[@"ajax_code"] isEqualToString:@"0306"]
+            ) {
+            [weakSelf toast:@"发表成功"];
+            [def removeObjectForKey:USER_DEF_LAST_POST_TITLE];
+            [def removeObjectForKey:USER_DEF_LAST_POST_CONTENT];
 
-                            [SMConfig resetFetchTime];
-                        } else {
-                            [self toast:[NSString stringWithFormat:@"发生错误: %@", data[@"ajax_msg"]]];
-                            // save post
-                            [def setObject:_textFieldForTitle.text forKey:USER_DEF_LAST_POST_TITLE];
-                            [def setObject:_textViewForText.text forKey:USER_DEF_LAST_POST_CONTENT];
+            [SMConfig resetFetchTime];
+        } else {
+            [weakSelf toast:[NSString stringWithFormat:@"发生错误: %@", data[@"ajax_msg"]]];
+            // save post
+            [def setObject:weakSelf.textFieldForTitle.text forKey:USER_DEF_LAST_POST_TITLE];
+            [def setObject:weakSelf.textViewForText.text forKey:USER_DEF_LAST_POST_CONTENT];
 
-                        }
-                        [self performSelector:@selector(dismiss) withObject:nil afterDelay:TOAST_DURTAION + 0.1];
-                    }
-                    parameters:@{
-                        @"subject": title,
-                        @"content": text,
-                        @"id": @(_post.pid)
-                    }
-                       headers:@{
-                        @"x-requested-with": @"XMLHttpRequest"
-                    }
-    ];
+        }
+        [weakSelf performSelector:@selector(dismiss) withObject:nil afterDelay:TOAST_DURTAION + 0.1];
+    }
+    parameters:@{
+        @"subject": title,
+        @"content": text,
+        @"id": @(_post.pid)
+    }
+       headers:@{
+        @"x-requested-with": @"XMLHttpRequest"
+    }];
     return;
 }
 
