@@ -20,7 +20,7 @@ import { clickHander } from "./handlers/click";
 import { saveInstance } from "./handlers/pageState";
 import SingleAuthor from "./components/SingleAuthor";
 import SinglePost from "./components/SinglePost";
-import { xOpen } from "../jsapi";
+import { toast, ToastType, xOpen } from "../jsapi";
 
 // new VConsole();
 
@@ -126,6 +126,9 @@ function usePubSubHook() {
       },
       PAGE_REFRESH: () => {
         dispatch(refreshPage());
+      },
+      DELETE_POST: (pid: string) => {
+        toast({ message: pid, type: ToastType.info });
       },
     };
     const handlers: any[] = Object.keys(actions).map((event) => {

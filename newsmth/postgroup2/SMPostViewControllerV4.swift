@@ -32,7 +32,7 @@ class SMPostViewControllerV4: XWebController {
     var pagePicker: UIPickerView!
 
 //    var pageUrl = "http://public-1255362875.cos.ap-shanghai.myqcloud.com/xsmth/build/index.html"
-//    override var pageUrl = "http://10.0.0.11:3000/"
+    var pageUrl = "http://10.0.0.209:3000/"
 
     // page
     var pageNumber: Int = 0
